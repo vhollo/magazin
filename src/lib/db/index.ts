@@ -1,25 +1,19 @@
 //import { drizzle } from 'drizzle-orm/vercel-postgres'
 //import { sql } from "@vercel/postgres"
-import { MODXDB_URL } from "$env/static/private"
-//console.log({MODXDB_URL})
+import { MODXDB_URL, MODXDB_HOST, MODXDB_PORT, MODXDB_USER, MODXDB_DATABASE, MODXDB_PASSWORD } from "$env/static/private"
 //export const db = drizzle(sql)
 
+//console.log(MODXDB_HOST)
 
 import { drizzle } from "drizzle-orm/mysql2"
 import mysql from "mysql2/promise"
 const connection = await mysql.createConnection({
-  host: "185.187.72.2",
-  port: 3306,
-  user: "diabete_diabetes",
-  database: "diabete_dev",
-  password: "zgdZo4BuOYWqTzvb5UqN",
+  host: MODXDB_HOST,
+  port: MODXDB_PORT,
+  user: MODXDB_USER,
+  database: MODXDB_DATABASE,
+  password: MODXDB_PASSWORD,
 
-  /*dbCredentials: {
-		url: MODXDB_URL,
-    //host: "host",
-    //user: "user",
-    //database: "database",
-	}*/
 })
 export const modxdb = drizzle(connection)
 
