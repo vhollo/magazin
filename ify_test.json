@@ -1,0 +1,350 @@
+{
+  "ify": {
+    "id": 5859310469339,
+    "name": "#1019",
+    "note": null,
+    "tags": "",
+    "test": true,
+    "email": "vhollo@gmail.com",
+    "phone": null,
+    "token": "5ea4aa9c2003dd9f1b08d839b2ccf9c5",
+    "app_id": 580111,
+    "number": 19,
+    "company": null,
+    "refunds": [],
+    "user_id": null,
+    "currency": "HUF",
+    "customer": {
+      "id": 7468796674267,
+      "note": null,
+      "tags": "",
+      "email": "vhollo@gmail.com",
+      "phone": null,
+      "state": "disabled",
+      "currency": "HUF",
+      "last_name": "Vértes",
+      "created_at": "2024-05-05T18:21:34-04:00",
+      "first_name": null,
+      "tax_exempt": false,
+      "updated_at": "2024-08-02T17:37:00-04:00",
+      "tax_exemptions": [],
+      "verified_email": true,
+      "default_address": {
+        "id": 9242579402971,
+        "zip": "1114",
+        "city": "Bp",
+        "name": "Lukács Vértes",
+        "phone": "36309790",
+        "company": "Cégem neve Rt.",
+        "country": "Hungary",
+        "default": true,
+        "address1": "Ulászló 26",
+        "address2": null,
+        "province": null,
+        "last_name": "Vértes",
+        "first_name": "Lukács",
+        "customer_id": 7468796674267,
+        "country_code": "HU",
+        "country_name": "Hungary",
+        "province_code": null
+      },
+      "admin_graphql_api_id": "gid://shopify/Customer/7468796674267",
+      "multipass_identifier": null,
+      "sms_marketing_consent": null,
+      "email_marketing_consent": {
+        "state": "subscribed",
+        "opt_in_level": "single_opt_in",
+        "consent_updated_at": "2024-08-02T17:37:00-04:00"
+      }
+    },
+    "closed_at": null,
+    "confirmed": true,
+    "device_id": null,
+    "po_number": null,
+    "reference": "d2143d850f2e36554ce9f7253d711755",
+    "tax_lines": [],
+    "total_tax": "0.00",
+    "browser_ip": "2001:4c4e:1e94:b400:ddec:c1f1:c08e:a7b2",
+    "cart_token": "Z2NwLXVzLWVhc3QxOjAxSjM0NTYwMUhSNlIxOTBBRVY4U0QxU1FQ",
+    "created_at": "2024-08-02T17:36:59-04:00",
+    "line_items": [
+      {
+        "id": 14260814577883,
+        "sku": "",
+        "name": "Hypertonia – a vérnyomásmagazin (évi 2 lapszám) - 5 pld (820 Ft)",
+        "grams": 0,
+        "price": "8200.00",
+        "title": "Hypertonia – a vérnyomásmagazin (évi 2 lapszám)",
+        "duties": [],
+        "vendor": "Tudomány Kiadó",
+        "taxable": true,
+        "quantity": 1,
+        "gift_card": false,
+        "price_set": {
+          "shop_money": {
+            "amount": "8200.00",
+            "currency_code": "HUF"
+          },
+          "presentment_money": {
+            "amount": "8200.00",
+            "currency_code": "HUF"
+          }
+        },
+        "tax_lines": [],
+        "product_id": 8652103123163,
+        "properties": [],
+        "variant_id": 45922069741787,
+        "variant_title": "5 pld (820 Ft)",
+        "product_exists": true,
+        "total_discount": "0.00",
+        "current_quantity": 1,
+        "attributed_staffs": [],
+        "requires_shipping": true,
+        "fulfillment_status": null,
+        "total_discount_set": {
+          "shop_money": {
+            "amount": "0.00",
+            "currency_code": "HUF"
+          },
+          "presentment_money": {
+            "amount": "0.00",
+            "currency_code": "HUF"
+          }
+        },
+        "fulfillment_service": "manual",
+        "admin_graphql_api_id": "gid://shopify/LineItem/14260814577883",
+        "discount_allocations": [],
+        "fulfillable_quantity": 1,
+        "variant_inventory_management": null
+      }
+    ],
+    "source_url": null,
+    "tax_exempt": false,
+    "updated_at": "2024-08-02T17:37:00-04:00",
+    "checkout_id": 35206791921883,
+    "location_id": null,
+    "source_name": "web",
+    "total_price": "8200.00",
+    "cancelled_at": null,
+    "fulfillments": [],
+    "landing_site": "/?_bt=eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaEpJaUYwZFdSdmJXRnVlUzFyYVdGa2J5NXRlWE5vYjNCcFpua3VZMjl0QmpvR1JWUT0iLCJleHAiOiIyMDI0LTA3LTIzVDE1OjE1OjI5LjIwMFoiLCJwdXIiOiJwZXJtYW5lbnRfcGFzc3dvcmRfYnlwYXNzIn19--e4a17c9fd7a02ac79548f024d8580d8778a56c36",
+    "order_number": 1019,
+    "processed_at": "2024-08-02T17:36:58-04:00",
+    "total_weight": 0,
+    "cancel_reason": null,
+    "contact_email": "vhollo@gmail.com",
+    "payment_terms": null,
+    "total_tax_set": {
+      "shop_money": {
+        "amount": "0.00",
+        "currency_code": "HUF"
+      },
+      "presentment_money": {
+        "amount": "0.00",
+        "currency_code": "HUF"
+      }
+    },
+    "checkout_token": "a370b5c593d2de5b756fc8b181c038af",
+    "client_details": {
+      "browser_ip": "2001:4c4e:1e94:b400:ddec:c1f1:c08e:a7b2",
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36",
+      "session_hash": null,
+      "browser_width": null,
+      "browser_height": null,
+      "accept_language": "hu-HU"
+    },
+    "discount_codes": [],
+    "referring_site": "",
+    "shipping_lines": [
+      {
+        "id": 4840977236187,
+        "code": "Standard",
+        "phone": null,
+        "price": "0.00",
+        "title": "Standard",
+        "source": "shopify",
+        "price_set": {
+          "shop_money": {
+            "amount": "0.00",
+            "currency_code": "HUF"
+          },
+          "presentment_money": {
+            "amount": "0.00",
+            "currency_code": "HUF"
+          }
+        },
+        "tax_lines": [],
+        "is_removed": false,
+        "discounted_price": "0.00",
+        "carrier_identifier": "650f1a14fa979ec5c74d063e968411d4",
+        "discount_allocations": [],
+        "discounted_price_set": {
+          "shop_money": {
+            "amount": "0.00",
+            "currency_code": "HUF"
+          },
+          "presentment_money": {
+            "amount": "0.00",
+            "currency_code": "HUF"
+          }
+        },
+        "requested_fulfillment_service_id": null
+      }
+    ],
+    "subtotal_price": "8200.00",
+    "taxes_included": true,
+    "billing_address": {
+      "zip": "1114",
+      "city": "Bp",
+      "name": "Lukács Vértes",
+      "phone": "36309790",
+      "company": "Cégem neve Rt.",
+      "country": "Hungary",
+      "address1": "Ulászló 26",
+      "address2": null,
+      "latitude": 47.4737725,
+      "province": null,
+      "last_name": "Vértes",
+      "longitude": 19.0416044,
+      "first_name": "Lukács",
+      "country_code": "HU",
+      "province_code": null
+    },
+    "customer_locale": "hu-HU",
+    "estimated_taxes": false,
+    "note_attributes": [],
+    "total_discounts": "0.00",
+    "total_price_set": {
+      "shop_money": {
+        "amount": "8200.00",
+        "currency_code": "HUF"
+      },
+      "presentment_money": {
+        "amount": "8200.00",
+        "currency_code": "HUF"
+      }
+    },
+    "financial_status": "paid",
+    "landing_site_ref": null,
+    "order_status_url": "https://tudomany-kiado.myshopify.com/69966037211/orders/5ea4aa9c2003dd9f1b08d839b2ccf9c5/authenticate?key=9a2f8df00a841b3f0ab37591231cb151",
+    "shipping_address": {
+      "zip": "1114",
+      "city": "Bp",
+      "name": "Lukács Vértes",
+      "phone": "36309790",
+      "company": "Cégem neve Rt.",
+      "country": "Hungary",
+      "address1": "Ulászló 26",
+      "address2": null,
+      "latitude": 47.4737725,
+      "province": null,
+      "last_name": "Vértes",
+      "longitude": 19.0416044,
+      "first_name": "Lukács",
+      "country_code": "HU",
+      "province_code": null
+    },
+    "current_total_tax": "0.00",
+    "source_identifier": "d2143d850f2e36554ce9f7253d711755",
+    "total_outstanding": "0.00",
+    "fulfillment_status": null,
+    "subtotal_price_set": {
+      "shop_money": {
+        "amount": "8200.00",
+        "currency_code": "HUF"
+      },
+      "presentment_money": {
+        "amount": "8200.00",
+        "currency_code": "HUF"
+      }
+    },
+    "total_tip_received": "0.00",
+    "confirmation_number": "1TIPRTX7N",
+    "current_total_price": "8200.00",
+    "total_discounts_set": {
+      "shop_money": {
+        "amount": "0.00",
+        "currency_code": "HUF"
+      },
+      "presentment_money": {
+        "amount": "0.00",
+        "currency_code": "HUF"
+      }
+    },
+    "admin_graphql_api_id": "gid://shopify/Order/5859310469339",
+    "presentment_currency": "HUF",
+    "current_total_tax_set": {
+      "shop_money": {
+        "amount": "0.00",
+        "currency_code": "HUF"
+      },
+      "presentment_money": {
+        "amount": "0.00",
+        "currency_code": "HUF"
+      }
+    },
+    "discount_applications": [],
+    "payment_gateway_names": [
+      "bogus"
+    ],
+    "current_subtotal_price": "8200.00",
+    "total_line_items_price": "8200.00",
+    "buyer_accepts_marketing": true,
+    "current_total_discounts": "0.00",
+    "current_total_price_set": {
+      "shop_money": {
+        "amount": "8200.00",
+        "currency_code": "HUF"
+      },
+      "presentment_money": {
+        "amount": "8200.00",
+        "currency_code": "HUF"
+      }
+    },
+    "current_total_duties_set": null,
+    "total_shipping_price_set": {
+      "shop_money": {
+        "amount": "0.00",
+        "currency_code": "HUF"
+      },
+      "presentment_money": {
+        "amount": "0.00",
+        "currency_code": "HUF"
+      }
+    },
+    "merchant_of_record_app_id": null,
+    "original_total_duties_set": null,
+    "current_subtotal_price_set": {
+      "shop_money": {
+        "amount": "8200.00",
+        "currency_code": "HUF"
+      },
+      "presentment_money": {
+        "amount": "8200.00",
+        "currency_code": "HUF"
+      }
+    },
+    "total_line_items_price_set": {
+      "shop_money": {
+        "amount": "8200.00",
+        "currency_code": "HUF"
+      },
+      "presentment_money": {
+        "amount": "8200.00",
+        "currency_code": "HUF"
+      }
+    },
+    "current_total_discounts_set": {
+      "shop_money": {
+        "amount": "0.00",
+        "currency_code": "HUF"
+      },
+      "presentment_money": {
+        "amount": "0.00",
+        "currency_code": "HUF"
+      }
+    },
+    "current_total_additional_fees_set": null,
+    "original_total_additional_fees_set": null
+  }
+}

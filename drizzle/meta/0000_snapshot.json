@@ -1,0 +1,5736 @@
+{
+  "id": "00000000-0000-0000-0000-000000000000",
+  "prevId": "",
+  "version": "5",
+  "dialect": "mysql",
+  "tables": {
+    "modx_active_users": {
+      "name": "modx_active_users",
+      "columns": {
+        "sid": {
+          "default": "''",
+          "autoincrement": false,
+          "name": "sid",
+          "type": "varchar(32)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "internalKey": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "internalKey",
+          "type": "int(9)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "username": {
+          "default": "''",
+          "autoincrement": false,
+          "name": "username",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "lasthit": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "lasthit",
+          "type": "int(20)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "action": {
+          "default": "''",
+          "autoincrement": false,
+          "name": "action",
+          "type": "varchar(10)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "id": {
+          "autoincrement": false,
+          "name": "id",
+          "type": "int(10)",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "compositePrimaryKeys": {},
+      "indexes": {},
+      "foreignKeys": {},
+      "uniqueConstraints": {}
+    },
+    "modx_active_user_locks": {
+      "name": "modx_active_user_locks",
+      "columns": {
+        "id": {
+          "autoincrement": true,
+          "name": "id",
+          "type": "int(10)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "sid": {
+          "default": "''",
+          "autoincrement": false,
+          "name": "sid",
+          "type": "varchar(32)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "internalKey": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "internalKey",
+          "type": "int(9)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "elementType": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "elementType",
+          "type": "int(1)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "elementId": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "elementId",
+          "type": "int(10)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "lasthit": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "lasthit",
+          "type": "int(20)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "compositePrimaryKeys": {},
+      "indexes": {},
+      "foreignKeys": {},
+      "uniqueConstraints": {
+        "ix_element_id": {
+          "name": "ix_element_id",
+          "columns": [
+            "elementType",
+            "elementId",
+            "sid"
+          ]
+        }
+      }
+    },
+    "modx_active_user_sessions": {
+      "name": "modx_active_user_sessions",
+      "columns": {
+        "sid": {
+          "default": "''",
+          "autoincrement": false,
+          "name": "sid",
+          "type": "varchar(32)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "internalKey": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "internalKey",
+          "type": "int(9)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "lasthit": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "lasthit",
+          "type": "int(20)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "ip": {
+          "default": "''",
+          "autoincrement": false,
+          "name": "ip",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "compositePrimaryKeys": {},
+      "indexes": {},
+      "foreignKeys": {},
+      "uniqueConstraints": {}
+    },
+    "modx_categories": {
+      "name": "modx_categories",
+      "columns": {
+        "id": {
+          "autoincrement": true,
+          "name": "id",
+          "type": "int(11)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "category": {
+          "default": "''",
+          "autoincrement": false,
+          "name": "category",
+          "type": "varchar(45)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "rank": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "rank",
+          "type": "int(5) unsigned",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "compositePrimaryKeys": {},
+      "indexes": {},
+      "foreignKeys": {},
+      "uniqueConstraints": {}
+    },
+    "modx_diabecinn2013": {
+      "name": "modx_diabecinn2013",
+      "columns": {
+        "date": {
+          "default": "'CURRENT_TIMESTAMP'",
+          "autoincrement": false,
+          "name": "date",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "id": {
+          "autoincrement": false,
+          "name": "id",
+          "type": "int(10)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "user": {
+          "autoincrement": false,
+          "name": "user",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "jatek": {
+          "autoincrement": false,
+          "name": "jatek",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "ok": {
+          "autoincrement": false,
+          "name": "ok",
+          "type": "int(1)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "compositePrimaryKeys": {},
+      "indexes": {},
+      "foreignKeys": {},
+      "uniqueConstraints": {
+        "id": {
+          "name": "id",
+          "columns": [
+            "id"
+          ]
+        }
+      }
+    },
+    "modx_diabpont2014": {
+      "name": "modx_diabpont2014",
+      "columns": {
+        "date": {
+          "default": "'CURRENT_TIMESTAMP'",
+          "autoincrement": false,
+          "name": "date",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "id": {
+          "autoincrement": false,
+          "name": "id",
+          "type": "int(10)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "user": {
+          "autoincrement": false,
+          "name": "user",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "jatek": {
+          "autoincrement": false,
+          "name": "jatek",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "ok": {
+          "autoincrement": false,
+          "name": "ok",
+          "type": "int(1)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "compositePrimaryKeys": {},
+      "indexes": {},
+      "foreignKeys": {},
+      "uniqueConstraints": {
+        "id": {
+          "name": "id",
+          "columns": [
+            "id"
+          ]
+        }
+      }
+    },
+    "modx_diaeuro2014": {
+      "name": "modx_diaeuro2014",
+      "columns": {
+        "id": {
+          "autoincrement": true,
+          "name": "id",
+          "type": "int(10)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "count": {
+          "autoincrement": false,
+          "name": "count",
+          "type": "int(255)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "compositePrimaryKeys": {},
+      "indexes": {},
+      "foreignKeys": {},
+      "uniqueConstraints": {}
+    },
+    "modx_diaeuro2014_player": {
+      "name": "modx_diaeuro2014_player",
+      "columns": {
+        "uid": {
+          "autoincrement": false,
+          "name": "uid",
+          "type": "int(10)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "player": {
+          "autoincrement": false,
+          "name": "player",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "compositePrimaryKeys": {},
+      "indexes": {
+        "uid": {
+          "name": "uid",
+          "columns": [
+            "uid"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {},
+      "uniqueConstraints": {}
+    },
+    "modx_diaeuro2014_toto": {
+      "name": "modx_diaeuro2014_toto",
+      "columns": {
+        "uid": {
+          "autoincrement": false,
+          "name": "uid",
+          "type": "int(10)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "date": {
+          "autoincrement": false,
+          "name": "date",
+          "type": "int(10)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "time": {
+          "autoincrement": false,
+          "name": "time",
+          "type": "int(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "tipp": {
+          "autoincrement": false,
+          "name": "tipp",
+          "type": "char(1)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "compositePrimaryKeys": {},
+      "indexes": {
+        "uid": {
+          "name": "uid",
+          "columns": [
+            "uid"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {},
+      "uniqueConstraints": {}
+    },
+    "modx_diaeuro2015": {
+      "name": "modx_diaeuro2015",
+      "columns": {
+        "id": {
+          "autoincrement": true,
+          "name": "id",
+          "type": "int(10)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "count": {
+          "autoincrement": false,
+          "name": "count",
+          "type": "int(255)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "compositePrimaryKeys": {},
+      "indexes": {},
+      "foreignKeys": {},
+      "uniqueConstraints": {}
+    },
+    "modx_diaeuro2015_player": {
+      "name": "modx_diaeuro2015_player",
+      "columns": {
+        "uid": {
+          "autoincrement": false,
+          "name": "uid",
+          "type": "int(10)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "player": {
+          "autoincrement": false,
+          "name": "player",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "compositePrimaryKeys": {},
+      "indexes": {
+        "uid": {
+          "name": "uid",
+          "columns": [
+            "uid"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {},
+      "uniqueConstraints": {}
+    },
+    "modx_diaeuro2015_toto": {
+      "name": "modx_diaeuro2015_toto",
+      "columns": {
+        "uid": {
+          "autoincrement": false,
+          "name": "uid",
+          "type": "int(10)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "date": {
+          "autoincrement": false,
+          "name": "date",
+          "type": "int(10)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "time": {
+          "autoincrement": false,
+          "name": "time",
+          "type": "int(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "tipp": {
+          "autoincrement": false,
+          "name": "tipp",
+          "type": "char(1)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "compositePrimaryKeys": {},
+      "indexes": {
+        "uid": {
+          "name": "uid",
+          "columns": [
+            "uid"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {},
+      "uniqueConstraints": {}
+    },
+    "modx_diaeuro2016_toto": {
+      "name": "modx_diaeuro2016_toto",
+      "columns": {
+        "uid": {
+          "autoincrement": false,
+          "name": "uid",
+          "type": "int(10)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "date": {
+          "autoincrement": false,
+          "name": "date",
+          "type": "int(10)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "time": {
+          "autoincrement": false,
+          "name": "time",
+          "type": "int(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "tipp": {
+          "autoincrement": false,
+          "name": "tipp",
+          "type": "char(1)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "compositePrimaryKeys": {},
+      "indexes": {
+        "uid": {
+          "name": "uid",
+          "columns": [
+            "uid"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {},
+      "uniqueConstraints": {}
+    },
+    "modx_diaeuro2017_toto": {
+      "name": "modx_diaeuro2017_toto",
+      "columns": {
+        "uid": {
+          "autoincrement": false,
+          "name": "uid",
+          "type": "int(10)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "date": {
+          "autoincrement": false,
+          "name": "date",
+          "type": "int(10)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "time": {
+          "autoincrement": false,
+          "name": "time",
+          "type": "int(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "tipp": {
+          "autoincrement": false,
+          "name": "tipp",
+          "type": "char(1)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "compositePrimaryKeys": {},
+      "indexes": {
+        "uid": {
+          "name": "uid",
+          "columns": [
+            "uid"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {},
+      "uniqueConstraints": {}
+    },
+    "modx_diaeuro2018_toto": {
+      "name": "modx_diaeuro2018_toto",
+      "columns": {
+        "uid": {
+          "autoincrement": false,
+          "name": "uid",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "date": {
+          "autoincrement": false,
+          "name": "date",
+          "type": "int(10)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "time": {
+          "autoincrement": false,
+          "name": "time",
+          "type": "int(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "tipp": {
+          "autoincrement": false,
+          "name": "tipp",
+          "type": "char(1)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "compositePrimaryKeys": {},
+      "indexes": {
+        "uid": {
+          "name": "uid",
+          "columns": [
+            "uid"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {},
+      "uniqueConstraints": {}
+    },
+    "modx_documentgroup_names": {
+      "name": "modx_documentgroup_names",
+      "columns": {
+        "id": {
+          "autoincrement": true,
+          "name": "id",
+          "type": "int(10)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "name": {
+          "default": "''",
+          "autoincrement": false,
+          "name": "name",
+          "type": "varchar(245)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "private_memgroup": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "private_memgroup",
+          "type": "tinyint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "private_webgroup": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "private_webgroup",
+          "type": "tinyint",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "compositePrimaryKeys": {},
+      "indexes": {},
+      "foreignKeys": {},
+      "uniqueConstraints": {
+        "name": {
+          "name": "name",
+          "columns": [
+            "name"
+          ]
+        }
+      }
+    },
+    "modx_document_groups": {
+      "name": "modx_document_groups",
+      "columns": {
+        "id": {
+          "autoincrement": true,
+          "name": "id",
+          "type": "int(10)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "document_group": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "document_group",
+          "type": "int(10)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "document": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "document",
+          "type": "int(10)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "compositePrimaryKeys": {},
+      "indexes": {
+        "document": {
+          "name": "document",
+          "columns": [
+            "document"
+          ],
+          "isUnique": false
+        },
+        "document_group": {
+          "name": "document_group",
+          "columns": [
+            "document_group"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {},
+      "uniqueConstraints": {
+        "ix_dg_id": {
+          "name": "ix_dg_id",
+          "columns": [
+            "document_group",
+            "document"
+          ]
+        }
+      }
+    },
+    "modx_event_log": {
+      "name": "modx_event_log",
+      "columns": {
+        "id": {
+          "autoincrement": true,
+          "name": "id",
+          "type": "int(11)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "eventid": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "eventid",
+          "type": "int(11)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "createdon": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "createdon",
+          "type": "int(11)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "type": {
+          "default": 1,
+          "autoincrement": false,
+          "name": "type",
+          "type": "tinyint",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "user": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "user",
+          "type": "int(11)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "usertype": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "usertype",
+          "type": "tinyint",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "source": {
+          "default": "''",
+          "autoincrement": false,
+          "name": "source",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "description": {
+          "autoincrement": false,
+          "name": "description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "compositePrimaryKeys": {},
+      "indexes": {
+        "user": {
+          "name": "user",
+          "columns": [
+            "user"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {},
+      "uniqueConstraints": {}
+    },
+    "modx_fd_count": {
+      "name": "modx_fd_count",
+      "columns": {
+        "id": {
+          "autoincrement": true,
+          "name": "id",
+          "type": "int(10)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "filename": {
+          "autoincrement": false,
+          "name": "filename",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "count": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "count",
+          "type": "int(10)",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "compositePrimaryKeys": {},
+      "indexes": {},
+      "foreignKeys": {},
+      "uniqueConstraints": {}
+    },
+    "modx_geokviz2014": {
+      "name": "modx_geokviz2014",
+      "columns": {
+        "id": {
+          "autoincrement": true,
+          "name": "id",
+          "type": "int(11)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "date": {
+          "default": "'CURRENT_TIMESTAMP'",
+          "autoincrement": false,
+          "name": "date",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "name": {
+          "autoincrement": false,
+          "name": "name",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "email": {
+          "autoincrement": false,
+          "name": "email",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "jatek": {
+          "autoincrement": false,
+          "name": "jatek",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "ok": {
+          "autoincrement": false,
+          "name": "ok",
+          "type": "int(1)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "compositePrimaryKeys": {},
+      "indexes": {},
+      "foreignKeys": {},
+      "uniqueConstraints": {}
+    },
+    "modx_jegkrem2012": {
+      "name": "modx_jegkrem2012",
+      "columns": {
+        "date": {
+          "default": "'CURRENT_TIMESTAMP'",
+          "autoincrement": false,
+          "name": "date",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "id": {
+          "autoincrement": false,
+          "name": "id",
+          "type": "int(10)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "user": {
+          "autoincrement": false,
+          "name": "user",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "jatek": {
+          "autoincrement": false,
+          "name": "jatek",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "ok": {
+          "autoincrement": false,
+          "name": "ok",
+          "type": "int(1)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "compositePrimaryKeys": {},
+      "indexes": {},
+      "foreignKeys": {},
+      "uniqueConstraints": {
+        "id": {
+          "name": "id",
+          "columns": [
+            "id"
+          ]
+        }
+      }
+    },
+    "modx_jot_content": {
+      "name": "modx_jot_content",
+      "columns": {
+        "id": {
+          "autoincrement": true,
+          "name": "id",
+          "type": "int(10)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "title": {
+          "autoincrement": false,
+          "name": "title",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "tagid": {
+          "autoincrement": false,
+          "name": "tagid",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "published": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "published",
+          "type": "int(1)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "uparent": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "uparent",
+          "type": "int(10)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "parent": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "parent",
+          "type": "int(10)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "flags": {
+          "autoincrement": false,
+          "name": "flags",
+          "type": "varchar(25)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "secip": {
+          "autoincrement": false,
+          "name": "secip",
+          "type": "varchar(32)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "sechash": {
+          "autoincrement": false,
+          "name": "sechash",
+          "type": "varchar(32)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "content": {
+          "autoincrement": false,
+          "name": "content",
+          "type": "mediumtext",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "customfields": {
+          "autoincrement": false,
+          "name": "customfields",
+          "type": "mediumtext",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "mode": {
+          "default": 1,
+          "autoincrement": false,
+          "name": "mode",
+          "type": "int(1)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "createdby": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "createdby",
+          "type": "int(10)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "createdon": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "createdon",
+          "type": "int(20)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "editedby": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "editedby",
+          "type": "int(10)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "editedon": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "editedon",
+          "type": "int(20)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "deleted": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "deleted",
+          "type": "int(1)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "deletedon": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "deletedon",
+          "type": "int(20)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "deletedby": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "deletedby",
+          "type": "int(10)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "publishedon": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "publishedon",
+          "type": "int(20)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "publishedby": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "publishedby",
+          "type": "int(10)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "compositePrimaryKeys": {},
+      "indexes": {
+        "parent": {
+          "name": "parent",
+          "columns": [
+            "parent"
+          ],
+          "isUnique": false
+        },
+        "secip": {
+          "name": "secip",
+          "columns": [
+            "secip"
+          ],
+          "isUnique": false
+        },
+        "tagidx": {
+          "name": "tagidx",
+          "columns": [
+            "tagid"
+          ],
+          "isUnique": false
+        },
+        "uparent": {
+          "name": "uparent",
+          "columns": [
+            "uparent"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {},
+      "uniqueConstraints": {}
+    },
+    "modx_jot_fields": {
+      "name": "modx_jot_fields",
+      "columns": {
+        "id": {
+          "autoincrement": false,
+          "name": "id",
+          "type": "mediumint(10)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "label": {
+          "autoincrement": false,
+          "name": "label",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "content": {
+          "autoincrement": false,
+          "name": "content",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "compositePrimaryKeys": {},
+      "indexes": {
+        "id": {
+          "name": "id",
+          "columns": [
+            "id"
+          ],
+          "isUnique": false
+        },
+        "label": {
+          "name": "label",
+          "columns": [
+            "label"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {},
+      "uniqueConstraints": {}
+    },
+    "modx_jot_subscriptions": {
+      "name": "modx_jot_subscriptions",
+      "columns": {
+        "id": {
+          "autoincrement": true,
+          "name": "id",
+          "type": "mediumint(10)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "uparent": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "uparent",
+          "type": "mediumint(10)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "tagid": {
+          "default": "''",
+          "autoincrement": false,
+          "name": "tagid",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "userid": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "userid",
+          "type": "mediumint(10)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "compositePrimaryKeys": {},
+      "indexes": {
+        "uparent": {
+          "name": "uparent",
+          "columns": [
+            "uparent"
+          ],
+          "isUnique": false
+        },
+        "tagid": {
+          "name": "tagid",
+          "columns": [
+            "tagid"
+          ],
+          "isUnique": false
+        },
+        "userid": {
+          "name": "userid",
+          "columns": [
+            "userid"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {},
+      "uniqueConstraints": {}
+    },
+    "modx_keyword_xref": {
+      "name": "modx_keyword_xref",
+      "columns": {
+        "content_id": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "content_id",
+          "type": "int(11)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "keyword_id": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "keyword_id",
+          "type": "int(11)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "compositePrimaryKeys": {},
+      "indexes": {
+        "content_id": {
+          "name": "content_id",
+          "columns": [
+            "content_id"
+          ],
+          "isUnique": false
+        },
+        "keyword_id": {
+          "name": "keyword_id",
+          "columns": [
+            "keyword_id"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {},
+      "uniqueConstraints": {}
+    },
+    "modx_manager_log": {
+      "name": "modx_manager_log",
+      "columns": {
+        "id": {
+          "autoincrement": true,
+          "name": "id",
+          "type": "int(10)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "timestamp": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "timestamp",
+          "type": "int(20)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "internalKey": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "internalKey",
+          "type": "int(10)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "username": {
+          "autoincrement": false,
+          "name": "username",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "action": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "action",
+          "type": "int(10)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "itemid": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "itemid",
+          "type": "varchar(10)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "itemname": {
+          "autoincrement": false,
+          "name": "itemname",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "message": {
+          "default": "''",
+          "autoincrement": false,
+          "name": "message",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "ip": {
+          "autoincrement": false,
+          "name": "ip",
+          "type": "varchar(46)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "useragent": {
+          "autoincrement": false,
+          "name": "useragent",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "compositePrimaryKeys": {},
+      "indexes": {},
+      "foreignKeys": {},
+      "uniqueConstraints": {}
+    },
+    "modx_manager_users": {
+      "name": "modx_manager_users",
+      "columns": {
+        "id": {
+          "autoincrement": true,
+          "name": "id",
+          "type": "int(10)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "username": {
+          "default": "''",
+          "autoincrement": false,
+          "name": "username",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "password": {
+          "default": "''",
+          "autoincrement": false,
+          "name": "password",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "compositePrimaryKeys": {},
+      "indexes": {},
+      "foreignKeys": {},
+      "uniqueConstraints": {
+        "username": {
+          "name": "username",
+          "columns": [
+            "username"
+          ]
+        }
+      }
+    },
+    "modx_membergroup_access": {
+      "name": "modx_membergroup_access",
+      "columns": {
+        "id": {
+          "autoincrement": true,
+          "name": "id",
+          "type": "int(10)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "membergroup": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "membergroup",
+          "type": "int(10)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "documentgroup": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "documentgroup",
+          "type": "int(10)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "compositePrimaryKeys": {},
+      "indexes": {},
+      "foreignKeys": {},
+      "uniqueConstraints": {}
+    },
+    "modx_membergroup_names": {
+      "name": "modx_membergroup_names",
+      "columns": {
+        "id": {
+          "autoincrement": true,
+          "name": "id",
+          "type": "int(10)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "name": {
+          "default": "''",
+          "autoincrement": false,
+          "name": "name",
+          "type": "varchar(245)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "compositePrimaryKeys": {},
+      "indexes": {},
+      "foreignKeys": {},
+      "uniqueConstraints": {
+        "name": {
+          "name": "name",
+          "columns": [
+            "name"
+          ]
+        }
+      }
+    },
+    "modx_member_groups": {
+      "name": "modx_member_groups",
+      "columns": {
+        "id": {
+          "autoincrement": true,
+          "name": "id",
+          "type": "int(10)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "user_group": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "user_group",
+          "type": "int(10)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "member": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "member",
+          "type": "int(10)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "compositePrimaryKeys": {},
+      "indexes": {},
+      "foreignKeys": {},
+      "uniqueConstraints": {
+        "ix_group_member": {
+          "name": "ix_group_member",
+          "columns": [
+            "user_group",
+            "member"
+          ]
+        }
+      }
+    },
+    "modx_page_hit_counter": {
+      "name": "modx_page_hit_counter",
+      "columns": {
+        "page_id": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "page_id",
+          "type": "int(4) unsigned",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "page_count": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "page_count",
+          "type": "int(10) unsigned",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "compositePrimaryKeys": {},
+      "indexes": {},
+      "foreignKeys": {},
+      "uniqueConstraints": {
+        "page_id": {
+          "name": "page_id",
+          "columns": [
+            "page_id"
+          ]
+        }
+      }
+    },
+    "modx_recepted": {
+      "name": "modx_recepted",
+      "columns": {
+        "internalKey": {
+          "autoincrement": false,
+          "name": "internalKey",
+          "type": "int(10)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "user": {
+          "autoincrement": false,
+          "name": "user",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "nev": {
+          "autoincrement": false,
+          "name": "nev",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "cv": {
+          "autoincrement": false,
+          "name": "cv",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "foto": {
+          "autoincrement": false,
+          "name": "foto",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "etel1": {
+          "autoincrement": false,
+          "name": "etel1",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "hozzavalok1": {
+          "autoincrement": false,
+          "name": "hozzavalok1",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "elkeszites1": {
+          "autoincrement": false,
+          "name": "elkeszites1",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "adag1": {
+          "autoincrement": false,
+          "name": "adag1",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "foto1_1": {
+          "autoincrement": false,
+          "name": "foto1_1",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "foto1_2": {
+          "autoincrement": false,
+          "name": "foto1_2",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "foto1_3": {
+          "autoincrement": false,
+          "name": "foto1_3",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "etel2": {
+          "autoincrement": false,
+          "name": "etel2",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "hozzavalok2": {
+          "autoincrement": false,
+          "name": "hozzavalok2",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "elkeszites2": {
+          "autoincrement": false,
+          "name": "elkeszites2",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "adag2": {
+          "autoincrement": false,
+          "name": "adag2",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "foto2_1": {
+          "autoincrement": false,
+          "name": "foto2_1",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "foto2_2": {
+          "autoincrement": false,
+          "name": "foto2_2",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "foto2_3": {
+          "autoincrement": false,
+          "name": "foto2_3",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "etel3": {
+          "autoincrement": false,
+          "name": "etel3",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "hozzavalok3": {
+          "autoincrement": false,
+          "name": "hozzavalok3",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "elkeszites3": {
+          "autoincrement": false,
+          "name": "elkeszites3",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "adag3": {
+          "autoincrement": false,
+          "name": "adag3",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "foto3_1": {
+          "autoincrement": false,
+          "name": "foto3_1",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "foto3_2": {
+          "autoincrement": false,
+          "name": "foto3_2",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "foto3_3": {
+          "autoincrement": false,
+          "name": "foto3_3",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "compositePrimaryKeys": {},
+      "indexes": {
+        "userid": {
+          "name": "userid",
+          "columns": [
+            "internalKey"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {},
+      "uniqueConstraints": {}
+    },
+    "modx_receptek2015": {
+      "name": "modx_receptek2015",
+      "columns": {
+        "internalKey": {
+          "autoincrement": true,
+          "name": "internalKey",
+          "type": "int(10)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "user": {
+          "autoincrement": false,
+          "name": "user",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "nev": {
+          "autoincrement": false,
+          "name": "nev",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "etel1": {
+          "autoincrement": false,
+          "name": "etel1",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "hozzavalok1": {
+          "autoincrement": false,
+          "name": "hozzavalok1",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "elkeszites1": {
+          "autoincrement": false,
+          "name": "elkeszites1",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "adag1": {
+          "autoincrement": false,
+          "name": "adag1",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "foto1_1": {
+          "autoincrement": false,
+          "name": "foto1_1",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "foto1_2": {
+          "autoincrement": false,
+          "name": "foto1_2",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "foto1_3": {
+          "autoincrement": false,
+          "name": "foto1_3",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "etel2": {
+          "autoincrement": false,
+          "name": "etel2",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "hozzavalok2": {
+          "autoincrement": false,
+          "name": "hozzavalok2",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "elkeszites2": {
+          "autoincrement": false,
+          "name": "elkeszites2",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "adag2": {
+          "autoincrement": false,
+          "name": "adag2",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "foto2_1": {
+          "autoincrement": false,
+          "name": "foto2_1",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "foto2_2": {
+          "autoincrement": false,
+          "name": "foto2_2",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "foto2_3": {
+          "autoincrement": false,
+          "name": "foto2_3",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "etel3": {
+          "autoincrement": false,
+          "name": "etel3",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "hozzavalok3": {
+          "autoincrement": false,
+          "name": "hozzavalok3",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "elkeszites3": {
+          "autoincrement": false,
+          "name": "elkeszites3",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "adag3": {
+          "autoincrement": false,
+          "name": "adag3",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "foto3_1": {
+          "autoincrement": false,
+          "name": "foto3_1",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "foto3_2": {
+          "autoincrement": false,
+          "name": "foto3_2",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "foto3_3": {
+          "autoincrement": false,
+          "name": "foto3_3",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "compositePrimaryKeys": {},
+      "indexes": {},
+      "foreignKeys": {},
+      "uniqueConstraints": {
+        "internalKey": {
+          "name": "internalKey",
+          "columns": [
+            "internalKey"
+          ]
+        }
+      }
+    },
+    "modx_receptek2016": {
+      "name": "modx_receptek2016",
+      "columns": {
+        "internalKey": {
+          "autoincrement": true,
+          "name": "internalKey",
+          "type": "int(10)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "user": {
+          "autoincrement": false,
+          "name": "user",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "nev": {
+          "autoincrement": false,
+          "name": "nev",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "kitolto": {
+          "autoincrement": false,
+          "name": "kitolto",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "klub": {
+          "autoincrement": false,
+          "name": "klub",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "etel1": {
+          "autoincrement": false,
+          "name": "etel1",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "hozzavalok1": {
+          "autoincrement": false,
+          "name": "hozzavalok1",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "elkeszites1": {
+          "autoincrement": false,
+          "name": "elkeszites1",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "adag1": {
+          "autoincrement": false,
+          "name": "adag1",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "foto1_1": {
+          "autoincrement": false,
+          "name": "foto1_1",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "foto1_2": {
+          "autoincrement": false,
+          "name": "foto1_2",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "foto1_3": {
+          "autoincrement": false,
+          "name": "foto1_3",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "etel2": {
+          "autoincrement": false,
+          "name": "etel2",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "hozzavalok2": {
+          "autoincrement": false,
+          "name": "hozzavalok2",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "elkeszites2": {
+          "autoincrement": false,
+          "name": "elkeszites2",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "adag2": {
+          "autoincrement": false,
+          "name": "adag2",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "foto2_1": {
+          "autoincrement": false,
+          "name": "foto2_1",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "foto2_2": {
+          "autoincrement": false,
+          "name": "foto2_2",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "foto2_3": {
+          "autoincrement": false,
+          "name": "foto2_3",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "etel3": {
+          "autoincrement": false,
+          "name": "etel3",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "hozzavalok3": {
+          "autoincrement": false,
+          "name": "hozzavalok3",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "elkeszites3": {
+          "autoincrement": false,
+          "name": "elkeszites3",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "adag3": {
+          "autoincrement": false,
+          "name": "adag3",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "foto3_1": {
+          "autoincrement": false,
+          "name": "foto3_1",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "foto3_2": {
+          "autoincrement": false,
+          "name": "foto3_2",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "foto3_3": {
+          "autoincrement": false,
+          "name": "foto3_3",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "compositePrimaryKeys": {},
+      "indexes": {},
+      "foreignKeys": {},
+      "uniqueConstraints": {
+        "internalKey": {
+          "name": "internalKey",
+          "columns": [
+            "internalKey"
+          ]
+        }
+      }
+    },
+    "modx_receptek2017": {
+      "name": "modx_receptek2017",
+      "columns": {
+        "internalKey": {
+          "autoincrement": true,
+          "name": "internalKey",
+          "type": "int(10)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "user": {
+          "autoincrement": false,
+          "name": "user",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "nev": {
+          "autoincrement": false,
+          "name": "nev",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "kitolto": {
+          "autoincrement": false,
+          "name": "kitolto",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "klub": {
+          "autoincrement": false,
+          "name": "klub",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "etel1": {
+          "autoincrement": false,
+          "name": "etel1",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "hozzavalok1": {
+          "autoincrement": false,
+          "name": "hozzavalok1",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "elkeszites1": {
+          "autoincrement": false,
+          "name": "elkeszites1",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "adag1": {
+          "autoincrement": false,
+          "name": "adag1",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "foto1_1": {
+          "autoincrement": false,
+          "name": "foto1_1",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "foto1_2": {
+          "autoincrement": false,
+          "name": "foto1_2",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "foto1_3": {
+          "autoincrement": false,
+          "name": "foto1_3",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "etel2": {
+          "autoincrement": false,
+          "name": "etel2",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "hozzavalok2": {
+          "autoincrement": false,
+          "name": "hozzavalok2",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "elkeszites2": {
+          "autoincrement": false,
+          "name": "elkeszites2",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "adag2": {
+          "autoincrement": false,
+          "name": "adag2",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "foto2_1": {
+          "autoincrement": false,
+          "name": "foto2_1",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "foto2_2": {
+          "autoincrement": false,
+          "name": "foto2_2",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "foto2_3": {
+          "autoincrement": false,
+          "name": "foto2_3",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "etel3": {
+          "autoincrement": false,
+          "name": "etel3",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "hozzavalok3": {
+          "autoincrement": false,
+          "name": "hozzavalok3",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "elkeszites3": {
+          "autoincrement": false,
+          "name": "elkeszites3",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "adag3": {
+          "autoincrement": false,
+          "name": "adag3",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "foto3_1": {
+          "autoincrement": false,
+          "name": "foto3_1",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "foto3_2": {
+          "autoincrement": false,
+          "name": "foto3_2",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "foto3_3": {
+          "autoincrement": false,
+          "name": "foto3_3",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "compositePrimaryKeys": {},
+      "indexes": {},
+      "foreignKeys": {},
+      "uniqueConstraints": {
+        "internalKey": {
+          "name": "internalKey",
+          "columns": [
+            "internalKey"
+          ]
+        }
+      }
+    },
+    "modx_receptek2018": {
+      "name": "modx_receptek2018",
+      "columns": {
+        "internalKey": {
+          "autoincrement": true,
+          "name": "internalKey",
+          "type": "int(10)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "user": {
+          "autoincrement": false,
+          "name": "user",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "nev": {
+          "autoincrement": false,
+          "name": "nev",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "kitolto": {
+          "autoincrement": false,
+          "name": "kitolto",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "klub": {
+          "autoincrement": false,
+          "name": "klub",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "etel1": {
+          "autoincrement": false,
+          "name": "etel1",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "hozzavalok1": {
+          "autoincrement": false,
+          "name": "hozzavalok1",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "elkeszites1": {
+          "autoincrement": false,
+          "name": "elkeszites1",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "adag1": {
+          "autoincrement": false,
+          "name": "adag1",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "foto1_1": {
+          "autoincrement": false,
+          "name": "foto1_1",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "foto1_2": {
+          "autoincrement": false,
+          "name": "foto1_2",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "foto1_3": {
+          "autoincrement": false,
+          "name": "foto1_3",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "etel2": {
+          "autoincrement": false,
+          "name": "etel2",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "hozzavalok2": {
+          "autoincrement": false,
+          "name": "hozzavalok2",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "elkeszites2": {
+          "autoincrement": false,
+          "name": "elkeszites2",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "adag2": {
+          "autoincrement": false,
+          "name": "adag2",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "foto2_1": {
+          "autoincrement": false,
+          "name": "foto2_1",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "foto2_2": {
+          "autoincrement": false,
+          "name": "foto2_2",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "foto2_3": {
+          "autoincrement": false,
+          "name": "foto2_3",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "etel3": {
+          "autoincrement": false,
+          "name": "etel3",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "hozzavalok3": {
+          "autoincrement": false,
+          "name": "hozzavalok3",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "elkeszites3": {
+          "autoincrement": false,
+          "name": "elkeszites3",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "adag3": {
+          "autoincrement": false,
+          "name": "adag3",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "foto3_1": {
+          "autoincrement": false,
+          "name": "foto3_1",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "foto3_2": {
+          "autoincrement": false,
+          "name": "foto3_2",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "foto3_3": {
+          "autoincrement": false,
+          "name": "foto3_3",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "compositePrimaryKeys": {},
+      "indexes": {},
+      "foreignKeys": {},
+      "uniqueConstraints": {
+        "internalKey": {
+          "name": "internalKey",
+          "columns": [
+            "internalKey"
+          ]
+        }
+      }
+    },
+    "modx_receptem": {
+      "name": "modx_receptem",
+      "columns": {
+        "id": {
+          "autoincrement": true,
+          "name": "id",
+          "type": "int(10)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "user": {
+          "autoincrement": false,
+          "name": "user",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "etel": {
+          "autoincrement": false,
+          "name": "etel",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "hozzavalok": {
+          "autoincrement": false,
+          "name": "hozzavalok",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "elkeszites": {
+          "autoincrement": false,
+          "name": "elkeszites",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "adag": {
+          "autoincrement": false,
+          "name": "adag",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "foto1": {
+          "autoincrement": false,
+          "name": "foto1",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "foto2": {
+          "autoincrement": false,
+          "name": "foto2",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "foto3": {
+          "autoincrement": false,
+          "name": "foto3",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "compositePrimaryKeys": {},
+      "indexes": {},
+      "foreignKeys": {},
+      "uniqueConstraints": {}
+    },
+    "modx_referers_counter": {
+      "name": "modx_referers_counter",
+      "columns": {
+        "ref_url": {
+          "autoincrement": false,
+          "name": "ref_url",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "ref_count": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "ref_count",
+          "type": "int(10) unsigned",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "compositePrimaryKeys": {},
+      "indexes": {},
+      "foreignKeys": {},
+      "uniqueConstraints": {
+        "ref_url": {
+          "name": "ref_url",
+          "columns": [
+            "ref_url"
+          ]
+        }
+      }
+    },
+    "modx_site_content": {
+      "name": "modx_site_content",
+      "columns": {
+        "id": {
+          "autoincrement": true,
+          "name": "id",
+          "type": "int(10)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "type": {
+          "default": "'document'",
+          "autoincrement": false,
+          "name": "type",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "contentType": {
+          "default": "'text/html'",
+          "autoincrement": false,
+          "name": "contentType",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "pagetitle": {
+          "default": "''",
+          "autoincrement": false,
+          "name": "pagetitle",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "longtitle": {
+          "default": "''",
+          "autoincrement": false,
+          "name": "longtitle",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "description": {
+          "default": "''",
+          "autoincrement": false,
+          "name": "description",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "alias": {
+          "default": "''",
+          "autoincrement": false,
+          "name": "alias",
+          "type": "varchar(245)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "link_attributes": {
+          "default": "''",
+          "autoincrement": false,
+          "name": "link_attributes",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "published": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "published",
+          "type": "int(1)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "pub_date": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "pub_date",
+          "type": "int(20)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "unpub_date": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "unpub_date",
+          "type": "int(20)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "parent": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "parent",
+          "type": "int(10)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "isfolder": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "isfolder",
+          "type": "int(1)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "introtext": {
+          "autoincrement": false,
+          "name": "introtext",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "content": {
+          "autoincrement": false,
+          "name": "content",
+          "type": "mediumtext",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "richtext": {
+          "default": 1,
+          "autoincrement": false,
+          "name": "richtext",
+          "type": "tinyint",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "template": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "template",
+          "type": "int(10)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "menuindex": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "menuindex",
+          "type": "int(10)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "searchable": {
+          "default": 1,
+          "autoincrement": false,
+          "name": "searchable",
+          "type": "int(1)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "cacheable": {
+          "default": 1,
+          "autoincrement": false,
+          "name": "cacheable",
+          "type": "int(1)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "createdby": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "createdby",
+          "type": "int(10)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "createdon": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "createdon",
+          "type": "int(20)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "editedby": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "editedby",
+          "type": "int(10)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "editedon": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "editedon",
+          "type": "int(20)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "deleted": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "deleted",
+          "type": "int(1)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "deletedon": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "deletedon",
+          "type": "int(20)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "deletedby": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "deletedby",
+          "type": "int(10)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "publishedon": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "publishedon",
+          "type": "int(20)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "publishedby": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "publishedby",
+          "type": "int(10)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "menutitle": {
+          "default": "''",
+          "autoincrement": false,
+          "name": "menutitle",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "donthit": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "donthit",
+          "type": "tinyint",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "haskeywords": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "haskeywords",
+          "type": "tinyint",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "hasmetatags": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "hasmetatags",
+          "type": "tinyint",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "privateweb": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "privateweb",
+          "type": "tinyint",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "privatemgr": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "privatemgr",
+          "type": "tinyint",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "content_dispo": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "content_dispo",
+          "type": "tinyint",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "hidemenu": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "hidemenu",
+          "type": "tinyint",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "alias_visible": {
+          "default": 1,
+          "autoincrement": false,
+          "name": "alias_visible",
+          "type": "int(2)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "compositePrimaryKeys": {},
+      "indexes": {
+        "id": {
+          "name": "id",
+          "columns": [
+            "id"
+          ],
+          "isUnique": false
+        },
+        "parent": {
+          "name": "parent",
+          "columns": [
+            "parent"
+          ],
+          "isUnique": false
+        },
+        "aliasidx": {
+          "name": "aliasidx",
+          "columns": [
+            "alias"
+          ],
+          "isUnique": false
+        },
+        "typeidx": {
+          "name": "typeidx",
+          "columns": [
+            "type"
+          ],
+          "isUnique": false
+        },
+        "content_ft_idx": {
+          "name": "content_ft_idx",
+          "columns": [
+            "pagetitle",
+            "description",
+            "content"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {},
+      "uniqueConstraints": {}
+    },
+    "modx_site_content_metatags": {
+      "name": "modx_site_content_metatags",
+      "columns": {
+        "content_id": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "content_id",
+          "type": "int(11)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "metatag_id": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "metatag_id",
+          "type": "int(11)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "compositePrimaryKeys": {},
+      "indexes": {
+        "content_id": {
+          "name": "content_id",
+          "columns": [
+            "content_id"
+          ],
+          "isUnique": false
+        },
+        "metatag_id": {
+          "name": "metatag_id",
+          "columns": [
+            "metatag_id"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {},
+      "uniqueConstraints": {}
+    },
+    "modx_site_htmlsnippets": {
+      "name": "modx_site_htmlsnippets",
+      "columns": {
+        "id": {
+          "autoincrement": true,
+          "name": "id",
+          "type": "int(10)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "name": {
+          "default": "''",
+          "autoincrement": false,
+          "name": "name",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "description": {
+          "default": "'Chunk'",
+          "autoincrement": false,
+          "name": "description",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "editor_type": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "editor_type",
+          "type": "int(11)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "editor_name": {
+          "default": "'none'",
+          "autoincrement": false,
+          "name": "editor_name",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "category": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "category",
+          "type": "int(11)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "cache_type": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "cache_type",
+          "type": "tinyint",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "snippet": {
+          "autoincrement": false,
+          "name": "snippet",
+          "type": "mediumtext",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "locked": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "locked",
+          "type": "tinyint",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "createdon": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "createdon",
+          "type": "int(11)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "editedon": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "editedon",
+          "type": "int(11)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "disabled": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "disabled",
+          "type": "tinyint",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "compositePrimaryKeys": {},
+      "indexes": {},
+      "foreignKeys": {},
+      "uniqueConstraints": {}
+    },
+    "modx_site_keywords": {
+      "name": "modx_site_keywords",
+      "columns": {
+        "id": {
+          "autoincrement": true,
+          "name": "id",
+          "type": "int(11)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "keyword": {
+          "default": "''",
+          "autoincrement": false,
+          "name": "keyword",
+          "type": "varchar(40)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "compositePrimaryKeys": {},
+      "indexes": {},
+      "foreignKeys": {},
+      "uniqueConstraints": {
+        "keyword": {
+          "name": "keyword",
+          "columns": [
+            "keyword"
+          ]
+        }
+      }
+    },
+    "modx_site_metatags": {
+      "name": "modx_site_metatags",
+      "columns": {
+        "id": {
+          "autoincrement": true,
+          "name": "id",
+          "type": "int(11)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "name": {
+          "default": "''",
+          "autoincrement": false,
+          "name": "name",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "tag": {
+          "default": "''",
+          "autoincrement": false,
+          "name": "tag",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "tagvalue": {
+          "default": "''",
+          "autoincrement": false,
+          "name": "tagvalue",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "http_equiv": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "http_equiv",
+          "type": "tinyint",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "compositePrimaryKeys": {},
+      "indexes": {},
+      "foreignKeys": {},
+      "uniqueConstraints": {}
+    },
+    "modx_site_modules": {
+      "name": "modx_site_modules",
+      "columns": {
+        "id": {
+          "autoincrement": true,
+          "name": "id",
+          "type": "int(11)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "name": {
+          "default": "''",
+          "autoincrement": false,
+          "name": "name",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "description": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "description",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "editor_type": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "editor_type",
+          "type": "int(11)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "disabled": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "disabled",
+          "type": "tinyint",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "category": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "category",
+          "type": "int(11)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "wrap": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "wrap",
+          "type": "tinyint",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "locked": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "locked",
+          "type": "tinyint",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "icon": {
+          "default": "''",
+          "autoincrement": false,
+          "name": "icon",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "enable_resource": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "enable_resource",
+          "type": "tinyint",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "resourcefile": {
+          "default": "''",
+          "autoincrement": false,
+          "name": "resourcefile",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "createdon": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "createdon",
+          "type": "int(11)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "editedon": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "editedon",
+          "type": "int(11)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "guid": {
+          "default": "''",
+          "autoincrement": false,
+          "name": "guid",
+          "type": "varchar(32)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "enable_sharedparams": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "enable_sharedparams",
+          "type": "tinyint",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "properties": {
+          "autoincrement": false,
+          "name": "properties",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "modulecode": {
+          "autoincrement": false,
+          "name": "modulecode",
+          "type": "mediumtext",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "compositePrimaryKeys": {},
+      "indexes": {},
+      "foreignKeys": {},
+      "uniqueConstraints": {}
+    },
+    "modx_site_module_access": {
+      "name": "modx_site_module_access",
+      "columns": {
+        "id": {
+          "autoincrement": true,
+          "name": "id",
+          "type": "int(10) unsigned",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "module": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "module",
+          "type": "int(11)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "usergroup": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "usergroup",
+          "type": "int(11)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "compositePrimaryKeys": {},
+      "indexes": {},
+      "foreignKeys": {},
+      "uniqueConstraints": {}
+    },
+    "modx_site_module_depobj": {
+      "name": "modx_site_module_depobj",
+      "columns": {
+        "id": {
+          "autoincrement": true,
+          "name": "id",
+          "type": "int(11)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "module": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "module",
+          "type": "int(11)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "resource": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "resource",
+          "type": "int(11)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "type": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "type",
+          "type": "int(2)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "compositePrimaryKeys": {},
+      "indexes": {},
+      "foreignKeys": {},
+      "uniqueConstraints": {}
+    },
+    "modx_site_plugins": {
+      "name": "modx_site_plugins",
+      "columns": {
+        "id": {
+          "autoincrement": true,
+          "name": "id",
+          "type": "int(10)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "name": {
+          "default": "''",
+          "autoincrement": false,
+          "name": "name",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "description": {
+          "default": "'Plugin'",
+          "autoincrement": false,
+          "name": "description",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "editor_type": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "editor_type",
+          "type": "int(11)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "category": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "category",
+          "type": "int(11)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "cache_type": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "cache_type",
+          "type": "tinyint",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "plugincode": {
+          "autoincrement": false,
+          "name": "plugincode",
+          "type": "mediumtext",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "locked": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "locked",
+          "type": "tinyint",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "properties": {
+          "autoincrement": false,
+          "name": "properties",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "disabled": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "disabled",
+          "type": "tinyint",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "moduleguid": {
+          "default": "''",
+          "autoincrement": false,
+          "name": "moduleguid",
+          "type": "varchar(32)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "createdon": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "createdon",
+          "type": "int(11)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "editedon": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "editedon",
+          "type": "int(11)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "compositePrimaryKeys": {},
+      "indexes": {},
+      "foreignKeys": {},
+      "uniqueConstraints": {}
+    },
+    "modx_site_plugin_events": {
+      "name": "modx_site_plugin_events",
+      "columns": {
+        "pluginid": {
+          "autoincrement": false,
+          "name": "pluginid",
+          "type": "int(10)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "evtid": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "evtid",
+          "type": "int(10)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "priority": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "priority",
+          "type": "int(10)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "compositePrimaryKeys": {},
+      "indexes": {},
+      "foreignKeys": {},
+      "uniqueConstraints": {}
+    },
+    "modx_site_snippets": {
+      "name": "modx_site_snippets",
+      "columns": {
+        "id": {
+          "autoincrement": true,
+          "name": "id",
+          "type": "int(10)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "name": {
+          "default": "''",
+          "autoincrement": false,
+          "name": "name",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "description": {
+          "default": "'Snippet'",
+          "autoincrement": false,
+          "name": "description",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "editor_type": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "editor_type",
+          "type": "int(11)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "category": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "category",
+          "type": "int(11)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "cache_type": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "cache_type",
+          "type": "tinyint",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "snippet": {
+          "autoincrement": false,
+          "name": "snippet",
+          "type": "mediumtext",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "locked": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "locked",
+          "type": "tinyint",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "properties": {
+          "autoincrement": false,
+          "name": "properties",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "moduleguid": {
+          "default": "''",
+          "autoincrement": false,
+          "name": "moduleguid",
+          "type": "varchar(32)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "createdon": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "createdon",
+          "type": "int(11)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "editedon": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "editedon",
+          "type": "int(11)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "disabled": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "disabled",
+          "type": "tinyint",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "compositePrimaryKeys": {},
+      "indexes": {},
+      "foreignKeys": {},
+      "uniqueConstraints": {}
+    },
+    "modx_site_templates": {
+      "name": "modx_site_templates",
+      "columns": {
+        "id": {
+          "autoincrement": true,
+          "name": "id",
+          "type": "int(10)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "templatename": {
+          "default": "''",
+          "autoincrement": false,
+          "name": "templatename",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "templatealias": {
+          "autoincrement": false,
+          "name": "templatealias",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "description": {
+          "default": "'Template'",
+          "autoincrement": false,
+          "name": "description",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "editor_type": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "editor_type",
+          "type": "int(11)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "category": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "category",
+          "type": "int(11)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "icon": {
+          "default": "''",
+          "autoincrement": false,
+          "name": "icon",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "template_type": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "template_type",
+          "type": "int(11)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "content": {
+          "autoincrement": false,
+          "name": "content",
+          "type": "mediumtext",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "locked": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "locked",
+          "type": "tinyint",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "selectable": {
+          "default": 1,
+          "autoincrement": false,
+          "name": "selectable",
+          "type": "tinyint",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "editedon": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "editedon",
+          "type": "int(11)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "createdon": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "createdon",
+          "type": "int(11)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "compositePrimaryKeys": {},
+      "indexes": {},
+      "foreignKeys": {},
+      "uniqueConstraints": {}
+    },
+    "modx_site_tmplvars": {
+      "name": "modx_site_tmplvars",
+      "columns": {
+        "id": {
+          "autoincrement": true,
+          "name": "id",
+          "type": "int(11)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "type": {
+          "default": "''",
+          "autoincrement": false,
+          "name": "type",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "name": {
+          "default": "''",
+          "autoincrement": false,
+          "name": "name",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "caption": {
+          "default": "''",
+          "autoincrement": false,
+          "name": "caption",
+          "type": "varchar(80)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "description": {
+          "default": "''",
+          "autoincrement": false,
+          "name": "description",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "editor_type": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "editor_type",
+          "type": "int(11)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "category": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "category",
+          "type": "int(11)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "locked": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "locked",
+          "type": "tinyint",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "elements": {
+          "autoincrement": false,
+          "name": "elements",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "rank": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "rank",
+          "type": "int(11)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "display": {
+          "default": "''",
+          "autoincrement": false,
+          "name": "display",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "display_params": {
+          "autoincrement": false,
+          "name": "display_params",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "default_text": {
+          "autoincrement": false,
+          "name": "default_text",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "editedon": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "editedon",
+          "type": "int(11)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "createdon": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "createdon",
+          "type": "int(11)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "compositePrimaryKeys": {},
+      "indexes": {
+        "indx_rank": {
+          "name": "indx_rank",
+          "columns": [
+            "rank"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {},
+      "uniqueConstraints": {}
+    },
+    "modx_site_tmplvar_access": {
+      "name": "modx_site_tmplvar_access",
+      "columns": {
+        "id": {
+          "autoincrement": true,
+          "name": "id",
+          "type": "int(10)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "tmplvarid": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "tmplvarid",
+          "type": "int(10)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "documentgroup": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "documentgroup",
+          "type": "int(10)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "compositePrimaryKeys": {},
+      "indexes": {},
+      "foreignKeys": {},
+      "uniqueConstraints": {}
+    },
+    "modx_site_tmplvar_contentvalues": {
+      "name": "modx_site_tmplvar_contentvalues",
+      "columns": {
+        "id": {
+          "autoincrement": true,
+          "name": "id",
+          "type": "int(11)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "tmplvarid": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "tmplvarid",
+          "type": "int(10)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "contentid": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "contentid",
+          "type": "int(10)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "value": {
+          "autoincrement": false,
+          "name": "value",
+          "type": "mediumtext",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "compositePrimaryKeys": {},
+      "indexes": {
+        "idx_tmplvarid": {
+          "name": "idx_tmplvarid",
+          "columns": [
+            "tmplvarid"
+          ],
+          "isUnique": false
+        },
+        "idx_id": {
+          "name": "idx_id",
+          "columns": [
+            "contentid"
+          ],
+          "isUnique": false
+        },
+        "value_ft_idx": {
+          "name": "value_ft_idx",
+          "columns": [
+            "value"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {},
+      "uniqueConstraints": {
+        "ix_tvid_contentid": {
+          "name": "ix_tvid_contentid",
+          "columns": [
+            "tmplvarid",
+            "contentid"
+          ]
+        }
+      }
+    },
+    "modx_site_tmplvar_templates": {
+      "name": "modx_site_tmplvar_templates",
+      "columns": {
+        "tmplvarid": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "tmplvarid",
+          "type": "int(10)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "templateid": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "templateid",
+          "type": "int(11)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "rank": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "rank",
+          "type": "int(11)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "compositePrimaryKeys": {},
+      "indexes": {},
+      "foreignKeys": {},
+      "uniqueConstraints": {}
+    },
+    "modx_system_eventnames": {
+      "name": "modx_system_eventnames",
+      "columns": {
+        "id": {
+          "autoincrement": true,
+          "name": "id",
+          "type": "int(10)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "name": {
+          "default": "''",
+          "autoincrement": false,
+          "name": "name",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "service": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "service",
+          "type": "tinyint",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "groupname": {
+          "default": "''",
+          "autoincrement": false,
+          "name": "groupname",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "compositePrimaryKeys": {},
+      "indexes": {},
+      "foreignKeys": {},
+      "uniqueConstraints": {
+        "name": {
+          "name": "name",
+          "columns": [
+            "name"
+          ]
+        }
+      }
+    },
+    "modx_system_settings": {
+      "name": "modx_system_settings",
+      "columns": {
+        "setting_name": {
+          "default": "''",
+          "autoincrement": false,
+          "name": "setting_name",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "setting_value": {
+          "autoincrement": false,
+          "name": "setting_value",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "compositePrimaryKeys": {},
+      "indexes": {},
+      "foreignKeys": {},
+      "uniqueConstraints": {}
+    },
+    "modx_txnewsletters_usersdata": {
+      "name": "modx_txnewsletters_usersdata",
+      "columns": {
+        "Company": {
+          "default": "''",
+          "autoincrement": false,
+          "name": "Company",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Name": {
+          "default": "''",
+          "autoincrement": false,
+          "name": "Name",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Phone": {
+          "default": "''",
+          "autoincrement": false,
+          "name": "Phone",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Email": {
+          "default": "''",
+          "autoincrement": false,
+          "name": "Email",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Zipcode": {
+          "default": "''",
+          "autoincrement": false,
+          "name": "Zipcode",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "City": {
+          "default": "''",
+          "autoincrement": false,
+          "name": "City",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Address": {
+          "default": "''",
+          "autoincrement": false,
+          "name": "Address",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Site": {
+          "default": "''",
+          "autoincrement": false,
+          "name": "Site",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Partner": {
+          "default": "''",
+          "autoincrement": false,
+          "name": "Partner",
+          "type": "varchar(64)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Timestamp": {
+          "default": "''",
+          "autoincrement": false,
+          "name": "Timestamp",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "compositePrimaryKeys": {},
+      "indexes": {},
+      "foreignKeys": {},
+      "uniqueConstraints": {}
+    },
+    "modx_user_attributes": {
+      "name": "modx_user_attributes",
+      "columns": {
+        "id": {
+          "autoincrement": true,
+          "name": "id",
+          "type": "int(10)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "internalKey": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "internalKey",
+          "type": "int(10)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "fullname": {
+          "default": "''",
+          "autoincrement": false,
+          "name": "fullname",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "role": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "role",
+          "type": "int(10)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "email": {
+          "default": "''",
+          "autoincrement": false,
+          "name": "email",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "phone": {
+          "default": "''",
+          "autoincrement": false,
+          "name": "phone",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "mobilephone": {
+          "default": "''",
+          "autoincrement": false,
+          "name": "mobilephone",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "blocked": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "blocked",
+          "type": "int(1)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "blockeduntil": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "blockeduntil",
+          "type": "int(11)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "blockedafter": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "blockedafter",
+          "type": "int(11)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "logincount": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "logincount",
+          "type": "int(11)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "lastlogin": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "lastlogin",
+          "type": "int(11)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "thislogin": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "thislogin",
+          "type": "int(11)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "failedlogincount": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "failedlogincount",
+          "type": "int(10)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "sessionid": {
+          "default": "''",
+          "autoincrement": false,
+          "name": "sessionid",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "dob": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "dob",
+          "type": "int(10)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "gender": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "gender",
+          "type": "int(1)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "country": {
+          "default": "''",
+          "autoincrement": false,
+          "name": "country",
+          "type": "varchar(5)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "street": {
+          "default": "''",
+          "autoincrement": false,
+          "name": "street",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "city": {
+          "default": "''",
+          "autoincrement": false,
+          "name": "city",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "state": {
+          "default": "''",
+          "autoincrement": false,
+          "name": "state",
+          "type": "varchar(25)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "zip": {
+          "default": "''",
+          "autoincrement": false,
+          "name": "zip",
+          "type": "varchar(25)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "fax": {
+          "default": "''",
+          "autoincrement": false,
+          "name": "fax",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "photo": {
+          "default": "''",
+          "autoincrement": false,
+          "name": "photo",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "comment": {
+          "autoincrement": false,
+          "name": "comment",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "editedon": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "editedon",
+          "type": "int(11)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "createdon": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "createdon",
+          "type": "int(11)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "verified": {
+          "default": 1,
+          "autoincrement": false,
+          "name": "verified",
+          "type": "int(1)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "compositePrimaryKeys": {},
+      "indexes": {
+        "userid": {
+          "name": "userid",
+          "columns": [
+            "internalKey"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {},
+      "uniqueConstraints": {}
+    },
+    "modx_user_messages": {
+      "name": "modx_user_messages",
+      "columns": {
+        "id": {
+          "autoincrement": true,
+          "name": "id",
+          "type": "int(10)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "type": {
+          "default": "''",
+          "autoincrement": false,
+          "name": "type",
+          "type": "varchar(15)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "subject": {
+          "default": "''",
+          "autoincrement": false,
+          "name": "subject",
+          "type": "varchar(60)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "message": {
+          "autoincrement": false,
+          "name": "message",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "sender": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "sender",
+          "type": "int(10)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "recipient": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "recipient",
+          "type": "int(10)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "private": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "private",
+          "type": "tinyint",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "postdate": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "postdate",
+          "type": "int(20)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "messageread": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "messageread",
+          "type": "tinyint",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "compositePrimaryKeys": {},
+      "indexes": {},
+      "foreignKeys": {},
+      "uniqueConstraints": {}
+    },
+    "modx_user_roles": {
+      "name": "modx_user_roles",
+      "columns": {
+        "id": {
+          "autoincrement": true,
+          "name": "id",
+          "type": "int(10)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "name": {
+          "default": "''",
+          "autoincrement": false,
+          "name": "name",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "description": {
+          "default": "''",
+          "autoincrement": false,
+          "name": "description",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "frames": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "frames",
+          "type": "int(1)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "home": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "home",
+          "type": "int(1)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "view_document": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "view_document",
+          "type": "int(1)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "new_document": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "new_document",
+          "type": "int(1)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "save_document": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "save_document",
+          "type": "int(1)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "publish_document": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "publish_document",
+          "type": "int(1)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "delete_document": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "delete_document",
+          "type": "int(1)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "empty_trash": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "empty_trash",
+          "type": "int(1)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "action_ok": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "action_ok",
+          "type": "int(1)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "logout": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "logout",
+          "type": "int(1)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "help": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "help",
+          "type": "int(1)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "messages": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "messages",
+          "type": "int(1)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "new_user": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "new_user",
+          "type": "int(1)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "edit_user": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "edit_user",
+          "type": "int(1)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "logs": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "logs",
+          "type": "int(1)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "edit_parser": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "edit_parser",
+          "type": "int(1)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "save_parser": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "save_parser",
+          "type": "int(1)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "edit_template": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "edit_template",
+          "type": "int(1)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "settings": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "settings",
+          "type": "int(1)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "credits": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "credits",
+          "type": "int(1)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "new_template": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "new_template",
+          "type": "int(1)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "save_template": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "save_template",
+          "type": "int(1)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "delete_template": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "delete_template",
+          "type": "int(1)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "edit_snippet": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "edit_snippet",
+          "type": "int(1)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "new_snippet": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "new_snippet",
+          "type": "int(1)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "save_snippet": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "save_snippet",
+          "type": "int(1)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "delete_snippet": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "delete_snippet",
+          "type": "int(1)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "edit_chunk": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "edit_chunk",
+          "type": "int(1)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "new_chunk": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "new_chunk",
+          "type": "int(1)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "save_chunk": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "save_chunk",
+          "type": "int(1)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "delete_chunk": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "delete_chunk",
+          "type": "int(1)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "empty_cache": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "empty_cache",
+          "type": "int(1)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "edit_document": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "edit_document",
+          "type": "int(1)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "change_password": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "change_password",
+          "type": "int(1)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "error_dialog": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "error_dialog",
+          "type": "int(1)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "about": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "about",
+          "type": "int(1)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "category_manager": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "category_manager",
+          "type": "int(1)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "file_manager": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "file_manager",
+          "type": "int(1)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "assets_images": {
+          "default": 1,
+          "autoincrement": false,
+          "name": "assets_images",
+          "type": "int(1)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "assets_files": {
+          "default": 1,
+          "autoincrement": false,
+          "name": "assets_files",
+          "type": "int(1)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "save_user": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "save_user",
+          "type": "int(1)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "delete_user": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "delete_user",
+          "type": "int(1)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "save_password": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "save_password",
+          "type": "int(11)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "edit_role": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "edit_role",
+          "type": "int(1)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "save_role": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "save_role",
+          "type": "int(1)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "delete_role": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "delete_role",
+          "type": "int(1)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "new_role": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "new_role",
+          "type": "int(1)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "access_permissions": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "access_permissions",
+          "type": "int(1)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "bk_manager": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "bk_manager",
+          "type": "int(1)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "new_plugin": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "new_plugin",
+          "type": "int(1)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "edit_plugin": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "edit_plugin",
+          "type": "int(1)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "save_plugin": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "save_plugin",
+          "type": "int(1)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "delete_plugin": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "delete_plugin",
+          "type": "int(1)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "new_module": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "new_module",
+          "type": "int(1)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "edit_module": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "edit_module",
+          "type": "int(1)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "save_module": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "save_module",
+          "type": "int(1)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "delete_module": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "delete_module",
+          "type": "int(1)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "exec_module": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "exec_module",
+          "type": "int(1)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "view_eventlog": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "view_eventlog",
+          "type": "int(1)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "delete_eventlog": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "delete_eventlog",
+          "type": "int(1)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "manage_metatags": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "manage_metatags",
+          "type": "int(1)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "edit_doc_metatags": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "edit_doc_metatags",
+          "type": "int(1)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "new_web_user": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "new_web_user",
+          "type": "int(1)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "edit_web_user": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "edit_web_user",
+          "type": "int(1)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "save_web_user": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "save_web_user",
+          "type": "int(1)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "delete_web_user": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "delete_web_user",
+          "type": "int(1)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "web_access_permissions": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "web_access_permissions",
+          "type": "int(1)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "view_unpublished": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "view_unpublished",
+          "type": "int(1)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "import_static": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "import_static",
+          "type": "int(1)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "export_static": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "export_static",
+          "type": "int(1)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "remove_locks": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "remove_locks",
+          "type": "int(1)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "change_resourcetype": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "change_resourcetype",
+          "type": "int(1)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "display_locks": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "display_locks",
+          "type": "int(1)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "compositePrimaryKeys": {},
+      "indexes": {},
+      "foreignKeys": {},
+      "uniqueConstraints": {}
+    },
+    "modx_user_settings": {
+      "name": "modx_user_settings",
+      "columns": {
+        "user": {
+          "autoincrement": false,
+          "name": "user",
+          "type": "int(11)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "setting_name": {
+          "default": "''",
+          "autoincrement": false,
+          "name": "setting_name",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "setting_value": {
+          "autoincrement": false,
+          "name": "setting_value",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "compositePrimaryKeys": {},
+      "indexes": {
+        "setting_name": {
+          "name": "setting_name",
+          "columns": [
+            "setting_name"
+          ],
+          "isUnique": false
+        },
+        "user": {
+          "name": "user",
+          "columns": [
+            "user"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {},
+      "uniqueConstraints": {}
+    },
+    "modx_webgroup_access": {
+      "name": "modx_webgroup_access",
+      "columns": {
+        "id": {
+          "autoincrement": true,
+          "name": "id",
+          "type": "int(10)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "webgroup": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "webgroup",
+          "type": "int(10)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "documentgroup": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "documentgroup",
+          "type": "int(10)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "compositePrimaryKeys": {},
+      "indexes": {},
+      "foreignKeys": {},
+      "uniqueConstraints": {}
+    },
+    "modx_webgroup_names": {
+      "name": "modx_webgroup_names",
+      "columns": {
+        "id": {
+          "autoincrement": true,
+          "name": "id",
+          "type": "int(10)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "name": {
+          "default": "''",
+          "autoincrement": false,
+          "name": "name",
+          "type": "varchar(245)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "compositePrimaryKeys": {},
+      "indexes": {},
+      "foreignKeys": {},
+      "uniqueConstraints": {
+        "name": {
+          "name": "name",
+          "columns": [
+            "name"
+          ]
+        }
+      }
+    },
+    "modx_web_groups": {
+      "name": "modx_web_groups",
+      "columns": {
+        "id": {
+          "autoincrement": true,
+          "name": "id",
+          "type": "int(10)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "webgroup": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "webgroup",
+          "type": "int(10)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "webuser": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "webuser",
+          "type": "int(10)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "compositePrimaryKeys": {},
+      "indexes": {},
+      "foreignKeys": {},
+      "uniqueConstraints": {
+        "ix_group_user": {
+          "name": "ix_group_user",
+          "columns": [
+            "webgroup",
+            "webuser"
+          ]
+        }
+      }
+    },
+    "modx_web_users": {
+      "name": "modx_web_users",
+      "columns": {
+        "id": {
+          "autoincrement": true,
+          "name": "id",
+          "type": "int(10)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "username": {
+          "default": "''",
+          "autoincrement": false,
+          "name": "username",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "password": {
+          "default": "''",
+          "autoincrement": false,
+          "name": "password",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "cachepwd": {
+          "default": "''",
+          "autoincrement": false,
+          "name": "cachepwd",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "compositePrimaryKeys": {},
+      "indexes": {},
+      "foreignKeys": {},
+      "uniqueConstraints": {
+        "username": {
+          "name": "username",
+          "columns": [
+            "username"
+          ]
+        }
+      }
+    },
+    "modx_web_user_attributes": {
+      "name": "modx_web_user_attributes",
+      "columns": {
+        "id": {
+          "autoincrement": true,
+          "name": "id",
+          "type": "int(10)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "internalKey": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "internalKey",
+          "type": "int(10)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "fullname": {
+          "default": "''",
+          "autoincrement": false,
+          "name": "fullname",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "role": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "role",
+          "type": "int(10)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "email": {
+          "default": "''",
+          "autoincrement": false,
+          "name": "email",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "phone": {
+          "default": "''",
+          "autoincrement": false,
+          "name": "phone",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "mobilephone": {
+          "default": "''",
+          "autoincrement": false,
+          "name": "mobilephone",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "blocked": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "blocked",
+          "type": "int(1)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "blockeduntil": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "blockeduntil",
+          "type": "int(11)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "blockedafter": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "blockedafter",
+          "type": "int(11)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "logincount": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "logincount",
+          "type": "int(11)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "lastlogin": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "lastlogin",
+          "type": "int(11)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "thislogin": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "thislogin",
+          "type": "int(11)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "failedlogincount": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "failedlogincount",
+          "type": "int(10)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "sessionid": {
+          "default": "''",
+          "autoincrement": false,
+          "name": "sessionid",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "dob": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "dob",
+          "type": "int(10)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "gender": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "gender",
+          "type": "int(1)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "country": {
+          "default": "''",
+          "autoincrement": false,
+          "name": "country",
+          "type": "varchar(25)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "street": {
+          "default": "''",
+          "autoincrement": false,
+          "name": "street",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "city": {
+          "default": "''",
+          "autoincrement": false,
+          "name": "city",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "state": {
+          "default": "''",
+          "autoincrement": false,
+          "name": "state",
+          "type": "varchar(25)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "zip": {
+          "default": "''",
+          "autoincrement": false,
+          "name": "zip",
+          "type": "varchar(25)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "fax": {
+          "default": "''",
+          "autoincrement": false,
+          "name": "fax",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "photo": {
+          "default": "''",
+          "autoincrement": false,
+          "name": "photo",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "comment": {
+          "autoincrement": false,
+          "name": "comment",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "editedon": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "editedon",
+          "type": "int(11)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "createdon": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "createdon",
+          "type": "int(11)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "verified": {
+          "default": 0,
+          "autoincrement": false,
+          "name": "verified",
+          "type": "int(1)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "compositePrimaryKeys": {},
+      "indexes": {
+        "userid": {
+          "name": "userid",
+          "columns": [
+            "internalKey"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {},
+      "uniqueConstraints": {}
+    },
+    "modx_web_user_attributes_extended": {
+      "name": "modx_web_user_attributes_extended",
+      "columns": {
+        "id": {
+          "autoincrement": true,
+          "name": "id",
+          "type": "int(10)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "internalKey": {
+          "autoincrement": false,
+          "name": "internalKey",
+          "type": "int(10)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "diab_1": {
+          "autoincrement": false,
+          "name": "diab_1",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "diab_2": {
+          "autoincrement": false,
+          "name": "diab_2",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "diab_3": {
+          "autoincrement": false,
+          "name": "diab_3",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "diab_4": {
+          "autoincrement": false,
+          "name": "diab_4",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "diab_5": {
+          "autoincrement": false,
+          "name": "diab_5",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "diab_6": {
+          "autoincrement": false,
+          "name": "diab_6",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "diab_7": {
+          "autoincrement": false,
+          "name": "diab_7",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "diab_8": {
+          "autoincrement": false,
+          "name": "diab_8",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "diab_9": {
+          "autoincrement": false,
+          "name": "diab_9",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "diab_0": {
+          "autoincrement": false,
+          "name": "diab_0",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "compositePrimaryKeys": {},
+      "indexes": {
+        "userid": {
+          "name": "userid",
+          "columns": [
+            "internalKey"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {},
+      "uniqueConstraints": {}
+    },
+    "modx_web_user_settings": {
+      "name": "modx_web_user_settings",
+      "columns": {
+        "webuser": {
+          "autoincrement": false,
+          "name": "webuser",
+          "type": "int(11)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "setting_name": {
+          "default": "''",
+          "autoincrement": false,
+          "name": "setting_name",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "setting_value": {
+          "autoincrement": false,
+          "name": "setting_value",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "compositePrimaryKeys": {},
+      "indexes": {
+        "setting_name": {
+          "name": "setting_name",
+          "columns": [
+            "setting_name"
+          ],
+          "isUnique": false
+        },
+        "webuserid": {
+          "name": "webuserid",
+          "columns": [
+            "webuser"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {},
+      "uniqueConstraints": {}
+    }
+  },
+  "_meta": {
+    "schemas": {},
+    "tables": {},
+    "columns": {}
+  },
+  "internal": {
+    "tables": {},
+    "indexes": {}
+  }
+}
