@@ -24,7 +24,7 @@
     <h4 class="introtext">{@html doc.introtext}</h4>
     <p>
       <small class="uppercase">{`${doc.tvs.sze?doc.tvs.sze+' | ':''}${pubdate}${doc.tvs.cat?' | '+doc.tvs.cat:''}`}</small>
-      <small>{`${editdate?' (frissítve: '+editdate+')':''}`}</small></p>
+      <small>{`${editdate && editdate !== pubdate ?'<br> (frissítve: '+editdate+')':''}`}</small></p>
     {#each doc.tvs.tag as tag}
     <div class="badge badge-outline mx-1">{tag}</div>
     {/each}
