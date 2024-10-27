@@ -9,7 +9,7 @@
         </h2>
         <p>s-o-s</p>
         <div class="card-actions justify-end">
-          <div class="badge badge-outline"><a href="/s-o-s">Köszöntő</a></div> 
+          <div class="badge badge-outline"><a href="/s-o-s">Bevezető</a></div> 
           <div class="badge badge-outline"><a href="/s-o-s#cikkek">Válogatott cikkek</a></div>
         </div>
       </div>
@@ -24,7 +24,7 @@
         </h2>
         <p>Terhesség cukorbetegen</p>
         <div class="card-actions justify-end">
-          <div class="badge badge-outline"><a href="/gdm">Köszöntő</a></div> 
+          <div class="badge badge-outline"><a href="/gdm">Bevezető</a></div> 
           <div class="badge badge-outline"><a href="/gdm#cikkek">Válogatott cikkek</a></div>
         </div>
       </div>

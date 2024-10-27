@@ -1,0 +1,43 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --imgratio: 1.693;
+}
+
+html {
+  font-size: clamp(1rem, 0.833vw + 0.75rem, 1.375rem); /* 16px@480px --> 22px@1200px, */
+}
+
+.prose h1 {
+  font-weight: 600;
+}
+.prose h2 {
+  font-weight: 500;
+}
+.prose h3 {
+  font-weight: 400;
+}
+.prose p {
+  hyphens: auto;
+}
+.nicebox {
+  @apply card bg-base-300 card-body my-16;
+}
+.nicebox > * {
+  @apply my-0;
+}
+.nicebox > h3 {
+  @apply card-title;
+}
+article figure, .card figure {
+  text-align: center;
+}
+article figure img {
+  max-height: 50vh;
+  @apply mx-auto w-max max-w-full;
+}
+.card figure img {
+  aspect-ratio: var(--imgratio);
+}

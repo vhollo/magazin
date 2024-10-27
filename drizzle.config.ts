@@ -17,7 +17,7 @@ export default defineConfig({
 */
 
 
-console.log('.env',process.env.MODXDB_URL)
+console.log('.env:',process.env.MODXDB_URL)
 if (!process.env.MODXDB_URL)
     throw new Error("env.MODXDB_URL is not set");
 
@@ -31,6 +31,6 @@ export default defineConfig({
       url: process.env.MODXDB_URL
   },
 
-  //verbose: true,
+  verbose: true,
   //strict: true
 })
