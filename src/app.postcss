@@ -3,12 +3,14 @@
 @tailwind utilities;
 
 :root {
+  font-size: clamp(1rem, 0.5vw + 0.85rem, 1.25rem); /* 16px@480px --> 22px@1200px, */ /* https://fluidtypography.com/ */
   --imgratio: 1.693;
+  --lh: 1.75rem; /* line-height */
+  --lh: clamp(1.75rem, 0.875vw + 1.488rem, 2.188rem);
+  --lh-card: 1.25rem; /* card line-height */
 }
 
-html {
-  font-size: clamp(1rem, 0.833vw + 0.75rem, 1.375rem); /* 16px@480px --> 22px@1200px, */
-}
+
 
 .prose h1 {
   font-weight: 600;
@@ -22,8 +24,18 @@ html {
 .prose p {
   hyphens: auto;
 }
+.prose :where(p):not(:where([class~="not-prose"],[class~="not-prose"] *)) {
+  margin-top: .75em;
+  margin-bottom: .75em;
+}
+.prose :where(h2 + *):not(:where([class~="not-prose"],[class~="not-prose"] *)) {
+  margin-top: 0;
+}
+.prose figcaption a {
+  --tw-prose-links: var(--fallback-bc,oklch(var(--bc)/.75));
+}
 .nicebox {
-  @apply card bg-base-300 card-body my-16;
+  @apply card bg-base-200 shadow-xl card-body p-4 my-16;
 }
 .nicebox > * {
   @apply my-0;
@@ -31,13 +43,58 @@ html {
 .nicebox > h3 {
   @apply card-title;
 }
-article figure, .card figure {
+.nicebox figure img {
+  object-fit: contain;
+}
+.card figure {
+  @apply my-0;
   text-align: center;
+  width: 100%;
 }
-article figure img {
-  max-height: 50vh;
-  @apply mx-auto w-max max-w-full;
+/*figure.pageimage {
+  text-align: center;
+  width: 100%;
+}*/
+figure.pageimage img, article .card img {
+  max-height: 75vh;
 }
-.card figure img {
+/*.left, .right {
+  @apply card-side;
+}*/
+/*.card.left:has(.card-body), .card.right:has(.card-body) {
+  @apply card-side;
+}*/
+.card.left figure, .card.right figure {
+  max-width: 50%;
+  margin-inline: auto;
+}
+/*.card.left p, .card.right p {
+  @apply self-end;
+}*/
+
+.alairas {
+  @apply uppercase text-sm italic text-end mt-8;
+}
+
+section .card figure img {
   aspect-ratio: var(--imgratio);
+}
+
+#szerzo {
+  @apply card bg-base-300 px-4 my-8;
+  display: grid;
+  gap: 0 2rem;
+  grid-template-columns: 10ch auto;
+  grid-template-rows: auto;
+}
+#szerzo img + .nev {
+  line-height: 1;
+}
+#szerzo img {
+  grid-row-start: 1;
+  grid-row-end: 3;
+}
+#szerzo .cv {
+  grid-column-start: 1;
+  grid-column-end: 3;
 }

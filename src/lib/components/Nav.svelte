@@ -3,7 +3,7 @@
 </script>
 
 <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
-<nav class="navbar overflow-auto">
+<nav class="navbar">
   <ul class=" mx-auto">
     <li class="dropdown">
       <div tabindex="0" role="button" class="btn, m-1">
@@ -74,9 +74,9 @@
 </nav>
 
 <style>
-  /*nav {
-    overflow-y: visible;
-  }*/
+  nav {
+    overflow: auto hidden;
+  }
   /*nav ul {
     max-width: 100%;
     overflow-x: auto;

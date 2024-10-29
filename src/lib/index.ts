@@ -10,10 +10,9 @@ import { modx_site_htmlsnippets } from '../../drizzle/schema'
 import { modxdb } from '$lib/db'
 //import { render } from 'svelte/server'
 import Nagyito from '$lib/components/Nagyito.svelte'
-//import { _tv } from '$lib'
 
 //const modxSiteContent = await modxdb.query.modx_site_content.findMany(10);
-let modxSiteContent:Array, tmplvarContentvalues:Array, modxSzerzok:Array
+let modxSiteContent:Array, tmplvarContentvalues:Array
 modxSiteContent = /*modxSiteContent ||*/ await modxdb.select().from(modx_site_content).orderBy(desc(modx_site_content.id)).where(gt(modx_site_content.id, 3900)).where(eq(modx_site_content.published, 1)).where(eq(modx_site_content.type, 'document'))/*.where(
   or(
     eq(users.id, 42), 
@@ -21,29 +20,9 @@ modxSiteContent = /*modxSiteContent ||*/ await modxdb.select().from(modx_site_co
   )
 )*/
 tmplvarContentvalues = /*tmplvarContentvalues ||*/ await modxdb.select().from(modx_site_tmplvar_contentvalues)
-modxSzerzok = /*htmlSnippets ||*/ await modxdb.select().from(modx_site_htmlsnippets).where(eq (modx_site_htmlsnippets.category, 24))
-console.log(modxSzerzok)
+export const modxSzerzok = await modxdb.select().from(modx_site_htmlsnippets).where(eq (modx_site_htmlsnippets.category, 24))
+//console.log(modxSzerzok)
 
-
-
-const cats = {
-  'orvos': 'Orvosok üzenetei',
-  'szemle': 'Hasznos tudnivalók',
-  'elet': 'Személyes történetek',
-  'mod': 'Egészséges életmód',
-  'recept': 'Receptek'
-}
-
-export const _tv = ({tv, val}) => {
-  //console.log(tv,val)
-  switch (tv) {
-    case 'sze':
-      return val.replace('_', ' ')
-    case 'cat':
-      return cats[val]
-  }
-
-}
 
 const _findPath = (doc => {
   if (!doc) {
@@ -65,24 +44,36 @@ const _findPath = (doc => {
   return doc
 })
 
+const cats = {
+  'orvos': 'Orvosok üzenetei',
+  'szemle': 'Hasznos tudnivalók',
+  'elet': 'Személyes történetek',
+  'mod': 'Egészséges életmód',
+  'recept': 'Receptek'
+}
 const _addTVs = (doc => {
   //console.log('tvs', doc.id)
   const tvs = tmplvarContentvalues.filter(tv => tv.contentid == doc.id) || []
   doc.tvs = {}
 
-  doc.tvs.cat = _tv({'tv': 'cat', 'val': tvs.find(tv => tv.tmplvarid == 23)?.value || ''})
+  const cat = tvs.find(tv => tv.tmplvarid == 23)?.value
+  doc.tvs.cat = cats[cat] || ''
 
-  doc.tvs.tag = tvs.find(tv => tv.tmplvarid == 3)?.value || ''
-  doc.tvs.tag = doc.tvs.tag.replace('diabetes','')
-  doc.tvs.tag = doc.tvs.tag.split(' ').filter(t => t != '') || []
-  console.log(doc.tvs.tag)
+  const tags = tvs.find(tv => tv.tmplvarid == 3)?.value || ''
+  doc.tvs.tag = tags.replace('diabetes','').replace('terhesség','várandósság').split(' ').filter(t => t != '') || []
+  //console.log(doc.tvs.tag)
 
-  doc.tvs.sze = _tv({'tv': 'sze', 'val': tvs.find(tv => tv.tmplvarid == 18)?.value || ''})
+  doc.tvs.sze = {}
+  const sze = tvs.find(tv => tv.tmplvarid == 18)?.value
+  doc.tvs.sze.val = sze || null
+  doc.tvs.sze.name = sze && sze.replaceAll('_', ' ') || ''
+  const snippet = modxSzerzok.find(sz => sz.name == sze)?.snippet
+  doc.tvs.sze.full = snippet && snippet.replace('src="/','src="https://diabetes.hu/').replace('src="assets','src="https://diabetes.hu/assets') || null
 
   doc.tvs.img = tvs.find(tv => tv.tmplvarid == 4)?.value || ''
 
-  doc.tvs.pos = tvs.find(tv => tv.tmplvarid == 29)?.value || ''
-  doc.tvs.pos = doc.tvs.pos.replace('T', 'top').replace('B', 'bottom').replace('L', 'left').replace('R', 'right')
+  const pos = tvs.find(tv => tv.tmplvarid == 29)?.value || ''
+  doc.tvs.pos = pos.replace('T', 'top').replace('B', 'bottom').replace('L', 'left').replace('R', 'right')
   
   doc.tvs.ogi = tvs.find(tv => tv.tmplvarid == 25)?.value || ''
   

@@ -11,7 +11,7 @@ export async function load({ params }) {
     case 'gdm':
       query = {
         "id": [3556],
-        "tags": [ 'terhesség'],
+        "tags": [ 'várandósság'],
         /*"szerzo": [ 'Herth_Viktória', ],*/
       }
       doc = modxDocs.find(d => d.id == query.id)
