@@ -5,13 +5,14 @@
   export let data
   //console.log('p.s',data.doc)
 
+  //$: (data) => { doc = data.doc stb…}
   $: doc = data.doc
   $: docs = data.docs
   const base = 'https://www.diabetes.hu/'
 
-  $: pubdate = new Date(doc.publishedon * 1000).toLocaleDateString('hu-HU')
-  $: editdate = new Date(doc.editedon * 1000).toLocaleDateString('hu-HU')
-  //$: console.log(doc.tvs.sze.full)
+  $: pubdate = doc && new Date(doc.publishedon * 1000).toLocaleDateString('hu-HU')
+  $: editdate = doc && new Date(doc.editedon * 1000).toLocaleDateString('hu-HU')
+  $: console.log(doc.tvs.sze)
 </script>
 
 <main>
@@ -23,32 +24,39 @@
     <h1 class="title">{@html doc.longtitle || doc.pagetitle}</h1>
     <h4 class="introtext">{@html doc.introtext}</h4>
     <p>
-      {#if doc.tvs.sze.val}
-        <a href="/#{doc.tvs.sze.val}"><small class="uppercase">{doc.tvs.sze.name}</small></a>&nbsp;|
+      {#if doc.tvs.sze.length}
+        {#each doc.tvs.sze as sze, i}
+          <a href="/#{sze.val}"><small class="uppercase">{sze.name}</small></a>{#if (i + 1) < doc.tvs.sze.length}, {/if}
+        {/each}
+        &nbsp;|
       {/if}
       <small>{`${pubdate}${editdate && editdate !== pubdate ?' (frissítve: '+editdate+')':''}`}</small><small class="uppercase">{`${doc.tvs.cat?' | '+doc.tvs.cat:''}`}</small></p>
-    <p class="flex flex-wrap gap-2 collapse sm:visible">
+    <aside class="flex flex-wrap gap-2 collapse sm:visible mb-12">
       {#each doc.tvs.tag as tag}
         <small class="badge badge-outline badge-sm">{tag}</small>
       {/each}
-    </p>
-    <figure class="pageimage mt-16 text-center w-full">
+    </aside>
+    {#if doc.tvs.img}
+    <figure class="pageimage text-center w-full">
       <img class="mx-auto" style={`object-fit: contain;`} src={`${base}${doc.tvs.img}`} alt="">
     </figure>
+    {/if}
     <!--<p class="uppercase"><small></small></p>-->
     {@html doc.content}
-    {#if doc.tvs.sze.name}
-      {#if doc.tvs.sze.full}
-        {@html doc.tvs.sze.full}
-      {:else}
-        <p class="alairas">{doc.tvs.sze.name}</p>
-      {/if}
+    {#if doc.tvs.sze.length}
+      {#each doc.tvs.sze as sze}
+        {#if sze.full}
+          {@html sze.full}
+        {:else}
+          <p class="alairas">{sze.name}</p>
+        {/if}
+      {/each}
     {/if}
   </article>
   {/if}
 
   {#if docs}
-  <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-12 px-4 py-12">
+  <section class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-x-8 gap-y-12 px-6 py-12">
     {#each docs as doc}
       {@const card = {img: doc.tvs.img, pos: doc.tvs.pos, path: doc.path, title: doc.title, longtitle: doc.longtitle, introtext: doc.introtext, content: doc.content, tag: doc.tvs.tag}}
       <Card {card}/>
@@ -58,5 +66,8 @@
 </main>
 
 
-<!--<style>
-</style>-->
+<style>
+  section.grid {
+    grid-template-rows: masonry;
+  }
+</style>

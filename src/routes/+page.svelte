@@ -1,4 +1,28 @@
+<script>
+  import Card from '$lib/components/Card.svelte'
+// @ts-nocheck
+
+  export let data
+  //console.log('p.s',data.doc)
+
+  $: doc = data.doc
+  $: docs = data.docs
+  const base = 'https://www.diabetes.hu/'
+
+  $: pubdate = doc && new Date(doc.publishedon * 1000).toLocaleDateString('hu-HU')
+  $: editdate = doc && new Date(doc.editedon * 1000).toLocaleDateString('hu-HU')
+  //$: console.log(doc.tvs.sze.full)
+</script>
+
 <main>
+  {#if docs}
+  <section class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-x-8 gap-y-12 px-6 py-12">
+    {#each docs as doc}
+      {@const card = {img: doc.tvs.img, pos: doc.tvs.pos, path: doc.path, title: doc.title, longtitle: doc.longtitle, introtext: doc.introtext, content: doc.content, tag: doc.tvs.tag}}
+      <Card {card}/>
+    {/each}
+  </section>
+  {/if}
   <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 p-4">
     <div class="card bg-base-300 shadow-xl">
       <figure><img src="/assets/photo-1606107557195-0e29a4b5b4aa.jpg" alt="Shoes" width="928" height="548"/></figure>
@@ -22,7 +46,7 @@
           Gesztációs diabétesz
           <!--<div class="badge badge-secondary">NEW</div>-->
         </h2>
-        <p>Terhesség cukorbetegen</p>
+        <p>Várandósság cukorbetegen</p>
         <div class="card-actions justify-end">
           <div class="badge badge-outline"><a href="/gdm">Bevezető</a></div> 
           <div class="badge badge-outline"><a href="/gdm#cikkek">Válogatott cikkek</a></div>

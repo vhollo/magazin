@@ -24,6 +24,43 @@
 .prose p {
   hyphens: auto;
 }
+.prose li {
+  margin-block: 0;
+}
+
+.card-compact .card-title {
+  margin-bottom: revert;
+}
+
+.card a {
+  text-decoration: none;
+}
+
+/* OVERFLOW w/ ELLIPSIS */
+.intro {
+  overflow: hidden;
+  /*margin-right: -1ch;*/
+}
+.intro table {
+  margin-bottom: .75rem;
+}
+.intro > :not(table) {
+  display: -webkit-box;
+  -webkit-line-clamp: 7;
+  -webkit-box-orient: vertical; 
+  margin: 0; 
+}
+.intro table + p {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical; 
+  margin: 0; 
+}
+.intro > :not(table) ~ * {
+  display: none;
+}
+
+
 .prose :where(p):not(:where([class~="not-prose"],[class~="not-prose"] *)) {
   margin-top: .75em;
   margin-bottom: .75em;
@@ -35,7 +72,7 @@
   --tw-prose-links: var(--fallback-bc,oklch(var(--bc)/.75));
 }
 .nicebox {
-  @apply card bg-base-200 shadow-xl card-body p-4 my-16;
+  @apply card bg-base-300 shadow-xl card-body p-4 my-16;
 }
 .nicebox > * {
   @apply my-0;
@@ -45,6 +82,9 @@
 }
 .nicebox figure img {
   object-fit: contain;
+}
+.nicebox i, .nicebox em, .nicebox strong, .nicebox b  {
+  display: contents;
 }
 .card figure {
   @apply my-0;
@@ -73,10 +113,13 @@ figure.pageimage img, article .card img {
 }*/
 
 .alairas {
-  @apply uppercase text-sm italic text-end mt-8;
+  @apply uppercase text-sm italic text-end my-8;
+}
+.alairas span {
+  @apply not-italic block normal-case;
 }
 
-section .card figure img {
+section .card > figure img {
   aspect-ratio: var(--imgratio);
 }
 
@@ -94,7 +137,7 @@ section .card figure img {
   grid-row-start: 1;
   grid-row-end: 3;
 }
-#szerzo .cv {
+#szerzo p + p {
   grid-column-start: 1;
   grid-column-end: 3;
 }

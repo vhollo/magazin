@@ -1,6 +1,14 @@
 <script>
   export let card
   const base = 'https://www.diabetes.hu/'
+
+  $: if (!card.introtext?.length && card.content) {
+    //console.log(card.content)
+    //const matches = card.content.match(/<(?!aside\b|h2\b|h3\b|ul\b|li\b)([a-zA-Z]+)\b[^>]*>[\s\S]*?<\/\1>/g)?.slice(0, 2);
+    const matches = card.content.match(/<(?!img\b|h2\b|ul\b|li\b)([a-zA-Z]+)\b[^>]*>[\s\S]*?<\/\1>/g)?.slice(0, 2);
+    card.ellipsis = matches.join('')
+    //console.log(card.ellipsis)
+  }
 </script>
 
 <aside class="card card-compact bg-base-300 shadow-xl">
@@ -15,11 +23,12 @@
   {/if}
   <div class="card-body justify-between">
     <a href={`/${card.path}`}>
-      <h2 class="card-title gap-0">
+      <h2 class="card-title">
         {@html card.longtitle || card.title}
       </h2>
-      <div class="intro">
-        <p>{@html card.introtext || card.content}</p>
+      <div class="intro prose">
+        {#if card.ellipsis}{@html card.ellipsis}{/if}
+        {#if card.introtext}<p>{@html card.introtext}</p>{/if}
       </div>
     </a>
     <div class="card-actions">
@@ -29,42 +38,3 @@
     </div>
   </div>
 </aside>
-
-<style>
-  .card a {
-    text-decoration: none;
-  }
-  
-  /* OVERFLOW w/ ELLIPSIS */
-  .intro {
-    overflow: hidden;
-    /*margin-right: -1ch;*/
-  }
-  .intro p {
-    display: -webkit-box;
-    -webkit-line-clamp: 7;
-    -webkit-box-orient: vertical; 
-    margin: 0; 
-  }
-  /*.intro p {
-    --max-lines: 7;
-    position: relative;
-    max-height: calc(var(--lh-card) * var(--max-lines));
-    overflow-y: hidden;
-    padding-right: 1ch;
-  }*/
-  /*.intro p::before {
-    position: absolute;
-    content: "…";
-    bottom: 0;
-    right: 0;
-  }
-  .intro p::after {
-    content: "";
-    position: absolute;
-    right: 0;
-    width: 1rem;
-    height: 1rem;
-  }*/
-
-</style>

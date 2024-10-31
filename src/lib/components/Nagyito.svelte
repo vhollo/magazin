@@ -16,18 +16,13 @@
   }
 */</script>
 
-<aside class="card card-compact bg-base-200 {img.align}">
+<aside class="card card-compact bg-base-300 {img.align}">
   <figure class="card-body">
     <img src={img.file} alt="{img.desc}" class:zoom={!!img.zoom}>
     {#if img.desc}
     <figcaption class="">{@html img.desc}</figcaption>
     {/if}
   </figure>
-  <!--{#if img.desc}
-  <p class=" not-prose italic">
-    {@html img.desc}
-  </p>
-  {/if}-->
 </aside>
 
 <!--<style>

@@ -1,5 +1,7 @@
 // place files you want to import through the `$lib` alias in this folder.
 
+import { BASE_URL } from '$env/static/private';
+
 import { eq, gt, lt, gte, lte, ne, asc, desc, and, or } from "drizzle-orm"
 //import { json, text, error } from '@sveltejs/kit'
 //import { mysqlTable, serial, text } from 'drizzle-orm/mysql-core'
@@ -26,21 +28,14 @@ export const modxSzerzok = await modxdb.select().from(modx_site_htmlsnippets).wh
 
 const _findPath = (doc => {
   if (!doc) {
-    //console.log('ALERT', doc)
     return {}
-  } //else console.log('GOOD', doc.id)
+  }
   if (doc.parent == 0) {
-    //console.log('P', doc.parent)
     doc.path = doc.alias
-    //console.log(doc.path)
   } else {
-    //console.log('P', doc.parent)
     const parent = _findPath(modxSiteContent.find(d => d.id == doc.parent))
     doc.path = (parent.path || []) + '/' + doc.alias
-    //doc.path.push(doc.alias)
   }
-  //console.log('R', doc.path)
-  //console.log('GOOD', doc.id)
   return doc
 })
 
@@ -63,44 +58,60 @@ const _addTVs = (doc => {
   doc.tvs.tag = tags.replace('diabetes','').replace('terhesség','várandósság').split(' ').filter(t => t != '') || []
   //console.log(doc.tvs.tag)
 
-  doc.tvs.sze = {}
-  const sze = tvs.find(tv => tv.tmplvarid == 18)?.value
-  doc.tvs.sze.val = sze || null
-  doc.tvs.sze.name = sze && sze.replaceAll('_', ' ') || ''
-  const snippet = modxSzerzok.find(sz => sz.name == sze)?.snippet
-  doc.tvs.sze.full = snippet && snippet.replace('src="/','src="https://diabetes.hu/').replace('src="assets','src="https://diabetes.hu/assets') || null
-
-  doc.tvs.img = tvs.find(tv => tv.tmplvarid == 4)?.value || ''
-
-  const pos = tvs.find(tv => tv.tmplvarid == 29)?.value || ''
-  doc.tvs.pos = pos.replace('T', 'top').replace('B', 'bottom').replace('L', 'left').replace('R', 'right')
+  doc.tvs.sze = []
+  const sze = tvs.find(tv => tv.tmplvarid == 18)?.value.split(' ') || []
+  if (doc.id == '2961') console.log('TV:',sze)
   
+  for (let i = 0; i < sze.length; i++) {
+    const val = sze[i]
+    const name = val.replaceAll('_', ' ') || ''
+    
+    if (doc.id == '2961') console.log('VL',val);
+    let snippet = modxSzerzok.find(sz => sz.name.normalize() == val)?.snippet
+    if (doc.id == '2961') console.log('SN:',snippet);
+
+    snippet = snippet && snippet.replace('src="/','src="' + BASE_URL).replace('src="assets','src="' + BASE_URL + 'assets') || null
+    if (snippet && snippet.indexOf('<') !== 0) snippet = `<p class="alairas">${snippet}</p>`
+    //doc.tvs.sze[i]['full'] = snippet
+
+    doc.tvs.sze.push({'val': val, 'name': name, 'full': snippet})
+  }
+  if (doc.id == '2961') console.log('SZ:',doc.tvs.sze);
+
+  const pos = tvs.find(tv => tv.tmplvarid == 29)?.value || 'center'
+  doc.tvs.pos = pos.replace('T', '0 10%').replace('B', '0 90%').replace('L', 'left').replace('R', 'right')
+  
+  const credit = tvs.find(tv => tv.tmplvarid == 29)?.value || ''
+  doc.tvs.img = tvs.find(tv => tv.tmplvarid == 4)?.value || ''
+  /*doc.tvs.img = pimg!!pimg && Nagyito.render({
+    img: { 
+      file: pimg,
+      desc: credit,
+      align: doc.tvs.pos,
+      zoom: true,
+    }
+  }) || ''*/
+
   doc.tvs.ogi = tvs.find(tv => tv.tmplvarid == 25)?.value || ''
   
   return doc
 })
 
-const nagyito = (doc => {
+export const _nagyito = doc => {
   const regexp = /\[\[nagyito(.*?)\]\]/g
   const matches = [...doc.content.matchAll(regexp)]
-  matches.forEach(match => {
-    //console.log(match[0])  // Full match including [!nagyito and !]
-    //console.log(match[1]);  // Text between [!nagyito and !]
-    //filex = /file=\`(.*?)\`/;
-    //console.log(match[1])
+  matches?.forEach(match => {
+    //console.log(match[1]);  // Text between [[nagyito and ]]
     let f, file
     if (match[1].indexOf('file=') !== -1) {
       f = [...match[1].match(/file=\`(.*?)\`/)]
-      //console.log(!!match[1].indexOf('file='))
-      file = 'https://diabetes.hu/assets/images/' + f[1] 
+      file = BASE_URL + 'assets/images/' + f[1] 
     } else if (match[1].indexOf('path=') !== -1) {
-      //console.log(doc.id,match[1])
       f = [...match[1].match(/path=\`(.*?)\`/)]
-      file = 'https://diabetes.hu/' + f[1] 
-    } else if (match[1].indexOf('src=') !== -1) {
-      //console.log(doc.id,match[1])
-      f = [...match[1].match(/src=\`(.*?)\`/)]
-      file = f[1] 
+      file = BASE_URL + f[1] 
+    } else if (match[1].indexOf('url=') !== -1) {
+      f = [...match[1].match(/url=\`(.*?)\`/)]
+      file = BASE_URL + f[1] 
     }
     if (doc.tvs.img.indexOf(f[1]) !== -1) {
       doc.content = doc.content.replace(match[0], '<!-- PAGEIMAGE -->')
@@ -127,14 +138,19 @@ const nagyito = (doc => {
     //console.log('  match:',match[0])
   })
   return doc
-})
+}
 
+const _alapjav = doc => {
+  doc.content.replace(' m2', ' m<sup>2</sup>').replace('A1c', 'A<sub>1c</sub>').replace('®', '<sup>®</sup>').replace().replace()
+  return doc
+}
 
 for (let doc of modxSiteContent) {
   doc = _findPath(doc)
   doc = _addTVs(doc)
   //console.log(doc.id)
-  doc = nagyito(doc)
+  doc = _nagyito(doc)
+  doc = _alapjav(doc)
 }
 
 export const modxDocs = modxSiteContent

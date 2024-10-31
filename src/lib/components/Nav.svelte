@@ -59,7 +59,7 @@
       <div tabindex="0" role="button" class="btn m-1">Gyermekvállalás</div>
         <ul tabindex="0" class="dropdown-content z-[1] menu menu-lg p-2 shadow rounded-box w-56  bg-base-100">
           <li>Gesztációs diabétesz</li>
-          <li>Terhesség cukorbetegséggel</li>
+          <li>Várandósság cukorbetegséggel</li>
         </ul>
     </li>
     <li class="dropdown dropdown-end">
@@ -74,9 +74,9 @@
 </nav>
 
 <style>
-  nav {
+  /*nav {
     overflow: auto hidden;
-  }
+  }*/
   /*nav ul {
     max-width: 100%;
     overflow-x: auto;
