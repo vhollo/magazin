@@ -37,29 +37,25 @@
 }
 
 /* OVERFLOW w/ ELLIPSIS */
-.intro {
-  overflow: hidden;
-  /*margin-right: -1ch;*/
-}
-.intro table {
-  margin-bottom: .75rem;
-}
-.intro > :not(table) {
+.intro, .ellipsis /*> :not(table)*/ {
   display: -webkit-box;
   -webkit-line-clamp: 7;
   -webkit-box-orient: vertical; 
   margin: 0; 
+  overflow: hidden;
 }
-.intro table + p {
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical; 
-  margin: 0; 
+p.intro, .ellipsis p {
+  hyphens: auto;
 }
-.intro > :not(table) ~ * {
-  display: none;
+.ellipsis table ~ p {
+  display: none; 
 }
-
+.ellipsis > table {
+  @apply prose;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  margin-bottom: .75rem;
+}
 
 .prose :where(p):not(:where([class~="not-prose"],[class~="not-prose"] *)) {
   margin-top: .75em;

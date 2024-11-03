@@ -1,5 +1,6 @@
 ///** @type {import('./$types').PageServerLoad} */
 
+export const prerender = true
 import { modxDoc, modxDocs } from '$lib/index.ts'
 
 export async function load({ params }) {
@@ -52,13 +53,14 @@ export async function load({ params }) {
   }
 
   if (query.tags) {
+    //console.log(query.tags)
     docs = modxDocs.filter(doc => {
-      //console.log(doc.id, query.id)
-      doc.rank = doc.tvs.tag.filter(tag => query.tags.includes(tag) || !query.tags.length).length
+      doc.rank = query.tags.length && doc.tvs.tag.filter(tag => query.tags.includes(tag) /*|| !query.tags.length*/).length || 1
+      if (doc.id == 3991) console.log(doc)
       return doc.rank && doc.id != query.id && !doc.isfolder
     })/*.sort(d => d.rank)*/ || []
     docs.sort((a, b) => parseFloat(b.rank) - parseFloat(a.rank))
-    docs = docs.slice(0, 19)
+    docs = docs.slice(0, 18)
     //console.log(docs.length)
     //const intersection = array1.filter(element => array2.includes(element))
   }

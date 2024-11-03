@@ -1,9 +1,9 @@
 <script>
-  import Card from '$lib/components/Card.svelte'
+  import Cards from '$lib/components/Cards.svelte'
 // @ts-nocheck
 
   export let data
-  //console.log('p.s',data.doc)
+  //console.log('p.s',data.docs)
 
   $: doc = data.doc
   $: docs = data.docs
@@ -15,17 +15,9 @@
 </script>
 
 <main>
-  {#if docs}
-  <section class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-x-8 gap-y-12 px-6 py-12">
-    {#each docs as doc}
-      {@const card = {img: doc.tvs.img, pos: doc.tvs.pos, path: doc.path, title: doc.title, longtitle: doc.longtitle, introtext: doc.introtext, content: doc.content, tag: doc.tvs.tag}}
-      <Card {card}/>
-    {/each}
-  </section>
-  {/if}
   <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 p-4">
     <div class="card bg-base-300 shadow-xl">
-      <figure><img src="/assets/photo-1606107557195-0e29a4b5b4aa.jpg" alt="Shoes" width="928" height="548"/></figure>
+      <!--<figure><img src="/assets/photo-1606107557195-0e29a4b5b4aa.jpg" alt="Shoes" width="928" height="548"/></figure>-->
       <div class="card-body prose">
         <h2 class="card-title">
           Segítség, cukorbeteg vagyok!
@@ -40,7 +32,7 @@
     </div>
 
     <div class="card bg-base-300 shadow-xl">
-      <figure><img src="/assets/photo-1606107557195-0e29a4b5b4aa.jpg" alt="Shoes" width="928" height="548" /></figure>
+      <!--<figure><img src="/assets/photo-1606107557195-0e29a4b5b4aa.jpg" alt="Shoes" width="928" height="548" /></figure>-->
       <div class="card-body prose">
         <h2 class="card-title">
           Gesztációs diabétesz
@@ -55,7 +47,7 @@
     </div>
 
     <div class="card bg-base-300 shadow-xl">
-      <figure><img src="/assets/photo-1606107557195-0e29a4b5b4aa.jpg" alt="Shoes" width="928" height="548" /></figure>
+      <!--<figure><img src="/assets/photo-1606107557195-0e29a4b5b4aa.jpg" alt="Shoes" width="928" height="548" /></figure>-->
       <div class="card-body prose">
         <h2 class="card-title">
           Táplálkozás
@@ -71,7 +63,7 @@
     </div>
 
     <div class="card bg-base-300 shadow-xl">
-      <figure><img src="/assets/photo-1606107557195-0e29a4b5b4aa.jpg" alt="Shoes" width="928" height="548" /></figure>
+      <!--<figure><img src="/assets/photo-1606107557195-0e29a4b5b4aa.jpg" alt="Shoes" width="928" height="548" /></figure>-->
       <div class="card-body prose">
         <h2 class="card-title">
           Klubok, Egyesületek
@@ -86,19 +78,7 @@
     </div>
   </section>
 
-  <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-    <ul>
-      <li>Cikkek</li>
-      <li>Cikkek</li>
-      <li>Cikkek</li>
-      <li>Cikkek</li>
-      <li>Cikkek</li>
-      <li>Cikkek</li>
-      <li>Cikkek</li>
-      <li>Cikkek</li>
-      <li>Cikkek</li>
-      <li>Cikkek</li>
-      <li>Cikkek</li>
-    </ul>
-  </section>
+  {#if docs}
+    <Cards {docs}/>
+  {/if}
 </main>

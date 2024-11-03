@@ -14,13 +14,22 @@ import { modxdb } from '$lib/db'
 import Nagyito from '$lib/components/Nagyito.svelte'
 
 //const modxSiteContent = await modxdb.query.modx_site_content.findMany(10);
+
 let modxSiteContent:Array, tmplvarContentvalues:Array
-modxSiteContent = /*modxSiteContent ||*/ await modxdb.select().from(modx_site_content).orderBy(desc(modx_site_content.id)).where(gt(modx_site_content.id, 3900)).where(eq(modx_site_content.published, 1)).where(eq(modx_site_content.type, 'document'))/*.where(
-  or(
-    eq(users.id, 42), 
-    eq(users.name, 'Dan')
-  )
-)*/
+modxSiteContent = /*modxSiteContent ||*/ await modxdb.select().from(modx_site_content).orderBy(desc(modx_site_content.id)).where(
+  and(
+    /*gt(modx_site_content.id, '3900'),*/
+    eq(modx_site_content.published, '1'),
+    eq(modx_site_content.type, 'document'),
+    or(
+      eq(modx_site_content.template, '7'), 
+      eq(modx_site_content.template, '9'), 
+      eq(modx_site_content.template, '13')
+    )
+  ),
+)
+console.log('modxSiteContent',modxSiteContent.length)
+
 tmplvarContentvalues = /*tmplvarContentvalues ||*/ await modxdb.select().from(modx_site_tmplvar_contentvalues)
 export const modxSzerzok = await modxdb.select().from(modx_site_htmlsnippets).where(eq (modx_site_htmlsnippets.category, 24))
 //console.log(modxSzerzok)
@@ -60,15 +69,15 @@ const _addTVs = (doc => {
 
   doc.tvs.sze = []
   const sze = tvs.find(tv => tv.tmplvarid == 18)?.value.split(' ') || []
-  if (doc.id == '2961') console.log('TV:',sze)
+  //if (doc.id == '2961') console.log('TV:',sze)
   
   for (let i = 0; i < sze.length; i++) {
     const val = sze[i]
     const name = val.replaceAll('_', ' ') || ''
     
-    if (doc.id == '2961') console.log('VL',val);
+    //if (doc.id == '2961') console.log('VL',val);
     let snippet = modxSzerzok.find(sz => sz.name.normalize() == val)?.snippet
-    if (doc.id == '2961') console.log('SN:',snippet);
+    //if (doc.id == '2961') console.log('SN:',snippet);
 
     snippet = snippet && snippet.replace('src="/','src="' + BASE_URL).replace('src="assets','src="' + BASE_URL + 'assets') || null
     if (snippet && snippet.indexOf('<') !== 0) snippet = `<p class="alairas">${snippet}</p>`
@@ -76,7 +85,7 @@ const _addTVs = (doc => {
 
     doc.tvs.sze.push({'val': val, 'name': name, 'full': snippet})
   }
-  if (doc.id == '2961') console.log('SZ:',doc.tvs.sze);
+  //if (doc.id == '2961') console.log('SZ:',doc.tvs.sze);
 
   const pos = tvs.find(tv => tv.tmplvarid == 29)?.value || 'center'
   doc.tvs.pos = pos.replace('T', '0 10%').replace('B', '0 90%').replace('L', 'left').replace('R', 'right')
@@ -98,8 +107,9 @@ const _addTVs = (doc => {
 })
 
 export const _nagyito = doc => {
-  const regexp = /\[\[nagyito(.*?)\]\]/g
-  const matches = [...doc.content.matchAll(regexp)]
+  const regexp1 = /\[\[nagyito(.*?)\]\]/g
+  const regexp2 = /\[\!nagyito(.*?)\!\]/g
+  const matches = [...doc.content.matchAll(regexp1)] || [...doc.content.matchAll(regexp2)]
   matches?.forEach(match => {
     //console.log(match[1]);  // Text between [[nagyito and ]]
     let f, file
@@ -141,7 +151,13 @@ export const _nagyito = doc => {
 }
 
 const _alapjav = doc => {
-  doc.content.replace(' m2', ' m<sup>2</sup>').replace('A1c', 'A<sub>1c</sub>').replace('®', '<sup>®</sup>').replace().replace()
+  doc.content = doc.content.replace(' m2', ' m<sup>2</sup>').replace('A1c', 'A<sub>1c</sub>').replace('®', '<sup>®</sup>').replace('rel="external"', 'rel="noopener" target="_blank"').replace()
+  const regexp1 = /\[\[(.*?)\]\]/g
+  const regexp2 = /\[\!(.*?)\!\]/g
+  const regexp3 = /\{\{(.*?)\}\}/g
+  doc.content = doc.content.replace(regexp1, '')
+  doc.content = doc.content.replace(regexp2, '')
+  doc.content = doc.content.replace(regexp3, '')
   return doc
 }
 
@@ -151,6 +167,7 @@ for (let doc of modxSiteContent) {
   //console.log(doc.id)
   doc = _nagyito(doc)
   doc = _alapjav(doc)
+  if (doc.id == 3991) console.log(doc)
 }
 
 export const modxDocs = modxSiteContent

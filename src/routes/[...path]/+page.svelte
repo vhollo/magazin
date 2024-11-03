@@ -1,5 +1,5 @@
 <script>
-  import Card from '$lib/components/Card.svelte'
+  import Cards from '$lib/components/Cards.svelte'
 // @ts-nocheck
 
   export let data
@@ -12,7 +12,7 @@
 
   $: pubdate = doc && new Date(doc.publishedon * 1000).toLocaleDateString('hu-HU')
   $: editdate = doc && new Date(doc.editedon * 1000).toLocaleDateString('hu-HU')
-  $: console.log(doc.tvs.sze)
+  //$: console.log(doc.tvs.sze)
 </script>
 
 <main>
@@ -56,18 +56,6 @@
   {/if}
 
   {#if docs}
-  <section class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-x-8 gap-y-12 px-6 py-12">
-    {#each docs as doc}
-      {@const card = {img: doc.tvs.img, pos: doc.tvs.pos, path: doc.path, title: doc.title, longtitle: doc.longtitle, introtext: doc.introtext, content: doc.content, tag: doc.tvs.tag}}
-      <Card {card}/>
-    {/each}
-  </section>
+    <Cards {docs}/>
   {/if}
 </main>
-
-
-<style>
-  section.grid {
-    grid-template-rows: masonry;
-  }
-</style>
