@@ -3,66 +3,82 @@
 export const prerender = true
 import { modxDoc, modxDocs } from '$lib/index.ts'
 
+interface Docs {
+  [key: string]: object;
+}
+
+const queries = {
+  //'s-o-s': ['testmozgás', 'megelőzés', 'önellenőrzés', 'kezelés', 'szakellátás'],
+  's-o-s': ['diabpont'],
+  'gdm': ['várandósság'],
+  'recept': ['recept'],
+  'klub': ['egyesület', 'közösség'],
+  'önellenőrzés': ['önellenőrzés'],
+  'táplálkozás': ['táplálkozás'],
+  'testmozgás': ['testmozgás'],
+  'jog': ['jog'],
+  'idegrendszer': ['neuropátia', 'szövődmények', 'edukáció'],
+  'vese': ['vese'],
+  'látás': ['retinopátia'],
+  'végtag': ['neuropátia', 'megelőzés', 'önellenőrzés'],
+  'hypertonia': ['hypertonia'],
+  'társbetegségek': ['társbetegségek'],
+  'egyesület-klub': ['egyesület'],
+  'esemény': ['közösség', 'beszámoló'],
+  'rendezvény': ['rendezvény'],
+  'tags': [],
+}
+
+const docsByTags = (tags, id) => {
+  console.log({tags})
+  let docs = modxDocs.filter(doc => {
+    doc.rank = tags.length && doc.tvs.tag.filter(tag => tags.includes(tag)).length || 0
+    //if (doc.rank > 1) console.log('R',doc.rank)
+    return doc.id != id && !doc.isfolder
+  }) || []
+  docs.sort((a, b) => parseFloat(b.rank) - parseFloat(a.rank))
+  return docs.slice(0, 18)
+}
+
+
 export async function load({ params }) {
   //if (!params.path) return {}
-  console.log('path:',params.path)
+  //console.log('path:',params.path)
+  let query = {}, doc, docs:Docs = {}
 
-  let query, doc, docs
-  switch (params.path) {
+  /*switch (params.path) {
     case 'gdm':
-      query = {
-        "id": [3552],
-        "tags": [ 'várandósság'],
-        /*"szerzo": [ 'Herth_Viktória', ],*/
-      }
-      doc = modxDocs.find(d => d.id == query.id)
-      break
     case 's-o-s':
-      query = {
-        //"id": [3905],
-        //"tags": [ 'korai_felismerés'],
-        //"tags": [ 'egyesület', 'mozgás'], // pl. Sportos Cukros
-        "tags": ['testmozgás', 'megelőzés', 'önellenőrzés', 'kezelés', 'szakellátás'],
-        /*"tags": [ 'személyes', 'közösség', 'egyesület'],*/
-        /*"szerzo": [ 'Herth_Viktória', ],*/
-      }
-      //doc = modxDocs.find(d => d.id == query.id)
-      break
     case 'recept':
-      query = {
-        //"id": [3867],
-        "tags": ['recept'],
-        /*"szerzo": [ 'Herth_Viktória', ],*/
-      }
-      //doc = modxDocs.find(d => d.id == query.id)
+    case 'klub':
+      query[params.path] = queries[params.path]
       break
     case undefined:
-      query = {
-        //"id": [3867],
-        "tags": [],
-        /*"szerzo": [ 'Herth_Viktória', ],*/
-      }
+      query = queries
       break
     default:
-      doc = modxDoc(params.path)
-      query = {
-        "id": [doc.id],
-        "tags": doc.tvs.tag
-      }
-      //console.log('DEFAULT',query.id,query.tags)
+      doc = modxDoc(params.path) || {}
+      query['tags'] = doc.tvs?.tag || []
+  }*/
+
+  switch (true) {
+    case params.path === undefined:
+      query = queries
+      break
+    case !!queries[params.path]?.length:
+      query[params.path] = queries[params.path]
+      console.log('path:',params.path)
+      break
+    default:
+      doc = modxDoc(params.path) || {}
+      query['tags'] = doc.tvs?.tag || []
+      console.log('ID:',doc.id)
   }
 
-  if (query.tags) {
-    //console.log(query.tags)
-    docs = modxDocs.filter(doc => {
-      doc.rank = query.tags.length && doc.tvs.tag.filter(tag => query.tags.includes(tag) /*|| !query.tags.length*/).length || 1
-      if (doc.id == 3991) console.log(doc)
-      return doc.rank && doc.id != query.id && !doc.isfolder
-    })/*.sort(d => d.rank)*/ || []
-    docs.sort((a, b) => parseFloat(b.rank) - parseFloat(a.rank))
-    docs = docs.slice(0, 18)
-    //console.log(docs.length)
-    //const intersection = array1.filter(element => array2.includes(element))
+  //console.log(Object.keys(query))
+  for (let k of Object.keys(query)) {
+    docs[k] = docsByTags(query[k], doc?.id)
+    //console.log(k,query[k], docs)
   }
 
   return {doc, docs}

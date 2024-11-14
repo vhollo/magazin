@@ -17,7 +17,7 @@
 */</script>
 
 <aside class="card card-compact bg-base-300 {img.align}">
-  <figure class="card-body">
+  <figure class="card-body my-0">
     <img src={img.file} alt="{img.desc}" class:zoom={!!img.zoom}>
     {#if img.desc}
     <figcaption class="">{@html img.desc}</figcaption>

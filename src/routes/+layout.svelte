@@ -1,8 +1,15 @@
 <script>
-	import '../app.postcss';
-	import Nav from '$lib/components/Nav.svelte';
-	//export let data;
+	import '../app.postcss'
+  import Nav from '$lib/components/Nav.svelte'
+	//export let data
+  //if (data.doc.id == '3284') console.log(data.doc)
 </script>
+
+<!--<svelte:head>
+  {#if data.doc?.script}
+    {@html data.doc.script}
+  {/if}
+</svelte:head>-->
 
 <Nav/>
 <slot></slot>

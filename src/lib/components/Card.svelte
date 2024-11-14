@@ -33,12 +33,12 @@
       //card.ellipsis += introtext && `<p>${introtext}</p>` || card.content
     }
 
-    if (!card.ellipsis) card.ellipsis = card.content.match(/<(?!aside\b|figure\b|img\b|h2\b|h3\b|ul\b|li\b)([a-zA-Z]+)\b[^>]*>[\s\S]*?<\/\1>/g)?.slice(0, 2).join('')
+    if (!card.ellipsis) card.ellipsis = card.content.match(/<(?!aside\b|figure\b|img\b|h2\b|h3\b|ul\b|li\b)(.*?)\b[^>]*>[\s\S]*?<\/\1>/g)?.slice(0, 2).join('')
     //console.log(card.ellipsis)
   }
 </script>
 
-<aside class:double={card.img} class="card card-compact bg-base-300 shadow-xl">
+<aside class:double={card.img} class="card card-compact bg-base-100 shadow-xl">
   {#if card.img}
     <figure>
       <a href={`/${card.path}`}>
@@ -54,7 +54,7 @@
   {/if}
   <div class="card-body justify-between">
     <a href={`/${card.path}`}>
-      {#if card.desc}<h4 class="italic">{card.desc}</h4>{/if}
+      {#if card.desc}<h4 class="italic">{@html card.desc}</h4>{/if}
       <h2 class="card-title">
         {@html card.longtitle || card.title}
       </h2>
@@ -73,4 +73,9 @@
   aside.double {
     grid-row-end: span 2;
   }
+/*section .card > figure*/ img {
+  aspect-ratio: var(--imgratio);
+}
+
+
 </style>

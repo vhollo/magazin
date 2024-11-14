@@ -8,6 +8,10 @@
   --lh: 1.75rem; /* line-height */
   --lh: clamp(1.75rem, 0.875vw + 1.488rem, 2.188rem);
   --lh-card: 1.25rem; /* card line-height */
+  --rounded-box: 0.4rem;
+  --rounded-btn: 0.2rem;
+  --rounded-badge: 0.4rem;
+  --tab-radius: 0.2rem;
 }
 
 
@@ -34,27 +38,41 @@
 
 .card a {
   text-decoration: none;
+  height: -webkit-fill-available;
+}
+.prose :where(a):not(:where([class~="not-prose"],[class~="not-prose"] *)) {
+  text-decoration: dashed underline;
 }
 
 /* OVERFLOW w/ ELLIPSIS */
-.intro, .ellipsis /*> :not(table)*/ {
+.intro, .ellipsis, .twoliner {
   display: -webkit-box;
-  -webkit-line-clamp: 7;
+  -webkit-line-clamp: 5;
   -webkit-box-orient: vertical; 
   margin: 0; 
   overflow: hidden;
 }
-p.intro, .ellipsis p {
+/*.intro, .ellipsis {
+  -webkit-line-clamp: 7;
+}*/
+.twoliner {
+  -webkit-line-clamp: 2;
+}
+p.intro, .ellipsis p, .twoliner {
   hyphens: auto;
 }
-.ellipsis table ~ p {
+p.intro a, .ellipsis p a, .twoliner a {
+  text-decoration: dashed underline;
+}
+.ellipsis table ~ p, .twoliner table ~ p {
   display: none; 
 }
-.ellipsis > table {
+.ellipsis > table, .twoliner > table {
   @apply prose;
   font-size: 0.875rem;
   line-height: 1.25rem;
   margin-bottom: .75rem;
+  margin-top: 0;
 }
 
 .prose :where(p):not(:where([class~="not-prose"],[class~="not-prose"] *)) {
@@ -76,32 +94,42 @@ p.intro, .ellipsis p {
 .nicebox > h3 {
   @apply card-title;
 }
+.nicebox figure {
+  @apply my-0;
+  text-align: center;
+  width: 100%;
+}
 .nicebox figure img {
   object-fit: contain;
 }
 .nicebox i, .nicebox em, .nicebox strong, .nicebox b  {
   display: contents;
 }
-.card figure {
-  @apply my-0;
-  text-align: center;
-  width: 100%;
-}
-/*figure.pageimage {
-  text-align: center;
-  width: 100%;
-}*/
+
 figure.pageimage img, article .card img {
   max-height: 75vh;
 }
-/*.left, .right {
-  @apply card-side;
-}*/
-/*.card.left:has(.card-body), .card.right:has(.card-body) {
-  @apply card-side;
-}*/
+.prose {
+  container-type: inline-size;
+}
+.left, .right {
+  width: 50%;
+}
+@container (max-width: 54ch) {
+  .left, .right {
+    width: 100%;
+  }
+  }
+.left {
+  float: left;
+  margin-right: 1rem;
+}
+.right {
+  float: right;
+  margin-left: 1rem;
+}
 .card.left figure, .card.right figure {
-  max-width: 50%;
+  /*max-width: 50%;*/
   margin-inline: auto;
 }
 /*.card.left p, .card.right p {
@@ -115,10 +143,6 @@ figure.pageimage img, article .card img {
   @apply not-italic block normal-case;
 }
 
-section .card > figure img {
-  aspect-ratio: var(--imgratio);
-}
-
 #szerzo {
   @apply card bg-base-300 px-4 my-8;
   display: grid;
@@ -126,12 +150,12 @@ section .card > figure img {
   grid-template-columns: 10ch auto;
   grid-template-rows: auto;
 }
-#szerzo img + .nev {
-  line-height: 1;
-}
 #szerzo img {
   grid-row-start: 1;
   grid-row-end: 3;
+}
+#szerzo img + .nev {
+  line-height: 1;
 }
 #szerzo p + p {
   grid-column-start: 1;
