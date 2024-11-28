@@ -12,6 +12,8 @@
   --rounded-btn: 0.2rem;
   --rounded-badge: 0.4rem;
   --tab-radius: 0.2rem;
+  background-color: var(--fallback-b1, oklch(var(--b3) / 1));
+  /*interpolate-size: allow-keywords;*/
 }
 
 
@@ -40,9 +42,33 @@
   text-decoration: none;
   height: -webkit-fill-available;
 }
-.prose :where(a):not(:where([class~="not-prose"],[class~="not-prose"] *)) {
-  text-decoration: dashed underline;
+.card img {
+  aspect-ratio: var(--imgratio);
 }
+.prose :where(a):not(:where([class~="not-prose"],[class~="not-prose"] *)) {
+  /*text-decoration: dashed underline;*/
+  text-decoration: none;
+}
+
+/* NAGYITO */
+article figure {
+  /*margin-top: 2em;
+  margin-bottom: 2em;*/
+  background-color: transparent;
+}
+/*.card-hollow {
+  @apply card-compact;
+  margin-top: 2em;
+  margin-bottom: 2em;
+  background-color: transparent;
+}
+.card-hollow .card-body {
+  gap: 0;
+  margin-top: 0;
+  margin-bottom: 0;
+  padding: 0!important;
+}*/
+
 
 /* OVERFLOW w/ ELLIPSIS */
 .intro, .ellipsis, .twoliner {
@@ -58,9 +84,9 @@
 .twoliner {
   -webkit-line-clamp: 2;
 }
-p.intro, .ellipsis p, .twoliner {
+/*p.intro, .ellipsis p, .twoliner {
   hyphens: auto;
-}
+}*/
 p.intro a, .ellipsis p a, .twoliner a {
   text-decoration: dashed underline;
 }
@@ -85,8 +111,13 @@ p.intro a, .ellipsis p a, .twoliner a {
 .prose figcaption a {
   --tw-prose-links: var(--fallback-bc,oklch(var(--bc)/.75));
 }
-.nicebox {
-  @apply card bg-base-300 shadow-xl card-body p-4 my-16;
+article .nicebox {
+  @apply card card-compact bg-base-100 shadow-xl card-body p-4 my-[2.8rem];
+}
+.twoliner .nicebox {
+  @apply shadow-none;
+  margin: 0;
+  padding: 0;
 }
 .nicebox > * {
   @apply my-0;
@@ -106,7 +137,7 @@ p.intro a, .ellipsis p a, .twoliner a {
   display: contents;
 }
 
-figure.pageimage img, article .card img {
+article figure img {
   max-height: 75vh;
 }
 .prose {
@@ -114,6 +145,8 @@ figure.pageimage img, article .card img {
 }
 .left, .right {
   width: 50%;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
 }
 @container (max-width: 54ch) {
   .left, .right {
@@ -144,7 +177,7 @@ figure.pageimage img, article .card img {
 }
 
 #szerzo {
-  @apply card bg-base-300 px-4 my-8;
+  @apply card bg-base-100 px-4 my-8;
   display: grid;
   gap: 0 2rem;
   grid-template-columns: 10ch auto;
@@ -153,6 +186,7 @@ figure.pageimage img, article .card img {
 #szerzo img {
   grid-row-start: 1;
   grid-row-end: 3;
+  aspect-ratio: 1;
 }
 #szerzo img + .nev {
   line-height: 1;

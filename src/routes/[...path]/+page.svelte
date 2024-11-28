@@ -3,19 +3,26 @@
 // @ts-nocheck
 
   export let data
-  console.log('p.s',data.doc)
+  $: console.log('p.s.', doc.id, data.docs.tags.length)
+  let pagenum = 1//data.page
 
   //$: (data) => { doc = data.doc stb…}
   $: doc = data.doc
-  $: docs = data.docs
-  const base = 'https://www.diabetes.hu/'
+  $: docs = data.docs.tags.slice(0, 18 * pagenum)
 
   $: pubdate = doc && new Date(doc.publishedon * 1000).toLocaleDateString('hu-HU')
   $: editdate = doc && new Date(doc.editedon * 1000).toLocaleDateString('hu-HU')
+  const base = 'https://www.diabetes.hu/'
+
+  const _pagenum = () => {
+    pagenum++
+    docs = data.docs.tags.slice(0, 18 * pagenum)
+    if (18 * pagenum > data.docs.tags.length) pagenum = 0
+  }
 </script>
 
 <main>
-  {#if doc}
+  {#if doc.id}
     <!--{@const date = new Date(doc.publishedon * 1000).toLocaleDateString('hu-HU')}-->
     <!--{@const meta = [doc.tvs.sze, date, doc.tvs.cat].join(' | ')}-->
     <article class="prose mx-auto px-4 py-12">
@@ -35,9 +42,16 @@
           <small class="badge badge-outline badge-sm">{tag}</small>
         {/each}
       </aside>
-      {#if doc.tvs.img}
+      <!--{#if doc.tvs.img}
       <figure class="pageimage text-center w-full">
-        <img class="mx-auto" style={`object-fit: contain;`} src={`${base}${doc.tvs.img}`} alt="">
+        <img class="mx-auto" style={`object-fit: contain;`} src={doc.tvs.img} alt="">
+        <figcaption>{@html doc.tvs.credit}</figcaption>
+      </figure>
+      {/if}-->
+      {#if doc.img}
+      <figure class="pageimage text-center w-full">
+        <img class="mx-auto" style={`object-fit: contain;`} src={doc.img.src} alt="">
+        <figcaption>{@html doc.img.caption}</figcaption>
       </figure>
       {/if}
       <!--<p class="uppercase"><small></small></p>-->
@@ -54,9 +68,17 @@
     </article>
   {/if}
 
-  {#if docs}
-    {#each Object.keys(docs) as key}
-      <Cards docs={docs[key]}/>
-    {/each}
+  {#if docs?.length}
+    <!--{#each Object.keys(docs) as key}-->
+      <Cards docs={docs}/>
+    <!--{/each}-->
+  {:else}
+    <h3>NO DOCS</h3>
   {/if}
 </main>
+
+{#if pagenum > 0}
+<footer class="footer footer-center bg-base-200 text-base-content p-2">
+  <button on:click={_pagenum} class="btn btn-outline">További cikkek</button>
+</footer>
+{/if}

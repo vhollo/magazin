@@ -1,36 +1,57 @@
 <script>
+  import { PUBLIC_BASE_URL } from '$env/static/public'
   //export let data
 </script>
 
 <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
-<nav class="navbar">
-  <ul class=" mx-auto">
+<nav class="navbar bg-neutral pt-1 min-h-0">
+  <ul class="mx-auto">
     <li class="dropdown">
-      <div tabindex="0" role="button" class="btn, m-1">
-        <a href="/" class="menu">Kezdőlap</a>
+      <div tabindex="0" role="button" class="btn btn-md m-1 btn-ghost">
+        <a href="/"><img class="h-7" src={`${PUBLIC_BASE_URL}assets/templates/magazine/images/logo-diabetes2.svg`} alt="diabetes.hu"></a>
       </div>
     </li>
-    <li class="dropdown dropdown-start">
-      <div tabindex="0" role="button" class="btn m-1">Kezelés</div>
+    <!--<li class="dropdown dropdown-start">
+      <div tabindex="0" role="button" class="btn btn-sm m-1">Kezelés</div>
         <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow rounded-box w-56  bg-base-100">
           <li>Inzulinok</li>
           <li>Gyógyszerek</li>
           <li>Technikai eszközök</li>
-          <li><a href="/családorvos">Orvos–beteg kapcsolat</a></li>
+          <li><a href="/orvos-beteg">Orvos–beteg kapcsolat</a></li>
+          <li><a href="/önellenőrzés">Önmenedzselés</a></li>
+        </ul>
+    </li>-->
+  </ul>
+</nav>
+<nav class="navbar bg-neutral py-1 min-h-0">
+  <ul class="mx-auto">
+    <!--<li class="dropdown">
+      <div tabindex="0" role="button" class="m-1">
+        <a href="/" class="btn btn-sm">Kezdőlap</a>
+      </div>
+    </li>-->
+    <li class="dropdown dropdown-start">
+      <div tabindex="0" role="button" class="btn btn-sm m-1">Kezelés</div>
+        <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow rounded-box w-56  bg-base-100">
+          <li>Inzulinok</li>
+          <li>Gyógyszerek</li>
+          <li>Technikai eszközök</li>
+          <li><a href="/orvos-beteg">Orvos–beteg kapcsolat</a></li>
           <li><a href="/önellenőrzés">Önmenedzselés</a></li>
         </ul>
     </li>
     <li class="dropdown dropdown-start">
-      <div tabindex="0" role="button" class="btn m-1">Életmód</div>
+      <div tabindex="0" role="button" class="btn btn-sm m-1">Életmód</div>
         <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow rounded-box w-56  bg-base-100">
           <li><a href="/recept">Receptek</a></li>
           <li><a href="/táplálkozás">Táplálkozás</a></li>
           <li><a href="/testmozgás">Testmozgás</a></li>
+          <li><a href="/psziché">Psziché</a></li>
           <li><a href="/jog">Jogi útmutatók</a></li>
         </ul>
     </li>
     <li class="dropdown dropdown-start">
-      <div tabindex="0" role="button" class="btn m-1">Szövődmények</div>
+      <div tabindex="0" role="button" class="btn btn-sm m-1">Szövődmények</div>
         <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow rounded-box w-56  bg-base-100">
           <li><a href="/idegrendszer">Idegrendszer</a></li>
           <li><a href="/vese">Vese</a></li>
@@ -41,32 +62,30 @@
         </ul>
     </li>
     <li class="dropdown dropdown-center">
-      <div tabindex="0" role="button" class="btn m-1">Közösségi élet</div>
+      <div tabindex="0" role="button" class="btn btn-sm m-1">Közösségi élet</div>
         <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow rounded-box w-56  bg-base-100">
-          <li><a href="/egyesület-klub">Egyesületek-klubok (felnőtt, gyerek)</a></li>
+          <li><a href="/egyesület">Egyesületek</a></li>
+          <li><a href="/közösség">Közösség</a></li>
           <li><a href="/esemény">Események</a></li>
           <li><a href="/rendezvény">Rendezvények</a></li>
-          <li></li>
-          <li></li>
-          <li></li>
         </ul>
     </li>
     <li class="dropdown dropdown-end">
-      <div tabindex="0" role="button" class="btn m-1">Portrék</div>
+      <div tabindex="0" role="button" class="btn btn-sm m-1">Portrék</div>
         <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow rounded-box w-56  bg-base-100">
-          <li>Gyógyítók</li>
-          <li>Példaképek</li>
+          <li><a href="/portrék">Gyógyítók</a></li>
+          <li><a href="/sorstársak">Sorstársak</a></li>
         </ul>
     </li>
     <li class="dropdown dropdown-end">
-      <div tabindex="0" role="button" class="btn m-1">Gyermekvállalás</div>
+      <div tabindex="0" role="button" class="btn btn-sm m-1">Gyermekvállalás</div>
         <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow rounded-box w-56  bg-base-100">
           <li>Gesztációs diabétesz</li>
           <li>Várandósság cukorbetegséggel</li>
         </ul>
     </li>
     <li class="dropdown dropdown-end">
-      <div tabindex="0" role="button" class="btn m-1">Impresszum</div>
+      <div tabindex="0" role="button" class="btn btn-sm m-1">Impresszum</div>
         <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow rounded-box w-56  bg-base-100">
           <li>Alapítvány a Cukorbetegekért</li>
           <li>Tudomány Kiadó</li>
@@ -77,6 +96,11 @@
 </nav>
 
 <style>
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+  }
   /*nav {
     overflow: auto hidden;
   }*/

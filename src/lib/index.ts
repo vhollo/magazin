@@ -1,6 +1,6 @@
 // place files you want to import through the `$lib` alias in this folder.
 
-import { BASE_URL } from '$env/static/private';
+import { PUBLIC_BASE_URL } from '$env/static/public';
 
 import { eq, gt, lt, gte, lte, ne, asc, desc, and, or } from "drizzle-orm"
 //import { json, text, error } from '@sveltejs/kit'
@@ -36,9 +36,10 @@ export const modxSzerzok = await modxdb.select().from(modx_site_htmlsnippets).wh
 
 export const modxDocs = modxSiteContent
 
-export const modxDoc = ((p) => {
-  return modxSiteContent.filter(d => d.path == p)[0]
-})
+export const modxDoc = p => {
+  //console.log('P:',p)
+  return modxSiteContent.find(d => d.path == p)
+}
 
 
 const _findPath = (doc => {
@@ -70,7 +71,7 @@ const _addTVs = (doc => {
   doc.tvs.cat = cats[cat] || ''
 
   const tags = tvs.find(tv => tv.tmplvarid == 3)?.value || ''
-  doc.tvs.tag = tags.replace('diabetes','').replace('terhesség','várandósság').split(' ').filter(t => t != '') || []
+  doc.tvs.tag = tags.replace('diabetes','').replace('terhesség','várandósság').replace('családorvos','orvosok').split(' ').filter(t => t != '') || []
   if (tvs.find(tv => tv.tmplvarid == 30)) {
     doc.tvs.tag.push('diabpont')
     if (doc.description.match(/diabpont/gi) || doc.description == '') doc.description = 'DiabPONT Továbbképző program'
@@ -90,7 +91,7 @@ const _addTVs = (doc => {
     let snippet = modxSzerzok.find(sz => sz.name.normalize() == val)?.snippet
     //if (doc.id == '2961') console.log('SN:',snippet);
 
-    snippet = snippet && snippet.replace('src="/','src="' + BASE_URL).replace('src="assets','src="' + BASE_URL + 'assets') || null
+    snippet = snippet && snippet.replace('src="/','src="' + PUBLIC_BASE_URL).replace('src="assets','src="' + PUBLIC_BASE_URL + 'assets') || null
     if (!snippet && span) {
       snippet = name
       name = name.replace(span[0], '')
@@ -104,19 +105,20 @@ const _addTVs = (doc => {
   //if (doc.id == '2961') console.log('SZ:',doc.tvs.sze);
 
   const pos = tvs.find(tv => tv.tmplvarid == 29)?.value || 'center'
-  doc.tvs.pos = pos.replace('T', '0 10%').replace('B', '0 90%').replace('L', 'left').replace('R', 'right')
+  //doc.tvs.pos = pos.replace('T', '50% 10%').replace('B', '50% 90%').replace('L', 'left').replace('R', 'right')
   
-  const credit = tvs.find(tv => tv.tmplvarid == 29)?.value || ''
-  doc.tvs.img = tvs.find(tv => tv.tmplvarid == 4)?.value || ''
-  /*doc.tvs.img = pimg!!pimg && Nagyito.render({
-    img: { 
-      file: pimg,
-      desc: credit,
-      align: doc.tvs.pos,
-      zoom: true,
-    }
-  }) || ''*/
+  //doc.tvs.credit = tvs.find(tv => tv.tmplvarid == 28)?.value || ''
+  
+  const img = tvs.find(tv => tv.tmplvarid == 4)?.value || ''
+  //img = img && PUBLIC_BASE_URL + img || ''
+  doc.img = img && {
+    'src': img && PUBLIC_BASE_URL + img || '',
+    'pos': pos.replace('T', '50% 10%').replace('B', '50% 90%').replace('L', 'left').replace('R', 'right'),
+    'ext': img && img.split('.').pop() || '',
+    'caption': tvs.find(tv => tv.tmplvarid == 28)?.value || '',
+  } || null
 
+  //doc.tvs.img = img && PUBLIC_BASE_URL + img || ''
   doc.tvs.ogi = tvs.find(tv => tv.tmplvarid == 25)?.value || ''
   
   return doc
@@ -124,32 +126,27 @@ const _addTVs = (doc => {
 
 export const _nagyito = doc => {
   const regexp1 = /\[\[nagyito(.*?)\]\]/g
-  const regexp2 = /\[\!nagyito(.*?)\!\]/g
+  const regexp2 = /\[!nagyito(.*?)!\]/g
   const matches = [...doc.content.matchAll(regexp1)] || [...doc.content.matchAll(regexp2)]
   matches?.forEach(match => {
     //console.log(match[1]);  // Text between [[nagyito and ]]
     let f, file
     if (match[1].indexOf('file=') !== -1) {
       f = [...match[1].match(/file=\`(.*?)\`/)]
-      file = BASE_URL + 'assets/images/' + f[1] 
+      file = PUBLIC_BASE_URL + 'assets/images/' + f[1] 
     } else if (match[1].indexOf('path=') !== -1) {
       f = [...match[1].match(/path=\`(.*?)\`/)]
-      file = BASE_URL + f[1] 
+      file = PUBLIC_BASE_URL + f[1] 
     } else if (match[1].indexOf('url=') !== -1) {
       f = [...match[1].match(/url=\`(.*?)\`/)]
-      file = BASE_URL + f[1] 
+      file = PUBLIC_BASE_URL + f[1] 
     }
-    if (doc.tvs.img.indexOf(f[1]) !== -1) {
+    if (doc.img?.src.indexOf(f[1]) !== -1) {
       doc.content = doc.content.replace(match[0], '<!-- PAGEIMAGE -->')
     } else {        
-      //console.log(match[1].indexOf('align='))
       const align = match[1].indexOf('align=') !== -1 && [...match[1].match(/align=\`(.*?)\`/)]
-      //console.log(match[1].indexOf('zoom='))
       const zoom = match[1].indexOf('zoom=') !== -1 && [...match[1].match(/zoom=\`(.*?)\`/)]
-      //console.log(match[1].indexOf('desc='))
       const desc = match[1].indexOf('desc=') !== -1 && [...match[1].match(/desc=\`(.*?)\`/)]
-      //console.log('nagyito:',file[1])
-      //console.log('pageimg:',doc.tvs.img)
       const { html } = file[1] && Nagyito.render({
         img: { 
           file: file,
@@ -158,10 +155,8 @@ export const _nagyito = doc => {
           zoom: zoom[1] || '',
         }
       }) || ''
-      //console.log(replace)
       doc.content = doc.content.replace(match[0], html)
     }
-    //console.log('  match:',match[0])
   })
   return doc
 }
@@ -173,7 +168,7 @@ const _getById = (match, p1, p2) => {
 }
 
 const _alapjav = doc => {
-  doc.content = doc.content.replaceAll(' m2', ' m<sup>2</sup>').replaceAll('A1c', 'A<sub>1c</sub>').replaceAll('®', '<sup>®</sup>').replaceAll('rel="external"', 'rel="noopener" target="_blank"').replaceAll('"assets', `"${BASE_URL}assets`)
+  doc.content = doc.content.replaceAll(' m2', ' m<sup>2</sup>').replaceAll('A1c', 'A<sub>1c</sub>').replaceAll('®', '<sup>®</sup>').replaceAll('rel="external"', 'rel="noopener" target="_blank"').replaceAll('"assets', `"${PUBLIC_BASE_URL}assets`)
   
   const modxlink = /\[\~(\d*)\~\]/g
   doc.content = doc.content.replaceAll(modxlink, _getById)
@@ -188,11 +183,11 @@ const _alapjav = doc => {
     console.log(doc.id,repl)
   }*/
   
-  const regexp1 = /\[\[(.*?)\]\]/g
-  const regexp2 = /\[\!(.*?)\!\]/g
-  const regexp3 = /\{\{(.*?)\}\}/g
-  const regexp4 = /\[\+(.*?)\+\]/g
-  doc.content = doc.content.replaceAll(regexp1, '').replaceAll(regexp2, '').replaceAll(regexp3, '').replaceAll(regexp4, '')
+  const regexp1 = /\[\[.*?\]\]/gs
+  const regexp2 = /\[!.*?!\]/gs
+  const regexp3 = /\{\{.*?\}\}/gs
+  const regexp4 = /\[\+.*?\+\]/gs
+  //doc.content = doc.content.replaceAll(regexp1, '').replaceAll(regexp2, '').replaceAll(regexp3, '').replaceAll(regexp4, '')
 
   return doc
 }

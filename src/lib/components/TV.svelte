@@ -13,7 +13,7 @@
 
   let out
   const {key, val} = Object.entries(tv)[0]
-  console.log(key, val)
+  //console.log(key, val)
   switch (key) {
     case 'sze':
       out = val.replace('_', ' ')

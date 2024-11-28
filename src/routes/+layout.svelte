@@ -1,8 +1,9 @@
 <script>
 	import '../app.postcss'
   import Nav from '$lib/components/Nav.svelte'
+  import Footer from '$lib/components/Footer.svelte'
+  //import { page } from '$app/stores'
 	//export let data
-  //if (data.doc.id == '3284') console.log(data.doc)
 </script>
 
 <!--<svelte:head>
@@ -13,4 +14,5 @@
 
 <Nav/>
 <slot></slot>
+<Footer/>
 <!--<p>Share <a href={`/cikkek/diabetes/2306/lent-es-fent`}>/cikkek/diabetes/2306/lent-es-fent</a></p>-->
