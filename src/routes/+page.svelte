@@ -4,15 +4,21 @@
 // @ts-nocheck
 
   export let data
-  //console.log('p.s',data.docs)
+  console.log('p.s',data.docs.length)
+  let pagenum = 1
 
   //$: doc = data.doc
-  $: docs = data.docs
-  //const base = 'https://www.diabetes.hu/'
+  let docs = data.docs.slice(0, 18 * pagenum)
 
   //$: pubdate = doc && new Date(doc.publishedon * 1000).toLocaleDateString('hu-HU')
   //$: editdate = doc && new Date(doc.editedon * 1000).toLocaleDateString('hu-HU')
-  //$: console.log(docs)
+  //$: console.log(docs.length)
+  const _pagenum = () => {
+    pagenum++
+    docs = data.docs.slice(0, 18 * pagenum)
+    if (18 * pagenum >= data.docs.length) pagenum = 0
+    console.log(pagenum, docs.length)
+  }
 </script>
 
 <main>
@@ -23,143 +29,34 @@
     </aside>
 
     <aside class="carousel-item card card-compact bg-base-100 shadow-xl max-w-md max-h-1/2">
-      <Card card={ {'img':'https://img.daisyui.com/images/stock/photo-1601004890684-d8cbf643f5f2.webp', 'pos': '50% 50%', 'longtitle': 'Gesztációs diabétesz', 'introtext': 'Várandósság cukorbetegen', 'tags': '', 'buttons': {'Bevezető': '/gdm', 'Válogatott cikkek': '/gdm'} } }/>
+      <Card card={ {'img':'assets/gdm.jpg', 'pos': '50% 50%', 'longtitle': 'Gesztációs diabétesz', 'introtext': 'Várandósság cukorbetegen', 'tags': '', 'buttons': {'Bevezető': '/cikkek/diabetes/gdm2024/praktikus-tanacsok-krisztinatol', 'Válogatott cikkek': '/gdm'} } }/>
     </aside>
 
     <aside class="carousel-item card card-compact bg-base-100 shadow-xl max-w-md max-h-1/2">
-      <figure><img alt="" src="https://img.daisyui.com/images/stock/photo-1559703248-dcaaec9fab78.webp" width="928" height="548"/></figure>
-      <div class="card-body prose">
-        <h2 class="card-title">
-          Segítség, cukorbeteg vagyok!
-          <div class="badge badge-secondary">NEW</div>
-        </h2>
-        <p class="intro">Sokszor azt gondoljuk, ha egy betegség elindul, törvényszerűen romlik. Ez egyáltalán nem biztos! A folyamat attól függ, hogy mennyire sikerül a gyorsító, rontó folyamatokat kiküszöbölnünk, és mennyire hagyjuk a védekező mechanizmusainkat érvényesülni.</p>
-        <!--<Cards docs={docs['s-o-s']} full={false}/>-->
-
-        <div class="card-actions justify-end mt-4">
-          <a class="btn btn-sm btn-outline" href="/cikkek/diabetes/2401/csak-a-cukor-szamit-vagy-a-nagy-egesz">Bevezető</a>
-          <a class="btn btn-sm btn-outline" href="/s-o-s">Válogatott cikkek</a>
-        </div>
-      </div>
+      <Card card={ {'img':'https://img.daisyui.com/images/stock/photo-1601004890684-d8cbf643f5f2.webp', 'pos': '50% 50%', 'longtitle': 'Táplálkozás', 'introtext': 'Receptek, tanácsok, mintaétrendek', 'tags': '', 'buttons': {'Receptek': '/recept', 'Válogatott cikkek': '/táplálkozás'} } }/>
     </aside>
-    <div class="carousel-item">
-      <img
-        alt="" src="https://img.daisyui.com/images/stock/photo-1559703248-dcaaec9fab78.webp"
-        class="rounded-box" />
-    </div>
-    <div class="carousel-item">
-      <img
-        alt="" src="https://img.daisyui.com/images/stock/photo-1565098772267-60af42b81ef2.webp"
-        class="rounded-box" />
-    </div>
-    <div class="carousel-item">
-      <img
-        alt="" src="https://img.daisyui.com/images/stock/photo-1572635148818-ef6fd45eb394.webp"
-        class="rounded-box" />
-    </div>
-    <div class="carousel-item">
-      <img
-        alt="" src="https://img.daisyui.com/images/stock/photo-1494253109108-2e30c049369b.webp"
-        class="rounded-box" />
-    </div>
-    <div class="carousel-item">
-      <img
-        alt="" src="https://img.daisyui.com/images/stock/photo-1550258987-190a2d41a8ba.webp"
-        class="rounded-box" />
-    </div>
-    <div class="carousel-item">
-      <img
-        alt="" src="https://img.daisyui.com/images/stock/photo-1559181567-c3190ca9959b.webp"
-        class="rounded-box" />
-    </div>
-    <div class="carousel-item">
-      <img
-        alt="" src="https://img.daisyui.com/images/stock/photo-1601004890684-d8cbf643f5f2.webp"
-        class="rounded-box" />
-    </div>
+
+    <aside class="carousel-item card card-compact bg-base-100 shadow-xl max-w-md max-h-1/2">
+      <Card card={ {'img':'https://img.daisyui.com/images/stock/photo-1565098772267-60af42b81ef2.webp', 'pos': '50% 50%', 'longtitle': 'Klubok, Egyesületek', 'introtext': 'Közösségi élet', 'tags': '', 'buttons': {'Elérhetőségek': '/hirek/civil-szervezetek-es-szakellatohelyek', 'Hírek': '/hírek'} } }/>
+    </aside>
+
   </section>
 
-  <article class="prose card w-128 bg-base-300 shadow-xl my-8 mx-auto p-4">
+  <!--<article class="prose card w-128 bg-base-300 shadow-xl my-8 mx-auto p-4">
     <h1>Szevasz Tavasz!</h1>
     <p></p>
-  </article>
+  </article>-->
 
-  <section class="grid grid-cols-1 md:grid-cols-2 gap-4 p-4">
-
-    <div class="card bg-base-100 shadow-xl">
-      <!--<figure><img alt="" src="/assets/photo-1606107557195-0e29a4b5b4aa.jpg" width="928" height="548"/></figure>-->
-      <div class="card-body prose">
-        <h2 class="card-title">
-          Segítség, cukorbeteg vagyok!
-          <!--<div class="badge badge-secondary">NEW</div>-->
-        </h2>
-        <p>Sokszor azt gondoljuk, ha egy betegség elindul, törvényszerűen romlik. Ez egyáltalán nem biztos! A folyamat attól függ, hogy mennyire sikerül a gyorsító, rontó folyamatokat kiküszöbölnünk, és mennyire hagyjuk a védekező mechanizmusainkat érvényesülni.</p>
-        <!--<Cards docs={docs['s-o-s']} full={false}/>-->
-
-        <div class="card-actions justify-end">
-          <div class="badge badge-outline"><a href="/s-o-s">Bevezető</a></div> 
-          <div class="badge badge-outline"><a href="/s-o-s#cikkek">Válogatott cikkek</a></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="card bg-base-100 shadow-xl">
-      <!--<figure><img alt="" src="/assets/photo-1606107557195-0e29a4b5b4aa.jpg" width="928" height="548" /></figure>-->
-      <div class="card-body prose">
-        <h2 class="card-title">
-          Gesztációs diabétesz
-          <!--<div class="badge badge-secondary">NEW</div>-->
-        </h2>
-        <p>Várandósság cukorbetegen</p>
-        <!--<Cards docs={docs['gdm']} full={false}/>-->
-
-        <div class="card-actions justify-end">
-          <div class="badge badge-outline"><a href="/gdm">Bevezető</a></div> 
-          <div class="badge badge-outline"><a href="/gdm#cikkek">Válogatott cikkek</a></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="card card-compact bg-base-100 shadow-xl">
-      <!--<figure><img alt="" src="/assets/photo-1606107557195-0e29a4b5b4aa.jpg" width="928" height="548" /></figure>-->
-      <div class="card-body prose">
-        <h2 class="card-title">
-          Táplálkozás
-          <!--<div class="badge badge-secondary">NEW</div>-->
-        </h2>
-        <p>Receptek, mintaétrendek</p>
-        <!--<Cards docs={docs['recept']} full={false}/>-->
-
-        <div class="card-actions justify-end">
-          <div class="badge badge-outline">Tápanyag-táblázatok</div> 
-          <!--<div class="badge badge-outline">Receptek</div>-->
-          <div class="badge badge-outline"><a href="/recept">Recept</a></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="card bg-base-100 shadow-xl">
-      <!--<figure><img alt="" src="/assets/photo-1606107557195-0e29a4b5b4aa.jpg" width="928" height="548" /></figure>-->
-      <div class="card-body prose">
-        <h2 class="card-title">
-          Klubok, Egyesületek
-          <!--<div class="badge badge-secondary">NEW</div>-->
-        </h2>
-        <p>Közösségi élet</p>
-        <!--<Cards docs={docs['klub']} full={false}/>-->
-
-        <div class="card-actions justify-end">
-          <div class="badge badge-outline">Elérhetőségek</div> 
-          <div class="badge badge-outline">Hírek</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  {#if docs.tags}
-    <Cards docs={docs.tags}/>
+  {#if docs.length}
+    <Cards docs={docs}/>
   {/if}
 </main>
+
+{#if pagenum > 0}
+<footer class="footer footer-center bg-base-200 text-base-content p-2">
+  <button on:click={_pagenum} class="btn btn-outline">További cikkek</button>
+</footer>
+{/if}
 
 <style>
   /*section {

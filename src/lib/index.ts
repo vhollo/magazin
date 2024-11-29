@@ -74,7 +74,7 @@ const _addTVs = (doc => {
   doc.tvs.tag = tags.replace('diabetes','').replace('terhesség','várandósság').replace('családorvos','orvosok').split(' ').filter(t => t != '') || []
   if (tvs.find(tv => tv.tmplvarid == 30)) {
     doc.tvs.tag.push('diabpont')
-    if (doc.description.match(/diabpont/gi) || doc.description == '') doc.description = 'DiabPONT Továbbképző program'
+    if (doc.description.match(/diabpont/gi) || doc.description == '') doc.description = 'DiabPONT Továbbképző Program'
   }
   //console.log(doc.tvs.tag)
 
@@ -125,6 +125,7 @@ const _addTVs = (doc => {
 })
 
 export const _nagyito = doc => {
+  doc.content = doc.content.replaceAll('`/assets', '`assets')
   const regexp1 = /\[\[nagyito(.*?)\]\]/g
   const regexp2 = /\[!nagyito(.*?)!\]/g
   const matches = [...doc.content.matchAll(regexp1)] || [...doc.content.matchAll(regexp2)]
@@ -168,7 +169,7 @@ const _getById = (match, p1, p2) => {
 }
 
 const _alapjav = doc => {
-  doc.content = doc.content.replaceAll(' m2', ' m<sup>2</sup>').replaceAll('A1c', 'A<sub>1c</sub>').replaceAll('®', '<sup>®</sup>').replaceAll('rel="external"', 'rel="noopener" target="_blank"').replaceAll('"assets', `"${PUBLIC_BASE_URL}assets`)
+  doc.content = doc.content.replaceAll(' m2', ' m<sup>2</sup>').replaceAll('A1c', 'A<sub>1c</sub>').replaceAll('®', '<sup>®</sup>').replaceAll('rel="external"', 'rel="noopener" target="_blank"').replaceAll('"/assets', `"${PUBLIC_BASE_URL}assets`).replaceAll('"assets', `"${PUBLIC_BASE_URL}assets`)
   
   const modxlink = /\[\~(\d*)\~\]/g
   doc.content = doc.content.replaceAll(modxlink, _getById)
@@ -187,7 +188,7 @@ const _alapjav = doc => {
   const regexp2 = /\[!.*?!\]/gs
   const regexp3 = /\{\{.*?\}\}/gs
   const regexp4 = /\[\+.*?\+\]/gs
-  //doc.content = doc.content.replaceAll(regexp1, '').replaceAll(regexp2, '').replaceAll(regexp3, '').replaceAll(regexp4, '')
+  doc.content = doc.content.replaceAll(regexp1, '').replaceAll(regexp2, '').replaceAll(regexp3, '').replaceAll(regexp4, '')
 
   return doc
 }

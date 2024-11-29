@@ -3,22 +3,23 @@
 // @ts-nocheck
 
   export let data
-  $: console.log('p.s.', doc.id, data.docs.tags.length)
-  let pagenum = 1//data.page
+  $: console.log('p.s.', doc.id, data.docs.length)
+  let pagenum = 0
 
   //$: (data) => { doc = data.doc stb…}
   $: doc = data.doc
-  $: docs = data.docs.tags.slice(0, 18 * pagenum)
-
-  $: pubdate = doc && new Date(doc.publishedon * 1000).toLocaleDateString('hu-HU')
-  $: editdate = doc && new Date(doc.editedon * 1000).toLocaleDateString('hu-HU')
-  const base = 'https://www.diabetes.hu/'
+  $: docs = data.docs.slice(0, 18)
+  //if (18 * pagenum >= data.docs.length) pagenum = 0
 
   const _pagenum = () => {
     pagenum++
-    docs = data.docs.tags.slice(0, 18 * pagenum)
-    if (18 * pagenum > data.docs.tags.length) pagenum = 0
+    docs = data.docs.slice(0, 18 * pagenum)
+    if (18 * pagenum >= data.docs.length) pagenum = 0
   }
+  _pagenum()
+
+  $: pubdate = doc && new Date(doc.publishedon * 1000).toLocaleDateString('hu-HU')
+  $: editdate = doc && new Date(doc.editedon * 1000).toLocaleDateString('hu-HU')
 </script>
 
 <main>
@@ -70,7 +71,7 @@
 
   {#if docs?.length}
     <!--{#each Object.keys(docs) as key}-->
-      <Cards docs={docs}/>
+      <Cards {docs}/>
     <!--{/each}-->
   {:else}
     <h3>NO DOCS</h3>

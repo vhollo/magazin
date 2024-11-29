@@ -4,7 +4,7 @@
 </script>
 
 <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
-<nav class="navbar bg-neutral pt-1 min-h-0">
+<nav class="navbar bg-neutral pt-1 pb-0 min-h-0">
   <ul class="mx-auto">
     <li class="dropdown">
       <div tabindex="0" role="button" class="btn btn-md m-1 btn-ghost">
@@ -23,7 +23,7 @@
     </li>-->
   </ul>
 </nav>
-<nav class="navbar bg-neutral py-1 min-h-0">
+<nav class="navbar topics bg-neutral py-1 min-h-0">
   <ul class="mx-auto">
     <!--<li class="dropdown">
       <div tabindex="0" role="button" class="m-1">
@@ -32,6 +32,7 @@
     </li>-->
     <li class="dropdown dropdown-start">
       <div tabindex="0" role="button" class="btn btn-sm m-1">Kezelés</div>
+        <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
         <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow rounded-box w-56  bg-base-100">
           <li>Inzulinok</li>
           <li>Gyógyszerek</li>
@@ -42,6 +43,7 @@
     </li>
     <li class="dropdown dropdown-start">
       <div tabindex="0" role="button" class="btn btn-sm m-1">Életmód</div>
+        <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
         <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow rounded-box w-56  bg-base-100">
           <li><a href="/recept">Receptek</a></li>
           <li><a href="/táplálkozás">Táplálkozás</a></li>
@@ -52,6 +54,7 @@
     </li>
     <li class="dropdown dropdown-start">
       <div tabindex="0" role="button" class="btn btn-sm m-1">Szövődmények</div>
+        <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
         <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow rounded-box w-56  bg-base-100">
           <li><a href="/idegrendszer">Idegrendszer</a></li>
           <li><a href="/vese">Vese</a></li>
@@ -96,7 +99,7 @@
 </nav>
 
 <style>
-  nav {
+  nav.topics {
     position: sticky;
     top: 0;
     z-index: 1;
