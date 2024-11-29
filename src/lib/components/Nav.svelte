@@ -34,9 +34,12 @@
       <div tabindex="0" role="button" class="btn btn-sm m-1">Kezelés</div>
         <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
         <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow rounded-box w-56  bg-base-100">
-          <li>Inzulinok</li>
-          <li>Gyógyszerek</li>
-          <li>Technikai eszközök</li>
+          <!-- svelte-ignore a11y-missing-attribute -->
+          <li><a><s>Inzulinok</s></a></li>
+          <!-- svelte-ignore a11y-missing-attribute -->
+          <li><a><s>Gyógyszerek</s></a></li>
+          <!-- svelte-ignore a11y-missing-attribute -->
+          <li><a><s>Technikai eszközök</s></a></li>
           <li><a href="/orvos-beteg">Orvos–beteg kapcsolat</a></li>
           <li><a href="/önellenőrzés">Önmenedzselés</a></li>
         </ul>
@@ -66,6 +69,7 @@
     </li>
     <li class="dropdown dropdown-center">
       <div tabindex="0" role="button" class="btn btn-sm m-1">Közösségi élet</div>
+        <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
         <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow rounded-box w-56  bg-base-100">
           <li><a href="/egyesület">Egyesületek</a></li>
           <li><a href="/közösség">Közösség</a></li>
@@ -75,6 +79,7 @@
     </li>
     <li class="dropdown dropdown-end">
       <div tabindex="0" role="button" class="btn btn-sm m-1">Portrék</div>
+        <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
         <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow rounded-box w-56  bg-base-100">
           <li><a href="/portrék">Gyógyítók</a></li>
           <li><a href="/sorstársak">Sorstársak</a></li>
@@ -82,17 +87,24 @@
     </li>
     <li class="dropdown dropdown-end">
       <div tabindex="0" role="button" class="btn btn-sm m-1">Gyermekvállalás</div>
+        <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
         <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow rounded-box w-56  bg-base-100">
-          <li>Gesztációs diabétesz</li>
-          <li>Várandósság cukorbetegséggel</li>
+          <!-- svelte-ignore a11y-missing-attribute -->
+          <li><a><s>Gesztációs diabétesz</s></a></li>
+          <!-- svelte-ignore a11y-missing-attribute -->
+          <li><a><s>Várandósság cukorbetegséggel</s></a></li>
         </ul>
     </li>
     <li class="dropdown dropdown-end">
       <div tabindex="0" role="button" class="btn btn-sm m-1">Impresszum</div>
+        <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
         <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow rounded-box w-56  bg-base-100">
-          <li>Alapítvány a Cukorbetegekért</li>
-          <li>Tudomány Kiadó</li>
-          <li>Portmed</li>
+          <!-- svelte-ignore a11y-missing-attribute -->
+          <li><a><s>Alapítvány a Cukorbetegekért</s></a></li>
+          <!-- svelte-ignore a11y-missing-attribute -->
+          <li><a><s>Tudomány Kiadó</s></a></li>
+          <!-- svelte-ignore a11y-missing-attribute -->
+          <li><a><s>Portmed</s></a></li>
         </ul>
     </li>
   </ul>
