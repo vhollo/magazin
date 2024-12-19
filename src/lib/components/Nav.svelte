@@ -1,128 +1,210 @@
 <script>
+// @ts-nocheck
+
   import { PUBLIC_BASE_URL } from '$env/static/public'
-  //export let data
+  export let actual
+  let _open_nav = false
+
+  const cats = {
+    'Kezelés': {
+      'Inzulinok': '/inzulinok',
+      'Gyógyszerek': '/gyogyszerek',
+      'Technikai eszközök': '/technikai-eszkozok',
+      'Orvos–beteg kapcsolat': '/orvos-beteg',
+      'Önmenedzselés': '/onmenedzseles',
+    },
+    'Életmód': {
+      'Táplálkozás': '/etkezes',
+      'Receptek': '/receptek',
+      'Testmozgás': '/testmozgas',
+      'Psziché': '/psziche',
+      'Jogi útmutatók': '/jogi-utmutatok',
+    },
+    'Szövődmények': {
+      'Idegrendszer': '/idegrendszer',
+      'Vese': '/vese',
+      'Látás': '/latas',
+      'Végtagok': '/vegtagok',
+      'Szív-érrendszer': '/sziv-errendszer',
+      'Társbetegségek': '/tarsbetegségek',
+    },
+    'Közösségi élet': {
+      'Egyesületek': '/egyesulet',
+      'Közösség': '/kozosseg',
+      'Események': '/esemenyek',
+      'Rendezvények': '/rendezvenyek',
+    },
+    'Portrék': {
+      'Gyógyítók': '/gyogyitok',
+      'Sorstársak': '/sorstarsak',
+    },
+    'Gyermekvállalás': {
+      'Gesztációs diabétesz': '/gdm',
+      'Várandósság cukorbetegséggel': '/gdm2024/praktikus-tanacsok-krisztinatol',
+    },
+    'Impresszum': {
+      'Alapítvány a Cukorbetegekért': '/alapitany',
+      'Tudomány Kiadó': '/tudomany',
+      'Portmed': '/portmed',
+    },
+  }
+
+  /*function _dropdown(event){
+    console.log(event)
+    const target = event.target//.parentElement.nextSibling
+    console.log(target.nextElementSibling)
+    target.classList.toggle('menu-dropdown-show')
+    target.nextElementSibling.classList.toggle('menu-dropdown-show')
+  }*/
+  function _uncheck(event){
+    //console.log(event)
+    const target = event.target//.parentElement.nextSibling
+    console.log(target.firstElementChild)
+    target.firstElementChild.checked = false
+    //target.nextElementSibling.classList.toggle('menu-dropdown-show')
+  }
+
+  $: console.log(actual)
+  //$: _open_nav = actual && false
+
+  const _close_nav = () => _open_nav = false
+
 </script>
 
-<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
-<nav class="navbar bg-neutral pt-1 pb-0 min-h-0">
-  <ul class="mx-auto">
-    <li class="dropdown">
-      <div tabindex="0" role="button" class="btn btn-md m-1 btn-ghost">
-        <a href="/"><img class="h-7" src={`${PUBLIC_BASE_URL}assets/templates/magazine/images/logo-diabetes2.svg`} alt="diabetes.hu"></a>
-      </div>
-    </li>
-    <!--<li class="dropdown dropdown-start">
-      <div tabindex="0" role="button" class="btn btn-sm m-1">Kezelés</div>
-        <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow rounded-box w-56  bg-base-100">
-          <li>Inzulinok</li>
-          <li>Gyógyszerek</li>
-          <li>Technikai eszközök</li>
-          <li><a href="/orvos-beteg">Orvos–beteg kapcsolat</a></li>
-          <li><a href="/önellenőrzés">Önmenedzselés</a></li>
+<nav class="navbar bg-neutral py-0 sticky top-0 lg:static z-50">
+  <div class="mx-auto"><a class="p-2" href="/"><img class="h-12" src={`${PUBLIC_BASE_URL}assets/templates/magazine/images/logo-diabetes2.svg`} alt="diabetes.hu"></a></div>
+  <label for="mobile-nav" aria-label="open sidebar" class="btn btn-square btn-ghost lg:hidden text-neutral-content">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      stroke="currentColor"
+      viewBox="0 0 24 24"
+      class="h-6 w-6 stroke-current">
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M4 6h16M4 12h16M4 18h16"></path>
+    </svg>
+  </label>
+</nav>
+
+<nav class="lg:navbar min-h-0 bg-neutral text-neutral-content sticky top-16 lg:top-0">
+  <input id="mobile-nav" type="checkbox" bind:checked={_open_nav}/>
+  <ul class="mx-auto max-lg:max-w-xl w-full lg:join lg:w-full">
+    {#each Object.keys(cats) as cat}
+      <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
+      <li tabindex="0" class="grow max-lg:collapse collapse-arrow dropdown dropdown-hover last:dropdown-end w--min text-nowrap"><!-- lg:inline-block  on:blur={_uncheck} -->
+        <input type="radio" name="collapse" class="lg:hidden"/>
+        <div tabindex="0" role="button" class="join-item max-lg:collapse-title lg:menu-title !text-neutral-content text-nowrap font-medium">{cat}</div>
+        <ul tabindex="0" class="menu max-lg:collapse-content lg:dropdown-content lg:rounded-box bg-neutral p-0">
+          {#each Object.keys(cats[cat]) as subcat}
+            <li class=""><a class="text-nowrap" href={cats[cat][subcat]} on:click={_close_nav}>{subcat}</a></li>
+          {/each}
         </ul>
-    </li>-->
+      </li>
+    {/each}
   </ul>
 </nav>
-<nav class="navbar topics bg-neutral py-1 min-h-0">
-  <ul class="mx-auto">
-    <!--<li class="dropdown">
-      <div tabindex="0" role="button" class="m-1">
-        <a href="/" class="btn btn-sm">Kezdőlap</a>
-      </div>
-    </li>-->
-    <li class="dropdown dropdown-start">
-      <div tabindex="0" role="button" class="btn btn-sm m-1">Kezelés</div>
-        <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
-        <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow rounded-box w-56  bg-base-100">
-          <!-- svelte-ignore a11y-missing-attribute -->
-          <li><a><s>Inzulinok</s></a></li>
-          <!-- svelte-ignore a11y-missing-attribute -->
-          <li><a><s>Gyógyszerek</s></a></li>
-          <!-- svelte-ignore a11y-missing-attribute -->
-          <li><a><s>Technikai eszközök</s></a></li>
-          <li><a href="/orvos-beteg">Orvos–beteg kapcsolat</a></li>
-          <li><a href="/önellenőrzés">Önmenedzselés</a></li>
-        </ul>
-    </li>
-    <li class="dropdown dropdown-start">
-      <div tabindex="0" role="button" class="btn btn-sm m-1">Életmód</div>
-        <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
-        <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow rounded-box w-56  bg-base-100">
-          <li><a href="/recept">Receptek</a></li>
-          <li><a href="/táplálkozás">Táplálkozás</a></li>
-          <li><a href="/testmozgás">Testmozgás</a></li>
-          <li><a href="/psziché">Psziché</a></li>
-          <li><a href="/jog">Jogi útmutatók</a></li>
-        </ul>
-    </li>
-    <li class="dropdown dropdown-start">
-      <div tabindex="0" role="button" class="btn btn-sm m-1">Szövődmények</div>
-        <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
-        <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow rounded-box w-56  bg-base-100">
-          <li><a href="/idegrendszer">Idegrendszer</a></li>
-          <li><a href="/vese">Vese</a></li>
-          <li><a href="/látás">Látás</a></li>
-          <li><a href="/végtag">Végtagok</a></li>
-          <li><a href="/hypertonia">Szív-érrendszer</a></li>
-          <li><a href="/társbetegségek">Társbetegségek</a></li>
-        </ul>
-    </li>
-    <li class="dropdown dropdown-center">
-      <div tabindex="0" role="button" class="btn btn-sm m-1">Közösségi élet</div>
-        <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
-        <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow rounded-box w-56  bg-base-100">
-          <li><a href="/egyesület">Egyesületek</a></li>
-          <li><a href="/közösség">Közösség</a></li>
-          <li><a href="/esemény">Események</a></li>
-          <li><a href="/rendezvény">Rendezvények</a></li>
-        </ul>
-    </li>
-    <li class="dropdown dropdown-end">
-      <div tabindex="0" role="button" class="btn btn-sm m-1">Portrék</div>
-        <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
-        <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow rounded-box w-56  bg-base-100">
-          <li><a href="/portrék">Gyógyítók</a></li>
-          <li><a href="/sorstársak">Sorstársak</a></li>
-        </ul>
-    </li>
-    <li class="dropdown dropdown-end">
-      <div tabindex="0" role="button" class="btn btn-sm m-1">Gyermekvállalás</div>
-        <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
-        <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow rounded-box w-56  bg-base-100">
-          <!-- svelte-ignore a11y-missing-attribute -->
-          <li><a><s>Gesztációs diabétesz</s></a></li>
-          <!-- svelte-ignore a11y-missing-attribute -->
-          <li><a><s>Várandósság cukorbetegséggel</s></a></li>
-        </ul>
-    </li>
-    <li class="dropdown dropdown-end">
-      <div tabindex="0" role="button" class="btn btn-sm m-1">Impresszum</div>
-        <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
-        <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow rounded-box w-56  bg-base-100">
-          <!-- svelte-ignore a11y-missing-attribute -->
+
+<!--<ul class="lg:!h-auto">
+  <li class="collapse w-min border-base-300 border">
+    <input type="checkbox" name="menu-accordion" on:blur={_dropup} />
+    <div class="collapse-title w-min text-xl font-medium">Kezelés</div>
+    <ul class="collapse-content w-min p-0">
+      <li><a><s>Inzulinok</s></a></li>
+      <li><a><s>Gyógyszerek</s></a></li>
+      <li><a><s>Technikai eszközök</s></a></li>
+      <li><a href="/orvos-beteg">Orvos–beteg kapcsolat</a></li>
+      <li><a href="/önellenőrzés">Önmenedzselés</a></li>
+    </ul>
+  </li>
+  <li class="collapse w-min border-base-300 border">
+    <input type="checkbox" name="menu-accordion" on:blur={_dropup} />
+    <div class="collapse-title w-min text-xl font-medium">Életmód</div>
+    <ul class="collapse-content w-min p-0">
+      <li><a href="/recept">Receptek</a></li>
+      <li><a href="/táplálkozás">Táplálkozás</a></li>
+      <li><a href="/testmozgás">Testmozgás</a></li>
+      <li><a href="/psziché">Psziché</a></li>
+      <li><a href="/jog">Jogi útmutatók</a></li>
+    </ul>
+  </li>
+  <li class="collapse w-min border-base-300 border">
+    <input type="checkbox" name="menu-accordion" on:blur={_dropup} />
+    <div class="collapse-title w-min text-xl font-medium">Szövődmények</div>
+    <ul class="collapse-content w-min p-0">
+      <li><a href="/idegrendszer">Idegrendszer</a></li>
+      <li><a href="/vese">Vese</a></li>
+      <li><a href="/látás">Látás</a></li>
+      <li><a href="/végtag">Végtagok</a></li>
+      <li><a href="/hypertonia">Szív-érrendszer</a></li>
+      <li><a href="/társbetegségek">Társbetegségek</a></li>
+    </ul>
+  </li>
+  <li class="collapse w-min border-base-300 border">
+    <input type="checkbox" name="menu-accordion" on:blur={_dropup} />
+    <div class="collapse-title w-min text-xl font-medium">Közösségi élet</div>
+    <ul class="collapse-content w-min p-0">
+      <li><a href="/egyesület">Egyesületek</a></li>
+      <li><a href="/közösség">Közösség</a></li>
+      <li><a href="/esemény">Események</a></li>
+      <li><a href="/rendezvény">Rendezvények</a></li>
+    </ul>
+  </li>
+  <li class="collapse w-min border-base-300 border">
+    <input type="checkbox" name="menu-accordion" on:blur={_dropup} />
+    <div class="collapse-title w-min text-xl font-medium">Portrék</div>
+    <ul class="collapse-content w-min p-0">
+      <li><a href="/portrék">Gyógyítók</a></li>
+      <li><a href="/sorstársak">Sorstársak</a></li>
+    </ul>
+  </li>
+  <li class="collapse w-min border-base-300 border">
+    <input type="checkbox" name="menu-accordion" on:blur={_dropup} />
+    <div class="collapse-title w-min text-xl font-medium">Gyermekvállalás</div>
+    <ul class="collapse-content w-min p-0">
+      <li><a><s>Gesztációs diabétesz</s></a></li>
+      <li><a><s>Várandósság cukorbetegséggel</s></a></li>
+    </ul>
+  </li>
+  <li class="collapse w-min border-base-300 border">
+    <input type="checkbox" name="menu-accordion" on:blur={_dropup} />
+    <div class="collapse-title w-min text-xl font-medium">Impresszum</div>
+    <ul class="collapse-content w-min p-0">
           <li><a><s>Alapítvány a Cukorbetegekért</s></a></li>
-          <!-- svelte-ignore a11y-missing-attribute -->
           <li><a><s>Tudomány Kiadó</s></a></li>
-          <!-- svelte-ignore a11y-missing-attribute -->
           <li><a><s>Portmed</s></a></li>
-        </ul>
-    </li>
-  </ul>
-</nav>
+    </ul>
+  </li>
+</ul>-->
 
 <style>
-  nav.topics {
-    position: sticky;
-    top: 0;
-    z-index: 1;
+  #mobile-nav {
+    display: none!important;
   }
-  /*nav {
-    overflow: auto hidden;
-  }*/
-  /*nav ul {
-    max-width: 100%;
-    overflow-x: auto;
+  /* FIX: last:dropdown-end */
+  .last\:dropdown-end:last-of-type .lg\:dropdown-content {
+    /*display: none;*/
+    /*@apply dropdown-end;*/
+    inset-inline-end: 0px!important;
+  }
+  a:hover {
+    outline-offset: 0;
+    outline-width: 0;
+  }
+  @media (max-width: 1023px)  {
+    #mobile-nav + ul {
+      transition: height 0.5s ease-in;
+      overflow: hidden;
+      height: 0;
+    }
+    #mobile-nav:checked + ul {
+      height: calc-size(auto, size);
+    }
+    li input:checked ~ ul {
+      visibility: visible!important;
+    }
+  }
 
-    height: auto;
-  }*/
 </style>

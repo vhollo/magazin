@@ -22,21 +22,21 @@
 </script>
 
 <main>
-  <section class="carousel carousel-center bg-neutral space-x-4 p-4 mb-4 items-stretch">
+  <section class="carousel carousel-center bg-neutral space-x-4 p-4 mb-4 items-stretch w-full">
     <!--{@const card = {id: doc.id, img: doc.tvs.img, pos: doc.tvs.pos, path: doc.path, desc: doc.description, title: doc.title, longtitle: doc.longtitle, introtext: doc.introtext, ellipsis: doc.ellipsis, content: doc.content, tag: doc.tvs.tag}}-->
-    <aside class="carousel-item card card-compact bg-base-100 shadow-xl max-w-md max-h-1/2">
+    <aside class="carousel-item card card-compact bg-base-100 shadow-xl max-w-xs md:max-w-md max-h-1/2">
       <Card card={ {'img':'https://img.daisyui.com/images/stock/photo-1559703248-dcaaec9fab78.webp', 'pos': '50% 40%', 'longtitle': 'Segítség, cukorbeteg vagyok!', 'introtext': 'Sokszor azt gondoljuk, ha egy betegség elindul, törvényszerűen romlik. Ez egyáltalán nem biztos! A folyamat attól függ, hogy mennyire sikerül a gyorsító, rontó folyamatokat kiküszöbölnünk, és mennyire hagyjuk a védekező mechanizmusainkat érvényesülni.', 'tags': '', 'buttons': {'Bevezető': '/cikkek/diabetes/2401/csak-a-cukor-szamit-vagy-a-nagy-egesz', 'Válogatott cikkek': '/s-o-s'} } }/>
     </aside>
 
-    <aside class="carousel-item card card-compact bg-base-100 shadow-xl max-w-md max-h-1/2">
+    <aside class="carousel-item card card-compact bg-base-100 shadow-xl max-w-xs md:max-w-md max-h-1/2">
       <Card card={ {'img':'assets/gdm.jpg', 'pos': '50% 50%', 'longtitle': 'Gesztációs diabétesz', 'introtext': 'Várandósság cukorbetegen', 'tags': '', 'buttons': {'Bevezető': '/cikkek/diabetes/gdm2024/praktikus-tanacsok-krisztinatol', 'Válogatott cikkek': '/gdm'} } }/>
     </aside>
 
-    <aside class="carousel-item card card-compact bg-base-100 shadow-xl max-w-md max-h-1/2">
+    <aside class="carousel-item card card-compact bg-base-100 shadow-xl max-w-xs md:max-w-md max-h-1/2">
       <Card card={ {'img':'https://img.daisyui.com/images/stock/photo-1601004890684-d8cbf643f5f2.webp', 'pos': '50% 50%', 'longtitle': 'Táplálkozás', 'introtext': 'Receptek, tanácsok, mintaétrendek', 'tags': '', 'buttons': {'Receptek': '/recept', 'Válogatott cikkek': '/táplálkozás'} } }/>
     </aside>
 
-    <aside class="carousel-item card card-compact bg-base-100 shadow-xl max-w-md max-h-1/2">
+    <aside class="carousel-item card card-compact bg-base-100 shadow-xl max-w-xs md:max-w-md max-h-1/2">
       <Card card={ {'img':'https://img.daisyui.com/images/stock/photo-1565098772267-60af42b81ef2.webp', 'pos': '50% 50%', 'longtitle': 'Klubok, Egyesületek', 'introtext': 'Közösségi élet', 'tags': '', 'buttons': {'Elérhetőségek': '/hirek/civil-szervezetek-es-szakellatohelyek', 'Hírek': '/hírek'} } }/>
     </aside>
 

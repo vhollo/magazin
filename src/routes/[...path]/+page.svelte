@@ -38,7 +38,7 @@
           &nbsp;|
         {/if}
         <small>{`${pubdate}${editdate && editdate !== pubdate ?' (frissítve: '+editdate+')':''}`}</small><small class="uppercase">{`${doc.tvs.cat?' | '+doc.tvs.cat:''}`}</small></p>
-      <aside class="flex flex-wrap gap-2 collapse sm:visible mb-12">
+      <aside class="flex flex-wrap gap-2 sm:visible mb-12">
         {#each doc.tvs.tag as tag}
           <small class="badge badge-outline badge-sm">{tag}</small>
         {/each}

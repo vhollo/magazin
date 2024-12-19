@@ -61,6 +61,9 @@
     transition-behavior: allow-discrete;
     height: calc(auto);*/
   }
+  aside {
+    position: unset;
+  }
   aside.double {
     grid-row-end: span 2;
   }
