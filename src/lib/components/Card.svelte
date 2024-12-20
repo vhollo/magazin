@@ -82,7 +82,7 @@
     {:else}
       <CardBody {card}/>
     {/if}
-    <div class="card-actions justify-end mt-4">
+    <div class="flex-1 card-actions justify-end mt-4">
       {#if card.buttons}
       {#each Object.keys(card.buttons) as btn}
       <a class="btn btn-sm btn-outline" href={card.buttons[btn]}>{btn}</a>
