@@ -71,8 +71,8 @@
 
 </script>
 
-<nav class="sticky top-0 lg:-top-16">
-  <nav class="navbar bg-neutral py-0 z-50">
+<nav class="sticky top-0 lg:-top-16 z-50">
+  <nav class="navbar bg-neutral py-0">
     <div class="flex-1"><a class="p-2" href="/"><img class="h-12" src={`${PUBLIC_BASE_URL}assets/templates/magazine/images/logo-diabetes2.svg`} alt="diabetes.hu"></a></div>
     <label for="mobile-nav" aria-label="open sidebar" class="btn btn-square btn-ghost lg:hidden text-neutral-content">
       <svg
