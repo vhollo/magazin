@@ -20,6 +20,11 @@ html:has(.drawer-toggle:checked) {
   overflow-y: auto!important;
 }
 
+@media (max-width: 1023px)  {
+  nav:has(#mobile-nav:checked) ~ * {
+    display: none;
+  }
+}
 
 .prose h1 {
   font-weight: 600;
