@@ -10,7 +10,7 @@ interface Docs {
 
 const queries = {
   //'s-o-s': ['testmozgás', 'megelőzés', 'önellenőrzés', 'kezelés', 'szakellátás'],
-  's-o-s': ['diabpont'],
+  's-o-s': ['diabpont', '-covid-19'],
   'gdm': ['+várandósság'],
   'receptek': ['+recept', '-táplálkozás'],
   'taplalkozas': ['táplálkozás', '-recept', '-covid-19'],
@@ -60,18 +60,18 @@ export async function load({ params }) {
 
   switch (true) {
     case params.path === undefined: /// start page
-      console.log('undefined:',params.path)
+      //console.log('undefined:',params.path)
       //query = queries
       doc = {'path': '/'}
       break
-    case !!queries[path]: /// a collection
-      console.log('queries:',queries[path])
-      query = queries[path] ///?
-      doc = {'path': path}
-      console.log('path:',path)
+    case !!queries[params.path]: /// a collection
+      //console.log('queries:',queries[path])
+      query = queries[params.path] ///?
+      doc = {'path': params.path}
+      //console.log('path:',path)
       break
     default: /// page path
-      console.log('default:',params.path)
+      //console.log('default:',params.path)
       doc = modxDoc(params.path) || {}
       query = doc.tvs && doc.tvs.tag || []
       //console.log('ID:',doc.id)

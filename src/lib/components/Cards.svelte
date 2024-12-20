@@ -53,7 +53,7 @@
 {/if}
 <style>
   section {
-    grid-template-columns: repeat(auto-fill, minmax(28ch, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(24ch, 1fr));
     grid-auto-rows: minmax(18ch, auto);
     grid-auto-flow: dense;
     /*transition: height 0.25s ease-in;
