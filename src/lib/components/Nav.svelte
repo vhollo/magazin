@@ -26,7 +26,7 @@
       'Látás': '/latas',
       'Végtagok': '/vegtagok',
       'Szív-érrendszer': '/sziv-errendszer',
-      'Társbetegségek': '/tarsbetegségek',
+      'Társbetegségek': '/tarsbetegsegek',
     },
     'Közösségi élet': {
       'Egyesületek': '/egyesulet',
@@ -73,7 +73,7 @@
 
 <nav class="sticky top-0 lg:-top-16 z-50">
   <nav class="navbar lg:justify-center bg-neutral py-0">
-    <div class="max-lg:flex-1"><a class="p-2" href="/"><img class="h-12" src={`${PUBLIC_BASE_URL}assets/templates/magazine/images/logo-diabetes2.svg`} alt="diabetes.hu" on:click={_close_nav}></a></div>
+    <div class="max-lg:flex-1"><a class="p-2" href="/" on:click={_close_nav}><img class="h-12" src={`${PUBLIC_BASE_URL}assets/templates/magazine/images/logo-diabetes2.svg`} alt="diabetes.hu"></a></div>
     <label for="mobile-nav" aria-label="open sidebar" class="btn btn-square btn-ghost lg:hidden text-neutral-content">
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -89,14 +89,14 @@
       </svg>
     </label>
   </nav>
-  <nav class="lg:navbar min-h-0 bg-neutral text-neutral-content">
+  <nav class="lg:navbar min--h-0 bg-neutral text-neutral-content">
     <input id="mobile-nav" type="checkbox" bind:checked={_open_nav}/>
-    <ul class="mx-auto max-lg:max-w-xl lg:w-max lg:join lg:w-full">
+    <ul class="mx-auto max-lg:max-w-xl">
       {#each Object.keys(cats) as cat}
         <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
         <li tabindex="0" class="grow max-lg:collapse collapse-arrow dropdown dropdown-hover last:dropdown-end w--min text-nowrap"><!-- lg:inline-block  on:blur={_uncheck} -->
           <input type="radio" name="collapse" class="lg:hidden"/>
-          <div tabindex="0" role="button" class="join-item max-lg:collapse-title lg:menu-title !text-neutral-content text-nowrap font-medium">{cat}</div>
+          <div tabindex="0" role="button" class="max-lg:collapse-title lg:menu-title !text-neutral-content text-nowrap font-medium">{cat}</div>
           <ul tabindex="0" class="menu flex-nowrap max-lg:collapse-content lg:dropdown-content lg:rounded-box bg-neutral p-0">
             {#each Object.keys(cats[cat]) as subcat}
               <li class=""><a class="text-nowrap" href={cats[cat][subcat]} on:click={_close_nav}>{subcat}</a></li>
@@ -195,12 +195,13 @@
     outline-width: 0;
   }
   @media (max-width: 1023px)  {
-    #mobile-nav + ul {
+    #mobile-nav ~ ul {
       transition: height 0.5s ease-in;
       overflow: hidden;
       height: 0;
     }
-    #mobile-nav:checked + ul {
+    #mobile-nav:checked ~ ul {
+      height: auto;
       height: calc-size(auto, size);
     }
     li input:checked ~ ul {

@@ -68,32 +68,46 @@
       {/if}
     </figure>
   {:else}
-    <figure>
-      <!--<a href={`/${card.path}`}>
-        <img src="/pixel.png" alt="" width="928" height="548">
-      </a>-->
-    </figure>
-  {/if}
-  <div class="card-body justify-between">
-    {#if card.path}
+    <!--<figure class="empty">
       <a href={`/${card.path}`}>
+        <img src="/pixel.png" alt="" width="928" height="548">
+      </a>
+    </figure>-->
+  {/if}
+
+    {#if card.path}
+      <a href={`/${card.path}`} class="card-body justify-between p-2">
         <CardBody {card}/>
       </a>
+      <div class="card-actions justify-end p-2">
+        {#if card.buttons}
+        {#each Object.keys(card.buttons) as btn}
+        <a class="btn btn-sm btn-outline" href={card.buttons[btn]}>{btn}</a>
+        {/each}
+        {/if}
+        {#each card.tags as tag}
+          <a class="badge badge-outline badge-sm" href={tag}>{tag}</a>
+        {/each}
+      </div>
     {:else}
-      <CardBody {card}/>
+      <div class="card-body justify-between p-2">
+        <CardBody {card}/>
+        <div class="card-actions justify-end p-2">
+          {#if card.buttons}
+          {#each Object.keys(card.buttons) as btn}
+          <a class="btn btn-sm btn-outline" href={card.buttons[btn]}>{btn}</a>
+          {/each}
+          {/if}
+          {#each card.tags as tag}
+            <a class="badge badge-outline badge-sm" href={tag}>{tag}</a>
+          {/each}
+        </div>
+      </div>
     {/if}
-    <div class="flex-1 card-actions justify-end mt-4">
-      {#if card.buttons}
-      {#each Object.keys(card.buttons) as btn}
-      <a class="btn btn-sm btn-outline" href={card.buttons[btn]}>{btn}</a>
-      {/each}
-      {/if}
-      {#each card.tags as tag}
-        <small class="badge badge-outline badge-sm">{tag}</small>
-      {/each}
-    </div>
-  </div>
 <!--</aside>-->
 
-<!--<style>
-</style>-->
+<style>
+  figure, img {
+    aspect-ratio: var(--imgratio);
+  }
+</style>

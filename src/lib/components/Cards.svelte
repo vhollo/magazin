@@ -37,10 +37,10 @@
 </script>
 
 {#if full}
-  <section class="grid gap-x-8 gap-y-16 px-6 py-12">
+  <section class="grid gap-x-8 gap-y-16 px-3 py-6">
     {#each docs as doc}
     {@const card = {id: doc.id, img: doc.img,/* pos: doc.tvs.pos, ext: doc.ext,*/ path: doc.path, desc: doc.description, title: doc.title, longtitle: doc.longtitle, introtext: doc.introtext, ellipsis: doc.ellipsis, content: doc.content, tags: doc.tvs.tag}}
-      <aside in:fade={{ duration: 2000 }} class:double={doc.img} class:triple={doc.ellipsis?.indexOf('<video') !== -1} class="card card-compact bg-base-100 shadow-xl">
+      <aside in:fade={{ duration: 2000 }} class:double={doc.img} class:triple={doc.ellipsis?.indexOf('<video') !== -1} class="card rounded card--compact bg-base-100">
         <Card {card}/>
       </aside>
     {/each}
@@ -54,7 +54,7 @@
 <style>
   section {
     grid-template-columns: repeat(auto-fill, minmax(24ch, 1fr));
-    grid-auto-rows: minmax(18ch, auto);
+    grid-auto-rows: minmax(2rem, auto);
     grid-auto-flow: dense;
     /*transition: height 0.25s ease-in;
     overflow-y: clip;

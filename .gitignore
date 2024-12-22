@@ -22,7 +22,7 @@ vite.config.ts.timestamp-*
 
 # vhollo
 ._*
-.code-workspace
+magazin.code-workspace
 
 # Local Netlify folder
 .netlify
