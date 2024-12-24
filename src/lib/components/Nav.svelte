@@ -14,7 +14,7 @@
       'Önmenedzselés': '/onmenedzseles',
     },
     'Életmód': {
-      'Táplálkozás': '/etkezes',
+      'Táplálkozás': '/taplalkozas',
       'Receptek': '/receptek',
       'Testmozgás': '/testmozgas',
       'Psziché': '/psziche',
@@ -40,7 +40,7 @@
     },
     'Gyermekvállalás': {
       'Gesztációs diabétesz': '/gdm',
-      'Várandósság cukorbetegséggel': '/gdm2024/praktikus-tanacsok-krisztinatol',
+      'Várandósság cukorbetegséggel': '/varandossag',
     },
     'Impresszum': {
       'Alapítvány a Cukorbetegekért': '/alapitany',

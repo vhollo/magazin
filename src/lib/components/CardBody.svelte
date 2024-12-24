@@ -11,9 +11,3 @@
 {:else}
   <div class="ellipsis">{@html card.ellipsis}</div>
 {/if}
-
-<!--<style>
-  img {
-    aspect-ratio: var(--imgratio);
-  }
-</style>-->

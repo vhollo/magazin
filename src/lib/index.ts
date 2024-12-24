@@ -76,6 +76,10 @@ const _addTVs = (doc => {
     doc.tvs.tag.push('diabpont')
     if (doc.description.match(/diabpont/gi) || doc.description == '') doc.description = 'DiabPONT Továbbképző Program'
   }
+
+  if (doc.longtitle.match(/inzulin/gi) || doc.introtext.match(/inzulin/gi) || doc.content.match(/inzulin/gi)) doc.tvs.tag.push('inzulin')
+  if (doc.longtitle.match(/gyógyszer/gi) || doc.introtext.match(/gyógyszer/gi) || doc.content.match(/gyógyszer/gi)) doc.tvs.tag.push('gyógyszer')
+  if (doc.longtitle.match(/készülék/gi) || doc.introtext.match(/készülék/gi) || doc.content.match(/készülék/gi)) doc.tvs.tag.push('készülék')
   //console.log(doc.tvs.tag)
 
   doc.tvs.sze = []
@@ -142,7 +146,7 @@ export const _nagyito = doc => {
       f = [...match[1].match(/url=\`(.*?)\`/)]
       file = PUBLIC_BASE_URL + f[1] 
     }
-    if (doc.img?.src.indexOf(f[1]) !== -1) {
+    if (doc.img && doc.img.src.indexOf(f[1]) !== -1) {
       doc.content = doc.content.replace(match[0], '<!-- PAGEIMAGE -->')
     } else {        
       const align = match[1].indexOf('align=') !== -1 && [...match[1].match(/align=\`(.*?)\`/)]

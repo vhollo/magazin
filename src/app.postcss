@@ -50,9 +50,9 @@ html:has(.drawer-toggle:checked) {
   text-decoration: none;
   /*height: -webkit-fill-available;*/
 }
-.card img {
+/*.card img {
   aspect-ratio: var(--imgratio);
-}
+}*/
 .prose :where(a):not(:where([class~="not-prose"],[class~="not-prose"] *)) {
   /*text-decoration: dashed underline;*/
   text-decoration: none;
@@ -104,7 +104,7 @@ p.intro a, .ellipsis p a, .twoliner a {
 .ellipsis > table, .twoliner > table {
   @apply prose;
   font-size: 0.875rem;
-  line-height: 1.25rem;
+  line-height: var(--lh-card, 1.25rem);
   margin-bottom: .75rem;
   margin-top: 0;
 }
@@ -152,7 +152,7 @@ article figure img {
   container-type: inline-size;
 }
 .left, .right {
-  width: 50%;
+  width: calc(50% - 1rem);
   margin-top: 2rem;
   margin-bottom: 1rem;
 }
@@ -194,7 +194,7 @@ article figure img {
 #szerzo img {
   grid-row-start: 1;
   grid-row-end: 3;
-  aspect-ratio: 1;
+  /*aspect-ratio: 1;*/
 }
 #szerzo img + .nev {
   line-height: 1;

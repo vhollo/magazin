@@ -37,10 +37,10 @@
 </script>
 
 {#if full}
-  <section class="grid gap-x-8 gap-y-16 px-3 py-6">
+  <section class="grid gap-x-4 gap-y-12 px-4 py-6">
     {#each docs as doc}
-    {@const card = {id: doc.id, img: doc.img,/* pos: doc.tvs.pos, ext: doc.ext,*/ path: doc.path, desc: doc.description, title: doc.title, longtitle: doc.longtitle, introtext: doc.introtext, ellipsis: doc.ellipsis, content: doc.content, tags: doc.tvs.tag}}
-      <aside in:fade={{ duration: 2000 }} class:double={doc.img} class:triple={doc.ellipsis?.indexOf('<video') !== -1} class="card rounded card--compact bg-base-100">
+    {@const card = {id: doc.id, img: doc.img,/* pos: doc.tvs.pos, ext: doc.ext,*/ path: doc.path, desc: doc.description, title: doc.title, longtitle: doc.longtitle, introtext: doc.introtext, ellipsis: doc.ellipsis, content: doc.content, tags: doc.tvs.tag, rank: doc.rank}}
+      <aside in:fade={{ duration: 2000 }} class:double={doc.img || doc.ellipsis?.indexOf('<video') !== -1} class:triple={doc.ellipsis?.indexOf('<video') !== -1} class="card rounded card--compact bg-base-100">
         <Card {card}/>
       </aside>
     {/each}
@@ -67,8 +67,14 @@
   aside.double {
     grid-row-end: span 2;
   }
-  aside.triple {
+  /*aside.triple {
     grid-row-end: span 3;
+  }*/
+  aside.triple :global(figure) {
+    display: none;
+  }
+  aside.triple:has(figure) {
+    grid-row-end: span 2;
   }
 </style>
   

@@ -11,7 +11,11 @@ interface Docs {
 const queries = {
   //'s-o-s': ['testmozgás', 'megelőzés', 'önellenőrzés', 'kezelés', 'szakellátás'],
   's-o-s': ['diabpont', '-covid-19'],
-  'gdm': ['+várandósság'],
+  'gdm': ['+várandósság', '-személyes'],
+  'varandossag': ['+várandósság', '+személyes'],
+  'inzulinok': ['+inzulin', '+kezelés', '-önellenőrzés'],
+  'gyogyszerek': ['+gyógyszer', '+kezelés', '-önellenőrzés'],
+  'technikai-eszkozok': ['+készülék', '+kezelés', '-önellenőrzés', '-megelőzés'],
   'receptek': ['+recept', '-táplálkozás'],
   'taplalkozas': ['táplálkozás', '-recept', '-covid-19'],
   'orvos-beteg': ['+orvosok', '+személyes', 'psziché', 'kezelés', 'edukáció', 'önellenőrzés', 'társbetegségek', 'szövődmények', '-elismerés', '-covid-19'],
@@ -30,17 +34,17 @@ const queries = {
   'esemenyek': ['+beszámoló', 'közösség', '-covid-19'],
   'rendezvenyek': ['+rendezvény', '-covid-19'],
   'hirek': ['rendezvény', 'beszámoló', 'közösség', 'egyesület', '-covid-19'],
-  'gyogyitok': ['+személyes', '+orvosok', 'elismerés', '-kezelés'],
-  'sorstarsak': ['+személyes', '-orvosok', '-kezelés', '-várandósság', '-közösség', '-edukáció', '-egyesület', '-covid-19'], 
+  'gyogyitok': ['+személyes', '#orvosok', '#szakellátás', 'elismerés', '-kezelés', '-covid-19'],
+  'sorstarsak': ['+személyes', '+szekellátás', '-orvosok', '-önellenőrzés', '-kezelés', '-várandósság', '-közösség', '-edukáció', '-egyesület', '-covid-19'], 
   'tags': [],
 }
 
 const docsByTags = (tags, id) => {
   console.log(id,{tags})
   let docs = modxDocs.filter(doc => {
-    doc.rank = tags.length && !doc.tvs.tag.find(tag => tags.includes(`-${tag}`)) && (tags.filter(t => t.startsWith('+')).length == doc.tvs.tag.filter(tag => tags.includes(`+${tag}`)).length) && doc.tvs.tag.filter(tag => tags.includes(tag) || tags.includes(`+${tag}`)).length || 0
+    doc.rank = (tags.length && !doc.tvs.tag.find(tag => tags.includes(`-${tag}`)) && (tags.filter(t => t.startsWith('+')).length == doc.tvs.tag.filter(tag => tags.includes(`+${tag}`)).length)) && doc.tvs.tag.filter(tag => tags.includes(tag) || tags.includes(`+${tag}`) || tags.includes(`#${tag}`)).length || 0
     
-    doc.rank = doc.tvs.tag.filter(tag => tags.includes(`+${tag}`)).length ? doc.rank * 10 : doc.rank
+    doc.rank = doc.tvs.tag.filter(tag => tags.includes(`+${tag}`)).length * 100 + doc.tvs.tag.filter(tag => tags.includes(`#${tag}`)).length * 10 + doc.rank
     //if (doc.id == '4091') console.log(doc.tvs.tag,tags,doc.rank)
     //if (doc.rank > 0) console.log('R',doc.rank)
     return doc.id != id && !doc.isfolder && doc.rank > 0

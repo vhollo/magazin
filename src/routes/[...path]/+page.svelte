@@ -3,7 +3,7 @@
 // @ts-nocheck
 
   export let data
-  $: console.log('p.s.', doc.id, data.docs.length)
+  $: console.log('[path]', doc.id, doc.rank, data.docs.length)
   let pagenum = 0
 
   //$: (data) => { doc = data.doc stb…}
@@ -79,7 +79,7 @@
 </main>
 
 {#if pagenum > 0}
-<footer class="footer footer-center bg-base-200 text-base-content p-2">
+<footer class="footer footer-center bg-base-200 text-base-content pt-4">
   <button on:click={_pagenum} class="btn btn-outline">További cikkek</button>
 </footer>
 {/if}

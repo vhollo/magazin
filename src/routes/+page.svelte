@@ -5,7 +5,7 @@
 // @ts-nocheck
 
   export let data
-  console.log('p.s',data.docs.length)
+  console.log('[/]',data.docs.length)
   let pagenum = 1
 
   //$: doc = data.doc
@@ -24,14 +24,14 @@
 
 <main>
   
-  <section class="carousel carousel-center bg-neutral space-x-4 p-4 mb-4 items-stretch w-full">
+  <section class="carousel carousel-center bg-neutral space-x-4 p-4 pb-8 items-stretch w-full">
       <!--{@const card = {id: doc.id, img: doc.tvs.img, pos: doc.tvs.pos, path: doc.path, desc: doc.description, title: doc.title, longtitle: doc.longtitle, introtext: doc.introtext, ellipsis: doc.ellipsis, content: doc.content, tag: doc.tvs.tag}}-->
     <aside class="carousel-item card rounded card--compact bg-base-100 max-w-xs lg:w-5/12 h-min max-h-1/2">
-      <Card card={ {'img': {src: 'https://img.daisyui.com/images/stock/photo-1559703248-dcaaec9fab78.webp'}, 'longtitle': 'Segítség, cukorbeteg vagyok!', 'introtext': 'Sokszor azt gondoljuk, ha egy betegség elindul, törvényszerűen romlik. Ez egyáltalán nem biztos! A folyamat attól függ, hogy mennyire sikerül a gyorsító, rontó folyamatokat kiküszöbölnünk, és mennyire hagyjuk a védekező mechanizmusainkat érvényesülni.', 'tags': '', 'buttons': {'Bevezető': '/cikkek/diabetes/2401/csak-a-cukor-szamit-vagy-a-nagy-egesz', 'Válogatott cikkek': '/s-o-s'} } }/>
+      <Card card={ {'img': {src: 'https://img.daisyui.com/images/stock/photo-1559703248-dcaaec9fab78.webp'}, 'longtitle': 'Segítség, cukorbeteg vagyok!', 'introtext': 'Sokszor azt gondoljuk, ha egy betegség elindul, törvényszerűen romlik. Ez egyáltalán nem biztos! A folyamat attól függ, hogy mennyire sikerül a gyorsító, rontó folyamatokat kiküszöbölnünk, és mennyire hagyjuk a védekező mechanizmusainkat érvényesülni.', 'tags': '', 'buttons': {'Bevezető': '/cikkek/diabetes/2402/prevencio', 'Válogatott cikkek': '/s-o-s'} } }/>
     </aside>
 
     <aside class="carousel-item card rounded card--compact bg-base-100 max-w-xs lg:w-5/12 h-min max-h-1/2">
-      <Card card={ {'img': {src: 'assets/gdm.jpg'}, 'longtitle': 'Gesztációs diabétesz', 'introtext': 'A 24–28. heti vércukorterhelés mutatja ki a gesztációs diabéteszt. Ha valakit diagnosztizálnak, az első reakciója általában a félelem. A legrosszabb, amit tehetünk, ha a diagnózis után tagadásba menekülünk. Ehelyett vegyük kezünkbe az irányítást, orvosunk útmutatása alapján mérjük vércukrunkat, kövessük az étkezési ajánlásokat, mozogjunk!', 'tags': '', 'buttons': {'Bevezető': '/cikkek/diabetes/gdm2024/tippek-nogyogyaszoktol', 'Válogatott cikkek': '/gdm'} } }/>
+      <Card card={ {'img': {src: 'assets/gdm.jpg'}, 'longtitle': 'Gesztációs diabétesz', 'introtext': 'A 24–28. heti vércukorterhelés mutatja ki a gesztációs diabéteszt. Ha valakit diagnosztizálnak, az első reakciója általában a félelem. A legrosszabb, amit tehetünk, ha a diagnózis után tagadásba menekülünk. Ehelyett vegyük kezünkbe az irányítást, orvosunk útmutatása alapján mérjük vércukrunkat, kövessük az étkezési ajánlásokat, mozogjunk!', 'tags': '', 'buttons': {'Bevezető': '/cikkek/diabetes/gdm2024/tippek-nogyogyaszoktol', 'Válogatott cikkek': '/varandossag'} } }/>
     </aside>
 
     <aside class="carousel-item card rounded card--compact bg-base-100 max-w-xs lg:w-5/12 h-min max-h-1/2">
@@ -55,7 +55,7 @@
 </main>
 
 {#if pagenum > 0}
-<footer class="footer footer-center bg-base-200 text-base-content p-2">
+<footer class="footer footer-center bg-base-200 text-base-content pt-4">
   <button on:click={_pagenum} class="btn btn-outline">További cikkek</button>
 </footer>
 {/if}

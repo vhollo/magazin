@@ -75,35 +75,39 @@
     </figure>-->
   {/if}
 
-    {#if card.path}
-      <a href={`/${card.path}`} class="card-body justify-between p-2">
-        <CardBody {card}/>
-      </a>
-      <div class="card-actions justify-end p-2">
-        {#if card.buttons}
-        {#each Object.keys(card.buttons) as btn}
+  {#if card.path}
+    <a href={`/${card.path}`} class="card-body p-2">
+      <CardBody {card}/>
+    </a>
+    <div class="card-actions justify-end p-2">
+      {#if card.buttons}
+      {#each Object.keys(card.buttons) as btn}
+      <a class="btn btn-sm btn-outline" href={card.buttons[btn]}>{btn}</a>
+      {/each}
+      {/if}
+      {#each card.tags as tag}
+        <!--<a class="badge badge-outline badge-sm" href={tag}>{tag}</a>-->
+        <small class="badge badge-outline badge-sm">{tag}</small>
+      {/each}
+      <small class="badge badge-outline badge-sm">{card.rank}</small>
+    </div>
+  {:else}
+    <div class="card-body p-2">
+      <CardBody {card}/>
+    </div>
+    <div class="card-actions justify-end p-2">
+      {#if card.buttons}
+      {#each Object.keys(card.buttons) as btn}
         <a class="btn btn-sm btn-outline" href={card.buttons[btn]}>{btn}</a>
-        {/each}
-        {/if}
-        {#each card.tags as tag}
-          <a class="badge badge-outline badge-sm" href={tag}>{tag}</a>
-        {/each}
-      </div>
-    {:else}
-      <div class="card-body justify-between p-2">
-        <CardBody {card}/>
-        <div class="card-actions justify-end p-2">
-          {#if card.buttons}
-          {#each Object.keys(card.buttons) as btn}
-          <a class="btn btn-sm btn-outline" href={card.buttons[btn]}>{btn}</a>
-          {/each}
-          {/if}
-          {#each card.tags as tag}
-            <a class="badge badge-outline badge-sm" href={tag}>{tag}</a>
-          {/each}
-        </div>
-      </div>
-    {/if}
+      {/each}
+      {/if}
+      {#each card.tags as tag}
+        <!--<a class="badge badge-outline badge-sm" href={tag}>{tag}</a>-->
+        <small class="badge badge-outline badge-sm">{tag}</small>
+      {/each}
+      <small class="badge badge-outline badge-sm">{card.rank}</small>
+    </div>
+  {/if}
 <!--</aside>-->
 
 <style>
