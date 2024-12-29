@@ -92,11 +92,21 @@ article figure {
 .twoliner {
   -webkit-line-clamp: 2;
 }
-/*p.intro, .ellipsis p, .twoliner {
+p.intro, .ellipsis p, .twoliner {
   hyphens: auto;
-}*/
+}
 p.intro a, .ellipsis p a, .twoliner a {
   text-decoration: dashed underline;
+}
+
+.ellipsis:has(table) {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex-grow: 1;
+}
+.ellipsis table {
+  margin-top: auto; 
 }
 .ellipsis table ~ p, .twoliner table ~ p {
   display: none; 
@@ -107,6 +117,7 @@ p.intro a, .ellipsis p a, .twoliner a {
   line-height: var(--lh-card, 1.25rem);
   margin-bottom: .75rem;
   margin-top: 0;
+  width: 100%;
 }
 
 .prose :where(p):not(:where([class~="not-prose"],[class~="not-prose"] *)) {

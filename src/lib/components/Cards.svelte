@@ -37,7 +37,7 @@
 </script>
 
 {#if full}
-  <section class="grid gap-x-4 gap-y-12 px-4 py-6">
+  <section class="grid gap-x-4 gap-y-10 px-4 py-6">
     {#each docs as doc}
     {@const card = {id: doc.id, img: doc.img,/* pos: doc.tvs.pos, ext: doc.ext,*/ path: doc.path, desc: doc.description, title: doc.title, longtitle: doc.longtitle, introtext: doc.introtext, ellipsis: doc.ellipsis, content: doc.content, tags: doc.tvs.tag, rank: doc.rank}}
       <aside in:fade={{ duration: 2000 }} class:double={doc.img || doc.ellipsis?.indexOf('<video') !== -1} class:triple={doc.ellipsis?.indexOf('<video') !== -1} class="card rounded card--compact bg-base-100">

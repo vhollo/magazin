@@ -22,7 +22,7 @@ modxSiteContent = /*modxSiteContent ||*/ await modxdb.select().from(modx_site_co
     eq(modx_site_content.published, '1'),
     eq(modx_site_content.type, 'document'),
     or(
-      eq(modx_site_content.template, '7'), 
+      //eq(modx_site_content.template, '7'), 
       eq(modx_site_content.template, '9'), 
       eq(modx_site_content.template, '13')
     )
@@ -77,9 +77,9 @@ const _addTVs = (doc => {
     if (doc.description.match(/diabpont/gi) || doc.description == '') doc.description = 'DiabPONT Továbbképző Program'
   }
 
-  if (doc.longtitle.match(/inzulin/gi) || doc.introtext.match(/inzulin/gi) || doc.content.match(/inzulin/gi)) doc.tvs.tag.push('inzulin')
-  if (doc.longtitle.match(/gyógyszer/gi) || doc.introtext.match(/gyógyszer/gi) || doc.content.match(/gyógyszer/gi)) doc.tvs.tag.push('gyógyszer')
-  if (doc.longtitle.match(/készülék/gi) || doc.introtext.match(/készülék/gi) || doc.content.match(/készülék/gi)) doc.tvs.tag.push('készülék')
+  if (doc.longtitle.match(/inzulin/gi) || doc.introtext.match(/inzulin/gi) || doc.description.match(/inzulin/gi)) doc.tvs.tag.push('inzulin')
+  if (doc.longtitle.match(/gyógyszer/gi) || doc.introtext.match(/gyógyszer/gi) || doc.description.match(/gyógyszer/gi)) doc.tvs.tag.push('gyógyszer')
+  if (doc.longtitle.match(/készülék/gi) || doc.introtext.match(/készülék/gi) || doc.description.match(/készülék/gi)) doc.tvs.tag.push('készülék')
   //console.log(doc.tvs.tag)
 
   doc.tvs.sze = []
