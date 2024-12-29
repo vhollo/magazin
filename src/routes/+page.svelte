@@ -5,7 +5,7 @@
 // @ts-nocheck
 
   export let data
-  console.log('[/]',data.docs.length)
+  // console.log('[/]',data.docs.length)
   let pagenum = 1
 
   //$: doc = data.doc
@@ -18,7 +18,7 @@
     pagenum++
     docs = data.docs.slice(0, 18 * pagenum)
     if (18 * pagenum >= data.docs.length) pagenum = 0
-    console.log(pagenum, docs.length)
+    // console.log(pagenum, docs.length)
   }
 </script>
 

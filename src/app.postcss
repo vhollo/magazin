@@ -99,7 +99,7 @@ p.intro a, .ellipsis p a, .twoliner a {
   text-decoration: dashed underline;
 }
 
-.ellipsis:has(table) {
+.ellipsis:has(video) {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -119,6 +119,18 @@ p.intro a, .ellipsis p a, .twoliner a {
   margin-top: 0;
   width: 100%;
 }
+.twoliner .nicebox {
+  @apply shadow-none;
+  margin: 0;
+  padding: 0;
+}
+.ellipsis .nicebox {
+  display: contents;
+}
+.ellipsis .nicebox h2 {
+  display: none;
+}
+
 
 .prose :where(p):not(:where([class~="not-prose"],[class~="not-prose"] *)) {
   margin-top: .75em;
@@ -132,11 +144,6 @@ p.intro a, .ellipsis p a, .twoliner a {
 }
 article .nicebox {
   @apply card card-compact bg-base-100 shadow-xl card-body p-4 my-[2.8rem];
-}
-.twoliner .nicebox {
-  @apply shadow-none;
-  margin: 0;
-  padding: 0;
 }
 .nicebox > * {
   @apply my-0;
