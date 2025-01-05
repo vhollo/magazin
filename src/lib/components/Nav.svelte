@@ -71,8 +71,8 @@
 
 </script>
 
-<nav class="sticky top-0 lg:-top-16 z-50">
-  <nav class="navbar lg:justify-center bg-neutral py-0">
+<nav class="sticky top-0 lg:-top-16 z-50 bg-neutral">
+  <nav class="navbar lg:justify-center py-0">
     <div class="max-lg:flex-1"><a class="p-2" href="/" on:click={_close_nav}><img class="h-12" src={`${PUBLIC_BASE_URL}assets/templates/magazine/images/logo-diabetes2.svg`} alt="diabetes.hu"></a></div>
     <label for="mobile-nav" aria-label="open sidebar" class="btn btn-square btn-ghost lg:hidden text-neutral-content">
       <svg
@@ -89,7 +89,7 @@
       </svg>
     </label>
   </nav>
-  <nav class="lg:navbar min--h-0 bg-neutral text-neutral-content">
+  <nav class="lg:navbar min--h-0 text-neutral-content">
     <input id="mobile-nav" type="checkbox" bind:checked={_open_nav}/>
     <ul class="mx-auto max-lg:max-w-xl">
       {#each Object.keys(cats) as cat}
@@ -195,6 +195,9 @@
     outline-width: 0;
   }
   @media (max-width: 1023px)  {
+    nav.sticky:has(#mobile-nav:checked) {
+      min-height: 100vh;
+    }
     #mobile-nav ~ ul {
       transition: height 0.5s ease-in;
       overflow: hidden;

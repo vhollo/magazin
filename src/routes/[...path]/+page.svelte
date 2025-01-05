@@ -5,12 +5,14 @@
 // @ts-nocheck
 
   export let data
-  $: console.log('[path]', doc.id, doc.rank, data.docs.length)
-  let pagenum = 0
+  console.log('[path]', data.doc.id, data.doc.rank, data.docs.length)
+  let pagenum = 1
 
-  //$: (data) => { doc = data.doc stb…}
   $: doc = data.doc
   $: docs = data.docs.slice(0, 18)
+
+
+  //$: (data) => { doc = data.doc stb…}
   //if (18 * pagenum >= data.docs.length) pagenum = 0
 
   const _pagenum = () => {
@@ -18,7 +20,7 @@
     docs = data.docs.slice(0, 18 * pagenum)
     if (18 * pagenum >= data.docs.length) pagenum = 0
   }
-  _pagenum()
+  // _pagenum()
 
   $: pubdate = doc && new Date(doc.publishedon * 1000).toLocaleDateString('hu-HU')
   $: editdate = doc && new Date(doc.editedon * 1000).toLocaleDateString('hu-HU')

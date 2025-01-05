@@ -76,10 +76,10 @@
   {/if}
 
   {#if card.path}
-    <a href={`/${card.path}`} class="card-body gap-3 p-2">
+    <a href={`/${card.path}`} class="card-body gap-3 grow-0 p-0">
       <CardBody {card}/>
     </a>
-    <div class="card-actions justify-end p-2 mt-auto">
+    <div class="card-actions justify-end p-0 mt--auto">
       {#if card.buttons}
       {#each Object.keys(card.buttons) as btn}
       <a class="btn btn-sm btn-outline" href={card.buttons[btn]}>{btn}</a>
@@ -89,13 +89,13 @@
         <!--<a class="badge badge-outline badge-sm" href={tag}>{tag}</a>-->
         <small class="badge badge-outline badge-sm">{tag}</small>
       {/each}
-      <small class="badge badge-outline badge-sm">{card.rank}</small>
+      <!-- <small class="badge badge-outline badge-sm">{card.rank}</small> -->
     </div>
   {:else}
-    <div class="card-body gap-3 grow-0 p-2">
+    <div class="card-body gap-3 grow-0 p-0">
       <CardBody {card}/>
     </div>
-    <div class="card-actions justify-end p-2 mt-auto">
+    <div class="card-actions justify-end p-2 mt--auto">
       {#if card.buttons}
       {#each Object.keys(card.buttons) as btn}
         <a class="btn btn-sm btn-outline" href={card.buttons[btn]}>{btn}</a>
@@ -105,7 +105,7 @@
         <!--<a class="badge badge-outline badge-sm" href={tag}>{tag}</a>-->
         <small class="badge badge-outline badge-sm">{tag}</small>
       {/each}
-      <small class="badge badge-outline badge-sm">{card.rank}</small>
+      <!-- <small class="badge badge-outline badge-sm">{card.rank}</small> -->
     </div>
   {/if}
 <!--</aside>-->

@@ -1,14 +1,17 @@
 ///** @type {import('./$types').PageServerLoad} */
 
 export const prerender = true
-import { modxDoc, modxDocs } from '$lib/index.ts'
-import { PUBLIC_BASE_URL } from '$env/static/public'
+import { modxDoc, modxDocs } from '$lib/index'
+// import { PUBLIC_BASE_URL } from '$env/static/public'
 
 interface Docs {
-  [key: string]: array;
+  [key: string]: object;
+}
+interface Queries {
+  [key: string]: string[];
 }
 
-const queries = {
+const queries: Queries = {
   //'s-o-s': ['testmozgás', 'megelőzés', 'önellenőrzés', 'kezelés', 'szakellátás'],
   's-o-s': ['diabpont', '-covid-19'],
   'gdm': ['+várandósság', '-személyes'],
@@ -31,7 +34,7 @@ const queries = {
   'tarsbetegsegek': ['társbetegségek', '-covid-19'],
   'kozosseg': ['+közösség', '-egyesület', '-rendezvény', '-covid-19'],
   'egyesulet': ['+egyesület', '-covid-19'],
-  'esemenyek': ['+beszámoló', 'közösség', '-covid-19'],
+  'esemenyek': ['+közösség', '-egyesület', '-rendezvény', '-covid-19'],
   'rendezvenyek': ['+rendezvény', '-covid-19'],
   'hirek': ['rendezvény', 'beszámoló', 'közösség', 'egyesület', '-covid-19'],
   'gyogyitok': ['+személyes', '#orvosok', '#szakellátás', 'elismerés', '-kezelés', '-covid-19'],
@@ -39,44 +42,46 @@ const queries = {
   'tags': [],
 }
 
-const docsByTags = (tags, id) => {
+const docsByTags = (tags:Array<string>, id:string) => {
   console.log(id,{tags})
-  let docs = modxDocs.filter(doc => {
-    doc.rank = tags.length && !doc.tvs.tag.find(tag => tags.includes(`-${tag}`)) && (tags.filter(t => t.startsWith('+')).length == doc.tvs.tag.filter(tag => tags.includes(`+${tag}`)).length) && doc.tvs.tag.filter(tag => (tags.includes(tag) || tags.includes(`+${tag}`) || tags.includes(`#${tag}`))).length || 0
+  let docs = modxDocs.filter((doc: { tvs: { tag: string[] }; rank: number; id: string; isfolder: number }) => {
+    doc.rank = tags.length && /* !doc.tvs.tag.find(tag => tags.includes(`-${tag}`)) && (tags.filter(t => t.startsWith('+')).length == doc.tvs.tag.filter(tag => tags.includes(`+${tag}`)).length) && */ doc.tvs.tag.filter(tag => (tags.includes(tag) || tags.includes(`+${tag}`) || tags.includes(`#${tag}`))).length || 0
     
+    // doc.rank = doc.tvs.tag.filter(tag => tags.includes(`+${tag}`)).length * 1
     doc.rank = doc.tvs.tag.filter(tag => tags.includes(`+${tag}`)).length * 100 + doc.tvs.tag.filter(tag => tags.includes(`#${tag}`)).length * 10 + doc.rank
     //if (doc.id == '4091') console.log(doc.tvs.tag,tags,doc.rank)
     //if (doc.rank > 0) console.log('R',doc.rank)
     return doc.id != id && !doc.isfolder && doc.rank > 0
   }) || []
-  docs.sort((a, b) => parseFloat(b.rank) - parseFloat(a.rank))
+  docs.sort((a: { rank: string; }, b: { rank: string; }) => parseFloat(b.rank) - parseFloat(a.rank))
   console.log('docs:',docs.length)
-  return docs//.slice(18 * page, 18 * (page + 1))
+  return docs.slice(0, 18 * 3)
 }
 
 
 export async function load({ params }) {
   const pp = params.path?.split('/') || []
-  const path = pp[0] || undefined
+  // const path = pp[0] || undefined
   //const page = +pp[1] || 0
   console.log('pp:',params)
-  let query, doc, docs:Docs = {}, page = 0
+  const path:string = params.path || 'tags'
+  let query, doc, docs:Docs = {}//, page = 0
 
   switch (true) {
-    case params.path === undefined: /// start page
+    case path === 'tags': /// start page
       //console.log('undefined:',params.path)
       //query = queries
       doc = {'path': '/'}
       break
-    case !!queries[params.path]: /// a collection
+    case !!queries[path]: /// a collection
       //console.log('queries:',queries[path])
-      query = queries[params.path] ///?
-      doc = {'path': params.path}
+      query = queries[path] ///?
+      doc = {'path': path}
       //console.log('path:',path)
       break
     default: /// page path
       //console.log('default:',params.path)
-      doc = modxDoc(params.path) || {}
+      doc = modxDoc(path) || {}
       query = doc.tvs && doc.tvs.tag || []
       //console.log('ID:',doc.id)
   }
@@ -87,11 +92,11 @@ export async function load({ params }) {
       docs = docsByTags(query, doc?.id)
       //console.log('K;',k,query[k], docs[k].length)
     //}
-  } else docs = modxDocs.filter(doc => doc.tvs.tag?.length).slice(0, 18 * 5)
+  } else docs = modxDocs.filter((doc: { tvs: { tag: string | any[]; }; }) => doc.tvs.tag?.length).slice(0, 18 * 5)
 
 
   console.log('l.s.:',docs.length)
-  return {doc, docs}
+  return {doc, docs, path: params.path}
 }
 
 /// 3834: /cikkek/diabetes/2306/lent-es-fent
