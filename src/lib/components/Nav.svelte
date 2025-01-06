@@ -89,7 +89,7 @@
       </svg>
     </label>
   </nav>
-  <nav class="lg:navbar min--h-0 text-neutral-content">
+  <nav class="lg:navbar max-lg:py-4 min--h-0 text-neutral-content">
     <input id="mobile-nav" type="checkbox" bind:checked={_open_nav}/>
     <ul class="mx-auto max-lg:max-w-xl">
       {#each Object.keys(cats) as cat}
@@ -97,9 +97,9 @@
         <li tabindex="0" class="grow max-lg:collapse collapse-arrow dropdown dropdown-hover last:dropdown-end w--min text-nowrap"><!-- lg:inline-block  on:blur={_uncheck} -->
           <input type="radio" name="collapse" class="lg:hidden"/>
           <div tabindex="0" role="button" class="max-lg:collapse-title lg:menu-title !text-neutral-content text-nowrap font-medium">{cat}</div>
-          <ul tabindex="0" class="menu flex-nowrap max-lg:collapse-content lg:dropdown-content lg:rounded-box bg-neutral p-0">
+          <ul tabindex="0" class="menu flex-nowrap max-lg:collapse-content lg:dropdown-content lg:rounded-box bg-neutral lg:p-2">
             {#each Object.keys(cats[cat]) as subcat}
-              <li class=""><a class="text-nowrap" href={cats[cat][subcat]} on:click={_close_nav}>{subcat}</a></li>
+              <li class=""><a class="max-lg:p-4 lg:p-2 text-nowrap" href={cats[cat][subcat]} on:click={_close_nav}>{subcat}</a></li>
             {/each}
           </ul>
         </li>

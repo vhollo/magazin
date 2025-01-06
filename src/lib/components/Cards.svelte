@@ -37,7 +37,7 @@
 </script>
 
 {#if full}
-  <section class="grid gap-x-4 gap-y-10 px-4 py-6">
+  <section class="grid gap-x-6 gap-y-10 px-4 py-6">
     <aside class="card rounded gap-4 card--compact bg-base-100" style="order:0">
       <h1 class="card-body">HIRDETÉS</h1>
     </aside>

@@ -16,6 +16,7 @@ const queries: Queries = {
   's-o-s': ['diabpont', '-covid-19'],
   'gdm': ['+várandósság', '-személyes'],
   'varandossag': ['+várandósság', '+személyes'],
+  'gyermekvallalas': ['+várandósság', 'edukáció'],
   'inzulinok': ['+inzulin', 'piac', 'kezelés', '-önellenőrzés'],
   'gyogyszerek': ['+gyógyszer', 'piac', 'kezelés', '-önellenőrzés'],
   'technikai-eszkozok': ['+készülék', 'piac', 'kezelés', '-önellenőrzés', '-megelőzés'],
@@ -32,9 +33,9 @@ const queries: Queries = {
   'vegtagok': ['neuropátia', 'megelőzés'],
   'sziv-errendszer': ['hypertonia', '-covid-19'],
   'tarsbetegsegek': ['társbetegségek', '-covid-19'],
-  'kozosseg': ['+közösség', '-egyesület', '-rendezvény', '-covid-19'],
+  'kozosseg': ['+közösség', '+személyes', '-egyesület', '-rendezvény', '-covid-19'],
   'egyesulet': ['+egyesület', '-covid-19'],
-  'esemenyek': ['+közösség', '-egyesület', '-rendezvény', '-covid-19'],
+  'esemenyek': ['+közösség', '-személyes', '-egyesület', '-rendezvény', '-covid-19'],
   'rendezvenyek': ['+rendezvény', '-covid-19'],
   'hirek': ['rendezvény', 'beszámoló', 'közösség', 'egyesület', '-covid-19'],
   'gyogyitok': ['+személyes', '#orvosok', '#szakellátás', 'elismerés', '-kezelés', '-covid-19'],
@@ -45,7 +46,7 @@ const queries: Queries = {
 const docsByTags = (tags:Array<string>, id:string) => {
   console.log(id,{tags})
   let docs = modxDocs.filter((doc: { tvs: { tag: string[] }; rank: number; id: string; isfolder: number }) => {
-    doc.rank = tags.length && /* !doc.tvs.tag.find(tag => tags.includes(`-${tag}`)) && (tags.filter(t => t.startsWith('+')).length == doc.tvs.tag.filter(tag => tags.includes(`+${tag}`)).length) && */ doc.tvs.tag.filter(tag => (tags.includes(tag) || tags.includes(`+${tag}`) || tags.includes(`#${tag}`))).length || 0
+    doc.rank = tags.length && !doc.tvs.tag.find(tag => tags.includes(`-${tag}`)) && (tags.filter(t => t.startsWith('+')).length == doc.tvs.tag.filter(tag => tags.includes(`+${tag}`)).length) && doc.tvs.tag.filter(tag => (tags.includes(tag) || tags.includes(`+${tag}`) || tags.includes(`#${tag}`))).length || 0
     
     // doc.rank = doc.tvs.tag.filter(tag => tags.includes(`+${tag}`)).length * 1
     doc.rank = doc.tvs.tag.filter(tag => tags.includes(`+${tag}`)).length * 100 + doc.tvs.tag.filter(tag => tags.includes(`#${tag}`)).length * 10 + doc.rank

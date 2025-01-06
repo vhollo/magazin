@@ -6,14 +6,14 @@
 
   export let data
   console.log('[path]', data.doc.id, data.doc.rank, data.docs.length)
-  let pagenum = 1
 
   $: doc = data.doc
   $: docs = data.docs.slice(0, 18)
+  $: pagenum = data.docs.length > 0 ? 1 : 0
 
 
   //$: (data) => { doc = data.doc stb…}
-  //if (18 * pagenum >= data.docs.length) pagenum = 0
+  // if (18 * pagenum >= data.docs.length) pagenum = 0
 
   const _pagenum = () => {
     pagenum++
@@ -98,7 +98,7 @@
       <Cards {docs}/>
     <!--{/each}-->
   {:else}
-    <h3>NO DOCS</h3>
+    <h3 class="text-center">NO DOCS</h3>
   {/if}
 </main>
 
