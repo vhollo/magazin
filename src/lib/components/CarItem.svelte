@@ -30,7 +30,7 @@
 
 <!--<aside class:double={card.img} class:triple={card.ellipsis?.indexOf('<video') !== -1} class="card card-compact bg-base-100 shadow-xl">-->
   {#if card.video}
-    <figure class="rounded">
+    <figure>
       {#if card.path}
         <a href={`/${card.path}`}>
           <!--<img style={`object-fit: ${card.ext == 'png' ? 'contain' : 'cover'}; object-position: ${card.pos || '50% 40%'}`} src={`${PUBLIC_BASE_URL}${card.img}`} alt="" width="928" height="548"/>-->
@@ -49,7 +49,7 @@
       {/if}
     </figure>
   {:else if card.img}
-    <figure class="rounded">
+    <figure>
       {#if card.path}
         <a href={`/${card.path}`}>
           <!--<img style={`object-fit: ${card.ext == 'png' ? 'contain' : 'cover'}; object-position: ${card.pos || '50% 40%'}`} src={`${PUBLIC_BASE_URL}${card.img}`} alt="" width="928" height="548"/>-->
@@ -68,7 +68,7 @@
       {/if}
     </figure>
   {:else}
-    <!--<figure class="rounded" class="empty">
+    <!--<figure class="empty">
       <a href={`/${card.path}`}>
         <img src="/pixel.png" alt="" width="928" height="548">
       </a>

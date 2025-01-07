@@ -40,7 +40,7 @@ const queries: Queries = {
   'hirek': ['rendezvény', 'beszámoló', 'közösség', 'egyesület', '-covid-19'],
   'gyogyitok': ['+személyes', '#orvosok', '#szakellátás', 'elismerés', '-kezelés', '-covid-19'],
   'sorstarsak': ['+személyes', '+szekellátás', '-orvosok', '-önellenőrzés', '-kezelés', '-várandósság', '-közösség', '-edukáció', '-egyesület', '-covid-19'], 
-  'tags': [],
+  'all': [],
 }
 
 const docsByTags = (tags:Array<string>, id:string) => {
@@ -65,11 +65,11 @@ export async function load({ params }) {
   // const path = pp[0] || undefined
   //const page = +pp[1] || 0
   console.log('pp:',params)
-  const path:string = params.path || 'tags'
+  const path:string = params.path || 'all'
   let query, doc, docs:Docs = {}//, page = 0
 
   switch (true) {
-    case path === 'tags': /// start page
+    case path === 'all': /// start page
       //console.log('undefined:',params.path)
       //query = queries
       doc = {'path': '/'}
