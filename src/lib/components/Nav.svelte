@@ -194,8 +194,11 @@
     outline-offset: 0;
     outline-width: 0;
   }
-  @media (max-width: 1023px)  {
-    nav.sticky:has(#mobile-nav:checked) {
+  /* nav:has(#mobile-nav:checked) {
+    min-height: 0;
+  } */
+  @media not all and (min-width: 1024px)  {
+    nav:has(#mobile-nav:checked) {
       min-height: 100vh;
     }
     #mobile-nav ~ ul {
