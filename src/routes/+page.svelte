@@ -45,7 +45,7 @@
 
   </section>
 
-  <article class="prose card w-128 bg-base-300 my-2 mx-auto px-0 py-6">
+  <article class="prose card w-128 bg-base-300 my-2 mx-auto px-0 py-6 max-md:mx-4">
     <h1>Szevasz Tavasz!</h1>
     <p>lorem ipsum</p>
   </article>
