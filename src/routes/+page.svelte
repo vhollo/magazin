@@ -5,7 +5,7 @@
 // @ts-nocheck
 
   export let data
-  console.log('[/]',data.docs.length)
+  // console.log('[/]',data.docs.length)
   let pagenum = 1
 
   //$: (data) => { doc = data.doc stb…}

@@ -87,9 +87,9 @@
         <li tabindex="0" class="grow max-lg:collapse collapse-arrow dropdown dropdown-hover last:dropdown-end w--min text-nowrap"><!-- lg:inline-block  on:blur={_uncheck} -->
           <input type="radio" name="collapse" class="lg:hidden"/>
           <div tabindex="0" role="button" class="max-lg:collapse-title lg:menu-title !text-neutral-content text-nowrap font-medium">{cat}</div>
-          <ul tabindex="0" class="menu flex-nowrap max-lg:collapse-content lg:dropdown-content lg:rounded-box bg-neutral lg:p-2">
+          <ul tabindex="0" class="menu flex-nowrap max-lg:collapse-content lg:dropdown-content lg:rounded-box bg-neutral text-neutral-content lg:p-2">
             {#each Object.keys(cats[cat]) as subcat}
-              <li class=""><a class="max-lg:p-4 lg:p-2 text-nowrap" href={cats[cat][subcat]} on:click={_close_nav}>{subcat}</a></li>
+              <li class=""><a class="max-lg:p-4 lg:p-2 text-nowrap hover:bg-neutral-focus" class:active={`/${actual}` == cats[cat][subcat]} href={cats[cat][subcat]} on:click={_close_nav}>{subcat}</a></li>
             {/each}
           </ul>
         </li>
@@ -183,6 +183,10 @@
   a:hover {
     outline-offset: 0;
     outline-width: 0;
+  }
+  .active {
+    cursor: default;
+    pointer-events: none;
   }
   /* nav:has(#mobile-nav:checked) {
     min-height: 0;

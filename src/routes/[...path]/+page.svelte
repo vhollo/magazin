@@ -5,7 +5,7 @@
 // @ts-nocheck
 
   export let data
-  console.log('[path]', data.doc.id, data.doc.rank, data.docs.length)
+  // console.log('[path]', data.doc.id, data.doc.rank, data.docs.length)
 
   $: doc = data.doc
   $: docs = data.docs.slice(0, 18)
@@ -26,7 +26,7 @@
   $: editdate = doc && new Date(doc.editedon * 1000).toLocaleDateString('hu-HU')
 </script>
 
-<main>
+<main class="bg-base-300">
   {#if doc.id}
     <!--{@const date = new Date(doc.publishedon * 1000).toLocaleDateString('hu-HU')}-->
     <!--{@const meta = [doc.tvs.sze, date, doc.tvs.cat].join(' | ')}-->

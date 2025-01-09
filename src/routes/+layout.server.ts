@@ -44,7 +44,7 @@ const queries: Queries = {
 }
 
 const docsByTags = (tags:Array<string>, id:string) => {
-  console.log(id,{tags})
+  // console.log(id,{tags})
   let docs = modxDocs.filter((doc: { tvs: { tag: string[] }; rank: number; id: string; isfolder: number }) => {
     doc.rank = tags.length && !doc.tvs.tag.find(tag => tags.includes(`-${tag}`)) && (tags.filter(t => t.startsWith('+')).length == doc.tvs.tag.filter(tag => tags.includes(`+${tag}`)).length) && doc.tvs.tag.filter(tag => (tags.includes(tag) || tags.includes(`+${tag}`) || tags.includes(`#${tag}`))).length || 0
     
@@ -64,7 +64,7 @@ export async function load({ params }) {
   const pp = params.path?.split('/') || []
   // const path = pp[0] || undefined
   //const page = +pp[1] || 0
-  console.log('pp:',params)
+  // console.log('pp:',params)
   const path:string = params.path || 'all'
   let query, doc, docs:Docs = {}//, page = 0
 
@@ -96,7 +96,7 @@ export async function load({ params }) {
   } else docs = modxDocs.filter((doc: { tvs: { tag: string | any[]; }; }) => doc.tvs.tag?.length).slice(0, 18 * 5)
 
 
-  console.log('l.s.:',docs.length)
+  // console.log('l.s.:',docs.length)
   return {doc, docs, path: params.path}
 }
 

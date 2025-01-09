@@ -16,6 +16,11 @@
   @apply bg-neutral;
   /*interpolate-size: allow-keywords;*/
 }
+@media (prefers-color-scheme: light) {
+  :root {
+    --fallback-bc: oklch(var(--bc) / 1);
+  }
+}
 
 html:has(.drawer-toggle:checked) {
   overflow-y: auto!important;
