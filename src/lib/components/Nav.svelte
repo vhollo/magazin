@@ -49,20 +49,10 @@
     },
   }
 
-  /*function _dropdown(event){
-    console.log(event)
+  /* function _uncheck(event){
     const target = event.target//.parentElement.nextSibling
-    console.log(target.nextElementSibling)
-    target.classList.toggle('menu-dropdown-show')
-    target.nextElementSibling.classList.toggle('menu-dropdown-show')
-  }*/
-  function _uncheck(event){
-    //console.log(event)
-    const target = event.target//.parentElement.nextSibling
-    console.log(target.firstElementChild)
     target.firstElementChild.checked = false
-    //target.nextElementSibling.classList.toggle('menu-dropdown-show')
-  }
+  } */
 
   $: console.log(actual)
   //$: _open_nav = actual && false
@@ -71,10 +61,10 @@
 
 </script>
 
-<nav class="sticky top-0 lg:-top-16 z-50 bg-neutral">
-  <nav class="navbar lg:justify-center py-0">
+<nav class="sticky top-0 lg:-top-16 z-50 bg--neutral">
+  <nav class="top-0 left-0 w-full navbar lg:justify-center py-0 bg-neutral max-lg:mb-8">
     <div class="max-lg:flex-1"><a class="p-2" href="/" on:click={_close_nav}><img class="h-12" src={`${PUBLIC_BASE_URL}assets/templates/magazine/images/logo-diabetes2.svg`} alt="diabetes.hu"></a></div>
-    <label for="mobile-nav" aria-label="open sidebar" class="btn btn-square btn-ghost lg:hidden text-neutral-content">
+    <label for="mobile-nav" aria-label="open sidebar" class="fixed top-0 right-0 bg-neutral z-50 btn btn-lg btn-square btn-ghost lg:hidden text-neutral-content">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
@@ -89,9 +79,9 @@
       </svg>
     </label>
   </nav>
-  <nav class="lg:navbar max-lg:py-4 min--h-0 text-neutral-content">
+  <nav class="lg:navbar min--h-0 text-neutral-content bg-neutral">
     <input id="mobile-nav" type="checkbox" bind:checked={_open_nav}/>
-    <ul class="mx-auto max-lg:max-w-xl">
+    <ul class="mx-auto max-lg:max-w-xl max--lg:py-4">
       {#each Object.keys(cats) as cat}
         <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
         <li tabindex="0" class="grow max-lg:collapse collapse-arrow dropdown dropdown-hover last:dropdown-end w--min text-nowrap"><!-- lg:inline-block  on:blur={_uncheck} -->
@@ -198,7 +188,10 @@
     min-height: 0;
   } */
   @media not all and (min-width: 1024px)  {
-    nav:has(#mobile-nav:checked) {
+    /* nav > nav:has(~ nav #mobile-nav) {
+      position: fixed;
+    } */
+    nav:has(nav > #mobile-nav:checked) {
       min-height: 100vh;
     }
     #mobile-nav ~ ul {
@@ -210,6 +203,9 @@
       height: auto;
       height: calc-size(auto, size);
     }
+    /* #mobile-nav:checked ~ ul > li{
+      margin-block: 1rem;
+    } */
     li input:checked ~ ul {
       visibility: visible!important;
     }

@@ -23,9 +23,9 @@
   }
 </script>
 
-<main>
+<main class="bg-base-300">
   
-  <section class="carousel carousel-center bg-neutral space-x-4 p-4 pb-8 items-stretch w-full">
+  <section class="carousel carousel-center bg-neutral space-x-4 p-8 pb-16 items-stretch w-full">
       <!--{@const card = {id: doc.id, img: doc.tvs.img, pos: doc.tvs.pos, path: doc.path, desc: doc.description, title: doc.title, longtitle: doc.longtitle, introtext: doc.introtext, ellipsis: doc.ellipsis, content: doc.content, tag: doc.tvs.tag}}-->
     <aside class="carousel-item card rounded card-compact bg-base-100 w-full sm:w-7/12 lg:w-2/5 xl:w-[27.5%] h-min max-h-1/2">
       <CarItem card={ {'img': {src: 'https://img.daisyui.com/images/stock/photo-1559703248-dcaaec9fab78.webp'}, 'longtitle': 'Segítség, cukorbeteg vagyok!', 'introtext': 'Sokszor azt gondoljuk, ha egy betegség elindul, törvényszerűen romlik. Ez egyáltalán nem biztos! A folyamat attól függ, hogy mennyire sikerül a gyorsító, rontó folyamatokat kiküszöbölnünk, és mennyire hagyjuk a védekező mechanizmusainkat érvényesülni.', 'tags': '', 'buttons': {'Bevezető': '/cikkek/diabetes/2402/prevencio', 'Válogatott cikkek': '/s-o-s'} } }/>
@@ -45,7 +45,7 @@
 
   </section>
 
-  <article class="prose card w-128 bg-base-300 my-2 mx-auto px-0 py-6 max-md:mx-4">
+  <article class="prose card w-128 my-2 mx-auto px-0 py-6 max-md:mx-4">
     <h1>Szevasz Tavasz!</h1>
     <p>lorem ipsum</p>
   </article>
