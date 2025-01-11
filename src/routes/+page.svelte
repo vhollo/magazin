@@ -1,7 +1,10 @@
-<script>
+<script context="module">
   import Cards from '$lib/components/Cards.svelte'
   import CarItem from '$lib/components/CarItem.svelte'
   import { PUBLIC_BASE_URL } from '$env/static/public'
+</script>
+
+<script>
 // @ts-nocheck
 
   export let data
@@ -22,6 +25,8 @@
     // console.log(pagenum, docs.length)
   }
 </script>
+
+<svelte:head><title>Diabetes</title></svelte:head>
 
 <main class="bg-base-300">
   

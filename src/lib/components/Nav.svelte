@@ -1,60 +1,19 @@
+<script context="module">
+  import { PUBLIC_BASE_URL } from '$env/static/public'
+  import { cats } from '$lib/cats.js'
+</script>
+
 <script>
 // @ts-nocheck
 
-  import { PUBLIC_BASE_URL } from '$env/static/public'
   export let actual
   let _open_nav = false
-
-  const cats = {
-    'Kezelés': {
-      'Inzulinok': '/inzulinok',
-      'Gyógyszerek': '/gyogyszerek',
-      'Technikai eszközök': '/technikai-eszkozok',
-      'Orvos–beteg kapcsolat': '/orvos-beteg',
-      'Önmenedzselés': '/onmenedzseles',
-    },
-    'Életmód': {
-      'Táplálkozás': '/taplalkozas',
-      'Receptek': '/receptek',
-      'Testmozgás': '/testmozgas',
-      'Psziché': '/psziche',
-      'Jogi útmutatók': '/jogi-utmutatok',
-    },
-    'Szövődmények': {
-      'Idegrendszer': '/idegrendszer',
-      'Vese': '/vese',
-      'Látás': '/latas',
-      'Végtagok': '/vegtagok',
-      'Szív-érrendszer': '/sziv-errendszer',
-      'Társbetegségek': '/tarsbetegsegek',
-    },
-    'Közösségi élet': {
-      'Egyesületek': '/egyesulet',
-      'Közösség': '/kozosseg',
-      'Események': '/esemenyek',
-      'Rendezvények': '/rendezvenyek',
-    },
-    'Portrék': {
-      'Gyógyítók': '/gyogyitok',
-      'Sorstársak': '/sorstarsak',
-    },
-    'Gyermekvállalás': {
-      'Gesztációs diabétesz': '/gdm',
-      'Várandósság cukorbetegséggel': '/varandossag',
-    },
-    'Impresszum': {
-      'Alapítvány a Cukorbetegekért': '/alapitany',
-      'Tudomány Kiadó': '/tudomany',
-      'Portmed': '/portmed',
-    },
-  }
 
   /* function _uncheck(event){
     const target = event.target//.parentElement.nextSibling
     target.firstElementChild.checked = false
   } */
 
-  $: console.log(actual)
   //$: _open_nav = actual && false
 
   const _close_nav = () => _open_nav = false
@@ -97,78 +56,6 @@
     </ul>
   </nav>
 </nav>
-
-<!--<ul class="lg:!h-auto">
-  <li class="collapse w-min border-base-300 border">
-    <input type="checkbox" name="menu-accordion" on:blur={_dropup} />
-    <div class="collapse-title w-min text-xl font-medium">Kezelés</div>
-    <ul class="collapse-content w-min p-0">
-      <li><a><s>Inzulinok</s></a></li>
-      <li><a><s>Gyógyszerek</s></a></li>
-      <li><a><s>Technikai eszközök</s></a></li>
-      <li><a href="/orvos-beteg">Orvos–beteg kapcsolat</a></li>
-      <li><a href="/önellenőrzés">Önmenedzselés</a></li>
-    </ul>
-  </li>
-  <li class="collapse w-min border-base-300 border">
-    <input type="checkbox" name="menu-accordion" on:blur={_dropup} />
-    <div class="collapse-title w-min text-xl font-medium">Életmód</div>
-    <ul class="collapse-content w-min p-0">
-      <li><a href="/recept">Receptek</a></li>
-      <li><a href="/táplálkozás">Táplálkozás</a></li>
-      <li><a href="/testmozgás">Testmozgás</a></li>
-      <li><a href="/psziché">Psziché</a></li>
-      <li><a href="/jog">Jogi útmutatók</a></li>
-    </ul>
-  </li>
-  <li class="collapse w-min border-base-300 border">
-    <input type="checkbox" name="menu-accordion" on:blur={_dropup} />
-    <div class="collapse-title w-min text-xl font-medium">Szövődmények</div>
-    <ul class="collapse-content w-min p-0">
-      <li><a href="/idegrendszer">Idegrendszer</a></li>
-      <li><a href="/vese">Vese</a></li>
-      <li><a href="/látás">Látás</a></li>
-      <li><a href="/végtag">Végtagok</a></li>
-      <li><a href="/hypertonia">Szív-érrendszer</a></li>
-      <li><a href="/társbetegségek">Társbetegségek</a></li>
-    </ul>
-  </li>
-  <li class="collapse w-min border-base-300 border">
-    <input type="checkbox" name="menu-accordion" on:blur={_dropup} />
-    <div class="collapse-title w-min text-xl font-medium">Közösségi élet</div>
-    <ul class="collapse-content w-min p-0">
-      <li><a href="/egyesület">Egyesületek</a></li>
-      <li><a href="/közösség">Közösség</a></li>
-      <li><a href="/esemény">Események</a></li>
-      <li><a href="/rendezvény">Rendezvények</a></li>
-    </ul>
-  </li>
-  <li class="collapse w-min border-base-300 border">
-    <input type="checkbox" name="menu-accordion" on:blur={_dropup} />
-    <div class="collapse-title w-min text-xl font-medium">Portrék</div>
-    <ul class="collapse-content w-min p-0">
-      <li><a href="/portrék">Gyógyítók</a></li>
-      <li><a href="/sorstársak">Sorstársak</a></li>
-    </ul>
-  </li>
-  <li class="collapse w-min border-base-300 border">
-    <input type="checkbox" name="menu-accordion" on:blur={_dropup} />
-    <div class="collapse-title w-min text-xl font-medium">Gyermekvállalás</div>
-    <ul class="collapse-content w-min p-0">
-      <li><a><s>Gesztációs diabétesz</s></a></li>
-      <li><a><s>Várandósság cukorbetegséggel</s></a></li>
-    </ul>
-  </li>
-  <li class="collapse w-min border-base-300 border">
-    <input type="checkbox" name="menu-accordion" on:blur={_dropup} />
-    <div class="collapse-title w-min text-xl font-medium">Impresszum</div>
-    <ul class="collapse-content w-min p-0">
-          <li><a><s>Alapítvány a Cukorbetegekért</s></a></li>
-          <li><a><s>Tudomány Kiadó</s></a></li>
-          <li><a><s>Portmed</s></a></li>
-    </ul>
-  </li>
-</ul>-->
 
 <style>
   #mobile-nav {
