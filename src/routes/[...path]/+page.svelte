@@ -42,7 +42,7 @@
     Object.keys(cats).forEach(cat => {
       for (let subcat of Object.keys(cats[cat])) {
         if (`/${data.doc.path}` == cats[cat][subcat]) {
-          console.log({subcat})
+          // console.log({subcat})
           docstitle = subcat
         }
       }
