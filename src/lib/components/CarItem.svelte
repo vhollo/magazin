@@ -34,14 +34,14 @@
       {#if card.path}
         <a href={`/${card.path}`}>
           <!--<img style={`object-fit: ${card.ext == 'png' ? 'contain' : 'cover'}; object-position: ${card.pos || '50% 40%'}`} src={`${PUBLIC_BASE_URL}${card.img}`} alt="" width="928" height="548"/>-->
-          <img 
+          <img  loading="lazy"
             style={`object-fit: ${card.ext == 'png' ? 'contain' : 'cover'}; object-position: ${card.pos || '50% 40%'}`} 
             src={`${card.img}`} 
             alt="" width="928" height="548"
           />
         </a>
       {:else}
-        <img 
+        <img loading="lazy"
           style={`object-fit: ${card.ext == 'png' ? 'contain' : 'cover'}; object-position: ${card.pos || '50% 40%'}`} 
           src={`${card.img}`} 
           alt="" width="928" height="548"
@@ -53,14 +53,14 @@
       {#if card.path}
         <a href={`/${card.path}`}>
           <!--<img style={`object-fit: ${card.ext == 'png' ? 'contain' : 'cover'}; object-position: ${card.pos || '50% 40%'}`} src={`${PUBLIC_BASE_URL}${card.img}`} alt="" width="928" height="548"/>-->
-          <img 
+          <img loading="lazy"
             style={`object-fit: ${card.img.ext == 'png' ? 'contain' : 'cover'}; object-position: ${card.img.pos || '50% 40%'}`} 
             src={`${card.img.src}`} 
             alt="" width="928" height="548"
           />
         </a>
       {:else}
-        <img 
+        <img loading="lazy"
           style={`object-fit: ${card.ext == 'png' ? 'contain' : 'cover'}; object-position: ${card.pos || '50% 40%'}`} 
           src={`${card.img.src}`} 
           alt="" width="928" height="548"
@@ -76,7 +76,7 @@
   {/if}
 
   {#if card.path}
-    <a href={`/${card.path}`} class="card-body gap-3 grow-0 p-0">
+    <a href={`/${card.path}`} class="card-body gap-3 p-0">
       <CardBody {card}/>
     </a>
     <div class="card-actions justify-end p-0 mt--auto">
@@ -92,7 +92,7 @@
       <!-- <small class="badge badge-outline badge-sm">{card.rank}</small> -->
     </div>
   {:else}
-    <div class="card-body gap-3 grow-0 p-0">
+    <div class="card-body gap-3 p-0">
       <CardBody {card}/>
     </div>
     <div class="card-actions justify-end p-2 mt--auto">
