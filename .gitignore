@@ -20,13 +20,13 @@ Thumbs.db
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 
+# Local Netlify folder
+.netlify
+
 # vhollo
 ._*
 magazin.code-workspace
 
-# Local Netlify folder
-.netlify
-
-TEMP
-/src/routes/auth
+# TEMP
+/src/routes/auth/
 
