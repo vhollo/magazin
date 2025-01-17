@@ -1,8 +1,18 @@
 ///** @type {import('./$types').PageServerLoad} */
 
+import MiniSearch from 'minisearch'
+
 export const prerender = true
-import { modxDoc, modxDocs } from '$lib/index'
+import { modxDoc, modxDocs } from '$lib/modx/index'
 // import { PUBLIC_BASE_URL } from '$env/static/public'
+
+
+const miniSearch = new MiniSearch({
+  fields: ['longtitle', 'description', 'introtext', 'content'], // fields to index for full-text search
+  storeFields: ['longtitle', 'path', 'description', 'introtext', 'tvs', 'img'], // fields to return with search results
+})
+miniSearch.addAll(modxDocs)
+
 
 interface Docs {
   [key: string]: object;
@@ -60,11 +70,13 @@ const docsByTags = (tags:Array<string>, id:string) => {
 }
 
 
-export async function load({ params }) {
-  const pp = params.path?.split('/') || []
+export async function load({ params, url }) {
+  // const pp = params.path?.split('/') || []
   // const path = pp[0] || undefined
   //const page = +pp[1] || 0
-  // console.log('pp:',params)
+  // console.log('url:',url.searchParams)
+
+  const q = url.searchParams.get('q')
   const path:string = params.path || 'all'
   let query, doc, docs:Docs = {}//, page = 0
 
@@ -80,6 +92,9 @@ export async function load({ params }) {
       doc = {'path': path}
       //console.log('path:',path)
       break
+    case path === 'keres': /// search results
+      doc = {'path': path, 'pagetitle': q}
+      break
     default: /// page path
       //console.log('default:',params.path)
       doc = modxDoc(path) || {}
@@ -93,9 +108,14 @@ export async function load({ params }) {
       docs = docsByTags(query, doc?.id)
       //console.log('K;',k,query[k], docs[k].length)
     //}
+  } else if (path === 'keres') {
+    docs = miniSearch.search(q)
+    console.log('search:',docs.length)
   } else docs = modxDocs.filter((doc: { tvs: { tag: string | any[]; }; }) => doc.tvs.tag?.length).slice(0, 18 * 5)
 
-
+  if (!doc && !docs.length) {
+    doc = {'path': '/'}
+  }
   // console.log('l.s.:',docs.length)
   return {doc, docs/* , path: params.path */}
 }

@@ -22,7 +22,7 @@ if (!process.env.MODXDB_URL)
     throw new Error("env.MODXDB_URL is not set");
 
 export default defineConfig({
-  //schema: "./src/lib/server/db/schema.ts",
+  //schema: "./src/lib/vercel/schema.ts",
   schema: "./drizzle/schema.ts",
   out: './drizzle',
   dialect: "mysql",

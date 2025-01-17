@@ -1,7 +1,9 @@
 <script context="module">
   import Cards from '$lib/components/Cards.svelte'
   import CarItem from '$lib/components/CarItem.svelte'
+  import Search from '$lib/components/Search.svelte'
   import { PUBLIC_BASE_URL } from '$env/static/public'
+
 </script>
 
 <script>
@@ -24,6 +26,7 @@
     if (18 * pagenum >= data.docs.length) pagenum = 0
     // console.log(pagenum, docs.length)
   }
+
 </script>
 
 <svelte:head><title>Diabetes</title></svelte:head>
@@ -50,10 +53,9 @@
 
   </section>
 
-  <article class="prose card w-128 my-2 mx-auto px-0 py-6 max-md:mx-4">
-    <h1>Szevasz Tavasz!</h1>
-    <p>lorem ipsum</p>
-  </article>
+  <aside class="mx-auto py-6 max-md:mx-4 bg-neutral">
+    <Search />
+  </aside>
 
   {#if docs.length}
     <Cards docs={docs}/>

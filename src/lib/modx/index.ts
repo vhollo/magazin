@@ -5,12 +5,13 @@ import { PUBLIC_BASE_URL } from '$env/static/public';
 import { eq, gt, lt, gte, lte, ne, asc, desc, and, or } from "drizzle-orm"
 //import { json, text, error } from '@sveltejs/kit'
 //import { mysqlTable, serial, text } from 'drizzle-orm/mysql-core'
-import { modx_site_content } from '../../drizzle/schema'
+import { modx_site_content } from '/drizzle/schema'
 //import { modx_site_tmplvars } from '../../drizzle/schema'
-import { modx_site_tmplvar_contentvalues } from '../../drizzle/schema'
-import { modx_site_htmlsnippets } from '../../drizzle/schema'
-import { modxdb } from '$lib/db'
-//import { render } from 'svelte/server'
+import { modx_site_tmplvar_contentvalues } from '/drizzle/schema'
+import { modx_site_htmlsnippets } from '/drizzle/schema'
+import { modxdb } from '$lib/modx/db'
+
+import { render } from 'svelte/server'
 import Nagyito from '$lib/components/Nagyito.svelte'
 
 //const modxSiteContent = await modxdb.query.modx_site_content.findMany(10);
@@ -28,20 +29,19 @@ modxSiteContent = /*modxSiteContent ||*/ await modxdb.select().from(modx_site_co
     )
   ),
 )
+tmplvarContentvalues = /*tmplvarContentvalues ||*/ await modxdb.select().from(modx_site_tmplvar_contentvalues)
+
 console.log('modxSiteContent',modxSiteContent.length)
 
-tmplvarContentvalues = /*tmplvarContentvalues ||*/ await modxdb.select().from(modx_site_tmplvar_contentvalues)
 export const modxSzerzok = await modxdb.select().from(modx_site_htmlsnippets).where(eq (modx_site_htmlsnippets.category, 24))
 //console.log(modxSzerzok)
-
-export const modxDocs = modxSiteContent
 
 export const modxDoc = p => {
   //console.log('P:',p)
   return modxSiteContent.find(d => d.path == p)
 }
 
-
+/* Functions */
 const _findPath = (doc => {
   if (!doc) {
     return {}
@@ -152,21 +152,21 @@ export const _nagyito = doc => {
       const align = match[1].indexOf('align=') !== -1 && [...match[1].match(/align=\`(.*?)\`/)]
       const zoom = match[1].indexOf('zoom=') !== -1 && [...match[1].match(/zoom=\`(.*?)\`/)]
       const desc = match[1].indexOf('desc=') !== -1 && [...match[1].match(/desc=\`(.*?)\`/)]
-      const { html } = file[1] && Nagyito.render({
+      const { html } = file[1] && render(Nagyito, { props: {
         img: { 
           file: file,
           desc: desc[1] || '',
           align: align[1] || '',
           zoom: zoom[1] || '',
         }
-      }) || ''
+      }}) || ''
       doc.content = doc.content.replace(match[0], html)
     }
   })
   return doc
 }
 
-const _getById = (match, p1, p2) => {
+const _getById = (p1) => {
   let doc = modxSiteContent.find(d => d.id == p1)
   doc = _findPath(doc)
   return `/${doc.path}`
@@ -207,3 +207,5 @@ for (let doc of modxSiteContent) {
   //if (doc.id == 3991) console.log(doc)
 }
 
+// export const modxDocs = modxSiteContent
+export const modxDocs = modxSiteContent.filter(doc => !doc.isfolder)

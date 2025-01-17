@@ -22,7 +22,7 @@
 
 <nav class="sticky top-0 lg:-top-16 z-50 bg--neutral">
   <nav class="top-0 left-0 w-full navbar lg:justify-center py-0 bg-neutral max-lg:mb-8">
-    <div class="max-lg:flex-1"><a class="p-2" href="/" on:click={_close_nav}><img class="h-12" src={`${PUBLIC_BASE_URL}assets/templates/magazine/images/logo-diabetes2.svg`} alt="diabetes.hu"></a></div>
+    <div class="max-lg:flex-1"><a class="p-2" href="/" on:click={_close_nav}><img class="h-12" src={'/assets/logo-diabetes2.svg'} alt="diabetes.hu"></a></div>
     <label for="mobile-nav" aria-label="open sidebar" class="f-ixed top-0 right-0 bg-neutral z-50 btn btn-lg btn-square btn-ghost lg:hidden text-neutral-content">
       <svg
         xmlns="http://www.w3.org/2000/svg"

@@ -1,5 +1,6 @@
 <script context="module">
   import Cards from '$lib/components/Cards.svelte'
+  import Search from '$lib/components/Search.svelte'
   // import Card from '$lib/components/Card.svelte'
   // import { PUBLIC_BASE_URL } from '$env/static/public'
 
@@ -20,8 +21,8 @@
   // $: console.log('[path]', data.doc.path)
 
   $: doc = data.doc
-  $: docs = data.docs.slice(0, 18)
-  $: pagenum = data.docs.length > 0 ? 1 : 0
+  let docs = data.docs.slice(0, 18)
+  $: pagenum = data.docs.length > 18 ? 1 : 0
 
 
   //$: (data) => { doc = data.doc stb…}
@@ -37,12 +38,14 @@
   $: pubdate = doc && new Date(doc.publishedon * 1000).toLocaleDateString('hu-HU')
   $: editdate = doc && new Date(doc.editedon * 1000).toLocaleDateString('hu-HU')
 
+  cats['keres'] = {}
   $: {
+    cats['keres'][doc.pagetitle] = '/keres'
     docstitle = ''
     Object.keys(cats).forEach(cat => {
       for (let subcat of Object.keys(cats[cat])) {
         if (`/${data.doc.path}` == cats[cat][subcat]) {
-          // console.log({subcat})
+          console.log({subcat})
           docstitle = subcat
         }
       }
@@ -98,12 +101,15 @@
         {/each}
       {/if}
     </article>
-    {/if}
+  {/if}
 
-
+  <!-- <article class="prose card w-128 my-2 mx-auto"> -->
+  <aside class="mx-auto py-6 max-md:mx-4 bg-neutral">
+    <Search />
+  </aside>
 
   {#if docs?.length}
-    <article class="prose mx-auto px-4 py-12">
+    <article class="prose card w-128 my-2 mx-auto">
       <h1 class="text-center">{docstitle}</h1>
     </article>
     <!--{#each Object.keys(docs) as key}-->

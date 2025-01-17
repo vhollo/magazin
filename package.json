@@ -20,8 +20,8 @@
 		"@sveltejs/adapter-auto": "^3.2.5",
 		"@sveltejs/adapter-static": "^3.0.6",
 		"@sveltejs/adapter-vercel": "^5.4.4",
-		"@sveltejs/kit": "^2.6.2",
-		"@sveltejs/vite-plugin-svelte": "^3.1.2",
+		"@sveltejs/kit": "^2.16.0",
+		"@sveltejs/vite-plugin-svelte": "^4.0.0",
 		"@tailwindcss/typography": "^0.5.15",
 		"@types/eslint": "^9.6.1",
 		"autoprefixer": "^10.4.20",
@@ -35,7 +35,7 @@
 		"prettier": "^3.3.3",
 		"prettier-plugin-svelte": "^3.2.7",
 		"prettier-plugin-tailwindcss": "^0.6.8",
-		"svelte": "^4.2.19",
+		"svelte": "^5.18.0",
 		"svelte-check": "^4.0.4",
 		"tailwindcss": "^3.4.13",
 		"tslib": "^2.7.0",
@@ -45,10 +45,15 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@neondatabase/serverless": "^0.10.4",
+		"@node-rs/argon2": "^2.0.2",
+		"@oslojs/crypto": "^1.0.1",
+		"@oslojs/encoding": "^1.1.0",
 		"@vercel/postgres": "^0.10.0",
 		"dotenv": "^16.4.5",
 		"drizzle-orm": "^0.33.0",
 		"jquery": "^3.7.1",
+		"minisearch": "^7.1.1",
 		"mysql2": "^3.11.3"
 	}
 }

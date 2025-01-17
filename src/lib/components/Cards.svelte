@@ -17,6 +17,7 @@
     /*if (doc.tvs.img) {
       doc.ext = doc.tvs.img.split('.').pop()
     }*/
+    doc.tvs = doc.tvs || {}
 
     doc.ellipsis = ''
     if (!doc.introtext?.length && doc.content) {
@@ -38,15 +39,15 @@
 
 {#if full}
   <section class="grid gap-x-6 gap-y-10 px-4 py-6">
-    <aside class="card rounded gap-4 card--compact bg-base-100" style="order:0">
-      <h1 class="card-body">HIRDETÉS</h1>
-    </aside>
     {#each docs as doc, i}
     {@const card = {id: doc.id, img: doc.img,/* pos: doc.tvs.pos, ext: doc.ext,*/ path: doc.path, desc: doc.description, title: doc.title, longtitle: doc.longtitle, introtext: doc.introtext, ellipsis: doc.ellipsis, content: doc.content, tags: doc.tvs.tag, rank: doc.rank}}
       <aside in:fade={{ duration: 1000 }} class:double={doc.img || doc.ellipsis?.indexOf('<video') !== -1} class:triple={doc.ellipsis?.indexOf('<video') !== -1} class="card gap-4 card--compact bg-base--100" style="order:{i}">
         <Card {card}/>
       </aside>
     {/each}
+    <aside class="card rounded gap-4 card--compact bg-base-100" style="order:0">
+      <h1 class="card-body">HIRDETÉS</h1>
+    </aside>
     <aside class="card rounded gap-4 card--compact bg-base-100" style="order:3">
       <h1 class="card-body">HIRDETÉS</h1>
     </aside>
