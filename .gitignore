@@ -28,5 +28,5 @@ magazin.code-workspace
 .netlify
 
 TEMP
-/auth
+/src/routes/auth
 
