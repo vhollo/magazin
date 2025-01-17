@@ -26,3 +26,7 @@ magazin.code-workspace
 
 # Local Netlify folder
 .netlify
+
+TEMP
+/auth
+
