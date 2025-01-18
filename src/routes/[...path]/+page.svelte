@@ -104,12 +104,12 @@
   {/if}
 
   <!-- <article class="prose card w-128 my-2 mx-auto"> -->
-  <aside class="mx-auto py-6 max-md:mx-4 bg-neutral">
+  <aside class="mx-auto py-8 max-md:mx-4 bg-neutral">
     <Search />
   </aside>
 
   {#if docs?.length}
-    <article class="prose card w-128 my-2 mx-auto">
+    <article class="prose card w-128 my-8 mx-auto">
       <h1 class="text-center">{docstitle}</h1>
     </article>
     <!--{#each Object.keys(docs) as key}-->
