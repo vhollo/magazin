@@ -21,7 +21,7 @@
   // $: console.log('[path]', data.doc.path)
 
   $: doc = data.doc
-  let docs = data.docs.slice(0, 18)
+  $: docs = data.docs.slice(0, 18)
   $: pagenum = data.docs.length > 18 ? 1 : 0
 
 
