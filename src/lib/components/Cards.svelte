@@ -1,4 +1,5 @@
-<script>
+<script lang="ts">
+  import { authUser } from '$lib/authStore';
   import {
 	//blur,
 	//crossfade,
@@ -41,25 +42,27 @@
   <section class="grid gap-x-6 gap-y-10 px-4 py-6">
     {#each docs as doc, i}
     {@const card = {id: doc.id, img: doc.img,/* pos: doc.tvs.pos, ext: doc.ext,*/ path: doc.path, desc: doc.description, title: doc.title, longtitle: doc.longtitle, introtext: doc.introtext, ellipsis: doc.ellipsis, content: doc.content, tags: doc.tvs.tag, rank: doc.rank}}
-      <aside in:fade={{ duration: 1000 }} class:double={doc.img || doc.ellipsis?.indexOf('<video') !== -1} class:triple={doc.ellipsis?.indexOf('<video') !== -1} class="card gap-4 card--compact bg-base--100" style="order:{i}">
+      <aside in:fade={{ duration: 1000 }} class:double={doc.img || doc.ellipsis?.indexOf('<video') !== -1} class:triple={doc.ellipsis?.indexOf('<video') !== -1} class="card gap-4 card--compact bg-base--100" style="order:{i+1}">
         <Card {card}/>
       </aside>
     {/each}
-    <aside class="card rounded gap-4 card--compact bg-base-100" style="order:0">
-      <h1 class="card-body">HIRDETÉS</h1>
-    </aside>
-    <aside class="card rounded gap-4 card--compact bg-base-100" style="order:3">
-      <h1 class="card-body">HIRDETÉS</h1>
-    </aside>
-    <aside class="card rounded gap-4 card--compact bg-base-100" style="order:7">
-      <h1 class="card-body">HIRDETÉS</h1>
-    </aside>
-    <aside class="card rounded gap-4 card--compact bg-base-100" style="order:11">
-      <h1 class="card-body">HIRDETÉS</h1>
-    </aside>
-    <aside class="card rounded gap-4 card--compact bg-base-100" style="order:15">
-      <h1 class="card-body">HIRDETÉS</h1>
-    </aside>
+    {#if !$authUser}
+      <aside class="card rounded gap-4 card--compact bg-base-100" style="order:0">
+        <h1 class="card-body">HIRDETÉS</h1>
+      </aside>
+      <aside class="card rounded gap-4 card--compact bg-base-100" style="order:4">
+        <h1 class="card-body">HIRDETÉS</h1>
+      </aside>
+      <aside class="card rounded gap-4 card--compact bg-base-100" style="order:8">
+        <h1 class="card-body">HIRDETÉS</h1>
+      </aside>
+      <aside class="card rounded gap-4 card--compact bg-base-100" style="order:12">
+        <h1 class="card-body">HIRDETÉS</h1>
+      </aside>
+      <aside class="card rounded gap-4 card--compact bg-base-100" style="order:16">
+        <h1 class="card-body">HIRDETÉS</h1>
+      </aside>
+    {/if}
   </section>
 {:else}
   {#each docs as doc}

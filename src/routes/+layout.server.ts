@@ -1,9 +1,8 @@
 ///** @type {import('./$types').PageServerLoad} */
-
 import MiniSearch from 'minisearch'
 
 // export const prerender = true
-import { modxDoc, modxDocs } from '$lib/modx/index'
+import { modxDoc, modxDocs } from '$lib/modx'
 // import { PUBLIC_BASE_URL } from '$env/static/public'
 
 

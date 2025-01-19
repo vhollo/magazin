@@ -5,12 +5,13 @@
   // import { PUBLIC_BASE_URL } from '$env/static/public'
 
   import { cats } from '$lib/cats.js'
-  cats['carousel'] = {}
-  cats['carousel']['Segítség, cukorbeteg vagyok!'] = '/s-o-s'
-  cats['carousel']['Gesztációs diabétesz'] = '/gyermekvallalas'
-  cats['carousel']['Receptek'] = '/receptek'
-  cats['carousel']['Táplálkozás'] = '/taplalkozas'
-  cats['carousel']['Klubok, Egyesületek'] = '/hirek'
+  let copycats = JSON.parse(JSON.stringify(cats))
+  copycats['carousel'] = {}
+  copycats['carousel']['Segítség, cukorbeteg vagyok!'] = '/s-o-s'
+  copycats['carousel']['Gesztációs diabétesz'] = '/gyermekvallalas'
+  copycats['carousel']['Receptek'] = '/receptek'
+  copycats['carousel']['Táplálkozás'] = '/taplalkozas'
+  copycats['carousel']['Klubok, Egyesületek'] = '/hirek'
 </script>
 
 <script>
@@ -38,13 +39,13 @@
   $: pubdate = doc && new Date(doc.publishedon * 1000).toLocaleDateString('hu-HU')
   $: editdate = doc && new Date(doc.editedon * 1000).toLocaleDateString('hu-HU')
 
-  cats['keres'] = {}
+  copycats['keres'] = {}
   $: {
-    cats['keres'][doc.pagetitle] = '/keres'
+    copycats['keres'][doc.pagetitle] = '/keres'
     docstitle = ''
     Object.keys(cats).forEach(cat => {
-      for (let subcat of Object.keys(cats[cat])) {
-        if (`/${data.doc.path}` == cats[cat][subcat]) {
+      for (let subcat of Object.keys(copycats[cat])) {
+        if (`/${data.doc.path}` == copycats[cat][subcat]) {
           console.log({subcat})
           docstitle = subcat
         }

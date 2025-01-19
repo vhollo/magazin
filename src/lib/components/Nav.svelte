@@ -1,6 +1,9 @@
 <script context="module">
   import { PUBLIC_BASE_URL } from '$env/static/public'
   import { cats } from '$lib/cats.js'
+  import { signOut/* , onAuthStateChanged */ } from 'firebase/auth'
+  import { firebaseAuth } from '$lib/firebase'
+  import { authUser } from '$lib/authStore'
 </script>
 
 <script>
@@ -18,6 +21,17 @@
 
   const _close_nav = () => _open_nav = false
 
+  const handleLogout = () => {
+    signOut(firebaseAuth)
+      .then(() => {
+        $authUser = undefined
+        // goto('/login');
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+    _open_nav = false
+  }
 </script>
 
 <nav class="sticky top-0 lg:-top-16 z-50 bg--neutral">
@@ -43,7 +57,7 @@
     <ul class="mx-auto max-lg:max-w-xl max--lg:py-4">
       {#each Object.keys(cats) as cat}
         <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
-        <li tabindex="0" class="grow max-lg:collapse collapse-arrow dropdown dropdown-hover last:dropdown-end w--min text-nowrap"><!-- lg:inline-block  on:blur={_uncheck} -->
+        <li tabindex="0" class="grow max-lg:collapse collapse-arrow dropdown dropdown-hover dropdown--end w--min text-nowrap"><!-- lg:inline-block  on:blur={_uncheck} -->
           <input type="radio" name="collapse" class="lg:hidden"/>
           <div tabindex="0" role="button" class="max-lg:collapse-title lg:menu-title !text-neutral-content text-nowrap font-medium">{cat}</div>
           <ul tabindex="0" class="menu flex-nowrap max-lg:collapse-content lg:dropdown-content lg:rounded-box bg-neutral text-neutral-content lg:p-2">
@@ -53,6 +67,19 @@
           </ul>
         </li>
       {/each}
+      <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
+      <li tabindex="0" class="grow max-lg:collapse collapse-arrow dropdown dropdown-hover dropdown-end w--min text-nowrap"><!-- lg:inline-block  on:blur={_uncheck} -->
+        <input type="radio" name="collapse" class="lg:hidden"/>
+        <div tabindex="0" role="button" class="max-lg:collapse-title lg:menu-title !text-neutral-content text-nowrap font-large">⍜</div>
+        <ul tabindex="0" class="menu flex-nowrap max-lg:collapse-content lg:dropdown-content lg:rounded-box bg-neutral text-neutral-content lg:p-2">
+          {#if $authUser}
+            <li class=""><a role="button" class="max-lg:p-4 lg:p-2 text-nowrap hover:bg-neutral-focus" on:click={handleLogout}>Kijelentkezés</a></li>
+          {:else}
+            <li class=""><a class="max-lg:p-4 lg:p-2 text-nowrap hover:bg-neutral-focus" class:active={`/${actual}` == 'login'} href="/login" on:click={_close_nav}>Bejelentkezés</a></li>
+            <li class=""><a class="max-lg:p-4 lg:p-2 text-nowrap hover:bg-neutral-focus" class:active={`/${actual}` == 'register'} href="/register" on:click={_close_nav}>Regisztráció</a></li>
+          {/if}
+        </ul>
+      </li>
     </ul>
   </nav>
 </nav>
@@ -62,9 +89,10 @@
     display: none!important;
   }
   /* FIX: last:dropdown-end */
-  .last\:dropdown-end:last-of-type .lg\:dropdown-content {
-    /*display: none;*/
-    /*@apply dropdown-end;*/
+  /* .last\:dropdown-end:last-of-type .lg\:dropdown-content {
+    inset-inline-end: 0px!important;
+  } */
+  .dropdown:has(+ .dropdown-end:last-of-type) .lg\:dropdown-content {
     inset-inline-end: 0px!important;
   }
   a:hover {

@@ -1,6 +1,6 @@
 //import { drizzle } from 'drizzle-orm/vercel-postgres'
 //import { sql } from "@vercel/postgres"
-import { MODXDB_URL, MODXDB_HOST, MODXDB_PORT, MODXDB_USER, MODXDB_DATABASE, MODXDB_PASSWORD } from "$env/static/private"
+import { MODXDB_HOST, MODXDB_PORT, MODXDB_USER, MODXDB_DATABASE, MODXDB_PASSWORD } from "$env/static/private"
 //export const db = drizzle(sql)
 
 //console.log(MODXDB_HOST)
