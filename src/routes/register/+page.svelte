@@ -45,8 +45,7 @@ const register = () => {
   />
 
   <button type="submit" class="btn btn-sm">Register</button>
-  {#if success === false}
-    <div class="p-8 text-red-500 bg-red-100">Hiba történt. Kérlek, próbáld újra.</div>
-  {/if}
-
 </form>
+{#if success === false}
+	<div class="p-4 bg-error text-error-content text-center">Hiba történt. Kérlek, próbáld újra.</div>
+{/if}
