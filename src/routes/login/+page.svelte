@@ -33,7 +33,7 @@ const login = () => {
 </script>
 
 <form
-  class="flex md:flex-row gap-4 p-8 max-md:space-y-4 sm:w-10/12 mx-auto justify-center"
+  class="flex flex-col md:flex-row gap-4 p-8 max-md:space-y-4 sm:w-10/12 mx-auto justify-center"
   on:submit|preventDefault={login}
 >
   <input
