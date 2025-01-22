@@ -38,7 +38,7 @@
     const el = event.target.parentElement
     await new Promise(resolve => setTimeout(resolve, 250))
     console.log(el)
-    el.scrollIntoView({ behavior: 'smooth', block: 'end' })
+    el.scrollIntoView({ behavior: 'smooth' })
   }
 </script>
 
