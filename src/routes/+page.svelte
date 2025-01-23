@@ -8,6 +8,7 @@
 
 <script>
 // @ts-nocheck
+import { onMount, afterUpdate } from 'svelte'
 
   export let data
   // console.log('[/]',data.docs.length)
@@ -27,14 +28,60 @@
     // console.log(pagenum, docs.length)
   }
 
+  let carous, carostyle, scroll = false, main/* , pad */
+
+  afterUpdate(() => {
+    //carostyle = getComputedStyle(carous)
+    // pad = getComputedStyle(carous).paddingInline.replace ('px', '')
+    // console.log(pad, main, carous.scrollWidth)
+    if (carous.scrollWidth > main) {
+      scroll = true
+    } else {
+      scroll = false
+    }
+  })
+  let width = 320;
+  /* $: () => {
+    //carostyle = getComputedStyle(carous)
+    //console.log(carous.scrollWidth, main)
+    //console.log(carostyle.scrollWidth, carostyle.offsetWidth)
+    if (carous.scrollWidth > main) {
+      scroll = 'slide'
+    } else {
+      scroll = 'fix'
+    }
+    pad = getComputedStyle(carous).paddingInline.replace ('px', '')
+  } */
+
+  /* const swipe = (e) => {
+    // const el = e.target.parentElement
+    console.log(e.offsetX, main, pad)
+    if (e.offsetX > main - pad) {
+      carous.scrollLeft += width;
+      alert ('right')
+    }
+    if (e.offsetX < pad) {
+      carous.scrollLeft -= width;
+      alert ('left')
+    }
+    console.log(carous.scrollLeft)
+  } */
+  const _left = () => {
+    carous.scrollLeft -= main/2;
+  }
+  const _right = () => {
+    carous.scrollLeft += main/2;
+  }
 </script>
 
 <svelte:head><title>Diabetes</title></svelte:head>
 
 <main class="bg-base-300">
   
-  <section class="carousel carousel-center bg-neutral space-x-4 p-4 pb-0 items-stretch w-full">
-      <!--{@const card = {id: doc.id, img: doc.tvs.img, pos: doc.tvs.pos, path: doc.path, desc: doc.description, title: doc.title, longtitle: doc.longtitle, introtext: doc.introtext, ellipsis: doc.ellipsis, content: doc.content, tag: doc.tvs.tag}}-->
+  <!-- svelte-ignore a11y_click_events_have_key_events -->
+  <!-- svelte-ignore a11y_no_static_element_interactions -->
+<section bind:clientWidth={main} class="relative">
+  <div class="carousel carousel-center bg-neutral space-x-4 p-4 pb-0 items-stretch w-full {scroll}" bind:this={carous}>
     <aside class="carousel-item card rounded card-compact bg-base-100 w-full sm:w-7/12 lg:w-2/5 xl:w-[27.5%] max-h-1/2">
       <CarItem card={ {'img': {src: `${PUBLIC_BASE_URL}assets/images/cikkek/dt1204/pixabay-question-2709670-1280.jpg`}, 'longtitle': 'Segítség, cukorbeteg vagyok!', 'introtext': 'Sokszor azt gondoljuk, ha egy betegség elindul, törvényszerűen romlik. Ez egyáltalán nem biztos! A folyamat attól függ, hogy mennyire sikerül a gyorsító, rontó folyamatokat kiküszöbölnünk, és mennyire hagyjuk a védekező mechanizmusainkat érvényesülni.', 'tags': '', 'buttons': {'Bevezető': '/cikkek/diabetes/2402/prevencio', 'Válogatott cikkek': '/s-o-s'} } }/>
     </aside>
@@ -48,11 +95,14 @@
     </aside>
 
     <aside class="carousel-item card rounded card-compact bg-base-100 w-full sm:w-7/12 lg:w-2/5 xl:w-[27.5%] max-h-1/2">
-      <CarItem card={ {'img': {src: `${PUBLIC_BASE_URL}assets/images/cikkek/dt2302/Collage_of_large_group_of_ethnically_diverse_smiling_people,_men_and_women_expressing_happy,_joyful_emotions_over_green_and_yellow_background._Multiracial_society.jpg`}, 'longtitle': 'Klubok, Egyesületek', 'introtext': 'A cél, hogy egy cukorbeteg lehetőség szerint teljes körű ellátást kapjon. A gondozás során a laborvizsgálattól a szövődményfelmérésen át az étrend, az életmód és a személyre szabott terápia meghatározásáig minden nélkülözhetetlen szakember, orvosok, dietetikus, személyi edző és szakasszisztens dolgozik együtt.', 'tags': '', 'buttons': {'Elérhetőségek': '/hirek/civil-szervezetek-es-szakellatohelyek', 'Hírek': '/hirek'} } }/>
+      <CarItem card={ {'img': {src: `${PUBLIC_BASE_URL}assets/images/cikkek/dt2302/Collage_of_large_group_of_ethnically_diverse_smiling_people,_men_and_women_expressing_happy,_joyful_emotions_over_green_and_yellow_background._Multiracial_society.jpg`}, 'longtitle': 'Klubok, Egyesületek', 'introtext': 'A Celt, hogy egy cukorbeteg lehetőség szerint teljes körű ellátást kapjon. A gondozás során a laborvizsgálattól a szövődményfelmérésen át az étrend, az életmód és a személyre szabott terápia meghatározásáig minden nélkülözhetetlen szakember, orvosok, dietetikus, személyi edő és szakasszisztens dolgozik együtt.', 'tags': '', 'buttons': {'Elérhetőségek': '/hirek/civil-szervezetek-es-szakellatohelyek', 'Hírek': '/hirek'} } }/>
     </aside>
-
-  </section>
-
+  </div>
+  {#if scroll}
+    <button class="absolute left-0 top-0 bottom-0 w-16" on:click={_left}><span class="circle border-2 inline-block w-12 h-12">◀︎</span></button>
+    <button class="absolute right-0 top-0 bottom-0 w-16" on:click={_right}><span class="circle border-2 inline-block w-12 h-12">▶︎</span></button>
+  {/if}
+</section>
   <aside class="mx-auto py-8 max-md:mx-4 bg-neutral">
     <Search />
   </aside>
@@ -69,12 +119,6 @@
 {/if}
 
 <style>
-  /*section {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(28ch, 1fr));
-    grid-auto-rows: minmax(10ch, auto);
-    grid-auto-flow: dense;
-  }*/
   .carousel-item {
     max-width: 92%;
   }
@@ -82,4 +126,15 @@
     object-fit: cover;
     object-position: 50% 40%;
   }
+  .slide {
+    position: relative;
+  }
+  .circle {
+    border-radius: 50%;
+    backdrop-filter: blur(10px);
+    /* vertical-align: middle; */
+    /* line-height: 100%; */
+    font-size: xx-large;
+  }
+
 </style>
