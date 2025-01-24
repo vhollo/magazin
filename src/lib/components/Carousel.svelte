@@ -25,7 +25,7 @@
   <!-- svelte-ignore a11y_click_events_have_key_events -->
   <!-- svelte-ignore a11y_no_static_element_interactions -->
   <section bind:clientWidth={main} class="relative">
-    <div class="carousel carousel-center bg-neutral space-x-4 p-4 pb-0 items-stretch w-full {scroll}" bind:this={carous}>
+    <div class="carousel carousel-center bg-neutral space-x-4 p-4 pb-0 items-stretch w-full" bind:this={carous}>
       <aside class="carousel-item card rounded card-compact bg-base-100 w-full sm:w-7/12 lg:w-2/5 xl:w-[27.5%] max-h-1/2">
         <CarItem card={ {'img': {src: `${PUBLIC_BASE_URL}assets/images/cikkek/dt1204/pixabay-question-2709670-1280.jpg`}, 'longtitle': 'Segítség, cukorbeteg vagyok!', 'introtext': 'Sokszor azt gondoljuk, ha egy betegség elindul, törvényszerűen romlik. Ez egyáltalán nem biztos! A folyamat attól függ, hogy mennyire sikerül a gyorsító, rontó folyamatokat kiküszöbölnük, és mennyire hagyjuk a védekező mechanizmusainkat érvényesülni.', 'tags': '', 'buttons': {'Bevezető': '/cikkek/diabetes/2402/prevencio', 'Válogatott cikkek': '/s-o-s'} } }/>
       </aside>
@@ -43,9 +43,9 @@
       </aside>
     </div>
     {#if scroll}
-    <button class="absolute left-0 top-0 bottom-0 w-12 m-4" on:click={_left}><span class="circle border-2 inline-block w-12 h-12">◀︎</span></button>
-    <button class="absolute right-0 top-0 bottom-0 w-12 m-4" on:click={_right}><span class="circle border-2 inline-block w-12 h-12">▶︎</span></button>
-  {/if}
+    <div class="absolute left-0 top-0 bottom-0 w-12 m-4 flex items-center"><button on:click={_left} class="circle border-2 inline-block w-12 h-12">◀︎</button></div>
+    <div class="absolute right-0 top-0 bottom-0 w-12 m-4 flex items-center"><button on:click={_right} class="circle border-2 inline-block w-12 h-12">▶︎</button></div>
+    {/if}
   </section>
   
 <style>
