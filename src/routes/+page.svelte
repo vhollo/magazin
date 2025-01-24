@@ -1,14 +1,14 @@
 <script context="module">
   import Cards from '$lib/components/Cards.svelte'
-  import CarItem from '$lib/components/CarItem.svelte'
+  import Carousel from '$lib/components/Carousel.svelte'
   import Search from '$lib/components/Search.svelte'
   import { PUBLIC_BASE_URL } from '$env/static/public'
 
 </script>
 
 <script>
-// @ts-nocheck
-import { onMount, afterUpdate } from 'svelte'
+  // @ts-nocheck
+  // import { onMount, afterUpdate } from 'svelte'
 
   export let data
   // console.log('[/]',data.docs.length)
@@ -28,59 +28,15 @@ import { onMount, afterUpdate } from 'svelte'
     // console.log(pagenum, docs.length)
   }
 
-  let carous, carostyle, scroll = false, main/* , pad */
-
-  afterUpdate(() => {
-    //carostyle = getComputedStyle(carous)
-    // pad = getComputedStyle(carous).paddingInline.replace ('px', '')
-    // console.log(pad, main, carous.scrollWidth)
-    if (carous.scrollWidth > main) {
-      scroll = true
-    } else {
-      scroll = false
-    }
-  })
-  let width = 320;
-  /* $: () => {
-    //carostyle = getComputedStyle(carous)
-    //console.log(carous.scrollWidth, main)
-    //console.log(carostyle.scrollWidth, carostyle.offsetWidth)
-    if (carous.scrollWidth > main) {
-      scroll = 'slide'
-    } else {
-      scroll = 'fix'
-    }
-    pad = getComputedStyle(carous).paddingInline.replace ('px', '')
-  } */
-
-  /* const swipe = (e) => {
-    // const el = e.target.parentElement
-    console.log(e.offsetX, main, pad)
-    if (e.offsetX > main - pad) {
-      carous.scrollLeft += width;
-      alert ('right')
-    }
-    if (e.offsetX < pad) {
-      carous.scrollLeft -= width;
-      alert ('left')
-    }
-    console.log(carous.scrollLeft)
-  } */
-  const _left = () => {
-    carous.scrollLeft -= main/2;
-  }
-  const _right = () => {
-    carous.scrollLeft += main/2;
-  }
 </script>
 
 <svelte:head><title>Diabetes</title></svelte:head>
 
 <main class="bg-base-300">
-  
+  <Carousel/>
   <!-- svelte-ignore a11y_click_events_have_key_events -->
   <!-- svelte-ignore a11y_no_static_element_interactions -->
-<section bind:clientWidth={main} class="relative">
+<!-- <section bind:clientWidth={main} class="relative">
   <div class="carousel carousel-center bg-neutral space-x-4 p-4 pb-0 items-stretch w-full {scroll}" bind:this={carous}>
     <aside class="carousel-item card rounded card-compact bg-base-100 w-full sm:w-7/12 lg:w-2/5 xl:w-[27.5%] max-h-1/2">
       <CarItem card={ {'img': {src: `${PUBLIC_BASE_URL}assets/images/cikkek/dt1204/pixabay-question-2709670-1280.jpg`}, 'longtitle': 'Segítség, cukorbeteg vagyok!', 'introtext': 'Sokszor azt gondoljuk, ha egy betegség elindul, törvényszerűen romlik. Ez egyáltalán nem biztos! A folyamat attól függ, hogy mennyire sikerül a gyorsító, rontó folyamatokat kiküszöbölnünk, és mennyire hagyjuk a védekező mechanizmusainkat érvényesülni.', 'tags': '', 'buttons': {'Bevezető': '/cikkek/diabetes/2402/prevencio', 'Válogatott cikkek': '/s-o-s'} } }/>
@@ -103,6 +59,7 @@ import { onMount, afterUpdate } from 'svelte'
     <button class="absolute right-0 top-0 bottom-0 w-16" on:click={_right}><span class="circle border-2 inline-block w-12 h-12">▶︎</span></button>
   {/if}
 </section>
+ -->
   <aside class="mx-auto py-8 max-md:mx-4 bg-neutral">
     <Search />
   </aside>
@@ -119,22 +76,9 @@ import { onMount, afterUpdate } from 'svelte'
 {/if}
 
 <style>
-  .carousel-item {
-    max-width: 92%;
-  }
   .card img {
     object-fit: cover;
     object-position: 50% 40%;
-  }
-  .slide {
-    position: relative;
-  }
-  .circle {
-    border-radius: 50%;
-    backdrop-filter: blur(10px);
-    /* vertical-align: middle; */
-    /* line-height: 100%; */
-    font-size: xx-large;
   }
 
 </style>
