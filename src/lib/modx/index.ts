@@ -205,7 +205,8 @@ const _alapjav = doc => {
   const regexp2 = /\[!.*?!\]/gs
   const regexp3 = /\{\{.*?\}\}/gs
   const regexp4 = /\[\+.*?\+\]/gs
-  doc.content = doc.content.replaceAll(regexp1, '').replaceAll(regexp2, '').replaceAll(regexp3, '').replaceAll(regexp4, '')
+  const regexp5 = /<!--.*?-->/gs
+  doc.content = doc.content.replaceAll(regexp1, '').replaceAll(regexp2, '').replaceAll(regexp3, '').replaceAll(regexp4, '').replaceAll(regexp5, '')
 
   return doc
 }

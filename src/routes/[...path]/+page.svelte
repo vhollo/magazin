@@ -131,13 +131,15 @@
     <article class="prose card w-128 my-8 mx-auto">
       {#if !doc.id}
         <h1 class="text-center">{doc.id && '' || docstitle}</h1>
+      {:else}
+        <h1 class="text-center">Hasonló cikkek</h1>
       {/if}
     </article>
     <!--{#each Object.keys(docs) as key}-->
       <Cards {docs}/>
     <!--{/each}-->
   {:else}
-    <h3 class="text-center">NO DOCS</h3>
+    <h1 class="text-center">NO DOCS</h1>
   {/if}
 </main>
 
