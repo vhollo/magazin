@@ -60,7 +60,7 @@
   {/if}
 </section>
  -->
-  <aside class="mx-auto py-8 max-md:mx-4 bg-neutral">
+  <aside class="mx-auto py-16 max-md:mx-4 bg-neutral">
     <Search />
   </aside>
 

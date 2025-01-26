@@ -123,21 +123,19 @@
   {/if}
 
   <!-- <article class="prose card w-128 my-2 mx-auto"> -->
-  <aside class="mx-auto py-8 max-md:mx-4 bg-neutral">
+  <aside class="mx-auto py-16 max-md:mx-4 bg-neutral">
     <Search />
   </aside>
 
-  {#if docs?.length}
-    <article class="prose card w-128 my-8 mx-auto">
+  {#if docs.length}
+    <article class="prose card w-128 my-16 mx-auto">
       {#if !doc.id}
         <h1 class="text-center">{doc.id && '' || docstitle}</h1>
       {:else}
         <h1 class="text-center">Hasonló cikkek</h1>
       {/if}
     </article>
-    <!--{#each Object.keys(docs) as key}-->
-      <Cards {docs}/>
-    <!--{/each}-->
+    <Cards {docs}/>
   {:else}
     <h1 class="text-center">NO DOCS</h1>
   {/if}
