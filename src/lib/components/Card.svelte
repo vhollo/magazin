@@ -1,9 +1,8 @@
 <script>
   import CardBody from '$lib/components/CardBody.svelte'
   export let card
-  //const PUBLIC_BASE_URL = 'https://www.diabetes.hu/'
-  import { PUBLIC_BASE_URL } from '$env/static/public'
-  import Cards from './Cards.svelte'
+  // import { PUBLIC_BASE_URL } from '$env/static/public'
+  // import Cards from './Cards.svelte'
 
   /*$: {
     if (card.img) {
