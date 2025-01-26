@@ -39,7 +39,7 @@
   $: pubdate = doc && new Date(doc.publishedon * 1000).toLocaleDateString('hu-HU')
   $: editdate = doc && new Date(doc.editedon * 1000).toLocaleDateString('hu-HU')
 
-  $: if (doc?.path == 'keres') {
+  $: if (doc.path == 'keres') {
       copycats['keres'] = {}
       copycats['keres'][doc.pagetitle] = '/keres'
       console.log(doc.path)
@@ -63,26 +63,26 @@
 
   $: Object.keys(copycats).forEach(cat => {
     Object.keys(copycats[cat]).forEach(subcat => {
-      if (copycats[cat][subcat] === `/${doc?.path}`) {
+      if (copycats[cat][subcat] === `/${doc.path}`) {
         matchingSubcat = subcat; // Store the matching subcategory name
       }
     });
   });
 
-  $: docstitle = doc?.pagetitle || matchingSubcat
+  $: docstitle = matchingSubcat || doc.pagetitle
 
 </script>
 
 <svelte:head><title>{docstitle} &bull; Diabetes</title></svelte:head>
 
 <main class="bg-base-300">
-  {#if doc?.id}
+  {#if doc.id}
     <!--{@const date = new Date(doc.publishedon * 1000).toLocaleDateString('hu-HU')}-->
     <!--{@const meta = [doc.tvs.sze, date, doc.tvs.cat].join(' | ')}-->
     <article class="prose mx-auto px-4 py-12">
-      <h2 class="felcim uppercase text-sm">{@html doc?.description}</h2>
-      <h1 class="title">{@html doc?.longtitle || doc?.pagetitle}</h1>
-      <h4 class="introtext">{@html doc?.introtext}</h4>
+      <h2 class="felcim uppercase text-sm">{@html doc.description}</h2>
+      <h1 class="title">{@html doc.longtitle || doc.pagetitle}</h1>
+      <h4 class="introtext">{@html doc.introtext}</h4>
       <p>
         {#if doc.tvs.sze.length}
           {#each doc.tvs.sze as sze, i}
@@ -129,7 +129,9 @@
 
   {#if docs?.length}
     <article class="prose card w-128 my-8 mx-auto">
-      <h1 class="text-center">{docstitle}</h1>
+      {#if !doc.id}
+        <h1 class="text-center">{doc.id && '' || docstitle}</h1>
+      {/if}
     </article>
     <!--{#each Object.keys(docs) as key}-->
       <Cards {docs}/>

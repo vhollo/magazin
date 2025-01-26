@@ -8,7 +8,7 @@ import { modxDoc, modxDocs } from '$lib/modx'
 
 const miniSearch = new MiniSearch({
   fields: ['longtitle', 'description', 'introtext', 'content'], // fields to index for full-text search
-  storeFields: ['longtitle', 'path', 'description', 'introtext', 'tvs', 'img'], // fields to return with search results
+  storeFields: ['longtitle', 'path', 'description', 'introtext', 'content', 'tvs', 'img'], // fields to return with search results
 })
 miniSearch.addAll(modxDocs)
 
@@ -70,53 +70,49 @@ const docsByTags = (tags:Array<string>, id:string) => {
 
 
 export async function load({ params, url }) {
-  // const pp = params.path?.split('/') || []
-  // const path = pp[0] || undefined
-  //const page = +pp[1] || 0
-  // console.log('url:',url.searchParams)
 
   const q = url.searchParams.get('q')
-  const path:string = params.path || 'all'
+  const path:string = params.path || '/'
   let query, doc, docs:Docs = {}//, page = 0
 
   switch (true) {
-    case path === 'all': /// start page
-      //console.log('undefined:',params.path)
-      //query = queries
+    case path === '/': /// start page
+      // doc = {'path': '/'}
       doc = {'path': '/'}
+      docs = modxDocs.slice(0, 18 * 3)
       break
     case !!queries[path]: /// a collection
       //console.log('queries:',queries[path])
-      query = queries[path] ///?
+      // query = queries[path] ///?
       doc = {'path': path}
+      docs = docsByTags(queries[path], doc?.id)
       //console.log('path:',path)
       break
     case path === 'keres': /// search results
-      doc = {'path': path, 'pagetitle': q}
+      doc = {'path': 'keres' , 'pagetitle': `Keresés: "${q}"` }
+      docs = miniSearch.search(q)
+      console.log('search:',docs.length)
       break
     default: /// page path
       //console.log('default:',params.path)
       doc = modxDoc(path) || {}
-      query = doc.tvs && doc.tvs.tag || []
-      //console.log('ID:',doc.id)
+      // query = doc.tvs && doc.tvs.tag || []
+      docs = modxDocs.filter((doc: { tvs: { tag: string | any[]; }; }) => doc.tvs.tag?.length).slice(0, 18 * 3)
+      console.log('ID:',doc.id, docs.length)
   }
 
   //console.log(Object.keys(query))
-  if (query) {
-    //for (let k of Object.keys(query)) {
-      docs = docsByTags(query, doc?.id)
-      //console.log('K;',k,query[k], docs[k].length)
-    //}
+  /* if (query) {
+    docs = docsByTags(query, doc?.id)
   } else if (path === 'keres') {
     docs = miniSearch.search(q)
     console.log('search:',docs.length)
-  } else docs = modxDocs.filter((doc: { tvs: { tag: string | any[]; }; }) => doc.tvs.tag?.length).slice(0, 18 * 5)
+  } else docs = modxDocs.filter((doc: { tvs: { tag: string | any[]; }; }) => doc.tvs.tag?.length).slice(0, 18 * 5) */
 
-  if (!doc && !docs.length) {
+  /* if (!doc && !docs.length) {
     doc = {'path': '/'}
-  }
-  // console.log('l.s.:',docs.length)
-  return {doc, docs/* , path: params.path */}
+  } */
+  return {doc, docs}
 }
 
 /// 3834: /cikkek/diabetes/2306/lent-es-fent
