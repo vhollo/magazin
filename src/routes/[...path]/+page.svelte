@@ -39,32 +39,50 @@
   $: pubdate = doc && new Date(doc.publishedon * 1000).toLocaleDateString('hu-HU')
   $: editdate = doc && new Date(doc.editedon * 1000).toLocaleDateString('hu-HU')
 
-  copycats['keres'] = {}
-  $: {
+  $: if (doc?.path == 'keres') {
+      copycats['keres'] = {}
+      copycats['keres'][doc.pagetitle] = '/keres'
+      console.log(doc.path)
+    }
+    // copycats['landing'] = {}
+  // copycats['landing']['Legfrissebb cikkeink'] = '/'
+  /* $: if (doc.path) {
     copycats['keres'][doc.pagetitle] = '/keres'
     docstitle = ''
-    Object.keys(cats).forEach(cat => {
+    Object.keys(copycats).forEach(cat => {
       for (let subcat of Object.keys(copycats[cat])) {
-        if (`/${data.doc.path}` == copycats[cat][subcat]) {
-          console.log({subcat})
+        if (`/${doc.path}` == copycats[cat][subcat]) {
+          console.log(doc.path,{subcat})
           docstitle = subcat
         }
       }
     })
-  }
+  } */
+
+  let matchingSubcat = null;
+
+  $: Object.keys(copycats).forEach(cat => {
+    Object.keys(copycats[cat]).forEach(subcat => {
+      if (copycats[cat][subcat] === `/${doc?.path}`) {
+        matchingSubcat = subcat; // Store the matching subcategory name
+      }
+    });
+  });
+
+  $: docstitle = doc?.pagetitle || matchingSubcat
 
 </script>
 
-<svelte:head><title>{doc.pagetitle || docstitle} &bull; Diabetes</title></svelte:head>
+<svelte:head><title>{docstitle} &bull; Diabetes</title></svelte:head>
 
 <main class="bg-base-300">
-  {#if doc.id}
+  {#if doc?.id}
     <!--{@const date = new Date(doc.publishedon * 1000).toLocaleDateString('hu-HU')}-->
     <!--{@const meta = [doc.tvs.sze, date, doc.tvs.cat].join(' | ')}-->
     <article class="prose mx-auto px-4 py-12">
-      <h2 class="felcim uppercase text-sm">{@html doc.description}</h2>
-      <h1 class="title">{@html doc.longtitle || doc.pagetitle}</h1>
-      <h4 class="introtext">{@html doc.introtext}</h4>
+      <h2 class="felcim uppercase text-sm">{@html doc?.description}</h2>
+      <h1 class="title">{@html doc?.longtitle || doc?.pagetitle}</h1>
+      <h4 class="introtext">{@html doc?.introtext}</h4>
       <p>
         {#if doc.tvs.sze.length}
           {#each doc.tvs.sze as sze, i}

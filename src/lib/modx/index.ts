@@ -36,21 +36,30 @@ console.log('modxSiteContent',modxSiteContent.length)
 export const modxSzerzok = await modxdb.select().from(modx_site_htmlsnippets).where(eq (modx_site_htmlsnippets.category, 24))
 //console.log(modxSzerzok)
 
-export const modxDoc = p => {
+export const modxDoc = (p: string) => {
   //console.log('P:',p)
   return modxSiteContent.find(d => d.path == p)
 }
 
 /* Functions */
+interface TemplateVariable {
+  tmplvarid: number;
+  value: string;
+  contentid: number;
+}
+
 const _findPath = (doc => {
   if (!doc) {
     return {}
   }
-  if (doc.parent == 0) {
-    doc.path = doc.alias
-  } else {
-    const parent = _findPath(modxSiteContent.find(d => d.id == doc.parent))
-    doc.path = (parent.path || []) + '/' + doc.alias
+  if (!doc.path) {
+    if (doc.parent == 0) {
+      doc.path = doc.alias
+    } else {
+      const parent = _findPath(modxSiteContent.find(d => d.id == doc.parent))
+      //if (!parent.path) console.log(doc.id,doc.parent)
+      doc.path = [ parent.path || '', doc.alias ].filter(x => x).join('/')
+    }
   }
   return doc
 })
@@ -62,9 +71,8 @@ const cats = {
   'mod': 'Egészséges életmód',
   'recept': 'Receptek'
 }
-const _addTVs = (doc => {
-  //console.log('tvs', doc.id)
-  const tvs = tmplvarContentvalues.filter(tv => tv.contentid == doc.id) || []
+const _addTVs = (doc: any) => {
+  const tvs: TemplateVariable[] = tmplvarContentvalues.filter((tv: TemplateVariable) => tv.contentid == doc.id) || [];
   doc.tvs = {}
 
   const cat = tvs.find(tv => tv.tmplvarid == 23)?.value
@@ -126,9 +134,9 @@ const _addTVs = (doc => {
   doc.tvs.ogi = tvs.find(tv => tv.tmplvarid == 25)?.value || ''
   
   return doc
-})
+}
 
-export const _nagyito = doc => {
+const _nagyito = doc => {
   doc.content = doc.content.replaceAll('`/assets', '`assets')
   const regexp1 = /\[\[nagyito(.*?)\]\]/g
   const regexp2 = /\[!nagyito(.*?)!\]/g
@@ -166,9 +174,14 @@ export const _nagyito = doc => {
   return doc
 }
 
-const _getById = (p1) => {
+const _pathById = (match: string, p1: number) => {
+  // console.log('pathById', match, p1)
   let doc = modxSiteContent.find(d => d.id == p1)
-  doc = _findPath(doc)
+  if (!doc) {
+    // console.log('Nincs',p)
+    return ''
+  }
+  if (!doc.path) doc = _findPath(doc)
   return `/${doc.path}`
 }
 
@@ -176,9 +189,9 @@ const _alapjav = doc => {
   doc.content = doc.content.replaceAll(' m2', ' m<sup>2</sup>').replaceAll('A1c', 'A<sub>1c</sub>').replaceAll('®', '<sup>®</sup>').replaceAll('rel="external"', 'rel="noopener" target="_blank"').replaceAll('"/assets', `"${PUBLIC_BASE_URL}assets`).replaceAll('"assets', `"${PUBLIC_BASE_URL}assets`)
   
   const modxlink = /\[\~(\d*)\~\]/g
-  doc.content = doc.content.replaceAll(modxlink, _getById)
-  doc.description = doc.description.replaceAll(modxlink, _getById)
-  doc.introtext = doc.introtext.replaceAll(modxlink, _getById)
+  doc.content = doc.content.replaceAll(modxlink, _pathById)
+  doc.description = doc.description.replaceAll(modxlink, _pathById)
+  doc.introtext = doc.introtext.replaceAll(modxlink, _pathById)
 
   /*const script = /(<script\b(.*?)<\/script>)/g
   const repl = doc.content.match(script)
@@ -207,5 +220,4 @@ for (let doc of modxSiteContent) {
   //if (doc.id == 3991) console.log(doc)
 }
 
-// export const modxDocs = modxSiteContent
-export const modxDocs = modxSiteContent.filter(doc => !doc.isfolder)
+export const modxDocs = modxSiteContent.filter(doc => !doc.isfolder && doc.path !== doc.alias)

@@ -9,7 +9,7 @@ import { drizzle } from "drizzle-orm/mysql2"
 import mysql from "mysql2/promise"
 const connection = await mysql.createConnection({
   host: MODXDB_HOST,
-  port: MODXDB_PORT,
+  port: Number(MODXDB_PORT),
   user: MODXDB_USER,
   database: MODXDB_DATABASE,
   password: MODXDB_PASSWORD,
