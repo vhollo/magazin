@@ -98,7 +98,7 @@ export async function load({ params, url }) {
       doc = modxDoc(path) || {}
       // query = doc.tvs && doc.tvs.tag || []
       docs = modxDocs.filter((doc: { tvs: { tag: string | any[]; }; }) => doc.tvs.tag?.length).slice(0, 18 * 3)
-      console.log('ID:',doc.id, docs.length)
+      // console.log('ID:',doc.id, docs.length)
   }
 
   //console.log(Object.keys(query))

@@ -23,7 +23,7 @@ modxSiteContent = /*modxSiteContent ||*/ await modxdb.select().from(modx_site_co
     eq(modx_site_content.published, '1'),
     eq(modx_site_content.type, 'document'),
     or(
-      eq(modx_site_content.template, '7'), 
+      // eq(modx_site_content.template, '7'), 
       eq(modx_site_content.template, '9'), 
       eq(modx_site_content.template, '13')
     )
