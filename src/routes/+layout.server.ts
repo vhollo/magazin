@@ -52,9 +52,9 @@ const queries: Queries = {
   'all': [],
 }
 
-const docsByTags = (tags:Array<string>, id:string) => {
+const docsByTags = (tags:Array<string>, id:string | undefined) => {
   // console.log(id,{tags})
-  let docs = modxDocs.filter((doc: { tvs: { tag: string[] }; rank: number; id: string; isfolder: number }) => {
+  let docs = modxDocs.filter((doc: { tvs: { tag: string[] }; rank: number; id: string | undefined; isfolder: number }) => {
     doc.rank = tags.length && !doc.tvs.tag.find(tag => tags.includes(`-${tag}`)) && (tags.filter(t => t.startsWith('+')).length == doc.tvs.tag.filter(tag => tags.includes(`+${tag}`)).length) && doc.tvs.tag.filter(tag => (tags.includes(tag) || tags.includes(`+${tag}`) || tags.includes(`#${tag}`))).length || 0
     
     // doc.rank = doc.tvs.tag.filter(tag => tags.includes(`+${tag}`)).length * 1
@@ -73,7 +73,7 @@ export async function load({ params, url }) {
 
   const q = url.searchParams.get('q')
   const path:string = params.path || '/'
-  let query, doc, docs:Docs = {}//, page = 0
+  let doc, docs:Docs = {}//, query, page = 0
 
   switch (true) {
     case path === '/': /// start page
@@ -85,7 +85,7 @@ export async function load({ params, url }) {
       //console.log('queries:',queries[path])
       // query = queries[path] ///?
       doc = {'path': path}
-      docs = docsByTags(queries[path], doc?.id)
+      docs = docsByTags(queries[path], '0')
       //console.log('path:',path)
       break
     case path === 'keres': /// search results
@@ -94,7 +94,7 @@ export async function load({ params, url }) {
       console.log('search:',docs.length)
       break
     default: /// page path
-      //console.log('default:',params.path)
+      // console.log('default:',params.path)
       doc = modxDoc(path) || {}
       // query = doc.tvs && doc.tvs.tag || []
       docs = modxDocs.filter((doc: { tvs: { tag: string | any[]; }; }) => doc.tvs.tag?.length).slice(0, 18 * 3)

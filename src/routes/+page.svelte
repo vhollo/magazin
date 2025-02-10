@@ -64,6 +64,10 @@
     <Search />
   </aside>
 
+  <article class="prose card w-128 my-16 mx-auto">
+    <h1 class="text-center">A legfrissebb cikkek</h1>
+  </article>
+  
   {#if docs.length}
     <Cards docs={docs}/>
   {/if}

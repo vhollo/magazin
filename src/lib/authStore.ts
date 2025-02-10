@@ -2,7 +2,7 @@ import { writable } from 'svelte/store';
 
 interface AuthUser {
   uid: string;
-  email: string;
+  email: string | null;
 }
 
 const authUser = writable<AuthUser | undefined>(undefined);

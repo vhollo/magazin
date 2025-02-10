@@ -16,14 +16,14 @@ import Nagyito from '$lib/components/Nagyito.svelte'
 
 //const modxSiteContent = await modxdb.query.modx_site_content.findMany(10);
 
-let modxSiteContent:Array, tmplvarContentvalues:Array
+let modxSiteContent:Array<object>, tmplvarContentvalues:Array<object>
 modxSiteContent = /*modxSiteContent ||*/ await modxdb.select().from(modx_site_content).orderBy(desc(modx_site_content.id)).where(
   and(
     /*gt(modx_site_content.id, '3900'),*/
     eq(modx_site_content.published, '1'),
     eq(modx_site_content.type, 'document'),
     or(
-      //eq(modx_site_content.template, '7'), 
+      eq(modx_site_content.template, '7'), 
       eq(modx_site_content.template, '9'), 
       eq(modx_site_content.template, '13')
     )
@@ -32,12 +32,13 @@ modxSiteContent = /*modxSiteContent ||*/ await modxdb.select().from(modx_site_co
 tmplvarContentvalues = /*tmplvarContentvalues ||*/ await modxdb.select().from(modx_site_tmplvar_contentvalues)
 
 console.log('modxSiteContent',modxSiteContent.length)
+// console.log('3284',modxSiteContent.find(d => d.id == '3284'))
 
 export const modxSzerzok = await modxdb.select().from(modx_site_htmlsnippets).where(eq (modx_site_htmlsnippets.category, 24))
 //console.log(modxSzerzok)
 
 export const modxDoc = (p: string) => {
-  //console.log('P:',p)
+  // console.log('P:',p)
   return modxSiteContent.find(d => d.path == p)
 }
 
@@ -47,22 +48,6 @@ interface TemplateVariable {
   value: string;
   contentid: number;
 }
-
-const _findPath = (doc => {
-  if (!doc) {
-    return {}
-  }
-  if (!doc.path) {
-    if (doc.parent == 0) {
-      doc.path = doc.alias
-    } else {
-      const parent = _findPath(modxSiteContent.find(d => d.id == doc.parent))
-      //if (!parent.path) console.log(doc.id,doc.parent)
-      doc.path = [ parent.path || '', doc.alias ].filter(x => x).join('/')
-    }
-  }
-  return doc
-})
 
 const cats = {
   'orvos': 'Orvosok üzenetei',
@@ -174,11 +159,27 @@ const _nagyito = doc => {
   return doc
 }
 
+const _findPath = (doc => {
+  if (!doc) {
+    return {}
+  }
+  if (!doc.path) {
+    if (doc.parent == 0) {
+      doc.path = doc.alias
+    } else {
+      const parent = _findPath(modxSiteContent.find(d => d.id == doc.parent))
+      //if (!parent.path) console.log(doc.id,doc.parent)
+      doc.path = [ parent.path || '', doc.alias ].filter(x => x).join('/')
+    }
+  }
+  return doc
+})
+
 const _pathById = (match: string, p1: number) => {
   // console.log('pathById', match, p1)
   let doc = modxSiteContent.find(d => d.id == p1)
   if (!doc) {
-    // console.log('Nincs',p)
+    // console.log('Nincs',p1)
     return ''
   }
   if (!doc.path) doc = _findPath(doc)
@@ -213,7 +214,6 @@ const _alapjav = doc => {
 
 for (let doc of modxSiteContent) {
   doc = _findPath(doc)
-
   doc = _addTVs(doc)
   //console.log(doc.id)
   doc = _nagyito(doc)
