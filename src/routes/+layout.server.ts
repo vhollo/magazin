@@ -97,9 +97,11 @@ export async function load({ params, url }) {
       // console.log('default:',params.path)
       doc = modxDoc(path) || {}
       // query = doc.tvs && doc.tvs.tag || []
-      docs = modxDocs.filter((doc: { tvs: { tag: string | any[]; }; }) => doc.tvs.tag?.length).slice(0, 18 * 3)
-      // console.log('ID:',doc.id, docs.length)
-  }
+      // docs = modxDocs.filter((doc: { tvs: { tag: string | any[]; }; }) => doc.tvs.tag?.length).slice(0, 18 * 3)
+      console.log('ID:',doc.id, doc.tvs.tag)
+      docs = docsByTags(doc.tvs.tag, doc.id)
+
+    }
 
   //console.log(Object.keys(query))
   /* if (query) {
