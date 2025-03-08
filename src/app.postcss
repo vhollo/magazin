@@ -156,18 +156,19 @@ p.intro a, .ellipsis p a, .twoliner a {
   --tw-prose-links: var(--fallback-bc,oklch(var(--bc)/.75));
 }
 article :not(table).nicebox {
-  @apply card card-compact bg-base-100 shadow-xl card-body p-4 my-[2.8rem];
+  @apply card card-compact bg-base-100 shadow-xl card-body p-4 my-[2.8rem] gap-4;
 }
 .nicebox > * {
   @apply my-0;
 }
 .nicebox > h3 {
-  @apply card-title;
+  @apply card-title mt-6;
 }
 .nicebox figure {
   @apply my-0;
   text-align: center;
   width: 100%;
+  flex-direction: column;
 }
 .nicebox figure img {
   object-fit: contain;
@@ -233,6 +234,9 @@ article figure img {
 }
 .alairas span {
   @apply not-italic block normal-case;
+}
+.alairas .logo {
+  margin-inline: auto;
 }
 
 #szerzo {

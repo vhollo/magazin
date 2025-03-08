@@ -5,10 +5,10 @@ import { PUBLIC_BASE_URL } from '$env/static/public';
 import { eq, gt, lt, gte, lte, ne, asc, desc, and, or } from "drizzle-orm"
 //import { json, text, error } from '@sveltejs/kit'
 //import { mysqlTable, serial, text } from 'drizzle-orm/mysql-core'
-import { modx_site_content } from '/drizzle/schema'
+import { modx_site_content } from '../../../drizzle/schema'
 //import { modx_site_tmplvars } from '../../drizzle/schema'
-import { modx_site_tmplvar_contentvalues } from '/drizzle/schema'
-import { modx_site_htmlsnippets } from '/drizzle/schema'
+import { modx_site_tmplvar_contentvalues } from '../../../drizzle/schema'
+import { modx_site_htmlsnippets } from '../../../drizzle/schema'
 import { modxdb } from '$lib/modx/db'
 
 import { render } from 'svelte/server'
@@ -16,16 +16,16 @@ import Nagyito from '$lib/components/Nagyito.svelte'
 
 //const modxSiteContent = await modxdb.query.modx_site_content.findMany(10);
 
-let modxSiteContent:Array<object>, tmplvarContentvalues:Array<object>
+let modxSiteContent: object[], tmplvarContentvalues: object[]
 modxSiteContent = /*modxSiteContent ||*/ await modxdb.select().from(modx_site_content).orderBy(desc(modx_site_content.id)).where(
   and(
     /*gt(modx_site_content.id, '3900'),*/
-    eq(modx_site_content.published, '1'),
+    eq(modx_site_content.published, 1),
     eq(modx_site_content.type, 'document'),
     or(
-      // eq(modx_site_content.template, '7'), 
-      eq(modx_site_content.template, '9'), 
-      eq(modx_site_content.template, '13')
+      // eq(modx_site_content.template, 7), //magazine
+      eq(modx_site_content.template, 9), //junior
+      eq(modx_site_content.template, 13) //szemlelet
     )
   ),
 )
@@ -49,19 +49,20 @@ interface TemplateVariable {
   contentid: number;
 }
 
-const cats = {
+const cats: { [key: string]: string } = {
+  'null': '',
   'orvos': 'Orvosok üzenetei',
   'szemle': 'Hasznos tudnivalók',
   'elet': 'Személyes történetek',
   'mod': 'Egészséges életmód',
   'recept': 'Receptek'
 }
-const _addTVs = (doc: any) => {
+const _addTVs = (doc:object) => {
   const tvs: TemplateVariable[] = tmplvarContentvalues.filter((tv: TemplateVariable) => tv.contentid == doc.id) || [];
   doc.tvs = {}
 
-  const cat = tvs.find(tv => tv.tmplvarid == 23)?.value
-  doc.tvs.cat = cats[cat] || ''
+  const cat:string = tvs.find(tv => tv.tmplvarid == 23)?.value || 'null'
+  doc.tvs.cat = cats[cat]
 
   const tags = tvs.find(tv => tv.tmplvarid == 3)?.value || ''
   doc.tvs.tag = tags.replace('diabetes','').replace('terhesség','várandósság').replace('családorvos','orvosok').split(' ').filter(t => t != '') || []
@@ -144,6 +145,7 @@ const _nagyito = doc => {
     } else {        
       const align = match[1].indexOf('align=') !== -1 && [...match[1].match(/align=\`(.*?)\`/)]
       const zoom = match[1].indexOf('zoom=') !== -1 && [...match[1].match(/zoom=\`(.*?)\`/)]
+      const bg = match[1].indexOf('bg=') !== -1 && [...match[1].match(/bg=\`(.*?)\`/)]
       const desc = match[1].indexOf('desc=') !== -1 && [...match[1].match(/desc=\`(.*?)\`/)]
       const { html } = file[1] && render(Nagyito, { props: {
         img: { 
@@ -151,6 +153,7 @@ const _nagyito = doc => {
           desc: desc[1] || '',
           align: align[1] || '',
           zoom: zoom[1] || '',
+          bg: bg[1] || 'transparent',
         }
       }}) || ''
       doc.content = doc.content.replace(match[0], html)
