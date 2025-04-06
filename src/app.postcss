@@ -4,7 +4,7 @@
 
 :root {
   font-size: clamp(1rem, 0.5vw + 0.85rem, 1.25rem); /* 16px@480px --> 22px@1200px, */ /* https://fluidtypography.com/ */
-  --imgratio: 1.693;
+  --imgratio: 16 / 9;
   --lh: 1.75rem; /* line-height */
   --lh: clamp(1.75rem, 0.875vw + 1.488rem, 2.188rem);
   --lh-card: 1.25rem; /* card line-height */
@@ -119,8 +119,40 @@ p.intro a, .ellipsis p a, .twoliner a {
   flex-grow: 1;
 }
 .ellipsis table {
-  margin-top: auto; 
+  margin-top: auto;
 }
+.ellipsis tbody {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  & > tr {
+    display: contents;
+  }
+  & > tr > td, & > tr > th {
+    padding: 0;
+  }
+  & > tr > td:nth-child(1), & > tr > th:nth-child(1) {
+    order: 0;
+  }
+  & > tr > td:nth-child(2), & > tr > th:nth-child(2) {
+    order: 1;
+  }
+  & > tr > td:nth-child(3), & > tr > th:nth-child(3) {
+    order: 2;
+  }
+  & > tr > td:nth-child(4), & > tr > th:nth-child(4) {
+    order: 3;
+  }
+  & > tr > td:nth-child(5), & > tr > th:nth-child(5) {
+    order: 4;
+  }
+  & > tr > td:nth-child(6), & > tr > th:nth-child(6) {
+    order: 5;
+  }
+}
+
+
+
+
 .ellipsis table ~ p, .twoliner table ~ p {
   display: none; 
 }

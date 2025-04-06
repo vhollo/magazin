@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { browser } from '$app/environment'
   import { authUser } from '$lib/authStore';
   import {
 	//blur,
@@ -20,19 +21,20 @@
     }*/
     doc.tvs = doc.tvs || {}
 
-    doc.ellipsis = ''
-    if (!doc.introtext?.length && doc.content) {
-      const regex = /(?:<h2\b.*?>(.*?)<\/h2>\s*)?<h4[^>]*class=["'][^"']*introtext[^"']*["'][^>]*>([\s\S]*?)<\/h4>/g;
+    if (!doc.introtext?.length && doc.content && !doc.ellipsis) {
+      /* doc.ellipsis = ''
 
-      //doc.ellipsis = ''
+      const regex = /(?:<h2\b.*?>(.*?)<\/h2>\s*)?<h4[^>]*class=["'][^"']*introtext[^"']*["'][^>]*>([\s\S]*?)<\/h4>/g;
       let match
       while ((match = regex.exec(doc.content)) !== null) {
         const h2 = match[1] ? match[1].trim() : null
         const introtext = match[2].trim()
         doc.ellipsis += h2 && `<p class="intro"><b>${h2}</b><br>${introtext}</p>` || ''//introtext || doc.content
-      }
+      } */
 
-      if (!doc.ellipsis) doc.ellipsis = doc.content.match(/<(?!aside\b|figure\b|img\b|h2\b|h3\b|ul\b|li\b)(.*?)\b[^>]*>[\s\S]*?<\/\1>/g)?.slice(0, 2).join('')
+      doc.ellipsis = doc.content.match(/<(?!aside\b|figure\b|img\b|h2\b|h3\b|ul\b|li\b)(.*?)\b[^>]*>[\s\S]*?<\/\1>/g)?.slice(0, 3).join('')
+
+      doc.video = doc.content.match(/<video\b(.*?)\b[^>]*>[\s\S]*?<\/video>/g)?.slice(0, 100).join('')
     }
     //if (doc.id == '424') console.log(doc.ellipsis)
   }
@@ -41,12 +43,12 @@
 {#if full}
   <section class="grid gap-x-6 gap-y-16 px-4 py-6">
     {#each docs as doc, i}
-    {@const card = {id: doc.id, img: doc.img,/* pos: doc.tvs.pos, ext: doc.ext,*/ path: doc.path, desc: doc.description, title: doc.title, longtitle: doc.longtitle, introtext: doc.introtext, ellipsis: doc.ellipsis, content: doc.content, tags: doc.tvs.tag, rank: doc.rank}}
-      <aside in:fade={{ duration: 1000 }} class:double={doc.img || doc.ellipsis?.indexOf('<video') !== -1} class:triple={doc.ellipsis?.indexOf('<video') !== -1} class="card gap-4 bg-base--100" style="order:{i+1}">
+    {@const card = {id: doc.id, img: doc.img,/* pos: doc.tvs.pos, ext: doc.ext,*/ path: doc.path, desc: doc.description, title: doc.title, longtitle: doc.longtitle, introtext: doc.introtext, ellipsis: doc.ellipsis, content: doc.content, tags: doc.tvs.tag, rank: doc.rank, video: doc.video}}
+      <aside in:fade={{ duration: 1000 }} class:double={doc.img || doc.ellipsis?.indexOf('<video') > -1} class:triple={doc.ellipsis?.indexOf('<video') > -1} class="card gap-4 bg-base--100" style="order:{i+1}">
         <Card {card}/>
       </aside>
     {/each}
-    {#if !$authUser}
+    {#if !$authUser && browser}
       <aside class="card rounded gap-4 bg-base-100" style="order:0">
         <h1 class="card-body">HIRDETÉS</h1>
       </aside>
@@ -90,10 +92,10 @@
   /*aside.triple {
     grid-row-end: span 3;
   }*/
-  aside.triple :global(figure) {
+  /* aside.triple :global(figure) {
     display: none;
-  }
-  aside.triple:has(figure) {
+  } */
+  :global(aside.triple:has(figure)) {
     grid-row-end: span 2;
   }
 </style>

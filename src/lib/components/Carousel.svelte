@@ -39,7 +39,7 @@
       </aside>
   
       <aside class="carousel-item card rounded card-compact bg-base-100 w-full sm:w-7/12 lg:w-2/5 xl:w-[27.5%] max-h-1/2">
-        <CarItem card={ {'img': {src: `${PUBLIC_BASE_URL}assets/images/cikkek/dt2302/Collage_of_large_group_of_ethnically_diverse_smiling_people,_men_and_women_expressing_happy,_joyful_emotions_over_green_and_yellow_background._Multiracial_society.jpg`}, 'longtitle': 'Klubok, Egyesületek', 'introtext': 'A Celt, hogy egy cukorbeteg lehetőség szerint teljes körű ellátást kapjon. A gondozás során a laborvizsgálattól a szövődményfelmérésen át az étrend, az életmód és a személyre szabott terápia meghatározásáig minden nélkülözhetetlen szakember, orvosok, dietetikus, személyi edő és szakasszisztens dolgozik együtt.', 'tags': '', 'buttons': {'Elérhetőségek': '/hirek/civil-szervezetek-es-szakellatohelyek', 'Hírek': '/hirek'} } }/>
+        <CarItem card={ {'img': {src: `${PUBLIC_BASE_URL}assets/images/cikkek/dt2302/Collage_of_large_group_of_ethnically_diverse_smiling_people,_men_and_women_expressing_happy,_joyful_emotions_over_green_and_yellow_background._Multiracial_society.jpg`}, 'longtitle': 'Klubok, Egyesületek', 'introtext': 'A cél, hogy egy cukorbeteg lehetőség szerint teljes körű ellátást kapjon. A gondozás során a laborvizsgálattól a szövődményfelmérésen át az étrend, az életmód és a személyre szabott terápia meghatározásáig minden nélkülözhetetlen szakember, orvosok, dietetikus, személyi edő és szakasszisztens dolgozik együtt.', 'tags': '', 'buttons': {'Elérhetőségek': '/hirek/civil-szervezetek-es-szakellatohelyek', 'Hírek': '/hirek'} } }/>
       </aside>
     </div>
     {#if scroll}

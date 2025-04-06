@@ -11,3 +11,9 @@
 {:else}
   <div class="ellipsis">{@html card.ellipsis}</div>
 {/if}
+
+<style>
+  .ellipsis :global(video) {
+    display: none;
+  }
+</style>

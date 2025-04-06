@@ -47,15 +47,16 @@ const queries: Queries = {
   'esemenyek': ['+közösség', '-személyes', '-egyesület', '-rendezvény', '-covid-19'],
   'rendezvenyek': ['+rendezvény', '-covid-19'],
   'hirek': ['rendezvény', 'beszámoló', 'közösség', 'egyesület', '-covid-19'],
-  'gyogyitok': ['+személyes', '#orvosok', '#szakellátás', 'elismerés', '-kezelés', '-covid-19'],
-  'sorstarsak': ['+személyes', '+szekellátás', '-orvosok', '-önellenőrzés', '-kezelés', '-várandósság', '-közösség', '-edukáció', '-egyesület', '-covid-19'], 
+  'gyogyitok': ['+személyes', 'orvosok', 'szakellátás', 'elismerés', '-kezelés', '-covid-19'],
+  'sorstarsak': ['+személyes', 'elismerés', '-szakellátás', '-orvosok', '-önellenőrzés', '-kezelés', '-várandósság', '-közösség', '-edukáció', '-egyesület', '-covid-19'], 
   'all': [],
 }
 
 const docsByTags = (tags:Array<string>, id:string | undefined) => {
   // console.log(id,{tags})
   let docs = modxDocs.filter((doc: { tvs: { tag: string[] }; rank: number; id: string | undefined; isfolder: number }) => {
-    doc.rank = tags.length && !doc.tvs.tag.find(tag => tags.includes(`-${tag}`)) && (tags.filter(t => t.startsWith('+')).length == doc.tvs.tag.filter(tag => tags.includes(`+${tag}`)).length) && doc.tvs.tag.filter(tag => (tags.includes(tag) || tags.includes(`+${tag}`) || tags.includes(`#${tag}`))).length || 0
+    // doc.rank = tags.length && !doc.tvs.tag.find(tag => tags.includes(`-${tag}`)) && (tags.filter(t => t.startsWith('+')).length == doc.tvs.tag.filter(tag => tags.includes(`+${tag}`)).length) && doc.tvs.tag.filter(tag => (tags.includes(tag) || tags.includes(`+${tag}`) || tags.includes(`#${tag}`))).length || 0
+    doc.rank = tags.length && !doc.tvs.tag.find(tag => tags.includes(`-${tag}`)) && doc.tvs.tag.filter(tag => (tags.includes(tag) || tags.includes(`+${tag}`) || tags.includes(`#${tag}`))).length || 0
     
     // doc.rank = doc.tvs.tag.filter(tag => tags.includes(`+${tag}`)).length * 1
     doc.rank = doc.tvs.tag.filter(tag => tags.includes(`+${tag}`)).length * 100 + doc.tvs.tag.filter(tag => tags.includes(`#${tag}`)).length * 10 + doc.rank

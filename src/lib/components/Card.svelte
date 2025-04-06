@@ -1,6 +1,8 @@
 <script>
   import CardBody from '$lib/components/CardBody.svelte'
   export let card
+  // if (card.id == '4176') console.log({card})
+
   // import { PUBLIC_BASE_URL } from '$env/static/public'
   // import Cards from './Cards.svelte'
 
@@ -33,18 +35,20 @@
       {#if card.path}
         <a href={`/${card.path}`}>
           <!--<img style={`object-fit: ${card.ext == 'png' ? 'contain' : 'cover'}; object-position: ${card.pos || '50% 40%'}`} src={`${PUBLIC_BASE_URL}${card.img}`} alt="" width="928" height="548"/>-->
-          <img loading="lazy"
+          <!-- <img loading="lazy"
             style={`object-fit: ${card.img.ext == 'png' ? 'contain' : 'cover'}; object-position: ${card.img.pos || '50% 40%'}`} 
             src={`${card.img.src}`} 
             alt="" width="928" height="548"
-          />
+          /> -->
+          {@html card.video}
         </a>
       {:else}
-        <img loading="lazy"
+        <!-- <img loading="lazy"
           style={`object-fit: ${card.img.ext == 'png' ? 'contain' : 'cover'}; object-position: ${card.img.pos || '50% 40%'}`} 
           src={`${card.img.src}`} 
           alt="" width="928" height="548"
-    />
+        /> -->
+        {@html card.video}
       {/if}
     </figure>
   {:else if card.img}
