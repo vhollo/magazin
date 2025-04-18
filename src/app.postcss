@@ -25,10 +25,10 @@
   }
 }
 
+/* DRAWER */
 html:has(.drawer-toggle:checked) {
   overflow-y: auto!important;
 }
-
 @media (max-width: 1023px)  {
   nav:has(#mobile-nav:checked) ~ * {
     display: none;
@@ -99,9 +99,9 @@ article figure {
   margin: 0; 
   overflow: hidden;
 }
-.double .intro, .double .ellipsis {
+/* .double .intro, .double .ellipsis {
   -webkit-line-clamp: 9;
-}
+} */
 .twoliner {
   -webkit-line-clamp: 2;
 }
@@ -112,12 +112,12 @@ p.intro a, .ellipsis p a, .twoliner a {
   text-decoration: dashed underline;
 }
 
-.ellipsis:has(video) {
+/* .ellipsis:has(video) {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   flex-grow: 1;
-}
+} */
 .ellipsis table {
   margin-top: auto;
 }
@@ -150,10 +150,7 @@ p.intro a, .ellipsis p a, .twoliner a {
   }
 }
 
-
-
-
-.ellipsis table ~ p, .twoliner table ~ p {
+.ellipsis table ~ p, .twoliner table ~ p/* , .ellipsis table ~ div, .twoliner table ~ div */ {
   display: none; 
 }
 .ellipsis > table, .twoliner > table {
@@ -235,6 +232,8 @@ article figure img {
 .prose {
   container-type: inline-size;
 }
+
+/* FLOATS */
 .left, .right {
   width: calc(50% - 1rem);
   margin-top: 2rem;
@@ -242,9 +241,15 @@ article figure img {
 }
 @container (max-width: 54ch) {
   .left, .right {
+    float: none!important;
     width: 100%;
+    margin-inline: 0!important;
+    text-align: center!important;
   }
+  .left img, .right img {
+    margin-inline: auto!important;
   }
+}
 .left {
   float: left;
   margin-right: 1rem;
@@ -252,6 +257,12 @@ article figure img {
 .right {
   float: right;
   margin-left: 1rem;
+}
+.center {
+  text-align: center;
+}
+.center img {
+  margin-inline: auto;
 }
 .card.left figure, .card.right figure {
   /*max-width: 50%;*/
@@ -261,6 +272,7 @@ article figure img {
   @apply self-end;
 }*/
 
+/* ALAIRAS */
 .alairas {
   @apply uppercase text-sm italic text-end my-8;
 }
@@ -276,7 +288,6 @@ article figure img {
   display: grid;
   gap: 0 2rem;
   grid-template-columns: 10ch auto;
-  grid-template-rows: auto;
 }
 #szerzo img {
   grid-row-start: 1;
@@ -286,7 +297,20 @@ article figure img {
 #szerzo img + .nev {
   line-height: 1;
 }
-#szerzo p + p {
+#szerzo .cv {
   grid-column-start: 1;
   grid-column-end: 3;
+  grid-template-rows: auto;
+}
+
+*:has(#szerzo) .alairas {
+  display: none;
+}
+
+.prose :where(p):not(:where([class~="not-prose"],[class~="not-prose"] *)) {
+  quotes: none;
+}
+.prose :where(figcaption):not(:where([class~="not-prose"],[class~="not-prose"] *)):first-child {
+  margin-bottom: 0.8571429em;
+  margin-top: 0;
 }

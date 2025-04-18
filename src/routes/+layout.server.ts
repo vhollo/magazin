@@ -3,6 +3,7 @@ import MiniSearch from 'minisearch'
 
 // export const prerender = true
 import { modxDoc, modxDocs } from '$lib/modx'
+console.log('docs:',modxDocs.length)
 // import { PUBLIC_BASE_URL } from '$env/static/public'
 
 
@@ -23,6 +24,7 @@ interface Queries {
 const queries: Queries = {
   //'s-o-s': ['testmozgás', 'megelőzés', 'önellenőrzés', 'kezelés', 'szakellátás'],
   's-o-s': ['diabpont', '-covid-19'],
+  'junior': ['+junior', '-covid-19'],
   'gdm': ['+várandósság', '-személyes'],
   'varandossag': ['+várandósság', '+személyes'],
   'gyermekvallalas': ['+várandósság', 'edukáció'],
@@ -66,7 +68,8 @@ const docsByTags = (tags:Array<string>, id:string | undefined) => {
   }) || []
   docs.sort((a: { rank: string; }, b: { rank: string; }) => parseFloat(b.rank) - parseFloat(a.rank))
   console.log('docs:',docs.length)
-  return docs.slice(0, 18 * 3)
+  return docs.slice(0, 18 * 4)
+  // return docs
 }
 
 
@@ -80,7 +83,7 @@ export async function load({ params, url }) {
     case path === '/': /// start page
       // doc = {'path': '/'}
       doc = {'path': '/'}
-      docs = modxDocs.slice(0, 18 * 3)
+      docs = modxDocs.slice(0, 18 * 4)
       break
     case !!queries[path]: /// a collection
       //console.log('queries:',queries[path])
@@ -100,7 +103,7 @@ export async function load({ params, url }) {
       // query = doc.tvs && doc.tvs.tag || []
       // docs = modxDocs.filter((doc: { tvs: { tag: string | any[]; }; }) => doc.tvs.tag?.length).slice(0, 18 * 3)
       docs = docsByTags(doc.tvs.tag, doc.id)
-      console.log('ID:',doc.id, doc.tvs.tag, docs.length)
+      // console.log('ID:',doc.id, doc.tvs.tag, docs.length)
     }
 
   //console.log(Object.keys(query))

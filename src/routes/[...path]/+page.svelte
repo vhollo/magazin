@@ -1,40 +1,48 @@
 <script context="module">
   import Cards from '$lib/components/Cards.svelte'
   import Search from '$lib/components/Search.svelte'
+  import Nav2 from '$lib/components/Nav2.svelte'
   // import Card from '$lib/components/Card.svelte'
   // import { PUBLIC_BASE_URL } from '$env/static/public'
 
-  import { cats } from '$lib/cats.js'
-  let copycats = JSON.parse(JSON.stringify(cats))
+  import { nav2 } from '$lib/nav2.js'
+  let copycats = JSON.parse(JSON.stringify(nav2))
   copycats['carousel'] = {}
   copycats['carousel']['Segítség, cukorbeteg vagyok!'] = '/s-o-s'
   copycats['carousel']['Gesztációs diabétesz'] = '/gyermekvallalas'
   copycats['carousel']['Receptek'] = '/receptek'
   copycats['carousel']['Táplálkozás'] = '/taplalkozas'
   copycats['carousel']['Klubok, Egyesületek'] = '/hirek'
+
 </script>
 
 <script>
 // @ts-nocheck
+  // import { afterNavigate, replaceState } from '$app/navigation';
+  // import { page, navigating } from '$app/state';
+  import { ads } from '$lib/ads.js'
 
   export let data
   let docstitle
-  // $: console.log('[path]', data.doc.path)
+  // console.log('[path]', data.doc.children)
 
   $: doc = data.doc
-  $: docs = data.docs.slice(0, 18)
-  $: pagenum = data.docs.length > 18 ? 1 : 0
+  $: docs = data.docs
+  $: if (doc.id == '4103') console.log(doc.content.length)
 
 
-  //$: (data) => { doc = data.doc stb…}
-  // if (18 * pagenum >= data.docs.length) pagenum = 0
-
+  /* let win, pagenum = 1, volume = 18, docs = []
+  afterNavigate(() => {
+    pagenum = win?.location.hash.replace('#', '') || 1
+    docs = data.docs.slice(0, volume * pagenum)
+  })
   const _pagenum = () => {
     pagenum++
-    docs = data.docs.slice(0, 18 * pagenum)
-    if (18 * pagenum >= data.docs.length) pagenum = 0
-  }
-  // _pagenum()
+    docs = data.docs.slice(0, volume * pagenum)
+    // if (volume * pagenum >= data.docs.length) pagenum = 0
+    replaceState('#'+pagenum);
+    // console.log(pagenum)
+  } */
 
   $: pubdate = doc && new Date(doc.publishedon * 1000).toLocaleDateString('hu-HU')
   $: editdate = doc && new Date(doc.editedon * 1000).toLocaleDateString('hu-HU')
@@ -42,22 +50,8 @@
   $: if (doc.path == 'keres') {
       copycats['keres'] = {}
       copycats['keres'][doc.pagetitle] = '/keres'
-      console.log(doc.path)
+      // console.log(doc.path)
     }
-    // copycats['landing'] = {}
-  // copycats['landing']['Legfrissebb cikkeink'] = '/'
-  /* $: if (doc.path) {
-    copycats['keres'][doc.pagetitle] = '/keres'
-    docstitle = ''
-    Object.keys(copycats).forEach(cat => {
-      for (let subcat of Object.keys(copycats[cat])) {
-        if (`/${doc.path}` == copycats[cat][subcat]) {
-          console.log(doc.path,{subcat})
-          docstitle = subcat
-        }
-      }
-    })
-  } */
 
   let matchingSubcat = null;
 
@@ -74,12 +68,13 @@
 </script>
 
 <svelte:head><title>{docstitle} &bull; Diabetes</title></svelte:head>
+<!-- <svelte:window bind:this={win}/> -->
 
-<main class="bg-base-300">
-  {#if doc.id}
+{#if doc.id}
+  <main class="bg-base-300 sm:flex flex-row">
     <!--{@const date = new Date(doc.publishedon * 1000).toLocaleDateString('hu-HU')}-->
     <!--{@const meta = [doc.tvs.sze, date, doc.tvs.cat].join(' | ')}-->
-    <article class="prose mx-auto px-4 py-12">
+    <article class="prose mx-auto px-2 py-12 flex-1">
       <h2 class="felcim uppercase text-sm">{@html doc.description}</h2>
       <h1 class="title">{@html doc.longtitle || doc.pagetitle}</h1>
       <h4 class="introtext">{@html doc.introtext}</h4>
@@ -120,29 +115,62 @@
         {/each}
       {/if}
     </article>
+    
+    <!-- KIEMELT ADS -->
+    <!-- {#if $authUser && browser && hirds.length} -->
+    <section class="flex-0 flex flex-col gap-2 mx-auto px-2 py-12">
+      {#each ads.banners as item, i}
+        {#if item.prominent}
+          <aside class="card gap-4 bg-base-100">
+            <h1 class="card-body">{item.title}</h1>
+          </aside>
+        {/if}
+      {/each}
+    </section>
+    <!-- {/if} -->
+  </main>
+  {#if doc.children?.length}
+    <article class="prose mt-16 mb-8 mx-auto flex-none">
+      <h2 class="pt-12 text-center">Kapcsolódó cikkek</h2>
+    </article>
+    <Cards cards={doc.children} full={false}/>
   {/if}
+{/if}
 
-  <!-- <article class="prose card w-128 my-2 mx-auto"> -->
-  <aside class="mx-auto py-16 max-md:mx-4 bg-neutral">
-    <Search />
-  </aside>
+  <!-- <article class="prose my-2 mx-auto"> -->
+  <Search />
+  <Nav2/>
 
   {#if docs.length}
-    <article class="prose card w-128 my-16 mx-auto">
+    <article class="prose mt-16 mb-8 mx-auto">
       {#if !doc.id}
-        <h1 class="text-center">{doc.id && '' || docstitle}</h1>
+        <h2 class="text-center">{doc.id && '' || docstitle}</h2>
       {:else}
-        <h1 class="text-center">Hasonló cikkek</h1>
+        <h2 class="text-center">Hasonló cikkek</h2>
       {/if}
     </article>
-    <Cards {docs}/>
-  {:else}
-    <h1 class="text-center">NO DOCS</h1>
+    <Cards cards={docs}/>
+  <!-- {:else}
+    <h1 class="text-center">NO DOCS</h1> -->
   {/if}
-</main>
 
-{#if pagenum > 0}
+<!-- {#if volume * pagenum < data.docs.length}
 <footer class="footer footer-center bg-base-200 text-base-content pt-4">
   <button on:click={_pagenum} class="btn btn-outline">További cikkek</button>
 </footer>
-{/if}
+{/if} -->
+
+<style>
+  section {
+    min-width: 24ch;
+    width: calc((100% - 65ch) / 2);
+  }
+  section aside {
+    position: unset;
+    /* width: minmax(24ch, 1fr); */
+    min-height: 20ch;
+    /* grid-row-end: span 3; */
+    margin-bottom: 3rem;
+  }
+
+</style>

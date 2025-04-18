@@ -1,4 +1,4 @@
-export const cats = {
+export const nav2 = {
   'Kezelés': {
     'Inzulinok': '/inzulinok',
     'Gyógyszerek': '/gyogyszerek',
@@ -35,7 +35,7 @@ export const cats = {
     'Gesztációs diabétesz': '/gdm',
     'Várandósság cukorbetegséggel': '/varandossag',
   },
-  'Impresszum': {
+  'Kapcsolat': {
     'Alapítvány a Cukorbetegekért': '/alapitany',
     'Tudomány Kiadó': '/tudomany',
     'Portmed': '/portmed',

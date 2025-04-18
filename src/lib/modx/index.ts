@@ -20,6 +20,7 @@ let modxSiteContent: object[], tmplvarContentvalues: object[]
 modxSiteContent = /*modxSiteContent ||*/ await modxdb.select().from(modx_site_content).orderBy(desc(modx_site_content.id)).where(
   and(
     /*gt(modx_site_content.id, '3900'),*/
+    eq(modx_site_content.deleted, 0),
     eq(modx_site_content.published, 1),
     eq(modx_site_content.type, 'document'),
     or(
@@ -37,12 +38,8 @@ console.log('modxSiteContent',modxSiteContent.length)
 export const modxSzerzok = await modxdb.select().from(modx_site_htmlsnippets).where(eq (modx_site_htmlsnippets.category, 24))
 //console.log(modxSzerzok)
 
-export const modxDoc = (p: string) => {
-  // console.log('P:',p)
-  return modxSiteContent.find(d => d.path == p)
-}
-
 /* Functions */
+
 interface TemplateVariable {
   tmplvarid: number;
   value: string;
@@ -189,6 +186,21 @@ const _pathById = (match: string, p1: number) => {
   return `/${doc.path}`
 }
 
+const _findChildren = (doc: object) => {
+  /* if (!doc?.isfolder) {
+    return doc
+  } */
+  let dc = doc.isfolder && doc.tvs.tag.length && modxSiteContent.filter(d => d.parent == doc.id) || []
+  // let ids = dc.map(d1 => d1.id)
+  if (doc.content != '') {
+    dc.forEach((d2, i) => d2.children = [doc, ...dc.filter(d3 => d3.id != dc[i].id)])
+    doc.children = dc
+  } else {
+    dc.forEach((d2, i) => d2.children = [...dc.filter(d3 => d3.id != dc[i].id)])
+  }
+  return doc
+}
+
 const _alapjav = doc => {
   doc.content = doc.content.replaceAll(' m2', ' m<sup>2</sup>').replaceAll('A1c', 'A<sub>1c</sub>').replaceAll('®', '<sup>®</sup>').replaceAll('rel="external"', 'rel="noopener" target="_blank"').replaceAll('"/assets', `"${PUBLIC_BASE_URL}assets`).replaceAll('"assets', `"${PUBLIC_BASE_URL}assets`)
   
@@ -222,6 +234,13 @@ for (let doc of modxSiteContent) {
   doc = _nagyito(doc)
   doc = _alapjav(doc)
   //if (doc.id == 3991) console.log(doc)
+  doc = _findChildren(doc)
 }
 
-export const modxDocs = modxSiteContent.filter(doc => !doc.isfolder && doc.path !== doc.alias)
+export const modxDocs = modxSiteContent.filter(doc => doc.tvs.tag.length && doc.content.length) //&& !doc.isfolder && doc.path !== doc.alias)
+
+export const modxDoc = (p: string) => {
+  // console.log('P:',p)
+  return modxDocs.find(d => d.path == p)
+}
+

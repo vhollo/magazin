@@ -2,7 +2,7 @@
   export let card
 </script>
 
-{#if card.desc}<h4 class="italic">{@html card.desc}</h4>{/if}
+{#if card.description}<h4 class="italic">{@html card.description}</h4>{/if}
 <h2 class="card-title block">
   {@html card.longtitle || card.title}
 </h2>

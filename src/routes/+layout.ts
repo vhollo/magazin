@@ -8,7 +8,7 @@ onAuthStateChanged(firebaseAuth, (user) => {
     // User is signed in, update your state accordingly
     // $authUser = { 'uid': user.uid, 'email': user.email }
     authUser.set({ 'uid': user.uid, 'email': user.email })
-    // console.log($authUser)
+    // console.log(authUser)
   } else {
     // User is signed out
     authUser.set(undefined)

@@ -17,7 +17,10 @@ const config = {
     prerender: {
       handleMissingId: 'ignore',//'warn',
     }
-	}
+	},
+	/* compilerOptions: {
+    hmr: false
+	} */
 };
 
 export default config;

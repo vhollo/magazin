@@ -1,6 +1,6 @@
 <script context="module">
   import { PUBLIC_BASE_URL } from '$env/static/public'
-  import { nav1 } from '$lib/nav1.js'
+  import { nav2 } from '$lib/nav2.js'
   import { signOut/* , onAuthStateChanged */ } from 'firebase/auth'
   import { firebaseAuth } from '$lib/firebase'
   import { authUser } from '$lib/authStore'
@@ -21,7 +21,7 @@
 
   const _close_nav = () => _open_nav = false
 
-  const handleLogout = () => {
+  /* const handleLogout = () => {
     signOut(firebaseAuth)
       .then(() => {
         $authUser = undefined
@@ -31,7 +31,7 @@
         console.log(error);
       })
     _open_nav = false
-  }
+  } */
 
   const _scrollIntoView = async (event) => {
     // console.log(event.target, event.target.checked)
@@ -42,70 +42,36 @@
   }
 </script>
 
-<nav class="lg:sticky top-0 lg:-top-16 z-40">
-  <nav class="top-0 left-0 w-full navbar lg:justify-center py-0 bg-neutral max--lg:mb--8">
-    <!-- <label for="mobile-nav" aria-label="open sidebar" class="top-0 left-0 bg-neutral z-50 btn btn-lg btn-square btn-ghost lg:hidden text-neutral-content">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        stroke="currentColor"
-        viewBox="0 0 24 24"
-        class="h-6 w-6 stroke-current">
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          d="M4 6h16M4 12h16M4 18h16"></path>
-      </svg>
-    </label> -->
-    <div class="max-lg:flex-1"><a class="p-2" href="/" on:click={_close_nav}><img class="h-12" src={'/assets/logo-diabetes2.svg'} alt="diabetes.hu"></a></div>
-    <label for="mobile-nav" aria-label="open sidebar" class="top-0 right-0 bg-neutral z-50 btn btn-lg btn-square btn-ghost lg:hidden text-neutral-content">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        stroke="currentColor"
-        viewBox="0 0 24 24"
-        class="h-6 w-6 stroke-current">
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          d="M4 6h16M4 12h16M4 18h16"></path>
-      </svg>
-    </label>
-  </nav>
-  <nav class="lg:navbar text-neutral-content bg-neutral">
-    <input id="mobile-nav" type="checkbox" bind:checked={_open_nav}/>
+  <nav class="lg:navbar text-neutral-content bg-neutral lg:sticky top-0 z-50">
+    <!-- <input id="mobile--nav" type="checkbox" bind:checked={_open_nav}/> -->
     <ul class="mx-auto max-lg:max-w-xl">
-      {#each Object.keys(nav1) as cat}
+      {#each Object.keys(nav2) as cat}
         <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
         <li tabindex="0" class="grow max-lg:collapse collapse-arrow dropdown dropdown-hover dropdown--end w--min text-nowrap"><!-- lg:inline-block  on:blur={_uncheck} -->
           <input type="radio" name="collapse" class="lg:hidden" on:change={_scrollIntoView}/>
           <div tabindex="0" role="button" class="max-lg:collapse-title lg:menu-title !text-neutral-content text-nowrap font-medium">{cat}</div>
-          <ul tabindex="0" class="menu flex-nowrap max-lg:collapse-content lg:dropdown-content lg:rounded-box bg-neutral text-neutral-content lg:p-2">
-            {#each Object.keys(nav1[cat]) as subcat}
-              <li class=""><a class="max-lg:p-4 lg:p-2 text-nowrap hover:bg-neutral-focus" class:active={`/${actual}` == nav1[cat][subcat]} href={nav1[cat][subcat]} on:click={_close_nav}>{subcat}</a></li>
+          <ul tabindex="0" class="menu flex-nowrap max-lg:collapse-content lg:dropdown-content lg:rounded-box bg-neutral text-neutral-content p-0 lg:p-2">
+            {#each Object.keys(nav2[cat]) as subcat}
+              <li class=""><a class="max-lg:p-4 lg:p-2 text-nowrap hover:bg-neutral-focus" class:active={`/${actual}` == nav2[cat][subcat]} href={nav2[cat][subcat]} on:click={_close_nav}>{subcat}</a></li>
             {/each}
           </ul>
         </li>
       {/each}
       <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
-      <li tabindex="0" class="grow max-lg:collapse collapse-arrow dropdown dropdown-hover dropdown-end w--min text-nowrap"><!-- lg:inline-block  on:blur={_uncheck} -->
+      <!-- <li tabindex="0" class="grow max-lg:collapse collapse-arrow dropdown dropdown-hover dropdown-end w--min text-nowrap">
         <input type="radio" name="collapse" class="lg:hidden" on:change={_scrollIntoView}/>
         <div tabindex="0" role="button" class="max-lg:collapse-title lg:menu-title !text-neutral-content text-nowrap font-large">⍜</div>
         <ul tabindex="0" class="menu flex-nowrap max-lg:collapse-content lg:dropdown-content lg:rounded-box bg-neutral text-neutral-content lg:p-2">
           {#if $authUser}
-            <li class=""><a class="max-lg:p-4 lg:p-2 text-nowrap hover:bg-neutral-focus" href="/admin/ads">Ads</a></li>
             <li class=""><button class="max-lg:p-4 lg:p-2 text-nowrap hover:bg-neutral-focus" on:click={handleLogout} on:keydown={handleLogout}>Kijelentkezés</button></li>
           {:else}
             <li class=""><a class="max-lg:p-4 lg:p-2 text-nowrap hover:bg-neutral-focus" class:active={`/${actual}` == 'login'} href="/login" on:click={_close_nav}>Bejelentkezés</a></li>
             <li class=""><a class="max-lg:p-4 lg:p-2 text-nowrap hover:bg-neutral-focus" class:active={`/${actual}` == 'register'} href="/register" on:click={_close_nav}>Regisztráció</a></li>
           {/if}
         </ul>
-      </li>
+      </li> -->
     </ul>
   </nav>
-</nav>
 
 <style>
   #mobile-nav {

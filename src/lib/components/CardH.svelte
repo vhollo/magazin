@@ -2,7 +2,7 @@
   export let card
   const base = 'https://www.diabetes.hu/'
 
-  $: if (!card.introtext?.length && card.content) {
+  /* $: if (!card.introtext?.length && card.content) {
 
     const regex = /(?:<h2\b.*?>(.*?)<\/h2>\s*)?<h4[^>]*class=["'][^"']*introtext[^"']*["'][^>]*>([\s\S]*?)<\/h4>/g;
 
@@ -18,17 +18,19 @@
 
     if (!card.ellipsis) card.ellipsis = card.content.match(/<(?!aside\b|figure\b|img\b|h2\b|h3\b|ul\b|li\b)(.*?)\b[^>]*>[\s\S]*?<\/\1>/g)?.slice(0, 2).join('')
     //console.log(card.ellipsis)
-  }
+  } */
 </script>
 
-  <a href={`/${card.path}`}>
-    {#if card.desc}<h4 class="italic">{@html card.desc}</h4>{/if}
+<a href={`/${card.path}`} class="card min-[480px]:card-side w-full max-w-prose mx-auto">
+  <div class="card-body p-0 max-[479px]:order-1">
+    {#if card.description}<h4 class="italic">{@html card.description}</h4>{/if}
     <h3 class="card-title">
       {@html card.longtitle || card.title}
     </h3>
     {#if card.ellipsis}<div class="twoliner">{@html card.ellipsis}</div>{/if}
     {#if card.introtext}<p class="twoliner">{@html card.introtext}</p>{/if}
-  </a>
-
-<style>
-</style>
+  </div>
+  {#if card.img}
+  <img loading="lazy" class="m-0 sm:ml-2 w-full h-[240px] min-[480px]:w-[160px] min-[480px]:h-[160px]" style={`object-fit: ${card.img.ext == 'png' ? 'contain' : 'cover'}; object-position: ${card.img.pos || '50% 40%'}`} src={`${card.img.src}`} alt="">
+  {/if}
+</a>

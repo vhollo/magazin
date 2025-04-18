@@ -1,6 +1,7 @@
 <script lang="ts">
   import { browser } from '$app/environment'
   import { authUser } from '$lib/authStore';
+  import { goto, afterNavigate } from '$app/navigation';
   import {
 	//blur,
 	//crossfade,
@@ -10,93 +11,105 @@
 	//scale,
 	//slide
 } from 'svelte/transition'
-  import Card from '$lib/components/Card.svelte'
-  import Title from '$lib/components/Title.svelte'
-  export let docs, full = true
-  //console.log({docs})
+  import CardV from '$lib/components/CardV.svelte'
+  import CardH from '$lib/components/CardH.svelte'
+  import { ads } from '$lib/ads.js'
+  export let cards, full = true
+  //console.log({cards})
   
-  $: for (let doc of docs) {
-    /*if (doc.tvs.img) {
-      doc.ext = doc.tvs.img.split('.').pop()
-    }*/
-    doc.tvs = doc.tvs || {}
-
-    if (!doc.introtext?.length && doc.content && !doc.ellipsis) {
-      /* doc.ellipsis = ''
-
-      const regex = /(?:<h2\b.*?>(.*?)<\/h2>\s*)?<h4[^>]*class=["'][^"']*introtext[^"']*["'][^>]*>([\s\S]*?)<\/h4>/g;
-      let match
-      while ((match = regex.exec(doc.content)) !== null) {
-        const h2 = match[1] ? match[1].trim() : null
-        const introtext = match[2].trim()
-        doc.ellipsis += h2 && `<p class="intro"><b>${h2}</b><br>${introtext}</p>` || ''//introtext || doc.content
-      } */
-
-      doc.ellipsis = doc.content.match(/<(?!aside\b|figure\b|img\b|h2\b|h3\b|ul\b|li\b)(.*?)\b[^>]*>[\s\S]*?<\/\1>/g)?.slice(0, 3).join('')
-
-      doc.video = doc.content.match(/<video\b(.*?)\b[^>]*>[\s\S]*?<\/video>/g)?.slice(0, 100).join('')
+  $: for (let doc of cards) { // ELLIPSIS
+    if (!doc.introtext?.length && !doc.ellipsis) {
+      doc.ellipsis = doc.content.match(/<(?!aside\b|figure\b|video\b|div\b|img\b|h2\b|h3\b|ul\b|li\b)(.*?)\b[^>]*>[\s\S]*?<\/\1>/g)?.slice(0, 1).join('')
+      doc.table = doc.ellipsis?.indexOf('<table') > -1
+      doc.video = doc.content.match(/<video\b(.*?)\b[^>]*>[\s\S]*?<\/video>/g)?.join('')
+      // console.log(doc)
     }
     //if (doc.id == '424') console.log(doc.ellipsis)
   }
+
+  let win, pagenum = 1, volume = 18
+  afterNavigate(() => {
+    pagenum = +win?.location.hash.replace('#', '') || 1
+    // cards = data.cards.slice(0, volume * pagenum)
+  })
+  const _pageplus = () => {
+    pagenum++
+    // replaceState('#'+pagenum);
+    goto('#'+pagenum, { replaceState: true, noScroll: true })
+  }
+
+  let h, hirds: { title: string; img: string; link: string; width: number; height: number; video: string; }[] = []
+  $: { // #3 után mem frissül, de #5 után újra
+    h = 0
+    hirds = JSON.parse(JSON.stringify(ads.banners))
+    for (let i = ads.banners.length * ads.distance; i < volume * pagenum + ads.distance; i = i + ads.distance) {
+      hirds.push(JSON.parse(JSON.stringify(ads.banners[h])))
+      h++
+      if (h >= ads.banners.length) h = 0
+      // console.log(i, h)
+    }
+    // console.log(h, (hirds.length - 1) * ads.distance, volume * pagenum)
+  }
+
+
 </script>
 
+<svelte:window bind:this={win}/>
+
 {#if full}
-  <section class="grid gap-x-6 gap-y-16 px-4 py-6">
-    {#each docs as doc, i}
-    {@const card = {id: doc.id, img: doc.img,/* pos: doc.tvs.pos, ext: doc.ext,*/ path: doc.path, desc: doc.description, title: doc.title, longtitle: doc.longtitle, introtext: doc.introtext, ellipsis: doc.ellipsis, content: doc.content, tags: doc.tvs.tag, rank: doc.rank, video: doc.video}}
-      <aside in:fade={{ duration: 1000 }} class:double={doc.img || doc.ellipsis?.indexOf('<video') > -1} class:triple={doc.ellipsis?.indexOf('<video') > -1} class="card gap-4 bg-base--100" style="order:{i+1}">
-        <Card {card}/>
+  <section class="grid gap-x-6 gap-y-0 px-4 py-6">
+    {#each cards.slice(0, volume * pagenum) as doc, i}
+      <aside in:fade={{ duration: 1000 }} class:double={doc.img || doc.video} class:triple={doc.description && (doc.img || doc.video)} class="card gap-2 rounded" style="order:{i+1}">
+        <CardV card={doc}/>
       </aside>
     {/each}
-    {#if !$authUser && browser}
-      <aside class="card rounded gap-4 bg-base-100" style="order:0">
-        <h1 class="card-body">HIRDETÉS</h1>
+    {#key hirds}
+    {#if $authUser && browser && hirds.length}
+      {#each hirds as item, i}
+      <aside class="card gap-4 bg-base-100" style="order:{i * ads.distance}">
+        <h1 class="card-body">{item.title}</h1>
       </aside>
-      <aside class="card rounded gap-4 bg-base-100" style="order:4">
-        <h1 class="card-body">HIRDETÉS</h1>
-      </aside>
-      <aside class="card rounded gap-4 bg-base-100" style="order:8">
-        <h1 class="card-body">HIRDETÉS</h1>
-      </aside>
-      <aside class="card rounded gap-4 bg-base-100" style="order:12">
-        <h1 class="card-body">HIRDETÉS</h1>
-      </aside>
-      <aside class="card rounded gap-4 bg-base-100" style="order:16">
-        <h1 class="card-body">HIRDETÉS</h1>
-      </aside>
+      {/each}
     {/if}
+    {/key}
   </section>
+  {#if volume * pagenum < cards.length}
+    <footer class="footer footer-center bg-base-200 text-base-content pt-4">
+      <button on:click={_pageplus} class="btn btn-outline">További cikkek</button>
+    </footer>
+  {/if}
 {:else}
-  {#each docs as doc}
-    {@const card = {id: doc.id, img: doc.img,/* pos: doc.tvs.pos,*/ path: doc.path, desc: doc.description, title: doc.title, longtitle: doc.longtitle, introtext: doc.introtext, content: doc.content, tag: doc.tvs.tag}}
-    <Title {card}/>
-  {/each}
+  <section class="flex flex-col gap-x-6 gap-y-8 px-4 py-6 w-full">
+    {#each cards as card}
+      <CardH {card}/>
+    {/each}
+  </section>
 {/if}
+
 <style>
   section {
     grid-template-columns: repeat(auto-fill, minmax(24ch, 1fr));
-    grid-auto-rows: minmax(12rem, auto);
+    grid-auto-rows: auto;
     grid-auto-flow: dense;
-    /*transition: height 0.25s ease-in;
-    overflow-y: clip;
-    transition-behavior: allow-discrete;
-    height: calc(auto);*/
+    grid-template-rows: masonry; /* future spec */
   }
   aside {
     position: unset;
     min-height: 20ch;
+    /* grid-row-end: span 3; */
+    margin-bottom: 3rem;
   }
   aside.double {
     grid-row-end: span 2;
   }
-  /*aside.triple {
-    grid-row-end: span 3;
-  }*/
+  aside.triple {
+    grid-row-end: span 2;
+  }
   /* aside.triple :global(figure) {
     display: none;
   } */
-  :global(aside.triple:has(figure)) {
+  /* :global(aside.triple:has(figure)) {
     grid-row-end: span 2;
-  }
+  } */
 </style>
   
