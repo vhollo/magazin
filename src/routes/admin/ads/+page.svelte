@@ -24,7 +24,7 @@
 <section class="grid gap-x-6 gap-y-0 px-4 py-6">
   {#key ads.banners}
   {#each ads.banners as item, i}
-  <form class="form-control card card-compact rounded bg-base-100 p-2">
+  <form class="form-control card card-compact rounded bg-base-100 mx-auto p-2">
     <fieldset class="flex flex-horizontal w-full max-w-md pt-4 gap-2">
       <label for={`title-${i}`} class="label w-1/5"><span class="label-text">Name</span></label>
       <input id={`title-${i}`} type="text" class="input input-bordered input-sm flex-1" bind:value={item.title}>
