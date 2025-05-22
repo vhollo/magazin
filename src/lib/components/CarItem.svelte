@@ -28,7 +28,7 @@
   }*/
 </script>
 
-<!--<aside class:double={card.img} class:triple={card.ellipsis?.indexOf('<video') !== -1} class="card card-compact bg-base-100 shadow-xl">-->
+<!--<aside class:double={card.img} class:triple={card.ellipsis?.indexOf('<video') !== -1} class="card card-sm bg-base-100 shadow-xl">-->
   {#if card.video}
     <figure>
       {#if card.path}
@@ -76,7 +76,7 @@
   {/if}
 
   {#if card.path}
-    <a href={`/${card.path}`} class="card-body grow-0 gap-3 p-0">
+    <a href={`/${card.path}`} class="card-body grow-0 gap-3 p-4">
       <CardBody {card}/>
     </a>
     <div class="card-actions justify-end p-0 mt--auto">
@@ -92,7 +92,7 @@
       <!-- <small class="badge badge-outline badge-sm">{card.rank}</small> -->
     </div>
   {:else}
-    <div class="card-body grow-0 gap-3 p-0">
+    <div class="card-body grow-0 gap-3 p-4">
       <CardBody {card}/>
     </div>
     <div class="card-actions justify-end p-2 mt--auto">

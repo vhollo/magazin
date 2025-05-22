@@ -33,19 +33,19 @@
       </aside>
     {/each}
     {#if !$authUser && browser}
-      <aside class="card rounded gap-4 bg-base-100" style="order:0">
+      <aside class="card rounded-smgap-4 bg-base-100" style="order:0">
         <h1 class="card-body">HIRDETÉS</h1>
       </aside>
-      <aside class="card rounded gap-4 bg-base-100" style="order:4">
+      <aside class="card rounded-smgap-4 bg-base-100" style="order:4">
         <h1 class="card-body">HIRDETÉS</h1>
       </aside>
-      <aside class="card rounded gap-4 bg-base-100" style="order:8">
+      <aside class="card rounded-smgap-4 bg-base-100" style="order:8">
         <h1 class="card-body">HIRDETÉS</h1>
       </aside>
-      <aside class="card rounded gap-4 bg-base-100" style="order:12">
+      <aside class="card rounded-smgap-4 bg-base-100" style="order:12">
         <h1 class="card-body">HIRDETÉS</h1>
       </aside>
-      <aside class="card rounded gap-4 bg-base-100" style="order:16">
+      <aside class="card rounded-smgap-4 bg-base-100" style="order:16">
         <h1 class="card-body">HIRDETÉS</h1>
       </aside>
     {/if}

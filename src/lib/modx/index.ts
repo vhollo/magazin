@@ -16,13 +16,15 @@ import Nagyito from '$lib/components/Nagyito.svelte'
 
 //const modxSiteContent = await modxdb.query.modx_site_content.findMany(10);
 
-let modxSiteContent: object[], tmplvarContentvalues: object[]
+let modxSiteContent: object[], modxSiteHirek: object[], tmplvarContentvalues: object[]
+
 modxSiteContent = /*modxSiteContent ||*/ await modxdb.select().from(modx_site_content).orderBy(desc(modx_site_content.id)).where(
   and(
     /*gt(modx_site_content.id, '3900'),*/
     eq(modx_site_content.deleted, 0),
     eq(modx_site_content.published, 1),
     eq(modx_site_content.type, 'document'),
+    ne(modx_site_content.parent, 1),
     or(
       // eq(modx_site_content.template, 7), //magazine
       eq(modx_site_content.template, 9), //junior
@@ -30,9 +32,24 @@ modxSiteContent = /*modxSiteContent ||*/ await modxdb.select().from(modx_site_co
     )
   ),
 )
+
+modxSiteHirek = /*modxSiteHirek ||*/ await modxdb.select().from(modx_site_content).orderBy(desc(modx_site_content.id)).where(
+  or(eq(modx_site_content.id, 2797),
+    and(
+      /*gt(modx_site_content.id, '3900'),*/
+      eq(modx_site_content.parent, 1),
+      eq(modx_site_content.deleted, 0),
+      eq(modx_site_content.hidemenu, 0),
+      eq(modx_site_content.published, 1),
+      eq(modx_site_content.type, 'document')
+    )
+  ),
+)
+
 tmplvarContentvalues = /*tmplvarContentvalues ||*/ await modxdb.select().from(modx_site_tmplvar_contentvalues)
 
 console.log('modxSiteContent',modxSiteContent.length)
+console.log('modxSiteHirek',modxSiteHirek.length)
 // console.log('3284',modxSiteContent.find(d => d.id == '3284'))
 
 export const modxSzerzok = await modxdb.select().from(modx_site_htmlsnippets).where(eq (modx_site_htmlsnippets.category, 24))
@@ -55,7 +72,7 @@ const cats: { [key: string]: string } = {
   'recept': 'Receptek'
 }
 const _addTVs = (doc:object) => {
-  const tvs: TemplateVariable[] = tmplvarContentvalues.filter((tv: TemplateVariable) => tv.contentid == doc.id) || [];
+  const tvs: TemplateVariable[] = tmplvarContentvalues.filter(tv => tv.contentid == doc.id) || [];
   doc.tvs = {}
 
   const cat:string = tvs.find(tv => tv.tmplvarid == 23)?.value || 'null'
@@ -99,7 +116,7 @@ const _addTVs = (doc:object) => {
   }
   //if (doc.id == '2961') console.log('SZ:',doc.tvs.sze);
 
-  const pos = tvs.find(tv => tv.tmplvarid == 29)?.value || 'center'
+  const pos = tvs.find(tv => tv.tmplvarid == 29)?.value || '50% 40%'
   //doc.tvs.pos = pos.replace('T', '50% 10%').replace('B', '50% 90%').replace('L', 'left').replace('R', 'right')
   
   //doc.tvs.credit = tvs.find(tv => tv.tmplvarid == 28)?.value || ''
@@ -116,6 +133,9 @@ const _addTVs = (doc:object) => {
   //doc.tvs.img = img && PUBLIC_BASE_URL + img || ''
   doc.tvs.ogi = tvs.find(tv => tv.tmplvarid == 25)?.value || ''
   
+  if (doc.parent == 1) {
+    doc.tvs.tag.push('hirek')
+  }
   return doc
 }
 
@@ -148,7 +168,7 @@ const _nagyito = doc => {
         img: { 
           file: file,
           desc: desc[1] || '',
-          align: align[1] || '',
+          align: align[1] || 'center',
           zoom: zoom[1] || '',
           bg: bg[1] || 'transparent',
         }
@@ -187,22 +207,23 @@ const _pathById = (match: string, p1: number) => {
 }
 
 const _findChildren = (doc: object) => {
-  /* if (!doc?.isfolder) {
+  if (doc?.related) {
     return doc
-  } */
+  }
+  if (doc.id == '124') console.log(doc)
   let dc = doc.isfolder && doc.tvs.tag.length && modxSiteContent.filter(d => d.parent == doc.id) || []
   // let ids = dc.map(d1 => d1.id)
   if (doc.content != '') {
-    dc.forEach((d2, i) => d2.children = [doc, ...dc.filter(d3 => d3.id != dc[i].id)])
-    doc.children = dc
+    dc.forEach((d2, i) => d2.related = [doc, ...dc.filter(d3 => d3.id != dc[i].id)])
+    doc.related = dc
   } else {
-    dc.forEach((d2, i) => d2.children = [...dc.filter(d3 => d3.id != dc[i].id)])
+    dc.forEach((d2, i) => d2.related = [...dc.filter(d3 => d3.id != dc[i].id)])
   }
   return doc
 }
 
 const _alapjav = doc => {
-  doc.content = doc.content.replaceAll(' m2', ' m<sup>2</sup>').replaceAll('A1c', 'A<sub>1c</sub>').replaceAll('®', '<sup>®</sup>').replaceAll('rel="external"', 'rel="noopener" target="_blank"').replaceAll('"/assets', `"${PUBLIC_BASE_URL}assets`).replaceAll('"assets', `"${PUBLIC_BASE_URL}assets`)
+  doc.content = doc.content.replaceAll('<p></p>\r\n', '').replaceAll('<p></p>', '').replaceAll(' m2', ' m<sup>2</sup>').replaceAll('A1c', 'A<sub>1c</sub>').replaceAll('®', '<sup>®</sup>').replaceAll('rel="external"', 'rel="noopener" target="_blank"').replaceAll('"/assets', `"${PUBLIC_BASE_URL}assets`).replaceAll('"assets', `"${PUBLIC_BASE_URL}assets`)
   
   const modxlink = /\[\~(\d*)\~\]/g
   doc.content = doc.content.replaceAll(modxlink, _pathById)
@@ -226,6 +247,10 @@ const _alapjav = doc => {
 
   return doc
 }
+
+modxSiteHirek.forEach(doc => {
+  modxSiteContent.push(doc)
+})
 
 for (let doc of modxSiteContent) {
   doc = _findPath(doc)

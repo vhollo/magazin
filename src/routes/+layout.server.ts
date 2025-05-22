@@ -6,6 +6,9 @@ import { modxDoc, modxDocs } from '$lib/modx'
 console.log('docs:',modxDocs.length)
 // import { PUBLIC_BASE_URL } from '$env/static/public'
 
+import { getSiteConf } from '$lib/siteConf';
+const conf = await getSiteConf();
+// let conf = JSON.parse(JSON.stringify(c))
 
 const miniSearch = new MiniSearch({
   fields: ['longtitle', 'description', 'introtext', 'content'], // fields to index for full-text search
@@ -23,7 +26,7 @@ interface Queries {
 
 const queries: Queries = {
   //'s-o-s': ['testmozgás', 'megelőzés', 'önellenőrzés', 'kezelés', 'szakellátás'],
-  's-o-s': ['diabpont', '-covid-19'],
+  's-o-s': ['diabpont', 'edukáció', '-covid-19'],
   'junior': ['+junior', '-covid-19'],
   'gdm': ['+várandósság', '-személyes'],
   'varandossag': ['+várandósság', '+személyes'],
@@ -31,8 +34,9 @@ const queries: Queries = {
   'inzulinok': ['+inzulin', 'piac', 'kezelés', '-önellenőrzés'],
   'gyogyszerek': ['+gyógyszer', 'piac', 'kezelés', '-önellenőrzés'],
   'technikai-eszkozok': ['+készülék', 'piac', 'kezelés', '-önellenőrzés', '-megelőzés'],
-  'receptek': ['+recept', '-táplálkozás'],
-  'taplalkozas': ['táplálkozás', '-recept', '-covid-19'],
+  'receptek': ['recept', '-táplálkozás'],
+  'taplalkozas': ['+táplálkozás', '+edukáció', '-recept', '-covid-19'],
+  // 'dieta': ['+táplálkozás', '+edukáció', '-recept', '-covid-19'],
   'orvos-beteg': ['+orvosok', '+személyes', 'psziché', 'kezelés', 'edukáció', 'önellenőrzés', 'társbetegségek', 'szövődmények', '-elismerés', '-covid-19'],
   'onmenedzseles': ['önellenőrzés', '-covid-19'],
   'testmozgas': ['testmozgás', '-covid-19'],
@@ -44,19 +48,20 @@ const queries: Queries = {
   'vegtagok': ['neuropátia', 'megelőzés'],
   'sziv-errendszer': ['hypertonia', '-covid-19'],
   'tarsbetegsegek': ['társbetegségek', '-covid-19'],
+  'megelozes': ['+megelőzés', '+szövődmények', '-covid-19'],
   'kozosseg': ['+közösség', '+személyes', '-egyesület', '-rendezvény', '-covid-19'],
   'egyesulet': ['+egyesület', '-covid-19'],
-  'esemenyek': ['+közösség', '-személyes', '-egyesület', '-rendezvény', '-covid-19'],
+  'esemenyek': ['beszámoló', 'közösség', 'egyesület', '-személyes', '-rendezvény', '-covid-19'],
   'rendezvenyek': ['+rendezvény', '-covid-19'],
-  'hirek': ['rendezvény', 'beszámoló', 'közösség', 'egyesület', '-covid-19'],
-  'gyogyitok': ['+személyes', 'orvosok', 'szakellátás', 'elismerés', '-kezelés', '-covid-19'],
+  'hirek': ['hirek'],
+  'gyogyitok': ['+személyes', '#orvosok', 'szakellátás', 'elismerés', '-kezelés', '-covid-19'],
   'sorstarsak': ['+személyes', 'elismerés', '-szakellátás', '-orvosok', '-önellenőrzés', '-kezelés', '-várandósság', '-közösség', '-edukáció', '-egyesület', '-covid-19'], 
   'all': [],
 }
 
 const docsByTags = (tags:Array<string>, id:string | undefined) => {
   // console.log(id,{tags})
-  let docs = modxDocs.filter((doc: { tvs: { tag: string[] }; rank: number; id: string | undefined; isfolder: number }) => {
+  let docs = modxDocs.filter(doc => {
     // doc.rank = tags.length && !doc.tvs.tag.find(tag => tags.includes(`-${tag}`)) && (tags.filter(t => t.startsWith('+')).length == doc.tvs.tag.filter(tag => tags.includes(`+${tag}`)).length) && doc.tvs.tag.filter(tag => (tags.includes(tag) || tags.includes(`+${tag}`) || tags.includes(`#${tag}`))).length || 0
     doc.rank = tags.length && !doc.tvs.tag.find(tag => tags.includes(`-${tag}`)) && doc.tvs.tag.filter(tag => (tags.includes(tag) || tags.includes(`+${tag}`) || tags.includes(`#${tag}`))).length || 0
     
@@ -66,7 +71,7 @@ const docsByTags = (tags:Array<string>, id:string | undefined) => {
     //if (doc.rank > 0) console.log('R',doc.rank)
     return doc.id != id && !doc.isfolder && doc.rank > 0
   }) || []
-  docs.sort((a: { rank: string; }, b: { rank: string; }) => parseFloat(b.rank) - parseFloat(a.rank))
+  docs.sort((a, b) => b.rank - a.rank)
   console.log('docs:',docs.length)
   return docs.slice(0, 18 * 4)
   // return docs
@@ -117,7 +122,7 @@ export async function load({ params, url }) {
   /* if (!doc && !docs.length) {
     doc = {'path': '/'}
   } */
-  return {doc, docs}
+  return {doc, docs, conf}
 }
 
 /// 3834: /cikkek/diabetes/2306/lent-es-fent

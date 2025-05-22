@@ -1,18 +1,10 @@
 export const nav1 = {
-  'Diéta': {
-    'Receptek': '/receptek',
-    'Válogatott cikkek': '/taplalkozas',
-  },
-  'Junior': {
-    '2025': '/junior',
-  },
-  'Magazin': {
-  },
-  'Hírek': {
-  },
-  'Közösségek': {
-  },
-  'Impresszum': {
+  'Hírek': '/hirek',
+  'Előfizetés': '/elofizetes',
+  'Kapcsolat': {
+    'Alapítvány a Cukorbetegekért': '/alapitvany/rolunk',
+    'Tudomány Kiadó': 'https://www.tudomany-kiado.hu',
+    'CEOSZ': 'https://ceosz.hu',
   },
   // 'Admin': {
   //   'Hird': '/admin',

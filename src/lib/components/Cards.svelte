@@ -13,73 +13,77 @@
 } from 'svelte/transition'
   import CardV from '$lib/components/CardV.svelte'
   import CardH from '$lib/components/CardH.svelte'
+  import BannerSide from '$lib/components/BannerSide.svelte'
   import { ads } from '$lib/ads.js'
-  export let cards, full = true
-  //console.log({cards})
+  export let cards: any[], full = true
   
   $: for (let doc of cards) { // ELLIPSIS
-    if (!doc.introtext?.length && !doc.ellipsis) {
-      doc.ellipsis = doc.content.match(/<(?!aside\b|figure\b|video\b|div\b|img\b|h2\b|h3\b|ul\b|li\b)(.*?)\b[^>]*>[\s\S]*?<\/\1>/g)?.slice(0, 1).join('')
-      doc.table = doc.ellipsis?.indexOf('<table') > -1
+    if (doc.id == '4210') console.log(doc)
+    if (!doc.ellipsis) {
+      doc.ellipsis = doc.introtext.length > 0 ? doc.introtext : doc.content.match(/<(?!aside\b|figure\b|video\b|div\b|img\b|h2\b|h3\b|ul\b|li\b)(.*?)\b[^>]*>[\s\S]*?<\/\1>/g)?.slice(0, 2).join('')
+      doc.table = doc.ellipsis.indexOf('<table') > -1
       doc.video = doc.content.match(/<video\b(.*?)\b[^>]*>[\s\S]*?<\/video>/g)?.join('')
-      // console.log(doc)
+      if (doc.ellipsis.indexOf('<p') == -1) {
+        doc.ellipsis = `<p>${doc.ellipsis}</p>`.replace(/<br\b[/?]>/g, '</p><p>')
+      }
+    /* } else if (doc.introtext.indexOf('<p') == 0 && !doc.ellipsis) {
+      doc.ellipsis = doc.introtext */
     }
     //if (doc.id == '424') console.log(doc.ellipsis)
   }
 
-  let win, pagenum = 1, volume = 18
+  let /* win: { location: { hash: string; }; }, */ pagenum = 1, volume = 18
   afterNavigate(() => {
-    pagenum = +win?.location.hash.replace('#', '') || 1
-    // cards = data.cards.slice(0, volume * pagenum)
+    // pagenum = +win?.location.hash.replace('#', '') || 1
+    pagenum = +location.hash.replace('#', '') || 1
   })
   const _pageplus = () => {
     pagenum++
-    // replaceState('#'+pagenum);
     goto('#'+pagenum, { replaceState: true, noScroll: true })
   }
 
-  let h, hirds: { title: string; img: string; link: string; width: number; height: number; video: string; }[] = []
-  $: { // #3 után mem frissül, de #5 után újra
+  export let banners: any[] = [];
+  let h, hirds: { name: string; img: string; link: string; video: string; }[] = []
+  $: if (full) { // #3 után mem frissül, de #5 után újra
     h = 0
-    hirds = JSON.parse(JSON.stringify(ads.banners))
-    for (let i = ads.banners.length * ads.distance; i < volume * pagenum + ads.distance; i = i + ads.distance) {
-      hirds.push(JSON.parse(JSON.stringify(ads.banners[h])))
+    hirds = JSON.parse(JSON.stringify(banners))
+    for (let i = banners.length * ads.distance; i < volume * pagenum + ads.distance; i = i + ads.distance) {
+      hirds.push(JSON.parse(JSON.stringify(banners[h])))
       h++
-      if (h >= ads.banners.length) h = 0
+      if (h >= banners.length) h = 0
       // console.log(i, h)
     }
     // console.log(h, (hirds.length - 1) * ads.distance, volume * pagenum)
   }
 
-
 </script>
 
-<svelte:window bind:this={win}/>
+<!-- <svelte:window bind:this={win}/> -->
 
 {#if full}
-  <section class="grid gap-x-6 gap-y-0 px-4 py-6">
-    {#each cards.slice(0, volume * pagenum) as doc, i}
-      <aside in:fade={{ duration: 1000 }} class:double={doc.img || doc.video} class:triple={doc.description && (doc.img || doc.video)} class="card gap-2 rounded" style="order:{i+1}">
-        <CardV card={doc}/>
+  <section class="order-2 grid gap-x-6 gap-y-0 px-4 py-6">
+    {#each cards.slice(0, volume * pagenum) as card, i}
+      <aside in:fade={{ duration: 1000 }} class:double={card.img || card.video} class:triple={card.description && (card.img || card.video)} class="card gap-2  rounded-sm" style="order:{i}">
+        <CardV {card}/>
       </aside>
     {/each}
     {#key hirds}
-    {#if $authUser && browser && hirds.length}
+    {#if !$authUser && browser && hirds.length}
       {#each hirds as item, i}
-      <aside class="card gap-4 bg-base-100" style="order:{i * ads.distance}">
-        <h1 class="card-body">{item.title}</h1>
+      <aside class="" style="order:{i * ads.distance + 1}">
+        <BannerSide banner={item}/>
       </aside>
       {/each}
     {/if}
     {/key}
   </section>
   {#if volume * pagenum < cards.length}
-    <footer class="footer footer-center bg-base-200 text-base-content pt-4">
+    <footer class="order-2 footer footer-center bg-base-200 text-base-content pt-4">
       <button on:click={_pageplus} class="btn btn-outline">További cikkek</button>
     </footer>
   {/if}
 {:else}
-  <section class="flex flex-col gap-x-6 gap-y-8 px-4 py-6 w-full">
+  <section class="flex flex-col gap-x-6 gap-y-16 px-4 py-6 w-full">
     {#each cards as card}
       <CardH {card}/>
     {/each}

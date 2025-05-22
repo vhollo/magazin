@@ -1,20 +1,26 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@theme {
+  --breakpoint-xs: 30rem;
+}
+@plugin "@tailwindcss/typography";
+@plugin "daisyui" {
+  themes: dim --default;
+  logs: false;
+}
 
 :root {
   font-size: clamp(1rem, 0.5vw + 0.85rem, 1.25rem); /* 16px@480px --> 22px@1200px, */ /* https://fluidtypography.com/ */
   --imgratio: 16 / 9;
-  --lh: 1.75rem; /* line-height */
+  --lh: 1.75; /* fallback line-height */
   --lh: clamp(1.75rem, 0.875vw + 1.488rem, 2.188rem);
-  --lh-card: 1.25rem; /* card line-height */
-  --rounded-box: 0.4rem;
-  --rounded-btn: 0.2rem;
-  --rounded-badge: 0.4rem;
-  --tab-radius: 0.2rem;
+  /* --lh-card: 1.5; */ /* fallback card line-height */
+  /* --lh-card: clamp(1.25rem, 0.875vw + 1.488rem, 1.5rem); */
+  --radius-box: 0.4rem;
+  --radius-selector: 0.4rem;
+  --radius-field: 0.2rem;
+  /*interpolate-size: allow-keywords;*/
   /* background-color: var(--fallback-b1, oklch(var(--b3) / 1)); */
   @apply bg-neutral;
-  /*interpolate-size: allow-keywords;*/
 }
 @media (prefers-color-scheme: light) {
   :root {
@@ -25,16 +31,33 @@
   }
 }
 
+/* body {
+  @apply flex flex-col;
+} */
+
 /* DRAWER */
-html:has(.drawer-toggle:checked) {
+/* html:has(.drawer-toggle:checked) {
   overflow-y: auto!important;
-}
-@media (max-width: 1023px)  {
-  nav:has(#mobile-nav:checked) ~ * {
+} */
+@media (width < 48rem)  {
+  body:has(#mobile-nav:checked) > *:not(nav), nav:has(nav > #mobile-nav:checked) ~ */* , footer ~ * */ {
     display: none;
   }
 }
 
+@media (width >= 48rem) {
+  .drop-col {
+    @apply dropdown;
+  }
+}
+@media (width < 48rem) {
+  .drop-col {
+    @apply collapse;
+  }
+}
+
+
+/* PROSE */
 .prose h1 {
   font-weight: 600;
 }
@@ -55,20 +78,17 @@ html:has(.drawer-toggle:checked) {
   vertical-align: middle;
 }
 
-.card-compact .card-title {
+.card-sm .card-title {
   margin-bottom: revert;
 }
 
-.card a:not(.btn,.badge) {
+/* .card a:not(.btn,.badge) {
   text-decoration: none;
-  /*height: -webkit-fill-available;*/
-}
-/*.card img {
-  aspect-ratio: var(--imgratio);
-}*/
+} */
 .prose :where(a):not(:where([class~="not-prose"],[class~="not-prose"] *)) {
-  /*text-decoration: dashed underline;*/
-  text-decoration: none;
+  text-decoration: dashed underline;
+  text-underline-offset: 4px;
+  /* text-decoration: none; */
 }
 
 /* NAGYITO */
@@ -78,7 +98,7 @@ article figure {
   background-color: transparent;
 }
 /*.card-hollow {
-  @apply card-compact;
+  @apply card-sm;
   margin-top: 2em;
   margin-bottom: 2em;
   background-color: transparent;
@@ -92,9 +112,9 @@ article figure {
 
 
 /* OVERFLOW w/ ELLIPSIS */
-.intro, .ellipsis, .twoliner {
+.intro, .ellipsis/* , .twoliner */ {
   display: -webkit-box;
-  -webkit-line-clamp: 5;
+  -webkit-line-clamp: 9;
   -webkit-box-orient: vertical; 
   margin: 0; 
   overflow: hidden;
@@ -108,7 +128,7 @@ article figure {
 p.intro, .ellipsis p, .twoliner {
   hyphens: auto;
 }
-p.intro a, .ellipsis p a, .twoliner a {
+p.intro a, .ellipsis p a, .twoliner a, h4 a, h2 a {
   text-decoration: dashed underline;
 }
 
@@ -156,7 +176,7 @@ p.intro a, .ellipsis p a, .twoliner a {
 .ellipsis > table, .twoliner > table {
   @apply prose;
   font-size: 0.875rem;
-  line-height: var(--lh-card, 1.25rem);
+  /* line-height: var(--lh-card, 1.5); */
   margin-bottom: .75rem;
   margin-top: 0;
   width: 100%;
@@ -185,32 +205,37 @@ p.intro a, .ellipsis p a, .twoliner a {
   --tw-prose-links: var(--fallback-bc,oklch(var(--bc)/.75));
 }
 article :not(table).nicebox {
-  @apply card card-compact bg-base-100 shadow-xl card-body p-4 my-[2.8rem] gap-4;
+  @apply my-[2.8rem];
 }
-.nicebox > * {
-  @apply my-0;
+article :not(table).nicebox, article :not(table).boxright, article :not(table).boxleft {
+  @apply card card-sm bg-base-100 shadow-xl card-body p-4 last:mb-0 gap-4;
+
+  & > * {
+    @apply my-0;
+  }
+  & > h3 {
+    @apply card-title mt-6;
+  }
+  & > figure {
+    @apply my-0;
+    text-align: center;
+    width: 100%;
+    flex-direction: column;
+  }
+  & > figure img {
+    object-fit: contain;
+  }
+  & > i, & > em, & > strong, & > b  {
+    display: contents;
+  }
 }
-.nicebox > h3 {
-  @apply card-title mt-6;
-}
-.nicebox figure {
-  @apply my-0;
-  text-align: center;
-  width: 100%;
-  flex-direction: column;
-}
-.nicebox figure img {
-  object-fit: contain;
-}
-.nicebox i, .nicebox em, .nicebox strong, .nicebox b  {
-  display: contents;
-}
+
 table.nicebox {
   /* @apply table table-xs; */
   /* font-size: 0.75rem; */
   width: 100%;
   /* table-layout: fixed; */
-  @apply card card-compact bg-base-100 shadow-xl p-4 my-[2.8rem] text-xs;
+  @apply card card-sm bg-base-100 shadow-xl p-4 my-[2.8rem] text-xs;
 }
 /* .nicebox thead, .nicebox tfoot {
   white-space: normal;
@@ -234,27 +259,30 @@ article figure img {
 }
 
 /* FLOATS */
-.left, .right {
+.left, .right, .boxleft, .boxright {
+  clear: both;
   width: calc(50% - 1rem);
-  margin-top: 2rem;
   margin-bottom: 1rem;
 }
+.left, .right, .boxleft, :not(:aside + .boxright) {
+  margin-top: 2rem;
+}
 @container (max-width: 54ch) {
-  .left, .right {
+  .left, .right, .boxleft, .boxright {
     float: none!important;
     width: 100%;
     margin-inline: 0!important;
-    text-align: center!important;
+    /* text-align: center!important; */
   }
   .left img, .right img {
     margin-inline: auto!important;
   }
 }
-.left {
+.left, .boxleft {
   float: left;
   margin-right: 1rem;
 }
-.right {
+.right, .boxright {
   float: right;
   margin-left: 1rem;
 }
@@ -274,7 +302,8 @@ article figure img {
 
 /* ALAIRAS */
 .alairas {
-  @apply uppercase text-sm italic text-end my-8;
+  clear: both;
+  @apply uppercase text-sm italic text-end mt-8;
 }
 .alairas span {
   @apply not-italic block normal-case;
@@ -284,7 +313,8 @@ article figure img {
 }
 
 #szerzo {
-  @apply card bg-base-100 px-4 my-8;
+  clear: both;
+  @apply card bg-base-100 px-4 mt-8 rounded-sm;
   display: grid;
   gap: 0 2rem;
   grid-template-columns: 10ch auto;
@@ -303,7 +333,7 @@ article figure img {
   grid-template-rows: auto;
 }
 
-*:has(#szerzo) .alairas {
+*:has(#szerzo) > .alairas {
   display: none;
 }
 

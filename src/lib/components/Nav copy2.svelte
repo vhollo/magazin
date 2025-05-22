@@ -1,7 +1,6 @@
 <script context="module">
   import { PUBLIC_BASE_URL } from '$env/static/public'
   import { nav1 } from '$lib/nav1.js'
-  import { nav2 } from '$lib/nav2.js'
   import { signOut/* , onAuthStateChanged */ } from 'firebase/auth'
   import { firebaseAuth } from '$lib/firebase'
   import { authUser } from '$lib/authStore'
@@ -46,12 +45,12 @@
     }
     await new Promise(resolve => setTimeout(resolve, 100))
     // console.log(el)
-    el.scrollIntoView({block: "center", behavior: 'smooth', offset: { top: 64 } })
+    el.scrollIntoView({ behavior: 'smooth' })
   }
 </script>
 
-<nav class="sticky top-0 z-40 bg-neutral">
-  <nav class="navbar max-md:block justify-center py-0">
+<nav class="sticky top-0 md:-top-16 z-40 bg-neutral">
+  <nav class="top-0 left-0 w-full navbar md justify-center py-0">
     <!-- <label for="mobile-nav" aria-label="open sidebar" class="top-0 left-0 bg-neutral z-50 btn btn-lg btn-square btn-ghost md:hidden text-neutral-content">
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -66,8 +65,8 @@
           d="M4 6h16M4 12h16M4 18h16"></path>
       </svg>
     </label> -->
-    <div class="sticky top-0 max-md:mx-auto bg-neutral z-50"><a class="block p-2" href="/" on:click={_close_nav}><img class="h-12" src={'/assets/logo-diabetes2.svg'} alt="diabetes.hu" width="340" height="60"></a></div>
-    <label for="mobile-nav" aria-label="open sidebar" class="fixed top-2 right-0 bg-neutral z-50 btn btn-lg btn-square btn-ghost md:hidden text-neutral-content">
+    <div class="max-md-flex-1"><a class="block p-2" href="/" on:click={_close_nav}><img class="h-12" src={'/assets/logo-diabetes2.svg'} alt="diabetes.hu"></a></div>
+    <label for="mobile-nav" aria-label="open sidebar" class="absolute top-0 right-0 bg-neutral z-50 btn btn-lg btn-square btn-ghost md:hidden text-neutral-content">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
@@ -81,51 +80,19 @@
           d="M4 6h16M4 12h16M4 18h16"></path>
       </svg>
     </label>
-  <!-- </nav>
-  <nav class="md:navbar"> -->
+  </nav>
+  <nav class="md:navbar">
     <input id="mobile-nav" type="checkbox" bind:checked={_open_nav}/>
-    <ul class="ml-auto max-md:mx-auto max-md:max-w-sm z-40">
-      <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
-      <li tabindex="0" class="drop-col text-nowrap"><!-- md:inline-block  on:blur={_uncheck} -->
-        <!-- <input type="radio" name="collapse" class="md:hidden" on:change={_scrollIntoView}/> -->
-        <a href="#search" class="max-md:flex justify-between items-center max-md:p-4 md:p-2 rounded-sm hover:bg-neutral-focus md:menu-title !text-neutral-content text-nowrap font-medium" on:click={_scrollIntoView && _close_nav}><span class="md:hidden">Keresés&nbsp;</span><svg class="inline h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-          <g
-            stroke-linejoin="round"
-            stroke-linecap="round"
-            stroke-width="2.5"
-            fill="none"
-            stroke="currentColor"
-          >
-            <circle cx="11" cy="11" r="8"></circle>
-            <path d="m21 21-4.3-4.3"></path>
-          </g>
-        </svg></a>
-      </li>
-      {#each Object.keys(nav2) as cat}
-        <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
-        <li tabindex="0" class="collapse collapse-arrow md:hidden text-nowrap"><!-- md:inline-block  on:blur={_uncheck} -->
-          {#if typeof nav2[cat] === 'string'}
-            <a href="{nav2[cat]}" class="max-md:p-4 md:p-2 rounded-sm hover:bg-neutral-focus md:menu-title !text-neutral-content text-nowrap font-medium">{cat}</a>
-          {:else}
-            <input type="radio" name="collapse" class="md:hidden" on:change={_scrollIntoView}/>
-            <div tabindex="0" role="button" class="max-md:collapse-title md:menu-title !text-neutral-content text-nowrap font-medium cursor-default">{cat}</div>
-            <ul tabindex="0" class="menu w-full flex-nowrap max-md:collapse-content dropdown-content md:rounded-md bg-neutral text-neutral-content md:p-2 !py-0">
-              {#each Object.keys(nav2[cat]) as subcat}
-                <li class=""><a class="max-md:p-4 md:p-2 text-nowrap rounded-sm hover:bg-neutral-focus" class:menu-active={`/${actual}` == nav2[cat][subcat]} href={nav2[cat][subcat]} on:click={_close_nav}>{subcat}</a></li>
-              {/each}
-            </ul>
-          {/if}
-        </li>
-      {/each}
+    <ul class="mx-auto max-md:w-min">
       {#each Object.keys(nav1) as cat}
         <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
-        <li tabindex="0" class="drop-col collapse-arrow dropdown-hover dropdown-end text-nowrap"><!-- md:inline-block  on:blur={_uncheck} -->
+        <li tabindex="0" class="drop-col dropdown-hover grow text-nowrap"><!-- md:inline-block  on:blur={_uncheck} -->
           {#if typeof nav1[cat] === 'string'}
-            <a href="{nav1[cat]}" class="max-md:p-4 md:p-2 rounded-sm hover:bg-neutral-focus md:menu-title !text-neutral-content text-nowrap font-medium" class:menu-active={`/${actual}` == nav1[cat]} on:click={_close_nav}>{cat}</a>
+            <a href="{nav1[cat]}" class="max-md:p-4 md:p-2 rounded-sm hover:bg-neutral-focus md:menu-title !text-neutral-content text-nowrap font-medium">{cat}</a>
           {:else}
             <input type="radio" name="collapse" class="md:hidden" on:change={_scrollIntoView}/>
             <div tabindex="0" role="button" class="max-md:collapse-title md:menu-title !text-neutral-content text-nowrap font-medium cursor-default">{cat}</div>
-            <ul tabindex="0" class="menu max-md:w-full flex-nowrap max-md:collapse-content dropdown-content md:rounded-md bg-neutral text-neutral-content p-0 md:p-2">
+            <ul tabindex="0" class="menu flex-nowrap max-md:collapse-content dropdown-content md:rounded-md bg-neutral text-neutral-content md:p-2">
               {#each Object.keys(nav1[cat]) as subcat}
                 <li class=""><a class="max-md:p-4 md:p-2 text-nowrap rounded-sm hover:bg-neutral-focus" class:menu-active={`/${actual}` == nav1[cat][subcat]} href={nav1[cat][subcat]} on:click={_close_nav}>{subcat}</a></li>
               {/each}
@@ -134,12 +101,17 @@
         </li>
       {/each}
       <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
-      <li tabindex="0" class="drop-col collapse-arrow dropdown-hover dropdown-end text-nowrap"><!-- md:inline-block  on:blur={_uncheck} -->
+      <li tabindex="0" class="drop-col"><!-- md:inline-block  on:blur={_uncheck} -->
+        <!-- <input type="radio" name="collapse" class="md:hidden" on:change={_scrollIntoView}/> -->
+        <a href="#search" class="max-md:p-4 md:p-2 rounded-sm hover:bg-neutral-focus md:menu-title !text-neutral-content" on:click={_scrollIntoView || _close_nav}>Keresés</a>
+      </li>
+      <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
+      <li tabindex="0" class="drop-col dropdown-hover grow dropdown-end text-nowrap"><!-- md:inline-block  on:blur={_uncheck} -->
         <input type="radio" name="collapse" class="md:hidden" on:change={_scrollIntoView}/>
-        <div tabindex="0" role="button" class="max-md:collapse-title md:menu-title !text-neutral-content opacity-50">⍜</div>
-        <ul tabindex="0" class="menu max-md:w-full flex-nowrap max-md:collapse-content dropdown-content md:rounded-md bg-neutral text-neutral-content md:p-2">
+        <div tabindex="0" role="button" class="max-md:collapse-title md:menu-title !text-neutral-content">⍜</div>
+        <ul tabindex="0" class="menu flex-nowrap max-md:collapse-content dropdown-content md:rounded-md bg-neutral text-neutral-content md:p-2">
           {#if $authUser}
-            <!-- <li class=""><a class="max-md:p-4 md:p-2 text-nowrap rounded-sm hover:bg-neutral-focus" href="/admin/ads">Ads</a></li> -->
+            <li class=""><a class="max-md:p-4 md:p-2 text-nowrap rounded-sm hover:bg-neutral-focus" href="/admin/ads">Ads</a></li>
             <li class=""><button class="max-md:p-4 md:p-2 text-nowrap rounded-sm hover:bg-neutral-focus" on:click={handleLogout} on:keydown={handleLogout}>Kijelentkezés</button></li>
           {:else}
             <li class=""><a class="max-md:p-4 md:p-2 text-nowrap rounded-sm hover:bg-neutral-focus" class:menu-active={`/${actual}` == 'login'} href="/login" on:click={_close_nav}>Bejelentkezés</a></li>
@@ -171,14 +143,19 @@
     cursor: default;
     pointer-events: none;
   }
-  .menu-active {
-    background-color: var(--color-base-200)!important;
-  }
   /* nav:has(#mobile-nav:checked) {
     min-height: 0;
   } */
   
+  @media (width >= 48rem) {
+    /* .drop-col {
+      @apply dropdown;
+    } */
+  }
   @media (width < 48rem) {
+    /* .drop-col {
+      @apply collapse collapse-arrow;
+    } */
     /* nav > nav:has(~ nav #mobile-nav) {
       position: fixed;
     } */
@@ -203,7 +180,7 @@
     }
   }
 
-  .collapse-arrow > .max-md\:collapse-title::after {
+  .collapse-arrow > .max-lg\:collapse-title::after {
     @media (width < 48rem) {
       content: "";
       transform-origin: 75% 75%;
@@ -222,7 +199,7 @@
     }
   }
 
-.collapse-arrow:not(.collapse-close) > input[type="radio"]:checked ~ .max-md\:collapse-title::after {
+.collapse-arrow:not(.collapse-close) > input[type="radio"]:checked ~ .max-lg\:collapse-title::after {
   @media (width < 48rem) {
     transform: translateY(-50%) rotate(225deg);
   }

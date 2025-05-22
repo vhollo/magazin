@@ -2,6 +2,8 @@
   import Cards from '$lib/components/Cards.svelte'
   import Search from '$lib/components/Search.svelte'
   import Nav2 from '$lib/components/Nav2.svelte'
+  import BannerSide from '$lib/components/BannerSide.svelte'
+  import BannerTop from '$lib/components/BannerTop.svelte'
   // import Card from '$lib/components/Card.svelte'
   // import { PUBLIC_BASE_URL } from '$env/static/public'
 
@@ -13,6 +15,8 @@
   copycats['carousel']['Receptek'] = '/receptek'
   copycats['carousel']['Táplálkozás'] = '/taplalkozas'
   copycats['carousel']['Klubok, Egyesületek'] = '/hirek'
+  copycats['nav1'] = {}
+  copycats['nav1']['Hírek'] = '/hirek'
 
 </script>
 
@@ -20,15 +24,19 @@
 // @ts-nocheck
   // import { afterNavigate, replaceState } from '$app/navigation';
   // import { page, navigating } from '$app/state';
-  import { ads } from '$lib/ads.js'
-
   export let data
+
+  import { ads } from '$lib/ads.js'
+  const conf = data.conf
+  const prominent = conf.side_banners.filter(sb => sb.prominent)
+  // console.log('conf.side_banners',conf.side_banners)
+
   let docstitle
-  // console.log('[path]', data.doc.children)
+  // console.log('[path]', data.doc.related)
 
   $: doc = data.doc
   $: docs = data.docs
-  $: if (doc.id == '4103') console.log(doc.content.length)
+  $: if (doc.id == '124') console.log(doc)
 
 
   /* let win, pagenum = 1, volume = 18, docs = []
@@ -71,10 +79,11 @@
 <!-- <svelte:window bind:this={win}/> -->
 
 {#if doc.id}
-  <main class="bg-base-300 sm:flex flex-row">
+  <BannerTop banners={conf.top_banners}/>
+  <main class="order-1 bg-base-300 md:flex flex-row justify-center gap-8 px-2">
     <!--{@const date = new Date(doc.publishedon * 1000).toLocaleDateString('hu-HU')}-->
     <!--{@const meta = [doc.tvs.sze, date, doc.tvs.cat].join(' | ')}-->
-    <article class="prose mx-auto px-2 py-12 flex-1">
+    <article class="prose py-12 flex-1">
       <h2 class="felcim uppercase text-sm">{@html doc.description}</h2>
       <h1 class="title">{@html doc.longtitle || doc.pagetitle}</h1>
       <h4 class="introtext">{@html doc.introtext}</h4>
@@ -86,7 +95,7 @@
           &nbsp;|
         {/if}
         <small>{`${pubdate}${editdate && editdate !== pubdate ?' (frissítve: '+editdate+')':''}`}</small><small class="uppercase">{`${doc.tvs.cat?' | '+doc.tvs.cat:''}`}</small></p>
-      <aside class="flex flex-wrap gap-2 sm:visible mb-12">
+      <aside class="flex flex-wrap gap-2 mb-12">
         {#each doc.tvs.tag as tag}
           <small class="badge badge-outline badge-sm">{tag}</small>
         {/each}
@@ -118,40 +127,42 @@
     
     <!-- KIEMELT ADS -->
     <!-- {#if $authUser && browser && hirds.length} -->
-    <section class="flex-0 flex flex-col gap-2 mx-auto px-2 py-12">
-      {#each ads.banners as item, i}
-        {#if item.prominent}
-          <aside class="card gap-4 bg-base-100">
-            <h1 class="card-body">{item.title}</h1>
+    {#if prominent.length}
+    <section class="max-md:hidden flex flex-col flex-0 gap-2 py-12 mx-auto md:mx-0">
+      {#each prominent as item, i}
+        <!-- {#if item.prominent} -->
+          <aside class="">
+            <!-- <h1 class="card-body">{item.name}</h1> -->
+            <BannerSide banner={item}/>
           </aside>
-        {/if}
+        <!-- {/if} -->
       {/each}
     </section>
-    <!-- {/if} -->
+    {/if}
   </main>
-  {#if doc.children?.length}
-    <article class="prose mt-16 mb-8 mx-auto flex-none">
-      <h2 class="pt-12 text-center">Kapcsolódó cikkek</h2>
+
+  {#if doc.related?.length}
+    <article class="order-1 prose mt-16 mb-8 w-full mx-auto flex-none">
+      <h2 class="text-center">Kapcsolódó cikkek</h2>
     </article>
-    <Cards cards={doc.children} full={false}/>
+    <Cards cards={doc.related} full={false}/>
   {/if}
+
 {/if}
 
-  <!-- <article class="prose my-2 mx-auto"> -->
-  <Search />
-  <Nav2/>
+  <BannerTop banners={conf.top_banners}/>
+  <Search/>
+  <Nav2 actual={data.doc.path}/>
 
   {#if docs.length}
-    <article class="prose mt-16 mb-8 mx-auto">
+    <article class="order-2 prose mt-16 mb-8 mx-auto w-full">
       {#if !doc.id}
-        <h2 class="text-center">{doc.id && '' || docstitle}</h2>
+        <h1 class="text-center">{doc.id && '' || docstitle}</h1>
       {:else}
         <h2 class="text-center">Hasonló cikkek</h2>
       {/if}
     </article>
-    <Cards cards={docs}/>
-  <!-- {:else}
-    <h1 class="text-center">NO DOCS</h1> -->
+    <Cards cards={docs} banners={conf.side_banners}/>
   {/if}
 
 <!-- {#if volume * pagenum < data.docs.length}

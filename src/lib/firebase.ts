@@ -9,6 +9,8 @@ import {
 import { initializeApp, getApps } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
 // import { getAnalytics } from "firebase/analytics";
+import { getFirestore } from 'firebase/firestore/lite';
+import type { Firestore } from 'firebase/firestore/lite';
 
 const firebaseConfig = {
   apiKey: PUBLIC_FIREBASE_API_KEY,
@@ -20,14 +22,15 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-let firebaseApp;
+let firebaseApp, db:Firestore
 
 if (!getApps().length) {
   firebaseApp = initializeApp(firebaseConfig);
   // const analytics = getAnalytics(firebaseApp);
+  db = getFirestore(firebaseApp);
 }
 
 // Auth
 const firebaseAuth = getAuth(firebaseApp);
 // console.log('firebaseAuth', firebaseAuth)
-export { firebaseApp, firebaseAuth };
+export { firebaseAuth, db };

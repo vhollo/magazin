@@ -14,6 +14,7 @@ export const nav2 = {
     'Jogi útmutatók': '/jogi-utmutatok',
   },
   'Szövődmények': {
+    'Megelőzés': '/megelozes',
     'Idegrendszer': '/idegrendszer',
     'Vese': '/vese',
     'Látás': '/latas',
@@ -34,10 +35,5 @@ export const nav2 = {
   'Gyermekvállalás': {
     'Gesztációs diabétesz': '/gdm',
     'Várandósság cukorbetegséggel': '/varandossag',
-  },
-  'Kapcsolat': {
-    'Alapítvány a Cukorbetegekért': '/alapitany',
-    'Tudomány Kiadó': '/tudomany',
-    'Portmed': '/portmed',
   },
 }

@@ -26,20 +26,20 @@ const register = () => {
 </script>
 
 <form
-  class="flex flex-col flex-col md:flex-row gap-4 p-8 max-md:space-y-4 sm:w-10/12 mx-auto justify-center"
+  class="flex flex-col sm:flex-row gap-6 sm:gap-4 p-8 max-sm-space-y-4 max-sm:max-w-sm sm:w-10/12 mx-auto justify-center"
   on:submit|preventDefault={register}
 >
   <input
     type="email"
     placeholder="Email"
-    class="px-2 border border-primary rounded-md"
+    class="h-8 px-2 border border-primary rounded-md"
     required
     bind:value={email}
   />
   <input
     type="password"
     placeholder="Password"
-    class="px-2 border border-primary rounded-md"
+    class="h-8 px-2 border border-primary rounded-md"
     required
     bind:value={password}
   />
