@@ -25,27 +25,29 @@ const register = () => {
 };
 </script>
 
-<form
-  class="flex flex-col sm:flex-row gap-6 sm:gap-4 p-8 max-sm-space-y-4 max-sm:max-w-sm sm:w-10/12 mx-auto justify-center"
-  on:submit|preventDefault={register}
->
-  <input
-    type="email"
-    placeholder="Email"
-    class="h-8 px-2 border border-primary rounded-md"
-    required
-    bind:value={email}
-  />
-  <input
-    type="password"
-    placeholder="Password"
-    class="h-8 px-2 border border-primary rounded-md"
-    required
-    bind:value={password}
-  />
+<main>
+  <form
+    class="flex flex-col sm:flex-row gap-6 sm:gap-4 p-8 max-sm-space-y-4 max-sm:max-w-sm sm:w-10/12 mx-auto sm:justify-center"
+    on:submit|preventDefault={register}
+  >
+    <input
+      type="email"
+      placeholder="Email"
+      class="h-8 px-2 border border-primary rounded-md"
+      required
+      bind:value={email}
+    />
+    <input
+      type="password"
+      placeholder="Password"
+      class="h-8 px-2 border border-primary rounded-md"
+      required
+      bind:value={password}
+    />
 
-  <button type="submit" class="btn btn-sm">Register</button>
-</form>
-{#if success === false}
-	<div class="p-4 bg-error text-error-content text-center">Hiba történt. Kérlek, próbáld újra.</div>
-{/if}
+    <button type="submit" class="btn btn-sm">Register</button>
+  </form>
+  {#if success === false}
+    <div class="p-4 bg-error text-error-content text-center">Hiba történt. Kérlek, próbáld újra.</div>
+  {/if}
+</main>

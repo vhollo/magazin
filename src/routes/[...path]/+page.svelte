@@ -54,6 +54,8 @@
 
   $: pubdate = doc && new Date(doc.publishedon * 1000).toLocaleDateString('hu-HU')
   $: editdate = doc && new Date(doc.editedon * 1000).toLocaleDateString('hu-HU')
+  $: console.log('editdate',doc.editedon)
+  $: console.log('pubdate',doc.publishedon)
 
   $: if (doc.path == 'keres') {
       copycats['keres'] = {}
@@ -80,30 +82,32 @@
 
 {#if doc.id}
   <BannerTop banners={conf.top_banners}/>
-  <main class="order-1 bg-base-300 md:flex flex-row justify-center gap-8 px-2">
+  <main class="bg-base-300 md:flex flex-row justify-center gap-8 px-2">
     <!--{@const date = new Date(doc.publishedon * 1000).toLocaleDateString('hu-HU')}-->
-    <!--{@const meta = [doc.tvs.sze, date, doc.tvs.cat].join(' | ')}-->
+    <!--{@const meta = [doc.tv.sze, date, doc.tv.cat].join(' | ')}-->
     <article class="prose py-12 flex-1">
+      {#if doc.description}
       <h2 class="felcim uppercase text-sm">{@html doc.description}</h2>
+      {/if}
       <h1 class="title">{@html doc.longtitle || doc.pagetitle}</h1>
       <h4 class="introtext">{@html doc.introtext}</h4>
       <p>
-        {#if doc.tvs.sze.length}
-          {#each doc.tvs.sze as sze, i}
-            <a href="/#{sze.val}"><small class="uppercase">{sze.name}</small></a>{#if (i + 1) < doc.tvs.sze.length}, {/if}
+        {#if doc.tv.sze.length}
+          {#each doc.tv.sze as sze, i}
+            <a href="/#{sze.val}"><small class="uppercase">{sze.name}</small></a>{#if (i + 1) < doc.tv.sze.length}, {/if}
           {/each}
           &nbsp;|
         {/if}
-        <small>{`${pubdate}${editdate && editdate !== pubdate ?' (frissítve: '+editdate+')':''}`}</small><small class="uppercase">{`${doc.tvs.cat?' | '+doc.tvs.cat:''}`}</small></p>
+        <small>{`${pubdate}${editdate !== pubdate ?' (szerkesztve: '+editdate+')':''}`}</small><small class="uppercase">{`${doc.tv.cat?' | '+doc.tv.cat:''}`}</small></p>
       <aside class="flex flex-wrap gap-2 mb-12">
-        {#each doc.tvs.tag as tag}
+        {#each doc.tv.tags as tag}
           <small class="badge badge-outline badge-sm">{tag}</small>
         {/each}
       </aside>
-      <!--{#if doc.tvs.img}
+      <!--{#if doc.tv.img}
       <figure class="pageimage text-center w-full">
-        <img class="mx-auto" style={`object-fit: contain;`} src={doc.tvs.img} alt="">
-        <figcaption>{@html doc.tvs.credit}</figcaption>
+        <img class="mx-auto" style={`object-fit: contain;`} src={doc.tv.img} alt="">
+        <figcaption>{@html doc.tv.credit}</figcaption>
       </figure>
       {/if}-->
       {#if doc.img}
@@ -114,8 +118,8 @@
       {/if}
       <!--<p class="uppercase"><small></small></p>-->
       {@html doc.content}
-      {#if doc.tvs.sze.length}
-        {#each doc.tvs.sze as sze}
+      {#if doc.tv.sze.length}
+        {#each doc.tv.sze as sze}
           {#if sze.full}
             {@html sze.full}
           {:else}
@@ -142,7 +146,7 @@
   </main>
 
   {#if doc.related?.length}
-    <article class="order-1 prose mt-16 mb-8 w-full mx-auto flex-none">
+    <article class="prose mt-16 mb-8 w-full mx-auto flex-none">
       <h2 class="text-center">Kapcsolódó cikkek</h2>
     </article>
     <Cards cards={doc.related} full={false}/>
@@ -155,14 +159,14 @@
   <Nav2 actual={data.doc.path}/>
 
   {#if docs.length}
-    <article class="order-2 prose mt-16 mb-8 mx-auto w-full">
+    <article class="prose mt-16 mb-8 mx-auto w-full">
       {#if !doc.id}
         <h1 class="text-center">{doc.id && '' || docstitle}</h1>
       {:else}
         <h2 class="text-center">Hasonló cikkek</h2>
       {/if}
     </article>
-    <Cards cards={docs} banners={conf.side_banners}/>
+    <Cards cards={docs} banners={conf.side_banners} ads_distance={conf.ads_distance}/>
   {/if}
 
 <!-- {#if volume * pagenum < data.docs.length}

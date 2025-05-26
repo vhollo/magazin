@@ -7,6 +7,7 @@ console.log('docs:',modxDocs.length)
 // import { PUBLIC_BASE_URL } from '$env/static/public'
 
 import { getSiteConf } from '$lib/siteConf';
+// import { error } from '@sveltejs/kit';
 const conf = await getSiteConf();
 // let conf = JSON.parse(JSON.stringify(c))
 
@@ -62,12 +63,12 @@ const queries: Queries = {
 const docsByTags = (tags:Array<string>, id:string | undefined) => {
   // console.log(id,{tags})
   let docs = modxDocs.filter(doc => {
-    // doc.rank = tags.length && !doc.tvs.tag.find(tag => tags.includes(`-${tag}`)) && (tags.filter(t => t.startsWith('+')).length == doc.tvs.tag.filter(tag => tags.includes(`+${tag}`)).length) && doc.tvs.tag.filter(tag => (tags.includes(tag) || tags.includes(`+${tag}`) || tags.includes(`#${tag}`))).length || 0
-    doc.rank = tags.length && !doc.tvs.tag.find(tag => tags.includes(`-${tag}`)) && doc.tvs.tag.filter(tag => (tags.includes(tag) || tags.includes(`+${tag}`) || tags.includes(`#${tag}`))).length || 0
+    // doc.rank = tags.length && !doc.tv.tags.find(tag => tags.includes(`-${tag}`)) && (tags.filter(t => t.startsWith('+')).length == doc.tv.tags.filter(tag => tags.includes(`+${tag}`)).length) && doc.tv.tags.filter(tag => (tags.includes(tag) || tags.includes(`+${tag}`) || tags.includes(`#${tag}`))).length || 0
+    doc.rank = tags.length && !doc.tv.tags.find(tag => tags.includes(`-${tag}`)) && doc.tv.tags.filter(tag => (tags.includes(tag) || tags.includes(`+${tag}`) || tags.includes(`#${tag}`))).length || 0
     
-    // doc.rank = doc.tvs.tag.filter(tag => tags.includes(`+${tag}`)).length * 1
-    doc.rank = doc.tvs.tag.filter(tag => tags.includes(`+${tag}`)).length * 100 + doc.tvs.tag.filter(tag => tags.includes(`#${tag}`)).length * 10 + doc.rank
-    //if (doc.id == '4091') console.log(doc.tvs.tag,tags,doc.rank)
+    // doc.rank = doc.tv.tags.filter(tag => tags.includes(`+${tag}`)).length * 1
+    doc.rank = doc.tv.tags.filter(tag => tags.includes(`+${tag}`)).length * 100 + doc.tv.tags.filter(tag => tags.includes(`#${tag}`)).length * 10 + doc.rank
+    //if (doc.id == '4091') console.log(doc.tv.tags,tags,doc.rank)
     //if (doc.rank > 0) console.log('R',doc.rank)
     return doc.id != id && !doc.isfolder && doc.rank > 0
   }) || []
@@ -105,10 +106,14 @@ export async function load({ params, url }) {
     default: /// page path
       // console.log('default:',params.path)
       doc = modxDoc(path) || {}
-      // query = doc.tvs && doc.tvs.tag || []
-      // docs = modxDocs.filter((doc: { tvs: { tag: string | any[]; }; }) => doc.tvs.tag?.length).slice(0, 18 * 3)
-      docs = docsByTags(doc.tvs.tag, doc.id)
-      // console.log('ID:',doc.id, doc.tvs.tag, docs.length)
+      // query = doc.tv && doc.tv.tags || []
+      // docs = modxDocs.filter((doc: { tvs: { tag: string | any[]; }; }) => doc.tv.tags?.length).slice(0, 18 * 3)
+      docs = doc.tv && docsByTags(doc.tv.tags, doc.id) || modxDocs.slice(0, 18 * 4)
+      // console.log('ID:',doc.id, doc.tv.tags, docs.length)
+    }
+
+    if (!doc.path) {
+      doc = {'path': path , 'pagetitle': `Nem található: "${path}"` }
     }
 
   //console.log(Object.keys(query))
@@ -117,7 +122,7 @@ export async function load({ params, url }) {
   } else if (path === 'keres') {
     docs = miniSearch.search(q)
     console.log('search:',docs.length)
-  } else docs = modxDocs.filter((doc: { tvs: { tag: string | any[]; }; }) => doc.tvs.tag?.length).slice(0, 18 * 5) */
+  } else docs = modxDocs.filter((doc: { tvs: { tag: string | any[]; }; }) => doc.tv.tags?.length).slice(0, 18 * 5) */
 
   /* if (!doc && !docs.length) {
     doc = {'path': '/'}

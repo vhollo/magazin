@@ -36,8 +36,8 @@
 <Nav2 actual={data.doc.path}/>
 
 {#if docs.length}
-<article class="order-2 prose mt-16 mb-8 mx-auto w-full">
+<article class="prose mt-16 mb-8 mx-auto w-full">
   <h1 class="text-center">A legfrissebb cikkek</h1>
 </article>
-  <Cards cards={docs} banners={conf.side_banners}/>
+  <Cards cards={docs} banners={conf.side_banners} ads_distance={conf.ads_distance}/>
 {/if}

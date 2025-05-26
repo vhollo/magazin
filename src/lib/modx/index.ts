@@ -2,7 +2,7 @@
 
 import { PUBLIC_BASE_URL } from '$env/static/public';
 
-import { eq, gt, lt, gte, lte, ne, asc, desc, and, or } from "drizzle-orm"
+import { eq, ne, desc, and, or/* , gt, lt, gte, lte, asc, */ } from "drizzle-orm"
 //import { json, text, error } from '@sveltejs/kit'
 //import { mysqlTable, serial, text } from 'drizzle-orm/mysql-core'
 import { modx_site_content } from '../../../drizzle/schema'
@@ -73,31 +73,31 @@ const cats: { [key: string]: string } = {
 }
 const _addTVs = (doc:object) => {
   const tvs: TemplateVariable[] = tmplvarContentvalues.filter(tv => tv.contentid == doc.id) || [];
-  doc.tvs = {}
+  doc.tv = {}
 
   const cat:string = tvs.find(tv => tv.tmplvarid == 23)?.value || 'null'
-  doc.tvs.cat = cats[cat]
+  doc.tv.cat = cats[cat]
 
   const tags = tvs.find(tv => tv.tmplvarid == 3)?.value || ''
-  doc.tvs.tag = tags.replace('diabetes','').replace('terhesség','várandósság').replace('családorvos','orvosok').split(' ').filter(t => t != '') || []
+  doc.tv.tags = tags.replace('diabetes','').replace('terhesség','várandósság').replace('családorvos','orvosok').split(' ').filter(t => t != '') || []
   if (tvs.find(tv => tv.tmplvarid == 30)) {
-    doc.tvs.tag.push('diabpont')
+    doc.tv.tags.push('diabpont')
     if (doc.description.match(/diabpont/gi) || doc.description == '') doc.description = 'DiabPONT Továbbképző Program'
   }
 
-  if (doc.longtitle.match(/inzulin/gi) || doc.introtext.match(/inzulin/gi) || doc.description.match(/inzulin/gi)) doc.tvs.tag.push('inzulin')
-  if (doc.longtitle.match(/gyógyszer/gi) || doc.introtext.match(/gyógyszer/gi) || doc.description.match(/gyógyszer/gi)) doc.tvs.tag.push('gyógyszer')
-  if (doc.longtitle.match(/készülék/gi) || doc.introtext.match(/készülék/gi) || doc.description.match(/készülék/gi)) doc.tvs.tag.push('készülék')
-  //console.log(doc.tvs.tag)
+  if (doc.longtitle.match(/inzulin/gi) || doc.introtext.match(/inzulin/gi) || doc.description.match(/inzulin/gi)) doc.tv.tags.push('inzulin')
+  if (doc.longtitle.match(/gyógyszer/gi) || doc.introtext.match(/gyógyszer/gi) || doc.description.match(/gyógyszer/gi)) doc.tv.tags.push('gyógyszer')
+  if (doc.longtitle.match(/készülék/gi) || doc.introtext.match(/készülék/gi) || doc.description.match(/készülék/gi)) doc.tv.tags.push('készülék')
+  //console.log(doc.tv.tags)
 
-  doc.tvs.sze = []
+  doc.tv.sze = []
   const sze = tvs.find(tv => tv.tmplvarid == 18)?.value.split(' ') || []
   //if (doc.id == '2961') console.log('TV:',sze)
   
   for (let i = 0; i < sze.length; i++) {
     let val = sze[i]
     let name = val.replaceAll('_', ' ') || ''
-    const span = name.match(/(?:<span\b.*?>.*?<\/span>\s*)/g)
+    const span = name.match(/(?:<span\b.*?>.*?<\/span>\s*)/gi)
 
     //if (doc.id == '2961') console.log('VL',val);
     let snippet = modxSzerzok.find(sz => sz.name.normalize() == val)?.snippet
@@ -110,16 +110,16 @@ const _addTVs = (doc:object) => {
       val = val.replace(span[0], '')
     }
     if (snippet && snippet.indexOf('<') !== 0) snippet = `<p class="alairas">${snippet}</p>`
-    //doc.tvs.sze[i]['full'] = snippet
+    //doc.tv.sze[i]['full'] = snippet
 
-    doc.tvs.sze.push({'val': val, 'name': name, 'full': snippet})
+    doc.tv.sze.push({'val': val, 'name': name, 'full': snippet})
   }
-  //if (doc.id == '2961') console.log('SZ:',doc.tvs.sze);
+  //if (doc.id == '2961') console.log('SZ:',doc.tv.sze);
 
   const pos = tvs.find(tv => tv.tmplvarid == 29)?.value || '50% 40%'
-  //doc.tvs.pos = pos.replace('T', '50% 10%').replace('B', '50% 90%').replace('L', 'left').replace('R', 'right')
+  //doc.tv.pos = pos.replace('T', '50% 10%').replace('B', '50% 90%').replace('L', 'left').replace('R', 'right')
   
-  //doc.tvs.credit = tvs.find(tv => tv.tmplvarid == 28)?.value || ''
+  //doc.tv.credit = tvs.find(tv => tv.tmplvarid == 28)?.value || ''
   
   const img = tvs.find(tv => tv.tmplvarid == 4)?.value || ''
   //img = img && PUBLIC_BASE_URL + img || ''
@@ -130,11 +130,11 @@ const _addTVs = (doc:object) => {
     'caption': tvs.find(tv => tv.tmplvarid == 28)?.value || '',
   } || null
 
-  //doc.tvs.img = img && PUBLIC_BASE_URL + img || ''
-  doc.tvs.ogi = tvs.find(tv => tv.tmplvarid == 25)?.value || ''
+  //doc.tv.img = img && PUBLIC_BASE_URL + img || ''
+  doc.tv.ogi = tvs.find(tv => tv.tmplvarid == 25)?.value || ''
   
   if (doc.parent == 1) {
-    doc.tvs.tag.push('hirek')
+    doc.tv.tags.push('hirek')
   }
   return doc
 }
@@ -206,12 +206,11 @@ const _pathById = (match: string, p1: number) => {
   return `/${doc.path}`
 }
 
-const _findChildren = (doc: object) => {
+const _findRelated = (doc: object) => {
   if (doc?.related) {
     return doc
   }
-  if (doc.id == '124') console.log(doc)
-  let dc = doc.isfolder && doc.tvs.tag.length && modxSiteContent.filter(d => d.parent == doc.id) || []
+  let dc = doc.isfolder && doc.tv.tags.length && modxSiteContent.filter(d => d.parent == doc.id) || []
   // let ids = dc.map(d1 => d1.id)
   if (doc.content != '') {
     dc.forEach((d2, i) => d2.related = [doc, ...dc.filter(d3 => d3.id != dc[i].id)])
@@ -223,14 +222,14 @@ const _findChildren = (doc: object) => {
 }
 
 const _alapjav = doc => {
-  doc.content = doc.content.replaceAll('<p></p>\r\n', '').replaceAll('<p></p>', '').replaceAll(' m2', ' m<sup>2</sup>').replaceAll('A1c', 'A<sub>1c</sub>').replaceAll('®', '<sup>®</sup>').replaceAll('rel="external"', 'rel="noopener" target="_blank"').replaceAll('"/assets', `"${PUBLIC_BASE_URL}assets`).replaceAll('"assets', `"${PUBLIC_BASE_URL}assets`)
+  doc.content = doc.content.replaceAll('&#160;', '&nbsp;').replaceAll('> </', '></').replaceAll('<p></p>\r\n', '').replaceAll('<p></p>', '').replaceAll(' m2', ' m<sup>2</sup>').replaceAll('A1c', 'A<sub>1c</sub>').replaceAll('®', '<sup>®</sup>').replaceAll('rel="external"', 'rel="noopener" target="_blank"').replaceAll('"/assets', `"${PUBLIC_BASE_URL}assets`).replaceAll('"assets', `"${PUBLIC_BASE_URL}assets`)
   
   const modxlink = /\[\~(\d*)\~\]/g
   doc.content = doc.content.replaceAll(modxlink, _pathById)
   doc.description = doc.description.replaceAll(modxlink, _pathById)
   doc.introtext = doc.introtext.replaceAll(modxlink, _pathById)
 
-  /*const script = /(<script\b(.*?)<\/script>)/g
+  /*const script = /(<script\b(.*?)<\/script>)/gi
   const repl = doc.content.match(script)
   if(repl) {
     //doc.script = repl
@@ -248,6 +247,42 @@ const _alapjav = doc => {
   return doc
 }
 
+const _ellipsis = doc => {
+  if (!doc.ellipsis) {
+    doc.ellipsis = doc.introtext.length > 0 ? doc.introtext : doc.content.match(/<(?!aside\b|figure\b|video\b|div\b|img\b|h2\b|h3\b|ul\b|li\b)(.*?)\b[^>]*>[\s\S]*?<\/\1>/gi)?.slice(0, 2).join('') || ''
+    doc.ellipsis = doc.ellipsis.replace(/<blockquote>/g, '').replace(/<\/blockquote>/g, '<br>')
+    doc.table = doc.ellipsis.indexOf('<table') > -1
+    doc.video = doc.content.match(/<video\b(.*?)\b[^>]*>[\s\S]*?<\/video>/gi)?.join('')
+    if (doc.ellipsis.indexOf('<p') != 0) {
+      doc.ellipsis = `<p>${doc.ellipsis}</p>`
+    }
+    doc.ellipsis = doc.ellipsis.replace(/<br\s*\/?>/gi, '</p><p>')
+    doc.ellipsis = doc.ellipsis.replace(/<span\b.*?\b[^>]*>(.*?)<\/span>/gi, '$1')
+    doc.ellipsis = doc.ellipsis.replace(/<a\b.*?\b[^>]*>(.*?)<\/a>/gi, (m, p) => p.indexOf('.') > -1 && p.indexOf(' ') == -1 ? `<span class="break-all">${p}</span>` : p)
+  }
+  return doc
+}
+
+const _onlyFields = doc => {
+  return {
+    id: doc.id,
+    path: doc.path,
+    alias: doc.alias,
+    parent: doc.parent,
+    title: doc.title,
+    longtitle: doc.longtitle,
+    description: doc.description,
+    content: doc.content,
+    introtext: doc.introtext,
+    img: doc.img,
+    tv: doc.tv,
+    related: doc.related,
+    ellipsis: doc.ellipsis,
+    table: doc.table,
+    video: doc.video,
+  }
+}
+
 modxSiteHirek.forEach(doc => {
   modxSiteContent.push(doc)
 })
@@ -255,14 +290,16 @@ modxSiteHirek.forEach(doc => {
 for (let doc of modxSiteContent) {
   doc = _findPath(doc)
   doc = _addTVs(doc)
+  doc = _findRelated(doc)
   //console.log(doc.id)
   doc = _nagyito(doc)
   doc = _alapjav(doc)
   //if (doc.id == 3991) console.log(doc)
-  doc = _findChildren(doc)
+  doc = _ellipsis(doc)
+  doc = _onlyFields(doc)
 }
 
-export const modxDocs = modxSiteContent.filter(doc => doc.tvs.tag.length && doc.content.length) //&& !doc.isfolder && doc.path !== doc.alias)
+export const modxDocs = modxSiteContent.filter(doc => doc.tv.tags.length && doc.content.length) //&& !doc.isfolder && doc.path !== doc.alias)
 
 export const modxDoc = (p: string) => {
   // console.log('P:',p)

@@ -47,7 +47,7 @@
     <ul class="mx-auto">
       {#each Object.keys(nav2) as cat}
         <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
-        <li tabindex="0" class="drop-col dropdown-hover last:dropdown-end text-nowrap"><!-- md:inline-block  on:blur={_uncheck} -->
+        <li tabindex="0" class="dropdown dropdown-hover last:dropdown-end text-nowrap"><!-- md:inline-block  on:blur={_uncheck} -->
           <input type="radio" name="collapse" class="hidden"/>
           <div tabindex="0" role="button" class="menu-title !text-neutral-content text-nowrap font-medium cursor-default">{cat}</div>
           <ul tabindex="0" class="menu flex-nowrap dropdown-content rounded-md bg-base-100 text-neutral-content p-2">
@@ -62,16 +62,16 @@
 
 <style>
   /* @reference "../../app.css"; */
-  #mobile-nav {
+  /* #mobile-nav {
     display: none!important;
-  }
+  } */
   /* FIX: last:dropdown-end */
   /* .last\:dropdown-end:last-of-type .lg\:dropdown-content {
     inset-inline-end: 0px!important;
   } */
-  .dropdown:has(+ .dropdown-end:last-of-type) .lg\:dropdown-content {
+  /* .dropdown:has(+ .dropdown-end:last-of-type) .lg\:dropdown-content {
     inset-inline-end: 0px!important;
-  }
+  } */
   a:hover {
     outline-offset: 0;
     outline-width: 0;
@@ -83,57 +83,5 @@
   .menu-active {
     background-color: var(--color-base-200)!important;
   }
-  @media (width < 48rem) {
-    /* .drop-col {
-      @apply collapse collapse-arrow;
-    } */
-    /* nav > nav:has(~ nav #mobile-nav) {
-      position: fixed;
-    } */
-    nav:has(#mobile-nav:checked) {
-      min-height: 100vh;
-    }
-    #mobile-nav ~ ul {
-      transition: height 0.5s ease-in;
-      overflow: hidden;
-      height: 0;
-    }
-    #mobile-nav:checked ~ ul {
-      height: auto;
-      height: calc-size(auto, size);
-    }
-    /* #mobile-nav:checked ~ ul > li{
-      margin-block: 1rem;
-    } */
-    li input:checked ~ ul {
-      visibility: visible!important;
-      display: block!important;
-    }
-  }
-
-  .collapse-arrow > .max-lg\:collapse-title::after {
-    @media (width < 48rem) {
-      content: "";
-      transform-origin: 75% 75%;
-      pointer-events: none;
-      top: 1.9rem;
-      width: .5rem;
-      height: .5rem;
-      transition-property: all;
-      transition-duration: .2s;
-      transition-timing-function: cubic-bezier(.4,0,.2,1);
-      display: block;
-      position: absolute;
-      inset-inline-end: 1.4rem;
-      transform: translateY(-100%) rotate(45deg);
-      box-shadow: 2px 2px;
-    }
-  }
-
-.collapse-arrow:not(.collapse-close) > input[type="radio"]:checked ~ .max-lg\:collapse-title::after {
-  @media (width < 48rem) {
-    transform: translateY(-50%) rotate(225deg);
-  }
-}
 
 </style>

@@ -2,21 +2,21 @@
   //export let more
 </script>
 
-<footer class="order-3 footer sm:footer-horizontal bg-base-200 text-base-content p-10">
+<footer class="footer sm:footer-horizontal bg-base-200 text-base-content p-10">
   <aside>
-    <a class="block p-2" href="/"><img class="h-24" src={'/assets/logo-uj-diabetes.svg'} alt="diabetes.hu"></a>
+    <a class="block" href="/"><img class="h-24" src={'/assets/logo-uj-diabetes-web.svg'} alt="diabetes.hu"></a>
     <p>
-      ACME Industries Ltd.
+      az Alapítvány a Cukorbetegekért lapja
       <br />
-      Providing reliable tech since 1992
+      – 1989 óta
     </p>
   </aside>
-  <nav>
-    <h6 class="footer-title">Services</h6>
-    <a class="link link-hover">Branding</a>
-    <a class="link link-hover">Design</a>
-    <a class="link link-hover">Marketing</a>
-    <a class="link link-hover">Advertisement</a>
+  <!-- <nav>
+    <h6 class="footer-title">Kategóriák</h6>
+    <a class="link link-hover">Diabetes</a>
+    <a class="link link-hover">Hypertonia</a>
+    <a class="link link-hover">Diabetes Junior</a>
+    <a class="link link-hover">Diabetes Különszámok</a>
   </nav>
   <nav>
     <h6 class="footer-title">Company</h6>
@@ -30,5 +30,5 @@
     <a class="link link-hover">Terms of use</a>
     <a class="link link-hover">Privacy policy</a>
     <a class="link link-hover">Cookie policy</a>
-  </nav>
+  </nav> -->
 </footer>

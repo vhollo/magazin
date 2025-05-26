@@ -22,6 +22,14 @@
   /* background-color: var(--fallback-b1, oklch(var(--b3) / 1)); */
   @apply bg-neutral;
 }
+
+body {
+  @apply flex flex-col justify-between min-h-screen;
+  /* display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  justify-content: space-between; */
+}
 @media (prefers-color-scheme: light) {
   :root {
     /* --fallback-bc: oklch(var(--bc) / 1); */
@@ -43,16 +51,14 @@
   body:has(#mobile-nav:checked) > *:not(nav), nav:has(nav > #mobile-nav:checked) ~ */* , footer ~ * */ {
     display: none;
   }
+  .drop-col {
+    @apply collapse;
+  }
 }
 
 @media (width >= 48rem) {
   .drop-col {
     @apply dropdown;
-  }
-}
-@media (width < 48rem) {
-  .drop-col {
-    @apply collapse;
   }
 }
 
@@ -112,7 +118,7 @@ article figure {
 
 
 /* OVERFLOW w/ ELLIPSIS */
-.intro, .ellipsis/* , .twoliner */ {
+.intro, .ellipsis {
   display: -webkit-box;
   -webkit-line-clamp: 9;
   -webkit-box-orient: vertical; 
@@ -125,11 +131,8 @@ article figure {
 .twoliner {
   -webkit-line-clamp: 2;
 }
-p.intro, .ellipsis p, .twoliner {
+.ellipsis p {
   hyphens: auto;
-}
-p.intro a, .ellipsis p a, .twoliner a, h4 a, h2 a {
-  text-decoration: dashed underline;
 }
 
 /* .ellipsis:has(video) {
@@ -170,10 +173,10 @@ p.intro a, .ellipsis p a, .twoliner a, h4 a, h2 a {
   }
 }
 
-.ellipsis table ~ p, .twoliner table ~ p/* , .ellipsis table ~ div, .twoliner table ~ div */ {
+.ellipsis table ~ p {
   display: none; 
 }
-.ellipsis > table, .twoliner > table {
+.ellipsis > table {
   @apply prose;
   font-size: 0.875rem;
   /* line-height: var(--lh-card, 1.5); */
@@ -181,11 +184,12 @@ p.intro a, .ellipsis p a, .twoliner a, h4 a, h2 a {
   margin-top: 0;
   width: 100%;
 }
-.twoliner .nicebox {
+/* .twoliner .nicebox {
   @apply shadow-none;
   margin: 0;
   padding: 0;
 }
+ */
 .ellipsis .nicebox {
   display: contents;
 }

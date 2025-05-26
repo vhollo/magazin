@@ -1,5 +1,5 @@
-import { mysqlTable, mysqlSchema, /*AnyMySqlColumn,*/ varchar, int, unique, timestamp, text, index, char, tinyint, mediumint, mediumtext } from "drizzle-orm/mysql-core"
-import { sql } from "drizzle-orm"
+import { mysqlTable, /*mysqlSchema, AnyMySqlColumn,*/ varchar, int, unique, timestamp, text, index, char, tinyint, mediumint, mediumtext } from "drizzle-orm/mysql-core"
+// import { sql } from "drizzle-orm"
 
 export const modx_active_users = mysqlTable("modx_active_users", {
 	sid: varchar("sid", { length: 32 }).default('').notNull(),

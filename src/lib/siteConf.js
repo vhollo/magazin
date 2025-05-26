@@ -67,6 +67,7 @@ export const getSiteConf = async () => {
       }
       data.side_banners = sidebanners
       data.top_banners = topbanners
+      data.ads_distance = 4
       // console.log({data})
       return data; //confSnap.data();
     } else {
