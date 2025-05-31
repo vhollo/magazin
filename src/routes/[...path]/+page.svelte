@@ -81,7 +81,9 @@
 <!-- <svelte:window bind:this={win}/> -->
 
 {#if doc.id}
-  <BannerTop banners={conf.top_banners}/>
+  {#if conf.top_banners.length}
+    <BannerTop banners={conf.top_banners}/>
+  {/if}
   <main class="bg-base-300 md:flex flex-row justify-center gap-8 px-2">
     <!--{@const date = new Date(doc.publishedon * 1000).toLocaleDateString('hu-HU')}-->
     <!--{@const meta = [doc.tv.sze, date, doc.tv.cat].join(' | ')}-->
@@ -154,20 +156,22 @@
 
 {/if}
 
+{#if conf.top_banners.length}
   <BannerTop banners={conf.top_banners}/>
-  <Search/>
-  <Nav2 actual={data.doc.path}/>
+{/if}
+<Search/>
+<Nav2 actual={data.doc.path}/>
 
-  {#if docs.length}
-    <article class="prose mt-16 mb-8 mx-auto w-full">
-      {#if !doc.id}
-        <h1 class="text-center">{doc.id && '' || docstitle}</h1>
-      {:else}
-        <h2 class="text-center">Hasonló cikkek</h2>
-      {/if}
-    </article>
-    <Cards cards={docs} banners={conf.side_banners} ads_distance={conf.ads_distance}/>
-  {/if}
+{#if docs.length}
+  <article class="prose mt-16 mb-8 mx-auto w-full">
+    {#if !doc.id}
+      <h1 class="text-center">{doc.id && '' || docstitle}</h1>
+    {:else}
+      <h2 class="text-center">Hasonló cikkek</h2>
+    {/if}
+  </article>
+  <Cards cards={docs} banners={conf.side_banners} ads_distance={conf.ads_distance}/>
+{/if}
 
 <!-- {#if volume * pagenum < data.docs.length}
 <footer class="footer footer-center bg-base-200 text-base-content pt-4">

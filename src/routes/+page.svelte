@@ -31,7 +31,9 @@
 
 <Carousel/>
 
+{#if conf.top_banners.length}
 <BannerTop banners={conf.top_banners}/>
+{/if}
 <Search/>
 <Nav2 actual={data.doc.path}/>
 
