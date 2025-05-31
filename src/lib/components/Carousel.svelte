@@ -27,7 +27,7 @@
   <section bind:clientWidth={main} bind:clientHeight={height} class="relative">
     <div class="carousel carousel-center bg--neutral space-x-4 px-4 py-8 items-stretch w-full" bind:this={carous}>
       <aside class="carousel-item card rounded-sm card--sm bg-base-100 w-full sm:w-7/12 lg:w-2/5 xl:w-[27.5%] max-h-1/2 pb-2">
-        <CarItem card={ {'img': {src: `${PUBLIC_BASE_URL}assets/images/cikkek/dt1204/pixabay-question-2709670-1280.jpg`}, 'longtitle': 'Segítség, cukorbeteg vagyok!', 'introtext': 'Sokszor azt gondoljuk, ha egy betegség elindul, törvényszerűen romlik. Ez egyáltalán nem biztos! A folyamat attól függ, hogy mennyire sikerül a gyorsító, rontó folyamatokat kiküszöbölnünk, és mennyire hagyjuk a védekező mechanizmusainkat érvényesülni.', 'tags': '', 'buttons': {'Bevezető': '/cikkek/diabetes/2402/prevencio', 'Válogatott cikkek': '/s-o-s'} } }/>
+        <CarItem card={ {'img': {src: 'assets/pixabay-question-2709670-1280.jpg'}, 'longtitle': 'Segítség, cukorbeteg vagyok!', 'introtext': 'Sokszor azt gondoljuk, ha egy betegség elindul, törvényszerűen romlik. Ez egyáltalán nem biztos! A folyamat attól függ, hogy mennyire sikerül a gyorsító, rontó folyamatokat kiküszöbölnünk, és mennyire hagyjuk a védekező mechanizmusainkat érvényesülni.', 'tags': '', 'buttons': {'Bevezető': '/cikkek/diabetes/2402/prevencio', 'Válogatott cikkek': '/s-o-s'} } }/>
       </aside>
   
       <aside class="carousel-item card rounded-sm card--sm bg-base-100 w-full sm:w-7/12 lg:w-2/5 xl:w-[27.5%] max-h-1/2 pb-2">
