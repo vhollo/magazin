@@ -1,8 +1,9 @@
 import { doc, getDoc, collection, getDocs } from 'firebase/firestore/lite';
 import { db } from '$lib/firebase';
 
-/* type Banner = {
-  name?: string;
+export type Banner = {
+  // _key?: DocumentKey;
+  name: string;
   prominent?: boolean;
   // related_banners: EntityReference[];
   link?: string;
@@ -11,7 +12,7 @@ import { db } from '$lib/firebase';
   height?: number;
   starts_on?: Date;
   expires_on?: Date;
-} */
+}
 
 /* export type SiteConf = {
   status?: boolean;
@@ -32,37 +33,36 @@ export const getSiteConf = async () => {
     const confSnap = await getDoc(confRef);
     // console.log({confSnap})
 
-    
     if (confSnap.exists()) {
-      // console.log("Config data:", confSnap.data());
       let data = confSnap.data()
       // console.log(data.side_banners)
-      let sidebanners = []
-      let topbanners = []
-      const bansCol = collection(db, 'config/site/banners');
-      const bansSnap = await getDocs(bansCol);
+      let sidebanners:Banner[] = []
+      let topbanners:Banner[] = []
+      const bansColl = collection(db, 'config/site/banners');
+      const bansSnap = await getDocs(bansColl);
       if (bansSnap.docs.length) {
-        await data.side_banners.forEach(ban => {
+        await data.side_banners.forEach((ban:any) => {
           // const bSnap = await getDoc(bRef);
-          // console.log('bansSnap.docs',bansSnap.docs)
+          // console.log('ban._key',ban._key)
           const bId = ban._key.path.segments.pop()
           // console.log(bId)
           const bSnap = bansSnap.docs.find(b => bId == b.id)
-          ban = bSnap?.data() || {name:'NOOOES'}
+          // let b:Banner 
+          // b = bSnap?.data()// || {name:'NOOOES'}
           // console.log(ban)
-          sidebanners.push(ban)
+          if (bSnap?.data()) sidebanners.push(bSnap.data())
           // if (bSnap.exists()) sBanners.push(bSnap.data())
         });
-        await data.top_banners.forEach(ban => {
+        await data.top_banners.forEach((ban:any) => {
           // const bSnap = await getDoc(bRef);
           // console.log('bansSnap.docs',bansSnap.docs)
           const bId = ban._key.path.segments.pop()
           // console.log(bId)
           const bSnap = bansSnap.docs.find(b => bId == b.id)
-          ban = bSnap?.data() || {name:'NOOOES'}
+          // const b = bSnap?.data()// || {name:'NOOOES'}
           // console.log(ban)
-          topbanners.push(ban)
-          // if (bSnap.exists()) sBanners.push(bSnap.data())
+          if (bSnap?.data()) topbanners.push(bSnap.data())
+            // if (bSnap.exists()) sBanners.push(bSnap.data())
         });
       }
       data.side_banners = sidebanners
@@ -71,11 +71,11 @@ export const getSiteConf = async () => {
       // console.log({data})
       return data; //confSnap.data();
     } else {
-      console.log("No such document!");
+      console.log("No banners!");
       return {};
     }
   } catch (error) {
-    console.error("Error getting document:", error);
+    console.error("Error getting banners:", error);
     return {};
   }
 };

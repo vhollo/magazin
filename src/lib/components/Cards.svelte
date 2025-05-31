@@ -18,19 +18,6 @@
   // import { ads } from '$lib/ads.js'
   export let cards: any[], full = true
   
-  /* $: for (let doc of cards) { // ELLIPSIS
-    if (doc.id == '4210') console.log(doc)
-    if (!doc.ellipsis) {
-      doc.ellipsis = doc.introtext.length > 0 ? doc.introtext : doc.content.match(/<(?!aside\b|figure\b|video\b|div\b|img\b|h2\b|h3\b|ul\b|li\b)(.*?)\b[^>]*>[\s\S]*?<\/\1>/g)?.slice(0, 2).join('')
-      doc.table = doc.ellipsis.indexOf('<table') > -1
-      doc.video = doc.content.match(/<video\b(.*?)\b[^>]*>[\s\S]*?<\/video>/g)?.join('')
-      if (doc.ellipsis.indexOf('<p') != 0) {
-        doc.ellipsis = `<p>${doc.ellipsis}</p>`.replace(/<br\b[/?]>/g, '</p><p>')
-      }
-    }
-    //if (doc.id == '424') console.log(doc.ellipsis)
-  } */
-
   let /* win: { location: { hash: string; }; }, */ pagenum = 1, volume = 18
   afterNavigate(() => {
     // pagenum = +win?.location.hash.replace('#', '') || 1

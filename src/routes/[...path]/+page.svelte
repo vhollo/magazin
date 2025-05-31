@@ -36,7 +36,7 @@
 
   $: doc = data.doc
   $: docs = data.docs
-  $: if (doc.id == '124') console.log(doc)
+  // $: console.log(doc)
 
 
   /* let win, pagenum = 1, volume = 18, docs = []
@@ -59,7 +59,7 @@
 
   $: if (doc.path == 'keres') {
       copycats['keres'] = {}
-      copycats['keres'][doc.pagetitle] = '/keres'
+      copycats['keres'][doc.title] = '/keres'
       // console.log(doc.path)
     }
 
@@ -73,7 +73,7 @@
     });
   });
 
-  $: docstitle = matchingSubcat || doc.pagetitle
+  $: docstitle = matchingSubcat || doc.title
 
 </script>
 
@@ -89,7 +89,7 @@
       {#if doc.description}
       <h2 class="felcim uppercase text-sm">{@html doc.description}</h2>
       {/if}
-      <h1 class="title">{@html doc.longtitle || doc.pagetitle}</h1>
+      <h1 class="title">{@html doc.longtitle || doc.title}</h1>
       <h4 class="introtext">{@html doc.introtext}</h4>
       <p>
         {#if doc.tv.sze.length}

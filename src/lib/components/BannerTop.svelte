@@ -9,7 +9,7 @@
 
 <script lang="ts">
 type Banner = {
-    name?: string;
+    name: string;
     prominent?: boolean;
     // related_banners: EntityReference[];
     link?: string;

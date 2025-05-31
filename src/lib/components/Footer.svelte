@@ -7,10 +7,15 @@
     <a class="block" href="/"><img class="h-24" src={'/assets/logo-uj-diabetes-web.svg'} alt="diabetes.hu"></a>
     <p>
       az Alapítvány a Cukorbetegekért lapja
-      <br />
+      <!-- <br /> -->
       – 1989 óta
     </p>
   </aside>
+  <nav>
+    <h6>
+      Az optimális cukoranyagcsere eléréséhez az oldalakon hirdetett termékek alkalmazása esetén is feltétlenül szükséges a beállított diéta, a rendszeres mozgás, és az orvosa által rendelt gyógyszerek használata, valamint a rendszeres ellenőrzés! Minden esetben kérje ki kezelőorvosa véleményét!
+    </h6>
+  </nav>
   <!-- <nav>
     <h6 class="footer-title">Kategóriák</h6>
     <a class="link link-hover">Diabetes</a>

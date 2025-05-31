@@ -71,6 +71,7 @@ const cats: { [key: string]: string } = {
   'mod': 'Egészséges életmód',
   'recept': 'Receptek'
 }
+
 const _addTVs = (doc:object) => {
   const tvs: TemplateVariable[] = tmplvarContentvalues.filter(tv => tv.contentid == doc.id) || [];
   doc.tv = {}
@@ -134,7 +135,7 @@ const _addTVs = (doc:object) => {
   doc.tv.ogi = tvs.find(tv => tv.tmplvarid == 25)?.value || ''
   
   if (doc.parent == 1) {
-    doc.tv.tags.push('hirek')
+    doc.tv.tags.push('hírek')
   }
   return doc
 }
@@ -206,18 +207,18 @@ const _pathById = (match: string, p1: number) => {
   return `/${doc.path}`
 }
 
-const _findRelated = (doc: object) => {
-  if (doc?.related) {
+const _findRelated = (doc) => {
+  if (doc.related) {
     return doc
   }
   let dc = doc.isfolder && doc.tv.tags.length && modxSiteContent.filter(d => d.parent == doc.id) || []
   // let ids = dc.map(d1 => d1.id)
   if (doc.content != '') {
-    dc.forEach((d2, i) => d2.related = [doc, ...dc.filter(d3 => d3.id != dc[i].id)])
-    doc.related = dc
+    dc.forEach((d2, i) => d2.related = [_relFields(doc), ...dc.filter(d3 => d3.id != dc[i].id).map(d => _relFields(d))])
   } else {
-    dc.forEach((d2, i) => d2.related = [...dc.filter(d3 => d3.id != dc[i].id)])
+    dc.forEach((d2, i) => d2.related = dc.filter(d3 => d3.id != dc[i].id).map(d => _relFields(d)))
   }
+  doc.related = dc.map(d => _relFields(d))
   return doc
 }
 
@@ -253,7 +254,7 @@ const _ellipsis = doc => {
     doc.ellipsis = doc.ellipsis.replace(/<blockquote>/g, '').replace(/<\/blockquote>/g, '<br>')
     doc.table = doc.ellipsis.indexOf('<table') > -1
     doc.video = doc.content.match(/<video\b(.*?)\b[^>]*>[\s\S]*?<\/video>/gi)?.join('')
-    if (doc.ellipsis.indexOf('<p') != 0) {
+    if (doc.ellipsis.indexOf('<p') != 0 && doc.ellipsis.indexOf('<table') != 0) {
       doc.ellipsis = `<p>${doc.ellipsis}</p>`
     }
     doc.ellipsis = doc.ellipsis.replace(/<br\s*\/?>/gi, '</p><p>')
@@ -263,13 +264,13 @@ const _ellipsis = doc => {
   return doc
 }
 
-const _onlyFields = doc => {
+const _docFields = doc => {
   return {
     id: doc.id,
     path: doc.path,
     alias: doc.alias,
     parent: doc.parent,
-    title: doc.title,
+    title: doc.pagetitle,
     longtitle: doc.longtitle,
     description: doc.description,
     content: doc.content,
@@ -277,6 +278,23 @@ const _onlyFields = doc => {
     img: doc.img,
     tv: doc.tv,
     related: doc.related,
+    ellipsis: doc.ellipsis,
+    table: doc.table,
+    video: doc.video,
+    publishedon: doc.publishedon,
+    editedon: doc.editedon,
+  }
+}
+
+const _relFields = doc => {
+  return {
+    path: doc.path,
+    title: doc.pagetitle,
+    longtitle: doc.longtitle,
+    description: doc.description,
+    introtext: doc.introtext,
+    img: doc.img,
+    tv: doc.tv,
     ellipsis: doc.ellipsis,
     table: doc.table,
     video: doc.video,
@@ -290,16 +308,16 @@ modxSiteHirek.forEach(doc => {
 for (let doc of modxSiteContent) {
   doc = _findPath(doc)
   doc = _addTVs(doc)
-  doc = _findRelated(doc)
-  //console.log(doc.id)
   doc = _nagyito(doc)
   doc = _alapjav(doc)
-  //if (doc.id == 3991) console.log(doc)
   doc = _ellipsis(doc)
-  doc = _onlyFields(doc)
+  // doc = _docFields(doc)
+}
+for (let doc of modxSiteContent) {
+  doc = _findRelated(doc)
 }
 
-export const modxDocs = modxSiteContent.filter(doc => doc.tv.tags.length && doc.content.length) //&& !doc.isfolder && doc.path !== doc.alias)
+export const modxDocs = modxSiteContent.filter(doc => doc.tv.tags.length && (doc.content.length || doc.introtext.length)).map(doc => _docFields(doc))// && !doc.isfolder && doc.path !== doc.alias)
 
 export const modxDoc = (p: string) => {
   // console.log('P:',p)

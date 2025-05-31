@@ -54,9 +54,9 @@ const queries: Queries = {
   'egyesulet': ['+egyesület', '-covid-19'],
   'esemenyek': ['beszámoló', 'közösség', 'egyesület', '-személyes', '-rendezvény', '-covid-19'],
   'rendezvenyek': ['+rendezvény', '-covid-19'],
-  'hirek': ['hirek'],
   'gyogyitok': ['+személyes', '#orvosok', 'szakellátás', 'elismerés', '-kezelés', '-covid-19'],
   'sorstarsak': ['+személyes', 'elismerés', '-szakellátás', '-orvosok', '-önellenőrzés', '-kezelés', '-várandósság', '-közösség', '-edukáció', '-egyesület', '-covid-19'], 
+  'hirek': ['hírek'],
   'all': [],
 }
 
@@ -99,7 +99,7 @@ export async function load({ params, url }) {
       //console.log('path:',path)
       break
     case path === 'keres': /// search results
-      doc = {'path': 'keres' , 'pagetitle': `Keresés: "${q}"` }
+      doc = {'path': 'keres' , 'title': `Keresés: "${q}"` }
       docs = miniSearch.search(q)
       console.log('search:',docs.length)
       break
@@ -113,7 +113,7 @@ export async function load({ params, url }) {
     }
 
     if (!doc.path) {
-      doc = {'path': path , 'pagetitle': `Nem található: "${path}"` }
+      doc = {'path': path , 'title': `Nem található: "${path}"` }
     }
 
   //console.log(Object.keys(query))

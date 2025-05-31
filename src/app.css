@@ -217,9 +217,9 @@ article :not(table).nicebox, article :not(table).boxright, article :not(table).b
   & > * {
     @apply my-0;
   }
-  & > h3 {
+  /* & > h3 {
     @apply card-title mt-6;
-  }
+  } */
   & > figure {
     @apply my-0;
     text-align: center;

@@ -5,27 +5,6 @@
   import { PUBLIC_BASE_URL } from '$env/static/public'
   import Cards from './Cards.svelte'
 
-  /*$: {
-    if (card.img) {
-      card.ext = card.img.split('.').pop()
-      //console.log(ext)
-    }
-    card.ellipsis = ''
-    if (!card.introtext?.length && card.content) {
-      const regex = /(?:<h2\b.*?>(.*?)<\/h2>\s*)?<h4[^>]*class=["'][^"']*introtext[^"']*["'][^>]*>([\s\S]*?)<\/h4>/g;
-
-      //card.ellipsis = ''
-      let match
-      while ((match = regex.exec(card.content)) !== null) {
-        const h2 = match[1] ? match[1].trim() : null
-        const introtext = match[2].trim()
-        card.ellipsis += h2 && `<p class="intro"><b>${h2}</b><br>${introtext}</p>` || ''//introtext || card.content
-      }
-
-      if (!card.ellipsis) card.ellipsis = card.content.match(/<(?!aside\b|figure\b|img\b|h2\b|h3\b|ul\b|li\b)(.*?)\b[^>]*>[\s\S]*?<\/\1>/g)?.slice(0, 2).join('')
-    }
-    //if (card.id == '424') console.log(card.ellipsis)
-  }*/
 </script>
 
 <!--<aside class:double={card.img} class:triple={card.ellipsis?.indexOf('<video') !== -1} class="card card-sm bg-base-100 shadow-xl">-->
