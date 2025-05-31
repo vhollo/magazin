@@ -48,7 +48,7 @@ body {
   overflow-y: auto!important;
 } */
 @media (width < 48rem)  {
-  body:has(#mobile-nav:checked) > *:not(nav), nav:has(nav > #mobile-nav:checked) ~ */* , footer ~ * */ {
+  body:has(#mobile-nav:checked) > *:not(nav), nav:has(/* nav >  */#mobile-nav:checked) ~ */* , footer ~ * */ {
     display: none;
   }
   .drop-col {

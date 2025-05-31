@@ -27,7 +27,7 @@
   <section bind:clientWidth={main} bind:clientHeight={height} class="relative">
     <div class="carousel carousel-center bg--neutral space-x-4 px-4 py-8 items-stretch w-full" bind:this={carous}>
       <aside class="carousel-item card rounded-sm card--sm bg-base-100 w-full sm:w-7/12 lg:w-2/5 xl:w-[27.5%] max-h-1/2 pb-2">
-        <CarItem card={ {'img': {src: 'assets/pixabay-question-2709670-1280.jpg'}, 'longtitle': 'Segítség, cukorbeteg vagyok!', 'introtext': 'Sokszor azt gondoljuk, ha egy betegség elindul, törvényszerűen romlik. Ez egyáltalán nem biztos! A folyamat attól függ, hogy mennyire sikerül a gyorsító, rontó folyamatokat kiküszöbölnünk, és mennyire hagyjuk a védekező mechanizmusainkat érvényesülni.', 'tags': '', 'buttons': {'Bevezető': '/cikkek/diabetes/2402/prevencio', 'Válogatott cikkek': '/s-o-s'} } }/>
+        <CarItem card={ {'img': {src: '/assets/pixabay-question-2709670-1280.jpg'}, 'longtitle': 'Segítség, cukorbeteg vagyok!', 'introtext': 'Sokszor azt gondoljuk, ha egy betegség elindul, törvényszerűen romlik. Ez egyáltalán nem biztos! A folyamat attól függ, hogy mennyire sikerül a gyorsító, rontó folyamatokat kiküszöbölnünk, és mennyire hagyjuk a védekező mechanizmusainkat érvényesülni.', 'tags': '', 'buttons': {'Bevezető': '/cikkek/diabetes/2402/prevencio', 'Válogatott cikkek': '/s-o-s'} } }/>
       </aside>
   
       <aside class="carousel-item card rounded-sm card--sm bg-base-100 w-full sm:w-7/12 lg:w-2/5 xl:w-[27.5%] max-h-1/2 pb-2">
@@ -35,11 +35,11 @@
       </aside>
   
       <aside class="carousel-item card rounded-sm card--sm bg-base-100 w-full sm:w-7/12 lg:w-2/5 xl:w-[27.5%] max-h-1/2 pb-2">
-        <CarItem card={ {'img': {src: `assets/dj1701-p1-optim.jpg`}, 'longtitle': 'Junior', 'introtext': 'Évtizedekkel ezelőtt az orvosok tiltották nemcsak a versenyszerű sportolást, de a kedvtelésből végzett mozgástól is óvták a diabéteszeseket. Az élet és a tudomány túllépett ezen, de nemcsak a sport az, amelyben ki lehet teljesedni. Művész, tudós, tanár, asztalos – bármilyen szakmát, hivatást választhattok diabosként is. Boldog, elégedett, sikeres felnőttek lehettek. Egyetlen feltétele van ennek: tanuljatok, tudjatok minél többet a cukorbetegségről, s a tanultakat alkalmazzátok mindennapjaitokban.', 'tags': '', 'buttons': {'Cikkek': '/junior', 'Szakellátóhelyek': '/hirek/civil-szervezetek-es-szakellatohelyek'} } }/>
+        <CarItem card={ {'img': {src: `/assets/dj1701-p1-optim.jpg`}, 'longtitle': 'Junior', 'introtext': 'Évtizedekkel ezelőtt az orvosok tiltották nemcsak a versenyszerű sportolást, de a kedvtelésből végzett mozgástól is óvták a diabéteszeseket. Az élet és a tudomány túllépett ezen, de nemcsak a sport az, amelyben ki lehet teljesedni. Művész, tudós, tanár, asztalos – bármilyen szakmát, hivatást választhattok diabosként is. Boldog, elégedett, sikeres felnőttek lehettek. Egyetlen feltétele van ennek: tanuljatok, tudjatok minél többet a cukorbetegségről, s a tanultakat alkalmazzátok mindennapjaitokban.', 'tags': '', 'buttons': {'Cikkek': '/junior', 'Szakellátóhelyek': '/hirek/civil-szervezetek-es-szakellatohelyek'} } }/>
       </aside>
   
       <aside class="carousel-item card rounded-sm card--sm bg-base-100 w-full sm:w-7/12 lg:w-2/5 xl:w-[27.5%] max-h-1/2 pb-2">
-        <CarItem card={ {'img': {src: 'assets/gdm.jpg'}, 'longtitle': 'Gesztációs diabétesz', 'introtext': 'A 24–28. heti vércukorterhelés mutatja ki a gesztációs diabéteszt. Ha valakit diagnosztizálnak, az első reakciója általában a félelem. A legrosszabb, amit tehetünk, ha a diagnózis után tagadásba menekülünk. Ehelyett vegyük kezünkbe az irányítást, orvosunk útmutatása alapján mérjük vércukrunkat, kövessük az étkezési ajánlásokat, mozogjunk!', 'tags': '', 'buttons': {'Bevezető': '/cikkek/diabetes/gdm2024/tippek-nogyogyaszoktol', 'Válogatott cikkek': '/gyermekvallalas'} } }/>
+        <CarItem card={ {'img': {src: '/assets/gdm.jpg'}, 'longtitle': 'Gesztációs diabétesz', 'introtext': 'A 24–28. heti vércukorterhelés mutatja ki a gesztációs diabéteszt. Ha valakit diagnosztizálnak, az első reakciója általában a félelem. A legrosszabb, amit tehetünk, ha a diagnózis után tagadásba menekülünk. Ehelyett vegyük kezünkbe az irányítást, orvosunk útmutatása alapján mérjük vércukrunkat, kövessük az étkezési ajánlásokat, mozogjunk!', 'tags': '', 'buttons': {'Bevezető': '/cikkek/diabetes/gdm2024/tippek-nogyogyaszoktol', 'Válogatott cikkek': '/gyermekvallalas'} } }/>
       </aside>
   
       <aside class="carousel-item card rounded-sm card--sm bg-base-100 w-full sm:w-7/12 lg:w-2/5 xl:w-[27.5%] max-h-1/2 pb-2">

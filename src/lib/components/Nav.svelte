@@ -50,8 +50,8 @@
   }
 </script>
 
-<nav class="sticky top-0 z-40 bg-neutral">
-  <nav class="navbar max-md:block justify-center py-0">
+<nav class="sticky top-0 z-40 bg-neutral navbar max-md:block justify-center py-0">
+  <!-- <nav class="navbar max-md:block justify-center py-0"> -->
     <!-- <label for="mobile-nav" aria-label="open sidebar" class="top-0 left-0 bg-neutral z-50 btn btn-lg btn-square btn-ghost md:hidden text-neutral-content">
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -81,14 +81,12 @@
           d="M4 6h16M4 12h16M4 18h16"></path>
       </svg>
     </label>
-  <!-- </nav>
-  <nav class="md:navbar"> -->
     <input id="mobile-nav" type="checkbox" bind:checked={_open_nav}/>
     <ul class="ml-auto max-md:mx-auto max-md:max-w-sm z-40">
       <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
       <li tabindex="0" class="drop-col text-nowrap"><!-- md:inline-block  on:blur={_uncheck} -->
         <!-- <input type="radio" name="collapse" class="md:hidden" on:change={_scrollIntoView}/> -->
-        <a href="#search" class="max-md:flex justify-between items-center max-md:p-4 md:p-2 rounded-sm hover:bg-neutral-focus md:menu-title !text-neutral-content text-nowrap font-medium" on:click={_scrollIntoView && _close_nav}><span class="md:hidden">Keresés&nbsp;</span><svg class="inline h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+        <a href="#search" class="max-md:flex justify-between items-center max-md:p-4 md:p-2 rounded-sm hover:bg-base-100 md:menu-title !text-neutral-content text-nowrap font-medium" on:click={_scrollIntoView && _close_nav}><span class="md:hidden">Keresés&nbsp;</span><svg class="inline h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
           <g
             stroke-linejoin="round"
             stroke-linecap="round"
@@ -101,27 +99,11 @@
           </g>
         </svg></a>
       </li>
-      {#each Object.keys(nav2) as cat}
-        <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
-        <li tabindex="0" class="collapse collapse-arrow md:hidden text-nowrap"><!-- md:inline-block  on:blur={_uncheck} -->
-          {#if typeof nav2[cat] === 'string'}
-            <a href="{nav2[cat]}" class="max-md:p-4 md:p-2 rounded-sm hover:bg-neutral-focus md:menu-title !text-neutral-content text-nowrap font-medium">{cat}</a>
-          {:else}
-            <input type="radio" name="collapse" class="md:hidden" on:change={_scrollIntoView}/>
-            <div tabindex="0" role="button" class="max-md:collapse-title md:menu-title !text-neutral-content text-nowrap font-medium cursor-default">{cat}</div>
-            <ul tabindex="0" class="menu w-full flex-nowrap max-md:collapse-content dropdown-content md:rounded-md bg-neutral text-neutral-content md:p-2 !py-0">
-              {#each Object.keys(nav2[cat]) as subcat}
-                <li class=""><a class="max-md:p-4 md:p-2 text-nowrap rounded-sm hover:bg-neutral-focus" class:menu-active={`/${actual}` == nav2[cat][subcat]} href={nav2[cat][subcat]} on:click={_close_nav}>{subcat}</a></li>
-              {/each}
-            </ul>
-          {/if}
-        </li>
-      {/each}
       {#each Object.keys(nav1) as cat}
         <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
         <li tabindex="0" class="drop-col collapse-arrow dropdown-hover dropdown-end text-nowrap"><!-- md:inline-block  on:blur={_uncheck} -->
           {#if typeof nav1[cat] === 'string'}
-            <a href="{nav1[cat]}" class="max-md:p-4 md:p-2 rounded-sm hover:bg-neutral-focus md:menu-title !text-neutral-content text-nowrap font-medium" class:menu-active={`/${actual}` == nav1[cat]} on:click={_close_nav}>{cat}</a>
+            <a href="{nav1[cat]}" class="max-md:p-4 md:p-2 rounded-sm hover:bg-base-100 md:menu-title !text-neutral-content text-nowrap font-medium" class:menu-active={`/${actual}` == nav1[cat]} on:click={_close_nav}>{cat}</a>
           {:else}
             <input type="radio" name="collapse" class="md:hidden" on:change={_scrollIntoView}/>
             <div tabindex="0" role="button" class="max-md:collapse-title md:menu-title !text-neutral-content text-nowrap font-medium cursor-default">{cat}</div>
@@ -133,10 +115,26 @@
           {/if}
         </li>
       {/each}
+      {#each Object.keys(nav2) as cat}
+        <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
+        <li tabindex="0" class="collapse collapse-arrow md:hidden text-nowrap"><!-- md:inline-block  on:blur={_uncheck} -->
+          {#if typeof nav2[cat] === 'string'}
+            <a href="{nav2[cat]}" class="max-md:p-4 md:p-2 rounded-sm hover:bg-base-100 md:menu-title !text-neutral-content text-nowrap font-medium">{cat}</a>
+          {:else}
+            <input type="radio" name="collapse" class="md:hidden" on:change={_scrollIntoView}/>
+            <div tabindex="0" role="button" class="max-md:collapse-title md:menu-title !text-neutral-content text-nowrap font-medium cursor-default">{cat}</div>
+            <ul tabindex="0" class="menu w-full flex-nowrap max-md:collapse-content dropdown-content md:rounded-md bg-neutral text-neutral-content md:p-2 !py-0">
+              {#each Object.keys(nav2[cat]) as subcat}
+                <li class=""><a class="max-md:p-4 md:p-2 text-nowrap rounded-sm hover:bg-neutral-focus" class:menu-active={`/${actual}` == nav2[cat][subcat]} href={nav2[cat][subcat]} on:click={_close_nav}>{subcat}</a></li>
+              {/each}
+            </ul>
+          {/if}
+        </li>
+      {/each}
       <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
       <li tabindex="0" class="drop-col collapse-arrow dropdown-hover dropdown-end text-nowrap"><!-- md:inline-block  on:blur={_uncheck} -->
         <input type="radio" name="collapse" class="md:hidden" on:change={_scrollIntoView}/>
-        <div tabindex="0" role="button" class="max-md:collapse-title md:menu-title !text-neutral-content opacity-50">⍜</div>
+        <div tabindex="0" role="button" class="max-md:collapse-title md:menu-title !text-neutral-content opacity-50 cursor-default">⍜</div>
         <ul tabindex="0" class="menu max-md:w-full flex-nowrap max-md:collapse-content dropdown-content md:rounded-md bg-neutral text-neutral-content md:p-2">
           {#if $authUser}
             <!-- <li class=""><a class="max-md:p-4 md:p-2 text-nowrap rounded-sm hover:bg-neutral-focus" href="/admin/ads">Ads</a></li> -->
@@ -148,7 +146,7 @@
         </ul>
       </li>
     </ul>
-  </nav>
+  <!-- </nav> -->
 </nav>
 
 <style>
@@ -182,7 +180,7 @@
     /* nav > nav:has(~ nav #mobile-nav) {
       position: fixed;
     } */
-    nav:has(nav > #mobile-nav:checked) {
+    nav:has(/* nav >  */#mobile-nav:checked) {
       min-height: 100vh;
     }
     #mobile-nav ~ ul {

@@ -4,7 +4,9 @@
 
 <footer class="footer sm:footer-horizontal bg-base-200 text-base-content p-10">
   <aside>
-    <a class="block" href="/"><img class="h-24" src={'/assets/logo-uj-diabetes-web.svg'} alt="diabetes.hu"></a>
+    <a class="block" href="/">
+      <img class="h-24" src={'/assets/logo-uj-diabetes-web.svg'} alt="diabetes.hu" width="120" height="120">
+    </a>
     <p>
       az Alapítvány a Cukorbetegekért lapja
       <!-- <br /> -->
