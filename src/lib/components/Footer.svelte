@@ -13,7 +13,7 @@
       – 1989 óta
     </p>
   </aside>
-  <nav>
+  <nav class="self-end">
     <h6>
       Az optimális cukoranyagcsere eléréséhez az oldalakon hirdetett termékek alkalmazása esetén is feltétlenül szükséges a beállított diéta, a rendszeres mozgás, és az orvosa által rendelt gyógyszerek használata, valamint a rendszeres ellenőrzés! Minden esetben kérje ki kezelőorvosa véleményét!
     </h6>
