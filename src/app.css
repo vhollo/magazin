@@ -212,22 +212,25 @@ article :not(table).nicebox {
   @apply my-[2.8rem];
 }
 article :not(table).nicebox, article :not(table).boxright, article :not(table).boxleft {
-  @apply card card-sm bg-base-100 shadow-xl card-body p-4 last:mb-0 gap-4;
+  @apply card card-sm bg-base-100 shadow-xl card-body px-0 pt-0 pb-2 last:mb-0 gap-4;
 
   & > * {
-    @apply my-0;
+    @apply my-0 mx-4;
   }
   /* & > h3 {
     @apply card-title mt-6;
   } */
   & > figure {
-    @apply my-0;
+    @apply my-0 mx-0;
     text-align: center;
     width: 100%;
     flex-direction: column;
   }
   & > figure img {
     object-fit: contain;
+  }
+  & > figure figcaption {
+    @apply m-1;
   }
   & > i, & > em, & > strong, & > b  {
     display: contents;
@@ -260,6 +263,12 @@ article figure img {
 }
 .prose {
   container-type: inline-size;
+}
+
+summary h2 {
+  display: inline-block;
+  margin: 0 0 1rem 1rem;
+  cursor: pointer;
 }
 
 /* FLOATS */

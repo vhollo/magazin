@@ -4,8 +4,6 @@
   import Nav2 from '$lib/components/Nav2.svelte'
   import BannerSide from '$lib/components/BannerSide.svelte'
   import BannerTop from '$lib/components/BannerTop.svelte'
-  // import Card from '$lib/components/Card.svelte'
-  // import { PUBLIC_BASE_URL } from '$env/static/public'
 
   import { nav2 } from '$lib/nav2.js'
   let copycats = JSON.parse(JSON.stringify(nav2))
@@ -36,7 +34,8 @@
 
   $: doc = data.doc
   $: docs = data.docs
-  // $: console.log(doc)
+  // $: if (doc.id == '1045') console.log(doc.content)
+
 
 
   /* let win, pagenum = 1, volume = 18, docs = []
@@ -54,8 +53,8 @@
 
   $: pubdate = doc && new Date(doc.publishedon * 1000).toLocaleDateString('hu-HU')
   $: editdate = doc && new Date(doc.editedon * 1000).toLocaleDateString('hu-HU')
-  $: console.log('editdate',doc.editedon)
-  $: console.log('pubdate',doc.publishedon)
+  $: console.log('editedon',doc.editedon)
+  $: console.log('publishedon',doc.publishedon)
 
   $: if (doc.path == 'keres') {
       copycats['keres'] = {}
@@ -73,7 +72,7 @@
     });
   });
 
-  $: docstitle = matchingSubcat || doc.title
+  $: docstitle = doc.title || matchingSubcat
 
 </script>
 
@@ -86,21 +85,23 @@
   {/if}
   <main class="bg-base-300 md:flex flex-row justify-center gap-8 px-2">
     <!--{@const date = new Date(doc.publishedon * 1000).toLocaleDateString('hu-HU')}-->
-    <!--{@const meta = [doc.tv.sze, date, doc.tv.cat].join(' | ')}-->
+    <!--{@const meta = [doc.tv.szerzo, date, doc.tv.cat].join(' | ')}-->
     <article class="prose py-12 flex-1">
       {#if doc.description}
       <h2 class="felcim uppercase text-sm">{@html doc.description}</h2>
       {/if}
       <h1 class="title">{@html doc.longtitle || doc.title}</h1>
       <h4 class="introtext">{@html doc.introtext}</h4>
-      <p>
-        {#if doc.tv.sze.length}
-          {#each doc.tv.sze as sze, i}
-            <a href="/#{sze.val}"><small class="uppercase">{sze.name}</small></a>{#if (i + 1) < doc.tv.sze.length}, {/if}
+      <aside class="my-3">
+        {#if doc.tv.szerzo?.length}
+          {#each doc.tv.szerzo as sze, i}
+            <a href="/#{sze.val}"><small class="uppercase">{sze.name}</small></a>{#if (i + 1) < doc.tv.szerzo.length}, {/if}
           {/each}
-          &nbsp;|
+          <!-- &nbsp; -->|
         {/if}
-        <small>{`${pubdate}${editdate !== pubdate ?' (szerkesztve: '+editdate+')':''}`}</small><small class="uppercase">{`${doc.tv.cat?' | '+doc.tv.cat:''}`}</small></p>
+        <small>{`${pubdate}${editdate !== pubdate ?' (szerkesztve: '+editdate+')':''}`}</small>
+        <small class="uppercase">{`${doc.tv.cat ? ' | ' + doc.tv.cat : ''}`}</small>
+      </aside>
       <aside class="flex flex-wrap gap-2 mb-12">
         {#each doc.tv.tags as tag}
           <small class="badge badge-outline badge-sm">{tag}</small>
@@ -120,8 +121,8 @@
       {/if}
       <!--<p class="uppercase"><small></small></p>-->
       {@html doc.content}
-      {#if doc.tv.sze.length}
-        {#each doc.tv.sze as sze}
+      {#if doc.tv.szerzo?.length}
+        {#each doc.tv.szerzo as sze}
           {#if sze.full}
             {@html sze.full}
           {:else}

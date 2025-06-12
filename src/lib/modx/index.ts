@@ -1,8 +1,8 @@
 // place files you want to import through the `$lib` alias in this folder.
 
 import { PUBLIC_BASE_URL } from '$env/static/public';
-
-import { eq, ne, desc, and, or/* , gt, lt, gte, lte, asc, */ } from "drizzle-orm"
+// console.log('PUBLIC_BASE_URL',PUBLIC_BASE_URL)
+import { eq, ne, desc, and, or, gt, lt, gte, lte, asc } from "drizzle-orm"
 //import { json, text, error } from '@sveltejs/kit'
 //import { mysqlTable, serial, text } from 'drizzle-orm/mysql-core'
 import { modx_site_content } from '../../../drizzle/schema'
@@ -11,49 +11,12 @@ import { modx_site_tmplvar_contentvalues } from '../../../drizzle/schema'
 import { modx_site_htmlsnippets } from '../../../drizzle/schema'
 import { modxdb } from '$lib/modx/db'
 
+import { db } from '$lib/firebase-admin';
+// import { doc, getDoc, collection, getDocs, setDoc } from 'firebase/firestore/lite';
+// import { setDoc } from 'firebase/firestore';
+
 import { render } from 'svelte/server'
 import Nagyito from '$lib/components/Nagyito.svelte'
-
-//const modxSiteContent = await modxdb.query.modx_site_content.findMany(10);
-
-let modxSiteContent: object[], modxSiteHirek: object[], tmplvarContentvalues: object[]
-
-modxSiteContent = /*modxSiteContent ||*/ await modxdb.select().from(modx_site_content).orderBy(desc(modx_site_content.id)).where(
-  and(
-    /*gt(modx_site_content.id, '3900'),*/
-    eq(modx_site_content.deleted, 0),
-    eq(modx_site_content.published, 1),
-    eq(modx_site_content.type, 'document'),
-    ne(modx_site_content.parent, 1),
-    or(
-      // eq(modx_site_content.template, 7), //magazine
-      eq(modx_site_content.template, 9), //junior
-      eq(modx_site_content.template, 13) //szemlelet
-    )
-  ),
-)
-
-modxSiteHirek = /*modxSiteHirek ||*/ await modxdb.select().from(modx_site_content).orderBy(desc(modx_site_content.id)).where(
-  or(eq(modx_site_content.id, 2797),
-    and(
-      /*gt(modx_site_content.id, '3900'),*/
-      eq(modx_site_content.parent, 1),
-      eq(modx_site_content.deleted, 0),
-      eq(modx_site_content.hidemenu, 0),
-      eq(modx_site_content.published, 1),
-      eq(modx_site_content.type, 'document')
-    )
-  ),
-)
-
-tmplvarContentvalues = /*tmplvarContentvalues ||*/ await modxdb.select().from(modx_site_tmplvar_contentvalues)
-
-console.log('modxSiteContent',modxSiteContent.length)
-console.log('modxSiteHirek',modxSiteHirek.length)
-// console.log('3284',modxSiteContent.find(d => d.id == '3284'))
-
-export const modxSzerzok = await modxdb.select().from(modx_site_htmlsnippets).where(eq (modx_site_htmlsnippets.category, 24))
-//console.log(modxSzerzok)
 
 /* Functions */
 
@@ -80,10 +43,10 @@ const _addTVs = (doc:object) => {
   doc.tv.cat = cats[cat]
 
   const tags = tvs.find(tv => tv.tmplvarid == 3)?.value || ''
-  doc.tv.tags = tags.replace('diabetes','').replace('terhesség','várandósság').replace('családorvos','orvosok').split(' ').filter(t => t != '') || []
-  if (tvs.find(tv => tv.tmplvarid == 30)) {
+  doc.tv.tags = tags.replace('diabetes','').replace('terhesség','várandósság').replace('családorvos','orvos').split(' ').filter(t => t != '') || []
+  if (tvs.find(tv => tv.tmplvarid == 30) || doc.description.match(/diabpont/gi)) {
     doc.tv.tags.push('diabpont')
-    if (doc.description.match(/diabpont/gi) || doc.description == '') doc.description = 'DiabPONT Továbbképző Program'
+    doc.description = 'DiabPONT Továbbképző Program'
   }
 
   if (doc.longtitle.match(/inzulin/gi) || doc.introtext.match(/inzulin/gi) || doc.description.match(/inzulin/gi)) doc.tv.tags.push('inzulin')
@@ -91,19 +54,15 @@ const _addTVs = (doc:object) => {
   if (doc.longtitle.match(/készülék/gi) || doc.introtext.match(/készülék/gi) || doc.description.match(/készülék/gi)) doc.tv.tags.push('készülék')
   //console.log(doc.tv.tags)
 
-  doc.tv.sze = []
+  doc.tv.szerzo = []
   const sze = tvs.find(tv => tv.tmplvarid == 18)?.value.split(' ') || []
-  //if (doc.id == '2961') console.log('TV:',sze)
   
   for (let i = 0; i < sze.length; i++) {
     let val = sze[i]
     let name = val.replaceAll('_', ' ') || ''
     const span = name.match(/(?:<span\b.*?>.*?<\/span>\s*)/gi)
 
-    //if (doc.id == '2961') console.log('VL',val);
     let snippet = modxSzerzok.find(sz => sz.name.normalize() == val)?.snippet
-    //if (doc.id == '2961') console.log('SN:',snippet);
-
     snippet = snippet && snippet.replace('src="/','src="' + PUBLIC_BASE_URL).replace('src="assets','src="' + PUBLIC_BASE_URL + 'assets') || null
     if (!snippet && span) {
       snippet = name
@@ -111,19 +70,12 @@ const _addTVs = (doc:object) => {
       val = val.replace(span[0], '')
     }
     if (snippet && snippet.indexOf('<') !== 0) snippet = `<p class="alairas">${snippet}</p>`
-    //doc.tv.sze[i]['full'] = snippet
 
-    doc.tv.sze.push({'val': val, 'name': name, 'full': snippet})
+    doc.tv.szerzo.push({'val': val, 'name': name, 'full': snippet})
   }
-  //if (doc.id == '2961') console.log('SZ:',doc.tv.sze);
 
   const pos = tvs.find(tv => tv.tmplvarid == 29)?.value || '50% 40%'
-  //doc.tv.pos = pos.replace('T', '50% 10%').replace('B', '50% 90%').replace('L', 'left').replace('R', 'right')
-  
-  //doc.tv.credit = tvs.find(tv => tv.tmplvarid == 28)?.value || ''
-  
   const img = tvs.find(tv => tv.tmplvarid == 4)?.value || ''
-  //img = img && PUBLIC_BASE_URL + img || ''
   doc.img = img && {
     'src': img && PUBLIC_BASE_URL + img || '',
     'pos': pos.replace('T', '50% 10%').replace('B', '50% 90%').replace('L', 'left').replace('R', 'right'),
@@ -131,7 +83,6 @@ const _addTVs = (doc:object) => {
     'caption': tvs.find(tv => tv.tmplvarid == 28)?.value || '',
   } || null
 
-  //doc.tv.img = img && PUBLIC_BASE_URL + img || ''
   doc.tv.ogi = tvs.find(tv => tv.tmplvarid == 25)?.value || ''
   
   if (doc.parent == 1) {
@@ -144,8 +95,10 @@ const _nagyito = doc => {
   doc.content = doc.content.replaceAll('`/assets', '`assets')
   const regexp1 = /\[\[nagyito(.*?)\]\]/g
   const regexp2 = /\[!nagyito(.*?)!\]/g
-  const matches = [...doc.content.matchAll(regexp1)] || [...doc.content.matchAll(regexp2)]
-  matches?.forEach(match => {
+  const matches = [...doc.content.matchAll(regexp1), ...doc.content.matchAll(regexp2)]
+  // if (doc.id == '1045') console.log(matches)
+
+  matches.forEach(match => {
     //console.log(match[1]);  // Text between [[nagyito and ]]
     let f, file
     if (match[1].indexOf('file=') !== -1) {
@@ -157,6 +110,9 @@ const _nagyito = doc => {
     } else if (match[1].indexOf('url=') !== -1) {
       f = [...match[1].match(/url=\`(.*?)\`/)]
       file = PUBLIC_BASE_URL + f[1] 
+    } else {
+      // file = PUBLIC_BASE_URL + 'assets/images/' + match[1]
+      console.log(file)
     }
     if (doc.img && doc.img.src.indexOf(f[1]) !== -1) {
       doc.content = doc.content.replace(match[0], '<!-- PAGEIMAGE -->')
@@ -174,6 +130,7 @@ const _nagyito = doc => {
           bg: bg[1] || 'transparent',
         }
       }}) || ''
+
       doc.content = doc.content.replace(match[0], html)
     }
   })
@@ -223,27 +180,23 @@ const _findRelated = (doc) => {
 }
 
 const _alapjav = doc => {
-  doc.content = doc.content.replaceAll('&#160;', '&nbsp;').replaceAll('> </', '></').replaceAll('<p></p>\r\n', '').replaceAll('<p></p>', '').replaceAll(' m2', ' m<sup>2</sup>').replaceAll('A1c', 'A<sub>1c</sub>').replaceAll('®', '<sup>®</sup>').replaceAll('rel="external"', 'rel="noopener" target="_blank"').replaceAll('"/assets', `"${PUBLIC_BASE_URL}assets`).replaceAll('"assets', `"${PUBLIC_BASE_URL}assets`)
+  doc.content = doc.content.replaceAll('http:', 'https:').replaceAll('&#160;', '&nbsp;').replaceAll('> </', '></').replaceAll('<p></p>\r\n', '').replaceAll('<p></p>', '').replaceAll(' m2', ' m<sup>2</sup>').replaceAll('A1c', 'A<sub>1c</sub>').replaceAll('®', '<sup>®</sup>').replaceAll('rel="external"', 'rel="noopener" target="_blank"').replaceAll('"/assets', `"${PUBLIC_BASE_URL}assets`).replaceAll('"assets', `"${PUBLIC_BASE_URL}assets`)
   
-  const modxlink = /\[\~(\d*)\~\]/g
+  const modxlink = /https:\/\/www.diabetes.hu\/?\[\~(\d*)\~\]/g
   doc.content = doc.content.replaceAll(modxlink, _pathById)
   doc.description = doc.description.replaceAll(modxlink, _pathById)
   doc.introtext = doc.introtext.replaceAll(modxlink, _pathById)
 
-  /*const script = /(<script\b(.*?)<\/script>)/gi
-  const repl = doc.content.match(script)
-  if(repl) {
-    //doc.script = repl
-    //doc.content.replace(repl, '')
-    console.log(doc.id,repl)
-  }*/
-  
   const regexp1 = /\[\[.*?\]\]/gs
   const regexp2 = /\[!.*?!\]/gs
   const regexp3 = /\{\{.*?\}\}/gs
   const regexp4 = /\[\+.*?\+\]/gs
   const regexp5 = /<!--.*?-->/gs
-  doc.content = doc.content.replaceAll(regexp1, '').replaceAll(regexp2, '').replaceAll(regexp3, '').replaceAll(regexp4, '').replaceAll(regexp5, '')
+  const regexp6 = /<div\s+class="cim">.*?<\/div>/gs
+  const regexp7 = /<div\s+class="kep">(.*?)<\/div>/gs
+  const regexp8 = /<div\s+class="j_cikk">(.*?)<\/div>\s*/gs
+
+  doc.content = doc.content.replaceAll(regexp1, '').replaceAll(regexp2, '').replaceAll(regexp3, '').replaceAll(regexp4, '').replaceAll(regexp5, '').replaceAll(regexp6, '').replaceAll(regexp7, '$1').replaceAll(regexp8, '$1')
 
   return doc
 }
@@ -301,9 +254,70 @@ const _relFields = doc => {
   }
 }
 
-modxSiteHirek.forEach(doc => {
-  modxSiteContent.push(doc)
-})
+
+
+/*  */
+/* modxSiteContent and Firebase docs */
+/*  */
+
+
+
+let modxSiteContent: object[], modxSiteHirek: object[], tmplvarContentvalues: object[]
+
+/* Firebase read */
+const docsRef = db.collection('docs');
+const snapshot = await docsRef.get();
+/* snapshot.forEach(doc => {
+  console.log(doc.data().editedon);
+}); */
+// convert snapshot to allDocs
+const allDocs = []//snapshot.docs.map(doc => doc.data());
+const latestEditDate = 0// allDocs.reduce((max, doc) => doc.editedon > max ? doc.editedon : max, 0)
+console.log('allDocs',allDocs.length)
+// console.log('latestEditDate',latestEditDate)
+
+modxSiteContent = /*modxSiteContent ||*/ await modxdb.select().from(modx_site_content).orderBy(desc(modx_site_content.publishedon)).where(
+  and(
+    gt(modx_site_content.editedon, latestEditDate),
+    eq(modx_site_content.deleted, 0),
+    eq(modx_site_content.published, 1),
+    eq(modx_site_content.type, 'document'),
+    ne(modx_site_content.parent, 1),
+    or(
+      // eq(modx_site_content.template, 7), //magazine
+      eq(modx_site_content.template, 9), //junior
+      eq(modx_site_content.template, 13) //szemlelet
+    )
+  ),
+)
+
+modxSiteHirek = /*modxSiteHirek ||*/ await modxdb.select().from(modx_site_content).orderBy(desc(modx_site_content.publishedon)).where(
+  or(
+    and(
+      eq(modx_site_content.id, 2797),
+      gt(modx_site_content.editedon, latestEditDate)
+    ),
+    and(
+      gt(modx_site_content.editedon, latestEditDate),
+      eq(modx_site_content.parent, 1),
+      eq(modx_site_content.deleted, 0),
+      eq(modx_site_content.hidemenu, 0),
+      eq(modx_site_content.published, 1),
+      eq(modx_site_content.type, 'document')
+    )
+  ),
+)
+
+tmplvarContentvalues = /*tmplvarContentvalues ||*/ await modxdb.select().from(modx_site_tmplvar_contentvalues)
+
+console.log('modxSiteContent',modxSiteContent.length)
+console.log('modxSiteHirek',modxSiteHirek.length)
+modxSiteContent.push(...modxSiteHirek)
+
+export const modxSzerzok = await modxdb.select().from(modx_site_htmlsnippets).where(eq (modx_site_htmlsnippets.category, 24))
+//console.log(modxSzerzok)
+
+
 
 for (let doc of modxSiteContent) {
   doc = _findPath(doc)
@@ -313,14 +327,34 @@ for (let doc of modxSiteContent) {
   doc = _ellipsis(doc)
   // doc = _docFields(doc)
 }
+// console.log(modxSiteContent.find(d => d.id == 1045))
 for (let doc of modxSiteContent) {
   doc = _findRelated(doc)
 }
 
-export const modxDocs = modxSiteContent.filter(doc => doc.tv.tags.length && (doc.content.length || doc.introtext.length)).map(doc => _docFields(doc))// && !doc.isfolder && doc.path !== doc.alias)
+const fbWrite: object[] = modxSiteContent.filter(doc => doc.tv.tags.length && doc.ellipsis.length).map(doc => _docFields(doc))
 
-export const modxDoc = (p: string) => {
-  // console.log('P:',p)
-  return modxDocs.find(d => d.path == p)
-}
+// allDocs = all modxSiteContent merged into allDocs and overwrite docs with identical ids
+fbWrite.forEach(doc => {
+  
+  const idx = allDocs.findIndex(d => d.id == doc.id)
+  if (idx > -1) {
+    allDocs[idx] = doc
+  } else {
+    allDocs.push(doc)
+  }
+})
+export {allDocs}
 
+//export const allDocs = [...allDocs, ...modxSiteContent.filter(doc => doc.tv.tags.length && (doc.content.length || doc.introtext.length)).map(doc => _docFields(doc))]// && !doc.isfolder && doc.path !== doc.alias)
+
+// const modxIds = allDocs.map(doc => doc.id);
+// console.log(modxIds.slice(0, 15))
+
+//const fbWrite: object[] = []//allDocs//.slice(-15)
+
+// Write fbWrite into Firestore's collection 'docs'
+/* fbWrite.forEach(async doc => {
+  const res = await db.collection('docs').doc(doc.id.toString()).set(doc);
+  // console.log(doc.id)
+}) */

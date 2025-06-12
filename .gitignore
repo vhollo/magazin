@@ -28,5 +28,5 @@ vite.config.ts.timestamp-*
 magazin.code-workspace
 
 # TEMP
-/src/routes/auth/
+# /src/routes/auth/
 

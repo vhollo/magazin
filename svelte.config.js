@@ -16,7 +16,11 @@ const config = {
 		adapter: adapter(),
     prerender: {
       handleMissingId: 'ignore',//'warn',
-    }
+    },
+		env: {
+			publicPrefix: 'PUBLIC_',
+			// privatePrefix: 'PRIVATE_'
+		}
 	},
 	/* compilerOptions: {
     hmr: false

@@ -3,7 +3,6 @@
   import Carousel from '$lib/components/Carousel.svelte'
   import Search from '$lib/components/Search.svelte'
   import Nav2 from '$lib/components/Nav2.svelte'
-  import { PUBLIC_BASE_URL } from '$env/static/public'
   import BannerTop from '$lib/components/BannerTop.svelte'
 
 </script>

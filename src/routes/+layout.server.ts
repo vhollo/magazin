@@ -2,9 +2,8 @@
 import MiniSearch from 'minisearch'
 
 // export const prerender = true
-import { modxDoc, modxDocs } from '$lib/modx'
-console.log('docs:',modxDocs.length)
-// import { PUBLIC_BASE_URL } from '$env/static/public'
+import { /* modxDoc,  */allDocs } from '$lib/modx'
+console.log('docs:',allDocs.length)
 
 import { getSiteConf } from '$lib/siteConf';
 // import { error } from '@sveltejs/kit';
@@ -15,7 +14,7 @@ const miniSearch = new MiniSearch({
   fields: ['longtitle', 'description', 'introtext', 'content'], // fields to index for full-text search
   storeFields: ['longtitle', 'path', 'description', 'introtext', 'content', 'tvs', 'img'], // fields to return with search results
 })
-miniSearch.addAll(modxDocs)
+miniSearch.addAll(allDocs)
 
 
 interface Docs {
@@ -62,7 +61,7 @@ const queries: Queries = {
 
 const docsByTags = (tags:Array<string>, id:string | undefined) => {
   // console.log(id,{tags})
-  let docs = modxDocs.filter(doc => {
+  let docs = allDocs.filter(doc => {
     // doc.rank = tags.length && !doc.tv.tags.find(tag => tags.includes(`-${tag}`)) && (tags.filter(t => t.startsWith('+')).length == doc.tv.tags.filter(tag => tags.includes(`+${tag}`)).length) && doc.tv.tags.filter(tag => (tags.includes(tag) || tags.includes(`+${tag}`) || tags.includes(`#${tag}`))).length || 0
     doc.rank = tags.length && !doc.tv.tags.find(tag => tags.includes(`-${tag}`)) && doc.tv.tags.filter(tag => (tags.includes(tag) || tags.includes(`+${tag}`) || tags.includes(`#${tag}`))).length || 0
     
@@ -89,7 +88,7 @@ export async function load({ params, url }) {
     case path === '/': /// start page
       // doc = {'path': '/'}
       doc = {'path': '/'}
-      docs = modxDocs.slice(0, 18 * 4)
+      docs = allDocs.slice(0, 18 * 4)
       break
     case !!queries[path]: /// a collection
       //console.log('queries:',queries[path])
@@ -104,11 +103,11 @@ export async function load({ params, url }) {
       console.log('search:',docs.length)
       break
     default: /// page path
-      // console.log('default:',params.path)
-      doc = modxDoc(path) || {}
+      doc = allDocs.find(d => d.path == path) || {}
+      // if (doc.id == '1045') console.log(doc.content)
       // query = doc.tv && doc.tv.tags || []
-      // docs = modxDocs.filter((doc: { tvs: { tag: string | any[]; }; }) => doc.tv.tags?.length).slice(0, 18 * 3)
-      docs = doc.tv && docsByTags(doc.tv.tags, doc.id) || modxDocs.slice(0, 18 * 4)
+      // docs = allDocs.filter((doc: { tvs: { tag: string | any[]; }; }) => doc.tv.tags?.length).slice(0, 18 * 3)
+      docs = doc.tv && docsByTags(doc.tv.tags, doc.id) || allDocs.slice(0, 18 * 4)
       // console.log('ID:',doc.id, doc.tv.tags, docs.length)
     }
 
@@ -122,7 +121,7 @@ export async function load({ params, url }) {
   } else if (path === 'keres') {
     docs = miniSearch.search(q)
     console.log('search:',docs.length)
-  } else docs = modxDocs.filter((doc: { tvs: { tag: string | any[]; }; }) => doc.tv.tags?.length).slice(0, 18 * 5) */
+  } else docs = allDocs.filter((doc: { tvs: { tag: string | any[]; }; }) => doc.tv.tags?.length).slice(0, 18 * 5) */
 
   /* if (!doc && !docs.length) {
     doc = {'path': '/'}

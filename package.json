@@ -54,6 +54,7 @@
 		"dotenv": "^16.4.5",
 		"drizzle-orm": "^0.33.0",
 		"firebase": "^11.2.0",
+		"firebase-admin": "^13.4.0",
 		"jquery": "^3.7.1",
 		"minisearch": "^7.1.1",
 		"mysql2": "^3.11.3"

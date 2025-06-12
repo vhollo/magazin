@@ -1,9 +1,7 @@
 <script context="module">
-  import { PUBLIC_BASE_URL } from '$env/static/public'
   import { nav2 } from '$lib/nav2.js'
   import { signOut/* , onAuthStateChanged */ } from 'firebase/auth'
   import { firebaseAuth } from '$lib/firebase'
-  // import { authUser } from '$lib/authStore'
 </script>
 
 <script>
