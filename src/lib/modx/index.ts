@@ -256,13 +256,15 @@ const _relFields = doc => {
 
 
 
+
+
 /*  */
 /* modxSiteContent and Firebase docs */
 /*  */
 
 
 
-let modxSiteContent: object[], modxSiteHirek: object[], tmplvarContentvalues: object[]
+let modxSiteContent: object[], modxSiteHirek: object[], tmplvarContentvalues: object[], allDocs: object[]
 
 /* Firebase read */
 const docsRef = db.collection('docs');
@@ -271,10 +273,11 @@ const snapshot = await docsRef.get();
   console.log(doc.data().editedon);
 }); */
 // convert snapshot to allDocs
-const allDocs = []//snapshot.docs.map(doc => doc.data());
-const latestEditDate = 0// allDocs.reduce((max, doc) => doc.editedon > max ? doc.editedon : max, 0)
+allDocs = allDocs || snapshot.docs.map(doc => doc.data()).reverse();
+// console.log('allDocs',allDocs[0])
+const latestEditDate = allDocs.reduce((max, doc) => doc.editedon > max ? doc.editedon : max, 0)
 console.log('allDocs',allDocs.length)
-// console.log('latestEditDate',latestEditDate)
+console.log('latestEditDate',latestEditDate)
 
 modxSiteContent = /*modxSiteContent ||*/ await modxdb.select().from(modx_site_content).orderBy(desc(modx_site_content.publishedon)).where(
   and(
@@ -345,16 +348,11 @@ fbWrite.forEach(doc => {
   }
 })
 export {allDocs}
-
 //export const allDocs = [...allDocs, ...modxSiteContent.filter(doc => doc.tv.tags.length && (doc.content.length || doc.introtext.length)).map(doc => _docFields(doc))]// && !doc.isfolder && doc.path !== doc.alias)
 
-// const modxIds = allDocs.map(doc => doc.id);
-// console.log(modxIds.slice(0, 15))
-
-//const fbWrite: object[] = []//allDocs//.slice(-15)
-
 // Write fbWrite into Firestore's collection 'docs'
-/* fbWrite.forEach(async doc => {
-  const res = await db.collection('docs').doc(doc.id.toString()).set(doc);
+fbWrite.forEach(async doc => {
+  // const res = await db.collection('docs').doc(doc.id.toString()).set(doc);
+  const res = await db.collection('docs').doc(String(doc.id).padStart(4, '0')).set(doc);
   // console.log(doc.id)
-}) */
+})
