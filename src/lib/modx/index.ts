@@ -265,15 +265,14 @@ const _relFields = doc => {
 
 
 let modxSiteContent: object[], modxSiteHirek: object[], tmplvarContentvalues: object[], allDocs: object[]
+let cachedSnapshot: any = null
 
 /* Firebase read */
 const docsRef = db.collection('docs');
-const snapshot = await docsRef.get();
-/* snapshot.forEach(doc => {
-  console.log(doc.data().editedon);
-}); */
-// convert snapshot to allDocs
-allDocs = allDocs || snapshot.docs.map(doc => doc.data()).reverse();
+if (!cachedSnapshot) console.log('NOcachedSnapshot',new Date().toISOString())
+const snapshot = cachedSnapshot || await docsRef.get();
+cachedSnapshot = snapshot; // cache the snapshot
+allDocs = snapshot.docs.map(doc => doc.data()).reverse(); // cache the allDocs
 // console.log('allDocs',allDocs[0])
 const latestEditDate = allDocs.reduce((max, doc) => doc.editedon > max ? doc.editedon : max, 0)
 console.log('allDocs',allDocs.length)
@@ -314,7 +313,7 @@ modxSiteHirek = /*modxSiteHirek ||*/ await modxdb.select().from(modx_site_conten
 tmplvarContentvalues = /*tmplvarContentvalues ||*/ await modxdb.select().from(modx_site_tmplvar_contentvalues)
 
 console.log('modxSiteContent',modxSiteContent.length)
-console.log('modxSiteHirek',modxSiteHirek.length)
+//console.log('modxSiteHirek',modxSiteHirek.length)
 modxSiteContent.push(...modxSiteHirek)
 
 export const modxSzerzok = await modxdb.select().from(modx_site_htmlsnippets).where(eq (modx_site_htmlsnippets.category, 24))
