@@ -11,8 +11,8 @@ const conf = await getSiteConf();
 // let conf = JSON.parse(JSON.stringify(c))
 
 const miniSearch = new MiniSearch({
-  fields: ['longtitle', 'description', 'introtext', 'content'], // fields to index for full-text search
-  storeFields: ['longtitle', 'path', 'description', 'introtext', 'content', 'tvs', 'img'], // fields to return with search results
+  fields: ['longtitle', 'description', 'ellipsis', 'content'], // fields to index for full-text search
+  storeFields: ['longtitle', 'path', 'description', 'ellipsis', 'content', 'tv', 'img', 'video', 'table'], // fields to return with search results
 })
 miniSearch.addAll(allDocs)
 
@@ -99,8 +99,9 @@ export async function load({ params, url }) {
       break
     case path === 'keres': /// search results
       doc = {'path': 'keres' , 'title': `Keresés: "${q}"` }
-      docs = miniSearch.search(q)
+      docs = q ? miniSearch.search(q) : []
       console.log('search:',docs.length)
+      // console.log(docs[1])
       break
     default: /// page path
       doc = allDocs.find(d => d.path == path) || {}

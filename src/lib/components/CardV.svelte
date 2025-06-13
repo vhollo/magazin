@@ -44,7 +44,7 @@
       <a class="btn btn-sm btn-outline" href={card.buttons[btn]}>{btn}</a>
       {/each}
       {/if}
-      {#each card.tv.tags as tag}
+      {#each card.tv?.tags || [] as tag}
         <!--<a class="badge badge-outline badge-sm" href={tag}>{tag}</a>-->
         <small class="badge badge-outline badge-sm">{tag}</small>
       {/each}

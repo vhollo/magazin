@@ -1,5 +1,7 @@
 <script lang="ts">
 import { goto } from '$app/navigation';
+import Search from '$lib/components/Search.svelte'
+import Nav2 from '$lib/components/Nav2.svelte'
 
 import { signInWithEmailAndPassword, setPersistence, browserLocalPersistence } from 'firebase/auth';
 import { firebaseAuth } from '$lib/firebase';
@@ -40,14 +42,14 @@ const login = () => {
 		<input
 			type="email"
 			placeholder="Email"
-			class="h-8 px-2 border border-primary rounded-md"
+			class=""
 			required
 			bind:value={email}
 		/>
 		<input
 			type="password"
 			placeholder="Password"
-			class="h-8 px-2 border border-primary rounded-md"
+			class=""
 			required
 			bind:value={password}
 		/>
@@ -57,4 +59,6 @@ const login = () => {
 	{#if success === false}
 		<div class="p-4 bg-error text-error-content text-center">Hiba történt. Kérlek, próbáld újra.</div>
 	{/if}
+	<Search/>
+	<Nav2 actual='login'/>
 </main>
