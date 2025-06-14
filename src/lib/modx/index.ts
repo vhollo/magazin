@@ -370,7 +370,7 @@ export {allDocs} // TODO: filter out docs without ellipsis
 
 // Write fbWrite into Firestore's collection 'docs'
 if (building) modxSiteContent.forEach(async doc => {
-  const res = await db.collection('docs').doc(String(doc.id).padStart(4, '0')).set(doc);
+  const res = await db.collection('docs').doc(String(doc.id).padStart(4, '0')).set(_docFields(doc));
 })
 
 if ((dev || building) && modxSiteContent.length) writeData(allDocs)
