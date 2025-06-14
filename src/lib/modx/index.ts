@@ -264,16 +264,28 @@ const _relFields = doc => {
 
 
 
-let modxSiteContent: object[], modxSiteHirek: object[], tmplvarContentvalues: object[], allDocs: object[]
-let cachedSnapshot: any = null
+import { /* browser,  */building/* , dev, version */ } from '$app/environment';
+import fs from 'fs';
+import path from 'path';
+async function writeData(data: object[]) {
+  const outputPath = path.resolve(process.cwd(), 'static', 'data.json');
+  fs.writeFileSync(outputPath, JSON.stringify(data, null, 2));
+  console.log(`Adatok sikeresen mentve: ${outputPath}`);
+}
 
-/* Firebase read */
-const docsRef = db.collection('docs');
-if (!cachedSnapshot) console.log('NOcachedSnapshot',new Date().toISOString())
-const snapshot = cachedSnapshot || await docsRef.get();
-cachedSnapshot = snapshot; // cache the snapshot
-allDocs = snapshot.docs.map(doc => doc.data()).reverse(); // cache the allDocs
-// console.log('allDocs',allDocs[0])
+
+
+let modxSiteContent: object[], modxSiteHirek: object[], tmplvarContentvalues: object[], allDocs: object[]
+
+if (building) {
+  /* Firebase read */
+  const docsRef = db.collection('docs');
+  const snapshot = await docsRef.get();
+  allDocs = snapshot.docs.map(doc => doc.data()).reverse() || [];
+} else {
+  const data = fs.readFileSync(path.resolve(process.cwd(), 'static', 'data.json'), 'utf8');
+  allDocs = JSON.parse(data) || [];
+}
 const latestEditDate = allDocs.reduce((max, doc) => doc.editedon > max ? doc.editedon : max, 0)
 console.log('allDocs',allDocs.length)
 console.log('latestEditDate',latestEditDate)
@@ -350,8 +362,8 @@ export {allDocs}
 //export const allDocs = [...allDocs, ...modxSiteContent.filter(doc => doc.tv.tags.length && (doc.content.length || doc.introtext.length)).map(doc => _docFields(doc))]// && !doc.isfolder && doc.path !== doc.alias)
 
 // Write fbWrite into Firestore's collection 'docs'
-fbWrite.forEach(async doc => {
-  // const res = await db.collection('docs').doc(doc.id.toString()).set(doc);
+if (building) fbWrite.forEach(async doc => {
   const res = await db.collection('docs').doc(String(doc.id).padStart(4, '0')).set(doc);
-  // console.log(doc.id)
 })
+
+if (building) if (fbWrite.length) writeData(allDocs)
