@@ -76,7 +76,19 @@
   // $: console.log(doc.title, matchingSubcat)
 </script>
 
-<svelte:head><title>{docstitle} &bull; Diabetes</title></svelte:head>
+<svelte:head>
+  <title>{docstitle} &bull; Diabetes</title>
+  <meta name="description" content={doc.ellipsis}/>
+  <meta name="keywords" content={doc.tv.tags.join(', ')}/>
+  <meta name="author" content={doc.tv.szerzo.join(', ')}/>
+  <meta name="og:image" content={doc.tv.ogi}/>
+  <meta name="og:title" content={doc.longtitle || doc.title}/>
+  <meta name="og:description" content={doc.description || "diabetes.hu"}/>
+  <meta name="og:url" content={doc.url}/>
+  <meta name="og:site_name" content="Diabetes"/>
+  <meta name="og:type" content="article"/>
+  <meta name="og:locale" content="hu_HU"/>
+</svelte:head>
 <!-- <svelte:window bind:this={win}/> -->
 
 {#if doc.id}
