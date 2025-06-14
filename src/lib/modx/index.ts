@@ -168,7 +168,7 @@ const _findRelated = (doc) => {
   if (doc.related) {
     return doc
   }
-  let dc = doc.isfolder && doc.tv.tags.length && modxSiteContent.filter(d => d.parent == doc.id) || []
+  let dc = doc.isfolder && doc.tv.tags.length && allDocs.filter(d => d.parent == doc.id) || []
   // let ids = dc.map(d1 => d1.id)
   if (doc.content != '') {
     dc.forEach((d2, i) => d2.related = [_relFields(doc), ...dc.filter(d3 => d3.id != dc[i].id).map(d => _relFields(d))])
@@ -255,23 +255,23 @@ const _relFields = doc => {
 }
 
 
-
-
-
-/*  */
-/* modxSiteContent and Firebase docs */
-/*  */
-
-
-
 import { /* browser,  */building/* , dev, version */ } from '$app/environment';
 import fs from 'fs';
 import path from 'path';
 async function writeData(data: object[]) {
   const outputPath = path.resolve(process.cwd(), 'static', 'data.json');
   fs.writeFileSync(outputPath, JSON.stringify(data, null, 2));
-  console.log(`Adatok sikeresen mentve: ${outputPath}`);
+  console.log(`Adat sikeresen mentve: ${data.length}`);
 }
+
+
+
+
+
+
+/*  */
+/* modxSiteContent and Firebase docs */
+/*  */
 
 
 
@@ -283,12 +283,17 @@ if (building) {
   const snapshot = await docsRef.get();
   allDocs = snapshot.docs.map(doc => doc.data()).reverse() || [];
 } else {
-  const data = fs.readFileSync(path.resolve(process.cwd(), 'static', 'data.json'), 'utf8');
-  allDocs = JSON.parse(data) || [];
+  try {
+    const data = fs.readFileSync(path.resolve(process.cwd(), 'static', 'data.json'), 'utf8');
+    allDocs = JSON.parse(data) || [];
+  } catch (error) {
+    console.log('No data.json found, initializing with empty array');
+    allDocs = [];
+  }
 }
 const latestEditDate = allDocs.reduce((max, doc) => doc.editedon > max ? doc.editedon : max, 0)
 console.log('allDocs',allDocs.length)
-console.log('latestEditDate',latestEditDate)
+// console.log('latestEditDate',latestEditDate)
 
 modxSiteContent = /*modxSiteContent ||*/ await modxdb.select().from(modx_site_content).orderBy(desc(modx_site_content.publishedon)).where(
   and(
@@ -339,18 +344,13 @@ for (let doc of modxSiteContent) {
   doc = _nagyito(doc)
   doc = _alapjav(doc)
   doc = _ellipsis(doc)
-  // doc = _docFields(doc)
-}
-// console.log(modxSiteContent.find(d => d.id == 1045))
-for (let doc of modxSiteContent) {
-  doc = _findRelated(doc)
+  doc = _docFields(doc)
 }
 
-const fbWrite: object[] = modxSiteContent.filter(doc => doc.tv.tags.length && doc.ellipsis.length).map(doc => _docFields(doc))
+const fbWrite: object[] = modxSiteContent.filter(doc => doc.tv.tags.length && doc.ellipsis.length)//.map(doc => _docFields(doc))
 
 // allDocs = all modxSiteContent merged into allDocs and overwrite docs with identical ids
 fbWrite.forEach(doc => {
-  
   const idx = allDocs.findIndex(d => d.id == doc.id)
   if (idx > -1) {
     allDocs[idx] = doc
@@ -358,6 +358,11 @@ fbWrite.forEach(doc => {
     allDocs.push(doc)
   }
 })
+
+for (let doc of allDocs) {
+  if (!doc.related) doc = _findRelated(doc)
+}
+
 export {allDocs}
 //export const allDocs = [...allDocs, ...modxSiteContent.filter(doc => doc.tv.tags.length && (doc.content.length || doc.introtext.length)).map(doc => _docFields(doc))]// && !doc.isfolder && doc.path !== doc.alias)
 
@@ -366,4 +371,4 @@ if (building) fbWrite.forEach(async doc => {
   const res = await db.collection('docs').doc(String(doc.id).padStart(4, '0')).set(doc);
 })
 
-if (building) if (fbWrite.length) writeData(allDocs)
+if (building && fbWrite.length) writeData(allDocs)
