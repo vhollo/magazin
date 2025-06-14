@@ -11,7 +11,8 @@
       {#if card.path}
         <a href={`/${card.path}`}>
           <!--<img style={`object-fit: ${card.ext == 'png' ? 'contain' : 'cover'}; object-position: ${card.pos || '50% 40%'}`} src={`${PUBLIC_BASE_URL}${card.img}`} alt="" width="928" height="548"/>-->
-          <img  
+          <img
+            fetchpriority={card.fetchpriority || 'auto'}
             style={`object-fit: ${card.ext == 'png' ? 'contain' : 'cover'}; object-position: ${card.pos || '50% 40%'}`} 
             src={`${card.img}`} 
             alt="" width="928" height="548"

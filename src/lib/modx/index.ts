@@ -165,10 +165,10 @@ const _pathById = (match: string, p1: number) => {
 }
 
 const _findRelated = (doc) => {
-  if (doc.related) {
+  /* if (doc.related) {
     return doc
-  }
-  let dc = doc.isfolder && doc.tv.tags.length && allDocs.filter(d => d.parent == doc.id) || []
+  } */
+  let dc = allDocs.filter(d => d.parent == doc.id) || []
   // let ids = dc.map(d1 => d1.id)
   if (doc.content != '') {
     dc.forEach((d2, i) => d2.related = [_relFields(doc), ...dc.filter(d3 => d3.id != dc[i].id).map(d => _relFields(d))])
@@ -236,6 +236,7 @@ const _docFields = doc => {
     video: doc.video,
     publishedon: doc.publishedon,
     editedon: doc.editedon,
+    isfolder: doc.isfolder,
   }
 }
 
@@ -255,7 +256,7 @@ const _relFields = doc => {
 }
 
 
-import { /* browser,  */building/* , dev, version */ } from '$app/environment';
+import { /* browser,  */building , dev/*, version */ } from '$app/environment';
 import fs from 'fs';
 import path from 'path';
 async function writeData(data: object[]) {
@@ -344,31 +345,32 @@ for (let doc of modxSiteContent) {
   doc = _nagyito(doc)
   doc = _alapjav(doc)
   doc = _ellipsis(doc)
-  doc = _docFields(doc)
+  // doc = _docFields(doc)
 }
 
-const fbWrite: object[] = modxSiteContent.filter(doc => doc.tv.tags.length && doc.ellipsis.length)//.map(doc => _docFields(doc))
+// const fbWrite: object[] = modxSiteContent.filter(doc => doc.tv.tags.length /* && doc.ellipsis.length */)//.map(doc => _docFields(doc))
 
 // allDocs = all modxSiteContent merged into allDocs and overwrite docs with identical ids
-fbWrite.forEach(doc => {
+modxSiteContent.forEach(doc => {
   const idx = allDocs.findIndex(d => d.id == doc.id)
   if (idx > -1) {
-    allDocs[idx] = doc
+    allDocs[idx] = _docFields(doc)
   } else {
-    allDocs.push(doc)
+    allDocs.push(_docFields(doc))
   }
 })
 
 for (let doc of allDocs) {
-  if (!doc.related) doc = _findRelated(doc)
+  if (doc.isfolder /* && doc.tv.tags.length */) doc = _findRelated(doc)
 }
 
-export {allDocs}
+export {allDocs} // TODO: filter out docs without ellipsis
+
 //export const allDocs = [...allDocs, ...modxSiteContent.filter(doc => doc.tv.tags.length && (doc.content.length || doc.introtext.length)).map(doc => _docFields(doc))]// && !doc.isfolder && doc.path !== doc.alias)
 
 // Write fbWrite into Firestore's collection 'docs'
-if (building) fbWrite.forEach(async doc => {
+if (building) modxSiteContent.forEach(async doc => {
   const res = await db.collection('docs').doc(String(doc.id).padStart(4, '0')).set(doc);
 })
 
-if (building && fbWrite.length) writeData(allDocs)
+if ((dev || building) && modxSiteContent.length) writeData(allDocs)

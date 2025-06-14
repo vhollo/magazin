@@ -53,8 +53,8 @@
 
   $: pubdate = doc && new Date(doc.publishedon * 1000).toLocaleDateString('hu-HU')
   $: editdate = doc && new Date(doc.editedon * 1000).toLocaleDateString('hu-HU')
-  $: console.log('editedon',doc.editedon)
-  $: console.log('publishedon',doc.publishedon)
+  // $: console.log('editedon',doc.editedon)
+  // $: console.log('publishedon',doc.publishedon)
 
   $: if (doc.path == 'keres') {
       copycats['keres'] = {}
@@ -73,7 +73,7 @@
   });
 
   $: docstitle = doc.title || matchingSubcat
-
+  // $: console.log(doc.title, matchingSubcat)
 </script>
 
 <svelte:head><title>{docstitle} &bull; Diabetes</title></svelte:head>
