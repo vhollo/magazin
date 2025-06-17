@@ -1,7 +1,7 @@
 ///** @type {import('./$types').PageServerLoad} */
+export const prerender = true
 import MiniSearch from 'minisearch'
 
-// export const prerender = true
 import { /* modxDoc,  */allDocs } from '$lib/modx'
 console.log('docs:',allDocs.length)
 
