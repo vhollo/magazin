@@ -1,4 +1,6 @@
 ///** @type {import('./$types').PageServerLoad} */
+import { browser } from '$app/environment'
+
 export const prerender = true
 import MiniSearch from 'minisearch'
 
@@ -81,7 +83,7 @@ const docsByTags = (tags:Array<string>, id:string | undefined) => {
 
 export async function load({ params, url }) {
 
-  const q = url.searchParams.get('q')
+  const q = browser && url.searchParams.get('q') || ''
   const path:string = params.path || '/'
   let doc, docs:Docs = {}//, query, page = 0
 
