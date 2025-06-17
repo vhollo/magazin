@@ -25,12 +25,12 @@
 
 <svelte:head>
   <title>{conf?.sitename || 'Diabetes'}</title>
-  <meta name="description" content={conf?.description || 'www.diabetes.hu &bull; Az Alapítvány a Cukorbetegekért betegtájékoztató lapja. Kiadja a Tudomány Kiadó Kft. Kiadványtervezés és web-fejlesztés: Portmed Kft.'} />
-  <meta name="keywords" content={conf?.tags.join(', ')}/>
+  <meta name="description" content={conf?.description || 'www.diabetes.hu &bull; Az Alapítvány a Cukorbetegekért betegtájékoztató lapja. Kiadja a Tudomány Kiadó Kft.'} />
+  <meta name="keywords" content={conf?.tags.join(', ') || 'diabetes, diabétesz, cukorbetegség, vese, keton, Tudomány Kiadó Kft'}/>
   <meta name="author" content="diabetes.hu"/>
   <meta name="og:image" content={conf?.ogi}/>
   <meta name="og:title" content={conf?.sitename || 'Diabetes'}/>
-  <meta name="og:description" content={conf?.description || 'www.diabetes.hu &bull; Az Alapítvány a Cukorbetegekért betegtájékoztató lapja. Kiadja a Tudomány Kiadó Kft. Kiadványtervezés és web-fejlesztés: Portmed Kft.'} />
+  <meta name="og:description" content={conf?.description || 'www.diabetes.hu &bull; Az Alapítvány a Cukorbetegekért betegtájékoztató lapja. Kiadja a Tudomány Kiadó Kft.'} />
   <meta name="og:url" content="https://diabetes.hu"/>
   <meta name="og:site_name" content="Diabetes"/>
   <meta name="og:type" content="website"/>

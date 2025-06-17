@@ -4,7 +4,7 @@
 }
 @plugin "@tailwindcss/typography";
 @plugin "daisyui" {
-  themes: dim --default;
+  themes: night --default;
   logs: false;
 }
 
