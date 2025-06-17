@@ -155,7 +155,10 @@
 /* fieldset {
 	display: contents;
 } */
-fieldset:not(:valid) ~ fieldset/* , fieldset:last-of-type */ { display: none; }
+fieldset:not(:valid) ~ fieldset/* , fieldset:last-of-type */ { 
+  /* display: none;  */
+  visibility: hidden;
+}
 
 legend {
 	/* font-size: var(--midsize); */
