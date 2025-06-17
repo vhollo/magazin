@@ -78,7 +78,7 @@
   <article class="prose mt-16 mb-8 w-full mx-auto flex-none">
     <h1 class="text-center">DiabKVÍZ</h1>
   </article>
-  <form action="#thankyou" name={`kviz_${kviz._id}`} data-netlify="true" class="max-w-screen-md mx-auto py-12" bind:this={form}>
+  <form method="POST" action="#thankyou" name={`kviz_${kviz._id}`} data-netlify="true" class="max-w-screen-md mx-auto py-12" bind:this={form}>
     <!-- <input type="hidden" name="form-name" value={`kviz_${kviz._id}`}> -->
     {#each kviz.questions as q, i}
       <fieldset class="grid grid-cols-2 gap-4">
