@@ -374,5 +374,5 @@ if (building) modxSiteContent.forEach(async doc => {
   const res = await db.collection('docs').doc(String(doc.id).padStart(4, '0')).set(_docFields(doc));
 })
 
-console.log('BUILDING?', building, modxSiteContent.length)
-if ((dev || building) && modxSiteContent.length) writeData(allDocs)
+// console.log('BUILDING?', building, modxSiteContent.length)
+if (dev || building) writeData(allDocs)
