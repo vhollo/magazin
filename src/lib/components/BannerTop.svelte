@@ -58,7 +58,7 @@ export let banners: Banner[] = []
 
   {#if banners[count].video}
     <video 
-      class=""
+      preload="none"
       transition:fade={{ duration: 500 }}
       poster={banners[count].image || ''}
       width="960" 
@@ -72,9 +72,9 @@ export let banners: Banner[] = []
 
   {#if banners[count].image}
     <img 
+      loading="lazy"
       in:fade={{ duration: 500 }}
       out:fade={{ duration: 500 }}
-      class="mx-auto w--full" 
       width="960" 
       height={banners[count].height || '200'} 
       src={banners[count].image} 
