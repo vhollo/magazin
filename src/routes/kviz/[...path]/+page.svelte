@@ -1,33 +1,8 @@
-<script>
-  function _scroll(id) {
-    document.getElementById(id).scrollIntoView({behavior: 'smooth'})
-  }
+<script lang="ts">
+  import type { PageProps } from './$types';
 
-  const handleSubmit = event => {
-    event.preventDefault();
-
-    const myForm = event.target;
-    const formData = new FormData(myForm);
-
-    fetch("/", {
-      method: "POST",
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: new URLSearchParams(formData).toString()
-    })
-      .then(() => console.log("Form successfully submitted"))
-      .catch(error => alert(error));
-  };
-
-  // document.querySelector("form").addEventListener("submit", handleSubmit);
-
-
-  let score = {
-    1: 0
-  }
-
-  // translate to Hungarian
-  const kviz = {
-    _id: 1,
+  const kviz = $state({
+    _id: '1',
     questions: [
       {
         q: 'Jelöld meg a Magyar városokat!',
@@ -69,54 +44,82 @@
         ]
       } */
     ]
+  })
+  let score = $state({
+    '1': 0
+  })
+  console.log(score)
+
+
+  function _scroll(id: string) {
+    document.getElementById(id).scrollIntoView({behavior: 'smooth'})
   }
 
-  let form = null
+  /* const handleSubmit = event => {
+    event.preventDefault();
+
+    const myForm = event.target;
+    const formData = new FormData(myForm);
+
+    fetch("/", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: new URLSearchParams(formData).toString()
+    })
+      .then(() => console.log("Form successfully submitted"))
+      .catch(error => alert(error));
+  } */
+
+  let myForm: HTMLFormElement | null = null
 	let c = kviz.questions.length
 	let startnew = true
-	function _score(s,i) {
+
+	function _score(s: string,i: number) {
 		startnew = false
 		if (!Boolean(i)) score[kviz._id] = 0 // if first
 		if (String(s).startsWith('x') || String(s).startsWith('*')) {
-			score[kviz._id] = parseFloat(score[kviz._id]) * parseFloat(s.substr(1), 10)
+			score[kviz._id] = parseFloat(score[kviz._id]) * parseInt(s.substring(1))
 		} else {
-			score[kviz._id] += parseFloat(s, 10)
+			score[kviz._id] += parseInt(s)
 		}
 		//score[kviz._id].set(isNaN(parseInt(s,10)) && s.startsWith('x') ? score[kviz._id] * parseFloat(s.substr(1),10) : score[kviz._id] + parseInt(s,10))
     if (i == c-1) {
-      form.submit()
+      myForm.submit()
     }
 	}
   function _mscore(s,i) {
     kviz.questions[i].score += s
   }
+
+  let { data, form }: PageProps = $props()
 </script>
 
 <main class="bg-base-300">
   <article class="prose mt-16 mb-8 w-full mx-auto flex-none">
     <h1 class="text-center">DiabKVÍZ</h1>
   </article>
-  <form method="POST" action="#thankyou" name={`kviz_${kviz._id}`} data-netlify="true" class="max-w-screen-md mx-auto py-12" bind:this={form} on:submit={handleSubmit}>
+
+  <form method="POST" action="#thankyou" name={`kviz_${kviz._id}`} data-netlify="true" class="max-w-screen-md mx-auto py-12" bind:this={myForm}>
     <input type="hidden" name="form-name" value={`kviz_${kviz._id}`}>
     {#each kviz.questions as q, i}
       <fieldset class="grid grid-cols-2 gap-4">
         <legend id="q-{i}" class="pt-8">{q.q}</legend>
         {#if q.multi}
           {#each q.multi as ch, j}
-            <input type="checkbox" id="answer-{i}-{j}" on:change={() => {_mscore(ch.score,i)/* ; _scroll(`q-${i}`) */}}>
+            <input type="checkbox" id="answer-{i}-{j}" onchange={() => {_mscore(ch.score,i)/* ; _scroll(`q-${i}`) */}}>
             <label for="answer-{i}-{j}" class="bg-base-100 border-1 border-secondary p-2">
               {ch.choice}
               <aside><small>({ch.score} pont)</small></aside>
             </label>
           {/each}
-          <input id="tovabb-{i}" name="answer-{i}" value={q.score} type="checkbox" required on:change={() => {_score(q.score,i); _scroll(`q-${i}`)}}>
+          <input id="tovabb-{i}" name="answer-{i}" value={q.score} type="checkbox" required onchange={() => {_score(q.score,i); _scroll(`q-${i}`)}}>
           <label for="tovabb-{i}" class="bg-outline border-1 border-primary text-center col--span-full mx--auto p-2">
             <span>Tovább</span>
             <aside class="multi">{q.score} pont</aside>
           </label>
         {:else}
           {#each q.choices as ch, j}
-            <input type="radio" name="answer-{i}" id="answer-{i}-{j}" required on:change={() => {_score(ch.score,i); _scroll(`q-${i}`)}} value={ch.score}>
+            <input type="radio" name="answer-{i}" id="answer-{i}-{j}" required onchange={() => {_score(ch.score,i); _scroll(`q-${i}`)}} value={ch.score}>
             <label for="answer-{i}-{j}" class="bg-base-100 border-1 border-secondary p-2">
               {ch.choice}
               <aside class="choice"><small>{ch.answer} ({ch.score} pont)</small></aside>
@@ -138,9 +141,10 @@
         <aside>helyes! <br><small>(x0 points)</small></aside>
       </label>
     </fieldset> -->
+
     <fieldset id="thankyou">
-      <legend class="pt-8">Köszönjük, hogy kitöltötted a kvízt!</legend>
-      <input type="submit" value="Küldés" class="btn !btn-primary text-center block mx-auto p-2">
+      <legend class="pt-8">Köszönjük, hogy kitöltötted a kvízt! (form?.success)</legend>
+      <!-- <input type="submit" value="Küldés" class="btn !btn-primary text-center block mx-auto p-2"> -->
     </fieldset>
   </form>
 

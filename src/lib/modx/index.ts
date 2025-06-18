@@ -260,9 +260,10 @@ import { /* browser,  */building , dev/*, version */ } from '$app/environment';
 import fs from 'fs';
 import path from 'path';
 async function writeData(data: object[]) {
+  console.log('writeData',data.length)
   const outputPath = path.resolve(process.cwd(), 'static', 'data.json');
   fs.writeFileSync(outputPath, JSON.stringify(data, null, 2));
-  console.log(`Adat sikeresen mentve: ${data.length}`);
+  console.log(`Adat sikeresen mentve: ${outputPath}`);
 }
 
 

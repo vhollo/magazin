@@ -19,7 +19,7 @@
 <!--<aside class="card card-hollow {img.align}">
   <figure class="card-body">-->
   <figure class="{img.align}">
-    <img src={img.file} alt="{img.desc}" class:zoom={!!img.zoom} data-theme="nord" style="background-color: {img.bg}" >
+    <img src={img.file} alt="{img.desc}" class:zoom={!!img.zoom} data-theme="dark" style="background-color: {img.bg}" >
     {#if img.desc}
     <figcaption class="">{@html img.desc}</figcaption>
     {/if}
