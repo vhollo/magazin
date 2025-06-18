@@ -34,6 +34,7 @@
           <!--<img style={`object-fit: ${card.ext == 'png' ? 'contain' : 'cover'}; object-position: ${card.pos || '50% 40%'}`} src={`${PUBLIC_BASE_URL}${card.img}`} alt="" width="928" height="548"/>-->
           <img 
             fetchpriority={card.fetchpriority || 'auto'}
+            loading={card.fetchpriority == 'high' ? 'eager' : 'lazy'}
             style={`object-fit: ${card.img.ext == 'png' ? 'contain' : 'cover'}; object-position: ${card.img.pos || '50% 40%'}`} 
             src={`${card.img.src}`} 
             alt="" width="928" height="548"
@@ -42,6 +43,7 @@
       {:else}
         <img 
           fetchpriority={card.fetchpriority || 'auto'}
+          loading={card.fetchpriority == 'high' ? 'eager' : 'lazy'}
           style={`object-fit: ${card.img.ext == 'png' ? 'contain' : 'cover'}; object-position: ${card.img.pos || '50% 40%'}`} 
           src={`${card.img.src}`} 
           alt="" width="928" height="548"
