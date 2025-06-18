@@ -1,7 +1,25 @@
 <script>
   function _scroll(id) {
-  document.getElementById(id).scrollIntoView({behavior: 'smooth'})
-}
+    document.getElementById(id).scrollIntoView({behavior: 'smooth'})
+  }
+
+  const handleSubmit = event => {
+    event.preventDefault();
+
+    const myForm = event.target;
+    const formData = new FormData(myForm);
+
+    fetch("/", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: new URLSearchParams(formData).toString()
+    })
+      .then(() => console.log("Form successfully submitted"))
+      .catch(error => alert(error));
+  };
+
+  // document.querySelector("form").addEventListener("submit", handleSubmit);
+
 
   let score = {
     1: 0
@@ -78,14 +96,14 @@
   <article class="prose mt-16 mb-8 w-full mx-auto flex-none">
     <h1 class="text-center">DiabKVÍZ</h1>
   </article>
-  <form method="POST" action="#thankyou" name={`kviz_${kviz._id}`} data-netlify="true" class="max-w-screen-md mx-auto py-12" bind:this={form}>
-    <!-- <input type="hidden" name="form-name" value={`kviz_${kviz._id}`}> -->
+  <form method="POST" action="#thankyou" name={`kviz_${kviz._id}`} data-netlify="true" class="max-w-screen-md mx-auto py-12" bind:this={form} on:submit={handleSubmit}>
+    <input type="hidden" name="form-name" value={`kviz_${kviz._id}`}>
     {#each kviz.questions as q, i}
       <fieldset class="grid grid-cols-2 gap-4">
         <legend id="q-{i}" class="pt-8">{q.q}</legend>
         {#if q.multi}
           {#each q.multi as ch, j}
-            <input type="checkbox" id="answer-{i}-{j}" on:change={() => {_mscore(ch.score,i)/* ; _scroll(`q-${i}`) */}} value={ch.score}>
+            <input type="checkbox" id="answer-{i}-{j}" on:change={() => {_mscore(ch.score,i)/* ; _scroll(`q-${i}`) */}}>
             <label for="answer-{i}-{j}" class="bg-base-100 border-1 border-secondary p-2">
               {ch.choice}
               <aside><small>({ch.score} pont)</small></aside>
