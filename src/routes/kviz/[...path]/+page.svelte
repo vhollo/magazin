@@ -1,21 +1,26 @@
 <script lang="ts">
   import type { PageProps } from './$types';
+  import { enhance } from '$app/forms';
+  import { invalidateAll } from '$app/navigation'; // Optional: for refreshing data after submission
+  import type { SubmitFunction } from '@sveltejs/kit';
+
 
   const kviz = $state({
     _id: '1',
     questions: [
       {
         q: 'Jelöld meg a Magyar városokat!',
+        d: 'A helyes válaszok 2 pontot érnek, a helytelen válaszok –1 pontot érnek.',
         multi: [
-          { choice: 'Miskolc', score: 1 },
+          { choice: 'Miskolc', score: 2 },
           { choice: 'München', score: -1 },
-          { choice: 'Győr', score: 1 },
+          { choice: 'Győr', score: 2 },
           { choice: 'Berlin', score: -1 },
-          { choice: 'Szombathely', score: 1 },
+          { choice: 'Szombathely', score: 2 },
           { choice: 'Hamburg', score: -1 },
-          { choice: 'Kecskemét', score: 1 },
+          { choice: 'Kecskemét', score: 2 },
           { choice: 'Köln', score: -1 },
-          { choice: 'Nyíregyháza', score: 1 },
+          { choice: 'Nyíregyháza', score: 2 },
         ],
         score: 0
       },
@@ -70,6 +75,7 @@
       .catch(error => alert(error));
   } */
 
+  let submitBtn: HTMLInputElement | null = null;
   let myForm: HTMLFormElement | null = null
 	let c = kviz.questions.length
 	let startnew = true
@@ -84,7 +90,7 @@
 		}
 		//score[kviz._id].set(isNaN(parseInt(s,10)) && s.startsWith('x') ? score[kviz._id] * parseFloat(s.substr(1),10) : score[kviz._id] + parseInt(s,10))
     if (i == c-1) {
-      myForm.submit()
+      submitBtn.click();
     }
 	}
   function _mscore(s,i) {
@@ -92,6 +98,43 @@
   }
 
   let { data, form }: PageProps = $props()
+  console.log(form)
+
+  const handleSubmitEnhance: SubmitFunction = ({ formData, formElement, action, controller, submitter, cancel }) => {
+    // `form` is the form element
+    // `data` is the FormData object
+    // `action` is the URL the form is posting to
+    // `cancel()` can be called to prevent the submission if needed (e.g., for client-side validation)
+
+    // Example: Show a loading indicator
+    console.log('Form submission started...');
+
+    return async ({ result, update }) => {
+      // `result` is the ActionResult object from your server-side action
+      // `update()` is a function to apply the default SvelteKit update behavior
+
+      if (result.type === 'success') {
+        console.log('Form submitted successfully!', result.data);
+        // Optionally invalidate data to refresh the page's data
+        await invalidateAll();
+      } else if (result.type === 'error') {
+        console.error('Form submission error:', result.error);
+      } else if (result.type === 'redirect') {
+        // If your action returns a redirect, SvelteKit will handle it.
+        // You can add custom logic here if needed, but usually, default is fine.
+        console.log('Redirecting...');
+      }
+
+      // Apply the default SvelteKit update behavior. This will update the `form` prop
+      // with the response from the action and invalidate the page data by default
+      // (unless you configure `invalidateAll: false` in `use:enhance` or `applyAction`).
+      // update();
+
+      // Example: Hide loading indicator
+      console.log('Form submission finished.');
+    }
+  }
+
 </script>
 
 <main class="bg-base-300">
@@ -99,11 +142,15 @@
     <h1 class="text-center">DiabKVÍZ</h1>
   </article>
 
-  <form method="POST" action="#thankyou" name={`kviz_${kviz._id}`} data-netlify="true" class="max-w-screen-md mx-auto py-12" bind:this={myForm}>
+  <form method="POST" action="#thankyou" use:enhance={handleSubmitEnhance} name={`kviz_${kviz._id}`} data-netlify="true" class="max-w-screen-md mx-auto py-12" bind:this={myForm}>
     <input type="hidden" name="form-name" value={`kviz_${kviz._id}`}>
     {#each kviz.questions as q, i}
       <fieldset class="grid grid-cols-2 gap-4">
-        <legend id="q-{i}" class="pt-8">{q.q}</legend>
+        <legend id="q-{i}" class="uppercase pt-8">{q.q}
+          <!-- {#if q.d} -->
+            <span class="block normal-case text-sm">{q.d}</span>
+          <!-- {/if} -->
+        </legend>
         {#if q.multi}
           {#each q.multi as ch, j}
             <input type="checkbox" id="answer-{i}-{j}" onchange={() => {_mscore(ch.score,i)/* ; _scroll(`q-${i}`) */}}>
@@ -143,8 +190,8 @@
     </fieldset> -->
 
     <fieldset id="thankyou">
-      <legend class="pt-8">Köszönjük, hogy kitöltötted a kvízt! (form?.success)</legend>
-      <!-- <input type="submit" value="Küldés" class="btn !btn-primary text-center block mx-auto p-2"> -->
+      <legend class="uppercase pt-8">Köszönjük, hogy kitöltötted a kvízt! {form?.success}</legend>
+      <input id="submit" type="submit" value="Küldés" class="hidden" bind:this={submitBtn}>
     </fieldset>
   </form>
 
@@ -184,7 +231,7 @@ fieldset:not(:valid) ~ fieldset/* , fieldset:last-of-type */ {
 
 legend {
 	/* font-size: var(--midsize); */
-	text-transform: uppercase;
+	/* text-transform: uppercase; */
 	grid-column: 1 / 3;
 	/* margin-top: var(--spacer); */
 }

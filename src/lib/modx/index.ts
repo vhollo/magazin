@@ -180,7 +180,7 @@ const _findRelated = (doc) => {
 }
 
 const _alapjav = doc => {
-  doc.content = doc.content.replaceAll('http:', 'https:').replaceAll('&#160;', '&nbsp;').replaceAll('> </', '></').replaceAll('<p></p>\r\n', '').replaceAll('<p></p>', '').replaceAll(' m2', ' m<sup>2</sup>').replaceAll('A1c', 'A<sub>1c</sub>').replaceAll('®', '<sup>®</sup>').replaceAll('rel="external"', 'rel="noopener" target="_blank"').replaceAll('"/assets', `"${PUBLIC_BASE_URL}assets`).replaceAll('"assets', `"${PUBLIC_BASE_URL}assets`)
+  doc.content = doc.content.replaceAll('http:', 'https:').replaceAll('&#160;', '&nbsp;').replaceAll('> </', '></').replaceAll('<p></p>\r\n', '').replaceAll('<p></p>', '').replaceAll('&nbsp;m2', '&nbsp;m²').replaceAll(' m2', '&nbsp;m²').replaceAll('/m2', '/m²').replaceAll('A1c', 'A<sub>1c</sub>').replaceAll('®', '<sup>®</sup>').replaceAll('rel="external"', 'rel="noopener" target="_blank"').replaceAll('"/assets', `"${PUBLIC_BASE_URL}assets`).replaceAll('"assets', `"${PUBLIC_BASE_URL}assets`)
   
   const modxlink = /https:\/\/www.diabetes.hu\/?\[\~(\d*)\~\]/g
   doc.content = doc.content.replaceAll(modxlink, _pathById)
