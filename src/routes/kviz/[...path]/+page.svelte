@@ -101,44 +101,9 @@
   // console.log(form)
 
   const handleSubmitEnhance: SubmitFunction = async ({ formData, formElement, action, controller, submitter, cancel }) => {
-    const data: Record<string, FormDataEntryValue> = {};
-
     // add score[kviz._id] to formData
     formData.set('score', score[kviz._id].toString())
-
-    /* fetch("/", {
-      method: "POST",
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: new URLSearchParams(formData).toString()
-    })
-      .then(() => console.log("Form successfully submitted"))
-      .catch(error => alert(error)); */
-
-
-    /* return async ({ result, update }) => {
-      // `result` is the ActionResult object from your server-side action
-      // `update()` is a function to apply the default SvelteKit update behavior
-
-      if (result.type === 'success') {
-        console.log('Form submitted successfully!', result.data);
-        // Optionally invalidate data to refresh the page's data
-        await invalidateAll();
-      } else if (result.type === 'error') {
-        console.error('Form submission error:', result.error);
-      } else if (result.type === 'redirect') {
-        // If your action returns a redirect, SvelteKit will handle it.
-        // You can add custom logic here if needed, but usually, default is fine.
-        console.log('Redirecting...');
-      }
-
-      // Apply the default SvelteKit update behavior. This will update the `form` prop
-      // with the response from the action and invalidate the page data by default
-      // (unless you configure `invalidateAll: false` in `use:enhance` or `applyAction`).
-      // update();
-
-      // Example: Hide loading indicator
-      console.log('Form submission finished.');
-    } */
+    console.log('Form submission started...', Object.fromEntries(formData));
   }
 
 </script>

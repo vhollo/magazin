@@ -1,6 +1,6 @@
-/* export const prerender = false
+export const prerender = false
 
-import type { Actions } from './$types';
+/* import type { Actions } from './$types';
 
 export const actions = {
 	default: async ({request}) => {
@@ -21,3 +21,17 @@ export const actions = {
 	}
 	
 } satisfies Actions; */
+
+import type { Actions } from './$types';
+
+export const actions: Actions = {
+	default: async ({ request }) => {
+		const formData = await request.formData();
+		
+		// Log the form data for debugging
+		console.log('Form submitted:', Object.fromEntries(formData));
+		
+		// Return success - Netlify will handle the form processing
+		return { success: true };
+	}
+};
