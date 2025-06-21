@@ -53,7 +53,7 @@
   let score = $state({
     '1': 0
   })
-  console.log(score)
+  // console.log(score)
 
 
   function _scroll(id: string) {
@@ -98,16 +98,22 @@
   }
 
   let { data, form }: PageProps = $props()
-  console.log(form)
+  // console.log(form)
 
-  const handleSubmitEnhance: SubmitFunction = ({ formData, formElement, action, controller, submitter, cancel }) => {
-    // `form` is the form element
-    // `data` is the FormData object
-    // `action` is the URL the form is posting to
-    // `cancel()` can be called to prevent the submission if needed (e.g., for client-side validation)
+  const handleSubmitEnhance: SubmitFunction = async ({ formData, formElement, action, controller, submitter, cancel }) => {
+    const data: Record<string, FormDataEntryValue> = {};
 
-    // Example: Show a loading indicator
-    console.log('Form submission started...');
+    // add score[kviz._id] to formData
+    formData.set('score', score[kviz._id].toString())
+
+    /* fetch("/", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: new URLSearchParams(formData).toString()
+    })
+      .then(() => console.log("Form successfully submitted"))
+      .catch(error => alert(error)); */
+
 
     return async ({ result, update }) => {
       // `result` is the ActionResult object from your server-side action
