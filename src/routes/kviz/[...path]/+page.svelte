@@ -115,7 +115,7 @@
       .catch(error => alert(error)); */
 
 
-    return async ({ result, update }) => {
+    /* return async ({ result, update }) => {
       // `result` is the ActionResult object from your server-side action
       // `update()` is a function to apply the default SvelteKit update behavior
 
@@ -138,7 +138,7 @@
 
       // Example: Hide loading indicator
       console.log('Form submission finished.');
-    }
+    } */
   }
 
 </script>
