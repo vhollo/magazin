@@ -122,7 +122,7 @@
   </article>
 
   <form method="POST" action="#thankyou" use:enhance={handleSubmitEnhance} name="kviz" data-netlify="true" class="max-w-screen-md mx-auto py-12" bind:this={myForm}>
-    <input type="hidden" name="form-name" value={`kviz_${kviz._id}`}>
+    <input type="hidden" name="form-name" value="kviz">
     {#each kviz.questions as q, i}
       <fieldset class="grid grid-cols-2 gap-4">
         <legend id="q-{i}" class="uppercase pt-8">{q.q}
