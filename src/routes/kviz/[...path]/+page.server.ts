@@ -35,3 +35,10 @@ export const actions: Actions = {
 		return { success: true };
 	}
 };
+
+  // in the load function get the path from the url
+  export const load = async ({ url }) => {
+    const path = url.pathname.split('/').pop()
+    console.log(path)
+    return { path }
+  }

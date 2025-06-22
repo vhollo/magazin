@@ -4,9 +4,14 @@
   import { invalidateAll } from '$app/navigation'; // Optional: for refreshing data after submission
   import type { SubmitFunction } from '@sveltejs/kit';
 
+  const { data, form }: PageProps = $props()
+  console.log(data, form)
 
-  const kviz = $state({
+  const path = data.path
+
+  const kvizzes = $state([{
     _id: '1',
+    title: 'DiabKVÍZ 1',
     questions: [
       {
         q: 'Jelöld meg a Magyar városokat!',
@@ -49,11 +54,16 @@
         ]
       } */
     ]
-  })
+  }])
+  const kviz = kvizzes.find(k => k._id === path)
+  if (!kviz) {
+    throw redirect(302, '/kviz')
+  }
+
   let score = $state({
     '1': 0
   })
-  // console.log(score)
+  // console.log($state.snapshot(score))
 
 
   function _scroll(id: string) {
@@ -97,9 +107,6 @@
     kviz.questions[i].score += s
   }
 
-  let { data, form }: PageProps = $props()
-  // console.log(form)
-
   const handleSubmitEnhance: SubmitFunction = async ({ formData, formElement, action, controller, submitter, cancel }) => {
     // add score[kviz._id] to formData
     formData.set('score', score[kviz._id].toString())
@@ -111,9 +118,10 @@
 <main class="bg-base-300">
   <article class="prose mt-16 mb-8 w-full mx-auto flex-none">
     <h1 class="text-center">DiabKVÍZ</h1>
+    <h2 class="text-center">{kviz.title}</h2>
   </article>
 
-  <form method="POST" action="#thankyou" use:enhance={handleSubmitEnhance} name={`kviz_${kviz._id}`} data-netlify="true" class="max-w-screen-md mx-auto py-12" bind:this={myForm}>
+  <form method="POST" action="#thankyou" use:enhance={handleSubmitEnhance} name="kviz" data-netlify="true" class="max-w-screen-md mx-auto py-12" bind:this={myForm}>
     <input type="hidden" name="form-name" value={`kviz_${kviz._id}`}>
     {#each kviz.questions as q, i}
       <fieldset class="grid grid-cols-2 gap-4">
