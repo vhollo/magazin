@@ -284,17 +284,19 @@ if (building) {
   const docsRef = db.collection('docs');
   const snapshot = await docsRef.get();
   allDocs = snapshot.docs.map(doc => doc.data()).reverse() || [];
+  console.log('FBallDocs',allDocs.length)
 } else {
   try {
     const data = fs.readFileSync(path.resolve(process.cwd(), 'static', 'data.json'), 'utf8');
     allDocs = JSON.parse(data) || [];
+    console.log('FILEallDocs',allDocs.length)
   } catch (error) {
     console.log('No data.json found, initializing with empty array');
     allDocs = [];
   }
 }
 const latestEditDate = allDocs.reduce((max, doc) => doc.editedon > max ? doc.editedon : max, 0)
-console.log('allDocs',allDocs.length)
+// console.log('allDocs',allDocs.length)
 // console.log('latestEditDate',latestEditDate)
 
 modxSiteContent = /*modxSiteContent ||*/ await modxdb.select().from(modx_site_content).orderBy(desc(modx_site_content.publishedon)).where(

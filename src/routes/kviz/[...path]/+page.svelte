@@ -3,9 +3,12 @@
   import { enhance } from '$app/forms';
   import { invalidateAll } from '$app/navigation'; // Optional: for refreshing data after submission
   import type { SubmitFunction } from '@sveltejs/kit';
+  import Cards from '$lib/components/Cards.svelte';
+  import { redirect } from '@sveltejs/kit';
 
   const { data, form }: PageProps = $props()
-  console.log(data, form)
+  let docs = []//data.docs
+  let conf = data.conf
 
   const path = data.path
 
@@ -15,7 +18,7 @@
     questions: [
       {
         q: 'Jelöld meg a Magyar városokat!',
-        d: 'A helyes válaszok 2 pontot érnek, a helytelen válaszok –1 pontot érnek.',
+        d: 'A helyes válaszok 2 pontot érnek, a helytelen válaszokért 1 pont levonás jár.',
         multi: [
           { choice: 'Miskolc', score: 2 },
           { choice: 'München', score: -1 },
@@ -100,10 +103,12 @@
 		}
 		//score[kviz._id].set(isNaN(parseInt(s,10)) && s.startsWith('x') ? score[kviz._id] * parseFloat(s.substr(1),10) : score[kviz._id] + parseInt(s,10))
     if (i == c-1) {
+      console.log({form})
       submitBtn.click();
     }
 	}
   function _mscore(s,i) {
+    console.log(s)
     kviz.questions[i].score += s
   }
 
@@ -111,6 +116,9 @@
     // add score[kviz._id] to formData
     formData.set('score', score[kviz._id].toString())
     console.log('Form submission started...', Object.fromEntries(formData));
+    return () => {
+      cancel()
+    }
   }
 
 </script>
@@ -123,6 +131,7 @@
 
   <form method="POST" action="#thankyou" use:enhance={handleSubmitEnhance} name="kviz" data-netlify="true" class="max-w-screen-md mx-auto py-12" bind:this={myForm}>
     <input type="hidden" name="form-name" value="kviz">
+    <input type="hidden" name="kviz-id" value={kviz._id}>
     {#each kviz.questions as q, i}
       <fieldset class="grid grid-cols-2 gap-4">
         <legend id="q-{i}" class="uppercase pt-8">{q.q}
@@ -132,7 +141,7 @@
         </legend>
         {#if q.multi}
           {#each q.multi as ch, j}
-            <input type="checkbox" id="answer-{i}-{j}" onchange={() => {_mscore(ch.score,i)/* ; _scroll(`q-${i}`) */}}>
+            <input type="checkbox" id="answer-{i}-{j}" onchange={ (e) => {_mscore((e.target as HTMLInputElement).checked ? ch.score : -(ch.score), i) } }>
             <label for="answer-{i}-{j}" class="bg-base-100 border-1 border-secondary p-2">
               {ch.choice}
               <aside><small>({ch.score} pont)</small></aside>
@@ -170,24 +179,32 @@
 
     <fieldset id="thankyou">
       <legend class="uppercase pt-8">Köszönjük, hogy kitöltötted a kvízt! {form?.success}</legend>
-      <input id="submit" type="submit" value="Küldés" class="hidden" bind:this={submitBtn}>
+      <input id="submit" type="submit" value="Küldés" class:hidden={true} bind:this={submitBtn}>
     </fieldset>
   </form>
 
 </main>
 
-  <footer class="bg-base-200 text-base-content py-2">
-    <p class="text-center">Pontszám: <mark>{score[kviz._id] || 0}</mark>
-      <!-- {#if score[kviz._id] && startnew}
-      (de a jelenlegi pontszám lenullázódik)
-      {/if} -->
-    </p>
-  
-    <!-- {#if score_sum >= $threshold}
-    <br>
-    Now you've proven your authoriter values. You are allowed to <a href="/dics/{$bckid}"><button>RATE</button></a> your favorite DiCs.
+<footer class="bg-base-200 text-base-content py-2">
+  <p class="text-center">Pontszám: <mark>{score[kviz._id] || 0}</mark>
+    <!-- {#if score[kviz._id] && startnew}
+    (de a jelenlegi pontszám lenullázódik)
     {/if} -->
-  </footer>
+  </p>
+
+  <!-- {#if score_sum >= $threshold}
+  <br>
+  Now you've proven your authoriter values. You are allowed to <a href="/dics/{$bckid}"><button>RATE</button></a> your favorite DiCs.
+  {/if} -->
+</footer>
+
+{#if docs.length}
+  <article class="prose mt-16 mb-8 mx-auto w-full">
+    <h1 class="text-center">Kapcsolódó cikkek</h1>
+  </article>
+  <Cards cards={docs} banners={conf.side_banners} ads_distance={conf.ads_distance}/>
+{/if}
+
 
 <style>
 

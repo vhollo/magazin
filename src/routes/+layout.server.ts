@@ -84,7 +84,9 @@ const docsByTags = (tags:Array<string>, id:string | undefined) => {
 export async function load({ params, url }) {
 
   const q = browser && url.searchParams.get('q') || ''
-  const path:string = params.path || '/'
+  const path:string = (params.path?.split('/')[0] || '/')//.replace(/.html/, '').replace('index', '/')
+  const urlpath:string = url.pathname.split('/')[1]
+  console.log({urlpath}, {path})
   let doc, docs:Docs = {}//, query, page = 0
 
   switch (true) {
@@ -94,10 +96,17 @@ export async function load({ params, url }) {
       docs = allDocs.slice(0, 18 * 4)
       break
     case !!queries[path]: /// a collection
-      //console.log('queries:',queries[path])
+      console.log('collection:',queries[path])
       // query = queries[path] ///?
       doc = {'path': path}
       docs = docsByTags(queries[path], '0')
+      //console.log('path:',path)
+      break
+    case !!queries[urlpath]: /// a kviz
+      console.log('kviz:',queries[urlpath])
+      // query = queries[path] ///?
+      doc = {'path': path}
+      docs = docsByTags(queries[urlpath], '0')
       //console.log('path:',path)
       break
     case path === 'keres': /// search results
