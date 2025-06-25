@@ -114,11 +114,11 @@
 
   const handleSubmitEnhance: SubmitFunction = async ({ formData, formElement, action, controller, submitter, cancel }) => {
     // add score[kviz._id] to formData
-    formData.set('score', score[kviz._id].toString())
+    // formData.set('score', score[kviz._id].toString())
     console.log('Form submission started...', Object.fromEntries(formData));
-    return () => {
-      cancel()
-    }
+    // return () => {
+    //   cancel()
+    // }
   }
 
 </script>
