@@ -108,17 +108,39 @@
     }
 	}
   function _mscore(s,i) {
-    console.log(s)
+    // console.log(s)
     kviz.questions[i].score += s
   }
 
+  /* const encode = (data) => {
+    return Object.keys(data)
+      .map(key => encodeURIComponent(key) + "=" + encodeURIComponent(data[key]))
+      .join("&");
+  } */
   const handleSubmitEnhance: SubmitFunction = async ({ formData, formElement, action, controller, submitter, cancel }) => {
+		// `formElement` is this `<form>` element
+		// `formData` is its `FormData` object that's about to be submitted
+		// `action` is the URL to which the form is posted
+		// calling `cancel()` will prevent the submission
+		// `submitter` is the `HTMLElement` that caused the form to be submitted
+
     // add score[kviz._id] to formData
     // formData.set('score', score[kviz._id].toString())
     console.log('Form submission started...', Object.fromEntries(formData));
-    // return () => {
-    //   cancel()
-    // }
+    return () => {
+      cancel()
+    }
+
+    /*
+    fetch("", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: encode({ "form-name": formData.get('form-name'), ...formData })
+    })
+      .then(() => alert("Success!"))
+      .catch(error => alert(error));
+    */
+    // e.preventDefault();
   }
 
 </script>
@@ -129,12 +151,12 @@
     <h2 class="text-center">{kviz.title}</h2>
   </article>
 
-  <form method="POST" action="#thankyou" use:enhance={handleSubmitEnhance} name="kviz" data-netlify="true" class="max-w-screen-md mx-auto py-12" bind:this={myForm}>
+  <form method="POST" action="#thankyou" use:enhance={handleSubmitEnhance} name="kviz" class="max-w-screen-md mx-auto py-12" bind:this={myForm}>
     <input type="hidden" name="form-name" value="kviz">
     <input type="hidden" name="kviz-id" value={kviz._id}>
     {#each kviz.questions as q, i}
       <fieldset class="grid grid-cols-2 gap-4">
-        <legend id="q-{i}" class="uppercase pt-8">{q.q}
+        <legend id="q-{i}" class="uppercase pt-8 pb-2">{q.q}
           <!-- {#if q.d} -->
             <span class="block normal-case text-sm">{q.d}</span>
           <!-- {/if} -->
@@ -178,7 +200,8 @@
     </fieldset> -->
 
     <fieldset id="thankyou">
-      <legend class="uppercase pt-8">Köszönjük, hogy kitöltötted a kvízt! {form?.success}</legend>
+      <legend class="uppercase pt-8 pb-2">Köszönjük, hogy kitöltötted a kvízt! {form?.success}</legend>
+      <input type="hidden" name="score" value={score[kviz._id]}>
       <input id="submit" type="submit" value="Küldés" class:hidden={true} bind:this={submitBtn}>
     </fieldset>
   </form>

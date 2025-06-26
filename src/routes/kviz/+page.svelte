@@ -1,4 +1,4 @@
-<form method="POST" action="/kviz" data-netlify="true" name="kviz" class="hidden">
+<form data-netlify="true" name="kviz" class="hidden">
   <input name="kviz-id">
   <input name="score">
 </form>

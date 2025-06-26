@@ -9,6 +9,7 @@
 }
 
 :root {
+  /* --color-primary: #3f87c4; */
   font-size: clamp(1rem, 0.5vw + 0.85rem, 1.25rem); /* 16px@480px --> 22px@1200px, */ /* https://fluidtypography.com/ */
   --imgratio: 16 / 9;
   --lh: 1.75; /* fallback line-height */
