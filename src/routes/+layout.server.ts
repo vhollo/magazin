@@ -86,7 +86,7 @@ export async function load({ params, url }) {
   const q = browser && url.searchParams.get('q') || ''
   const path:string = (params.path?.split('/')[0] || '/')//.replace(/.html/, '').replace('index', '/')
   const urlpath:string = url.pathname.split('/')[1]
-  console.log({urlpath}, {path})
+  // console.log({urlpath}, {path})
   let doc, docs:Docs = {}//, query, page = 0
 
   switch (true) {

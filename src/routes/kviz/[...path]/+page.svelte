@@ -6,11 +6,11 @@
   import Cards from '$lib/components/Cards.svelte';
   import { redirect } from '@sveltejs/kit';
 
-  const { data, form }: PageProps = $props()
-  let docs = []//data.docs
+  const { data/* , form */ }: PageProps = $props()
+  // let docs = []//data.docs
   let conf = data.conf
 
-  const path = data.path
+  const path = data.doc.path
 
   const kvizzes = $state([{
     _id: '1',
@@ -103,8 +103,8 @@
 		}
 		//score[kviz._id].set(isNaN(parseInt(s,10)) && s.startsWith('x') ? score[kviz._id] * parseFloat(s.substr(1),10) : score[kviz._id] + parseInt(s,10))
     if (i == c-1) {
-      console.log({form})
-      submitBtn.click();
+      console.log({myForm})
+      // submitBtn.click();
     }
 	}
   function _mscore(s,i) {
@@ -151,7 +151,7 @@
     <h2 class="text-center">{kviz.title}</h2>
   </article>
 
-  <form method="POST" action="#thankyou" use:enhance={handleSubmitEnhance} name="kviz" class="max-w-screen-md mx-auto py-12" bind:this={myForm}>
+  <form method="POST" action="/kviz" use:enhance={handleSubmitEnhance} name="kviz" class="max-w-screen-md mx-auto py-12" bind:this={myForm}>
     <input type="hidden" name="form-name" value="kviz">
     <input type="hidden" name="kviz-id" value={kviz._id}>
     {#each kviz.questions as q, i}
@@ -200,9 +200,9 @@
     </fieldset> -->
 
     <fieldset id="thankyou">
-      <legend class="uppercase pt-8 pb-2">Köszönjük, hogy kitöltötted a kvízt! {form?.success}</legend>
+      <legend class="uppercase pt-8 pb-2">Köszönjük, hogy kitöltötted a kvízt!</legend>
       <input type="hidden" name="score" value={score[kviz._id]}>
-      <input id="submit" type="submit" value="Küldés" class:hidden={true} bind:this={submitBtn}>
+      <input id="submit" type="submit" value="Küldés" class:hidden={false} bind:this={submitBtn}>
     </fieldset>
   </form>
 
@@ -221,12 +221,12 @@
   {/if} -->
 </footer>
 
-{#if docs.length}
+<!-- {#if docs.length}
   <article class="prose mt-16 mb-8 mx-auto w-full">
     <h1 class="text-center">Kapcsolódó cikkek</h1>
   </article>
   <Cards cards={docs} banners={conf.side_banners} ads_distance={conf.ads_distance}/>
-{/if}
+{/if} -->
 
 
 <style>

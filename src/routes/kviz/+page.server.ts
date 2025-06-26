@@ -37,8 +37,8 @@ export const actions: Actions = {
 };
 
   // in the load function get the path from the url
-  export const load = async ({ params }) => {
+  /* export const load = async ({ params }) => {
     const path = params.path
     console.log({path})
     return { path }
-  }
+  } */
