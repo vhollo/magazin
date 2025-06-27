@@ -2,7 +2,7 @@
 
 import { PUBLIC_BASE_URL } from '$env/static/public';
 // console.log('PUBLIC_BASE_URL',PUBLIC_BASE_URL)
-import { eq, ne, desc, and, or, gt, lt, gte, lte, asc } from "drizzle-orm"
+import { eq, ne, desc, and, or, gt/* , lt, gte, lte, asc */ } from "drizzle-orm"
 //import { json, text, error } from '@sveltejs/kit'
 //import { mysqlTable, serial, text } from 'drizzle-orm/mysql-core'
 import { modx_site_content } from '../../../drizzle/schema'
@@ -299,20 +299,24 @@ const latestEditDate = allDocs.reduce((max, doc) => doc.editedon > max ? doc.edi
 // console.log('allDocs',allDocs.length)
 // console.log('latestEditDate',latestEditDate)
 
-modxSiteContent = /*modxSiteContent ||*/ await modxdb.select().from(modx_site_content).orderBy(desc(modx_site_content.publishedon)).where(
-  and(
-    gt(modx_site_content.editedon, latestEditDate),
-    eq(modx_site_content.deleted, 0),
-    eq(modx_site_content.published, 1),
-    eq(modx_site_content.type, 'document'),
-    ne(modx_site_content.parent, 1),
-    or(
-      // eq(modx_site_content.template, 7), //magazine
-      eq(modx_site_content.template, 9), //junior
-      eq(modx_site_content.template, 13) //szemlelet
-    )
-  ),
-)
+try {
+  modxSiteContent = /*modxSiteContent ||*/ await modxdb.select().from(modx_site_content).orderBy(desc(modx_site_content.publishedon)).where(
+    and(
+      gt(modx_site_content.editedon, latestEditDate),
+      eq(modx_site_content.deleted, 0),
+      eq(modx_site_content.published, 1),
+      eq(modx_site_content.type, 'document'),
+      ne(modx_site_content.parent, 1),
+      or(
+        // eq(modx_site_content.template, 7), //magazine
+        eq(modx_site_content.template, 9), //junior
+        eq(modx_site_content.template, 13) //szemlelet
+      )
+    ),
+  )
+} catch {
+  modxSiteContent = []
+}
 
 modxSiteHirek = /*modxSiteHirek ||*/ await modxdb.select().from(modx_site_content).orderBy(desc(modx_site_content.publishedon)).where(
   or(

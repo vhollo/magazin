@@ -96,14 +96,14 @@ export async function load({ params, url }) {
       docs = allDocs.slice(0, 18 * 4)
       break
     case !!queries[path]: /// a collection
-      console.log('collection:',queries[path])
+      // console.log('collection:',queries[path])
       // query = queries[path] ///?
       doc = {'path': path}
       docs = docsByTags(queries[path], '0')
       //console.log('path:',path)
       break
     case !!queries[urlpath]: /// a kviz
-      console.log('kviz:',queries[urlpath])
+      // console.log('kviz:',queries[urlpath])
       // query = queries[path] ///?
       doc = {'path': path}
       docs = docsByTags(queries[urlpath], '0')
