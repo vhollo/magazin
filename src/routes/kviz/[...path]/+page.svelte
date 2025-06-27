@@ -1,3 +1,6 @@
+<script module>
+  export const prerender = false
+</script>
 <script lang="ts">
   import type { PageProps } from './$types';
   import { enhance } from '$app/forms';

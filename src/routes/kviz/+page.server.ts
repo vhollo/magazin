@@ -1,4 +1,3 @@
-export const prerender = false
 
 /* import type { Actions } from './$types';
 
