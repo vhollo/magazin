@@ -6,7 +6,7 @@
   import Cards from '$lib/components/Cards.svelte';
   import { redirect } from '@sveltejs/kit';
 
-  const { data/* , form */ }: PageProps = $props()
+  const { data, form }: PageProps = $props()
   // let docs = []//data.docs
   let conf = data.conf
 
@@ -90,6 +90,28 @@
       .then(() => console.log("Form successfully submitted"))
       .catch(error => alert(error));
   } */
+  
+	import { applyAction, deserialize } from '$app/forms';
+	import type { ActionResult } from '@sveltejs/kit';
+
+	async function handleSubmit(event: SubmitEvent & { currentTarget: EventTarget & HTMLFormElement}) {
+		event.preventDefault();
+		const data = new FormData(event.currentTarget);
+
+		const response = await fetch(event.currentTarget.action, {
+			method: 'POST',
+			body: data
+		});
+
+		const result: ActionResult = deserialize(await response.text());
+
+		if (result.type === 'success') {
+			// rerun all `load` functions, following the successful update
+			await invalidateAll();
+		}
+
+		applyAction(result);
+	}
 
   let submitBtn: HTMLInputElement | null = null;
   let myForm: HTMLFormElement | null = null
@@ -115,11 +137,6 @@
     kviz.questions[i].score += s
   }
 
-  /* const encode = (data) => {
-    return Object.keys(data)
-      .map(key => encodeURIComponent(key) + "=" + encodeURIComponent(data[key]))
-      .join("&");
-  } */
   const handleSubmitEnhance: SubmitFunction = async ({ formData/* , formElement, action, controller, submitter */, cancel }) => {
 		// `formElement` is this `<form>` element
 		// `formData` is its `FormData` object that's about to be submitted
@@ -130,28 +147,9 @@
     // add score[kviz._id] to formData
     // formData.set('score', score[kviz._id].toString())
     console.log('Form submission started...', Object.fromEntries(formData));
-    fetch("", {
-      method: "POST",
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: new URLSearchParams(formData.toString())
-    })
-      .then(() => console.log("Form successfully submitted"))
-      .catch(error => alert(error));
-
     /* return () => {
       cancel()
     } */
-
-    /*
-    fetch("", {
-      method: "POST",
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: encode({ "form-name": formData.get('form-name'), ...formData })
-    })
-      .then(() => alert("Success!"))
-      .catch(error => alert(error));
-    */
-    // e.preventDefault();
   }
 
 </script>
@@ -162,7 +160,8 @@
     <h2 class="text-center">{kviz.title}</h2>
   </article>
 
-  <form method="POST" use:enhance name="kviz" class="max-w-screen-md mx-auto py-12" bind:this={myForm}><!-- ={handleSubmitEnhance} -->
+<!-- form-name=kviz&kviz-id=kviz-0&answer-0=99&score=99 -->
+  <form method="POST" name="kviz" class="max-w-screen-md mx-auto py-12" bind:this={myForm}><!-- ={handleSubmitEnhance} -->
     <input type="hidden" name="form-name" value="kviz">
     <input type="hidden" name="kviz-id" value={kviz._id}>
     {#each kviz.questions as q, i}
