@@ -1,7 +1,7 @@
-<!-- <form data-netlify="true" name="kviz" class="hidden">
+<form data-netlify="true" name="kviz" class="hidden">
   <input name="kviz-id">
   <input name="score">
-</form> -->
+</form>
 
 <p class="text-center"><a class="btn btn-outline" href="/kviz/1">Kvíz 1</a></p>
 <!-- <a href="/kviz/2">Kvíz 2</a>
