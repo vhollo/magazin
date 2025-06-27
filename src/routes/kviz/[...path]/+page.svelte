@@ -151,7 +151,7 @@
     <h2 class="text-center">{kviz.title}</h2>
   </article>
 
-  <form method="POST" action="/kviz" use:enhance={handleSubmitEnhance} name="kviz" class="max-w-screen-md mx-auto py-12" bind:this={myForm}>
+  <form method="POST" use:enhance={handleSubmitEnhance} name="kviz" class="max-w-screen-md mx-auto py-12" bind:this={myForm}>
     <input type="hidden" name="form-name" value="kviz">
     <input type="hidden" name="kviz-id" value={kviz._id}>
     {#each kviz.questions as q, i}
