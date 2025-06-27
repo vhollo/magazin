@@ -117,7 +117,7 @@
       .map(key => encodeURIComponent(key) + "=" + encodeURIComponent(data[key]))
       .join("&");
   } */
-  const handleSubmitEnhance: SubmitFunction = async ({ formData, formElement, action, controller, submitter, cancel }) => {
+  const handleSubmitEnhance: SubmitFunction = async ({ formData/* , formElement, action, controller, submitter */, cancel }) => {
 		// `formElement` is this `<form>` element
 		// `formData` is its `FormData` object that's about to be submitted
 		// `action` is the URL to which the form is posted

@@ -105,7 +105,7 @@ export async function load({ params, url }) {
     case !!queries[urlpath]: /// a kviz
       // console.log('kviz:',queries[urlpath])
       // query = queries[path] ///?
-      doc = {'path': path}
+      doc = {'path': path} // kviz id
       docs = docsByTags(queries[urlpath], '0')
       //console.log('path:',path)
       break

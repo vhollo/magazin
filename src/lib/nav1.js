@@ -1,6 +1,6 @@
 export const nav1 = {
   'Hírek': '/hirek',
-  'DiabKVÍZ': '/kviz/1',
+  'DiabKVÍZ': '/kviz',
   'Előfizetés': '/elofizetes',
   'Kapcsolat': {
     'Alapítvány a Cukorbetegekért': '/alapitvany',
