@@ -161,10 +161,10 @@
     <h2 class="text-center">{kviz.title}</h2>
   </article>
 
-<!-- form-name=kviz&kviz-id=kviz-0&answer-0=99&score=99 -->
+<!-- form-name=kviz&id=kviz-0&answer-0=99&score=99 -->
   <form method="POST" name="kviz" use:enhance={handleSubmitEnhance} class="max-w-screen-md mx-auto py-12" bind:this={myForm}><!-- ={handleSubmitEnhance} -->
     <input type="hidden" name="form-name" value="kviz">
-    <input type="hidden" name="kviz-id" value={kviz._id}>
+    <input type="hidden" name="id" value={kviz._id}>
     {#each kviz.questions as q, i}
       <fieldset class="grid grid-cols-2 gap-4">
         <legend id="q-{i}" class="uppercase pt-8 pb-2">{q.q}

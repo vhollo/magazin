@@ -35,7 +35,8 @@ export const actions: Actions = {
 		let origin = url.origin;
 		if (url.origin.includes('localhost')) origin = 'https://diabeteshu.netlify.app';
 		try {
-			const response = await fetch(`${origin}/forms.html`, {
+			// const response = await fetch(`${origin}/forms.html`, {
+			const response = await fetch(`${origin}/kviz`, {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/x-www-form-urlencoded'
