@@ -291,7 +291,7 @@ if (building) {
     allDocs = JSON.parse(data) || [];
     console.log('FILEallDocs',allDocs.length)
   } catch (error) {
-    console.log('No data.json found, initializing with empty array');
+    console.log('No data.json found, initializing with FB');
     // allDocs = [];
     /* Firebase read */
     const docsRef = db.collection('docs');

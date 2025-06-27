@@ -1,4 +1,5 @@
 <form data-netlify="true" name="kviz" class="hidden">
+  <input name="form-name" value="kviz">
   <input name="kviz-id">
   <input name="score">
 </form>

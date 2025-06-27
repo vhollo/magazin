@@ -58,7 +58,7 @@ const queries: Queries = {
   'gyogyitok': ['+személyes', '#orvosok', 'szakellátás', 'elismerés', '-kezelés', '-covid-19'],
   'sorstarsak': ['+személyes', 'elismerés', '-szakellátás', '-orvosok', '-önellenőrzés', '-kezelés', '-várandósság', '-közösség', '-edukáció', '-egyesület', '-covid-19'], 
   'hirek': ['hírek'],
-  'kviz': ['diabpont'],
+  // 'kviz': ['diabpont'],
   'all': [],
 }
 
@@ -102,13 +102,13 @@ export async function load({ params, url }) {
       docs = docsByTags(queries[path], '0')
       //console.log('path:',path)
       break
-    case !!queries[urlpath]: /// a kviz
+    /* case !!queries[urlpath]: /// a kviz
       // console.log('kviz:',queries[urlpath])
       // query = queries[path] ///?
       doc = {'path': path} // kviz id
       docs = docsByTags(queries[urlpath], '0')
       //console.log('path:',path)
-      break
+      break */
     case path === 'keres': /// search results
       doc = {'path': 'keres' , 'title': `Keresés: "${q}"` }
       docs = q ? miniSearch.search(q) : []
