@@ -100,6 +100,7 @@
 
 		const response = await fetch(event.currentTarget.action, {
 			method: 'POST',
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
 			body: data
 		});
 
@@ -128,8 +129,8 @@
 		}
 		//score[kviz._id].set(isNaN(parseInt(s,10)) && s.startsWith('x') ? score[kviz._id] * parseFloat(s.substr(1),10) : score[kviz._id] + parseInt(s,10))
     if (i == c-1) {
-      console.log({myForm})
-      // submitBtn.click();
+      submitBtn.click()
+      // myForm.submit()
     }
 	}
   function _mscore(s,i) {
@@ -145,11 +146,11 @@
 		// `submitter` is the `HTMLElement` that caused the form to be submitted
 
     // add score[kviz._id] to formData
-    // formData.set('score', score[kviz._id].toString())
+    formData.set('score', score[kviz._id].toString())
     console.log('Form submission started...', Object.fromEntries(formData));
-    /* return () => {
+    return () => {
       cancel()
-    } */
+    }
   }
 
 </script>
@@ -161,7 +162,7 @@
   </article>
 
 <!-- form-name=kviz&kviz-id=kviz-0&answer-0=99&score=99 -->
-  <form method="POST" name="kviz" class="max-w-screen-md mx-auto py-12" bind:this={myForm}><!-- ={handleSubmitEnhance} -->
+  <form method="POST" name="kviz" use:enhance={handleSubmitEnhance} class="max-w-screen-md mx-auto py-12" bind:this={myForm}><!-- ={handleSubmitEnhance} -->
     <input type="hidden" name="form-name" value="kviz">
     <input type="hidden" name="kviz-id" value={kviz._id}>
     {#each kviz.questions as q, i}
@@ -212,7 +213,8 @@
     <fieldset id="thankyou">
       <legend class="uppercase pt-8 pb-2">Köszönjük, hogy kitöltötted a kvízt!</legend>
       <input type="hidden" name="score" value={score[kviz._id]}>
-      <input id="submit" type="submit" value="Küldés" class:hidden={false} bind:this={submitBtn}>
+      <input id="submit" type="submit" value="Küldés" class:hidden={true} bind:this={submitBtn}>
+      <a href="/kviz" class="btn btn-outline">Vissza</a>
     </fieldset>
   </form>
 
