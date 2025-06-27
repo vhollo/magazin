@@ -60,7 +60,10 @@
   }])
   const kviz = kvizzes.find(k => k._id === path)
   if (!kviz) {
+    console.log('redirect 302, /kviz')
     throw redirect(302, '/kviz')
+  } else {
+    console.log('kviz page')
   }
 
   let score = $state({
@@ -127,6 +130,14 @@
     // add score[kviz._id] to formData
     // formData.set('score', score[kviz._id].toString())
     console.log('Form submission started...', Object.fromEntries(formData));
+    fetch("", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: new URLSearchParams(formData.toString())
+    })
+      .then(() => console.log("Form successfully submitted"))
+      .catch(error => alert(error));
+
     return () => {
       cancel()
     }
@@ -151,7 +162,7 @@
     <h2 class="text-center">{kviz.title}</h2>
   </article>
 
-  <form method="POST" use:enhance={handleSubmitEnhance} name="kviz" class="max-w-screen-md mx-auto py-12" bind:this={myForm}>
+  <form method="POST" use:enhance name="kviz" class="max-w-screen-md mx-auto py-12" bind:this={myForm}><!-- ={handleSubmitEnhance} -->
     <input type="hidden" name="form-name" value="kviz">
     <input type="hidden" name="kviz-id" value={kviz._id}>
     {#each kviz.questions as q, i}

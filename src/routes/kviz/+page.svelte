@@ -3,7 +3,7 @@
   <input name="score">
 </form>
 
-<p class="text-center"><a class="btn btn-outline" href="/kviz/1">Kvíz 1</a></p>
+<p class="text-center"><a class="btn btn-outline" href="/kviz/1" onclick={() => console.log('kviz btn')}>Kvíz 1</a></p>
 <!-- <a href="/kviz/2">Kvíz 2</a>
 <a href="/kviz/3">Kvíz 3</a>
 <a href="/kviz/4">Kvíz 4</a>
