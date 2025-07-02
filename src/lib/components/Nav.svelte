@@ -1,15 +1,15 @@
 <script context="module">
   import { nav1 } from '$lib/nav1.js'
   import { nav2 } from '$lib/nav2.js'
-  import { signOut/* , onAuthStateChanged */ } from 'firebase/auth'
-  import { firebaseAuth } from '$lib/firebase'
-  import { authUser } from '$lib/authStore'
   import { goto } from '$app/navigation'
   import { browser } from '$app/environment'
+  import { signInWithEmailAndPassword, setPersistence, browserLocalPersistence, createUserWithEmailAndPassword, onAuthStateChanged, signOut/* , onAuthStateChanged */ } from 'firebase/auth';
+  import { firebaseAuth, signInWithGoogle } from '$lib/firebase'
+  import { authUser } from '$lib/authStore'
 </script>
 
 <script>
-// @ts-nocheck
+  // @ts-nocheck
 
   export let actual
   let _open_nav = false, target
@@ -22,21 +22,6 @@
   //$: _open_nav = actual && false
 
   const _close_nav = () => _open_nav = false
-
-  const handleLogout = () => {
-    signOut(firebaseAuth)
-      .then(() => {
-        $authUser = undefined
-        // goto('/login');
-      })
-      .catch((error) => {
-        console.log(error);
-      })
-    _open_nav = false
-  }
-
-  let el
-  // if (browser) window.location.hash = ''
 
   const _scrollIntoView = async (event) => {
     // console.log(window.location.hash)
@@ -57,6 +42,69 @@
       el.scrollIntoView({block: 'center', behavior: 'smooth', offset: { top: -64 } })
     }
   }
+
+  // let el
+  // if (browser) window.location.hash = ''
+
+
+
+  const handleLogout = () => {
+    signOut(firebaseAuth)
+      .then(() => {
+        $authUser = undefined
+        // goto('/login');
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+    _open_nav = false
+  }
+
+  let email, password
+
+  let success = undefined;
+
+  const login = (e) => {
+    setPersistence(firebaseAuth, browserLocalPersistence).then(() => {
+      signInWithEmailAndPassword(firebaseAuth, email, password).then((userCredential) => {
+        $authUser = {
+          uid: userCredential.user.uid,
+          email: userCredential.user.email || ''
+        }
+        success = true
+        // goto('/');
+      }).catch((error) => {
+        const errorCode = error.code
+        const errorMessage = error.message
+        console.log(errorCode, errorMessage)
+
+        success = false
+
+        if (errorCode == 'auth/invalid-credential') register()
+      })
+    })
+  }
+  const register = () => {
+  createUserWithEmailAndPassword(firebaseAuth, email, password)
+    .then((userCredentials) => {
+      console.log(userCredentials)
+      // goto('/login');
+      login()
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.log(errorCode, errorMessage);
+
+      success = false;
+      mod_login.showModal();
+    });
+  }
+  const google = () => {
+    mod_login.close()
+    signInWithGoogle()
+  }
+
 </script>
 
 <nav class="sticky top-0 z-40 bg-neutral navbar max-md:block justify-center py-0">
@@ -75,7 +123,7 @@
     </svg>
   </label> -->
   <div class="sticky top-0 max-md:mx-auto bg-neutral z-50">
-    <a class="block p-2" href="/" on:click={_close_nav}>
+    <a class="block p-2" href="/" onclick={() => _close_nav}>
       <img class="h-12" src={'/assets/logo-diabetes2-1.svg'} alt="diabetes.hu" height="60">
     </a>
   </div>
@@ -96,8 +144,8 @@
   <input id="mobile-nav" type="checkbox" bind:checked={_open_nav}/>
   <ul class="ml-auto max-md:mx-auto max-md:max-w-sm z-40">
     <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
-    <li tabindex="0" class="drop-col text-nowrap"><!-- md:inline-block on:blur={_uncheck} -->
-      <a href="#search" on:click={_scrollIntoView} class="max-md:flex justify-between items-center max-md:p-4 md:p-2 rounded-sm md:menu-title !text-neutral-content text-nowrap font-medium"><span class="md:hidden">Keresés&nbsp;</span><svg class="inline h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <li tabindex="0" class="drop-col text-nowrap"><!-- md:inline-block onblur={_uncheck} -->
+      <a href="#search" onclick={() => _scrollIntoView} class="max-md:flex justify-between items-center max-md:p-4 md:p-2 rounded-sm md:menu-title !text-neutral-content text-nowrap font-medium"><span class="md:hidden">Keresés&nbsp;</span><svg class="inline h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
         <g
           stroke-linejoin="round"
           stroke-linecap="round"
@@ -112,15 +160,15 @@
     </li>
     {#each Object.keys(nav1) as cat}
       <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
-      <li tabindex="0" class="drop-col collapse-arrow dropdown-hover dropdown-end text-nowrap"><!-- md:inline-block on:blur={_uncheck} -->
+      <li tabindex="0" class="drop-col collapse-arrow dropdown-hover dropdown-end text-nowrap"><!-- md:inline-block onblur={_uncheck} -->
         {#if typeof nav1[cat] === 'string'}
-          <a href="{nav1[cat]}" class="max-md:p-4 md:p-2 rounded-sm md:menu-title !text-neutral-content text-nowrap font-medium" class:menu-active={`/${actual}` == nav1[cat]} on:click={_close_nav}>{cat}</a>
+          <a href="{nav1[cat]}" class="max-md:p-4 md:p-2 rounded-sm md:menu-title !text-neutral-content text-nowrap font-medium" class:menu-active={`/${actual}` == nav1[cat]} onclick={() => _close_nav}>{cat}</a>
         {:else}
-          <input type="radio" name="collapse" class="md:hidden" on:change={_scrollIntoView}/>
+          <input type="radio" name="collapse" class="md:hidden" onchange={ () => _scrollIntoView() }/>
           <div tabindex="0" role="button" class="max-md:collapse-title md:menu-title !text-neutral-content text-nowrap font-medium cursor-default">{cat}</div>
           <ul tabindex="0" class="menu max-md:w-full flex-nowrap max-md:collapse-content dropdown-content md:rounded-md text-neutral-content p-0 md:p-2">
             {#each Object.keys(nav1[cat]) as subcat}
-              <li class=""><a class="max-md:p-4 md:p-2 text-nowrap rounded-sm-focus" class:menu-active={`/${actual}` == nav1[cat][subcat]} href={nav1[cat][subcat]} on:click={_close_nav}>{subcat}</a></li>
+              <li class=""><a class="max-md:p-4 md:p-2 text-nowrap rounded-sm-focus" class:menu-active={`/${actual}` == nav1[cat][subcat]} href={nav1[cat][subcat]} onclick={() => _close_nav}>{subcat}</a></li>
             {/each}
           </ul>
         {/if}
@@ -128,36 +176,110 @@
     {/each}
     {#each Object.keys(nav2) as cat}
       <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
-      <li tabindex="0" class="collapse collapse-arrow md:hidden text-nowrap"><!-- md:inline-block on:blur={_uncheck} -->
+      <li tabindex="0" class="collapse collapse-arrow md:hidden text-nowrap"><!-- md:inline-block onblur={_uncheck} -->
         {#if typeof nav2[cat] === 'string'}
           <a href="{nav2[cat]}" class="max-md:p-4 md:p-2 rounded-sm md:menu-title !text-neutral-content text-nowrap font-medium">{cat}</a>
         {:else}
-          <input type="radio" name="collapse" class="md:hidden" on:change={_scrollIntoView}/>
+          <input type="radio" name="collapse" class="md:hidden" onchange={ () => _scrollIntoView() }/>
           <div tabindex="0" role="button" class="max-md:collapse-title md:menu-title !text-neutral-content text-nowrap font-medium cursor-default">{cat}</div>
           <ul tabindex="0" class="menu w-full flex-nowrap max-md:collapse-content dropdown-content md:rounded-md text-neutral-content md:p-2 !py-0">
             {#each Object.keys(nav2[cat]) as subcat}
-              <li class=""><a class="max-md:p-4 md:p-2 text-nowrap rounded-sm-focus" class:menu-active={`/${actual}` == nav2[cat][subcat]} href={nav2[cat][subcat]} on:click={_close_nav}>{subcat}</a></li>
+              <li class=""><a class="max-md:p-4 md:p-2 text-nowrap rounded-sm-focus" class:menu-active={`/${actual}` == nav2[cat][subcat]} href={nav2[cat][subcat]} onclick={() => _close_nav}>{subcat}</a></li>
             {/each}
           </ul>
         {/if}
       </li>
     {/each}
     <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
-    <li tabindex="0" class="drop-col collapse-arrow dropdown-hover dropdown-end text-nowrap"><!-- md:inline-block on:blur={_uncheck} -->
-      <input type="radio" name="collapse" class="md:hidden" on:change={_scrollIntoView}/>
-      <div tabindex="0" role="button" class="max-md:collapse-title md:menu-title !text-neutral-content opacity-50 cursor-default">⍜</div>
+    <li tabindex="0" class="drop-col collapse-arrow dropdown-hover dropdown-end text-nowrap"><!-- md:inline-block onblur={_uncheck} -->
+      <input type="radio" name="collapse" class="md:hidden" onchange={ () => _scrollIntoView() }/>
+      <div tabindex="0" role="button" class="max-md:collapse-title md:menu-title !text-neutral-content opacity-50 cursor-default btn btn-sm btn-circle" class:bg-accent={$authUser} class:opacity-100={$authUser}>⍜</div>
       <ul tabindex="0" class="menu max-md:w-full flex-nowrap max-md:collapse-content dropdown-content md:rounded-md text-neutral-content md:p-2">
         {#if $authUser}
           <!-- <li class=""><a class="max-md:p-4 md:p-2 text-nowrap rounded-sm" href="/admin/ads">Ads</a></li> -->
-          <li class=""><button class="max-md:p-4 md:p-2 text-nowrap rounded-sm" on:click={handleLogout} on:keydown={handleLogout}>Kijelentkezés</button></li>
+          <li class=""><button class="max-md:p-4 md:p-2 text-nowrap rounded-sm border-none" onclick={() => handleLogout()}>Kijelentkezés</button></li>
         {:else}
-          <li class=""><a class="max-md:p-4 md:p-2 text-nowrap rounded-sm" class:menu-active={`/${actual}` == 'login'} href="/login" on:click={_close_nav}>Bejelentkezés</a></li>
-          <li class=""><a class="max-md:p-4 md:p-2 text-nowrap rounded-sm" class:menu-active={`/${actual}` == 'register'} href="/register" on:click={_close_nav}>Regisztráció</a></li>
+          <li class=""><button class="max-md:p-4 md:p-2 text-nowrap rounded-sm border-none" onclick={ () => {_close_nav(); mod_login.showModal()}}>Bejelentkezés</button></li>
+          <!-- <li class=""><button class="max-md:p-4 md:p-2 text-nowrap rounded-sm border-none" onclick={ () => {_close_nav(); mod_reg.showModal()} }>Regisztráció</button></li> -->
+          <!-- <li class=""><a class="max-md:p-4 md:p-2 text-nowrap rounded-sm" class:menu-active={`/${actual}` == 'login'} href="/login" onclick={() => _close_nav}>Bejelentkezés</a></li>
+          <li class=""><a class="max-md:p-4 md:p-2 text-nowrap rounded-sm" class:menu-active={`/${actual}` == 'register'} href="/register" onclick={() => _close_nav}>Regisztráció</a></li> -->
         {/if}
       </ul>
     </li>
   </ul>
 </nav>
+
+<dialog id="mod_login" class="modal modal-bottom sm:modal-middle">
+  <div class="modal-box">
+    <h3 class="text-lg font-bold">Hello!</h3>
+    <p class="py-4">Press ESC key or click the button X to close</p>
+    <div class="modal-action flex-col gap-4">
+      <button class="btn btn-sm btn-circle absolute right-2 top-2" onclick={()=>mod_login.close()}>✕</button>
+
+      <button class="btn btn-outline" onclick={() => google()}>Google fiók</button>
+
+      <form
+        method="dialog"
+        class="flex flex-col sm:flex-row gap-6 sm:gap-4 max-sm-space-y-4 max-sm:w-sm sm:w-10/12 mx-auto sm:justify-center"
+        onsubmit={ () => login() }
+      >
+        <input
+          type="email"
+          placeholder="Email"
+          class="h-8 px-2 border border-primary rounded-md"
+          required
+          bind:value={email}
+        />
+        <input
+          type="password"
+          placeholder="Password"
+          class="h-8 px-2 border border-primary rounded-md"
+          required
+          bind:value={password}
+        />
+
+        <button type="submit" class="btn btn-sm">Login</button>
+      </form>
+      {#if success === false}
+        <div class="flex-col py-2 bg-error text-error-content text-center">Hiba történt. Kérlek, próbáld újra.</div>
+      {/if}
+    </div>
+  </div>
+</dialog>
+
+<!-- <dialog id="mod_reg" class="modal modal-bottom sm:modal-middle">
+  <div class="modal-box">
+    <h3 class="text-lg font-bold">Hello!</h3>
+    <p class="py-4">Press ESC key or click the button below to close</p>
+    <div class="modal-action flex-col gap-4">
+      <button class="btn btn-sm btn-circle absolute right-2 top-2" onclick={()=>mod_reg.close()}>✕</button>
+      <form
+      class="flex flex-col sm:flex-row gap-6 sm:gap-4 p-8 max-sm-space-y-4 max-sm:max-w-sm sm:w-10/12 mx-auto sm:justify-center"
+      onsubmit={ () => register() }
+      >
+        <input
+          type="email"
+          placeholder="Email"
+          class="h-8 px-2 border border-primary rounded-md"
+          required
+          bind:value={email}
+        />
+        <input
+          type="password"
+          placeholder="Password"
+          class="h-8 px-2 border border-primary rounded-md"
+          required
+          bind:value={password}
+        />
+    
+        <button type="submit" class="btn btn-sm">Register</button>
+      </form>
+      {#if success === false}
+        <div class="flex-col py-2 bg-error text-error-content text-center">Hiba történt. Kérlek, próbáld újra.</div>
+      {/if}
+    </div>
+  </div>
+</dialog> -->
 
 <style>
   #mobile-nav {

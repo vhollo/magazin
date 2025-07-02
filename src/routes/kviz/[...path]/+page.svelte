@@ -3,8 +3,10 @@
   import { enhance } from '$app/forms';
   import { invalidateAll } from '$app/navigation'; // Optional: for refreshing data after submission
   import type { SubmitFunction } from '@sveltejs/kit';
-  import Cards from '$lib/components/Cards.svelte';
+  // import Cards from '$lib/components/Cards.svelte';
   import { redirect } from '@sveltejs/kit';
+  import { authUser } from '$lib/authStore';
+  import { firebaseAuth, signInWithGoogle } from '$lib/firebase'
 
   const { data, form }: PageProps = $props()
   // let docs = []//data.docs
@@ -12,52 +14,86 @@
 
   const path = data.doc.path
 
-  const kvizzes = $state([{
-    _id: '1',
-    title: 'DiabKVÍZ 1',
-    questions: [
-      {
-        q: 'Jelöld meg a Magyar városokat!',
-        d: 'A helyes válaszok 2 pontot érnek, a helytelen válaszokért 1 pont levonás jár.',
-        multi: [
-          { choice: 'Miskolc', score: 2 },
-          { choice: 'München', score: -1 },
-          { choice: 'Győr', score: 2 },
-          { choice: 'Berlin', score: -1 },
-          { choice: 'Szombathely', score: 2 },
-          { choice: 'Hamburg', score: -1 },
-          { choice: 'Kecskemét', score: 2 },
-          { choice: 'Köln', score: -1 },
-          { choice: 'Nyíregyháza', score: 2 },
-        ],
-        score: 0
-      },
-      {
-        q: 'Mi Franciaország fővárosa?',
-        choices: [
-          { choice: 'Párizs', score: 10, answer: 'Helyes válasz!' },
-          { choice: 'London', score: 0, answer: 'A helyes válasz: Párizs' },
-          { choice: 'Berlin', score: 0, answer: 'A helyes válasz: Párizs' }
-        ]
-      },
-      /* {
-        q: 'Mi Anglia fővárosa?',
-        choices: [
-          { choice: 'Párizs', score: 0, answer: 'A helyes válasz: London' },
-          { choice: 'London', score: 10, answer: 'Helyes válasz!' },
-          { choice: 'Berlin', score: 0, answer: 'A helyes válasz: London' }
-        ]
-      },
-      {
-        q: 'Mi Németország fővárosa?',
-        choices: [
-          { choice: 'Párizs', score: 0, answer: 'A helyes válasz: Berlin' },
-          { choice: 'London', score: 0, answer: 'A helyes válasz: Berlin' },
-          { choice: 'Berlin', score: 10, answer: 'Helyes válasz!' }
-        ]
-      } */
-    ]
-  }])
+  const kvizzes = $state([
+    {
+      _id: 'egy',
+      title: 'DiabKVÍZ 1',
+      questions: [
+        {
+          q: 'Jelöld meg a Magyar városokat!',
+          d: 'A helyes válaszok 2 pontot érnek, a helytelen válaszokért 1 pont levonás jár.',
+          multi: [
+            { choice: 'Miskolc', score: 2 },
+            { choice: 'München', score: -1 },
+            { choice: 'Győr', score: 2 },
+            { choice: 'Berlin', score: -1 },
+            { choice: 'Szombathely', score: 2 },
+            { choice: 'Hamburg', score: -1 },
+            { choice: 'Kecskemét', score: 2 },
+            { choice: 'Köln', score: -1 },
+            { choice: 'Nyíregyháza', score: 2 },
+          ],
+          score: 0
+        },
+        {
+          q: 'Mi Franciaország fővárosa?',
+          d: 'A helyes válasz 10 pontot ér.',
+          choices: [
+            { choice: 'Párizs', score: 0, answer: 'A helyes válasz: Berlin' },
+            { choice: 'London', score: 0, answer: 'A helyes válasz: PáBerlinrizs' },
+            { choice: 'Berlin', score: 10, answer: 'Helyes válasz!' }
+          ]
+        },
+      ]
+    },
+    {
+      _id: 'ketto',
+      title: 'DiabKVÍZ 1',
+      questions: [
+        {
+          q: 'Jelöld meg a Német városokat!',
+          d: 'A helyes válaszok 2 pontot érnek, a helytelen válaszokért 1 pont levonás jár.',
+          multi: [
+            { choice: 'Miskolc', score: -1 },
+            { choice: 'München', score: 2 },
+            { choice: 'Győr', score: -1 },
+            { choice: 'Berlin', score: 2 },
+            { choice: 'Szombathely', score: -1 },
+            { choice: 'Hamburg', score: 2 },
+            { choice: 'Kecskemét', score: -1 },
+            { choice: 'Köln', score: 2 },
+            { choice: 'Nyíregyháza', score: -1 },
+          ],
+          score: 0
+        },
+        /* {
+          q: 'Mi Franciaország fővárosa?',
+          choices: [
+            { choice: 'Párizs', score: 10, answer: 'Helyes válasz!' },
+            { choice: 'London', score: 0, answer: 'A helyes válasz: Párizs' },
+            { choice: 'Berlin', score: 0, answer: 'A helyes válasz: Párizs' }
+          ]
+        }, */
+        /* {
+          q: 'Mi Anglia fővárosa?',
+          choices: [
+            { choice: 'Párizs', score: 0, answer: 'A helyes válasz: London' },
+            { choice: 'London', score: 10, answer: 'Helyes válasz!' },
+            { choice: 'Berlin', score: 0, answer: 'A helyes válasz: London' }
+          ]
+        }, */
+        {
+          q: 'Mi Németország fővárosa?',
+          d: 'A helyes válasz 10 pontot ér.',
+          choices: [
+            { choice: 'Párizs', score: 0, answer: 'A helyes válasz: Berlin' },
+            { choice: 'London', score: 0, answer: 'A helyes válasz: Berlin' },
+            { choice: 'Berlin', score: 10, answer: 'Helyes válasz!' }
+          ]
+        }
+      ]
+    },
+  ])
   const kviz = kvizzes.find(k => k._id === path)
   if (!kviz) {
     console.log('redirect 302, /kviz')
@@ -76,21 +112,6 @@
     document.getElementById(id).scrollIntoView({behavior: 'smooth'})
   }
 
-  /* const handleSubmit = event => {
-    event.preventDefault();
-
-    const myForm = event.target;
-    const formData = new FormData(myForm);
-
-    fetch("/", {
-      method: "POST",
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: new URLSearchParams(formData).toString()
-    })
-      .then(() => console.log("Form successfully submitted"))
-      .catch(error => alert(error));
-  } */
-  
 	import { applyAction, deserialize } from '$app/forms';
 	import type { ActionResult } from '@sveltejs/kit';
 
@@ -114,8 +135,8 @@
 		applyAction(result);
 	}
 
-  let submitBtn: HTMLInputElement | null = null;
-  let myForm: HTMLFormElement | null = null
+  let submitBtn: HTMLInputElement | null = $state(null);
+  let myForm: HTMLFormElement | null = $state(null)
 	let c = kviz.questions.length
 	let startnew = true
 
@@ -129,7 +150,7 @@
 		}
 		//score[kviz._id].set(isNaN(parseInt(s,10)) && s.startsWith('x') ? score[kviz._id] * parseFloat(s.substr(1),10) : score[kviz._id] + parseInt(s,10))
     if (i == c-1) {
-      submitBtn.click()
+      if (submitBtn) submitBtn.click()
       // myForm.submit()
     }
 	}
@@ -161,11 +182,70 @@
     <h2 class="text-center">{kviz.title}</h2>
   </article>
 
-<!-- form-name=kviz&id=kviz-0&answer-0=99&score=99 -->
-  <form method="POST" name="kviz" use:enhance={handleSubmitEnhance} class="max-w-screen-md mx-auto py-12" bind:this={myForm}><!-- ={handleSubmitEnhance} -->
-    <input type="hidden" name="form-name" value="kviz">
-    <input type="hidden" name="id" value={kviz._id}>
-    {#each kviz.questions as q, i}
+  <!-- form-name=kviz&id=kviz-0&answer-0=99&score=99 -->
+    <form method="POST" name="kviz" use:enhance class="max-w-screen-md mx-auto py-12">
+      <fieldset id="user" class="grid grid-cols-2 gap-4">
+        <legend class="uppercase pt-8 pb-2">A teszt kitöltéséhez ellenőrzött email cím szükséges</legend>
+        <!-- <input type="email" name="email" required value={$authUser?.email || ''} class="bg-outline border-1 border-primary p-2 h-8 text-sm text-neutral-content" autocomplete="email" placeholder="Email címmel"> -->
+        <div class="join flex">
+          <label class="input join-item border border-primary border-e-0 rounded-e-none bg-base-200 !h-full w-full">
+            <input type="email" required name="email" value={$authUser?.email || ''} placeholder="Email cím" class="border-none flex-1 text-sm text-neutral-content" onclick={() => mod_login.showModal()}/>
+          </label>
+          <!-- <button class="btn btn-neutral join-item border-s-0 !rounded-s-none h-8 w-10" aria-label="OK">☑️</button> -->
+          <!-- <input id="user-email" name="email-google" type="checkbox" required onchange={() => mod_login.showModal()}> -->
+          <!-- svelte-ignore a11y_consider_explicit_label -->
+          <button f-or="user-email" class="join-item bg-outline border-1 border-primary text-center p-2 !rounded-s-none" onclick={() => mod_login.showModal()} class:bg-primary={$authUser}>
+            {#if $authUser}
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+              <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
+            </svg>
+            {:else}
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 12a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0Zm0 0c0 1.657 1.007 3 2.25 3S21 13.657 21 12a9 9 0 1 0-2.636 6.364M16.5 12V8.25" />
+            </svg>
+            {/if}
+            <!-- <aside class="multi"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+              <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
+            </svg>
+            </aside> -->
+          </button>
+        </div>
+        <!-- <button class="h-8 px-2 border border-primary rounded-md">Tovább</button> -->
+        <!-- <button class="btn btn-outline">Jelszóval regisztrálok</button> --> <!-- Ha Jelszóval bejelentkezik, az email címből tudjuk, hogy a megadott jelszó új-e -->
+        <!-- <input id="google" name="email-google" type="checkbox" onclick={() => signInWithGoogle()}>
+        <label for="google" class="bg-outline border-1 border-primary text-center p-2">
+          <span>Google fiók</span>
+          <aside class="multi">Google fiók</aside>
+        </label> -->
+      </fieldset>
+    {#if !$authUser}
+      <fieldset id="auth" class="grid grid-cols-2 gap-4">
+        <legend class="uppercase pt-8 pb-2">Az email cím ellenőrzése</legend>
+        <input type="radio" name="user-code" id="user-code" required>
+        <label for="user-code" class="bg-base-100 border-1 border-primary p-2">
+          Egyszeri kóddal
+          <!-- <aside class="choice"><small>{ch.answer} ({ch.score} pont)</small></aside> -->
+        </label>
+        <input type="radio" name="user-login" id="user-login" required>
+        <label for="user-login" class="bg-base-100 border-1 border-primary p-2">
+          Jelszóval
+          <!-- <aside class="choice"><small>{ch.answer} ({ch.score} pont)</small></aside> -->
+        </label>
+        <input type="radio" name="user-new" id="user-new" required>
+        <label for="user-new" class="bg-base-100 border-1 border-primary p-2">
+          Regisztrációval
+          <!-- <aside class="choice"><small>{ch.answer} ({ch.score} pont)</small></aside> -->
+        </label>
+      </fieldset>
+      {/if}
+    </form>
+
+  {#if $authUser}
+    <form method="POST" name="kviz" use:enhance={handleSubmitEnhance} class="max-w-screen-md mx-auto py-12" bind:this={myForm}>
+      <input type="hidden" name="form-name" value="kviz">
+      <input type="hidden" name="id" value={kviz._id}>
+  
+      {#each kviz.questions as q, i}
       <fieldset class="grid grid-cols-2 gap-4">
         <legend id="q-{i}" class="uppercase pt-8 pb-2">{q.q}
           <!-- {#if q.d} -->
@@ -180,43 +260,44 @@
               <aside><small>({ch.score} pont)</small></aside>
             </label>
           {/each}
-          <input id="tovabb-{i}" name="answer-{i}" value={q.score} type="checkbox" required onchange={() => {_score(q.score,i); _scroll(`q-${i}`)}}>
-          <label for="tovabb-{i}" class="bg-outline border-1 border-primary text-center col--span-full mx--auto p-2">
+          <input id="tovabb-{i}" name="answer-{i}" type="checkbox" required onchange={() => {_score(q.score,i); _scroll(`q-${i}`)}}>
+          <label for="tovabb-{i}" class="bg-outline border-1 border-primary text-center p-2">
             <span>Tovább</span>
             <aside class="multi">{q.score} pont</aside>
           </label>
         {:else}
           {#each q.choices as ch, j}
-            <input type="radio" name="answer-{i}" id="answer-{i}-{j}" required onchange={() => {_score(ch.score,i); _scroll(`q-${i}`)}} value={ch.score}>
+            <input type="radio" name="answer-{i}" id="answer-{i}-{j}" required onchange={() => {_score(ch.score,i); _scroll(`q-${i}`)}}>
             <label for="answer-{i}-{j}" class="bg-base-100 border-1 border-secondary p-2">
               {ch.choice}
               <aside class="choice"><small>{ch.answer} ({ch.score} pont)</small></aside>
             </label>
           {/each}
         {/if}
-        </fieldset>
-    {/each}
-    <!-- <fieldset>
-      <legend id="q-{c}">Is Cartman your favorite South Park character? {c}</legend>
-      <input type="radio" name="answer-{c}" id="answer-{c}-0" required on:change={_score('x0',c),_scroll(`q-${c}`)}>
-      <label for="answer-{c}-0">
-        Absolutely not
-        <aside>gotcha boy <br><small>(x0 points)</small></aside>
-      </label>
-      <input type="radio" name="answer-{c}" id="answer-{c}-1" required on:change={_score('x0',c),_scroll(`q-${c}`)}>
-      <label for="answer-{c}-1">
-        Who else?
-        <aside>helyes! <br><small>(x0 points)</small></aside>
-      </label>
-    </fieldset> -->
+      </fieldset>
+      {/each}
+      <!-- <fieldset>
+        <legend id="q-{c}">Is Cartman your favorite South Park character? {c}</legend>
+        <input type="radio" name="answer-{c}" id="answer-{c}-0" required on:change={_score('x0',c),_scroll(`q-${c}`)}>
+        <label for="answer-{c}-0">
+          Absolutely not
+          <aside>gotcha boy <br><small>(x0 points)</small></aside>
+        </label>
+        <input type="radio" name="answer-{c}" id="answer-{c}-1" required on:change={_score('x0',c),_scroll(`q-${c}`)}>
+        <label for="answer-{c}-1">
+          Who else?
+          <aside>helyes! <br><small>(x0 points)</small></aside>
+        </label>
+      </fieldset> -->
 
-    <fieldset id="thankyou">
-      <legend class="uppercase pt-8 pb-2">Köszönjük, hogy kitöltötted a kvízt!</legend>
-      <input type="hidden" name="score" value={score[kviz._id]}>
-      <input id="submit" type="submit" value="Küldés" class:hidden={true} bind:this={submitBtn}>
-      <a href="/kviz" class="btn btn-outline">Vissza</a>
-    </fieldset>
-  </form>
+      <fieldset id="thankyou">
+        <legend class="uppercase pt-8 pb-2">Köszönjük, hogy kitöltötted a kvízt!</legend>
+        <input type="hidden" name="score" value={score[kviz._id]}>
+        <input id="submit" type="submit" value="Küldés" class:hidden={true} bind:this={submitBtn}>
+        <a href="/kviz" class="btn btn-outline">Tovább</a>
+      </fieldset>
+    </form>
+  {/if}
 
 </main>
 
@@ -283,20 +364,21 @@ label {
 }
 input:checked + label {
 	background-color: var(--color-secondary);
+	border-color: var(--color-secondary);
   color: var(--color-white);
 }
-input:checked + label.border-primary {
+/* input:checked + label.border-primary {
 	background-color: var(--color-primary);
-}
+} */
 /* input:checked + label, label:hover, label:focus { 
 	background-color: var(--maincolor);
 	color: inherit;
 } */
 
-fieldset:has(input:required:valid) {
+/* fieldset:has(input:required:valid) {
 	pointer-events: none;
 	user-select: none;
-}
+} */
 
 label aside { display: none }
 
