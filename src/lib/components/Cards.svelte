@@ -78,6 +78,7 @@
 
 <style>
   section {
+    scroll-behavior: auto;
     grid-template-columns: repeat(auto-fill, minmax(24ch, 1fr));
     grid-auto-rows: auto;
     grid-auto-flow: dense;

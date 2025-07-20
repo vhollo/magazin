@@ -1,6 +1,7 @@
 <script>
   import CardBody from '$lib/components/CardBody.svelte'
   export let card
+  // console.log({card})
 </script>
 
 <!--<aside class:double={card.img} class:triple={card.ellipsis?.indexOf('<video') !== -1} class="card card-sm bg-base-100 shadow-xl">-->

@@ -1,0 +1,107 @@
+{
+  "site_email": "diabetes@tudomany-kiado.hu",
+  "status": true,
+  "tags": [
+    "Diétás tanácsok",
+    "Receptek",
+    "Közösségek",
+    "Önmenedzselés",
+    "Jogi útmutatók",
+    "Szövődmények",
+    "Események",
+    "Gyermekvállalás"
+  ],
+  "main_image": "site/3t0pu_logo-uj-diabetes.svg",
+  "sitename": "Diabetes betegtájékoztató magazin",
+  "description": "Sokszor azt gondoljuk, ha egy betegség elindul, törvényszerűen romlik. Ez egyáltalán nem biztos! A folyamat attól függ, hogy mennyire sikerül a gyorsító, rontó folyamatokat kiküszöbölnünk, és mennyire hagyjuk a védekező mechanizmusainkat érvényesülni.",
+  "side_banners": [
+    {
+      "image": null,
+      "expires_on": null,
+      "link": "https://www.vercukormeres.hu/termekek/accu-chek-instant-vercukormero",
+      "name": "roche-instant-2025-02-20",
+      "starts_on": null,
+      "related_banners": [],
+      "video": "/banners/0.mp4",
+      "prominent": true,
+      "videoext": "mp4"
+    },
+    {
+      "expires_on": null,
+      "link": "https://sugar17.hu/szakrendelesek/",
+      "name": "sugar17",
+      "video": null,
+      "starts_on": null,
+      "related_banners": [],
+      "image": "/banners/1.png",
+      "prominent": true,
+      "imageext": "png"
+    },
+    {
+      "image": null,
+      "expires_on": null,
+      "name": "Roche diabetesedukacio.hu",
+      "video": "/banners/2.mp4",
+      "starts_on": null,
+      "related_banners": [],
+      "link": "https://diabetesedukacio.hu/",
+      "prominent": true,
+      "videoext": "mp4"
+    },
+    {
+      "image": "/banners/3.jpg",
+      "prominent": true,
+      "expires_on": null,
+      "link": "https://www.medtronic-diabetes.com/hu-HU",
+      "name": "Medtronic",
+      "video": null,
+      "starts_on": null,
+      "imageext": "jpg"
+    },
+    {
+      "image": "/banners/4.png",
+      "prominent": false,
+      "expires_on": null,
+      "link": "https://egeszsegcentrum.vanderlich.hu/szolgaltatasaink/szakteruletek/diabetologia/",
+      "name": "Vanderlich",
+      "video": null,
+      "starts_on": null,
+      "imageext": "png"
+    },
+    {
+      "image": "/banners/5.jpg",
+      "prominent": false,
+      "expires_on": null,
+      "link": "https://www.tudomany-kiado.hu/collections/receptek",
+      "name": "Receptsarok",
+      "video": null,
+      "starts_on": null,
+      "imageext": "jpg"
+    }
+  ],
+  "top_banners": [
+    {
+      "image": null,
+      "prominent": false,
+      "expires_on": null,
+      "link": "https://www.dcont.hu/",
+      "name": "Dcont eNapló",
+      "video": "/banners/6.webm",
+      "starts_on": null,
+      "height": 176,
+      "videoext": "webm"
+    },
+    {
+      "image": null,
+      "prominent": false,
+      "expires_on": null,
+      "link": "https://www.e77.hu/termekek/vercukormero-rendszer/dcontetalonb",
+      "name": "Dcont Etalon B",
+      "video": "/banners/7.mp4",
+      "starts_on": null,
+      "height": 176,
+      "videoext": "mp4"
+    }
+  ],
+  "ads_distance": 4
+}

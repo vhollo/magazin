@@ -46,13 +46,12 @@ body {
 /* DRAWER */
 
 .menu-active {
-  @apply !bg-neutral;
   cursor: default;
   pointer-events: none;
 }
-.navbar li:hover ul {
-  @apply bg-base-200;
-}
+/* .navbar li ul {
+  @apply bg-neutral;
+} */
 .navbar a:hover {
   outline-offset: 0;
   outline-width: 0;
@@ -66,11 +65,20 @@ body {
   .drop-col {
     @apply collapse;
   }
+  .navbar a.menu-active {
+    @apply !bg-base-100;
+  }
 }
 
 @media (width >= 48rem) {
   .drop-col {
     @apply dropdown;
+  }
+  /* .navbar li:hover ul {
+    @apply bg-base-100;
+  } */
+  .navbar a.menu-active {
+    @apply !bg-base-200;
   }
 }
 

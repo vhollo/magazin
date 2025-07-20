@@ -1,5 +1,6 @@
 <script context="module">
   import Cards from '$lib/components/Cards.svelte'
+  import Carousel from '$lib/components/Carousel.svelte'
   import Search from '$lib/components/Search.svelte'
   import Nav2 from '$lib/components/Nav2.svelte'
   import BannerSide from '$lib/components/BannerSide.svelte'
@@ -34,7 +35,7 @@
 
   $: doc = data.doc
   $: docs = data.docs
-  // $: if (doc.id == '1045') console.log(doc.content)
+  // $: if (doc.id) console.log(doc.tv)
 
 
 
@@ -77,19 +78,23 @@
 </script>
 
 <svelte:head>
-  <title>{docstitle} &bull; Diabetes</title>
-  <meta name="description" content={doc.ellipsis || conf?.description || 'www.diabetes.hu &bull; Az Alapítvány a Cukorbetegekért betegtájékoztató lapja. Kiadja a Tudomány Kiadó Kft. Kiadványtervezés és web-fejlesztés: Portmed Kft.'}/>
-  <meta name="keywords" content={doc.tv?.tags?.join(', ') || conf?.tags.join(', ') || 'diabetes, diabétesz, cukorbetegség, vese, keton, Tudomány Kiadó Kft'}/>
+  <title>{(docstitle ? docstitle + '&bull;' : '') + conf.sitename}</title>
+  <meta name="description" content={doc.ellipsis || conf.description || 'www.diabetes.hu &bull; Az Alapítvány a Cukorbetegekért betegtájékoztató lapja. Kiadja a Tudomány Kiadó Kft.'}/>
+  <meta name="keywords" content={doc.tv?.tags?.join(', ') || conf.tags.join(', ') || 'diabetes, diabétesz, cukorbetegség, vese, keton, Tudomány Kiadó Kft'}/>
   <meta name="author" content={doc.tv?.szerzo?.join(', ') || 'diabetes.hu'}/>
-  <meta name="og:image" content={doc.tv?.ogi || conf?.ogi}/>
-  <meta name="og:title" content={doc.longtitle || doc.title || conf?.sitename || 'Diabetes'}/>
-  <meta name="og:description" content={doc.description || conf?.description || 'www.diabetes.hu &bull; Az Alapítvány a Cukorbetegekért betegtájékoztató lapja. Kiadja a Tudomány Kiadó Kft.'}/>
+  <meta name="og:image" content={doc.tv?.ogi || conf.ogi || '/assets/logo-uj-diabetes-web.svg'}/>
+  <meta name="og:title" content={doc.longtitle || doc.title || conf.sitename || 'Diabetes'}/>
+  <meta name="og:description" content={doc.description || conf.description || 'www.diabetes.hu &bull; Az Alapítvány a Cukorbetegekért betegtájékoztató lapja. Kiadja a Tudomány Kiadó Kft.'}/>
   <meta name="og:url" content={doc.url || 'https://diabetes.hu'}/>
   <meta name="og:site_name" content="Diabetes"/>
   <meta name="og:type" content="article"/>
   <meta name="og:locale" content="hu_HU"/>
 </svelte:head>
 <!-- <svelte:window bind:this={win}/> -->
+
+{#if doc.path == '/'}
+  <Carousel/>
+{/if}
 
 {#if doc.id}
   {#if conf.top_banners.length}
@@ -107,11 +112,11 @@
       <aside class="my-3">
         {#if doc.tv.szerzo?.length}
           {#each doc.tv.szerzo as sze, i}
-            <a href="/#{sze.val}"><small class="uppercase">{sze.name}</small></a>{#if (i + 1) < doc.tv.szerzo.length}, {/if}
+            <a href={`/keres?q=${encodeURIComponent(sze.name)}`}><small class="uppercase">{sze.name}</small></a>{#if (i + 1) < doc.tv.szerzo.length},&nbsp;{/if}
           {/each}
           <!-- &nbsp; -->|
         {/if}
-        <small>{`${pubdate}${editdate !== pubdate ?' (szerkesztve: '+editdate+')':''}`}</small>
+        <small title={`${editdate !== pubdate ? 'Szerkesztve: '+editdate : ''}`}>{pubdate}<sup>{editdate !== pubdate ? 'i' : ''}</sup></small>
         <small class="uppercase">{`${doc.tv.cat ? ' | ' + doc.tv.cat : ''}`}</small>
       </aside>
       <aside class="flex flex-wrap gap-2 mb-12">
@@ -173,7 +178,7 @@
   <BannerTop banners={conf.top_banners}/>
 {/if}
 <Search/>
-<Nav2 actual={data.doc.path}/>
+<Nav2 actual={data.path}/>
 
 {#if docs.length}
   <article class="prose mt-16 mb-8 mx-auto w-full">

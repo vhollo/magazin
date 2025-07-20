@@ -12,6 +12,7 @@
   // @ts-nocheck
 
   export let actual
+  // console.log({actual})
   let _open_nav = false, target
 
   /* function _uncheck(event){
@@ -21,32 +22,27 @@
 
   //$: _open_nav = actual && false
 
-  const _close_nav = () => _open_nav = false
+  // const _close_nav = () => _open_nav = false
 
   const _scrollIntoView = async (event) => {
-    // console.log(window.location.hash)
+    // console.log(event)
     event.preventDefault()
     target = event.target.getAttribute('href') || event.target.parentElement.getAttribute('href') || null
     if (target) {
-      _close_nav()
+      _open_nav = false
       await new Promise(resolve => setTimeout(resolve, 500))
-      el = document.querySelector(target)
+      const el = document.querySelector(target)
       // console.log(event.target.getAttribute('href'), el)
-      el.scrollIntoView({block: 'start', behavior: 'smooth', offset: { top: 64 } })
-      // window.location.hash = ''
-      target = null
+      el.scrollIntoView({block: 'start', behavior: 'auto', offset: { top: 64 } })
+      console.log(el)
     } else {
-      target = null
-      el = event.target.parentElement
-      await new Promise(resolve => setTimeout(resolve, 0))
-      el.scrollIntoView({block: 'center', behavior: 'smooth', offset: { top: -64 } })
+      const el = event.target.parentElement
+      await new Promise(resolve => setTimeout(resolve, 50))
+      el.scrollIntoView({ block: 'center', behavior: 'auto', offset: { top: 128 } })
+      // console.log(el)
     }
+    target = null
   }
-
-  // let el
-  // if (browser) window.location.hash = ''
-
-
 
   const handleLogout = () => {
     signOut(firebaseAuth)
@@ -100,14 +96,93 @@
       mod_login.showModal();
     });
   }
-  const google = () => {
+  const google_login = () => {
     mod_login.close()
     signInWithGoogle()
   }
 
-</script>
+  const actionCodeSettings = {
+    url: browser ? window.location.href : '/',
+    handleCodeInApp: true,
+    // iOS: {
+    //   bundleId: 'com.example.ios'
+    // },
+    // android: {
+    //   packageName: 'com.example.android',
+    //   installApp: true,
+    //   minimumVersion: '12'
+    // },
+    // The domain must be configured in Firebase Hosting and owned by the project.
+    // linkDomain: 'custom-domain.com'
+  }
 
-<nav class="sticky top-0 z-40 bg-neutral navbar max-md:block justify-center py-0">
+  import { /* getAuth, */ sendSignInLinkToEmail } from "firebase/auth";
+
+  // const auth = getAuth();
+  function ota_login() {
+    mod_login.close()
+    sendSignInLinkToEmail(firebaseAuth, email, actionCodeSettings)
+    .then(() => {
+      // The link was successfully sent. Inform the user.
+      // Save the email locally so you don't need to ask the user for it again
+      // if they open the link on the same device.
+      window.localStorage.setItem('emailForSignIn', email);
+      // ...
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      // ...
+    });
+  }
+
+  import { isSignInWithEmailLink, signInWithEmailLink } from "firebase/auth";
+  // Confirm the link is a sign-in with email link.
+  // const auth = getAuth();
+  if (browser && isSignInWithEmailLink(firebaseAuth, window.location.href)) {
+    // Additional state parameters can also be passed via URL.
+    // This can be used to continue the user's intended action before triggering
+    // the sign-in operation.
+    // Get the email if available. This should be available if the user completes
+    // the flow on the same device where they started it.
+    let email = window.localStorage.getItem('emailForSignIn');
+    if (!email) {
+      // User opened the link on a different device. To prevent session fixation
+      // attacks, ask the user to provide the associated email again. For example:
+      email = window.prompt('Please provide your email for confirmation');
+    }
+    // The client SDK will parse the code from the link for you.
+    signInWithEmailLink(firebaseAuth, email, window.location.href)
+      .then((result) => {
+        // Clear email from storage.
+        window.localStorage.removeItem('emailForSignIn');
+        // You can access the new user by importing getAdditionalUserInfo
+        // and calling it with result:
+        // getAdditionalUserInfo(result)
+        // You can access the user's profile via:
+        // getAdditionalUserInfo(result)?.profile
+        // You can check if the user is new or existing:
+        // getAdditionalUserInfo(result)?.isNewUser
+      })
+      .catch((error) => {
+        // Some error occurred, you can inspect the code: error.code
+        // Common errors could be invalid email and invalid or expired OTPs.
+      });
+  }
+
+  const user_click = () => {
+    if ($authUser) {
+      _open_nav = false
+      mod_logout.showModal()
+    } else {
+      _open_nav = false
+      mod_login.showModal()
+    }
+  }
+  
+  </script>
+
+<nav class="sticky top-0 z-40 bg-neutral navbar max-md-block max-md:flex-col justify-top py-0">
   <!-- <label for="mobile-nav" aria-label="open sidebar" class="top-0 left-0 bg-neutral z-50 btn btn-lg btn-square btn-ghost md:hidden text-neutral-content">
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -122,8 +197,8 @@
         d="M4 6h16M4 12h16M4 18h16"></path>
     </svg>
   </label> -->
-  <div class="sticky top-0 max-md:mx-auto bg-neutral z-50">
-    <a class="block p-2" href="/" onclick={() => _close_nav}>
+  <div class="sticky top-0 mr-auto bg-neutral z-50">
+    <a class="block" href="/" onclick={() => _open_nav = false}>
       <img class="h-12" src={'/assets/logo-diabetes2-1.svg'} alt="diabetes.hu" height="60">
     </a>
   </div>
@@ -144,6 +219,50 @@
   <input id="mobile-nav" type="checkbox" bind:checked={_open_nav}/>
   <ul class="ml-auto max-md:mx-auto max-md:max-w-sm z-40">
     <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
+    {#each Object.keys(nav1) as cat}
+      <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
+      <li tabindex="0" class="drop-col collapse-arrow dropdown-hover dropdown-end text-nowrap"><!-- md:inline-block onblur={_uncheck} -->
+        {#if typeof nav1[cat] === 'string'}
+          <a href="{nav1[cat]}" class="max-md:p-4 md:p-2 rounded-sm md:menu-title !text-neutral-content text-nowrap font-medium" class:menu-active={`${actual}` == nav1[cat]} onclick={() => _open_nav = false}>{cat}</a>
+        {:else}
+          <input type="radio" name="collapse" class="md:hidden" onchange={ (e) => _scrollIntoView(e) }/>
+          <div tabindex="0" role="button" class="max-md:collapse-title md:menu-title !text-neutral-content text-nowrap font-medium cursor-default">{cat}</div>
+          <ul tabindex="0" class="menu max-md:w-full flex-nowrap max-md:collapse-content dropdown-content md:rounded-md text-neutral-content p-0 md:p-2 bg-neutral">
+            {#each Object.keys(nav1[cat]) as subcat}
+              <li class=""><a class="p-2 text-nowrap rounded-sm-focus" class:menu-active={`${actual}` == nav1[cat][subcat]} href={nav1[cat][subcat]} onclick={() => _open_nav = false}>{subcat}</a></li>
+            {/each}
+          </ul>
+        {/if}
+      </li>
+    {/each}
+    {#each Object.keys(nav2) as cat}
+      <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
+      <li tabindex="0" class="collapse collapse-arrow md:hidden text-nowrap"><!-- md:inline-block onblur={_uncheck} -->
+        {#if typeof nav2[cat] === 'string'}
+          <a href="{nav2[cat]}" class="max-md:p-4 md:p-2 rounded-sm md:menu-title !text-neutral-content text-nowrap font-medium">{cat}</a>
+        {:else}
+          <input type="radio" name="collapse" class="md:hidden" onchange={ (e) => _scrollIntoView(e) }/>
+          <div tabindex="0" role="button" class="max-md:collapse-title md:menu-title !text-neutral-content text-nowrap font-medium cursor-default">{cat}</div>
+          <ul tabindex="0" class="menu flex-nowrap max-md:collapse-content dropdown-content md:rounded-md text-neutral-content md:p-2 bg-neutral">
+            {#each Object.keys(nav2[cat]) as subcat}
+              <li class=""><a class="p-2 text-nowrap rounded-sm-focus" class:menu-active={`${actual}` == nav2[cat][subcat]} href={nav2[cat][subcat]} onclick={() => _open_nav = false}>{subcat}</a></li>
+            {/each}
+          </ul>
+        {/if}
+      </li>
+    {/each}
+    <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
+    <!-- <li tabindex="0" class="drop-col collapse-arrow dropdown-hover dropdown-end text-nowrap">
+      <input type="radio" name="collapse" class="md:hidden" onchange={ (e) => _scrollIntoView(e) }/>
+      <div tabindex="0" role="button" class="max-md:collapse-title md:menu-title !text-neutral-content opacity-50 cursor-default btn btn-sm btn-circle" class:bg-accent={$authUser} class:opacity-100={$authUser}>⍜</div>
+      <ul tabindex="0" class="menu max-md:w-full flex-nowrap max-md:collapse-content dropdown-content md:rounded-md text-neutral-content md:p-2">
+        {#if $authUser}
+          <li class=""><button class="max-md:p-4 md:p-2 text-nowrap rounded-sm border-none" onclick={() => handleLogout()}>Kijelentkezés</button></li>
+        {:else}
+          <li class=""><button class="max-md:p-4 md:p-2 text-nowrap rounded-sm border-none" onclick={ () => {_open_nav = false; mod_login.showModal()}}>Bejelentkezés</button></li>
+        {/if}
+      </ul>
+    </li> -->
     <li tabindex="0" class="drop-col text-nowrap"><!-- md:inline-block onblur={_uncheck} -->
       <a href="#search" onclick={() => _scrollIntoView} class="max-md:flex justify-between items-center max-md:p-4 md:p-2 rounded-sm md:menu-title !text-neutral-content text-nowrap font-medium"><span class="md:hidden">Keresés&nbsp;</span><svg class="inline h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
         <g
@@ -158,53 +277,8 @@
         </g>
       </svg></a>
     </li>
-    {#each Object.keys(nav1) as cat}
-      <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
-      <li tabindex="0" class="drop-col collapse-arrow dropdown-hover dropdown-end text-nowrap"><!-- md:inline-block onblur={_uncheck} -->
-        {#if typeof nav1[cat] === 'string'}
-          <a href="{nav1[cat]}" class="max-md:p-4 md:p-2 rounded-sm md:menu-title !text-neutral-content text-nowrap font-medium" class:menu-active={`/${actual}` == nav1[cat]} onclick={() => _close_nav}>{cat}</a>
-        {:else}
-          <input type="radio" name="collapse" class="md:hidden" onchange={ () => _scrollIntoView() }/>
-          <div tabindex="0" role="button" class="max-md:collapse-title md:menu-title !text-neutral-content text-nowrap font-medium cursor-default">{cat}</div>
-          <ul tabindex="0" class="menu max-md:w-full flex-nowrap max-md:collapse-content dropdown-content md:rounded-md text-neutral-content p-0 md:p-2">
-            {#each Object.keys(nav1[cat]) as subcat}
-              <li class=""><a class="max-md:p-4 md:p-2 text-nowrap rounded-sm-focus" class:menu-active={`/${actual}` == nav1[cat][subcat]} href={nav1[cat][subcat]} onclick={() => _close_nav}>{subcat}</a></li>
-            {/each}
-          </ul>
-        {/if}
-      </li>
-    {/each}
-    {#each Object.keys(nav2) as cat}
-      <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
-      <li tabindex="0" class="collapse collapse-arrow md:hidden text-nowrap"><!-- md:inline-block onblur={_uncheck} -->
-        {#if typeof nav2[cat] === 'string'}
-          <a href="{nav2[cat]}" class="max-md:p-4 md:p-2 rounded-sm md:menu-title !text-neutral-content text-nowrap font-medium">{cat}</a>
-        {:else}
-          <input type="radio" name="collapse" class="md:hidden" onchange={ () => _scrollIntoView() }/>
-          <div tabindex="0" role="button" class="max-md:collapse-title md:menu-title !text-neutral-content text-nowrap font-medium cursor-default">{cat}</div>
-          <ul tabindex="0" class="menu w-full flex-nowrap max-md:collapse-content dropdown-content md:rounded-md text-neutral-content md:p-2 !py-0">
-            {#each Object.keys(nav2[cat]) as subcat}
-              <li class=""><a class="max-md:p-4 md:p-2 text-nowrap rounded-sm-focus" class:menu-active={`/${actual}` == nav2[cat][subcat]} href={nav2[cat][subcat]} onclick={() => _close_nav}>{subcat}</a></li>
-            {/each}
-          </ul>
-        {/if}
-      </li>
-    {/each}
-    <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
-    <li tabindex="0" class="drop-col collapse-arrow dropdown-hover dropdown-end text-nowrap"><!-- md:inline-block onblur={_uncheck} -->
-      <input type="radio" name="collapse" class="md:hidden" onchange={ () => _scrollIntoView() }/>
-      <div tabindex="0" role="button" class="max-md:collapse-title md:menu-title !text-neutral-content opacity-50 cursor-default btn btn-sm btn-circle" class:bg-accent={$authUser} class:opacity-100={$authUser}>⍜</div>
-      <ul tabindex="0" class="menu max-md:w-full flex-nowrap max-md:collapse-content dropdown-content md:rounded-md text-neutral-content md:p-2">
-        {#if $authUser}
-          <!-- <li class=""><a class="max-md:p-4 md:p-2 text-nowrap rounded-sm" href="/admin/ads">Ads</a></li> -->
-          <li class=""><button class="max-md:p-4 md:p-2 text-nowrap rounded-sm border-none" onclick={() => handleLogout()}>Kijelentkezés</button></li>
-        {:else}
-          <li class=""><button class="max-md:p-4 md:p-2 text-nowrap rounded-sm border-none" onclick={ () => {_close_nav(); mod_login.showModal()}}>Bejelentkezés</button></li>
-          <!-- <li class=""><button class="max-md:p-4 md:p-2 text-nowrap rounded-sm border-none" onclick={ () => {_close_nav(); mod_reg.showModal()} }>Regisztráció</button></li> -->
-          <!-- <li class=""><a class="max-md:p-4 md:p-2 text-nowrap rounded-sm" class:menu-active={`/${actual}` == 'login'} href="/login" onclick={() => _close_nav}>Bejelentkezés</a></li>
-          <li class=""><a class="max-md:p-4 md:p-2 text-nowrap rounded-sm" class:menu-active={`/${actual}` == 'register'} href="/register" onclick={() => _close_nav}>Regisztráció</a></li> -->
-        {/if}
-      </ul>
+    <li class="drop-col text-nowrap">
+      <button class="max-md:collapse-title md:menu-title !text-neutral-content opacity-50 cursor-default btn btn-sm !btn-circle border-none" class:bg-accent={$authUser} class:opacity-100={$authUser} onclick={() => user_click()}>⍜</button>
     </li>
   </ul>
 </nav>
@@ -216,33 +290,51 @@
     <div class="modal-action flex-col gap-4">
       <button class="btn btn-sm btn-circle absolute right-2 top-2" onclick={()=>mod_login.close()}>✕</button>
 
-      <button class="btn btn-outline" onclick={() => google()}>Google fiók</button>
-
       <form
         method="dialog"
-        class="flex flex-col sm:flex-row gap-6 sm:gap-4 max-sm-space-y-4 max-sm:w-sm sm:w-10/12 mx-auto sm:justify-center"
+        class="gap-6 sm:gap-4 max-sm-space-y-4 mx-auto"
         onsubmit={ () => login() }
       >
-        <input
+        <fieldset class="fieldset flex flex-col gap-4 items-center">
+          <button class="btn btn-secondary !border-secondary h-8" onclick={() => google_login()}>Google fiók</button>
+          <p class="label">vagy</p>
+          <input
           type="email"
           placeholder="Email"
           class="h-8 px-2 border border-primary rounded-md"
           required
           bind:value={email}
         />
+        <p class="label">Egyszeri kód küldése vagy jelszó megadása</p>
+      </fieldset>
+      <fieldset class="fieldset flex gap-4 items-center">
+        <button class="btn btn-primary h-8" onclick={() => ota_login()}>Egyszeri kód</button>
         <input
           type="password"
-          placeholder="Password"
+          placeholder="Jelszó"
           class="h-8 px-2 border border-primary rounded-md"
           required
           bind:value={password}
         />
-
-        <button type="submit" class="btn btn-sm">Login</button>
+      </fieldset>
+      <!-- <fieldset class="fieldset flex gap-4 items-center"> -->
+        <button type="submit" class="btn btn-sm text-center">Login</button>
+      <!-- </fieldset> -->
       </form>
       {#if success === false}
         <div class="flex-col py-2 bg-error text-error-content text-center">Hiba történt. Kérlek, próbáld újra.</div>
       {/if}
+    </div>
+  </div>
+</dialog>
+
+<dialog id="mod_logout" class="modal modal-bottom sm:modal-middle">
+  <div class="modal-box">
+    <h3 class="text-lg font-bold">Kijelentkezés</h3>
+    <p class="py-4">Biztosan ki szeretnél jelentkezni?</p>
+    <div class="modal-action flex-col gap-4">
+      <button class="btn btn-sm btn-circle absolute right-2 top-2" onclick={ () => mod_logout.close()}>✕</button>
+      <button class="btn btn-sm" onclick={ () => {mod_logout.close(); handleLogout()} }>Kijelentkezés</button>
     </div>
   </div>
 </dialog>

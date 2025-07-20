@@ -6,7 +6,8 @@
   const darkcolor = '#ddd'
 </script>
 <script>
-export let data
+// export let data
+// console.log(data)
 
 if (browser) {
   let color = window?.matchMedia('(prefers-color-scheme: dark)').matches ? darkcolor : lightcolor;
@@ -194,7 +195,7 @@ if (browser) {
 <article class="prose mt-16 mb-8 mx-auto w-full">
   <h1 class="text-center">Előfizetés</h1>
   <p>
-    <b>Rendelje meg a Diabetes című betegtájékoztató kiadványt, és féláron adjuk mellé a Diabetes különszámokat és a Hypertonia Magazint!</b>
+    <b>Rendeld meg a Diabetes című betegtájékoztató kiadványt, és féláron adjuk mellé a Hypertonia Magazint és a különszámokat!</b>
     <br>
     <small>(Legfeljebb 3 db-ot)</small>
   </p>
@@ -205,4 +206,4 @@ if (browser) {
 </div>
 
 <Search/>
-<Nav2 actual={data.doc.path}/>
+<Nav2 actual='elofizetes'/><!--  actual={data.doc.path} -->

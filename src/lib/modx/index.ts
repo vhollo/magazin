@@ -99,10 +99,10 @@ const _nagyito = doc => {
   // if (doc.id == '1045') console.log(matches)
 
   matches.forEach(match => {
-    //console.log(match[1]);  // Text between [[nagyito and ]]
+    // console.log(match.length,match[1]);  // Text between [[nagyito and ]]
     let f, file
     if (match[1].indexOf('file=') !== -1) {
-      f = [...match[1].match(/file=\`(.*?)\`/)]
+      f = [...match[1].match(/file=\`(.*?)[\`\]^s]/)]
       file = PUBLIC_BASE_URL + 'assets/images/' + f[1] 
     } else if (match[1].indexOf('path=') !== -1) {
       f = [...match[1].match(/path=\`(.*?)\`/)]
@@ -121,7 +121,8 @@ const _nagyito = doc => {
       const zoom = match[1].indexOf('zoom=') !== -1 && [...match[1].match(/zoom=\`(.*?)\`/)]
       const bg = match[1].indexOf('bg=') !== -1 && [...match[1].match(/bg=\`(.*?)\`/)]
       const desc = match[1].indexOf('desc=') !== -1 && [...match[1].match(/desc=\`(.*?)\`/)]
-      const { html } = file[1] && render(Nagyito, { props: {
+      let NagyitoHTML = ''
+      const renderOutput = file[1] && render(Nagyito, { props: {
         img: { 
           file: file,
           desc: desc[1] || '',
@@ -129,9 +130,10 @@ const _nagyito = doc => {
           zoom: zoom[1] || '',
           bg: bg[1] || 'transparent',
         }
-      }}) || ''
+      }});
+      if(renderOutput) NagyitoHTML = renderOutput.html;
 
-      doc.content = doc.content.replace(match[0], html)
+      doc.content = doc.content.replace(match[0], NagyitoHTML)
     }
   })
   return doc
@@ -382,17 +384,18 @@ modxSiteContent.forEach(doc => {
 })
 
 for (let doc of allDocs) {
-  if (doc.isfolder /* && doc.tv.tags.length */) doc = _findRelated(doc)
+  if (doc.isfolder && doc.tv.tags.length > 0) doc = _findRelated(doc)
 }
 
-export {allDocs} // TODO: filter out docs without ellipsis
+allDocs = allDocs.filter(doc => doc.tv.tags.length > 0) // TODO: filter out docs without tags
+export { allDocs }
 
 //export const allDocs = [...allDocs, ...modxSiteContent.filter(doc => doc.tv.tags.length && (doc.content.length || doc.introtext.length)).map(doc => _docFields(doc))]// && !doc.isfolder && doc.path !== doc.alias)
 
-// Write fbWrite into Firestore's collection 'docs'
+// Write fresh modxSiteContent into Firestore's collection 'docs'
 if (building) modxSiteContent.forEach(async doc => {
   const res = await db.collection('docs').doc(String(doc.id).padStart(4, '0')).set(_docFields(doc));
 })
 
-// console.log('BUILDING?', building, modxSiteContent.length)
+// write data.json
 if (dev || building) writeData(allDocs)

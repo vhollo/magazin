@@ -3,14 +3,17 @@
   import Nav from '$lib/components/Nav.svelte'
   import Footer from '$lib/components/Footer.svelte'
 
-  export let data
+	import { page } from '$app/state';
+	import type { LayoutProps } from './$types';
+	let { data, children }: LayoutProps = $props();
 
   // import { page } from '$app/stores'
   // import { goto } from '$app/navigation'
 
+  // console.log(data.path)
   </script>
 
-<Nav actual={data.doc.path}/>
+<Nav actual={data.path}/>
 
-<slot></slot>
+{@render children()}
 <Footer/>

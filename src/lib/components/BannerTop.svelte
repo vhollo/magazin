@@ -11,6 +11,7 @@
 type Banner = {
     name: string;
     prominent?: boolean;
+    videoext?: string;
     // related_banners: EntityReference[];
     link?: string;
     video?: string;
@@ -54,7 +55,7 @@ export let banners: Banner[] = []
 </script>
 
 {#key count}
-<a style="aspect-ratio: 960/{banners[count].height || '200'};" class="flex flex-0 items-end max-w-fit mt-16 mx-auto overflow-hidden" href={banners[count].link} target={banners[count].link ? '_blank' : '_self'} aria-label={banners[count].name}>
+<a style="aspect-ratio: 960/{banners[count].height || '200'};" class="flex flex-0 items-end max-w-fit mt-8 mx-auto overflow-hidden" href={banners[count].link} target={banners[count].link ? '_blank' : '_self'} aria-label={banners[count].name}>
 
   {#if banners[count].video}
     <video 
@@ -66,7 +67,7 @@ export let banners: Banner[] = []
       muted autoplay loop
     >
       <source src={banners[count].video}
-          type='video/mp4'/>
+          type='video/{banners[count].videoext}'/>
     </video>
   {/if}
 
@@ -84,4 +85,4 @@ export let banners: Banner[] = []
 
 </a>
 {/key}
-<small class="block text-center mx-auto text-xs">Hirdetés</small>
+<small class="block text-center mx-auto text-xs mb-8">Hirdetés</small>

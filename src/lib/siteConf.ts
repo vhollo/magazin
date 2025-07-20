@@ -4,8 +4,8 @@ import { db } from '$lib/firebase';
 import { /* browser,  */building , dev/*, version */ } from '$app/environment';
 import fs from 'fs';
 import path from 'path';
-async function writeData(data: object[]) {
-  console.log('writeData',data.length)
+async function writeData(data: object) {
+  // console.log('writeData',data)
   const outputPath = path.resolve(process.cwd(), 'static', 'conf.json');
   fs.writeFileSync(outputPath, JSON.stringify(data, null, 2));
   console.log(`Conf sikeresen mentve: ${outputPath}`);
@@ -48,68 +48,71 @@ export const getSiteConf = async () => {
 
       if (confSnap.exists()) {
         let data = confSnap.data()
+
+        // Empty the banners directory before writing new files
+        const bannersDir = path.resolve(process.cwd(), 'static', 'banners');
+        if (fs.existsSync(bannersDir)) {
+          fs.rmSync(bannersDir, { recursive: true, force: true });
+        }
+        fs.mkdirSync(bannersDir, { recursive: true });
         // console.log(data.side_banners)
-        let sidebanners:Banner[] = []
-        let topbanners:Banner[] = []
+        const processBanner = (ban: any, i: number) => {
+          const bId = ban._key.path.segments.pop();
+          const bSnap = bansSnap.docs.find(b => bId == b.id);
+          if (bSnap?.data()) {
+            const b = bSnap.data() as Banner;
+            if (b.video) {
+              const videoUrl = b.video;
+              return fetch(videoUrl)
+                .then(response => response.arrayBuffer())
+                .then(arrayBuffer => {
+                  const buffer = Buffer.from(arrayBuffer);
+                  const videoExt = videoUrl.split('.').pop()?.split('?')[0];
+                  if (videoExt) b.videoext = videoExt;
+                  const outputPath = path.resolve(process.cwd(), 'static', 'banners', `${i}.${b.videoext}`);
+                  fs.writeFileSync(outputPath, buffer);
+                  console.log(`File saved successfully: ${outputPath}`);
+                  b.video = `/banners/${i}.${b.videoext}`;
+                  return b;
+                });
+            }
+            if (b.image) {
+              const imageUrl = b.image;
+              return fetch(imageUrl)
+                .then(response => response.arrayBuffer())
+                .then(arrayBuffer => {
+                  const buffer = Buffer.from(arrayBuffer);
+                  if (b.image) {
+                    const parts = b.image.split('.').pop();
+                    if (parts) {
+                      b.imageext = parts.split('?')[0];
+                    }
+                  }
+                  const outputPath = path.resolve(process.cwd(), 'static', 'banners', `${i}.${b.imageext}`);
+                  fs.writeFileSync(outputPath, buffer);
+                  console.log(`File saved successfully: ${outputPath}`);
+                  b.image = `/banners/${i}.${b.imageext}`;
+                  return b;
+                });
+            }
+            return Promise.resolve(b);
+          }
+          return Promise.resolve(null);
+        };
+
         const bansColl = collection(db, 'config/site/banners');
         const bansSnap = await getDocs(bansColl);
         if (bansSnap.docs.length) {
-          await data.side_banners.forEach((ban:any) => {
-            // const bSnap = await getDoc(bRef);
-            // console.log('ban._key',ban._key)
-            const bId = ban._key.path.segments.pop()
-            // console.log(bId)
-            const bSnap = bansSnap.docs.find(b => bId == b.id)
-            // let b:Banner 
-            // b = bSnap?.data()// || {name:'NOOOES'}
-            // console.log(ban)
-            if (bSnap?.data()) sidebanners.push(bSnap.data())
-            // if (bSnap.exists()) sBanners.push(bSnap.data())
-          });
-          const topBannerPromises = data.top_banners.map((ban: any, i: number) => {
-            const bId = ban._key.path.segments.pop();
-            const bSnap = bansSnap.docs.find(b => bId == b.id);
-            if (bSnap?.data()) {
-              const b: Banner = bSnap.data();
-              if (b.video) {
-                return fetch(b.video)
-                  .then(response => response.arrayBuffer()) // Get the response body as an ArrayBuffer
-                  .then(arrayBuffer => {
-                    const buffer = Buffer.from(arrayBuffer); // Convert ArrayBuffer to a Buffer
-                    // check file videoextension and trim any url params
-                    b.videoext = b.video.split('.').pop().split('?')[0]
-                    const outputPath = path.resolve(process.cwd(), 'static', 'banners', `${i}.${b.videoext}`);
-                    fs.writeFileSync(outputPath, buffer); // Write the buffer synchronously
-                    console.log(`File saved successfully: ${outputPath}`);
-                    b.video = `/banners/${i}.${b.videoext}`; // Update the path to be relative to the static dir
-                    return b;
-                  });
-              }
-              if (b.image) {
-                return fetch(b.image)
-                  .then(response => response.arrayBuffer()) // Get the response body as an ArrayBuffer
-                  .then(arrayBuffer => {
-                    const buffer = Buffer.from(arrayBuffer); // Convert ArrayBuffer to a Buffer
-                    // check file videoextension and trim any url params
-                    b.imageext = b.image.split('.').pop().split('?')[0]
-                    const outputPath = path.resolve(process.cwd(), 'static', 'banners', `${i}.${b.imageext}`);
-                    fs.writeFileSync(outputPath, buffer); // Write the buffer synchronously
-                    console.log(`File saved successfully: ${outputPath}`);
-                    b.image = `/banners/${i}.${b.imageext}`; // Update the path to be relative to the static dir
-                    return b;
-                  });
-              }
-              return Promise.resolve(b); // Return banner if no video
-            }
-            return Promise.resolve(null); // Return null if no banner data
-          });
+          let i = 0;
+          const sideBannerPromises = data.side_banners.map((ban: any) => processBanner(ban, i++));
+          const topBannerPromises = data.top_banners.map((ban: any) => processBanner(ban, i++));
 
-          // Wait for all file saving operations to complete
-          const resolvedBanners = await Promise.all(topBannerPromises);
-          topbanners = resolvedBanners.filter(b => b !== null); // Filter out nulls
+          const resolvedSideBanners = await Promise.all(sideBannerPromises);
+          data.side_banners = resolvedSideBanners.filter(b => b !== null);
+
+          const resolvedTopBanners = await Promise.all(topBannerPromises);
+          data.top_banners = resolvedTopBanners.filter(b => b !== null);
         }
-        data.side_banners = sidebanners
-        data.top_banners = topbanners
         data.ads_distance = 4
         // console.log({data})
         writeData(data)
@@ -124,7 +127,7 @@ export const getSiteConf = async () => {
     }
   } else {
     const data = fs.readFileSync(path.resolve(process.cwd(), 'static', 'conf.json'), 'utf-8');
-    console.log(data)
+    // console.log(data)
     return JSON.parse(data);
   }
 };
