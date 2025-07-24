@@ -93,7 +93,7 @@ const docsByTags = (tags:Array<string>, id:string | undefined) => {
 
 export async function load({ params, url }) {
 
-  const q = url.searchParams.get('q') || ''
+  const q = url?.searchParams?.get('q') || ''
   const path:string = (params.path/* ?.split('/')[0] || '/' */)//.replace(/.html/, '').replace('index', '/')
   // const urlpath:string = url.pathname.split('/')[1]
   let doc, docs:Docs = {}//, query, page = 0
