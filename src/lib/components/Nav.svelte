@@ -3,8 +3,8 @@
   import { nav2 } from '$lib/nav2.js'
   import { goto } from '$app/navigation'
   import { browser } from '$app/environment'
-  import { signInWithEmailAndPassword, setPersistence, browserLocalPersistence, createUserWithEmailAndPassword, onAuthStateChanged, signOut/* , onAuthStateChanged */ } from 'firebase/auth';
-  import { firebaseAuth, signInWithGoogle } from '$lib/firebase'
+  import { sendSignInLinkToEmail, isSignInWithEmailLink, signInWithEmailLink, /* signInWithEmailAndPassword, */ setPersistence, browserLocalPersistence, updateProfile, getAdditionalUserInfo, /* createUserWithEmailAndPassword, */ onAuthStateChanged, signInWithPopup, GoogleAuthProvider, signOut } from 'firebase/auth'
+  import { firebaseAuth/* , signInWithGoogle */ } from '$lib/firebase'
   import { authUser } from '$lib/authStore'
 </script>
 
@@ -47,7 +47,7 @@
   const handleLogout = () => {
     signOut(firebaseAuth)
       .then(() => {
-        $authUser = undefined
+        // $authUser = undefined
         // goto('/login');
       })
       .catch((error) => {
@@ -56,11 +56,27 @@
     _open_nav = false
   }
 
-  let email, password
-
+  let email, displayName //, password
+  /* if ($authUser) {
+    displayName = $authUser.displayName
+    email = $authUser.email
+  } */
   let success = undefined;
 
-  const login = (e) => {
+  onAuthStateChanged(firebaseAuth, (user) => {
+    if (user) {
+      // console.log({user})
+      // User is signed in, update your state accordingly
+      authUser.set({ 'uid': user.uid, 'email': user.email, 'displayName': user.displayName || displayName })
+      // console.log(authUser)
+    } else {
+      // User is signed out
+      authUser.set(undefined)
+    }
+    console.log('onAuthStateChanged', user)
+  })
+
+  /* const login = (e) => {
     setPersistence(firebaseAuth, browserLocalPersistence).then(() => {
       signInWithEmailAndPassword(firebaseAuth, email, password).then((userCredential) => {
         $authUser = {
@@ -79,9 +95,9 @@
         if (errorCode == 'auth/invalid-credential') register()
       })
     })
-  }
-  const register = () => {
-  createUserWithEmailAndPassword(firebaseAuth, email, password)
+  } */
+  /* const register = () => {
+    createUserWithEmailAndPassword(firebaseAuth, email, password)
     .then((userCredentials) => {
       console.log(userCredentials)
       // goto('/login');
@@ -95,7 +111,34 @@
       success = false;
       mod_login.showModal();
     });
+  } */
+  const provider = new GoogleAuthProvider();
+
+  const signInWithGoogle = () => {
+    signInWithPopup(firebaseAuth, provider)
+      .then((result) => {
+        // This gives you a Google Access Token. You can use it to access the Google API.
+        const credential = GoogleAuthProvider.credentialFromResult(result);
+        const token = credential.accessToken;
+        // The signed-in user info.
+        // const user = result.user;
+        $authUser = result.user;
+        console.log("Successfully signed in with Google!", $authUser);
+        // ... You can now update your UI to show the user is logged in
+      })
+      .catch((error) => {
+        // Handle Errors here.
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // The email of the user's account used.
+        // const email = error.customData?.email;
+        // The AuthCredential type that was used.
+        const credential = GoogleAuthProvider.credentialFromError(error);
+        console.error("Error during Google sign-in:", errorMessage);
+        success = false;
+      });
   }
+
   const google_login = () => {
     mod_login.close()
     signInWithGoogle()
@@ -116,27 +159,29 @@
     // linkDomain: 'custom-domain.com'
   }
 
-  import { /* getAuth, */ sendSignInLinkToEmail } from "firebase/auth";
 
   // const auth = getAuth();
   function ota_login() {
-    mod_login.close()
+    // mod_login.close()
     sendSignInLinkToEmail(firebaseAuth, email, actionCodeSettings)
     .then(() => {
       // The link was successfully sent. Inform the user.
       // Save the email locally so you don't need to ask the user for it again
       // if they open the link on the same device.
       window.localStorage.setItem('emailForSignIn', email);
+      // window.localStorage.setItem('displayName', displayName);
+      success = 'sent'
       // ...
     })
     .catch((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;
+      console.log(errorCode, errorMessage)
+      success = false
       // ...
     });
   }
 
-  import { isSignInWithEmailLink, signInWithEmailLink } from "firebase/auth";
   // Confirm the link is a sign-in with email link.
   // const auth = getAuth();
   if (browser && isSignInWithEmailLink(firebaseAuth, window.location.href)) {
@@ -146,27 +191,49 @@
     // Get the email if available. This should be available if the user completes
     // the flow on the same device where they started it.
     let email = window.localStorage.getItem('emailForSignIn');
+    // let displayName = window.localStorage.getItem('displayName');
     if (!email) {
       // User opened the link on a different device. To prevent session fixation
       // attacks, ask the user to provide the associated email again. For example:
-      email = window.prompt('Please provide your email for confirmation');
+      email = window.prompt('Kérjük, add meg az email címed')
+      // displayName = window.prompt('Kérjük, add meg a neved')
     }
     // The client SDK will parse the code from the link for you.
     signInWithEmailLink(firebaseAuth, email, window.location.href)
-      .then((result) => {
-        // Clear email from storage.
+      .then(async (result) => {
+        console.log('User signed in:', result.user);
+        
+        // Check if user has a display name
+        if (!firebaseAuth.currentUser?.displayName) {
+          displayName = window.prompt('Kérjük, add meg a neved');
+          if (displayName) {
+            try {
+              await updateProfile(firebaseAuth.currentUser, {
+                displayName: displayName
+              });
+              // Update the local state
+              $authUser = {
+                ...$authUser,
+            displayName: displayName
+              };
+            } catch (error) {
+              console.error('Error updating profile:', error);
+            }
+          }
+        }
+        
+        // Clear email from storage
         window.localStorage.removeItem('emailForSignIn');
-        // You can access the new user by importing getAdditionalUserInfo
-        // and calling it with result:
-        // getAdditionalUserInfo(result)
-        // You can access the user's profile via:
-        // getAdditionalUserInfo(result)?.profile
-        // You can check if the user is new or existing:
-        // getAdditionalUserInfo(result)?.isNewUser
+        success = true;
+        // goto location.href without parameters
+        goto(location.href.split('?')[0])
       })
       .catch((error) => {
         // Some error occurred, you can inspect the code: error.code
         // Common errors could be invalid email and invalid or expired OTPs.
+        console.log(error)
+        success = false
+        mod_login.showModal()
       });
   }
 
@@ -283,60 +350,77 @@
   </ul>
 </nav>
 
+
+
 <dialog id="mod_login" class="modal modal-bottom sm:modal-middle">
   <div class="modal-box">
+    <button class="btn btn-sm !btn-circle btn-ghost absolute right-2 top-2 border-none" onclick={()=>mod_login.close()}>✕</button>
     <h3 class="text-lg font-bold">Hello!</h3>
-    <p class="py-4">Press ESC key or click the button X to close</p>
-    <div class="modal-action flex-col gap-4">
-      <button class="btn btn-sm btn-circle absolute right-2 top-2" onclick={()=>mod_login.close()}>✕</button>
-
-      <form
-        method="dialog"
-        class="gap-6 sm:gap-4 max-sm-space-y-4 mx-auto"
-        onsubmit={ () => login() }
-      >
-        <fieldset class="fieldset flex flex-col gap-4 items-center">
-          <button class="btn btn-secondary !border-secondary h-8" onclick={() => google_login()}>Google fiók</button>
-          <p class="label">vagy</p>
-          <input
-          type="email"
-          placeholder="Email"
-          class="h-8 px-2 border border-primary rounded-md"
-          required
-          bind:value={email}
-        />
-        <p class="label">Egyszeri kód küldése vagy jelszó megadása</p>
-      </fieldset>
+    <p class="py-4">Az Email címed igazolása közösségi fiókkal vagy egyszer használható ellenőrző link küldésével történhet.</p>
+    <!-- <div class="modal-action flex-col gap-4"> -->
+    <fieldset class="fieldset flex gap-4 justify-center">
+      <button class="btn btn-secondary !border-secondary h-8" onclick={() => google_login()}>Google fiók</button>
+      <button class="btn btn-secondary !border-secondary h-8" onclick={() => alert('Fejlesztés alatt.')}><s>Facebook fiók</s></button>
+    </fieldset>
+    <p class="text-center text-sm py-4">vagy</p>
+    <form onsubmit={() => ota_login()}>
       <fieldset class="fieldset flex gap-4 items-center">
-        <button class="btn btn-primary h-8" onclick={() => ota_login()}>Egyszeri kód</button>
+        <!-- <input
+        type="text"
+        placeholder="Név"
+        class="h-8 px-2 border border-primary rounded-md flex-1"
+        required
+        bind:value={displayName}
+        /> -->
+      <!-- </fieldset>
+      <fieldset class="fieldset flex gap-4 items-center"> -->
         <input
-          type="password"
-          placeholder="Jelszó"
-          class="h-8 px-2 border border-primary rounded-md"
-          required
-          bind:value={password}
+        type="email"
+        placeholder="Email cím"
+        class="h-8 px-2 border border-primary rounded-md flex-1"
+        required
+        bind:value={email}
         />
+        <button class="btn btn-primary h-8" ohnoclick={() => ota_login()}>Link küldése</button>
+        <!-- <input
+        type="password"
+        placeholder="Jelszó"
+        class="h-8 px-2 border border-primary rounded-md"
+        required
+        bind:value={password}
+        /> -->
       </fieldset>
       <!-- <fieldset class="fieldset flex gap-4 items-center"> -->
-        <button type="submit" class="btn btn-sm text-center">Login</button>
+        <!-- <button type="submit" class="btn btn-sm text-center">Login</button> -->
       <!-- </fieldset> -->
-      </form>
       {#if success === false}
-        <div class="flex-col py-2 bg-error text-error-content text-center">Hiba történt. Kérlek, próbáld újra.</div>
+        <div class="flex-col py-2 mt-2 bg-error text-error-content text-center">Hiba történt. Kérjük, próbáld újra.</div>
       {/if}
-    </div>
+      {#if success === 'sent'}
+        <div class="flex-col py-2 mt-2 bg-success text-success-content text-center">Az ellenőrző linket elküldtük az Email címedre.</div>
+      {/if}
+      <!-- </div> -->
+    </form>
   </div>
+  <form method="dialog" class="modal-backdrop">
+    <button>✕</button>
+  </form>
 </dialog>
 
 <dialog id="mod_logout" class="modal modal-bottom sm:modal-middle">
   <div class="modal-box">
+    <button class="btn btn-sm btn-circle absolute right-2 top-2 border-none" onclick={ () => mod_logout.close()}>✕</button>
     <h3 class="text-lg font-bold">Kijelentkezés</h3>
+    <p class="py-4">{ $authUser?.displayName }</p>
+    <p class="py-4">{ $authUser?.email }</p>
     <p class="py-4">Biztosan ki szeretnél jelentkezni?</p>
     <div class="modal-action flex-col gap-4">
-      <button class="btn btn-sm btn-circle absolute right-2 top-2" onclick={ () => mod_logout.close()}>✕</button>
-      <button class="btn btn-sm" onclick={ () => {mod_logout.close(); handleLogout()} }>Kijelentkezés</button>
+      <button class="btn btn-sm mx-auto" onclick={ () => {mod_logout.close(); handleLogout()} }>Kijelentkezés</button>
     </div>
   </div>
+  <form method="dialog" class="modal-backdrop">
+    <button>✕</button>
+  </form>
 </dialog>
 
 <!-- <dialog id="mod_reg" class="modal modal-bottom sm:modal-middle">
@@ -344,7 +428,7 @@
     <h3 class="text-lg font-bold">Hello!</h3>
     <p class="py-4">Press ESC key or click the button below to close</p>
     <div class="modal-action flex-col gap-4">
-      <button class="btn btn-sm btn-circle absolute right-2 top-2" onclick={()=>mod_reg.close()}>✕</button>
+      <button class="btn btn-sm btn-circle absolute right-2 top-2 border-none" onclick={()=>mod_reg.close()}>✕</button>
       <form
       class="flex flex-col sm:flex-row gap-6 sm:gap-4 p-8 max-sm-space-y-4 max-sm:max-w-sm sm:w-10/12 mx-auto sm:justify-center"
       onsubmit={ () => register() }
@@ -420,5 +504,13 @@
       transform: translateY(-50%) rotate(225deg);
     }
   }
+
+  input:required:not(:valid) ~ button {
+    pointer-events: none;
+    user-select: none;
+  }
+  /* fieldset.required:not(:valid) ~ fieldset {
+    display: none;
+  } */
 
 </style>

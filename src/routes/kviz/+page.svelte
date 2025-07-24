@@ -1,7 +1,9 @@
 <form data-netlify="true" name="kviz" class="hidden">
-  <input name="email">
   <input name="id">
+  <input name="email">
+  <input name="name">
   <input name="score">
+  <input name="date">
 </form>
 
 <p class="text-center"><a class="btn btn-outline" href="/kviz/egy" onclick={() => console.log('kviz btn')}>Kvíz 1</a></p>

@@ -1,3 +1,7 @@
+<script module>
+  declare const mod_login: HTMLDialogElement;
+</script>
+
 <script lang="ts">
   import type { PageProps } from './$types';
   import { enhance } from '$app/forms';
@@ -6,7 +10,7 @@
   // import Cards from '$lib/components/Cards.svelte';
   import { redirect } from '@sveltejs/kit';
   import { authUser } from '$lib/authStore';
-  import { firebaseAuth, signInWithGoogle } from '$lib/firebase'
+  // import { firebaseAuth } from '$lib/firebase'
 
   const { data, form }: PageProps = $props()
   // let docs = []//data.docs
@@ -183,90 +187,92 @@
   </article>
 
   <!-- form-name=kviz&id=kviz-0&answer-0=99&score=99 -->
-    <form name="kviz" class="max-w-screen-md mx-auto py-12">
-      <fieldset id="user" class="grid xs:grid-cols-2 gap-4">
-        <legend class="uppercase pt-8 pb-2">A teszt kitöltéséhez ellenőrzött email cím szükséges</legend>
-        <div class="join flex">
-          <label class="input join-item border border-primary border-e-0 rounded-e-none bg-base-200 !h-full w-full">
-            <input type="button" value={$authUser?.email || 'Email cím megadása'} placeholder="Email cím megadása" class="border-none flex-1 text-sm text-neutral-content" onclick={() => mod_login.showModal()}/>
-          </label>
-          <button f-or="user-email" class="join-item bg-outline border-1 border-primary text-center p-2 !rounded-s-none" onclick={() => mod_login.showModal()} class:bg-primary={$authUser}>
-            {#if $authUser}
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-              <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
-            </svg>
-            {:else}
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 12a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0Zm0 0c0 1.657 1.007 3 2.25 3S21 13.657 21 12a9 9 0 1 0-2.636 6.364M16.5 12V8.25" />
-            </svg>
-            {/if}
-            <!-- <aside class="multi"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-              <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
-            </svg>
-            </aside> -->
-          </button>
-        </div>
-      </fieldset>
-    </form>
-
-  {#if $authUser}
-    <form method="POST" name="kviz" use:enhance={handleSubmitEnhance} class="max-w-screen-md mx-auto py-12" bind:this={myForm}>
-      <input type="hidden" name="form-name" value="kviz">
-      <input type="hidden" name="id" value={kviz._id}>
-  
-      {#each kviz.questions as q, i}
-      <fieldset class="grid xs:grid-cols-2 gap-4">
-        <legend id="q-{i}" class="uppercase pt-8 pb-2">{q.q}
-          <!-- {#if q.d} -->
-            <span class="block normal-case text-sm">{q.d}</span>
-          <!-- {/if} -->
-        </legend>
-        {#if q.multi}
-          {#each q.multi as ch, j}
-            <input type="checkbox" id="answer-{i}-{j}" onchange={ (e) => {_mscore((e.target as HTMLInputElement).checked ? ch.score : -(ch.score), i) } }>
-            <label for="answer-{i}-{j}" class="bg-base-100 border-1 border-secondary p-2">
-              {ch.choice}
-              <aside><small>({ch.score} pont)</small></aside>
-            </label>
-          {/each}
-          <input id="tovabb-{i}" name="answer-{i}" type="checkbox" required onchange={() => {_score(q.score,i); _scroll(`q-${i}`)}}>
-          <label for="tovabb-{i}" class="bg-outline border-1 border-primary text-center p-2">
-            <span>Tovább</span>
-            <aside class="multi">{q.score} pont</aside>
-          </label>
+  <!-- <form name="kviz" class="max-w-screen-md mx-auto py-12"> -->
+  <form method="POST" name="kviz" use:enhance={handleSubmitEnhance} class="max-w-screen-md mx-auto py-12" bind:this={myForm}>
+    <fieldset id="user" class="grid xs:grid-cols-2 gap-4">
+      <legend class="uppercase pt-8 pb-2">A teszt kitöltéséhez ellenőrzött email cím szükséges</legend>
+      <div class="join flex">
+        <label class="input join-item border border-primary border-e-0 rounded-e-none bg-base-200 !h-full w-full">
+          <input type="button" required name="email" value={$authUser?.email} placeholder="Email cím megadása" class="border-none flex-1 text-sm text-neutral-content" onclick={(e) => {e.preventDefault(); mod_login.showModal()}}/>
+        </label>
+        <button class="join-item bg-outline border-1 border-primary text-center p-2 !rounded-s-none" onclick={(e) => {e.preventDefault(); mod_login.showModal()}} class:bg-primary={$authUser}>
+        {#if $authUser}
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
+          </svg>
         {:else}
-          {#each q.choices as ch, j}
-            <input type="radio" name="answer-{i}" id="answer-{i}-{j}" required onchange={() => {_score(ch.score,i); _scroll(`q-${i}`)}}>
-            <label for="answer-{i}-{j}" class="bg-base-100 border-1 border-secondary p-2">
-              {ch.choice}
-              <aside class="choice"><small>{ch.answer} ({ch.score} pont)</small></aside>
-            </label>
-          {/each}
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 12a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0Zm0 0c0 1.657 1.007 3 2.25 3S21 13.657 21 12a9 9 0 1 0-2.636 6.364M16.5 12V8.25" />
+          </svg>
         {/if}
-      </fieldset>
-      {/each}
-      <!-- <fieldset>
-        <legend id="q-{c}">Is Cartman your favorite South Park character? {c}</legend>
-        <input type="radio" name="answer-{c}" id="answer-{c}-0" required on:change={_score('x0',c),_scroll(`q-${c}`)}>
-        <label for="answer-{c}-0">
-          Absolutely not
-          <aside>gotcha boy <br><small>(x0 points)</small></aside>
-        </label>
-        <input type="radio" name="answer-{c}" id="answer-{c}-1" required on:change={_score('x0',c),_scroll(`q-${c}`)}>
-        <label for="answer-{c}-1">
-          Who else?
-          <aside>helyes! <br><small>(x0 points)</small></aside>
-        </label>
-      </fieldset> -->
+          <!-- <aside class="multi"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
+          </svg>
+          </aside> -->
+        </button>
+      </div>
+      <input disabled required name="name" value={$authUser?.displayName}/>
+    </fieldset>
+    <!-- </form> -->
 
-      <fieldset id="thankyou">
-        <legend class="uppercase pt-8 pb-2">Köszönjük, hogy kitöltötted a kvízt!</legend>
-        <input type="hidden" name="score" value={score[kviz._id]}>
-        <input id="submit" type="submit" value="Küldés" class:hidden={true} bind:this={submitBtn}>
-        <a href="/kviz" class="btn btn-outline">Tovább</a>
-      </fieldset>
-    </form>
-  {/if}
+    {#if $authUser}
+    <!-- <form method="POST" name="kviz" use:enhance={handleSubmitEnhance} class="max-w-screen-md mx-auto py-12" bind:this={myForm}> -->
+    {#each kviz.questions as q, i}
+    <fieldset class="grid xs:grid-cols-2 gap-4">
+      <legend id="q-{i}" class="uppercase pt-8 pb-2">{q.q}
+        <!-- {#if q.d} -->
+          <span class="block normal-case text-sm">{q.d}</span>
+        <!-- {/if} -->
+      </legend>
+      {#if q.multi}
+        {#each q.multi as ch, j}
+          <input type="checkbox" id="answer-{i}-{j}" onchange={ (e) => {_mscore((e.target as HTMLInputElement).checked ? ch.score : -(ch.score), i) } }>
+          <label for="answer-{i}-{j}" class="bg-base-100 border-1 border-secondary p-2">
+            {ch.choice}
+            <aside><small>({ch.score} pont)</small></aside>
+          </label>
+        {/each}
+        <input id="tovabb-{i}" name="answer-{i}" type="checkbox" required onchange={() => {_score(q.score,i); _scroll(`q-${i}`)}}>
+        <label for="tovabb-{i}" class="bg-outline border-1 border-primary text-center p-2">
+          <span>Tovább</span>
+          <aside class="multi">{q.score} pont</aside>
+        </label>
+      {:else}
+        {#each q.choices as ch, j}
+          <input type="radio" name="answer-{i}" id="answer-{i}-{j}" required onchange={() => {_score(ch.score,i); _scroll(`q-${i}`)}}>
+          <label for="answer-{i}-{j}" class="bg-base-100 border-1 border-secondary p-2">
+            {ch.choice}
+            <aside class="choice"><small>{ch.answer} ({ch.score} pont)</small></aside>
+          </label>
+        {/each}
+      {/if}
+    </fieldset>
+    {/each}
+    <!-- <fieldset>
+      <legend id="q-{c}">Is Cartman your favorite South Park character? {c}</legend>
+      <input type="radio" name="answer-{c}" id="answer-{c}-0" required on:change={_score('x0',c),_scroll(`q-${c}`)}>
+      <label for="answer-{c}-0">
+        Absolutely not
+        <aside>gotcha boy <br><small>(x0 points)</small></aside>
+      </label>
+      <input type="radio" name="answer-{c}" id="answer-{c}-1" required on:change={_score('x0',c),_scroll(`q-${c}`)}>
+      <label for="answer-{c}-1">
+        Who else?
+        <aside>helyes! <br><small>(x0 points)</small></aside>
+      </label>
+    </fieldset> -->
+
+    <fieldset id="thankyou">
+      <legend class="uppercase pt-8 pb-2">Köszönjük, hogy kitöltötted a kvízt!</legend>
+      <input id="submit" type="submit" value="Küldés" class:hidden={true} bind:this={submitBtn}>
+      <a href="/kviz" class="btn btn-outline">Tovább</a>
+    </fieldset>
+    {/if}
+    <input type="hidden" name="form-name" value="kviz">
+    <input type="hidden" name="id" value={kviz._id}>
+    <input type="hidden" name="score" value={score[kviz._id]}>
+    <input type="hidden" name="date" value={new Date().toISOString()}>
+  </form>
 
 </main>
 
