@@ -1,32 +1,29 @@
 ///** @type {import('./$types').PageServerLoad} */
-import { browser } from '$app/environment'
-
-import MiniSearch from 'minisearch'
+// import { browser } from '$app/environment'
 
 import { /* modxDoc,  */allDocs } from '$lib/modx'
 console.log('docs:',allDocs.length)
 
-const stopWords = new Set(['a', 'az', 'és', 'vagy', 'de', 'ha', 'hogy', 'is', 'nem', 'csak', 'meg', 'mint', 'mert', 'egy', 'kell', 'lehet', 'volt', 'lesz', 'van', 'itt', 'ott', 'ahol', 'amikor', 'akkor', 'így', 'úgy', 'még', 'már', 'sem', 'se', 'sok', 'kevés', 'több', 'kevesebb', 'nagyon', 'igen', 'majd', 'most', 'mindig', 'soha', 'talán', 'persze', 'valami', 'valaki', 'valahol', 'valamikor', 'minden', 'senki', 'semmi', 'sehol', 'semikor', 'ez', 'azt', 'ezt', 'ebben', 'abban', 'ettől', 'attól', 'ilyen', 'olyan', 'én', 'te', 'ő', 'mi', 'ti', 'ők', 'aki', 'ami', 'akik', 'amik', 'amely', 'amelyek', 'ahogy', 'amint', 'amíg', 'hiszen', 'hanem', 'illetve', 'valamint', 'tehát', 'azaz', 'vagyis', 'azonban', 'viszont', 'pedig', 'mégis', 'annak', 'ennek', 'azzal', 'ezzel', 'arra', 'erre', 'arról', 'erről' ])
+// import MiniSearch from 'minisearch'
+// const stopWords = new Set(['a', 'az', 'és', 'vagy', 'de', 'ha', 'hogy', 'is', 'nem', 'csak', 'meg', 'mint', 'mert', 'egy', 'kell', 'lehet', 'volt', 'lesz', 'van', 'itt', 'ott', 'ahol', 'amikor', 'akkor', 'így', 'úgy', 'még', 'már', 'sem', 'se', 'sok', 'kevés', 'több', 'kevesebb', 'nagyon', 'igen', 'majd', 'most', 'mindig', 'soha', 'talán', 'persze', 'valami', 'valaki', 'valahol', 'valamikor', 'minden', 'senki', 'semmi', 'sehol', 'semikor', 'ez', 'azt', 'ezt', 'ebben', 'abban', 'ettől', 'attól', 'ilyen', 'olyan', 'én', 'te', 'ő', 'mi', 'ti', 'ők', 'aki', 'ami', 'akik', 'amik', 'amely', 'amelyek', 'ahogy', 'amint', 'amíg', 'hiszen', 'hanem', 'illetve', 'valamint', 'tehát', 'azaz', 'vagyis', 'azonban', 'viszont', 'pedig', 'mégis', 'annak', 'ennek', 'azzal', 'ezzel', 'arra', 'erre', 'arról', 'erről' ])
+// const miniSearch = new MiniSearch({
+//   fields: ['szerzo', 'longtitle', 'description', 'ellipsis', 'content'], // fields to index for full-text search
+//   storeFields: ['longtitle', 'path', 'description', 'ellipsis', 'content', 'tv', 'img', 'video', 'table'], // fields to return with search results
+//   processTerm: (term, _fieldName) => stopWords.has(term) ? null : term.toLowerCase(),
+//   extractField: (document, fieldName) => {
+//     if (fieldName === 'szerzo') {
+//       const authors = document.tv?.szerzo;
+//       if (Array.isArray(authors)) {
+//         return authors.map(author => author.name).join(' ');
+//       }
+//       return null;
+//     }
 
-const miniSearch = new MiniSearch({
-  fields: ['szerzo', 'longtitle', 'description', 'ellipsis', 'content'], // fields to index for full-text search
-  storeFields: ['longtitle', 'path', 'description', 'ellipsis', 'content', 'tv', 'img', 'video', 'table'], // fields to return with search results
-  processTerm: (term, _fieldName) => stopWords.has(term) ? null : term.toLowerCase(),
-  extractField: (document, fieldName) => {
-    if (fieldName === 'szerzo') {
-      const authors = document.tv?.szerzo;
-      if (Array.isArray(authors)) {
-        return authors.map(author => author.name).join(' ');
-      }
-      return null;
-    }
-
-    // Access nested fields for other cases
-    return fieldName.split('.').reduce((doc, key) => doc && doc[key], document)
-  }
-})
-
-miniSearch.addAll(allDocs)
+//     // Access nested fields for other cases
+//     return fieldName.split('.').reduce((doc, key) => doc && doc[key], document)
+//   }
+// })
+// miniSearch.addAll(allDocs)
 
 
 interface Docs {
@@ -93,7 +90,7 @@ const docsByTags = (tags:Array<string>, id:string | undefined) => {
 
 export async function load({ params, url }) {
 
-  const q = url?.searchParams?.get('q') || ''
+  // const q = url?.searchParams?.get('q') || ''
   const path:string = (params.path/* ?.split('/')[0] || '/' */)//.replace(/.html/, '').replace('index', '/')
   // const urlpath:string = url.pathname.split('/')[1]
   let doc, docs:Docs = {}//, query, page = 0
@@ -111,19 +108,12 @@ export async function load({ params, url }) {
       docs = docsByTags(queries[path], '0')
       //console.log('path:',path)
       break
-    /* case !!queries[urlpath]: /// a kviz
-      // console.log('kviz:',queries[urlpath])
-      // query = queries[path] ///?
-      doc = {'path': path} // kviz id
-      docs = docsByTags(queries[urlpath], '0')
-      //console.log('path:',path)
-      break */
-    case path === 'keres': /// search results
-      doc = {'path': 'keres' , 'title': `Keresés: "${q}"` }
-      docs = q ? miniSearch.search(q, { boost: { longtitle: 2 } })/* .sort((a, b) => b.id - a.id) */ : []
-      console.log('search:',q,docs.length)
-      // console.log(docs[1])
-      break
+    // case path === 'keres': /// search results
+    //   doc = {'path': 'keres' , 'title': `Keresés: "${q}"` }
+    //   docs = q ? miniSearch.search(q, { boost: { longtitle: 2 } })/* .sort((a, b) => b.id - a.id) */ : []
+    //   console.log('search:',q,docs.length)
+    //   // console.log(docs[1])
+    //   break
     default: /// page path
       doc = allDocs.find(d => d.path == path) || {}
       // if (doc.id == '1045') console.log(doc.content)
@@ -136,14 +126,6 @@ export async function load({ params, url }) {
     if (!doc.path) {
       doc = {'path': path , 'title': `Nem található: "${path}"` }
     }
-
-  //console.log(Object.keys(query))
-  /* if (query) {
-    docs = docsByTags(query, doc?.id)
-  } else if (path === 'keres') {
-    docs = miniSearch.search(q)
-    console.log('search:',docs.length)
-  } else docs = allDocs.filter((doc: { tvs: { tag: string | any[]; }; }) => doc.tv.tags?.length).slice(0, 18 * 5) */
 
   /* if (!doc && !docs.length) {
     doc = {'path': '/'}
