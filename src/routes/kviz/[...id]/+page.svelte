@@ -1,116 +1,28 @@
 <script module>
   declare const mod_login: HTMLDialogElement;
-</script>
-
-<script lang="ts">
   import type { PageProps } from './$types';
   import { enhance } from '$app/forms';
-  import { invalidateAll } from '$app/navigation'; // Optional: for refreshing data after submission
+  // import { invalidateAll } from '$app/navigation'; // Optional: for refreshing data after submission
   import type { SubmitFunction } from '@sveltejs/kit';
   // import Cards from '$lib/components/Cards.svelte';
   import { redirect } from '@sveltejs/kit';
+</script>
+
+<script lang="ts">
   import { authUser } from '$lib/authStore';
+  import { kvizScores } from '$lib/kvizStore';
+  console.log($kvizScores)
   // import { firebaseAuth } from '$lib/firebase'
 
-  const { data, form }: PageProps = $props()
+  const { data }: PageProps = $props()
   // let docs = []//data.docs
-  let conf = data.conf
+  // let conf = data.conf
 
   const id = data.id
-
-  const kvizzes = $state([
-    {
-      _id: 'egy',
-      title: 'DiabKVÍZ 1',
-      questions: [
-        {
-          q: 'Jelöld meg a Magyar városokat!',
-          d: 'A helyes válaszok 2 pontot érnek, a helytelen válaszokért 1 pont levonás jár.',
-          multi: [
-            { choice: 'Miskolc', score: 2 },
-            { choice: 'München', score: -1 },
-            { choice: 'Győr', score: 2 },
-            { choice: 'Berlin', score: -1 },
-            { choice: 'Szombathely', score: 2 },
-            { choice: 'Hamburg', score: -1 },
-            { choice: 'Kecskemét', score: 2 },
-            { choice: 'Köln', score: -1 },
-            { choice: 'Nyíregyháza', score: 2 },
-          ],
-          score: 0
-        },
-        {
-          q: 'Mi Franciaország fővárosa?',
-          d: 'A helyes válasz 10 pontot ér.',
-          choices: [
-            { choice: 'Berlin', score: 0, answer: 'A helyes válasz: Párizs' },
-            { choice: 'London', score: 0, answer: 'A helyes válasz: Párizs' },
-            { choice: 'Párizs', score: 10, answer: 'Helyes válasz!' }
-          ]
-        },
-      ]
-    },
-    {
-      _id: 'ketto',
-      title: 'DiabKVÍZ 1',
-      questions: [
-        {
-          q: 'Jelöld meg a Német városokat!',
-          d: 'A helyes válaszok 2 pontot érnek, a helytelen válaszokért 1 pont levonás jár.',
-          multi: [
-            { choice: 'Miskolc', score: -1 },
-            { choice: 'München', score: 2 },
-            { choice: 'Győr', score: -1 },
-            { choice: 'Berlin', score: 2 },
-            { choice: 'Szombathely', score: -1 },
-            { choice: 'Hamburg', score: 2 },
-            { choice: 'Kecskemét', score: -1 },
-            { choice: 'Köln', score: 2 },
-            { choice: 'Nyíregyháza', score: -1 },
-          ],
-          score: 0
-        },
-        /* {
-          q: 'Mi Franciaország fővárosa?',
-          choices: [
-            { choice: 'Párizs', score: 10, answer: 'Helyes válasz!' },
-            { choice: 'London', score: 0, answer: 'A helyes válasz: Párizs' },
-            { choice: 'Berlin', score: 0, answer: 'A helyes válasz: Párizs' }
-          ]
-        }, */
-        /* {
-          q: 'Mi Anglia fővárosa?',
-          choices: [
-            { choice: 'Párizs', score: 0, answer: 'A helyes válasz: London' },
-            { choice: 'London', score: 10, answer: 'Helyes válasz!' },
-            { choice: 'Berlin', score: 0, answer: 'A helyes válasz: London' }
-          ]
-        }, */
-        {
-          q: 'Mi Németország fővárosa?',
-          d: 'A helyes válasz 10 pontot ér.',
-          choices: [
-            { choice: 'Párizs', score: 0, answer: 'A helyes válasz: Berlin' },
-            { choice: 'London', score: 0, answer: 'A helyes válasz: Berlin' },
-            { choice: 'Berlin', score: 10, answer: 'Helyes válasz!' }
-          ]
-        }
-      ]
-    },
-  ])
-  const kviz = kvizzes.find(k => k._id === id)
-  if (!kviz) {
-    console.log('redirect 302, /kviz')
-    throw redirect(302, '/kviz')
-  } else {
-    console.log('kviz page')
-  }
-
-  let score = $state({
-    '1': 0
-  })
-  // console.log($state.snapshot(score))
-
+  // console.log({data})
+  // const kviz = data.kvizzes?.find(k => k._id === id)
+  let kviz = $state(data.kviz)
+  let score = $state(0)
 
   function _scroll(id: string) {
     document.getElementById(id).scrollIntoView({behavior: 'smooth'})
@@ -119,7 +31,7 @@
 	import { applyAction, deserialize } from '$app/forms';
 	import type { ActionResult } from '@sveltejs/kit';
 
-	async function handleSubmit(event: SubmitEvent & { currentTarget: EventTarget & HTMLFormElement}) {
+	/* async function handleSubmit(event: SubmitEvent & { currentTarget: EventTarget & HTMLFormElement}) {
 		event.preventDefault();
 		const data = new FormData(event.currentTarget);
 
@@ -137,31 +49,13 @@
 		}
 
 		applyAction(result);
-	}
+	} */
 
   let submitBtn: HTMLInputElement | null = $state(null);
   let myForm: HTMLFormElement | null = $state(null)
 	let c = kviz.questions.length
-	let startnew = true
-
-	function _score(s: string,i: number) {
-		startnew = false
-		if (!Boolean(i)) score[kviz._id] = 0 // if first
-		if (String(s).startsWith('x') || String(s).startsWith('*')) {
-			score[kviz._id] = parseFloat(score[kviz._id]) * parseInt(s.substring(1))
-		} else {
-			score[kviz._id] += parseInt(s)
-		}
-		//score[kviz._id].set(isNaN(parseInt(s,10)) && s.startsWith('x') ? score[kviz._id] * parseFloat(s.substr(1),10) : score[kviz._id] + parseInt(s,10))
-    if (i == c-1) {
-      if (submitBtn) submitBtn.click()
-      // myForm.submit()
-    }
-	}
-  function _mscore(s,i) {
-    // console.log(s)
-    kviz.questions[i].score += s
-  }
+	// let startnew = true
+  // score[kviz._id] = 0
 
   const handleSubmitEnhance: SubmitFunction = async ({ formData/* , formElement, action, controller, submitter */, cancel }) => {
 		// `formElement` is this `<form>` element
@@ -170,12 +64,37 @@
 		// calling `cancel()` will prevent the submission
 		// `submitter` is the `HTMLElement` that caused the form to be submitted
 
-    // add score[kviz._id] to formData
-    formData.set('score', score[kviz._id].toString())
-    console.log('Form submission started...', Object.fromEntries(formData));
+    formData.set('id', kviz._id);
+    formData.set('name', $authUser?.displayName || '');
+    formData.set('email', $authUser?.email || '');
+    formData.set('score', score.toString());
+    formData.set('date', new Date().toLocaleDateString('hu-HU', {year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit'}));
+    console.log('Form submission started...', Object.fromEntries(formData))
     return () => {
       cancel()
     }
+  }
+
+	function _score(s: string,i: number) {
+		// if (!Boolean(i)) score[kviz._id] = 0 // if first
+		if (String(s).startsWith('x') || String(s).startsWith('*')) {
+			score = parseFloat(score) * parseInt(s.substring(1))
+		} else {
+			score += parseInt(s)
+		}
+    kviz.questions[i].done = true
+    // console.log(kviz.questions[i])
+		//score[kviz._id].set(isNaN(parseInt(s,10)) && s.startsWith('x') ? score[kviz._id] * parseFloat(s.substr(1),10) : score[kviz._id] + parseInt(s,10))
+    $kvizScores[kviz._id].set(score)
+    if (i == c-1) {
+      if (submitBtn) submitBtn.click()
+      // myForm?.submit()
+    }
+	}
+  function _mscore(s,i) {
+    console.log({s,i})
+    if (kviz.questions[i].score === undefined) kviz.questions[i].score = 0
+    kviz.questions[i].score += s
   }
 
 </script>
@@ -188,61 +107,49 @@
 
   <!-- form-name=kviz&id=kviz-0&answer-0=99&score=99 -->
   <!-- <form name="kviz" class="max-w-screen-md mx-auto py-12"> -->
-  <form method="POST" name="kviz" use:enhance={handleSubmitEnhance} class="max-w-screen-md mx-auto py-12" bind:this={myForm}>
-    <fieldset id="user" class="grid xs:grid-cols-2 gap-4">
-      <legend class="uppercase pt-8 pb-2">A teszt kitöltéséhez ellenőrzött email cím szükséges</legend>
-      <div class="join flex">
-        <label class="input join-item border border-primary border-e-0 rounded-e-none bg-base-200 !h-full w-full">
-          <input type="button" required name="email" value={$authUser?.email} placeholder="Email cím megadása" class="border-none flex-1 text-sm text-neutral-content" onclick={(e) => {e.preventDefault(); mod_login.showModal()}}/>
-        </label>
-        <button class="join-item bg-outline border-1 border-primary text-center p-2 !rounded-s-none" onclick={(e) => {e.preventDefault(); mod_login.showModal()}} class:bg-primary={$authUser}>
-        {#if $authUser}
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-            <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
-          </svg>
-        {:else}
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 12a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0Zm0 0c0 1.657 1.007 3 2.25 3S21 13.657 21 12a9 9 0 1 0-2.636 6.364M16.5 12V8.25" />
-          </svg>
-        {/if}
-          <!-- <aside class="multi"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-            <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
-          </svg>
-          </aside> -->
-        </button>
-      </div>
-      <input disabled required name="name" value={$authUser?.displayName}/>
-    </fieldset>
-    <!-- </form> -->
+  <div class="grid xs:grid-cols-2 gap-4 max-w-screen-md mx-auto py-12 px-2">
+    {#if $authUser}
+      <p class="border border-primary bg-base-200 !h-full w-full p-2">{$authUser.email}</p>
+      <p class="border border-primary bg-base-200 !h-full w-full p-2">{$authUser.displayName}</p>
+    {:else}
+      <legend class="uppercase pt-8 pb-2">A teszt beküldéséhez ellenőrzött email cím és név szükséges</legend>
+      <button class="btn btn-outline" onclick={(e) => {e.preventDefault(); mod_login.showModal()}}>Megadom</button>
+    {/if}
+  </div>
+  <form method="POST" name="kviz" use:enhance={handleSubmitEnhance} class="max-w-screen-md mx-auto py-12 px-2" bind:this={myForm}>
 
     {#if $authUser}
     <!-- <form method="POST" name="kviz" use:enhance={handleSubmitEnhance} class="max-w-screen-md mx-auto py-12" bind:this={myForm}> -->
     {#each kviz.questions as q, i}
     <fieldset class="grid xs:grid-cols-2 gap-4">
-      <legend id="q-{i}" class="uppercase pt-8 pb-2">{q.q}
-        <!-- {#if q.d} -->
-          <span class="block normal-case text-sm">{q.d}</span>
-        <!-- {/if} -->
+      <legend id="q-{i}" class="uppercase pt-8 pb-2">
+        {q.q}<span class="block normal-case text-sm">{q.d}</span>
       </legend>
       {#if q.multi}
         {#each q.multi as ch, j}
           <input type="checkbox" id="answer-{i}-{j}" onchange={ (e) => {_mscore((e.target as HTMLInputElement).checked ? ch.score : -(ch.score), i) } }>
           <label for="answer-{i}-{j}" class="bg-base-100 border-1 border-secondary p-2">
             {ch.choice}
-            <aside><small>({ch.score} pont)</small></aside>
+            {#if q.done}
+              <aside><small>({ch.score} pont)</small></aside>
+            {/if}
           </label>
         {/each}
         <input id="tovabb-{i}" name="answer-{i}" type="checkbox" required onchange={() => {_score(q.score,i); _scroll(`q-${i}`)}}>
         <label for="tovabb-{i}" class="bg-outline border-1 border-primary text-center p-2">
           <span>Tovább</span>
-          <aside class="multi">{q.score} pont</aside>
+          {#if q.done}
+            <aside class="multi">{q.score || 0} pont</aside>
+          {/if}
         </label>
       {:else}
         {#each q.choices as ch, j}
           <input type="radio" name="answer-{i}" id="answer-{i}-{j}" required onchange={() => {_score(ch.score,i); _scroll(`q-${i}`)}}>
           <label for="answer-{i}-{j}" class="bg-base-100 border-1 border-secondary p-2">
             {ch.choice}
-            <aside class="choice"><small>{ch.answer} ({ch.score} pont)</small></aside>
+            {#if q.done}
+              <aside class="choice"><small>{ch.answer} ({ch.score} pont)</small></aside>
+            {/if}
           </label>
         {/each}
       {/if}
@@ -269,24 +176,12 @@
     </fieldset>
     {/if}
     <input type="hidden" name="form-name" value="kviz">
-    <input type="hidden" name="id" value={kviz._id}>
-    <input type="hidden" name="score" value={score[kviz._id]}>
-    <input type="hidden" name="date" value={new Date().toISOString()}>
   </form>
 
 </main>
 
 <footer class="bg-base-200 text-base-content py-2">
-  <p class="text-center">Pontszám: <mark>{score[kviz._id] || 0}</mark>
-    <!-- {#if score[kviz._id] && startnew}
-    (de a jelenlegi pontszám lenullázódik)
-    {/if} -->
-  </p>
-
-  <!-- {#if score_sum >= $threshold}
-  <br>
-  Now you've proven your authoriter values. You are allowed to <a href="/dics/{$bckid}"><button>RATE</button></a> your favorite DiCs.
-  {/if} -->
+  <p class="text-center">Pontszám: <mark>{score || 0}</mark></p>
 </footer>
 
 <!-- {#if docs.length}
@@ -311,9 +206,9 @@
 /* fieldset {
 	display: contents;
 } */
-fieldset {
+/* fieldset {
 	margin-inline: .5rem;
-}
+} */
 fieldset:not(:valid) ~ fieldset/* , fieldset:last-of-type */ { 
   /* display: none;  */
   visibility: hidden;
@@ -353,10 +248,10 @@ input:checked + label {
 	color: inherit;
 } */
 
-/* fieldset:has(input:required:valid) {
+fieldset:has(input:required:valid) {
 	pointer-events: none;
 	user-select: none;
-} */
+}
 
 label aside { display: none }
 

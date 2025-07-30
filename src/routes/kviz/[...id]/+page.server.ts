@@ -1,27 +1,5 @@
 import { fail } from '@sveltejs/kit';
 
-/* import type { Actions } from './$types';
-
-export const actions = {
-	default: async ({request}) => {
-		console.log(request.url)
-		const data = await request.formData()
-		console.log({data})
-
-		// Error: Cannot use relative URL (/) with global fetch — use `event.fetch` instead: https://svelte.dev/docs/kit/web-standards#fetch-apis
-		// use event.fetch instead of fetch
-		const response = await fetch(request.url, {
-			method: 'POST',
-			body: data
-		})
-		console.log({response})
-		const result = await response.json()
-		console.log({result})
-		return { success: true }
-	}
-	
-} satisfies Actions; */
-
 import type { Actions, PageServerLoad } from './$types';
 
 export const actions: Actions = {
@@ -55,8 +33,9 @@ export const actions: Actions = {
 }
 
 // in the load function get the id from the url
-export const load: PageServerLoad = ({ params }) => {
+export const load: PageServerLoad = async ({ params, parent }) => {
 	const id = params.id
-	console.log({id})
-	return { id }
+	const { kvizzes } = await parent()
+	const kviz = kvizzes?.find((k: { _id: string; }) => k._id === id)
+	return { id, kviz }
 }

@@ -5,7 +5,7 @@
   import { browser } from '$app/environment'
   import { sendSignInLinkToEmail, isSignInWithEmailLink, signInWithEmailLink, /* signInWithEmailAndPassword, */ setPersistence, browserLocalPersistence, updateProfile, getAdditionalUserInfo, /* createUserWithEmailAndPassword, */ onAuthStateChanged, signInWithPopup, GoogleAuthProvider, signOut } from 'firebase/auth'
   import { firebaseAuth/* , signInWithGoogle */ } from '$lib/firebase'
-  import { authUser } from '$lib/authStore'
+  import { authUser, email } from '$lib/authStore'
 </script>
 
 <script>
@@ -56,7 +56,7 @@
     _open_nav = false
   }
 
-  let email, displayName //, password
+  let displayName //, password
   /* if ($authUser) {
     displayName = $authUser.displayName
     email = $authUser.email
@@ -163,12 +163,12 @@
   // const auth = getAuth();
   function ota_login() {
     // mod_login.close()
-    sendSignInLinkToEmail(firebaseAuth, email, actionCodeSettings)
+    sendSignInLinkToEmail(firebaseAuth, $email, actionCodeSettings)
     .then(() => {
       // The link was successfully sent. Inform the user.
       // Save the email locally so you don't need to ask the user for it again
       // if they open the link on the same device.
-      window.localStorage.setItem('emailForSignIn', email);
+      window.localStorage.setItem('emailForSignIn', $email);
       // window.localStorage.setItem('displayName', displayName);
       success = 'sent'
       // ...
@@ -379,7 +379,7 @@
         placeholder="Email cím"
         class="h-8 px-2 border border-primary rounded-md flex-1"
         required
-        bind:value={email}
+        bind:value={$email}
         />
         <button class="btn btn-primary h-8" ohnoclick={() => ota_login()}>Link küldése</button>
         <!-- <input
@@ -411,8 +411,10 @@
   <div class="modal-box">
     <button class="btn btn-sm btn-circle absolute right-2 top-2 border-none" onclick={ () => mod_logout.close()}>✕</button>
     <h3 class="text-lg font-bold">Kijelentkezés</h3>
-    <p class="py-4">{ $authUser?.displayName }</p>
-    <p class="py-4">{ $authUser?.email }</p>
+    <div class="grid xs:grid-cols-2 gap-4 max-w-screen-md mx-auto py-12 px-2">
+      <p class="border border-primary bg-base-200 !h-full w-full p-2">{$authUser?.email}</p>
+      <p class="border border-primary bg-base-200 !h-full w-full p-2">{$authUser?.displayName}</p>
+    </div>
     <p class="py-4">Biztosan ki szeretnél jelentkezni?</p>
     <div class="modal-action flex-col gap-4">
       <button class="btn btn-sm mx-auto" onclick={ () => {mod_logout.close(); handleLogout()} }>Kijelentkezés</button>
