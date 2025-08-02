@@ -6,6 +6,7 @@ const kvizzes = [
 	{
 		_id: 'egy',
 		title: 'DiabKVÍZ 1',
+		description: 'A többlehetőséges kérdéseknél a helyes válaszok pontot érnek, a helytelen válaszokért pontlevonás jár. Az egylehetőséges kérdéseknél a helyes válasz ér pontot.',
 		questions: [
 			{
 				q: 'Jelöld meg a Magyar városokat!',
@@ -37,6 +38,7 @@ const kvizzes = [
 	{
 		_id: 'ketto',
 		title: 'DiabKVÍZ 2',
+		description: 'A többlehetőséges kérdéseknél a helyes válaszok pontot érnek, a helytelen válaszokért pontlevonás jár. Az egylehetőséges kérdéseknél a helyes válasz ér pontot.',
 		questions: [
 			{
 				q: 'Jelöld meg a Német városokat!',

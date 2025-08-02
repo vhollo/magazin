@@ -57,11 +57,11 @@
   // $: console.log('editedon',doc.editedon)
   // $: console.log('publishedon',doc.publishedon)
 
-  $: if (doc.path == 'keres') {
+  /* $: if (doc.path == 'keres') {
       copycats['keres'] = {}
       copycats['keres'][doc.title] = '/keres'
       // console.log(doc.path)
-    }
+    } */
 
   let matchingSubcat = null;
 

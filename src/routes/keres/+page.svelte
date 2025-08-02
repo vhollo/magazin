@@ -95,7 +95,7 @@
 <Nav2 actual='keres'/>
 
 {#if docs.length}
-  <article class="prose mt-16 mb-8 mx-auto w-full">
+  <article id="lista" class="prose mt-16 mb-8 mx-auto w-full">
     {#if !doc.id}
       <h1 class="text-center">{doc.id && '' || docstitle}</h1>
     {:else}

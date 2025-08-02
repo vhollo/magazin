@@ -11,74 +11,8 @@
     "Események",
     "Gyermekvállalás"
   ],
-  "main_image": "site/3t0pu_logo-uj-diabetes.svg",
   "sitename": "Diabetes betegtájékoztató magazin",
   "description": "Sokszor azt gondoljuk, ha egy betegség elindul, törvényszerűen romlik. Ez egyáltalán nem biztos! A folyamat attól függ, hogy mennyire sikerül a gyorsító, rontó folyamatokat kiküszöbölnünk, és mennyire hagyjuk a védekező mechanizmusainkat érvényesülni.",
-  "side_banners": [
-    {
-      "image": null,
-      "expires_on": null,
-      "link": "https://www.vercukormeres.hu/termekek/accu-chek-instant-vercukormero",
-      "name": "roche-instant-2025-02-20",
-      "starts_on": null,
-      "related_banners": [],
-      "video": "/banners/0.mp4",
-      "prominent": true,
-      "videoext": "mp4"
-    },
-    {
-      "expires_on": null,
-      "link": "https://sugar17.hu/szakrendelesek/",
-      "name": "sugar17",
-      "video": null,
-      "starts_on": null,
-      "related_banners": [],
-      "image": "/banners/1.png",
-      "prominent": true,
-      "imageext": "png"
-    },
-    {
-      "image": null,
-      "expires_on": null,
-      "name": "Roche diabetesedukacio.hu",
-      "video": "/banners/2.mp4",
-      "starts_on": null,
-      "related_banners": [],
-      "link": "https://diabetesedukacio.hu/",
-      "prominent": true,
-      "videoext": "mp4"
-    },
-    {
-      "image": "/banners/3.jpg",
-      "prominent": true,
-      "expires_on": null,
-      "link": "https://www.medtronic-diabetes.com/hu-HU",
-      "name": "Medtronic",
-      "video": null,
-      "starts_on": null,
-      "imageext": "jpg"
-    },
-    {
-      "image": "/banners/4.png",
-      "prominent": false,
-      "expires_on": null,
-      "link": "https://egeszsegcentrum.vanderlich.hu/szolgaltatasaink/szakteruletek/diabetologia/",
-      "name": "Vanderlich",
-      "video": null,
-      "starts_on": null,
-      "imageext": "png"
-    },
-    {
-      "image": "/banners/5.jpg",
-      "prominent": false,
-      "expires_on": null,
-      "link": "https://www.tudomany-kiado.hu/collections/receptek",
-      "name": "Receptsarok",
-      "video": null,
-      "starts_on": null,
-      "imageext": "jpg"
-    }
-  ],
   "top_banners": [
     {
       "image": null,
@@ -101,6 +35,72 @@
       "starts_on": null,
       "height": 176,
       "videoext": "mp4"
+    }
+  ],
+  "main_image": "https://firebasestorage.googleapis.com/v0/b/diabetes-hu.firebasestorage.app/o/site%2Fm9pni_logo-uj-diabetes.svg?alt=media&token=43e3e9d0-cef6-4693-9371-e4aec20a79d6",
+  "side_banners": [
+    {
+      "image": null,
+      "expires_on": null,
+      "link": "https://www.vercukormeres.hu/termekek/accu-chek-instant-vercukormero",
+      "name": "roche-instant-2025-02-20",
+      "starts_on": null,
+      "related_banners": [],
+      "video": "/banners/0.mp4",
+      "prominent": true,
+      "videoext": "mp4"
+    },
+    {
+      "expires_on": null,
+      "video": null,
+      "starts_on": null,
+      "related_banners": [],
+      "prominent": true,
+      "image": "/banners/1.webp",
+      "link": "https://homemed.hu/",
+      "name": "Homemed – otthoni minilabor készülék",
+      "imageext": "webp"
+    },
+    {
+      "prominent": true,
+      "expires_on": null,
+      "video": null,
+      "starts_on": null,
+      "image": "/banners/2.jpg",
+      "link": "/cikkek/diabetes/2502/cukorbeteg-akkor-is-figyeljen-labaira-ha-latszolag-tunetmentes",
+      "name": "Thiogamma laikus kampány",
+      "imageext": "jpg"
+    },
+    {
+      "expires_on": null,
+      "video": null,
+      "starts_on": null,
+      "image": "/banners/3.jpg",
+      "prominent": true,
+      "link": "https://regisztracio.gondosora.hu/",
+      "name": "Gondosóra regisztráció",
+      "imageext": "jpg"
+    },
+    {
+      "image": null,
+      "expires_on": null,
+      "name": "Roche diabetesedukacio.hu",
+      "video": "/banners/4.mp4",
+      "starts_on": null,
+      "related_banners": [],
+      "link": "https://diabetesedukacio.hu/",
+      "prominent": true,
+      "videoext": "mp4"
+    },
+    {
+      "image": "/banners/5.png",
+      "prominent": false,
+      "expires_on": null,
+      "link": "https://egeszsegcentrum.vanderlich.hu/szolgaltatasaink/szakteruletek/diabetologia/",
+      "name": "Vanderlich",
+      "video": null,
+      "starts_on": null,
+      "imageext": "png"
     }
   ],
   "ads_distance": 4

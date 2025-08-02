@@ -92,6 +92,7 @@ const _addTVs = (doc:object) => {
 }
 
 const _nagyito = doc => {
+  // if (doc.id=='3068') console.log(doc.content)
   doc.content = doc.content.replaceAll('`/assets', '`assets')
   const regexp1 = /\[\[nagyito(.*?)\]\]/g
   const regexp2 = /\[!nagyito(.*?)!\]/g
@@ -102,8 +103,11 @@ const _nagyito = doc => {
     // console.log(match.length,match[1]);  // Text between [[nagyito and ]]
     let f, file
     if (match[1].indexOf('file=') !== -1) {
-      f = [...match[1].match(/file=\`(.*?)[\`\]^s]/)]
-      file = PUBLIC_BASE_URL + 'assets/images/' + f[1] 
+      // console.log(match[1])
+      // f = [...match[1].match(/file=\`(.*?)[\`\]^s]/)]
+      f = [...match[1].match(/file=`(.*?)`/)]
+      // console.log(f)
+      file = PUBLIC_BASE_URL + 'assets/images/' + f[1]
     } else if (match[1].indexOf('path=') !== -1) {
       f = [...match[1].match(/path=\`(.*?)\`/)]
       file = PUBLIC_BASE_URL + f[1] 
@@ -111,8 +115,7 @@ const _nagyito = doc => {
       f = [...match[1].match(/url=\`(.*?)\`/)]
       file = PUBLIC_BASE_URL + f[1] 
     } else {
-      // file = PUBLIC_BASE_URL + 'assets/images/' + match[1]
-      console.log(file)
+      return doc
     }
     if (doc.img && doc.img.src.indexOf(f[1]) !== -1) {
       doc.content = doc.content.replace(match[0], '<!-- PAGEIMAGE -->')
@@ -148,7 +151,6 @@ const _findPath = (doc => {
       doc.path = doc.alias
     } else {
       const parent = _findPath(modxSiteContent.find(d => d.id == doc.parent))
-      //if (!parent.path) console.log(doc.id,doc.parent)
       doc.path = [ parent.path || '', doc.alias ].filter(x => x).join('/')
     }
   }
@@ -326,7 +328,7 @@ try {
       or(
         // eq(modx_site_content.template, 7), //magazine
         eq(modx_site_content.template, 9), //junior
-        eq(modx_site_content.template, 13) //szemlelet
+        eq(modx_site_content.template, 13), //szemlelet
       )
     ),
   )
@@ -384,10 +386,11 @@ modxSiteContent.forEach(doc => {
 })
 
 for (let doc of allDocs) {
-  if (doc.isfolder && doc.tv.tags.length > 0) doc = _findRelated(doc)
+  if (doc.isfolder && (doc.tv.tags.length > 0 || doc.tv.cat)) doc = _findRelated(doc)
 }
 
-allDocs = allDocs.filter(doc => doc.tv.tags.length > 0) // TODO: filter out docs without tags
+allDocs = allDocs.filter(doc => doc.tv.tags.length > 0) // filter out docs without tags
+// console.log('allDocs', allDocs.find(d => d.id == '3068')?.path || 'not in allDocs')
 export { allDocs }
 
 //export const allDocs = [...allDocs, ...modxSiteContent.filter(doc => doc.tv.tags.length && (doc.content.length || doc.introtext.length)).map(doc => _docFields(doc))]// && !doc.isfolder && doc.path !== doc.alias)

@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { PageProps } from "./$types";
   import { kvizScores } from '$lib/kvizStore';
-console.log({$kvizScores})
+console.log($kvizScores)
 
   const { data }: PageProps = $props()
   // console.log({data})
@@ -16,18 +16,33 @@ console.log({$kvizScores})
   <input name="date">
 </form>
 
-{#each kvizzes as kviz}
-  <p class="text-center"><a class="btn btn-outline" href={`/kviz/${kviz._id}`}>{kviz.title}</a>{$kvizScores[kviz._id]} pont</p>
-{/each}
+<main class="bg-base-300">
+  <article class="prose mt-16 mb-8 w-full mx-auto flex-none">
+    <h1 class="text-center">DiabKVÍZ</h1>
+    <!-- <h2 class="text-center">{kviz.title}</h2>
+    <p class="text-center">{kviz.description}</p> -->
+  </article>
 
-<!-- <p class="text-center"><a class="btn btn-outline" href="/kviz/egy" onclick={() => console.log('kviz btn')}>Kvíz 1</a></p>
-<p class="text-center"><a class="btn btn-outline" href="/kviz/ketto" onclick={() => console.log('kviz btn')}>Kvíz 2</a></p> -->
-<!-- <a href="/kviz/2">Kvíz 2</a>
-<a href="/kviz/3">Kvíz 3</a>
-<a href="/kviz/4">Kvíz 4</a>
-<a href="/kviz/5">Kvíz 5</a>
-<a href="/kviz/6">Kvíz 6</a>
-<a href="/kviz/7">Kvíz 7</a>
-<a href="/kviz/8">Kvíz 8</a>
-<a href="/kviz/9">Kvíz 9</a>
-<a href="/kviz/10">Kvíz 10</a> -->
+<div class="list max-w-screen-md mx-auto grid grid-cols-[auto 1fr auto] gap-4 mb-16 px-2">
+  {#each kvizzes as kviz, i}
+  <h2 class="col-span-3 uppercase">{kviz.title}</h2>
+  <div class="font-thin opacity-60 tabular-nums text-sm">2025.<br>01.0{i+1}</div>
+  <p class="opacity-60 hyphens-auto">{kviz.description}</p>
+  <span class="">
+  {#if !isNaN($kvizScores[kviz._id])}
+    <span class="badge badge-accent">
+      {$kvizScores[kviz._id]} pont
+    </span>
+  {:else}
+    <a href={`/kviz/${kviz._id}`} aria-label="Beküldés" class="btn btn-outline !hover:outline btn-square">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.347a1.125 1.125 0 0 1 0 1.972l-11.54 6.347a1.125 1.125 0 0 1-1.667-.986V5.653Z" />
+      </svg>
+    </a>
+  {/if}
+  <!-- {$kvizScores[kviz._id].isInteger.toString()} -->
+  </span>
+{/each}
+</div>
+
+</main>

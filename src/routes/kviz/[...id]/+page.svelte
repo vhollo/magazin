@@ -18,7 +18,7 @@
   // let docs = []//data.docs
   // let conf = data.conf
 
-  const id = data.id
+  const id = data.id // TODO: kviz._id
   // console.log({data})
   // const kviz = data.kvizzes?.find(k => k._id === id)
   let kviz = $state(data.kviz)
@@ -70,29 +70,31 @@
     formData.set('score', score.toString());
     formData.set('date', new Date().toLocaleDateString('hu-HU', {year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit'}));
     console.log('Form submission started...', Object.fromEntries(formData))
+
+    $kvizScores[kviz._id] = score
+
     return () => {
       cancel()
     }
   }
 
 	function _score(s: string,i: number) {
-		// if (!Boolean(i)) score[kviz._id] = 0 // if first
+		// if (!Boolean(i)) score = 0 // if first
 		if (String(s).startsWith('x') || String(s).startsWith('*')) {
-			score = parseFloat(score) * parseInt(s.substring(1))
+			score = (parseFloat(score) || 1) * parseInt(s.substring(1))
 		} else {
 			score += parseInt(s)
 		}
     kviz.questions[i].done = true
     // console.log(kviz.questions[i])
 		//score[kviz._id].set(isNaN(parseInt(s,10)) && s.startsWith('x') ? score[kviz._id] * parseFloat(s.substr(1),10) : score[kviz._id] + parseInt(s,10))
-    $kvizScores[kviz._id].set(score)
+    // $kvizScores[kviz._id] = score
     if (i == c-1) {
       if (submitBtn) submitBtn.click()
       // myForm?.submit()
     }
 	}
   function _mscore(s,i) {
-    console.log({s,i})
     if (kviz.questions[i].score === undefined) kviz.questions[i].score = 0
     kviz.questions[i].score += s
   }
@@ -103,6 +105,7 @@
   <article class="prose mt-16 mb-8 w-full mx-auto flex-none">
     <h1 class="text-center">DiabKVÍZ</h1>
     <h2 class="text-center">{kviz.title}</h2>
+    <p class="text-center">{kviz.description}</p>
   </article>
 
   <!-- form-name=kviz&id=kviz-0&answer-0=99&score=99 -->
@@ -135,7 +138,7 @@
             {/if}
           </label>
         {/each}
-        <input id="tovabb-{i}" name="answer-{i}" type="checkbox" required onchange={() => {_score(q.score,i); _scroll(`q-${i}`)}}>
+        <input id="tovabb-{i}" name="answer-{i}" type="checkbox" required onchange={() => {_score(q.score || 0,i); _scroll(`q-${i}`)}}>
         <label for="tovabb-{i}" class="bg-outline border-1 border-primary text-center p-2">
           <span>Tovább</span>
           {#if q.done}
@@ -181,7 +184,7 @@
 </main>
 
 <footer class="bg-base-200 text-base-content py-2">
-  <p class="text-center">Pontszám: <mark>{score || 0}</mark></p>
+  <p class="text-center">Pontszám: <span class="badge badge-accent">{score}</span></p>
 </footer>
 
 <!-- {#if docs.length}
@@ -272,9 +275,9 @@ footer {
 	background-color: #00000080;
 	backdrop-filter: blur(4px);
 }
-mark {
+/* mark {
 	padding: 0 1rem;
   background-color: var(--color-accent);
-}
+} */
 
 </style>

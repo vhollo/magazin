@@ -265,6 +265,10 @@ article :not(table).nicebox, article :not(table).boxright, article :not(table).b
   }
 }
 
+p.nicebox, p.boxleft, p.boxright {
+  @apply !p-2;
+}
+
 table.nicebox {
   /* @apply table table-xs; */
   /* font-size: 0.75rem; */

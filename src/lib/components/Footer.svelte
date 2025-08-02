@@ -11,7 +11,7 @@
   </aside>
   <aside class="self-end">
     <p class="text-justify">
-      Az optimális cukoranyagcsere eléréséhez az oldalakon hirdetett termékek alkalmazása esetén is feltétlenül szükséges a beállított diéta, a rendszeres mozgás, és az orvosa által rendelt gyógyszerek használata, valamint a rendszeres ellenőrzés! Minden esetben kérje ki kezelőorvosa véleményét!
+      Az optimális cukoranyagcsere eléréséhez az oldalakon hirdetett termékek alkalmazása esetén is feltétlenül szükséges a beállított diéta, a rendszeres mozgás és az orvosa által rendelt gyógyszerek használata, valamint a rendszeres ellenőrzés! Minden esetben kérje ki kezelőorvosa véleményét!
     </p>
   </aside>
   <!-- <nav>
