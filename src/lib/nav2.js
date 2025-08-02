@@ -12,6 +12,7 @@ export const nav2 = {
     'Testmozgás': '/testmozgas',
     'Psziché': '/psziche',
     'Jogi útmutatók': '/jogi-utmutatok',
+    'DiaEuro': '/diaeuro',
   },
   'Szövődmények': {
     'Megelőzés': '/megelozes',

@@ -5,7 +5,7 @@
 </script>
 
 <div id="search">
-<aside class="w-full mt-[4rem] px-1 bg-base-100">
+<aside class="w-full px-1 bg-base-100">
 <form action="/keres#lista" method="get" class="join flex mx-auto justify-center py-8 max-lg:max-w-xl">
   <label class="input join-item border border-primary border-e-0 rounded-e-none bg-base-200 h-8 px-0">
     <!-- <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -42,7 +42,7 @@
 
 <style>
   #search {
-    /* scroll-margin-top: 4rem; */
+    scroll-margin-top: 4rem;
     scroll-snap-align: center;
   }
 </style>

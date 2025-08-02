@@ -92,6 +92,8 @@ const _addTVs = (doc:object) => {
 }
 
 const _nagyito = doc => {
+  const regexp5 = /<!--.*?-->/gs
+  doc.content = doc.content.replaceAll(regexp5, '')
   // if (doc.id=='3068') console.log(doc.content)
   doc.content = doc.content.replaceAll('`/assets', '`assets')
   const regexp1 = /\[\[nagyito(.*?)\]\]/g
@@ -103,11 +105,18 @@ const _nagyito = doc => {
     // console.log(match.length,match[1]);  // Text between [[nagyito and ]]
     let f, file
     if (match[1].indexOf('file=') !== -1) {
-      // console.log(match[1])
+      // console.log(doc.id, doc.path)
       // f = [...match[1].match(/file=\`(.*?)[\`\]^s]/)]
-      f = [...match[1].match(/file=`(.*?)`/)]
-      // console.log(f)
-      file = PUBLIC_BASE_URL + 'assets/images/' + f[1]
+      try {
+        // f = [...match[1].match(/file=`(.*?)`/)]
+        // f = [...match[1].match(/file=`([^`\]]*)/)]
+        f = [...match[1].match(/file=`([^`\]]*?)(?=[`\]])/)]
+
+        // console.log(doc.path, f)
+        file = PUBLIC_BASE_URL + 'assets/images/' + f[1]
+      } catch (error) {
+        console.log(doc.id, doc.path, match)
+      }
     } else if (match[1].indexOf('path=') !== -1) {
       f = [...match[1].match(/path=\`(.*?)\`/)]
       file = PUBLIC_BASE_URL + f[1] 
@@ -150,22 +159,22 @@ const _findPath = (doc => {
     if (doc.parent == 0) {
       doc.path = doc.alias
     } else {
-      const parent = _findPath(modxSiteContent.find(d => d.id == doc.parent))
+      const parent = _findPath(modxSiteContent.find(d => d.id == doc.parent) || allDocs.find(d => d.id == doc.parent))
       doc.path = [ parent.path || '', doc.alias ].filter(x => x).join('/')
     }
   }
   return doc
 })
 
-const _pathById = (match: string, p1: number) => {
+const _pathById = (p1: number) => {
   // console.log('pathById', match, p1)
-  let doc = modxSiteContent.find(d => d.id == p1)
+  let doc = modxSiteContent.find(d => d.id == p1) || allDocs.find(d => d.id == p1)
   if (!doc) {
     // console.log('Nincs',p1)
     return ''
   }
   if (!doc.path) doc = _findPath(doc)
-  return `/${doc.path}`
+  return `${doc.path}`
 }
 
 const _findRelated = (doc) => {
@@ -174,7 +183,7 @@ const _findRelated = (doc) => {
   } */
   let dc = allDocs.filter(d => d.parent == doc.id) || []
   // let ids = dc.map(d1 => d1.id)
-  if (doc.content != '') {
+  if (doc.content != '' && doc.tv.tags.length > 0) {
     dc.forEach((d2, i) => d2.related = [_relFields(doc), ...dc.filter(d3 => d3.id != dc[i].id).map(d => _relFields(d))])
   } else {
     dc.forEach((d2, i) => d2.related = dc.filter(d3 => d3.id != dc[i].id).map(d => _relFields(d)))
@@ -186,21 +195,26 @@ const _findRelated = (doc) => {
 const _alapjav = doc => {
   doc.content = doc.content.replaceAll('http:', 'https:').replaceAll('&#160;', '&nbsp;').replaceAll('> </', '></').replaceAll('<p></p>\r\n', '').replaceAll('<p></p>', '').replaceAll('&nbsp;m2', '&nbsp;m²').replaceAll(' m2', '&nbsp;m²').replaceAll('/m2', '/m²').replaceAll('A1c', 'A<sub>1c</sub>').replaceAll('®', '<sup>®</sup>').replaceAll('rel="external"', 'rel="noopener" target="_blank"').replaceAll('"/assets', `"${PUBLIC_BASE_URL}assets`).replaceAll('"assets', `"${PUBLIC_BASE_URL}assets`)
   
-  const modxlink = /https:\/\/www.diabetes.hu\/?\[\~(\d*)\~\]/g
-  doc.content = doc.content.replaceAll(modxlink, _pathById)
-  doc.description = doc.description.replaceAll(modxlink, _pathById)
-  doc.introtext = doc.introtext.replaceAll(modxlink, _pathById)
+  doc.content = doc.content.replaceAll(/\[\*parent\*\]/g, modxSiteContent.find(d => d.id == doc.parent)?.id || allDocs.find(d => d.id == doc.parent)?.id)
+  doc.introtext = doc.introtext.replaceAll(/\[\*parent\*\]/g, modxSiteContent.find(d => d.id == doc.parent)?.id || allDocs.find(d => d.id == doc.parent)?.id)
+  doc.description = doc.description.replaceAll(/\[\*parent\*\]/g, modxSiteContent.find(d => d.id == doc.parent)?.id || allDocs.find(d => d.id == doc.parent)?.id)
+
+  // const modxlink = /https:\/\/www.diabetes.hu\/?\[\~(\d*)\~\]/g
+  const modxlink = /(https:\/\/www.diabetes.hu\/?)?\[\~(\d*)\~\]/g
+  doc.content = doc.content.replaceAll(/\[\*id\*\]/g, doc.id).replaceAll(modxlink, (match, p1, p2) => _pathById(p2))
+  doc.description = doc.description.replaceAll(/\[\*id\*\]/g, doc.id).replaceAll(modxlink, (match, p1, p2) => _pathById(p2))
+  doc.introtext = doc.introtext.replaceAll(/\[\*id\*\]/g, doc.id).replaceAll(modxlink, (match, p1, p2) => _pathById(p2))
 
   const regexp1 = /\[\[.*?\]\]/gs
   const regexp2 = /\[!.*?!\]/gs
   const regexp3 = /\{\{.*?\}\}/gs
   const regexp4 = /\[\+.*?\+\]/gs
-  const regexp5 = /<!--.*?-->/gs
+  // const regexp5 = /<!--.*?-->/gs
   const regexp6 = /<div\s+class="cim">.*?<\/div>/gs
   const regexp7 = /<div\s+class="kep">(.*?)<\/div>/gs
   const regexp8 = /<div\s+class="j_cikk">(.*?)<\/div>\s*/gs
 
-  doc.content = doc.content.replaceAll(regexp1, '').replaceAll(regexp2, '').replaceAll(regexp3, '').replaceAll(regexp4, '').replaceAll(regexp5, '').replaceAll(regexp6, '').replaceAll(regexp7, '$1').replaceAll(regexp8, '$1')
+  doc.content = doc.content.replaceAll(regexp1, '').replaceAll(regexp2, '').replaceAll(regexp3, '').replaceAll(regexp4, '')/* .replaceAll(regexp5, '') */.replaceAll(regexp6, '').replaceAll(regexp7, '$1').replaceAll(regexp8, '$1')
 
   return doc
 }

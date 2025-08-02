@@ -41,6 +41,11 @@ body {
   }
 }
 
+*[id] {
+  scroll-margin-top: 6rem;
+  scroll-snap-align: center;
+}
+
 
 
 /* DRAWER */
@@ -240,10 +245,10 @@ article :not(table).nicebox {
   @apply my-[2.8rem];
 }
 article :not(table).nicebox, article :not(table).boxright, article :not(table).boxleft {
-  @apply card card-sm bg-base-100 shadow-xl card-body px-0 pt-0 pb-2 last:mb-0 gap-4;
+  @apply card card-sm bg-neutral shadow-xl card-body px-2 py-4 last:mb-0 gap-2;
 
   & > * {
-    @apply my-0 mx-4;
+    @apply my-0/*  mx-4 */;
   }
   /* & > h3 {
     @apply card-title mt-6;

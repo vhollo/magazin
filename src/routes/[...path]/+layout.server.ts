@@ -65,6 +65,7 @@ const queries: Queries = {
   'gyogyitok': ['+személyes', '#orvosok', 'szakellátás', 'elismerés', '-kezelés', '-covid-19'],
   'sorstarsak': ['+személyes', 'elismerés', '-szakellátás', '-orvosok', '-önellenőrzés', '-kezelés', '-várandósság', '-közösség', '-edukáció', '-egyesület', '-covid-19'], 
   'hirek': ['hírek'],
+  'diaeuro': ['diaeuro'],
   // 'kviz': ['diabpont'],
   'all': [],
 }
