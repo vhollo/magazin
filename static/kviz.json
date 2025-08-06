@@ -1,0 +1,110 @@
+[
+  {
+    "id": "VRvfnvKejCI",
+    "image": "https://firebasestorage.googleapis.com/v0/b/diabetes-hu.firebasestorage.app/o/kviz%2Fw6v1b_CEOSZ-YT-cover_DiabPONT2025.jpg?alt=media&token=74107c54-da0b-428d-bb3b-4060c379b402",
+    "expires_on": null,
+    "description": "Tudtad, hogy minden harmadik cukorbetegnél vesebetegség alakul ki? Éppen ezért a cukorbetegségben követendő étrend tervezésénél érdemes néhány extra alapelvet is figyelembe venni, hogy a veséket is kíméljük. Az eheti DiabPONT előadásból megtudhatod, pontosan melyek ezek az alapelvek.",
+    "title": "Szálka Brigitta - Diabétesz + veseelégtelenség – hogy lehet a kétféle étrendet összehangolni?",
+    "status": true,
+    "tags": [],
+    "questions": [
+      {
+        "q": "Mikor van a Vese Világnapja?",
+        "d": "A helyes válasz 2 pontot ér.",
+        "options": [
+          {
+            "feedback": "A helyes válasz: március második csütörtökén",
+            "score": 0,
+            "option": "Január 32."
+          },
+          {
+            "score": 2,
+            "option": "Március második csütörtökén",
+            "feedback": "Helyes válasz!"
+          },
+          {
+            "score": 0,
+            "option": "Október 23.",
+            "feedback": "A helyes válasz: március második csütörtökén"
+          }
+        ]
+      },
+      {
+        "multi": true,
+        "d": "A helyes válaszok 2 pontot érnek, a hibás válaszok 1 pont levonással járnak.",
+        "q": "Milyen feladatokat lát el a vese?",
+        "options": [
+          {
+            "score": 2,
+            "feedback": null,
+            "option": "A vér szűrése"
+          },
+          {
+            "option": "Méregtelenítés",
+            "feedback": null,
+            "score": -1
+          },
+          {
+            "feedback": null,
+            "option": "A vérnyomás szabályozása",
+            "score": 2
+          },
+          {
+            "option": "Fehérjeszintézis",
+            "score": -1,
+            "feedback": null
+          },
+          {
+            "feedback": null,
+            "score": 2,
+            "option": "Vörösvértest-képzés"
+          },
+          {
+            "score": -1,
+            "feedback": null,
+            "option": "Epe termelése"
+          }
+        ]
+      }
+    ],
+    "video": "VRvfnvKejCI",
+    "link": "/cikkek/diabetes/2301/nepbetegseg-megis-alig-beszelunk-rola",
+    "starts_on": "Tue Mar 04 2025 00:00:00 GMT+0100 (Central European Standard Time)"
+  },
+  {
+    "id": "Br93qFfsbOU",
+    "image": "https://firebasestorage.googleapis.com/v0/b/diabetes-hu.firebasestorage.app/o/kviz%2Fj8056_CEOSZ-YT-cover_DiabPONT2025.jpg?alt=media&token=ac450fbb-cea4-43d1-ad39-1dba61511df0",
+    "expires_on": null,
+    "link": null,
+    "description": "Szeretettel várunk minden kedden 17:00 órakor a soron következő DiabPONT előadáson! Részletek, csatlakozás: https://ceosz.hu/diabpont/",
+    "video": "Br93qFfsbOU",
+    "title": "Dr. Szálka Brigitta - A magas húgysavszint étrendi terápiája",
+    "starts_on": "Tue Jul 01 2025 00:00:00 GMT+0200 (Central European Summer Time)",
+    "status": true,
+    "tags": [],
+    "questions": [
+      {
+        "q": "Mi a húgysavszint célértéke?",
+        "d": "(Nem köszvény esetén)",
+        "multi": false,
+        "options": [
+          {
+            "option": "<260 µmól/l",
+            "score": 0,
+            "feedback": null
+          },
+          {
+            "option": "<360 µmól/l",
+            "score": 2,
+            "feedback": null
+          },
+          {
+            "option": "<460 µmól/l",
+            "score": 0,
+            "feedback": null
+          }
+        ]
+      }
+    ]
+  }
+]

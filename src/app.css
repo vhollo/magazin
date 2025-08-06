@@ -26,11 +26,7 @@
 }
 
 body {
-  @apply flex flex-col justify-between min-h-screen;
-  /* display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  justify-content: space-between; */
+  @apply flex flex-col min-h-screen;
 }
 @media (prefers-color-scheme: light) {
   :root {

@@ -1,11 +1,15 @@
+<script module>
+  import Search from '$lib/components/Search.svelte';
+  import Nav2 from '$lib/components/Nav2.svelte';
+</script>
 <script lang="ts">
   import type { PageProps } from "./$types";
   import { kvizScores } from '$lib/kvizStore';
-console.log($kvizScores)
 
   const { data }: PageProps = $props()
   // console.log({data})
   const kvizzes = data.kvizzes
+  // console.log({kvizzes})
 </script>
 
 <form data-netlify="true" name="kviz" class="hidden">
@@ -29,20 +33,21 @@ console.log($kvizScores)
   <div class="font-thin opacity-60 tabular-nums text-sm">2025.<br>01.0{i+1}</div>
   <p class="opacity-60 hyphens-auto">{kviz.description}</p>
   <span class="">
-  {#if !isNaN($kvizScores[kviz._id])}
+  {#if !isNaN($kvizScores[kviz.id])}
     <span class="badge badge-accent">
-      {$kvizScores[kviz._id]} pont
+      {$kvizScores[kviz.id]} pont
     </span>
   {:else}
-    <a href={`/kviz/${kviz._id}`} aria-label="Beküldés" class="btn btn-outline !hover:outline btn-square">
+    <a href={`/kviz/${kviz.id}`} aria-label="Beküldés" class="btn btn-outline !hover:outline btn-square">
       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
         <path stroke-linecap="round" stroke-linejoin="round" d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.347a1.125 1.125 0 0 1 0 1.972l-11.54 6.347a1.125 1.125 0 0 1-1.667-.986V5.653Z" />
       </svg>
     </a>
   {/if}
-  <!-- {$kvizScores[kviz._id].isInteger.toString()} -->
+  <!-- {$kvizScores[kviz.id].isInteger.toString()} -->
   </span>
 {/each}
 </div>
-
 </main>
+<Search />
+<Nav2 actual={data.path}/>

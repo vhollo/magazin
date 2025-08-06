@@ -6,6 +6,8 @@
   import type { SubmitFunction } from '@sveltejs/kit';
   // import Cards from '$lib/components/Cards.svelte';
   import { redirect } from '@sveltejs/kit';
+  import Search from '$lib/components/Search.svelte';
+  import Nav2 from '$lib/components/Nav2.svelte';
 </script>
 
 <script lang="ts">
@@ -18,9 +20,9 @@
   // let docs = []//data.docs
   // let conf = data.conf
 
-  const id = data.id // TODO: kviz._id
+  const id = data.id // TODO: kviz.id
   // console.log({data})
-  // const kviz = data.kvizzes?.find(k => k._id === id)
+  // const kviz = data.kvizzes?.find(k => k.id === id)
   let kviz = $state(data.kviz)
   let score = $state(0)
 
@@ -55,7 +57,7 @@
   let myForm: HTMLFormElement | null = $state(null)
 	let c = kviz.questions.length
 	// let startnew = true
-  // score[kviz._id] = 0
+  // score[kviz.id] = 0
 
   const handleSubmitEnhance: SubmitFunction = async ({ formData/* , formElement, action, controller, submitter */, cancel }) => {
 		// `formElement` is this `<form>` element
@@ -64,14 +66,14 @@
 		// calling `cancel()` will prevent the submission
 		// `submitter` is the `HTMLElement` that caused the form to be submitted
 
-    formData.set('id', kviz._id);
+    formData.set('id', kviz.id);
     formData.set('name', $authUser?.displayName || '');
     formData.set('email', $authUser?.email || '');
     formData.set('score', score.toString());
     formData.set('date', new Date().toLocaleDateString('hu-HU', {year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit'}));
     console.log('Form submission started...', Object.fromEntries(formData))
 
-    $kvizScores[kviz._id] = score
+    $kvizScores[kviz.id] = score
 
     return () => {
       cancel()
@@ -87,8 +89,8 @@
 		}
     kviz.questions[i].done = true
     // console.log(kviz.questions[i])
-		//score[kviz._id].set(isNaN(parseInt(s,10)) && s.startsWith('x') ? score[kviz._id] * parseFloat(s.substr(1),10) : score[kviz._id] + parseInt(s,10))
-    // $kvizScores[kviz._id] = score
+		//score[kviz.id].set(isNaN(parseInt(s,10)) && s.startsWith('x') ? score[kviz.id] * parseFloat(s.substr(1),10) : score[kviz.id] + parseInt(s,10))
+    // $kvizScores[kviz.id] = score
     if (i == c-1) {
       if (submitBtn) submitBtn.click()
       // myForm?.submit()
@@ -105,7 +107,16 @@
   <article class="prose mt-16 mb-8 w-full mx-auto flex-none">
     <h1 class="text-center">DiabKVÍZ</h1>
     <h2 class="text-center">{kviz.title}</h2>
+    {#if kviz.image}
+    <img src={kviz.image} alt="">
+    {/if}
     <p class="text-center">{kviz.description}</p>
+    {#if kviz.video}
+    <iframe class="mx-auto my-8" width="560" height="315" src={`https://www.youtube-nocookie.com/embed/${kviz.video}`} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    {/if}
+    {#if kviz.link}
+    <p class="mt-8 text-center"><a href={kviz.link} class="btn btn-outline btn-sm">Kapcsolódó cikk</a></p>
+    {/if}
   </article>
 
   <!-- form-name=kviz&id=kviz-0&answer-0=99&score=99 -->
@@ -129,12 +140,12 @@
         {q.q}<span class="block normal-case text-sm">{q.d}</span>
       </legend>
       {#if q.multi}
-        {#each q.multi as ch, j}
-          <input type="checkbox" id="answer-{i}-{j}" onchange={ (e) => {_mscore((e.target as HTMLInputElement).checked ? ch.score : -(ch.score), i) } }>
+        {#each q.options as opt, j}
+          <input type="checkbox" id="answer-{i}-{j}" onchange={ (e) => {_mscore((e.target as HTMLInputElement).checked ? opt.score : -(opt.score), i) } }>
           <label for="answer-{i}-{j}" class="bg-base-100 border-1 border-secondary p-2">
-            {ch.choice}
+            {opt.option}
             {#if q.done}
-              <aside><small>({ch.score} pont)</small></aside>
+              <aside><small>({opt.score} pont)</small></aside>
             {/if}
           </label>
         {/each}
@@ -146,12 +157,12 @@
           {/if}
         </label>
       {:else}
-        {#each q.choices as ch, j}
-          <input type="radio" name="answer-{i}" id="answer-{i}-{j}" required onchange={() => {_score(ch.score,i); _scroll(`q-${i}`)}}>
+        {#each q.options as opt, j}
+          <input type="radio" name="answer-{i}" id="answer-{i}-{j}" required onchange={() => {_score(opt.score,i); _scroll(`q-${i}`)}}>
           <label for="answer-{i}-{j}" class="bg-base-100 border-1 border-secondary p-2">
-            {ch.choice}
+            {opt.option}
             {#if q.done}
-              <aside class="choice"><small>{ch.answer} ({ch.score} pont)</small></aside>
+              <aside class="choice"><small>{opt.feedback} ({opt.score} pont)</small></aside>
             {/if}
           </label>
         {/each}
@@ -182,10 +193,11 @@
   </form>
 
 </main>
-
 <footer class="bg-base-200 text-base-content py-2">
   <p class="text-center">Pontszám: <span class="badge badge-accent">{score}</span></p>
 </footer>
+<Search />
+<Nav2 actual={data.path}/>
 
 <!-- {#if docs.length}
   <article class="prose mt-16 mb-8 mx-auto w-full">

@@ -5,6 +5,6 @@ import { writable } from 'svelte/store';
   score: number;
 } */
 
-const kvizScores = writable<object[]>([]);
+const kvizScores = writable<{id: string, score: number}[]>([]);
 
 export { kvizScores }

@@ -15,6 +15,10 @@ import { db } from '$lib/firebase-admin';
 // import { doc, getDoc, collection, getDocs, setDoc } from 'firebase/firestore/lite';
 // import { setDoc } from 'firebase/firestore';
 
+import { /* browser,  */building , dev/*, version */ } from '$app/environment';
+import fs from 'fs';
+import path from 'path';
+
 import { render } from 'svelte/server'
 import Nagyito from '$lib/components/Nagyito.svelte'
 
@@ -92,10 +96,10 @@ const _addTVs = (doc:object) => {
 }
 
 const _nagyito = doc => {
-  const regexp5 = /<!--.*?-->/gs
-  doc.content = doc.content.replaceAll(regexp5, '')
+  const comments = /<!--.*?-->/gs
+  
   // if (doc.id=='3068') console.log(doc.content)
-  doc.content = doc.content.replaceAll('`/assets', '`assets')
+  doc.content = doc.content.replaceAll('`/assets', '`assets').replaceAll(comments, '')
   const regexp1 = /\[\[nagyito(.*?)\]\]/g
   const regexp2 = /\[!nagyito(.*?)!\]/g
   const matches = [...doc.content.matchAll(regexp1), ...doc.content.matchAll(regexp2)]
@@ -110,12 +114,12 @@ const _nagyito = doc => {
       try {
         // f = [...match[1].match(/file=`(.*?)`/)]
         // f = [...match[1].match(/file=`([^`\]]*)/)]
-        f = [...match[1].match(/file=`([^`\]]*?)(?=[`\]])/)]
+        f = [...match[1].match(/file=`([^`]*)/)]
 
         // console.log(doc.path, f)
         file = PUBLIC_BASE_URL + 'assets/images/' + f[1]
       } catch (error) {
-        console.log(doc.id, doc.path, match)
+        console.log(doc.id, doc.path, f)
       }
     } else if (match[1].indexOf('path=') !== -1) {
       f = [...match[1].match(/path=\`(.*?)\`/)]
@@ -274,9 +278,6 @@ const _relFields = doc => {
 }
 
 
-import { /* browser,  */building , dev/*, version */ } from '$app/environment';
-import fs from 'fs';
-import path from 'path';
 async function writeData(data: object[]) {
   console.log('writeData',data.length)
   const outputPath = path.resolve(process.cwd(), 'static', 'data.json');

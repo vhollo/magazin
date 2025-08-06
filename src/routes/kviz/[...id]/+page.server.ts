@@ -36,6 +36,6 @@ export const actions: Actions = {
 export const load: PageServerLoad = async ({ params, parent }) => {
 	const id = params.id
 	const { kvizzes } = await parent()
-	const kviz = kvizzes?.find((k: { _id: string; }) => k._id === id)
+	const kviz = kvizzes?.find((k: { id: string; }) => k.id === id)
 	return { id, kviz }
 }
