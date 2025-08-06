@@ -1,12 +1,13 @@
-<script context="module">
+<script module>
 	import { browser } from '$app/environment';
   import Search from '$lib/components/Search.svelte'
   import Nav2 from '$lib/components/Nav2.svelte'
   const lightcolor = '#222'
   const darkcolor = '#ddd'
 </script>
-<script>
-// export let data
+<script lang="ts">
+  import type { PageProps } from './$types';
+    // export let data
 // console.log(data)
 
 if (browser) {
@@ -190,7 +191,23 @@ if (browser) {
     });
   }
 }
+const { data }: PageProps = $props()
+
 </script>
+
+<svelte:head>
+  <title>{'Előfizetés • ' + data.conf.sitename}</title>
+  <meta name="description" content="Rendeld meg a Diabetes című betegtájékoztató kiadványt, és féláron adjuk mellé a Hypertonia Magazint és a különszámokat!"/>
+  <meta name="keywords" content={data.conf.tags.join(', ') || 'diabetes, diabétesz, cukorbetegség, vese, keton, Tudomány Kiadó Kft'}/>
+  <meta name="author" content={data.conf.sitename}/>
+  <meta name="og:image" content={data.conf.ogi || '/assets/logo-uj-diabetes-web.svg'}/>
+  <meta name="og:title" content={'Előfizetés • ' + data.conf.sitename}/>
+  <meta name="og:description" content="Rendeld meg a Diabetes című betegtájékoztató kiadványt, és féláron adjuk mellé a Hypertonia Magazint és a különszámokat!"/>
+  <meta name="og:url" content={data.conf.url || 'https://diabetes.hu'}/>
+  <meta name="og:site_name" content="Diabetes"/>
+  <meta name="og:type" content="article"/>
+  <meta name="og:locale" content="hu_HU"/>
+</svelte:head>
 
 <article class="prose mt-16 mb-8 mx-auto w-full">
   <h1 class="text-center">Előfizetés</h1>

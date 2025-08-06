@@ -13,21 +13,20 @@
 <script lang="ts">
   import { authUser } from '$lib/authStore';
   import { kvizScores } from '$lib/kvizStore';
-  console.log($kvizScores)
+  // console.log($kvizScores)
   // import { firebaseAuth } from '$lib/firebase'
 
   const { data }: PageProps = $props()
   // let docs = []//data.docs
   // let conf = data.conf
 
-  const id = data.id // TODO: kviz.id
   // console.log({data})
   // const kviz = data.kvizzes?.find(k => k.id === id)
   let kviz = $state(data.kviz)
-  let score = $state(0)
+  let score: number = $state(0)
 
   function _scroll(id: string) {
-    document.getElementById(id).scrollIntoView({behavior: 'smooth'})
+    document.getElementById(id)?.scrollIntoView({behavior: 'smooth'})
   }
 
 	import { applyAction, deserialize } from '$app/forms';
@@ -55,7 +54,7 @@
 
   let submitBtn: HTMLInputElement | null = $state(null);
   let myForm: HTMLFormElement | null = $state(null)
-	let c = kviz.questions.length
+	let c = kviz.questions?.length || 0
 	// let startnew = true
   // score[kviz.id] = 0
 
@@ -83,7 +82,7 @@
 	function _score(s: string,i: number) {
 		// if (!Boolean(i)) score = 0 // if first
 		if (String(s).startsWith('x') || String(s).startsWith('*')) {
-			score = (parseFloat(score) || 1) * parseInt(s.substring(1))
+			score = (score || 1) * parseInt(s.substring(1))
 		} else {
 			score += parseInt(s)
 		}
@@ -96,7 +95,7 @@
       // myForm?.submit()
     }
 	}
-  function _mscore(s,i) {
+  function _mscore(s: number,i: number) {
     if (kviz.questions[i].score === undefined) kviz.questions[i].score = 0
     kviz.questions[i].score += s
   }
@@ -134,7 +133,7 @@
 
     {#if $authUser}
     <!-- <form method="POST" name="kviz" use:enhance={handleSubmitEnhance} class="max-w-screen-md mx-auto py-12" bind:this={myForm}> -->
-    {#each kviz.questions as q, i}
+    {#each kviz.questions || [] as q, i}
     <fieldset class="grid xs:grid-cols-2 gap-4">
       <legend id="q-{i}" class="uppercase pt-8 pb-2">
         {q.q}<span class="block normal-case text-sm">{q.d}</span>

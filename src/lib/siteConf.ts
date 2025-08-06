@@ -139,9 +139,10 @@ export const getKvizConf = async () => {
       const kvizData = kvizSnap.docs.filter(doc => doc.data().status).map(doc => {
         const id = doc._ref._path.segments.pop()
         const data = {id: id, ...doc.data()}
-        data.starts_on = data.starts_on?.toDate().toString();
+        data.starts_on = data.starts_on?.toDate()
+        data.expires_on = data.expires_on?.toDate()
         return data;
-      }).reverse() || [];
+      }).sort((a, b) => b.starts_on - a.starts_on) || [];
       writeData(kvizData, 'kviz.json')
       return kvizData;
     } catch (error) {

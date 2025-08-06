@@ -162,6 +162,8 @@ const _findPath = (doc => {
   if (!doc.path) {
     if (doc.parent == 0) {
       doc.path = doc.alias
+    } else if (doc.parent == 1) {
+      doc.path = 'hirek/' + doc.alias
     } else {
       const parent = _findPath(modxSiteContent.find(d => d.id == doc.parent) || allDocs.find(d => d.id == doc.parent))
       doc.path = [ parent.path || '', doc.alias ].filter(x => x).join('/')

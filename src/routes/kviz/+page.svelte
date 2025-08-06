@@ -12,6 +12,20 @@
   // console.log({kvizzes})
 </script>
 
+<svelte:head>
+  <title>{(data.doc.title ? data.doc.title + ' • ' : '') + data.conf.sitename}</title>
+  <meta name="description" content="Szeretettel várunk minden kedden 17:00 órakor a soron következő DiabPONT előadáson! Részletek, csatlakozás: https://ceosz.hu/diabpont/"/>
+  <meta name="keywords" content={data.conf.tags.join(', ') || 'diabetes, diabétesz, cukorbetegség, vese, keton, Tudomány Kiadó Kft'}/>
+  <meta name="author" content={data.conf.sitename}/>
+  <meta name="og:image" content={data.conf.ogi || '/assets/logo-uj-diabetes-web.svg'}/>
+  <meta name="og:title" content={(data.doc.title ? data.doc.title + ' • ' : '') + data.conf.sitename}/>
+  <meta name="og:description" content={data.conf.description || 'www.diabetes.hu • Az Alapítvány a Cukorbetegekért betegtájékoztató lapja. Kiadja a Tudomány Kiadó Kft.'}/>
+  <meta name="og:url" content={data.conf.url || 'https://diabetes.hu'}/>
+  <meta name="og:site_name" content="Diabetes"/>
+  <meta name="og:type" content="article"/>
+  <meta name="og:locale" content="hu_HU"/>
+</svelte:head>
+
 <form data-netlify="true" name="kviz" class="hidden">
   <input name="id">
   <input name="email">
@@ -29,8 +43,8 @@
 
 <div class="list max-w-screen-md mx-auto grid grid-cols-[auto 1fr auto] gap-4 mb-16 px-2">
   {#each kvizzes as kviz, i}
-  <h2 class="col-span-3 uppercase">{kviz.title}</h2>
-  <div class="font-thin opacity-60 tabular-nums text-sm">2025.<br>01.0{i+1}</div>
+  <h2 class="col-span-3 uppercase mt-4">{kviz.title}</h2>
+  <div class="font-thin opacity-60 tabular-nums text-sm">{kviz.starts_on.toLocaleDateString('hu-HU', {year: 'numeric'})}<br>{kviz.starts_on.toLocaleDateString('hu-HU', {month: '2-digit'})}.{kviz.starts_on.toLocaleDateString('hu-HU', {day: '2-digit'})}</div>
   <p class="opacity-60 hyphens-auto">{kviz.description}</p>
   <span class="">
   {#if !isNaN($kvizScores[kviz.id])}
@@ -46,7 +60,7 @@
   {/if}
   <!-- {$kvizScores[kviz.id].isInteger.toString()} -->
   </span>
-{/each}
+  {/each}
 </div>
 </main>
 <Search />
