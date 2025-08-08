@@ -209,6 +209,7 @@ const { data }: PageProps = $props()
   <meta name="og:locale" content="hu_HU"/>
 </svelte:head>
 
+<main class="bg-base-300">
 <article class="prose mt-16 mb-8 mx-auto w-full">
   <h1 class="text-center">Előfizetés</h1>
   <p>
@@ -224,3 +225,5 @@ const { data }: PageProps = $props()
 
 <Search/>
 <Nav2 actual='elofizetes'/><!--  actual={data.doc.path} -->
+
+</main>
