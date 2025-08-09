@@ -404,9 +404,11 @@ modxSiteContent.forEach(doc => {
 
 for (let doc of allDocs) {
   if (doc.isfolder && (doc.tv.tags.length > 0 || doc.tv.cat)) doc = _findRelated(doc)
+  if (doc.id == '4051') console.log('before filter',doc)
 }
 
 allDocs = allDocs.filter(doc => doc.tv.tags.length > 0) // filter out docs without tags
+if (allDocs.find(doc => doc.id == '4051')) console.log('after filter')
 // console.log('allDocs', allDocs.find(d => d.id == '3068')?.path || 'not in allDocs')
 export { allDocs }
 
