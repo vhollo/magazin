@@ -104,24 +104,3 @@
   </article>
   <Cards cards={docs} banners={conf.side_banners} ads_distance={conf.ads_distance}/>
 {/if}
-
-<!-- {#if volume * pagenum < data.docs.length}
-<footer class="footer footer-center bg-base-200 text-base-content pt-4">
-  <button on:click={_pagenum} class="btn btn-outline">További cikkek</button>
-</footer>
-{/if} -->
-
-<style>
-  section {
-    min-width: 24ch;
-    width: calc((100% - 65ch) / 2);
-  }
-  section aside {
-    position: unset;
-    /* width: minmax(24ch, 1fr); */
-    min-height: 20ch;
-    /* grid-row-end: span 3; */
-    margin-bottom: 3rem;
-  }
-
-</style>

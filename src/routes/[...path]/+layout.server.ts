@@ -83,7 +83,7 @@ const docsByTags = (tags:Array<string>, id:string | undefined) => {
     return doc.id != id && !doc.isfolder && doc.rank > 0
   }) || []
   docs.sort((a, b) => b.rank - a.rank)
-  console.log('docs:',docs.length)
+  // console.log('docs:',docs.length)
   return docs.slice(0, 18 * 4)
   // return docs
 }

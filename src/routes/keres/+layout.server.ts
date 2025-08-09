@@ -8,7 +8,7 @@ const stopWords = new Set(['a', 'az', 'és', 'vagy', 'de', 'ha', 'hogy', 'is', '
 
 const miniSearch = new MiniSearch({
   fields: ['szerzo', 'longtitle', 'description', 'ellipsis', 'content'], // fields to index for full-text search
-  storeFields: ['longtitle', 'path', 'description', 'ellipsis', 'content', 'tv', 'img', 'video', 'table'], // fields to return with search results
+  storeFields: ['longtitle', 'path', 'description', 'ellipsis', 'content'/* , 'tv', 'img', 'video', 'table' */], // fields to return with search results
   processTerm: (term, _fieldName) => stopWords.has(term) ? null : term.toLowerCase(),
   extractField: (document, fieldName) => {
     if (fieldName === 'szerzo') {
