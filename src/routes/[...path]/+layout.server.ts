@@ -122,7 +122,7 @@ export async function load({ params, url }) {
       // query = doc.tv && doc.tv.tags || []
       // docs = allDocs.filter((doc: { tvs: { tag: string | any[]; }; }) => doc.tv.tags?.length).slice(0, 18 * 3)
       docs = doc.tv && docsByTags(doc.tv.tags, doc.id) || allDocs.slice(0, 18 * 4)
-      console.log('ID:',doc.id, doc.path, docs.length)
+      console.log('ID:',doc.id, 'path:', path, docs.length)
     }
 
     if (!doc.path) {
