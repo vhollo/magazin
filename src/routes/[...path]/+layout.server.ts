@@ -116,8 +116,9 @@ export async function load({ params, url }) {
     //   // console.log(docs[1])
     //   break
     default: /// page path
+      if (path == 'cikkek/diabetes/2403/uj-ceosz-tagok') console.log('cikkek/diabetes/2403/uj-ceosz-tagok', path)
       doc = allDocs.find(d => d.path == path) || {}
-      // if (doc.id == '1045') console.log(doc.content)
+      if (doc.id == '4051') console.log('doc',doc)
       // query = doc.tv && doc.tv.tags || []
       // docs = allDocs.filter((doc: { tvs: { tag: string | any[]; }; }) => doc.tv.tags?.length).slice(0, 18 * 3)
       docs = doc.tv && docsByTags(doc.tv.tags, doc.id) || allDocs.slice(0, 18 * 4)
