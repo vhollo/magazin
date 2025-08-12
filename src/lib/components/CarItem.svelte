@@ -50,12 +50,6 @@
         />
       {/if}
     </figure>
-  {:else}
-    <!--<figure class="empty">
-      <a href={`/${card.path}`}>
-        <img src="/pixel.png" alt="" width="928" height="548">
-      </a>
-    </figure>-->
   {/if}
 
   {#if card.path}

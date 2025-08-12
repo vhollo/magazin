@@ -73,7 +73,7 @@
       // User is signed out
       authUser.set(undefined)
     }
-    console.log('onAuthStateChanged', user)
+    // console.log('onAuthStateChanged', user)
   })
 
   /* const login = (e) => {

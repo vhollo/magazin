@@ -87,7 +87,8 @@ const _addTVs = (doc:object) => {
     'caption': tvs.find(tv => tv.tmplvarid == 28)?.value || '',
   } || null
 
-  doc.tv.ogi = tvs.find(tv => tv.tmplvarid == 25)?.value || ''
+  const ogi = tvs.find(tv => tv.tmplvarid == 25)?.value
+  doc.tv.ogi = ogi ? PUBLIC_BASE_URL + ogi : ''
   
   if (doc.parent == 1) {
     doc.tv.tags.push('hírek')
@@ -372,9 +373,9 @@ modxSiteHirek = /*modxSiteHirek ||*/ await modxdb.select().from(modx_site_conten
 
 tmplvarContentvalues = /*tmplvarContentvalues ||*/ await modxdb.select().from(modx_site_tmplvar_contentvalues)
 
-console.log('modxSiteContent',modxSiteContent.length)
 //console.log('modxSiteHirek',modxSiteHirek.length)
 modxSiteContent.push(...modxSiteHirek)
+console.log('modxSiteContent',modxSiteContent.length)
 
 export const modxSzerzok = await modxdb.select().from(modx_site_htmlsnippets).where(eq (modx_site_htmlsnippets.category, 24))
 //console.log(modxSzerzok)
@@ -404,11 +405,10 @@ modxSiteContent.forEach(doc => {
 
 for (let doc of allDocs) {
   if (doc.isfolder && (doc.tv.tags.length > 0 || doc.tv.cat)) doc = _findRelated(doc)
-  if (doc.id == '4051') console.log('before filter',doc)
+  // if (doc.id == '4051') console.log('before filter',doc)
 }
 
 allDocs = allDocs.filter(doc => doc.tv.tags.length > 0) // filter out docs without tags
-if (allDocs.find(doc => doc.id == '4051')) console.log('after filter')
 // console.log('allDocs', allDocs.find(d => d.id == '3068')?.path || 'not in allDocs')
 export { allDocs }
 
@@ -416,7 +416,7 @@ export { allDocs }
 
 // Write fresh modxSiteContent into Firestore's collection 'docs'
 if (building) modxSiteContent.forEach(async doc => {
-  const res = await db.collection('docs').doc(String(doc.id).padStart(4, '0')).set(_docFields(doc));
+  const res = await db.collection('docs').doc(String(doc.id).padStart(4, '0')).set(_docFields(allDocs.find(d => d.id == doc.id)));
 })
 
 // write data.json

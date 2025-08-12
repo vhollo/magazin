@@ -89,6 +89,9 @@
   <meta name="og:site_name" content="Diabetes"/>
   <meta name="og:type" content="article"/>
   <meta name="og:locale" content="hu_HU"/>
+  {#if doc.img}
+    <link rel="preload" href={doc.img.src} as="image"/>
+  {/if}
 </svelte:head>
 <!-- <svelte:window bind:this={win}/> -->
 

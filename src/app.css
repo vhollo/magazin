@@ -305,24 +305,17 @@ summary h2 {
 }
 
 /* FLOATS */
+:not(div) {
+  & > .left, & > .right, & > .boxleft, & > .boxright {
+    clear: both;
+  }
+}
 .left, .right, .boxleft, .boxright {
-  clear: both;
   width: calc(50% - 1rem);
   margin-bottom: 1rem;
 }
 .left, .right, .boxleft, :not(:aside + .boxright) {
   margin-top: 2rem;
-}
-@container (max-width: 54ch) {
-  .left, .right, .boxleft, .boxright {
-    float: none!important;
-    width: 100%;
-    margin-inline: 0!important;
-    /* text-align: center!important; */
-  }
-  .left img, .right img {
-    margin-inline: auto!important;
-  }
 }
 .left, .boxleft {
   float: left;
@@ -345,6 +338,18 @@ summary h2 {
 /*.card.left p, .card.right p {
   @apply self-end;
 }*/
+@container (max-width: 54ch) {
+  .left, .right, .boxleft, .boxright {
+    float: none!important;
+    width: 100%;
+    margin-inline: 0!important;
+    /* text-align: center!important; */
+  }
+  .left img, .right img {
+    margin-inline: auto!important;
+  }
+}
+
 
 /* ALAIRAS */
 .alairas {

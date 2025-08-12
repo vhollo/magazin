@@ -3,6 +3,11 @@
 
 import { /* modxDoc,  */allDocs } from '$lib/modx'
 console.log('docs:',allDocs.length)
+if (allDocs.find(doc => doc.id == '4051')) {
+  console.log('layout.server: 4051')
+} else {
+  console.log('layout.server: no 4051')
+}
 
 // import MiniSearch from 'minisearch'
 // const stopWords = new Set(['a', 'az', 'és', 'vagy', 'de', 'ha', 'hogy', 'is', 'nem', 'csak', 'meg', 'mint', 'mert', 'egy', 'kell', 'lehet', 'volt', 'lesz', 'van', 'itt', 'ott', 'ahol', 'amikor', 'akkor', 'így', 'úgy', 'még', 'már', 'sem', 'se', 'sok', 'kevés', 'több', 'kevesebb', 'nagyon', 'igen', 'majd', 'most', 'mindig', 'soha', 'talán', 'persze', 'valami', 'valaki', 'valahol', 'valamikor', 'minden', 'senki', 'semmi', 'sehol', 'semikor', 'ez', 'azt', 'ezt', 'ebben', 'abban', 'ettől', 'attól', 'ilyen', 'olyan', 'én', 'te', 'ő', 'mi', 'ti', 'ők', 'aki', 'ami', 'akik', 'amik', 'amely', 'amelyek', 'ahogy', 'amint', 'amíg', 'hiszen', 'hanem', 'illetve', 'valamint', 'tehát', 'azaz', 'vagyis', 'azonban', 'viszont', 'pedig', 'mégis', 'annak', 'ennek', 'azzal', 'ezzel', 'arra', 'erre', 'arról', 'erről' ])
@@ -91,7 +96,7 @@ const docsByTags = (tags:Array<string>, id:string | undefined) => {
 
 export async function load({ params, url }) {
 
-  // const q = url?.searchParams?.get('q') || ''
+  // const from = url?.searchParams?.get('from') || ''
   const path:string = (params.path/* ?.split('/')[0] || '/' */)//.replace(/.html/, '').replace('index', '/')
   // const urlpath:string = url.pathname.split('/')[1]
   let doc, docs:Docs = {}//, query, page = 0
@@ -101,6 +106,7 @@ export async function load({ params, url }) {
       // doc = {'path': '/'}
       doc = {'path': '/'}
       docs = allDocs.slice(0, 18 * 4)
+      console.log('load:',allDocs.length)
       break
     case !!queries[path]: /// a collection
       // console.log('collection:',queries[path])
@@ -116,12 +122,16 @@ export async function load({ params, url }) {
     //   // console.log(docs[1])
     //   break
     default: /// page path
-      if (path == 'cikkek/diabetes/2403/uj-ceosz-tagok') console.log('cikkek/diabetes/2403/uj-ceosz-tagok', path)
+      // if (path == 'cikkek/diabetes/2403/uj-ceosz-tagok') console.log('cikkek/diabetes/2403/uj-ceosz-tagok', path)
       doc = allDocs.find(d => d.path == path) || {}
+      if (!doc.path) {
+        console.log('miss:', path)
+        // console.log('from:', from)
+      }
       // query = doc.tv && doc.tv.tags || []
       // docs = allDocs.filter((doc: { tvs: { tag: string | any[]; }; }) => doc.tv.tags?.length).slice(0, 18 * 3)
       docs = doc.tv && docsByTags(doc.tv.tags, doc.id) || allDocs.slice(0, 18 * 4)
-      console.log('ID:',doc.id, 'path:', path, docs.length)
+      // console.log('ID:',doc.id, 'path:', path, docs.length)
     }
 
     if (!doc.path) {
@@ -131,7 +141,7 @@ export async function load({ params, url }) {
   /* if (!doc && !docs.length) {
     doc = {'path': '/'}
   } */
-  return {doc, docs}
+    return {doc, docs}
 }
 
 /// 3834: /cikkek/diabetes/2306/lent-es-fent

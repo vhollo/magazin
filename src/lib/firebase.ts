@@ -10,7 +10,7 @@ import { initializeApp, getApps } from 'firebase/app';
 // import { getAnalytics } from "firebase/analytics";
 import { getFirestore } from 'firebase/firestore/lite';
 import type { Firestore } from 'firebase/firestore/lite';
-import { getAuth/*, signInWithEmailAndPassword, setPersistence, browserLocalPersistence, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, onAuthStateChanged, signOut, onAuthStateChanged */ } from 'firebase/auth';
+import { getAuth } from 'firebase/auth';
 
 const firebaseConfig = {
   apiKey: PUBLIC_FIREBASE_API_KEY,
