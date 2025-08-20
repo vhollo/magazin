@@ -39,6 +39,13 @@ const cats: { [key: string]: string } = {
   'recept': 'Receptek'
 }
 
+const _extraTags = (doc:object) => {
+  if (doc.longtitle.match(/inzulin/gi) || doc.introtext.match(/inzulin/gi) || doc.description.match(/inzulin/gi)) doc.tv.tags.push('inzulin')
+  if (doc.longtitle.match(/gyógyszer/gi) || doc.introtext.match(/gyógyszer/gi) || doc.description.match(/gyógyszer/gi)) doc.tv.tags.push('gyógyszer')
+  if (doc.longtitle.match(/készülék/gi) || doc.introtext.match(/készülék/gi) || doc.description.match(/készülék/gi)) doc.tv.tags.push('készülék')
+  //console.log(doc.tv.tags)
+}
+
 const _addTVs = (doc:object) => {
   const tvs: TemplateVariable[] = tmplvarContentvalues.filter(tv => tv.contentid == doc.id) || [];
   doc.tv = {}
@@ -52,11 +59,6 @@ const _addTVs = (doc:object) => {
     doc.tv.tags.push('diabpont')
     doc.description = 'DiabPONT Továbbképző Program'
   }
-
-  if (doc.longtitle.match(/inzulin/gi) || doc.introtext.match(/inzulin/gi) || doc.description.match(/inzulin/gi)) doc.tv.tags.push('inzulin')
-  if (doc.longtitle.match(/gyógyszer/gi) || doc.introtext.match(/gyógyszer/gi) || doc.description.match(/gyógyszer/gi)) doc.tv.tags.push('gyógyszer')
-  if (doc.longtitle.match(/készülék/gi) || doc.introtext.match(/készülék/gi) || doc.description.match(/készülék/gi)) doc.tv.tags.push('készülék')
-  //console.log(doc.tv.tags)
 
   doc.tv.szerzo = []
   const sze = tvs.find(tv => tv.tmplvarid == 18)?.value.split(' ') || []
@@ -93,7 +95,7 @@ const _addTVs = (doc:object) => {
   if (doc.parent == 1) {
     doc.tv.tags.push('hírek')
   }
-  return doc
+  // return doc
 }
 
 const _nagyito = doc => {
@@ -153,7 +155,7 @@ const _nagyito = doc => {
       doc.content = doc.content.replace(match[0], NagyitoHTML)
     }
   })
-  return doc
+  // return doc
 }
 
 const _findPath = (doc => {
@@ -190,13 +192,13 @@ const _findRelated = (doc) => {
   } */
   let dc = allDocs.filter(d => d.parent == doc.id) || []
   // let ids = dc.map(d1 => d1.id)
-  if (doc.content != '' && doc.tv.tags.length > 0) {
-    dc.forEach((d2, i) => d2.related = [_relFields(doc), ...dc.filter(d3 => d3.id != dc[i].id).map(d => _relFields(d))])
+  if (doc.content != '') {
+    dc.forEach((d2, i) => d2.related = [_relFields(doc), ...dc.filter(d3 => d3.id != dc[i].id && d3.content != '').map(d => _relFields(d))])
   } else {
-    dc.forEach((d2, i) => d2.related = dc.filter(d3 => d3.id != dc[i].id).map(d => _relFields(d)))
+    dc.forEach((d2, i) => d2.related = dc.filter(d3 => d3.id != dc[i].id && d3.content != '').map(d => _relFields(d)))
   }
   doc.related = dc.map(d => _relFields(d))
-  return doc
+  // return doc
 }
 
 const _alapjav = doc => {
@@ -223,7 +225,7 @@ const _alapjav = doc => {
 
   doc.content = doc.content.replaceAll(regexp1, '').replaceAll(regexp2, '').replaceAll(regexp3, '').replaceAll(regexp4, '')/* .replaceAll(regexp5, '') */.replaceAll(regexp6, '').replaceAll(regexp7, '$1').replaceAll(regexp8, '$1')
 
-  return doc
+  // return doc
 }
 
 const _ellipsis = doc => {
@@ -239,7 +241,7 @@ const _ellipsis = doc => {
     doc.ellipsis = doc.ellipsis.replace(/<span\b.*?\b[^>]*>(.*?)<\/span>/gi, '$1')
     doc.ellipsis = doc.ellipsis.replace(/<a\b.*?\b[^>]*>(.*?)<\/a>/gi, (m, p) => p.indexOf('.') > -1 && p.indexOf(' ') == -1 ? `<span class="break-all">${p}</span>` : p)
   }
-  return doc
+  // return doc
 }
 
 const _docFields = doc => {
@@ -302,12 +304,6 @@ async function writeData(data: object[]) {
 let modxSiteContent: object[], modxSiteHirek: object[], tmplvarContentvalues: object[], allDocs: object[]
 
 if (building) {
-  /* Firebase read */
-  /* const docsRef = db.collection('docs');
-  const snapshot = await docsRef.get();
-  allDocs = snapshot.docs.map(doc => doc.data()).reverse() || [];
-  console.log('FBallDocs',allDocs.length)
-} else { */
   try {
     const data = fs.readFileSync(path.resolve(process.cwd(), 'static', 'data.json'), 'utf8');
     allDocs = JSON.parse(data) || [];
@@ -322,14 +318,16 @@ if (building) {
     console.log('FBallDocs',allDocs.length)
   }
 } else {
-  try {
+  /* try {
     const data = fs.readFileSync(path.resolve(process.cwd(), 'static', 'data.json'), 'utf8');
     allDocs = JSON.parse(data) || [];
     console.log('FILEallDocs',allDocs.length)
   } catch (error) {
     console.log('No data.json found, initializing with empty array');
     allDocs = [];
-  }
+  } */
+  allDocs = [];
+
 }
 const latestEditDate = allDocs.reduce((max, doc) => doc.editedon > max ? doc.editedon : max, 0)
 // console.log('allDocs',allDocs.length)
@@ -384,9 +382,10 @@ export const modxSzerzok = await modxdb.select().from(modx_site_htmlsnippets).wh
 
 for (let doc of modxSiteContent) {
   doc = _findPath(doc)
-  doc = _addTVs(doc)
-  doc = _nagyito(doc)
-  doc = _alapjav(doc)
+  /* doc =  */_addTVs(doc)
+  if (doc.tv.tags.length > 0) _extraTags(doc)
+  /* doc =  */_nagyito(doc)
+  /* doc =  */_alapjav(doc)
   doc = _ellipsis(doc)
   // doc = _docFields(doc)
 }
@@ -404,8 +403,7 @@ modxSiteContent.forEach(doc => {
 })
 
 for (let doc of allDocs) {
-  if (doc.isfolder && (doc.tv.tags.length > 0 || doc.tv.cat)) doc = _findRelated(doc)
-  // if (doc.id == '4051') console.log('before filter',doc)
+  if (doc.isfolder && (doc.tv.tags.length > 0 || doc.tv.cat)) /* doc =  */_findRelated(doc)
 }
 
 allDocs = allDocs.filter(doc => doc.tv.tags.length > 0) // filter out docs without tags
@@ -415,9 +413,17 @@ export { allDocs }
 //export const allDocs = [...allDocs, ...modxSiteContent.filter(doc => doc.tv.tags.length && (doc.content.length || doc.introtext.length)).map(doc => _docFields(doc))]// && !doc.isfolder && doc.path !== doc.alias)
 
 // Write fresh modxSiteContent into Firestore's collection 'docs'
-if (building) modxSiteContent.forEach(async doc => {
-  const res = await db.collection('docs').doc(String(doc.id).padStart(4, '0')).set(_docFields(allDocs.find(d => d.id == doc.id)));
-})
+if (building || dev) {
+  console.log('modxSiteContent',modxSiteContent.length)
+  modxSiteContent.forEach(async doc => {
+    const d = allDocs.find(d => d.id == doc.id)
+    if (d) {
+      const res = await db.collection('docs').doc(String(d.id).padStart(4, '0')).set(d);
+    /* } else {
+      console.log('no doc',doc.path) */
+    }
+  })
+}
 
 // write data.json
 if (dev || building) writeData(allDocs)
