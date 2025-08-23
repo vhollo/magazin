@@ -36,40 +36,7 @@
   // console.log('[path]', data.doc.related)
 
   $: doc = data.doc
-  let docs
-  // $: docs = data.docs
-  if (browser) {
-    docs = data.docs.slice(0, 18 * 4)
-  } else {
-    docs = data.docs
-  }
-  // $: if (doc.id) console.log(doc.tv)
-
-
-
-  /* let win, pagenum = 1, volume = 18, docs = []
-  afterNavigate(() => {
-    pagenum = win?.location.hash.replace('#', '') || 1
-    docs = data.docs.slice(0, volume * pagenum)
-  })
-  const _pagenum = () => {
-    pagenum++
-    docs = data.docs.slice(0, volume * pagenum)
-    // if (volume * pagenum >= data.docs.length) pagenum = 0
-    replaceState('#'+pagenum);
-    // console.log(pagenum)
-  } */
-
-  $: pubdate = doc && new Date(doc.publishedon * 1000).toLocaleDateString('hu-HU')
-  $: editdate = doc && new Date(doc.editedon * 1000).toLocaleDateString('hu-HU')
-  // $: console.log('editedon',doc.editedon)
-  // $: console.log('publishedon',doc.publishedon)
-
-  /* $: if (doc.path == 'keres') {
-      copycats['keres'] = {}
-      copycats['keres'][doc.title] = '/keres'
-      // console.log(doc.path)
-    } */
+  let docs = data.docs  // $: if (doc.id) console.log(doc.tv)
 
   let matchingSubcat = null;
 
@@ -103,9 +70,7 @@
 </svelte:head>
 <!-- <svelte:window bind:this={win}/> -->
 
-{#if doc.path == '/'}
-  <Carousel/>
-{/if}
+<Carousel/>
 
 {#if conf.top_banners.length}
   <BannerTop banners={conf.top_banners}/>
