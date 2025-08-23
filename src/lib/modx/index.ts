@@ -451,4 +451,4 @@ if (building && dev) { // TEMPORARY OFF
 }
 
 // write data.json to file
-if (dev || building) writeData(allDocs)
+if ((dev || building) && modxSiteContent.length) writeData(allDocs)
