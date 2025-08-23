@@ -395,32 +395,31 @@ export const modxSzerzok = await modxdb.select().from(modx_site_htmlsnippets).wh
 
 
 
+// Create a map from the cached allDocs for efficient merging
+const allDocsMap = new Map(allDocs.map(doc => [doc.id, doc]));
+
+// Process each fresh document from modxSiteContent and merge it into the map
 for (let doc of modxSiteContent) {
-  // if (doc.id == 3400) console.log('inModxSiteContent')
-  doc = _findPath(doc)
-  _addTVs(doc)
-  if (doc.tv.tags.length > 0) _extraTags(doc)
-  _nagyito(doc)
-  _alapjav(doc)
-  _ellipsis(doc)
+  // These functions modify the 'doc' object directly
+  _findPath(doc);
+  _addTVs(doc);
+  if (doc.tv.tags.length > 0) _extraTags(doc);
+  _nagyito(doc);
+  _alapjav(doc);
+  _ellipsis(doc);
+  
+  // Overwrite the map entry with the fully processed document
+  allDocsMap.set(doc.id, _docFields(doc));
 }
 
-// const fbWrite: object[] = modxSiteContent.filter(doc => doc.tv.tags.length /* && doc.ellipsis.length */)//.map(doc => _docFields(doc))
+// Reconstruct the allDocs array from the map's values
+allDocs = Array.from(allDocsMap.values());
 
-// allDocs = all modxSiteContent merged into allDocs and overwrite docs with identical ids
-modxSiteContent.forEach(doc => {
-  // if (doc.id == 3400) console.log('toAllDocs')
-  const idx = allDocs.findIndex(d => d.id == doc.id)
-  if (idx > -1) {
-    allDocs[idx] = _docFields(doc)
-  } else {
-    allDocs.push(_docFields(doc))
-  }
-})
-
+// Now, run the final processing that requires the complete, merged list of documents
 for (let doc of allDocs) {
-  // if (doc.id == 3400) console.log('toFindRelated')
-  if (doc.isfolder && (doc.tv.tags.length > 0 || doc.tv.cat)) _findRelated(doc)
+  if (doc.isfolder && (doc.tv.tags.length > 0 || doc.tv.cat)) {
+    _findRelated(doc);
+  }
 }
 
 allDocs = allDocs.filter(doc => doc.tv.tags.length > 0) // filter out docs without tags
