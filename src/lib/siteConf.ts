@@ -78,12 +78,12 @@ export const getSiteConf = async () => {
               const response_1 = await fetch(imageUrl);
               const arrayBuffer_1 = await response_1.arrayBuffer();
               const buffer_1 = Buffer.from(arrayBuffer_1);
-              if (b.image) {
+              // if (b.image) {
                 const parts = b.image.split('.').pop();
                 if (parts) {
                   b.imageext = parts.split('?')[0];
                 }
-              }
+              // }
               const outputPath_1 = path.resolve(process.cwd(), 'static', 'banners', `${i}.${b.imageext}`);
               fs.writeFileSync(outputPath_1, buffer_1);
               // console.log(`File saved successfully: ${outputPath}`);

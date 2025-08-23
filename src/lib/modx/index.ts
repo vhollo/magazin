@@ -40,13 +40,14 @@ const cats: { [key: string]: string } = {
 }
 
 const _extraTags = (doc:object) => {
+  // if (doc.id == 3400) console.log('_extraTags')
   if (doc.longtitle.match(/inzulin/gi) || doc.introtext.match(/inzulin/gi) || doc.description.match(/inzulin/gi)) doc.tv.tags.push('inzulin')
   if (doc.longtitle.match(/gyógyszer/gi) || doc.introtext.match(/gyógyszer/gi) || doc.description.match(/gyógyszer/gi)) doc.tv.tags.push('gyógyszer')
   if (doc.longtitle.match(/készülék/gi) || doc.introtext.match(/készülék/gi) || doc.description.match(/készülék/gi)) doc.tv.tags.push('készülék')
-  //console.log(doc.tv.tags)
 }
 
 const _addTVs = (doc:object) => {
+  // if (doc.id == 3400) console.log('_addTVs')
   const tvs: TemplateVariable[] = tmplvarContentvalues.filter(tv => tv.contentid == doc.id) || [];
   doc.tv = {}
 
@@ -84,7 +85,7 @@ const _addTVs = (doc:object) => {
   const img = tvs.find(tv => tv.tmplvarid == 4)?.value || ''
   doc.img = img && {
     'src': img && PUBLIC_BASE_URL + img || '',
-    'pos': pos.replace('T', '50% 10%').replace('B', '50% 90%').replace('L', 'left').replace('R', 'right'),
+    'pos': pos.replace('T', '50% 20%').replace('B', '50% 80%').replace('L', 'left').replace('R', 'right'),
     'ext': img && img.split('.').pop() || '',
     'caption': tvs.find(tv => tv.tmplvarid == 28)?.value || '',
   } || null
@@ -92,13 +93,14 @@ const _addTVs = (doc:object) => {
   const ogi = tvs.find(tv => tv.tmplvarid == 25)?.value
   doc.tv.ogi = ogi ? PUBLIC_BASE_URL + ogi : ''
   
-  if (doc.parent == 1) {
+  if (doc.parent == 1 && !doc.tv.tags.includes('hírek')) {
     doc.tv.tags.push('hírek')
   }
   // return doc
 }
 
 const _nagyito = doc => {
+  // if (doc.id == 3400) console.log('_nagyito')
   const comments = /<!--.*?-->/gs
   
   // if (doc.id=='3068') console.log(doc.content)
@@ -158,10 +160,12 @@ const _nagyito = doc => {
   // return doc
 }
 
-const _findPath = (doc => {
+const _findPath = (doc: object) => {
   if (!doc) {
+    // console.log('Nincs',doc)
     return {}
   }
+  // if (doc.id == 3400) console.log('_findPath')
   if (!doc.path) {
     if (doc.parent == 0) {
       doc.path = doc.alias
@@ -173,10 +177,10 @@ const _findPath = (doc => {
     }
   }
   return doc
-})
+}
 
 const _pathById = (p1: number) => {
-  // console.log('pathById', match, p1)
+  // if (p1 == 3400) console.log('_pathById')
   let doc = modxSiteContent.find(d => d.id == p1) || allDocs.find(d => d.id == p1)
   if (!doc) {
     // console.log('Nincs',p1)
@@ -187,21 +191,31 @@ const _pathById = (p1: number) => {
 }
 
 const _findRelated = (doc) => {
+  // if (doc.id == 3400) console.log('_findRelated')
   /* if (doc.related) {
     return doc
   } */
   let dc = allDocs.filter(d => d.parent == doc.id) || []
   // let ids = dc.map(d1 => d1.id)
   if (doc.content != '') {
-    dc.forEach((d2, i) => d2.related = [_relFields(doc), ...dc.filter(d3 => d3.id != dc[i].id && d3.content != '').map(d => _relFields(d))])
+    dc.forEach((d2, i) => {
+      d2.related = [_relFields(doc), ...dc.filter(d3 => d3.id != dc[i].id && d3.content != '').map(d => _relFields(d))]
+      const mRel = modxSiteContent.find(d => d.id == d2.id)
+      if (mRel) mRel.related = d2.related
+    })
   } else {
-    dc.forEach((d2, i) => d2.related = dc.filter(d3 => d3.id != dc[i].id && d3.content != '').map(d => _relFields(d)))
+    dc.forEach((d2, i) => {
+      d2.related = dc.filter(d3 => d3.id != dc[i].id && d3.content != '').map(d => _relFields(d))
+      const mRel = modxSiteContent.find(d => d.id == d2.id)
+      if (mRel) mRel.related = d2.related
+    })
   }
   doc.related = dc.map(d => _relFields(d))
   // return doc
 }
 
 const _alapjav = doc => {
+  // if (doc.id == 3400) console.log('_alapjav')
   doc.content = doc.content.replaceAll('http:', 'https:').replaceAll('&#160;', '&nbsp;').replaceAll('> </', '></').replaceAll('<p></p>\r\n', '').replaceAll('<p></p>', '').replaceAll('&nbsp;m2', '&nbsp;m²').replaceAll(' m2', '&nbsp;m²').replaceAll('/m2', '/m²').replaceAll('A1c', 'A<sub>1c</sub>').replaceAll('®', '<sup>®</sup>').replaceAll('rel="external"', 'rel="noopener" target="_blank"').replaceAll('"/assets', `"${PUBLIC_BASE_URL}assets`).replaceAll('"assets', `"${PUBLIC_BASE_URL}assets`)
   
   doc.content = doc.content.replaceAll(/\[\*parent\*\]/g, modxSiteContent.find(d => d.id == doc.parent)?.id || allDocs.find(d => d.id == doc.parent)?.id)
@@ -229,6 +243,7 @@ const _alapjav = doc => {
 }
 
 const _ellipsis = doc => {
+  // if (doc.id == 3400) console.log('_ellipsis')
   if (!doc.ellipsis) {
     doc.ellipsis = doc.introtext.length > 0 ? doc.introtext : doc.content.match(/<(?!aside\b|figure\b|video\b|div\b|img\b|h2\b|h3\b|ul\b|li\b)(.*?)\b[^>]*>[\s\S]*?<\/\1>/gi)?.slice(0, 2).join('') || ''
     doc.ellipsis = doc.ellipsis.replace(/<blockquote>/g, '').replace(/<\/blockquote>/g, '<br>')
@@ -245,6 +260,7 @@ const _ellipsis = doc => {
 }
 
 const _docFields = doc => {
+  if (doc.id == 3400) console.log('_docFields')
   return {
     id: doc.id,
     path: doc.path,
@@ -268,6 +284,7 @@ const _docFields = doc => {
 }
 
 const _relFields = doc => {
+  // if (doc.id == 3400) console.log('_relFields')
   return {
     path: doc.path,
     title: doc.pagetitle,
@@ -306,7 +323,7 @@ let modxSiteContent: object[], modxSiteHirek: object[], tmplvarContentvalues: ob
 if (building) {
   try {
     const data = fs.readFileSync(path.resolve(process.cwd(), 'static', 'data.json'), 'utf8');
-    allDocs = JSON.parse(data) || [];
+    allDocs = /* JSON.parse(data) || */ [];
     console.log('FILEallDocs',allDocs.length)
   } catch (error) {
     console.log('No data.json found, initializing with FB');
@@ -348,32 +365,30 @@ try {
       )
     ),
   )
+  modxSiteHirek = /*modxSiteHirek ||*/ await modxdb.select().from(modx_site_content).orderBy(desc(modx_site_content.publishedon)).where(
+    or(
+      and(
+        eq(modx_site_content.id, 2797),
+        gt(modx_site_content.editedon, latestEditDate)
+      ),
+      and(
+        gt(modx_site_content.editedon, latestEditDate),
+        eq(modx_site_content.parent, 1),
+        eq(modx_site_content.deleted, 0),
+        eq(modx_site_content.hidemenu, 0),
+        eq(modx_site_content.published, 1),
+        eq(modx_site_content.type, 'document')
+      )
+    ),
+  )
+  modxSiteContent.push(...modxSiteHirek)
 } catch {
   modxSiteContent = []
 }
 
-modxSiteHirek = /*modxSiteHirek ||*/ await modxdb.select().from(modx_site_content).orderBy(desc(modx_site_content.publishedon)).where(
-  or(
-    and(
-      eq(modx_site_content.id, 2797),
-      gt(modx_site_content.editedon, latestEditDate)
-    ),
-    and(
-      gt(modx_site_content.editedon, latestEditDate),
-      eq(modx_site_content.parent, 1),
-      eq(modx_site_content.deleted, 0),
-      eq(modx_site_content.hidemenu, 0),
-      eq(modx_site_content.published, 1),
-      eq(modx_site_content.type, 'document')
-    )
-  ),
-)
+console.log('modxSiteContent',modxSiteContent.length)
 
 tmplvarContentvalues = /*tmplvarContentvalues ||*/ await modxdb.select().from(modx_site_tmplvar_contentvalues)
-
-//console.log('modxSiteHirek',modxSiteHirek.length)
-modxSiteContent.push(...modxSiteHirek)
-console.log('modxSiteContent',modxSiteContent.length)
 
 export const modxSzerzok = await modxdb.select().from(modx_site_htmlsnippets).where(eq (modx_site_htmlsnippets.category, 24))
 //console.log(modxSzerzok)
@@ -381,6 +396,7 @@ export const modxSzerzok = await modxdb.select().from(modx_site_htmlsnippets).wh
 
 
 for (let doc of modxSiteContent) {
+  // if (doc.id == 3400) console.log('inModxSiteContent')
   doc = _findPath(doc)
   /* doc =  */_addTVs(doc)
   if (doc.tv.tags.length > 0) _extraTags(doc)
@@ -394,6 +410,7 @@ for (let doc of modxSiteContent) {
 
 // allDocs = all modxSiteContent merged into allDocs and overwrite docs with identical ids
 modxSiteContent.forEach(doc => {
+  if (doc.id == 3400) console.log('toAllDocs')
   const idx = allDocs.findIndex(d => d.id == doc.id)
   if (idx > -1) {
     allDocs[idx] = _docFields(doc)
@@ -403,18 +420,19 @@ modxSiteContent.forEach(doc => {
 })
 
 for (let doc of allDocs) {
+  // if (doc.id == 3400) console.log('toFindRelated')
   if (doc.isfolder && (doc.tv.tags.length > 0 || doc.tv.cat)) /* doc =  */_findRelated(doc)
 }
 
 allDocs = allDocs.filter(doc => doc.tv.tags.length > 0) // filter out docs without tags
-// console.log('allDocs', allDocs.find(d => d.id == '3068')?.path || 'not in allDocs')
+console.log('allDocs', allDocs.find(d => d.id == '3400')?.path || '3400 not in allDocs')
 export { allDocs }
 
 //export const allDocs = [...allDocs, ...modxSiteContent.filter(doc => doc.tv.tags.length && (doc.content.length || doc.introtext.length)).map(doc => _docFields(doc))]// && !doc.isfolder && doc.path !== doc.alias)
 
 // Write fresh modxSiteContent into Firestore's collection 'docs'
-if (building || dev) {
-  console.log('modxSiteContent',modxSiteContent.length)
+if (building && dev) { // TEMPORARY OFF
+  console.log('fbWrite',modxSiteContent.length)
   modxSiteContent.forEach(async doc => {
     const d = allDocs.find(d => d.id == doc.id)
     if (d) {

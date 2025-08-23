@@ -1,6 +1,3 @@
-///** @type {import('./$types').PageServerLoad} */
-// import { browser } from '$app/environment'
-
 import { goto } from '$app/navigation';
 import { browser } from '$app/environment';
 import { /* modxDoc,  */allDocs } from '$lib/modx'
@@ -99,12 +96,12 @@ export async function load({ params, url }) {
   let doc, docs:Docs = {}//, query, page = 0
 
   switch (true) {
-    case path === '': /// start page
+    /* case path === '': /// start page
       // doc = {'path': '/'}
       doc = {'path': '/'}
-      docs = allDocs.slice(0, 18 * 4)
+      docs = allDocs//.slice(0, 18 * 4)
       console.log('load:',allDocs.length)
-      break
+      break */
     case !!queries[path]: /// a collection
       // console.log('collection:',queries[path])
       // query = queries[path] ///?
@@ -119,25 +116,22 @@ export async function load({ params, url }) {
     //   // console.log(docs[1])
     //   break
     default: /// page path
-      doc = allDocs.find(d => d.path == path) || {}
-      if (!doc.path) {
-        console.log(browser, 'miss:', path, doc)
+      // console.log('click:',path)
+      doc = allDocs.find(d => d.path == path)
+      if (!doc) {
+        console.log('_miss:', path)
         doc = {'path': path , 'title': `Nem található: "${path}"` }
         if (browser) goto ('/keres?q=' + path)
+      } else {
+        // console.log('found:', doc.path)
       }
       // query = doc.tv && doc.tv.tags || []
       // docs = allDocs.filter((doc: { tvs: { tag: string | any[]; }; }) => doc.tv.tags?.length).slice(0, 18 * 3)
       docs = doc.tv && docsByTags(doc.tv.tags, doc.id) || allDocs.slice(0, 18 * 4)
       // console.log('ID:',doc.id, 'path:', path, docs.length)
-    }
+  }
 
-    if (!doc.path) {
-    }
-
-  /* if (!doc && !docs.length) {
-    doc = {'path': '/'}
-  } */
-    return {doc, docs}
+  return {doc, docs}
 }
 
 /// 3834: /cikkek/diabetes/2306/lent-es-fent
