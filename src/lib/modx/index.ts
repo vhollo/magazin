@@ -335,15 +335,15 @@ if (building) {
     console.log('FBallDocs',allDocs.length)
   }
 } else {
-  /* try {
+  try {
     const data = fs.readFileSync(path.resolve(process.cwd(), 'static', 'data.json'), 'utf8');
     allDocs = JSON.parse(data) || [];
     console.log('FILEallDocs',allDocs.length)
   } catch (error) {
     console.log('No data.json found, initializing with empty array');
     allDocs = [];
-  } */
-  allDocs = [];
+  }
+  // allDocs = [];
 
 }
 const latestEditDate = allDocs.reduce((max, doc) => doc.editedon > max ? doc.editedon : max, 0)
@@ -398,19 +398,18 @@ export const modxSzerzok = await modxdb.select().from(modx_site_htmlsnippets).wh
 for (let doc of modxSiteContent) {
   // if (doc.id == 3400) console.log('inModxSiteContent')
   doc = _findPath(doc)
-  /* doc =  */_addTVs(doc)
+  _addTVs(doc)
   if (doc.tv.tags.length > 0) _extraTags(doc)
-  /* doc =  */_nagyito(doc)
-  /* doc =  */_alapjav(doc)
-  doc = _ellipsis(doc)
-  // doc = _docFields(doc)
+  _nagyito(doc)
+  _alapjav(doc)
+  _ellipsis(doc)
 }
 
 // const fbWrite: object[] = modxSiteContent.filter(doc => doc.tv.tags.length /* && doc.ellipsis.length */)//.map(doc => _docFields(doc))
 
 // allDocs = all modxSiteContent merged into allDocs and overwrite docs with identical ids
 modxSiteContent.forEach(doc => {
-  if (doc.id == 3400) console.log('toAllDocs')
+  // if (doc.id == 3400) console.log('toAllDocs')
   const idx = allDocs.findIndex(d => d.id == doc.id)
   if (idx > -1) {
     allDocs[idx] = _docFields(doc)
@@ -421,27 +420,36 @@ modxSiteContent.forEach(doc => {
 
 for (let doc of allDocs) {
   // if (doc.id == 3400) console.log('toFindRelated')
-  if (doc.isfolder && (doc.tv.tags.length > 0 || doc.tv.cat)) /* doc =  */_findRelated(doc)
+  if (doc.isfolder && (doc.tv.tags.length > 0 || doc.tv.cat)) _findRelated(doc)
 }
 
 allDocs = allDocs.filter(doc => doc.tv.tags.length > 0) // filter out docs without tags
-console.log('allDocs', allDocs.find(d => d.id == '3400')?.path || '3400 not in allDocs')
+// console.log('allDocs', allDocs.find(d => d.id == '3400')?.path || '3400 not in allDocs')
 export { allDocs }
 
 //export const allDocs = [...allDocs, ...modxSiteContent.filter(doc => doc.tv.tags.length && (doc.content.length || doc.introtext.length)).map(doc => _docFields(doc))]// && !doc.isfolder && doc.path !== doc.alias)
 
-// Write fresh modxSiteContent into Firestore's collection 'docs'
+// // Write fresh modxSiteContent into Firestore's collection 'docs'
 if (building && dev) { // TEMPORARY OFF
-  console.log('fbWrite',modxSiteContent.length)
-  modxSiteContent.forEach(async doc => {
-    const d = allDocs.find(d => d.id == doc.id)
+  console.log('fbWrite', modxSiteContent.length);
+  
+  const writePromises = modxSiteContent.map(async (doc) => {
+    const d = allDocs.find(d => d.id == doc.id);
     if (d) {
-      const res = await db.collection('docs').doc(String(d.id).padStart(4, '0')).set(d);
-    /* } else {
-      console.log('no doc',doc.path) */
+      // This returns the promise from the .set() operation
+      return db.collection('docs').doc(String(d.id).padStart(4, '0')).set(d);
     }
-  })
+  });
+
+  // Wait for all the promises in the array to finish
+  Promise.all(writePromises)
+    .then(() => {
+      console.log('All documents successfully written to Firestore.');
+    })
+    .catch((error) => {
+      console.error('Error writing documents to Firestore:', error);
+    });
 }
 
-// write data.json
+// write data.json to file
 if (dev || building) writeData(allDocs)
