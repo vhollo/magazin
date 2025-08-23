@@ -323,7 +323,7 @@ let modxSiteContent: object[], modxSiteHirek: object[], tmplvarContentvalues: ob
 if (building) {
   try {
     const data = fs.readFileSync(path.resolve(process.cwd(), 'static', 'data.json'), 'utf8');
-    allDocs = /* JSON.parse(data) || */ [];
+    allDocs = JSON.parse(data) || [];
     console.log('FILEallDocs',allDocs.length)
   } catch (error) {
     console.log('No data.json found, initializing with FB');
