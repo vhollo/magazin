@@ -50,7 +50,7 @@ export async function load({ url }) {
   /* if (!doc && !docs.length) {
     doc = {'path': '/'}
   } */
-  return {doc, docs}
+  return {doc, docs, count: allDocs.length}
 }
 
 /// 3834: /cikkek/diabetes/2306/lent-es-fent

@@ -223,7 +223,7 @@ const { data }: PageProps = $props()
   <div id='collection-component-1719931041752'></div>
 </div>
 
-<Search/>
+<Search {count}/>
 <Nav2 actual='elofizetes'/><!--  actual={data.doc.path} -->
 
 </main>

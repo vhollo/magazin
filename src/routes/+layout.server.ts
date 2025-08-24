@@ -13,5 +13,5 @@ export async function load({ params, url }) {
   // }
 
   console.log('load:',docs.length, url.pathname)
-  return {conf, path: url.pathname, doc, docs}
+  return {conf, path: url.pathname, doc, docs, count: allDocs.length}
 }

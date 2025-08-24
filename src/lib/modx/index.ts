@@ -187,7 +187,7 @@ const _pathById = (p1: number) => {
     return ''
   }
   if (!doc.path) doc = _findPath(doc)
-  return `${doc.path}`
+  return `/${doc.path}`
 }
 
 const _findRelated = (doc) => {
@@ -222,11 +222,10 @@ const _alapjav = doc => {
   doc.introtext = doc.introtext.replaceAll(/\[\*parent\*\]/g, modxSiteContent.find(d => d.id == doc.parent)?.id || allDocs.find(d => d.id == doc.parent)?.id)
   doc.description = doc.description.replaceAll(/\[\*parent\*\]/g, modxSiteContent.find(d => d.id == doc.parent)?.id || allDocs.find(d => d.id == doc.parent)?.id)
 
-  // const modxlink = /https:\/\/www.diabetes.hu\/?\[\~(\d*)\~\]/g
-  const modxlink = /(https:\/\/www.diabetes.hu\/?)?\[\~(\d*)\~\]/g
-  doc.content = doc.content.replaceAll(/\[\*id\*\]/g, doc.id).replaceAll(modxlink, (match, p1, p2) => _pathById(p2))
-  doc.description = doc.description.replaceAll(/\[\*id\*\]/g, doc.id).replaceAll(modxlink, (match, p1, p2) => _pathById(p2))
-  doc.introtext = doc.introtext.replaceAll(/\[\*id\*\]/g, doc.id).replaceAll(modxlink, (match, p1, p2) => _pathById(p2))
+  const modxlink = /(?:https?:\/\/[^\/]+\/)?\[~(\d*)\]/g
+  doc.content = doc.content.replaceAll(/\[\*id\*\]/g, doc.id).replaceAll(modxlink, (match, p1) => _pathById(p1))
+  doc.description = doc.description.replaceAll(/\[\*id\*\]/g, doc.id).replaceAll(modxlink, (match, p1) => _pathById(p1))
+  doc.introtext = doc.introtext.replaceAll(/\[\*id\*\]/g, doc.id).replaceAll(modxlink, (match, p1) => _pathById(p1))
 
   const regexp1 = /\[\[.*?\]\]/gs
   const regexp2 = /\[!.*?!\]/gs

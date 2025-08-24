@@ -37,6 +37,7 @@
 
   $: doc = data.doc
   $: docs = data.docs
+  let count = data.count
   // $: if (doc.id) console.log(doc.tv)
 
 
@@ -91,7 +92,7 @@
 {#if conf.top_banners.length}
   <BannerTop banners={conf.top_banners}/>
 {/if}
-<Search/>
+<Search {count}/>
 <Nav2 actual='keres'/>
 
 {#if docs.length}

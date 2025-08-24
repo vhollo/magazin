@@ -131,7 +131,7 @@ export async function load({ params, url }) {
       // console.log('ID:',doc.id, 'path:', path, docs.length)
   }
 
-  return {doc, docs}
+  return {doc, docs, count: allDocs.length}
 }
 
 /// 3834: /cikkek/diabetes/2306/lent-es-fent

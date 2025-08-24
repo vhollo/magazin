@@ -35,6 +35,7 @@
 
   $: doc = data.doc
   $: docs = data.docs
+  let count = data.count
   // $: if (doc.id) console.log(doc.tv)
 
 
@@ -154,7 +155,7 @@
     
     <!-- KIEMELT ADS -->
     <!-- {#if $authUser && browser && hirds.length} -->
-    {#if prominent.length}
+    {#if prominent.length && doc.content}
     <section class="max-md:hidden flex flex-col flex-0 gap-2 py-12 mx-auto md:mx-0">
       {#each prominent as item, i}
         <!-- {#if item.prominent} -->
@@ -180,7 +181,7 @@
 {#if conf.top_banners.length}
   <BannerTop banners={conf.top_banners}/>
 {/if}
-<Search/>
+<Search {count}/>
 <Nav2 actual={data.path}/>
 
 {#if docs.length}
