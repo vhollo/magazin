@@ -1,7 +1,12 @@
+export const prerender = true
 import { allDocs } from '$lib/modx';
-import { building } from '$app/environment';
+// import { building } from '$app/environment';
 
-export async function load() {
+export const entries = () => {
+  return allDocs.map(d => ({ path: `${d.path}`}))
+}
+
+/* export async function load() {
   const doc = {'path': '/'}
   let docs:object[]
   if (building) {
@@ -11,4 +16,4 @@ export async function load() {
   }
   console.log('load homepage:',docs.length)
   return {doc, docs}
-}
+} */
