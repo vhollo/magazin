@@ -12,7 +12,7 @@ const miniSearch = new MiniSearch({
   // processTerm: (term, _fieldName) => stopWords.has(term) ? null : term.toLowerCase(),
   extractField: (document, fieldName) => {
     if (fieldName === 'szerzo') {
-      const authors = document.tv?.szerzo;
+      const authors = document.tv.szerzo;
       if (Array.isArray(authors)) {
         return authors.map(author => author.name).join(' ');
       }
@@ -20,7 +20,9 @@ const miniSearch = new MiniSearch({
     }
 
     // Access nested fields for other cases
-    return fieldName.split('.').reduce((doc, key) => doc && doc[key], document)
+    // return fieldName.split('.').reduce((doc, key) => doc && doc[key], document)
+
+    return document[fieldName]
   }
 })
 miniSearch.addAll(allDocs)

@@ -3,7 +3,7 @@
   import { nav2 } from '$lib/nav2.js'
   import { goto } from '$app/navigation'
   import { browser } from '$app/environment'
-  import { sendSignInLinkToEmail, isSignInWithEmailLink, signInWithEmailLink, /* signInWithEmailAndPassword, */ setPersistence, browserLocalPersistence, updateProfile, getAdditionalUserInfo, /* createUserWithEmailAndPassword, */ onAuthStateChanged, signInWithPopup, GoogleAuthProvider, signOut } from 'firebase/auth'
+  import { sendSignInLinkToEmail, isSignInWithEmailLink, signInWithEmailLink, /* signInWithEmailAndPassword, setPersistence, browserLocalPersistence, getAdditionalUserInfo, */ updateProfile, /* createUserWithEmailAndPassword, */ onAuthStateChanged, signInWithPopup, GoogleAuthProvider, signOut } from 'firebase/auth'
   import { firebaseAuth/* , signInWithGoogle */ } from '$lib/firebase'
   import { authUser, email } from '$lib/authStore'
 </script>
