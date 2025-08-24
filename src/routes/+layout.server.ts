@@ -1,5 +1,5 @@
 import { getSiteConf } from '$lib/siteConf';
-// import { allDocs } from '$lib/modx';
+import { allDocs } from '$lib/modx';
 // import { building } from '$app/environment';
 const conf = await getSiteConf();
 
