@@ -44,7 +44,7 @@
 <div class="list max-w-screen-md mx-auto grid grid-cols-[auto 1fr auto] gap-4 mb-16 px-2">
   {#each kvizzes as kviz, i}
   <h2 class="col-span-3 uppercase mt-4">{kviz.title}</h2>
-  <div class="font-thin opacity-60 tabular-nums text-sm">{kviz.starts_on.toLocaleDateString('hu-HU', {year: 'numeric'})}<br>{kviz.starts_on.toLocaleDateString('hu-HU', {month: '2-digit'})}.{kviz.starts_on.toLocaleDateString('hu-HU', {day: '2-digit'})}</div>
+    <div class="font-thin opacity-60 tabular-nums text-sm">{@html new Date(kviz.starts_on).toLocaleDateString('hu-HU', { year: 'numeric', month: '2-digit', day: '2-digit' }).replace('. ', '<br>').replace('. ', '.').slice(0, -1)}</div>
   <p class="opacity-60 hyphens-auto">{kviz.description}</p>
   <span class="">
   {#if !isNaN($kvizScores[kviz.id])}

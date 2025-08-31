@@ -105,7 +105,6 @@
     <BannerTop banners={conf.top_banners}/>
   {/if}
   <main class="bg-base-300 md:flex flex-row justify-center gap-8 px-2">
-    <!--{@const date = new Date(doc.publishedon * 1000).toLocaleDateString('hu-HU')}-->
     <!--{@const meta = [doc.tv.szerzo, date, doc.tv.cat].join(' | ')}-->
     <article class="prose py-12 flex-1">
       {#if doc.description}

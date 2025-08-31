@@ -1,4 +1,4 @@
-export const prerender = true
+// export const prerender = true
 import { allDocs } from '$lib/modx';
 // import { building } from '$app/environment';
 
