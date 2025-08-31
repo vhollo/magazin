@@ -63,5 +63,5 @@
   {/each}
 </div>
 </main>
-<Search />
+<Search count={data.count}/>
 <Nav2 actual={data.path}/>
