@@ -247,7 +247,7 @@
     }
   }
   
-  </script>
+</script>
 
 <nav class="sticky top-0 z-40 bg-neutral navbar max-md-block max-md:flex-col justify-top py-0">
   <!-- <label for="mobile-nav" aria-label="open sidebar" class="top-0 left-0 bg-neutral z-50 btn btn-lg btn-square btn-ghost md:hidden text-neutral-content">
@@ -410,7 +410,7 @@
 <dialog id="mod_logout" class="modal modal-bottom sm:modal-middle">
   <div class="modal-box">
     <button class="btn btn-sm btn-circle absolute right-2 top-2 border-none" onclick={ () => mod_logout.close()}>✕</button>
-    <h3 class="text-lg font-bold">Kijelentkezés</h3>
+    <!-- <h3 class="text-lg font-bold">Kijelentkezés</h3> -->
     <div class="grid xs:grid-cols-2 gap-4 max-w-screen-md mx-auto py-12 px-2">
       <p class="border border-primary bg-base-200 !h-full w-full p-2">{$authUser?.email}</p>
       <p class="border border-primary bg-base-200 !h-full w-full p-2">{$authUser?.displayName}</p>

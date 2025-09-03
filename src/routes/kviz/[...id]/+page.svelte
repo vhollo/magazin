@@ -5,7 +5,7 @@
   // import { invalidateAll } from '$app/navigation'; // Optional: for refreshing data after submission
   import type { SubmitFunction } from '@sveltejs/kit';
   // import Cards from '$lib/components/Cards.svelte';
-  import { redirect } from '@sveltejs/kit';
+  // import { redirect } from '@sveltejs/kit';
   import Search from '$lib/components/Search.svelte';
   import Nav2 from '$lib/components/Nav2.svelte';
 </script>
@@ -17,6 +17,7 @@
   // import { firebaseAuth } from '$lib/firebase'
 
   const { data }: PageProps = $props()
+  const count = data.count
   // let docs = []//data.docs
   // let conf = data.conf
 
@@ -29,8 +30,10 @@
     document.getElementById(id)?.scrollIntoView({behavior: 'smooth'})
   }
 
-	import { applyAction, deserialize } from '$app/forms';
-	import type { ActionResult } from '@sveltejs/kit';
+	// import { applyAction, deserialize } from '$app/forms';
+	// import type { ActionResult } from '@sveltejs/kit';
+
+  // import { count } from '$lib/stores'
 
 	/* async function handleSubmit(event: SubmitEvent & { currentTarget: EventTarget & HTMLFormElement}) {
 		event.preventDefault();
@@ -121,17 +124,17 @@
   <!-- form-name=kviz&id=kviz-0&answer-0=99&score=99 -->
   <!-- <form name="kviz" class="max-w-screen-md mx-auto py-12"> -->
   <div class="grid xs:grid-cols-2 gap-4 max-w-screen-md mx-auto py-12 px-2">
-    {#if $authUser}
-      <p class="border border-primary bg-base-200 !h-full w-full p-2">{$authUser.email}</p>
+    {#if $authUser?.displayName}
+    <p class="border border-primary bg-base-200 !h-full w-full p-2">{$authUser.email}</p>
       <p class="border border-primary bg-base-200 !h-full w-full p-2">{$authUser.displayName}</p>
     {:else}
       <legend class="uppercase pt-8 pb-2">A teszt beküldéséhez ellenőrzött email cím és név szükséges</legend>
       <button class="btn btn-outline" onclick={(e) => {e.preventDefault(); mod_login.showModal()}}>Megadom</button>
     {/if}
   </div>
-  <form method="POST" name="kviz" use:enhance={handleSubmitEnhance} class="max-w-screen-md mx-auto py-12 px-2" bind:this={myForm}>
 
-    {#if $authUser}
+  {#if $authUser?.displayName}
+  <form method="POST" name="kviz" use:enhance={handleSubmitEnhance} class="max-w-screen-md mx-auto py-12 px-2" bind:this={myForm}>
     <!-- <form method="POST" name="kviz" use:enhance={handleSubmitEnhance} class="max-w-screen-md mx-auto py-12" bind:this={myForm}> -->
     {#each kviz.questions || [] as q, i}
     <fieldset class="grid xs:grid-cols-2 gap-4">
@@ -187,15 +190,16 @@
       <input id="submit" type="submit" value="Küldés" class:hidden={true} bind:this={submitBtn}>
       <a href="/kviz" class="btn btn-outline">Tovább</a>
     </fieldset>
-    {/if}
     <input type="hidden" name="form-name" value="kviz">
   </form>
+  {/if}
 
 </main>
 <footer class="bg-base-200 text-base-content py-2">
   <p class="text-center">Pontszám: <span class="badge badge-accent">{score}</span></p>
 </footer>
-<Search />
+// import count from +layout.server.ts
+<Search {count}/>
 <Nav2 actual={data.path}/>
 
 <!-- {#if docs.length}
