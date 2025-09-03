@@ -26,14 +26,6 @@
   <meta name="og:locale" content="hu_HU"/>
 </svelte:head>
 
-<form data-netlify="true" name="kviz" class="hidden">
-  <input name="id">
-  <input name="email">
-  <input name="name">
-  <input name="score">
-  <input name="date">
-</form>
-
 <main class="bg-base-300">
   <article class="prose mt-16 mb-8 w-full mx-auto flex-none">
     <h1 class="text-center">DiabKVÍZ</h1>

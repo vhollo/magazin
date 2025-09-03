@@ -15,15 +15,6 @@
   // console.log({actual})
   let _open_nav = false, target
 
-  /* function _uncheck(event){
-    const target = event.target//.parentElement.nextSibling
-    target.firstElementChild.checked = false
-  } */
-
-  //$: _open_nav = actual && false
-
-  // const _close_nav = () => _open_nav = false
-
   const _scrollIntoView = async (event) => {
     // console.log(event)
     event.preventDefault()
@@ -57,10 +48,6 @@
   }
 
   let displayName //, password
-  /* if ($authUser) {
-    displayName = $authUser.displayName
-    email = $authUser.email
-  } */
   let success = undefined;
 
   onAuthStateChanged(firebaseAuth, (user) => {
@@ -76,42 +63,6 @@
     // console.log('onAuthStateChanged', user)
   })
 
-  /* const login = (e) => {
-    setPersistence(firebaseAuth, browserLocalPersistence).then(() => {
-      signInWithEmailAndPassword(firebaseAuth, email, password).then((userCredential) => {
-        $authUser = {
-          uid: userCredential.user.uid,
-          email: userCredential.user.email || ''
-        }
-        success = true
-        // goto('/');
-      }).catch((error) => {
-        const errorCode = error.code
-        const errorMessage = error.message
-        console.log(errorCode, errorMessage)
-
-        success = false
-
-        if (errorCode == 'auth/invalid-credential') register()
-      })
-    })
-  } */
-  /* const register = () => {
-    createUserWithEmailAndPassword(firebaseAuth, email, password)
-    .then((userCredentials) => {
-      console.log(userCredentials)
-      // goto('/login');
-      login()
-    })
-    .catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      console.log(errorCode, errorMessage);
-
-      success = false;
-      mod_login.showModal();
-    });
-  } */
   const provider = new GoogleAuthProvider();
 
   const signInWithGoogle = () => {
@@ -147,22 +98,10 @@
   const actionCodeSettings = {
     url: browser ? window.location.href : '/',
     handleCodeInApp: true,
-    // iOS: {
-    //   bundleId: 'com.example.ios'
-    // },
-    // android: {
-    //   packageName: 'com.example.android',
-    //   installApp: true,
-    //   minimumVersion: '12'
-    // },
-    // The domain must be configured in Firebase Hosting and owned by the project.
-    // linkDomain: 'custom-domain.com'
   }
 
 
-  // const auth = getAuth();
   function ota_login() {
-    // mod_login.close()
     sendSignInLinkToEmail(firebaseAuth, $email, actionCodeSettings)
     .then(() => {
       // The link was successfully sent. Inform the user.
@@ -195,7 +134,7 @@
     if (!email) {
       // User opened the link on a different device. To prevent session fixation
       // attacks, ask the user to provide the associated email again. For example:
-      email = window.prompt('Kérjük, add meg az email címed')
+      email = window.prompt('Kérjük, add meg újra az email címed')
       // displayName = window.prompt('Kérjük, add meg a neved')
     }
     // The client SDK will parse the code from the link for you.
@@ -205,7 +144,7 @@
         
         // Check if user has a display name
         if (!firebaseAuth.currentUser?.displayName) {
-          displayName = window.prompt('Kérjük, add meg a neved');
+          /* displayName = window.prompt('Kérjük, add meg a neved');
           if (displayName) {
             try {
               await updateProfile(firebaseAuth.currentUser, {
@@ -219,7 +158,8 @@
             } catch (error) {
               console.error('Error updating profile:', error);
             }
-          }
+          } */
+          mod_login.showModal()
         }
         
         // Clear email from storage
@@ -235,6 +175,24 @@
         success = false
         mod_login.showModal()
       });
+  }
+
+  async function setDisplayName() {
+    if ($authUser && displayName) {
+      try {
+        await updateProfile(firebaseAuth.currentUser, {
+          displayName: displayName
+        });
+        // Update the local state
+        $authUser = {
+          ...$authUser,
+          displayName: displayName
+        };
+        mod_login.close()
+      } catch (error) {
+        console.error('Error updating profile:', error);
+      }
+    }
   }
 
   const user_click = () => {
@@ -356,6 +314,7 @@
   <div class="modal-box">
     <button class="btn btn-sm !btn-circle btn-ghost absolute right-2 top-2 border-none" onclick={()=>mod_login.close()}>✕</button>
     <h3 class="text-lg font-bold">Hello!</h3>
+    {#if !$authUser}
     <p class="py-4">Az Email címed igazolása közösségi fiókkal vagy egyszer használható ellenőrző link küldésével történhet.</p>
     <!-- <div class="modal-action flex-col gap-4"> -->
     <fieldset class="fieldset flex gap-4 justify-center">
@@ -381,7 +340,11 @@
         required
         bind:value={$email}
         />
+        {#if success === 'sent'}
+        <button class="btn btn-primary h-8" ohnoclick={() => ota_login()}>Link újraküldése</button>
+        {:else}
         <button class="btn btn-primary h-8" ohnoclick={() => ota_login()}>Link küldése</button>
+        {/if}
         <!-- <input
         type="password"
         placeholder="Jelszó"
@@ -401,6 +364,21 @@
       {/if}
       <!-- </div> -->
     </form>
+    {:else}
+      <p class="py-4">Kérjük, add meg a neved.</p>
+      <form onsubmit={() => setDisplayName()}>
+        <fieldset class="fieldset flex gap-4 items-center">
+          <input
+          type="text"
+          placeholder="Név"
+          class="h-8 px-2 border border-primary rounded-md flex-1"
+          required
+          bind:value={displayName}
+          />
+          <button class="btn btn-primary h-8" ohnoclick={() => setDisplayName()}>OK</button>
+        </fieldset>
+      </form>
+    {/if}
   </div>
   <form method="dialog" class="modal-backdrop">
     <button>✕</button>
