@@ -7,7 +7,6 @@ export const actions: Actions = {
 		const formData = await request.formData();
 		
 		// Log the form data for debugging
-		console.log('Form submitted:', Object.fromEntries(formData));
 
 		let origin = url.origin;
 		if (url.origin.includes('localhost')) origin = 'https://diabeteshu.netlify.app';
@@ -28,6 +27,7 @@ export const actions: Actions = {
 		}
 
 		// Return success - Netlify will handle the form processing
+		console.log('Form submitted:', Object.fromEntries(formData));
 		return { success: true };
 	}
 }
