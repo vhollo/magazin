@@ -20,9 +20,12 @@ export const actions: Actions = {
 				body: new URLSearchParams(formData).toString()
 			});
 
-			if (response.status !== 200) return fail(response.status);
+			if (response.status !== 200) {
+				console.log('!200 error: ', response.status);
+				return fail(response.status);
+			}
 		} catch (err) {
-			console.log('error: ', err);
+			console.log('try & catch error: ', err);
 			return fail(500, { postFail: true, err, location });
 		}
 
