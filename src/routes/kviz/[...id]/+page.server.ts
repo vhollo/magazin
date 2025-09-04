@@ -1,6 +1,6 @@
+import type { /* Actions, */ PageServerLoad } from './$types';
 import { fail } from '@sveltejs/kit';
-
-import type { Actions, PageServerLoad } from './$types';
+import type { Actions } from './$types';
 
 export const actions: Actions = {
 	default: async ({ request, url }) => {
@@ -25,7 +25,7 @@ export const actions: Actions = {
 				return fail(response.status);
 			}
 		} catch (err) {
-			console.log('try & catch error: ', err);
+			console.log('postFail: ', err);
 			return fail(500, { postFail: true, err, location });
 		}
 

@@ -73,7 +73,7 @@
     formData.set('email', $authUser?.email || '');
     formData.set('score', score.toString());
     formData.set('date', new Date().toLocaleDateString('hu-HU', {year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit'}));
-    console.log('Form submission started...', Object.fromEntries(formData))
+    console.log('Form submission started...')
 
     $kvizScores[kviz.id] = score
 
@@ -135,7 +135,6 @@
 
   {#if $authUser?.displayName}
   <form method="POST" name="kviz" use:enhance={handleSubmitEnhance} class="max-w-screen-md mx-auto py-12 px-2" bind:this={myForm}>
-    <!-- <form method="POST" name="kviz" use:enhance={handleSubmitEnhance} class="max-w-screen-md mx-auto py-12" bind:this={myForm}> -->
     {#each kviz.questions || [] as q, i}
     <fieldset class="grid xs:grid-cols-2 gap-4">
       <legend id="q-{i}" class="uppercase pt-8 pb-2">
@@ -198,7 +197,7 @@
 <footer class="bg-base-200 text-base-content py-2">
   <p class="text-center">Pontszám: <span class="badge badge-accent">{score}</span></p>
 </footer>
-// import count from +layout.server.ts
+
 <Search {count}/>
 <Nav2 actual={data.path}/>
 

@@ -352,7 +352,7 @@ const latestEditDate = allDocs.reduce((max, doc) => doc.editedon > max ? doc.edi
 try {
   modxSiteContent = /*modxSiteContent ||*/ await modxdb.select().from(modx_site_content).orderBy(desc(modx_site_content.publishedon)).where(
     and(
-      gt(modx_site_content.editedon, latestEditDate),
+      // gt(modx_site_content.editedon, latestEditDate),
       eq(modx_site_content.deleted, 0),
       eq(modx_site_content.published, 1),
       eq(modx_site_content.type, 'document'),
@@ -368,10 +368,10 @@ try {
     or(
       and(
         eq(modx_site_content.id, 2797),
-        gt(modx_site_content.editedon, latestEditDate)
+        // gt(modx_site_content.editedon, latestEditDate)
       ),
       and(
-        gt(modx_site_content.editedon, latestEditDate),
+        // gt(modx_site_content.editedon, latestEditDate),
         eq(modx_site_content.parent, 1),
         eq(modx_site_content.deleted, 0),
         eq(modx_site_content.hidemenu, 0),
@@ -397,8 +397,11 @@ export const modxSzerzok = await modxdb.select().from(modx_site_htmlsnippets).wh
 // Create a map from the cached allDocs for efficient merging
 const allDocsMap = new Map(allDocs.map(doc => [doc.id, doc]));
 
+// newDocs = new or latestEditDate
+const newDocs = modxSiteContent.filter(doc => doc.editedon > latestEditDate)
+
 // Process each fresh document from modxSiteContent and merge it into the map
-for (let doc of modxSiteContent) {
+for (let doc of newDocs) {
   // These functions modify the 'doc' object directly
   _findPath(doc);
   _addTVs(doc);
