@@ -1,6 +1,6 @@
-import type { email } from '$lib/authStore';
+// import type { email } from '$lib/authStore';
+// import { writable } from 'svelte/store';
 import type { LayoutServerLoad } from './$types';
-import { writable } from 'svelte/store';
 import { getKvizConf } from '$lib/siteConf';
 const kvizzes = await getKvizConf();
 
