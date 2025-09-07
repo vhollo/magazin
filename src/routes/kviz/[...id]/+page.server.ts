@@ -1,6 +1,6 @@
-import type { /* Actions, */ PageServerLoad } from './$types';
 import { fail } from '@sveltejs/kit';
-import type { Actions } from './$types';
+
+import type { Actions, PageServerLoad } from './$types';
 
 export const actions: Actions = {
 	default: async ({ request, url }) => {
@@ -12,7 +12,7 @@ export const actions: Actions = {
 		if (url.origin.includes('localhost')) origin = 'https://diabeteshu.netlify.app';
 		try {
 			// const response = await fetch(`${origin}/forms.html`, {
-			const response = await fetch(`${origin}/kviz`, {
+			const response = await fetch(`${origin}/kviz/form`, {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/x-www-form-urlencoded'
