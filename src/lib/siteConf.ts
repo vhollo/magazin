@@ -131,7 +131,7 @@ export const getSiteConf = async () => {
 }
 
 
-export const getKvizConf = async () => {
+export const getKviz = async () => {
   if (building || dev) {
     try {
       const kvizRef = db.collection('kviz');
@@ -151,6 +151,25 @@ export const getKvizConf = async () => {
     }
   } else {
     const data = fs.readFileSync(path.resolve(process.cwd(), 'static', 'kviz.json'), 'utf-8');
+    // console.log(data)
+    return JSON.parse(data);
+  }
+}
+
+export const getPatika = async () => {
+  if (building || dev) {
+    try {
+      const patikaRef = db.collection('tables/elofizetok/patika');
+      const patikaSnap = await patikaRef.get();
+      const patikaData = patikaSnap.docs.flatMap(doc => doc.data())
+      writeData(patikaData, 'patika.json')
+      return patikaData;
+    } catch (error) {
+      console.error("Error getting patika:", error);
+      return []
+    }
+  } else {
+    const data = fs.readFileSync(path.resolve(process.cwd(), 'static', 'patika.json'), 'utf-8');
     // console.log(data)
     return JSON.parse(data);
   }
