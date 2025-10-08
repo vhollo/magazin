@@ -21,7 +21,7 @@
 
   let query = $state('')
 
-	let list: any[] = $derived(query ? miniSearch.search(query, { fuzzy: 0.5 }) : patikas)
+	let list: any[] = $derived(query ? miniSearch.search(query, { fuzzy: 0.4 }) : patikas)
 </script>
 
 <svelte:head>
@@ -51,9 +51,9 @@
     <input type="text" placeholder="Keresés" class="input input-bordered w-full max-w-sm" bind:value={query} />
   </form>
 </article>
-<ul class="w-full max-w-sm mx-auto mt-4">
+<ul class="w-full max-w-sm mx-auto mt-4 mb-8">
     {#each list as p: any}
-      <li class="border-b py-2" out:fly={{ y: 200, duration: 1000 }} in:fade>
+      <li class="not-last:border-b py-2" transition:fly={{ y: 200, duration: 1000 }}>
         <p class="font-bold"><a href="https://maps.google.com/maps?q={p.patika}+{p.varos}+{p.irsz}" target="_blank" rel="noopener noreferrer">📍 {p.patika}</a></p>
         <p>{p.irsz} {p.varos}</p>
         <p>{p.cim}</p>
