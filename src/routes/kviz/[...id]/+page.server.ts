@@ -1,6 +1,7 @@
 import { fail } from '@sveltejs/kit';
-
 import type { Actions, PageServerLoad } from './$types';
+
+import { db } from '$lib/firebase-admin';
 
 export const actions: Actions = {
 	default: async ({ request, url }) => {
@@ -17,7 +18,13 @@ export const actions: Actions = {
 				headers: {
 					'Content-Type': 'application/x-www-form-urlencoded'
 				},
-				body: new URLSearchParams(formData).toString()
+				body: (() => {
+					const params = new URLSearchParams();
+					for (const [key, value] of formData) {
+						if (typeof value === 'string') params.append(key, value);
+					}
+					return params.toString();
+				})()
 			});
 
 			if (response.status !== 200) {
@@ -26,8 +33,19 @@ export const actions: Actions = {
 			}
 		} catch (err) {
 			console.log('postFail: ', err);
-			return fail(500, { postFail: true, err, location });
+			return fail(500, { postFail: true, err, location: url.href });
 		}
+
+		// write score into firestore-admin at tables/kviz/{kviz.id} as { uid: score }
+		const writeScore = async () => {
+			console.log('uid: ', formData.get('uid'))
+			const id = formData.get('id');
+			if (!id) return;
+			const docRef = db.doc(`kviz/${id}/scores/${formData.get('uid')}`);
+			await docRef.set({ 'name': formData.get('name'), 'email': formData.get('email'), 'score': formData.get('score'), 'date': formData.get('date') }, { merge: true });
+		}
+
+		await writeScore();
 
 		// Return success - Netlify will handle the form processing
 		console.log('Form submitted:', Object.fromEntries(formData));

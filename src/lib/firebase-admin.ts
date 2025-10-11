@@ -1,5 +1,6 @@
 import { initializeApp, getApps, /* applicationDefault, */ cert } from 'firebase-admin/app';
 import { getFirestore/* , Timestamp, FieldValue, Filter */ } from 'firebase-admin/firestore';
+import type { Firestore } from 'firebase-admin/firestore';
 import {FIREBASE_ADMIN_KEY} from '$env/static/private'
  
 // console.log(FIREBASE_ADMIN_KEY)
@@ -9,6 +10,6 @@ if (!getApps().length) {
   });
 }
 
-const db = getFirestore()
+const db: Firestore = getFirestore()
 db.settings({ ignoreUndefinedProperties: true });
 export { db };

@@ -3,9 +3,15 @@
   import Nav from '$lib/components/Nav.svelte'
   import Footer from '$lib/components/Footer.svelte'
 
-	import { page } from '$app/state';
-	import type { LayoutProps } from './$types';
-	let { data, children }: LayoutProps = $props();
+  import { page } from '$app/state';
+  import type { LayoutProps } from './$types';
+  let { data, children }: LayoutProps = $props();
+
+  import { onMount } from 'svelte';
+  import { initAuth } from '$lib/auth';
+  onMount(() => {
+    initAuth();
+  });
 
   // import { page } from '$app/stores'
   // import { goto } from '$app/navigation'

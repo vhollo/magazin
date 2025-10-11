@@ -1,12 +1,13 @@
 import { writable } from 'svelte/store';
 
-interface AuthUser {
+interface AuthUserType {
   uid: string;
   email: string | null;
   displayName: string | null;
 }
 
-const authUser = writable<AuthUser | undefined>(undefined);
+const authUser = writable<AuthUserType | undefined>(undefined);
 const email = writable<string | undefined>(undefined);
+const uid = writable<string | undefined>(undefined);
 
-export { authUser, email }
+export { authUser, email, uid }

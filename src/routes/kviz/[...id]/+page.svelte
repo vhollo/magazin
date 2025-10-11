@@ -30,36 +30,8 @@
     document.getElementById(id)?.scrollIntoView({behavior: 'smooth'})
   }
 
-	// import { applyAction, deserialize } from '$app/forms';
-	// import type { ActionResult } from '@sveltejs/kit';
-
-  // import { count } from '$lib/stores'
-
-	/* async function handleSubmit(event: SubmitEvent & { currentTarget: EventTarget & HTMLFormElement}) {
-		event.preventDefault();
-		const data = new FormData(event.currentTarget);
-
-		const response = await fetch(event.currentTarget.action, {
-			method: 'POST',
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-			body: data
-		});
-
-		const result: ActionResult = deserialize(await response.text());
-
-		if (result.type === 'success') {
-			// rerun all `load` functions, following the successful update
-			await invalidateAll();
-		}
-
-		applyAction(result);
-	} */
-
   let submitBtn: HTMLInputElement | null = $state(null);
-  let myForm: HTMLFormElement | null = $state(null)
 	let c = kviz.questions?.length || 0
-	// let startnew = true
-  // score[kviz.id] = 0
 
   const handleSubmitEnhance: SubmitFunction = async ({ formData/* , formElement, action, controller, submitter */, cancel }) => {
 		// `formElement` is this `<form>` element
@@ -69,14 +41,16 @@
 		// `submitter` is the `HTMLElement` that caused the form to be submitted
 
     formData.set('id', kviz.id);
+    formData.set('uid', $authUser?.uid || '');
     formData.set('name', $authUser?.displayName || '');
     formData.set('email', $authUser?.email || '');
     formData.set('score', score.toString());
     formData.set('date', new Date().toLocaleDateString('hu-HU', {year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit'}));
-    console.log('Form submission started...')
+    // console.log('Form submission started...')
 
     $kvizScores[kviz.id] = score
 
+    console.log('uid: ', $authUser?.uid)
     return () => {
       cancel()
     }
@@ -116,10 +90,10 @@
     {#if kviz.video}
     <iframe class="mx-auto my-8" width="560" height="315" src={`https://www.youtube-nocookie.com/embed/${kviz.video}`} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
     {/if}
-    {#if kviz.link}
-    <p class="mt-8 text-center"><a href={kviz.link} class="btn btn-outline btn-sm">Kapcsolódó cikk</a></p>
-    {/if}
   </article>
+  {#if kviz.link}
+    <p class="my-8 text-center"><a href={kviz.link} class="btn btn-outline btn-sm">Kapcsolódó cikk</a></p>
+  {/if}
 
   <!-- form-name=kviz&id=kviz-0&answer-0=99&score=99 -->
   <!-- <form name="kviz" class="max-w-screen-md mx-auto py-12"> -->
@@ -134,7 +108,7 @@
   </div>
 
   {#if $authUser?.displayName}
-  <form method="POST" name="kviz" use:enhance={handleSubmitEnhance} class="max-w-screen-md mx-auto py-12 px-2" bind:this={myForm}>
+  <form method="POST" name="kviz" use:enhance={handleSubmitEnhance} class="max-w-screen-md mx-auto py-12 px-2">
     {#each kviz.questions || [] as q, i}
     <fieldset class="grid xs:grid-cols-2 gap-4">
       <legend id="q-{i}" class="uppercase pt-8 pb-2">

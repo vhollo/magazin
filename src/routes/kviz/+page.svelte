@@ -3,9 +3,13 @@
   import Nav2 from '$lib/components/Nav2.svelte';
 </script>
 <script lang="ts">
-  import type { PageProps } from "./$types";
+  import { authUser } from '$lib/authStore';
+  import { get } from 'svelte/store';
+  console.log(get(authUser))
+
   import { kvizScores } from '$lib/kvizStore';
 
+  import type { PageProps } from "./$types";
   const { data }: PageProps = $props()
   // console.log({data})
   const kvizzes = data.kvizzes

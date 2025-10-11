@@ -54,7 +54,9 @@
 <ul class="w-full max-w-sm mx-auto mt-4 mb-8">
     {#each list as p: any}
       <li class="not-last:border-b py-2" transition:fly={{ y: 200, duration: 1000 }}>
-        <p class="font-bold"><a href="https://maps.google.com/maps?q={p.patika}+{p.varos}+{p.irsz}" target="_blank" rel="noopener noreferrer">📍 {p.patika}</a></p>
+        <p class="font-bold">
+          <a href="https://maps.google.com/maps?q={p.patika}+{p.varos}+{p.irsz}" target="_blank" rel="noopener noreferrer" class="flex justify-between"><span>{p.patika}</span><span>📍</span></a>
+        </p>
         <p>{p.irsz} {p.varos}</p>
         <p>{p.cim}</p>
       </li>

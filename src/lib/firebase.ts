@@ -22,13 +22,16 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-let firebaseApp, db:Firestore
+let firebaseApp, db: Firestore;
 
-if (!getApps().length) {
+const apps = getApps();
+if (!apps.length) {
   firebaseApp = initializeApp(firebaseConfig);
-  // const analytics = getAnalytics(firebaseApp);
-  db = getFirestore(firebaseApp);
+} else {
+  firebaseApp = apps[0];
 }
+// const analytics = getAnalytics(firebaseApp);
+db = getFirestore(firebaseApp);
 
 // Auth
 const firebaseAuth = getAuth(firebaseApp);
