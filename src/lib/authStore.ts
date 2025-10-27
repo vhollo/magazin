@@ -9,5 +9,6 @@ interface AuthUserType {
 const authUser = writable<AuthUserType | undefined>(undefined);
 const email = writable<string | undefined>(undefined);
 const uid = writable<string | undefined>(undefined);
+const authReady = writable<boolean>(false);
 
-export { authUser, email, uid }
+export { authUser, email, uid, authReady }

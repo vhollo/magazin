@@ -259,7 +259,7 @@ const _ellipsis = doc => {
 }
 
 const _docFields = doc => {
-  if (doc.id == 3400) console.log('_docFields')
+  // if (doc.id == 3400) console.log('_docFields')
   return {
     id: doc.id,
     path: doc.path,
@@ -399,7 +399,7 @@ const allDocsMap = new Map(allDocs.map(doc => [doc.id, doc]));
 
 // newDocs = new or latestEditDate
 const newDocs = modxSiteContent.filter(doc => doc.editedon > latestEditDate)
-
+console.log('newDocs',newDocs.length)
 // Process each fresh document from modxSiteContent and merge it into the map
 for (let doc of newDocs) {
   // These functions modify the 'doc' object directly
@@ -410,8 +410,13 @@ for (let doc of newDocs) {
   _alapjav(doc);
   _ellipsis(doc);
   
-  // Overwrite the map entry with the fully processed document
-  allDocsMap.set(doc.id, _docFields(doc));
+  // Overwrite the map entry with the fully processed document or add it if it doesn't exist to the start of the array
+  if (allDocsMap.has(doc.id)) {
+    allDocsMap.set(doc.id, _docFields(doc));
+  } else {
+    allDocs.unshift(_docFields(doc));
+    allDocsMap.set(doc.id, allDocs[0]);
+  }
 }
 
 // Reconstruct the allDocs array from the map's values
@@ -453,4 +458,4 @@ if (building && dev) { // TEMPORARY OFF
 }
 
 // write data.json to file
-if ((dev || building) && modxSiteContent.length) writeData(allDocs)
+if ((dev || building) && newDocs.length) writeData(allDocs)

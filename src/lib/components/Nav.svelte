@@ -74,7 +74,7 @@
         // The signed-in user info.
         // const user = result.user;
         $authUser = result.user;
-        console.log("Successfully signed in with Google!", $authUser);
+        // console.log("Successfully signed in with Google!", $authUser);
         // ... You can now update your UI to show the user is logged in
       })
       .catch((error) => {

@@ -25,7 +25,9 @@
   // const kviz = data.kvizzes?.find(k => k.id === id)
   let kviz = $state(data.kviz)
   let score: number = $state(0)
-
+  /* $effect(() => {
+    score = $kvizScores[kviz.id] || 0;
+  }) */
   function _scroll(id: string) {
     document.getElementById(id)?.scrollIntoView({behavior: 'smooth'})
   }
@@ -104,7 +106,8 @@
     {:else}
       <legend class="uppercase pt-8 pb-2">A teszt beküldéséhez ellenőrzött email cím és név szükséges</legend>
       <button class="btn btn-outline" onclick={(e) => {e.preventDefault(); mod_login.showModal()}}>Megadom</button>
-    {/if}
+      <a href="/kviz" class="btn btn-outline">Vissza</a>
+      {/if}
   </div>
 
   {#if $authUser?.displayName}
@@ -137,7 +140,7 @@
           <label for="answer-{i}-{j}" class="bg-base-100 border-1 border-secondary p-2">
             {opt.option}
             {#if q.done}
-              <aside class="choice"><small>{opt.feedback} ({opt.score} pont)</small></aside>
+              <aside class="choice"><small>{opt.score} pont ({opt.feedback})</small></aside>
             {/if}
           </label>
         {/each}
@@ -169,7 +172,7 @@
 
 </main>
 <footer class="bg-base-200 text-base-content py-2">
-  <p class="text-center">Pontszám: <span class="badge badge-accent">{score}</span></p>
+  <p class="text-center">Pontszám: <span class="badge badge-accent">{score} / {kviz.max_score} pont</span></p>
 </footer>
 
 <Search {count}/>

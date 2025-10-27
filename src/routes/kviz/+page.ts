@@ -10,8 +10,16 @@ export const ssr = false;
 export const load: PageLoad = async ({ parent }) => {
   const { kvizzes } = await parent();
 
+  // If logged out: clear scores and stop
+  if (!get(uid)) {
+    kvizScores.set({});
+    return {};
+  }
+
+  // Logged in: keep existing scores (from localStorage) to avoid flash, then repopulate
+
   if (get(uid) && Array.isArray(kvizzes)) {
-    console.log('uid: ', uid)
+    // console.log('uid: ', get(uid))
     try {
       await Promise.all(
         kvizzes.map(async (k) => {

@@ -3,17 +3,30 @@
   import Nav2 from '$lib/components/Nav2.svelte';
 </script>
 <script lang="ts">
-  import { authUser } from '$lib/authStore';
-  import { get } from 'svelte/store';
-  console.log(get(authUser))
+import { onMount } from 'svelte';
+import { uid } from '$lib/authStore';
+import { get } from 'svelte/store';
+import { invalidateAll } from '$app/navigation';
 
-  import { kvizScores } from '$lib/kvizStore';
+onMount(() => {
+  let prev = !!get(uid);
+  const stop = uid.subscribe((v) => {
+    const curr = !!v;
+    if (curr !== prev) {
+      invalidateAll(); // triggers +page.ts load again on login and logout
+    }
+    prev = curr;
+  });
+  return stop;
+});
 
-  import type { PageProps } from "./$types";
-  const { data }: PageProps = $props()
-  // console.log({data})
-  const kvizzes = data.kvizzes
-  // console.log({kvizzes})
+import { kvizScores } from '$lib/kvizStore';
+// console.log($kvizScores)
+import type { PageProps } from "./$types";
+const { data }: PageProps = $props()
+// console.log({data})
+const kvizzes = data.kvizzes
+// console.log({kvizzes})
 </script>
 
 <svelte:head>
@@ -42,11 +55,13 @@
   <h2 class="col-span-3 uppercase mt-4">{kviz.title}</h2>
     <div class="font-thin opacity-60 tabular-nums text-sm">{@html new Date(kviz.starts_on).toLocaleDateString('hu-HU', { year: 'numeric', month: '2-digit', day: '2-digit' }).replace('. ', '<br>').replace('. ', '.').slice(0, -1)}</div>
   <p class="opacity-60 hyphens-auto">{kviz.description}</p>
-  <span class="">
+  <span class="text-center">
   {#if !isNaN($kvizScores[kviz.id])}
-    <span class="badge badge-accent">
-      {$kvizScores[kviz.id]} pont
-    </span>
+    <a href={`/kviz/${kviz.id}`} aria-label="Beküldés" class="">
+      <span class="badge badge-accent">
+        {$kvizScores[kviz.id]} / {kviz.max_score} pont
+      </span>
+    </a>
   {:else}
     <a href={`/kviz/${kviz.id}`} aria-label="Beküldés" class="btn btn-outline !hover:outline btn-square">
       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">

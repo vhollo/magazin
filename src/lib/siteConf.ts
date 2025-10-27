@@ -141,9 +141,12 @@ export const getKviz = async () => {
         const data = {id: id, ...doc.data()}
         data.starts_on = data.starts_on?.toDate()
         data.expires_on = data.expires_on?.toDate()
+        // console.log(data.questions)//.map(q => q.score))
+        data.max_score = data.questions?.reduce((acc: number, question: any) => acc + (question.options?.reduce((optionAcc: number, option: any) => optionAcc + (option.score > 0 ? option.score : 0), 0) || 0), 0) || 0
         return data;
       }).sort((a, b) => b.starts_on - a.starts_on) || [];
       writeData(kvizData, 'kviz.json')
+      // console.log (kvizData);
       return kvizData;
     } catch (error) {
       console.error("Error getting kviz:", error);

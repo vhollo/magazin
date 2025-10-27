@@ -1,5 +1,4 @@
-import { goto } from '$app/navigation';
-import { browser } from '$app/environment';
+import { redirect } from '@sveltejs/kit';
 import { /* modxDoc,  */allDocs } from '$lib/modx'
 console.log('docs:',allDocs.length)
 
@@ -121,7 +120,7 @@ export async function load({ params, url }) {
       if (!doc) {
         console.log('_miss:', path)
         doc = {'path': path , 'title': `Nem található: "${path}"` }
-        if (browser) goto ('/keres?q=' + path)
+        redirect(307, '/keres?q=' + encodeURIComponent(path))
       } else {
         // console.log('found:', doc.path)
       }
