@@ -85,7 +85,7 @@ const _addTVs = (doc:object) => {
   const img = tvs.find(tv => tv.tmplvarid == 4)?.value || ''
   doc.img = img && {
     'src': img && PUBLIC_BASE_URL + img || '',
-    'pos': pos.replace('T', '50% 20%').replace('B', '50% 80%').replace('L', 'left').replace('R', 'right'),
+    'pos': pos.replace('T', '50% 5%').replace('B', '50% 90%').replace('L', 'left').replace('R', 'right'),
     'ext': img && img.split('.').pop() || '',
     'caption': tvs.find(tv => tv.tmplvarid == 28)?.value || '',
   } || null
