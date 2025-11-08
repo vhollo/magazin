@@ -34,6 +34,8 @@
 
   let submitBtn: HTMLInputElement | null = $state(null);
 	let c = kviz.questions?.length || 0
+  const scoreSent = $kvizScores[kviz.id]
+  // console.log({scoreSent})
 
   const handleSubmitEnhance: SubmitFunction = async ({ formData/* , formElement, action, controller, submitter */, cancel }) => {
 		// `formElement` is this `<form>` element
@@ -70,7 +72,11 @@
 		//score[kviz.id].set(isNaN(parseInt(s,10)) && s.startsWith('x') ? score[kviz.id] * parseFloat(s.substr(1),10) : score[kviz.id] + parseInt(s,10))
     // $kvizScores[kviz.id] = score
     if (i == c-1) {
-      if (submitBtn) submitBtn.click()
+      if (!scoreSent && submitBtn) {
+        submitBtn.click()
+      } else {
+
+      }
       // myForm?.submit()
     }
 	}
@@ -163,8 +169,18 @@
 
     <fieldset id="thankyou">
       <legend class="uppercase pt-8 pb-2">Köszönjük, hogy kitöltötted a kvízt!</legend>
-      <input id="submit" type="submit" value="Küldés" class:hidden={true} bind:this={submitBtn}>
+      {#if scoreSent == null}
+        <p>Pontszámodat rögzítettük.</p>
+      {:else}
+        {#if scoreSent < score}
+        <p>Beküldött pontjaidnál ({scoreSent}) jobb eredményt értél el.</p>
+        {/if}
+        {#if scoreSent == score}
+        <p>Beküldött pontjaiddal ({scoreSent}) azonos eredményt értél el.</p>
+        {/if}
+      {/if}
       <a href="/kviz" class="btn btn-outline">Tovább</a>
+      <input id="submit" type="submit" value="Küldés" hidden class="hidden:true;" bind:this={submitBtn}>
     </fieldset>
     <input type="hidden" name="form-name" value="kviz">
   </form>
