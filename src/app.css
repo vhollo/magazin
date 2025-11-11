@@ -42,7 +42,10 @@ body {
   scroll-snap-align: center;
 }
 
-
+.prose a, .list a {
+  text-decoration: dashed underline;
+  text-underline-offset: 4px;
+}
 
 /* DRAWER */
 

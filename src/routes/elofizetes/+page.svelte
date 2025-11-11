@@ -11,11 +11,11 @@
 // console.log(data)
 
 if (browser) {
-  let color = window?.matchMedia('(prefers-color-scheme: dark)').matches ? darkcolor : lightcolor;
-  window?.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
+  let color = darkcolor; //window?.matchMedia('(prefers-color-scheme: dark)').matches ? darkcolor : lightcolor;
+  /* window?.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
     const colorScheme = event.matches ? "dark" : "light";
     color = colorScheme === 'dark' ? darkcolor : lightcolor;
-  });
+  }); */
   
   var scriptURL = 'https://sdks.shopifycdn.com/buy-button/latest/buy-button-storefront.min.js';
   if (window?.ShopifyBuy) {
@@ -192,6 +192,8 @@ if (browser) {
   }
 }
 const { data }: PageProps = $props()
+let count = data.count
+
 
 </script>
 

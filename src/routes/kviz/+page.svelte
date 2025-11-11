@@ -1,6 +1,9 @@
 <script module>
   import Search from '$lib/components/Search.svelte';
   import Nav2 from '$lib/components/Nav2.svelte';
+  import type { PageProps } from "./$types";
+  import { marked } from 'marked';
+
 </script>
 <script lang="ts">
 import { onMount } from 'svelte';
@@ -22,11 +25,16 @@ onMount(() => {
 
 import { kvizScores } from '$lib/kvizStore';
 // console.log($kvizScores)
-import type { PageProps } from "./$types";
 const { data }: PageProps = $props()
 // console.log({data})
 const kvizzes = data.kvizzes
 // console.log({kvizzes})
+
+// Configure marked for safe rendering
+marked.setOptions({
+  breaks: true,
+  gfm: true
+});
 </script>
 
 <svelte:head>
@@ -54,7 +62,7 @@ const kvizzes = data.kvizzes
   {#each kvizzes as kviz, i}
   <h2 class="col-span-3 uppercase mt-4">{kviz.title}</h2>
     <div class="font-thin opacity-60 tabular-nums text-sm">{@html new Date(kviz.starts_on).toLocaleDateString('hu-HU', { year: 'numeric', month: '2-digit', day: '2-digit' }).replace('. ', '<br>').replace('. ', '.').slice(0, -1)}</div>
-  <p class="opacity-60 hyphens-auto">{kviz.description}</p>
+  <div class="opacity-60 hyphens-auto">{@html marked.parse(kviz.description || '')}</div>
   <span class="flex flex-col gap-1">
   {#if !isNaN($kvizScores[kviz.id])}
     <a href={`/kviz/${kviz.id}`} aria-label="Kitöltés újra" class="btn btn-outline btn-primary !hover:outline btn-square mx-auto">

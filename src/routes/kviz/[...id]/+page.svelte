@@ -8,6 +8,7 @@
   // import { redirect } from '@sveltejs/kit';
   import Search from '$lib/components/Search.svelte';
   import Nav2 from '$lib/components/Nav2.svelte';
+  import { marked } from 'marked';
 </script>
 
 <script lang="ts">
@@ -94,7 +95,8 @@
     {#if kviz.image}
     <img src={kviz.image} alt="">
     {/if}
-    <p class="text-center">{kviz.description}</p>
+    <div class="hyphens-auto">{@html marked.parse(kviz.description || '')}</div>
+
     {#if kviz.video}
     <iframe class="mx-auto my-8" width="560" height="315" src={`https://www.youtube-nocookie.com/embed/${kviz.video}`} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
     {/if}
