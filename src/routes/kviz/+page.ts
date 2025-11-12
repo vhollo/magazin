@@ -4,6 +4,8 @@ import { uid } from '$lib/authStore';
 import { doc, getDoc } from 'firebase/firestore/lite';
 import { get } from 'svelte/store';
 import type { PageLoad } from './$types';
+// Configure marked for all child pages - this import runs the configuration
+import '$lib/marked';
 
 export const ssr = false;
 

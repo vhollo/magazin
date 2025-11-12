@@ -2,7 +2,7 @@
   import Search from '$lib/components/Search.svelte';
   import Nav2 from '$lib/components/Nav2.svelte';
   import type { PageProps } from "./$types";
-  import { marked } from 'marked';
+  import { marked } from '$lib/marked';
 
 </script>
 <script lang="ts">
@@ -29,12 +29,7 @@ const { data }: PageProps = $props()
 // console.log({data})
 const kvizzes = data.kvizzes
 // console.log({kvizzes})
-
-// Configure marked for safe rendering
-marked.setOptions({
-  breaks: true,
-  gfm: true
-});
+// marked is configured in $lib/marked.ts, imported via +page.ts
 </script>
 
 <svelte:head>

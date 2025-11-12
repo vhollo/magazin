@@ -8,7 +8,7 @@
   // import { redirect } from '@sveltejs/kit';
   import Search from '$lib/components/Search.svelte';
   import Nav2 from '$lib/components/Nav2.svelte';
-  import { marked } from 'marked';
+  import { marked } from '$lib/marked';
 </script>
 
 <script lang="ts">
