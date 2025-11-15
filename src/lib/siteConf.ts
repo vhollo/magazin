@@ -7,7 +7,7 @@ import fs from 'fs';
 import path from 'path';
 async function writeData(data: object | object[], filename: string) {
   // console.log('writeData',data)
-  const outputPath = path.resolve(process.cwd(), 'static', filename);
+  const outputPath = path.resolve(process.cwd(), 'src/lib/data', filename);
   fs.writeFileSync(outputPath, JSON.stringify(data, null, 2));
   // console.log(`Conf sikeresen mentve: ${outputPath}`);
 }
@@ -124,7 +124,7 @@ export const getSiteConf = async () => {
       return {};
     }
   } else {
-    const data = fs.readFileSync(path.resolve(process.cwd(), 'static', 'conf.json'), 'utf-8');
+    const data = fs.readFileSync(path.resolve(process.cwd(), 'src/lib/data', 'conf.json'), 'utf-8');
     // console.log(data)
     return JSON.parse(data);
   }
@@ -153,7 +153,7 @@ export const getKviz = async () => {
       return []
     }
   } else {
-    const data = fs.readFileSync(path.resolve(process.cwd(), 'static', 'kviz.json'), 'utf-8');
+    const data = fs.readFileSync(path.resolve(process.cwd(), 'src/lib/data', 'kviz.json'), 'utf-8');
     // console.log(data)
     return JSON.parse(data);
   }
@@ -172,7 +172,7 @@ export const getPatika = async () => {
       return []
     }
   } else {
-    const data = fs.readFileSync(path.resolve(process.cwd(), 'static', 'patika.json'), 'utf-8');
+    const data = fs.readFileSync(path.resolve(process.cwd(), 'src/lib/data', 'patika.json'), 'utf-8');
     // console.log(data)
     return JSON.parse(data);
   }

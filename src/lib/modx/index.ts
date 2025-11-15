@@ -301,7 +301,7 @@ const _relFields = doc => {
 
 async function writeData(data: object[]) {
   console.log('writeData',data.length)
-  const outputPath = path.resolve(process.cwd(), 'static', 'data.json');
+  const outputPath = path.resolve(process.cwd(), 'src/lib/data', 'data.json');
   fs.writeFileSync(outputPath, JSON.stringify(data, null, 2));
   console.log(`Adat sikeresen mentve: ${outputPath}`);
 }
@@ -321,7 +321,7 @@ let modxSiteContent: object[], modxSiteHirek: object[], tmplvarContentvalues: ob
 
 if (building) {
   try {
-    const data = fs.readFileSync(path.resolve(process.cwd(), 'static', 'data.json'), 'utf8');
+    const data = fs.readFileSync(path.resolve(process.cwd(), 'src/lib/data', 'data.json'), 'utf8');
     allDocs = JSON.parse(data) || [];
     console.log('FILEallDocs',allDocs.length)
   } catch (error) {
@@ -335,7 +335,7 @@ if (building) {
   }
 } else {
   try {
-    const data = fs.readFileSync(path.resolve(process.cwd(), 'static', 'data.json'), 'utf8');
+    const data = fs.readFileSync(path.resolve(process.cwd(), 'src/lib/data', 'data.json'), 'utf8');
     allDocs = JSON.parse(data) || [];
     console.log('FILEallDocs',allDocs.length)
   } catch (error) {
@@ -411,12 +411,13 @@ for (let doc of newDocs) {
   _ellipsis(doc);
   
   // Overwrite the map entry with the fully processed document or add it if it doesn't exist to the start of the array
-  if (allDocsMap.has(doc.id)) {
+  /* if (allDocsMap.has(doc.id)) {
     allDocsMap.set(doc.id, _docFields(doc));
   } else {
-    allDocs.unshift(_docFields(doc));
-    allDocsMap.set(doc.id, allDocs[0]);
-  }
+    // allDocs.push(_docFields(doc));
+    allDocsMap.set(doc.id, _docFields(doc));
+  } */
+  allDocsMap.set(doc.id, _docFields(doc));
 }
 
 // Reconstruct the allDocs array from the map's values
