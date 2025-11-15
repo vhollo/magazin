@@ -326,11 +326,11 @@ if (building) {
     console.log('FILEallDocs',allDocs.length)
   } catch (error) {
     console.log('No data.json found, initializing with FB');
-    // allDocs = [];
-    /* Firebase read */
-    const docsRef = db.collection('docs');
+    allDocs = [];
+    /* Firebase read TEMP OFF */
+    /* const docsRef = db.collection('docs');
     const snapshot = await docsRef.get();
-    allDocs = snapshot.docs.map(doc => doc.data()).reverse() || [];
+    allDocs = snapshot.docs.map(doc => doc.data()).reverse() || []; */
     console.log('FBallDocs',allDocs.length)
   }
 } else {
@@ -429,17 +429,20 @@ for (let doc of allDocs) {
   }
 }
 
-allDocs = allDocs.filter(doc => doc.tv.tags.length > 0) // filter out docs without tags
-// console.log('allDocs', allDocs.find(d => d.id == '3400')?.path || '3400 not in allDocs')
+allDocs = allDocs.filter(doc => doc.tv.tags.length > 0).sort((a, b) => b.id - a.id) // filter out docs without tags
+
 export { allDocs }
 
 //export const allDocs = [...allDocs, ...modxSiteContent.filter(doc => doc.tv.tags.length && (doc.content.length || doc.introtext.length)).map(doc => _docFields(doc))]// && !doc.isfolder && doc.path !== doc.alias)
 
 // // Write fresh modxSiteContent into Firestore's collection 'docs'
 if (building && dev) { // TEMPORARY OFF
-  console.log('fbWrite', modxSiteContent.length);
+  // console.log('fbWrite', modxSiteContent.length);
+  console.log('fbWrite', newDocs.length); // changed from modxSiteContent to newDocs
   
-  const writePromises = modxSiteContent.map(async (doc) => {
+  // const writePromises = modxSiteContent.map(async (doc) => {
+  const writePromises = newDocs.map(async (doc) => { // changed from modxSiteContent to newDocs
+    // Find the processed document in allDocs
     const d = allDocs.find(d => d.id == doc.id);
     if (d) {
       // This returns the promise from the .set() operation
