@@ -8,6 +8,10 @@ import path from 'path';
 async function writeData(data: object | object[], filename: string) {
   // console.log('writeData',data)
   const outputPath = path.resolve(process.cwd(), 'src/lib/data', filename);
+  const outputDir = path.dirname(outputPath);
+  if (!fs.existsSync(outputDir)) {
+    fs.mkdirSync(outputDir, { recursive: true });
+  }
   fs.writeFileSync(outputPath, JSON.stringify(data, null, 2));
   // console.log(`Conf sikeresen mentve: ${outputPath}`);
 }

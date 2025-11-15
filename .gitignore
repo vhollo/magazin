@@ -30,8 +30,5 @@ magazin.code-workspace
 # TEMP
 # /src/routes/auth/
 
-data.json
-patika.json
-conf.json
-kviz.json
+/src/lib/data/
 /static/banners
