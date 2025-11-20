@@ -259,7 +259,6 @@ const _ellipsis = doc => {
 }
 
 const _docFields = doc => {
-  // if (doc.id == 3400) console.log('_docFields')
   return {
     id: doc.id,
     path: doc.path,
@@ -414,13 +413,6 @@ for (let doc of newDocs) {
   _alapjav(doc);
   _ellipsis(doc);
   
-  // Overwrite the map entry with the fully processed document or add it if it doesn't exist to the start of the array
-  /* if (allDocsMap.has(doc.id)) {
-    allDocsMap.set(doc.id, _docFields(doc));
-  } else {
-    // allDocs.push(_docFields(doc));
-    allDocsMap.set(doc.id, _docFields(doc));
-  } */
   allDocsMap.set(doc.id, _docFields(doc));
 }
 
@@ -430,6 +422,7 @@ allDocs = Array.from(allDocsMap.values());
 // Now, run the final processing that requires the complete, merged list of documents
 for (let doc of allDocs) {
   if (doc.isfolder && (doc.tv.tags.length > 0 || doc.tv.cat)) {
+    console.log(doc.title)
     _findRelated(doc);
   }
 }
