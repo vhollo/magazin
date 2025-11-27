@@ -35,6 +35,7 @@
 
   $: doc = data.doc
   $: docs = data.docs
+  // $: console.log('docs.count', data.docs.count)
   let count = data.count
   // $: if (doc.id) console.log(doc.tv)
 

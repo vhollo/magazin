@@ -63,7 +63,7 @@ const queries: Queries = {
   'gyogyitok': ['+személyes', '#orvosok', 'szakellátás', 'elismerés', '-kezelés', '-covid-19'],
   'sorstarsak': ['+személyes', 'elismerés', '-szakellátás', '-orvosok', '-önellenőrzés', '-kezelés', '-várandósság', '-közösség', '-edukáció', '-egyesület', '-covid-19'], 
   'hirek': ['hírek'],
-  'diaeuro': ['diaeuro'],
+  'diaeuro': ['+diaeuro'],
   // 'kviz': ['diabpont'],
   'all': [],
 }
@@ -106,7 +106,7 @@ export async function load({ params, url }) {
       // query = queries[path] ///?
       doc = {'path': path}
       docs = docsByTags(queries[path], '0')
-      //console.log('path:',path)
+      console.log(path,queries[path],docs.length)
       break
     // case path === 'keres': /// search results
     //   doc = {'path': 'keres' , 'title': `Keresés: "${q}"` }

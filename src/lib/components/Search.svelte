@@ -11,7 +11,7 @@
 
 <div id="search">
 <aside class="w-full px-1 bg-base-100">
-<form action="/keres#llllista" method="get" class="join flex mx-auto justify-center py-8 max-lg:max-w-xl" onsubmit={() => submitted = true}>
+<form action="/keres#lista" method="get" class="join flex mx-auto justify-center py-8 max-lg:max-w-xl" onsubmit={() => submitted = true}>
   <label class="input join-item border border-primary border-e-0 rounded-e-none bg-base-200 h-8 px-0">
     <!-- <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
       <g

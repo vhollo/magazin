@@ -222,7 +222,7 @@
         d="M4 6h16M4 12h16M4 18h16"></path>
     </svg>
   </label> -->
-  <div class="sticky top-0 mr-auto bg-neutral z-50">
+  <div class="sticky top-0 mr-auto bg--neutral z-50">
     <a class="block" href="/" onclick={() => _open_nav = false}>
       <img class="h-12" src={'/assets/logo-diabetes2-1.svg'} alt="diabetes.hu" height="60">
     </a>
@@ -438,6 +438,12 @@
 </dialog> -->
 
 <style>
+  nav {
+    background-color: oklch(27.95% 0.03688 260.049 / 0.9);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    --tw-bg-opacity: .85;  }
+
   #mobile-nav {
     display: none!important;
   }

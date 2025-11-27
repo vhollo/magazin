@@ -101,12 +101,12 @@ const _addTVs = (doc:object) => {
 
 const _nagyito = doc => {
   // if (doc.id == 3400) console.log('_nagyito')
-  const comments = /<!--.*?-->/gs
+  // const comments = /<!--.*?-->/gs /// TODO -> alapjav
   
   // if (doc.id=='3068') console.log(doc.content)
-  doc.content = doc.content.replaceAll('`/assets', '`assets').replaceAll(comments, '')
-  const regexp1 = /\[\[nagyito(.*?)\]\]/g
-  const regexp2 = /\[!nagyito(.*?)!\]/g
+  doc.content = doc.content.replaceAll('`/assets', '`assets')
+  const regexp1 = /\[\[nagyito(.*?)\]\]/gs
+  const regexp2 = /\[!nagyito(.*?)!\]/gs
   const matches = [...doc.content.matchAll(regexp1), ...doc.content.matchAll(regexp2)]
   // if (doc.id == '1045') console.log(matches)
 
@@ -141,7 +141,7 @@ const _nagyito = doc => {
       const align = match[1].indexOf('align=') !== -1 && [...match[1].match(/align=\`(.*?)\`/)]
       const zoom = match[1].indexOf('zoom=') !== -1 && [...match[1].match(/zoom=\`(.*?)\`/)]
       const bg = match[1].indexOf('bg=') !== -1 && [...match[1].match(/bg=\`(.*?)\`/)]
-      const desc = match[1].indexOf('desc=') !== -1 && [...match[1].match(/desc=\`(.*?)\`/)]
+      const desc = match[1].indexOf('desc=') !== -1 && [...match[1].match(/desc=\`(.*?)\`/s)]
       let NagyitoHTML = ''
       const renderOutput = file[1] && render(Nagyito, { props: {
         img: { 
@@ -149,7 +149,7 @@ const _nagyito = doc => {
           desc: desc[1] || '',
           align: align[1] || 'center',
           zoom: zoom[1] || '',
-          bg: bg[1] || 'transparent',
+          bg: bg[1] || 'white',
         }
       }});
       if(renderOutput) NagyitoHTML = renderOutput.html;
@@ -172,7 +172,7 @@ const _findPath = (doc: object) => {
     } else if (doc.parent == 1) {
       doc.path = 'hirek/' + doc.alias
     } else {
-      const parent = _findPath(modxSiteContent.find(d => d.id == doc.parent) || allDocs.find(d => d.id == doc.parent))
+      const parent = _findPath(/*modxSiteContent.find(d => d.id == doc.parent) || */ allDocs.find(d => d.id == doc.parent))
       doc.path = [ parent.path || '', doc.alias ].filter(x => x).join('/')
     }
   }
@@ -181,7 +181,7 @@ const _findPath = (doc: object) => {
 
 const _pathById = (p1: number) => {
   // if (p1 == 3400) console.log('_pathById')
-  let doc = modxSiteContent.find(d => d.id == p1) || allDocs.find(d => d.id == p1)
+  let doc = /* modxSiteContent.find(d => d.id == p1) || */ allDocs.find(d => d.id == p1)
   if (!doc) {
     // console.log('Nincs',p1)
     return ''
@@ -190,7 +190,7 @@ const _pathById = (p1: number) => {
   return `/${doc.path}`
 }
 
-const _findRelated = (doc) => {
+const _findRelated = (doc: Object) => {
   // if (doc.id == 3400) console.log('_findRelated')
   /* if (doc.related) {
     return doc
@@ -200,32 +200,33 @@ const _findRelated = (doc) => {
   if (doc.content != '') {
     dc.forEach((d2, i) => {
       d2.related = [_relFields(doc), ...dc.filter(d3 => d3.id != dc[i].id && d3.content != '').map(d => _relFields(d))]
-      const mRel = modxSiteContent.find(d => d.id == d2.id)
+      const mRel = allDocs.find(d => d.id == d2.id)
       if (mRel) mRel.related = d2.related
     })
+    doc.related = dc.map(d => _relFields(d))
   } else {
     dc.forEach((d2, i) => {
       d2.related = dc.filter(d3 => d3.id != dc[i].id && d3.content != '').map(d => _relFields(d))
-      const mRel = modxSiteContent.find(d => d.id == d2.id)
+      const mRel = allDocs.find(d => d.id == d2.id)
       if (mRel) mRel.related = d2.related
     })
   }
-  doc.related = dc.map(d => _relFields(d))
   // return doc
 }
 
 const _alapjav = doc => {
   // if (doc.id == 3400) console.log('_alapjav')
-  doc.content = doc.content.replaceAll('http:', 'https:').replaceAll('&#160;', '&nbsp;').replaceAll('> </', '></').replaceAll('<p></p>\r\n', '').replaceAll('<p></p>', '').replaceAll('&nbsp;m2', '&nbsp;m²').replaceAll(' m2', '&nbsp;m²').replaceAll('/m2', '/m²').replaceAll('A1c', 'A<sub>1c</sub>').replaceAll('®', '<sup>®</sup>').replaceAll('rel="external"', 'rel="noopener" target="_blank"').replaceAll('"/assets', `"${PUBLIC_BASE_URL}assets`).replaceAll('"assets', `"${PUBLIC_BASE_URL}assets`)
+  const comments = /<!--.*?-->/gs
+  doc.content = doc.content.replaceAll(comments, '').replaceAll('http:', 'https:').replaceAll('&#160;', '&nbsp;').replaceAll('<p></p>\r\n', '').replaceAll('<p></p>', '').replaceAll('&nbsp;m2', '&nbsp;m²').replaceAll(' m2', '&nbsp;m²').replaceAll('/m2', '/m²').replaceAll('A1c', 'A<sub>1c</sub>').replaceAll('®', '<sup>®</sup>').replaceAll('rel="external"', 'rel="noopener" target="_blank"').replaceAll('"/assets', `"${PUBLIC_BASE_URL}assets`).replaceAll('"assets', `"${PUBLIC_BASE_URL}assets`)
   
-  doc.content = doc.content.replaceAll(/\[\*parent\*\]/g, modxSiteContent.find(d => d.id == doc.parent)?.id || allDocs.find(d => d.id == doc.parent)?.id)
-  doc.introtext = doc.introtext.replaceAll(/\[\*parent\*\]/g, modxSiteContent.find(d => d.id == doc.parent)?.id || allDocs.find(d => d.id == doc.parent)?.id)
-  doc.description = doc.description.replaceAll(/\[\*parent\*\]/g, modxSiteContent.find(d => d.id == doc.parent)?.id || allDocs.find(d => d.id == doc.parent)?.id)
+  doc.content = doc.content.replaceAll(/\[\*parent\*\]/g, /*modxSiteContent.find(d => d.id == doc.parent)?.id ||*/ allDocs.find(d => d.id == doc.parent)?.id || '')
+  doc.introtext = doc.introtext.replaceAll(/\[\*parent\*\]/g, /*modxSiteContent.find(d => d.id == doc.parent)?.id ||*/ allDocs.find(d => d.id == doc.parent)?.id || '')
+  doc.description = doc.description.replaceAll(/\[\*parent\*\]/g, /*modxSiteContent.find(d => d.id == doc.parent)?.id ||*/ allDocs.find(d => d.id == doc.parent)?.id || '')
 
   const modxlink = /(?:https?:\/\/[^\/]+\/)?\[~(\d*)\]/g
-  doc.content = doc.content.replaceAll(/\[\*id\*\]/g, doc.id).replaceAll(modxlink, (match, p1) => _pathById(p1))
-  doc.description = doc.description.replaceAll(/\[\*id\*\]/g, doc.id).replaceAll(modxlink, (match, p1) => _pathById(p1))
-  doc.introtext = doc.introtext.replaceAll(/\[\*id\*\]/g, doc.id).replaceAll(modxlink, (match, p1) => _pathById(p1))
+  doc.content = doc.content.replaceAll(/\[~\[\*id\*\]~\]/g, '').replaceAll(/\/\[~\[\*id\*\]~\]/g, '').replaceAll(/\[\*id\*\]/g, doc.id).replaceAll(modxlink, (match, p1) => _pathById(p1))
+  doc.description = doc.description.replaceAll(/\[~\[\*id\*\]~\]/g, '').replaceAll(/\/\[~\[\*id\*\]~\]/g, '').replaceAll(/\[\*id\*\]/g, doc.id).replaceAll(modxlink, (match, p1) => _pathById(p1))
+  doc.introtext = doc.introtext.replaceAll(/\[~\[\*id\*\]~\]/g, '').replaceAll(/\/\[~\[\*id\*\]~\]/g, '').replaceAll(/\[\*id\*\]/g, doc.id).replaceAll(modxlink, (match, p1) => _pathById(p1))
 
   const regexp1 = /\[\[.*?\]\]/gs
   const regexp2 = /\[!.*?!\]/gs
@@ -298,15 +299,17 @@ const _relFields = doc => {
 }
 
 
-async function writeData(data: object[]) {
+async function writeData(data: object[], lastEdit) {
   console.log('writeData',data.length)
-  const outputPath = path.resolve(process.cwd(), 'src/lib/data', 'data.json');
-  const outputDir = path.dirname(outputPath);
+  const dataPath = path.resolve(process.cwd(), 'src/lib/data', 'data.json');
+  const editPath = path.resolve(process.cwd(), 'src/lib/data', 'lastedit.json');
+  const outputDir = path.dirname(dataPath);
   if (!fs.existsSync(outputDir)) {
     fs.mkdirSync(outputDir, { recursive: true });
   }
-  fs.writeFileSync(outputPath, JSON.stringify(data, null, 2));
-  console.log(`Adat sikeresen mentve: ${outputPath}`);
+  fs.writeFileSync(dataPath, JSON.stringify(data, null, 2));
+  fs.writeFileSync(editPath, '' + lastEdit);
+  console.log(`Adat sikeresen mentve: ${dataPath}`);
 }
 
 
@@ -320,11 +323,12 @@ async function writeData(data: object[]) {
 
 
 
-let modxSiteContent: object[], modxSiteHirek: object[], tmplvarContentvalues: object[], allDocs: object[]
+let newDocs: object[], modxSiteHirek: object[], tmplvarContentvalues: object[], allDocs: object[], latestEditDate: number = 0
 
 if (building) {
   try {
     const data = fs.readFileSync(path.resolve(process.cwd(), 'src/lib/data', 'data.json'), 'utf8');
+    latestEditDate = parseInt(fs.readFileSync(path.resolve(process.cwd(), 'src/lib/data', 'lastedit.json'), 'utf8'));
     allDocs = JSON.parse(data) || [];
     console.log('FILEallDocs',allDocs.length)
   } catch (error) {
@@ -339,6 +343,7 @@ if (building) {
 } else {
   try {
     const data = fs.readFileSync(path.resolve(process.cwd(), 'src/lib/data', 'data.json'), 'utf8');
+    latestEditDate = parseInt(fs.readFileSync(path.resolve(process.cwd(), 'src/lib/data', 'lastedit.json'), 'utf8'));
     allDocs = JSON.parse(data) || [];
     console.log('FILEallDocs',allDocs.length)
   } catch (error) {
@@ -348,14 +353,14 @@ if (building) {
   // allDocs = [];
 
 }
-const latestEditDate = allDocs.reduce((max, doc) => doc.editedon > max ? doc.editedon : max, 0)
+// const latestEditDate = allDocs.reduce((max, doc) => doc.editedon > max ? doc.editedon : max, 0)
 // console.log('allDocs',allDocs.length)
-// console.log('latestEditDate',latestEditDate)
+console.log('latestEditDate',latestEditDate)
 
 try {
-  modxSiteContent = /*modxSiteContent ||*/ await modxdb.select().from(modx_site_content).orderBy(desc(modx_site_content.publishedon)).where(
+  newDocs = /*newDocs ||*/ await modxdb.select().from(modx_site_content).orderBy(desc(modx_site_content.publishedon)).where(
     and(
-      // gt(modx_site_content.editedon, latestEditDate),
+      gt(modx_site_content.editedon, latestEditDate),
       eq(modx_site_content.deleted, 0),
       eq(modx_site_content.published, 1),
       eq(modx_site_content.type, 'document'),
@@ -371,10 +376,10 @@ try {
     or(
       and(
         eq(modx_site_content.id, 2797),
-        // gt(modx_site_content.editedon, latestEditDate)
+        gt(modx_site_content.editedon, latestEditDate)
       ),
       and(
-        // gt(modx_site_content.editedon, latestEditDate),
+        gt(modx_site_content.editedon, latestEditDate),
         eq(modx_site_content.parent, 1),
         eq(modx_site_content.deleted, 0),
         eq(modx_site_content.hidemenu, 0),
@@ -383,12 +388,12 @@ try {
       )
     ),
   )
-  modxSiteContent.push(...modxSiteHirek)
+  newDocs.push(...modxSiteHirek)
 } catch {
-  modxSiteContent = []
+  newDocs = []
 }
 
-console.log('modxSiteContent',modxSiteContent.length)
+console.log('newDocs',newDocs.length, newDocs[0].id)
 
 tmplvarContentvalues = /*tmplvarContentvalues ||*/ await modxdb.select().from(modx_site_tmplvar_contentvalues)
 
@@ -396,39 +401,52 @@ export const modxSzerzok = await modxdb.select().from(modx_site_htmlsnippets).wh
 //console.log(modxSzerzok)
 
 
-
-// Create a map from the cached allDocs for efficient merging
-const allDocsMap = new Map(allDocs.map(doc => [doc.id, doc]));
-
 // newDocs = new or latestEditDate
-const newDocs = modxSiteContent.filter(doc => doc.editedon > latestEditDate)
-console.log('newDocs',newDocs.length)
-// Process each fresh document from modxSiteContent and merge it into the map
-for (let doc of newDocs) {
-  // These functions modify the 'doc' object directly
-  _findPath(doc);
-  _addTVs(doc);
-  if (doc.tv.tags.length > 0) _extraTags(doc);
-  _nagyito(doc);
-  _alapjav(doc);
-  _ellipsis(doc);
-  
-  allDocsMap.set(doc.id, _docFields(doc));
-}
+// const newDocs = modxSiteContent.filter(doc => doc.editedon > latestEditDate)
+// console.log('newDocs',newDocs.length)
 
-// Reconstruct the allDocs array from the map's values
-allDocs = Array.from(allDocsMap.values());
+if (newDocs.length) {
+  // Create a map from the cached allDocs for efficient merging
+  const allDocsMap = new Map(allDocs.map(doc => [doc.id, doc]));
 
-// Now, run the final processing that requires the complete, merged list of documents
-for (let doc of allDocs) {
-  if (doc.isfolder && (doc.tv.tags.length > 0 || doc.tv.cat)) {
-    console.log(doc.title)
-    _findRelated(doc);
+  // Process each fresh document from modxSiteContent and merge it into the map
+  for (let doc of newDocs) {
+    // These functions modify the 'doc' object directly
+    _findPath(doc);
+    _addTVs(doc);
+    if (doc.tv.tags.length > 0) _extraTags(doc);
+    _nagyito(doc);
+    _alapjav(doc);
+    _ellipsis(doc);
+    
+    allDocsMap.set(doc.id, _docFields(doc));
   }
+
+  // Reconstruct the allDocs array from the map's values
+  allDocs = Array.from(allDocsMap.values()).filter(doc => doc.tv.tags.length > 0).sort((a, b) => b.id - a.id)
+
+  for (let doc of newDocs) {
+    const p = allDocs.find(d => d.id == doc.parent)
+    if (p) { // allDocs only has parents with tags
+      console.log(doc.title)
+      _findRelated(p);
+    }
+  }
+
+
+  // Now, run the final processing that requires the complete, merged list of documents
+  /* for (let doc of allDocs) {
+    if (doc.isfolder && (doc.tv.tags.length > 0 || doc.tv.cat)) {
+      console.log(doc.title)
+      _findRelated(doc);
+    }
+  } */
+
+  // allDocs = allDocs.filter(doc => doc.tv.tags.length > 0).sort((a, b) => b.id - a.id) // filter out docs without tags
+
+  // write data.json to file
+  if ((dev || building) && newDocs.length) writeData(allDocs, latestEditDate)
 }
-
-allDocs = allDocs.filter(doc => doc.tv.tags.length > 0).sort((a, b) => b.id - a.id) // filter out docs without tags
-
 export { allDocs }
 
 //export const allDocs = [...allDocs, ...modxSiteContent.filter(doc => doc.tv.tags.length && (doc.content.length || doc.introtext.length)).map(doc => _docFields(doc))]// && !doc.isfolder && doc.path !== doc.alias)
@@ -458,5 +476,3 @@ if (building && dev) { // TEMPORARY OFF
     });
 }
 
-// write data.json to file
-if ((dev || building) && newDocs.length) writeData(allDocs)
