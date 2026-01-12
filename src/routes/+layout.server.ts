@@ -12,6 +12,6 @@ export async function load({ params, url }) {
     docs = allDocs.slice(0, 18 * 4)
   // }
 
-  console.log('load:',docs.length, url.pathname)
+  // console.log('load:',docs.length, url.pathname)
   return {conf, path: url.pathname, doc, docs, count: allDocs.length}
 }

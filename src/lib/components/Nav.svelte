@@ -334,6 +334,8 @@
       <!-- </fieldset>
       <fieldset class="fieldset flex gap-4 items-center"> -->
         <input
+        id="email"
+        name="email"
         type="email"
         placeholder="Email cím"
         class="h-8 px-2 border border-primary rounded-md flex-1"
@@ -369,6 +371,8 @@
       <form onsubmit={() => setDisplayName()}>
         <fieldset class="fieldset flex gap-4 items-center">
           <input
+          id="name"
+          name="name"
           type="text"
           placeholder="Név"
           class="h-8 px-2 border border-primary rounded-md flex-1"

@@ -49,7 +49,7 @@ const queries: Queries = {
   'testmozgas': ['testmozgás', '-covid-19'],
   'psziche': ['psziché', '-covid-19'],
   'jogi-utmutatok': ['jog', '-covid-19'],
-  'idegrendszer': ['neuropátia', 'szövődmények', 'edukáció', '-covid-19'],
+  'idegrendszer': ['+neuropátia', 'szövődmények', 'edukáció', '-covid-19'],
   'vese': ['vese'],
   'latas': ['retinopátia'],
   'vegtagok': ['neuropátia', 'megelőzés'],

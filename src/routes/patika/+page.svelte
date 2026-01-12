@@ -44,7 +44,6 @@
     <!-- <h2 class="text-center">{kviz.title}</h2> -->
     <p class="text-center">Keresőnkkel megtalálhatja az Önhöz legközelebb eső gyógyszertárat, ahol a Diabetes és/vagy Hypertonia betegtájékoztató magazin elérhető.</p>
   <form class="form-control w-full max-w-md mx-auto">
-    <!-- svelte-ignore a11y_label_has_associated_control -->
     <p class="label">
       Keressen gyógyszertárat név, cím, város vagy irányítószám alapján
     </p>
@@ -68,5 +67,5 @@
 
 <style>
   a {text-decoration: dotted underline !important;}
-  label { text-wrap-mode: break-word !important;}
+  .label { text-wrap-mode: break-word !important;}
 </style>
