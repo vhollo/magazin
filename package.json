@@ -47,6 +47,15 @@
 		"vite-plugin-devtools-json": "^0.2.1"
 	},
 	"type": "module",
+	"optionalDependencies": {
+		"netlify-cli": "^23.13.3"
+	},
+	"overrides": {
+		"esbuild": "0.19.11",
+		"@netlify/edge-bundler": {
+			"esbuild": "0.19.11"
+		}
+	},
 	"dependencies": {
 		"@neondatabase/serverless": "^0.10.4",
 		"@node-rs/argon2": "^2.0.2",

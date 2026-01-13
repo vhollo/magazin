@@ -48,6 +48,7 @@ const queries: Queries = {
   'onmenedzseles': ['önellenőrzés', '-covid-19'],
   'testmozgas': ['testmozgás', '-covid-19'],
   'psziche': ['psziché', '-covid-19'],
+  'muveszet': ['művészet', '-covid-19'],
   'jogi-utmutatok': ['jog', '-covid-19'],
   'idegrendszer': ['+neuropátia', 'szövődmények', 'edukáció', '-covid-19'],
   'vese': ['vese'],
