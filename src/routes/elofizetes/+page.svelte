@@ -11,7 +11,7 @@
 // console.log(data)
 
 if (browser) {
-  let color = darkcolor; //window?.matchMedia('(prefers-color-scheme: dark)').matches ? darkcolor : lightcolor;
+  let color = window?.matchMedia('(prefers-color-scheme: dark)').matches ? darkcolor : lightcolor;
   /* window?.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
     const colorScheme = event.matches ? "dark" : "light";
     color = colorScheme === 'dark' ? darkcolor : lightcolor;
@@ -211,7 +211,7 @@ let count = data.count
   <meta name="og:locale" content="hu_HU"/>
 </svelte:head>
 
-<main class="bg-base-300">
+<main class="">
 <article class="prose mt-16 mb-8 mx-auto w-full">
   <h1 class="text-center">Előfizetés</h1>
   <p>

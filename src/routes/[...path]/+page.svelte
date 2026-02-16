@@ -105,7 +105,7 @@
   {#if conf.top_banners.length}
     <BannerTop banners={conf.top_banners}/>
   {/if}
-  <main class="bg-base-300 md:flex flex-row justify-center gap-8 px-2">
+  <main class="bg-base-100 md:flex flex-row justify-center gap-8 px-2">
     <!--{@const meta = [doc.tv.szerzo, date, doc.tv.cat].join(' | ')}-->
     <article class="prose py-12 flex-1">
       {#if doc.description}

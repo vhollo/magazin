@@ -39,7 +39,7 @@
       <CardBody {card}/>
     </div>
   {/if}
-    <div class="card-actions justify-end p-0 mt--auto">
+    <div class="card-actions justify-end p-2 mt--auto">
       {#if card.buttons}
       {#each Object.keys(card.buttons) as btn}
       <a class="btn btn-sm btn-outline" href={card.buttons[btn]}>{btn}</a>

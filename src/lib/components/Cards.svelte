@@ -49,7 +49,7 @@
 {#if full}
   <section class="grid gap-x-6 gap-y-0 px-4 py-6">
     {#each cards.slice(0, volume * pagenum) as card, i}
-      <aside in:fade={{ duration: 1000 }} class:double={card.img || card.video} class:triple={card.description && (card.img || card.video)} class="card gap-2  rounded-sm" style="order:{i}">
+      <aside in:fade={{ duration: 1000 }} class:double={card.img || card.video} class:triple={card.description && (card.img || card.video)} class="card gap-2 rounded-sm bg-base-200" style="order:{i}">
         <CardV {card}/>
       </aside>
     {/each}
@@ -64,7 +64,7 @@
     {/key}
   </section>
   {#if volume * pagenum < cards.length}
-    <footer class="footer footer-center bg-base-200 text-base-content pt-4">
+    <footer class="footer footer-center bg--base-200 text-base-content pb-4">
       <button on:click={_pageplus} class="btn btn-outline">További cikkek</button>
     </footer>
   {/if}
@@ -87,6 +87,7 @@
   aside {
     position: unset;
     min-height: 20ch;
+    max-height: fit-content;
     /* grid-row-end: span 3; */
     margin-bottom: 3rem;
   }

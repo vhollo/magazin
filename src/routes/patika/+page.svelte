@@ -38,7 +38,7 @@
   <meta name="og:locale" content="hu_HU"/>
 </svelte:head>
 
-<main class="bg-base-300 px-2">
+<main class="px-2">
   <article class="prose mt-16 mb-8 w-full mx-auto flex-none">
     <h1 class="text-center">Gyógyszertárkereső</h1>
     <!-- <h2 class="text-center">{kviz.title}</h2> -->

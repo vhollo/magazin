@@ -88,7 +88,7 @@
 
 </script>
 
-<main class="bg-base-300">
+<main class="">
   <article class="prose mt-16 mb-8 w-full mx-auto flex-none">
     <h1 class="text-center">DiabKVÍZ</h1>
     <h2 class="text-center">{kviz.title}</h2>

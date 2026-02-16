@@ -4,7 +4,7 @@
 }
 @plugin "@tailwindcss/typography";
 @plugin "daisyui" {
-  themes: night --default;
+  themes: fantasy --default, night --prefersdark;
   logs: false;
 }
 
@@ -21,9 +21,23 @@
   --radius-field: 0.2rem;
   /*interpolate-size: allow-keywords;*/
   /* background-color: var(--fallback-b1, oklch(var(--b3) / 1)); */
-  @apply bg-neutral;
+  @apply bg-base-100;
   scroll-behavior: smooth;
 }
+@media (prefers-color-scheme: light) {
+  :root {
+    /* --root-bg: var(--color-neutral-content); */
+  }
+  .card {
+    /* --root-bg: var(--color-neutral-content); */
+  }
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* --root-bg: var(--color-neutral); */
+  }
+}
+
 
 body {
   @apply flex flex-col min-h-screen;
@@ -244,7 +258,7 @@ article :not(table).nicebox {
   @apply my-[2.8rem];
 }
 article :not(table).nicebox, article :not(table).boxright, article :not(table).boxleft {
-  @apply card card-sm bg-neutral shadow-xl card-body px-2 py-4 last:mb-0 gap-2;
+  @apply card card-sm bg-neutral text-neutral-content shadow-xl card-body px-2 py-4 last:mb-0 gap-2;
 
   & > * {
     @apply my-0/*  mx-4 */;
@@ -371,7 +385,7 @@ summary h2 {
 
 #szerzo {
   clear: both;
-  @apply card bg-base-100 px-4 mt-8 rounded-sm;
+  @apply card bg-base-300 px-4 mt-8 rounded-sm;
   display: grid;
   gap: 0 2rem;
   grid-template-columns: 10ch auto;

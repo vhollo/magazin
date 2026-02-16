@@ -19,7 +19,7 @@
   }
 </script>
 
-<nav class="sticky top-0 z-50 max-md:hidden navbar text-neutral-content font--stretch-condensed bg-base-100">
+<nav class="sticky top-0 z-50 max-md:hidden navbar font--stretch-condensed bg-neutral text-neutral-content">
   <!-- <input id="mobile--nav" type="checkbox" bind:checked={_open_nav}/> -->
   <ul class="mx-auto">
     <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
@@ -33,7 +33,7 @@
       <li tabindex="0" class="dropdown dropdown-hover text-nowrap" class:dropdown-end={Object.keys(nav2).length == i+1}>
         <input type="radio" name="collapse" class="hidden"/>
         <div tabindex="0" role="button" class="menu-title !text-neutral-content text-nowrap font-medium cursor-default">{cat}</div>
-        <ul tabindex="0" class="menu flex-nowrap dropdown-content rounded-md text-neutral-content p-2 bg-base-100">
+        <ul tabindex="0" class="menu flex-nowrap dropdown-content rounded-md text-neutral-content p-2 bg-neutral">
           {#each Object.keys(nav2[cat]) as subcat}
             <li class=""><a class="p-2 text-nowrap rounded-sm" class:menu-active={`${actual}` == nav2[cat][subcat]} href={nav2[cat][subcat]}>{subcat}</a></li>
           {/each}

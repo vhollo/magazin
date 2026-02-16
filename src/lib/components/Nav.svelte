@@ -207,7 +207,7 @@
   
 </script>
 
-<nav class="sticky top-0 z-40 bg-neutral navbar max-md-block max-md:flex-col justify-top py-0">
+<nav class="sticky top-0 z-40 bg-neutral text-neutral-content navbar max-md-block max-md:flex-col justify-top py-0">
   <!-- <label for="mobile-nav" aria-label="open sidebar" class="top-0 left-0 bg-neutral z-50 btn btn-lg btn-square btn-ghost md:hidden text-neutral-content">
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -222,7 +222,7 @@
         d="M4 6h16M4 12h16M4 18h16"></path>
     </svg>
   </label> -->
-  <div class="sticky top-0 mr-auto bg--neutral z-50">
+  <div class="sticky top-0 mr-auto z-50">
     <a class="block" href="/" onclick={() => _open_nav = false}>
       <img class="h-12" src={'/assets/logo-diabetes2-1.svg'} alt="diabetes.hu" height="60">
     </a>
@@ -248,13 +248,13 @@
       <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
       <li tabindex="0" class="drop-col collapse-arrow dropdown-hover dropdown-end text-nowrap"><!-- md:inline-block onblur={_uncheck} -->
         {#if typeof nav1[cat] === 'string'}
-          <a href="{nav1[cat]}" class="max-md:p-4 md:p-2 rounded-sm md:menu-title !text-neutral-content text-nowrap font-medium" class:menu-active={`${actual}` == nav1[cat]} onclick={() => _open_nav = false}>{cat}</a>
+          <a href="{nav1[cat]}" class="max-md:p-4 md:p-2 rounded-sm md:menu-title !text-neutral-content text-nowrap font-medium" class:menu--active={`${actual}` == nav1[cat]} onclick={() => _open_nav = false}>{cat}</a>
         {:else}
           <input type="radio" name="collapse" class="md:hidden" onchange={ (e) => _scrollIntoView(e) }/>
           <div tabindex="0" role="button" class="max-md:collapse-title md:menu-title !text-neutral-content text-nowrap font-medium cursor-default">{cat}</div>
           <ul tabindex="0" class="menu max-md:w-full flex-nowrap max-md:collapse-content dropdown-content md:rounded-md text-neutral-content p-0 md:p-2 bg-neutral">
             {#each Object.keys(nav1[cat]) as subcat}
-              <li class=""><a class="p-2 text-nowrap rounded-sm-focus" class:menu-active={`${actual}` == nav1[cat][subcat]} href={nav1[cat][subcat]} onclick={() => _open_nav = false}>{subcat}</a></li>
+              <li class=""><a class="p-2 text-nowrap rounded-sm-focus" class:menu--active={`${actual}` == nav1[cat][subcat]} href={nav1[cat][subcat]} onclick={() => _open_nav = false}>{subcat}</a></li>
             {/each}
           </ul>
         {/if}
@@ -270,7 +270,7 @@
           <div tabindex="0" role="button" class="max-md:collapse-title md:menu-title !text-neutral-content text-nowrap font-medium cursor-default">{cat}</div>
           <ul tabindex="0" class="menu flex-nowrap max-md:collapse-content dropdown-content md:rounded-md text-neutral-content md:p-2 bg-neutral">
             {#each Object.keys(nav2[cat]) as subcat}
-              <li class=""><a class="p-2 text-nowrap rounded-sm-focus" class:menu-active={`${actual}` == nav2[cat][subcat]} href={nav2[cat][subcat]} onclick={() => _open_nav = false}>{subcat}</a></li>
+              <li class=""><a class="p-2 text-nowrap rounded-sm-focus" class:menu--active={`${actual}` == nav2[cat][subcat]} href={nav2[cat][subcat]} onclick={() => _open_nav = false}>{subcat}</a></li>
             {/each}
           </ul>
         {/if}
@@ -289,7 +289,7 @@
       </ul>
     </li> -->
     <li tabindex="0" class="drop-col text-nowrap"><!-- md:inline-block onblur={_uncheck} -->
-      <a href="#search" onclick={() => _scrollIntoView} class="max-md:flex justify-between items-center max-md:p-4 md:p-2 rounded-sm md:menu-title !text-neutral-content text-nowrap font-medium"><span class="md:hidden">Keresés&nbsp;</span><svg class="inline h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+      <a href="#search" onclick={() => _scrollIntoView} class="max-md:flex justify-between items-center max-md:p-4 md:p-2 rounded-sm md:menu-title !text-neutral-content text-nowrap font-medium"><span class="md:hidden">Keresés&nbsp;</span><svg class="inline h-[1em] opacity--50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
         <g
           stroke-linejoin="round"
           stroke-linecap="round"
@@ -303,7 +303,7 @@
       </svg></a>
     </li>
     <li class="drop-col text-nowrap">
-      <button class="max-md:collapse-title md:menu-title !text-neutral-content opacity-50 cursor-default btn btn-sm !btn-circle border-none" class:bg-accent={$authUser} class:opacity-100={$authUser} onclick={() => user_click()}>⍜</button>
+      <button class="max-md:collapse-title md:menu-title cursor-default btn btn-sm !btn-circle border-none" class:bg-accent={$authUser} class:opacity-100={$authUser} onclick={() => user_click()}>⍜</button>
     </li>
   </ul>
 </nav>
@@ -392,12 +392,12 @@
 <dialog id="mod_logout" class="modal modal-bottom sm:modal-middle">
   <div class="modal-box">
     <button class="btn btn-sm btn-circle absolute right-2 top-2 border-none" onclick={ () => mod_logout.close()}>✕</button>
-    <!-- <h3 class="text-lg font-bold">Kijelentkezés</h3> -->
+    <h3 class="text-lg font-bold">Bejelentkezve, mint:</h3>
     <div class="grid xs:grid-cols-2 gap-4 max-w-screen-md mx-auto py-12 px-2">
       <p class="border border-primary bg-base-200 !h-full w-full p-2">{$authUser?.email}</p>
       <p class="border border-primary bg-base-200 !h-full w-full p-2">{$authUser?.displayName}</p>
     </div>
-    <p class="py-4">Biztosan ki szeretnél jelentkezni?</p>
+    <!-- <p class="py-4">Biztosan ki szeretnél jelentkezni?</p> -->
     <div class="modal-action flex-col gap-4">
       <button class="btn btn-sm mx-auto" onclick={ () => {mod_logout.close(); handleLogout()} }>Kijelentkezés</button>
     </div>
@@ -443,7 +443,7 @@
 
 <style>
   nav {
-    background-color: oklch(27.95% 0.03688 260.049 / 0.9);
+    /* background-color: oklch(27.95% 0.03688 260.049 / 0.9); */
     -webkit-backdrop-filter: blur(8px);
     backdrop-filter: blur(8px);
     --tw-bg-opacity: .85;  }

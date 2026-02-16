@@ -85,4 +85,4 @@ export let banners: Banner[] = []
 
 </a>
 {/key}
-<small class="block text-center mx-auto text-xs mb-8">Hirdetés</small>
+<small class="block text-center mx-auto text-xs mb-12">Hirdetés</small>
