@@ -6,11 +6,9 @@ import { db } from '$lib/firebase-admin';
 export const actions: Actions = {
 	default: async ({ request, url }) => {
 		const formData = await request.formData();
-		
-		// Log the form data for debugging
 
 		let origin = url.origin;
-		if (url.origin.includes('localhost')) origin = 'https://diabeteshu.netlify.app';
+		if (url.origin.includes('localhost') || url.origin.includes('192.168')) origin = 'https://diabeteshu.netlify.app';
 		try {
 			// const response = await fetch(`${origin}/forms.html`, {
 			const response = await fetch(`${origin}/kviz/form`, {
@@ -28,7 +26,7 @@ export const actions: Actions = {
 			});
 
 			if (response.status !== 200) {
-				console.log('!200 error: ', response.status);
+				console.log('POST /kviz/form failed: ', response.status);
 				return fail(response.status);
 			}
 		} catch (err) {
@@ -36,7 +34,7 @@ export const actions: Actions = {
 			return fail(500, { postFail: true, err, location: url.href });
 		}
 
-		// write score into firestore-admin at tables/kviz/{kviz.id} as { uid: score }
+		// write score into firestore-admin at tables/kviz/{kviz.id}/scores/{uid} as { name: name, email: email, score: score, date: date }
 		const writeScore = async () => {
 			console.log('uid: ', formData.get('uid'))
 			const id = formData.get('id');

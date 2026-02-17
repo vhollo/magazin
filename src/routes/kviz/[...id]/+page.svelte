@@ -45,8 +45,9 @@
 		// calling `cancel()` will prevent the submission
 		// `submitter` is the `HTMLElement` that caused the form to be submitted
 
+    formData.set('id', kviz.id);
     formData.set('title', kviz.title);
-    // formData.set('uid', $authUser?.uid || '');
+    formData.set('uid', $authUser?.uid || '');
     formData.set('name', $authUser?.displayName || '');
     formData.set('email', $authUser?.email || '');
     formData.set('score', score.toString());
