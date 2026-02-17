@@ -4,7 +4,7 @@
 }
 @plugin "@tailwindcss/typography";
 @plugin "daisyui" {
-  themes: fantasy --default, night --prefersdark;
+  themes: cmyk --default, night --prefersdark;
   logs: false;
 }
 
@@ -395,13 +395,20 @@ summary h2 {
   grid-row-end: 3;
   /*aspect-ratio: 1;*/
 }
+#szerzo .nev {
+  grid-column: span 2;
+}
 #szerzo img + .nev {
+  grid-column: span 1;
   line-height: 1;
 }
 #szerzo .cv {
-  grid-column-start: 1;
-  grid-column-end: 3;
-  grid-template-rows: auto;
+  grid-column: span 2;
+}
+#szerzo img ~ .cv {
+  grid-column: span 1;
+  grid-column-start: 2;
+  grid-row-start: 2;
 }
 
 *:has(#szerzo) > .alairas {

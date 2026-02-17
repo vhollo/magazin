@@ -222,31 +222,31 @@
         d="M4 6h16M4 12h16M4 18h16"></path>
     </svg>
   </label> -->
-  <div class="sticky top-0 mr-auto z-50">
+  <div class="sticky top-2 flex justify-between max-md:w-full bg-neutral z-50">
     <a class="block" href="/" onclick={() => _open_nav = false}>
       <img class="h-12" src={'/assets/logo-diabetes2-1.svg'} alt="diabetes.hu" height="60">
     </a>
+    <label for="mobile-nav" aria-label="open sidebar" class="bg-neutral z-50 btn btn-lg btn-square btn-ghost md:hidden text-neutral-content">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+        class="h-6 w-6 stroke-current">
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M4 6h16M4 12h16M4 18h16"></path>
+      </svg>
+    </label>
   </div>
-  <label for="mobile-nav" aria-label="open sidebar" class="fixed top-2 right-0 bg-neutral z-50 btn btn-lg btn-square btn-ghost md:hidden text-neutral-content">
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      fill="none"
-      stroke="currentColor"
-      viewBox="0 0 24 24"
-      class="h-6 w-6 stroke-current">
-      <path
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        stroke-width="2"
-        d="M4 6h16M4 12h16M4 18h16"></path>
-    </svg>
-  </label>
   <input id="mobile-nav" type="checkbox" bind:checked={_open_nav}/>
   <ul class="ml-auto max-md:mx-auto max-md:max-w-sm z-40">
     <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
     {#each Object.keys(nav1) as cat}
       <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
-      <li tabindex="0" class="drop-col collapse-arrow dropdown-hover dropdown-end text-nowrap"><!-- md:inline-block onblur={_uncheck} -->
+      <li tabindex="0" class="first:max-md:pt-8 drop-col collapse-arrow dropdown-hover dropdown-end text-nowrap"><!-- md:inline-block onblur={_uncheck} -->
         {#if typeof nav1[cat] === 'string'}
           <a href="{nav1[cat]}" class="max-md:p-4 md:p-2 rounded-sm md:menu-title !text-neutral-content text-nowrap font-medium" class:menu--active={`${actual}` == nav1[cat]} onclick={() => _open_nav = false}>{cat}</a>
         {:else}
@@ -268,7 +268,7 @@
         {:else}
           <input type="radio" name="collapse" class="md:hidden" onchange={ (e) => _scrollIntoView(e) }/>
           <div tabindex="0" role="button" class="max-md:collapse-title md:menu-title !text-neutral-content text-nowrap font-medium cursor-default">{cat}</div>
-          <ul tabindex="0" class="menu flex-nowrap max-md:collapse-content dropdown-content md:rounded-md text-neutral-content md:p-2 bg-neutral">
+          <ul tabindex="0" class="menu max-md:p-0 flex-nowrap max-md:collapse-content dropdown-content md:rounded-md text-neutral-content md:p-2 bg-neutral">
             {#each Object.keys(nav2[cat]) as subcat}
               <li class=""><a class="p-2 text-nowrap rounded-sm-focus" class:menu--active={`${actual}` == nav2[cat][subcat]} href={nav2[cat][subcat]} onclick={() => _open_nav = false}>{subcat}</a></li>
             {/each}
@@ -302,8 +302,8 @@
         </g>
       </svg></a>
     </li>
-    <li class="drop-col text-nowrap">
-      <button class="max-md:collapse-title md:menu-title cursor-default btn btn-sm !btn-circle border-none" class:bg-accent={$authUser} class:opacity-100={$authUser} onclick={() => user_click()}>⍜</button>
+    <li class="drop-col text-nowrap max-md:p-2">
+      <button class="max-md:ml-auto max-md:collapse-title md:menu-title cursor-default btn btn-sm !btn-circle border-none" class:bg-accent={$authUser} class:opacity-100={$authUser} onclick={() => user_click()}>⍜</button>
     </li>
   </ul>
 </nav>
