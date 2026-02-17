@@ -4,7 +4,7 @@
 }
 @plugin "@tailwindcss/typography";
 @plugin "daisyui" {
-  themes: cmyk --default, dracula --prefersdark;
+  themes: light --default, dracula --prefersdark;
   logs: false;
 }
 
@@ -23,6 +23,9 @@
   /* background-color: var(--fallback-b1, oklch(var(--b3) / 1)); */
   @apply bg-base-100;
   scroll-behavior: smooth;
+  /* --color-primary: oklch(71.772% .133 239.443)!important;
+  --color-secondary: oklch(64.476% .202 359.339)!important;
+  --color-accent: oklch(94.228% .189 105.306)!important; */
 }
 @media (prefers-color-scheme: light) {
   :root {
@@ -33,9 +36,11 @@
   }
 }
 @media (prefers-color-scheme: dark) {
-  :root {
-    /* --root-bg: var(--color-neutral); */
-  }
+  /* :root {
+    --color-primary: oklch(71.772% .133 239.443)!important;
+    --color-secondary: oklch(64.476% .202 359.339)!important;
+    --color-accent: oklch(94.228% .189 105.306)!important;
+  } */
 }
 
 
