@@ -134,13 +134,11 @@
   {
     "id": "BSGMKpNCBWc",
     "image": "https://firebasestorage.googleapis.com/v0/b/diabetes-hu.firebasestorage.app/o/kviz%2Fn2pj3_CEOSZ-YT-cover_DiabPONT2025.jpg?alt=media&token=9bc85369-a147-4326-ba2d-252b157bd115",
-    "description": "Mivel az időskori cukorbetegség egyre többeket érint, fontos, hogy az érintettek megkapják azokat az információkat, amelyek könnyebbé tehetik a diabétesszel való együttélést. A keddi DiabPONT előadáson Dr. Domboróczki Zsolt mutatta be munkacsoportja hiánypótló tájékoztató füzetét, mely várhatóan hamarosan minden érdeklődőhöz eljut.",
     "title": "Dr. Domboróczki Zsolt - Az időskori diabéteszről – tájékoztató kiadványunk bemutatása mindenkinek",
     "tags": [],
     "starts_on": "2025-02-17T23:00:00.000Z",
     "link": "/cikkek/diabetes/2502/idoskori-diabetesz",
     "video": "BSGMKpNCBWc",
-    "status": true,
     "questions": [
       {
         "q": "Kíváncsi vagy az időskori diabéteszre?",
@@ -161,6 +159,9 @@
       }
     ],
     "sending": false,
+    "expires_on": "2026-02-14T23:00:00.000Z",
+    "status": true,
+    "description": "*(Ez a kvíz már lejárt.)*\n\nMivel az időskori cukorbetegség egyre többeket érint, fontos, hogy az érintettek megkapják azokat az információkat, amelyek könnyebbé tehetik a diabétesszel való együttélést. A keddi DiabPONT előadáson Dr. Domboróczki Zsolt mutatta be munkacsoportja hiánypótló tájékoztató füzetét, mely várhatóan hamarosan minden érdeklődőhöz eljut.",
     "max_score": 1
   }
 ]

@@ -21,7 +21,7 @@
 
   let query = $state('')
 
-	let list: any[] = $derived(query ? miniSearch.search(query, { fuzzy: 0.4 }) : patikas)
+	let list: any[] = $derived(query ? miniSearch.search(query, { fuzzy: 0.25 }) : patikas)
 </script>
 
 <svelte:head>
