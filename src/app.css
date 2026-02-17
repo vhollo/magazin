@@ -4,7 +4,7 @@
 }
 @plugin "@tailwindcss/typography";
 @plugin "daisyui" {
-  themes: cmyk --default, night --prefersdark;
+  themes: cmyk --default, dracula --prefersdark;
   logs: false;
 }
 
