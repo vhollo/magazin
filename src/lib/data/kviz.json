@@ -56,6 +56,7 @@
     ],
     "sending": true,
     "description": "*(A kép, a videó és a Kapcsolódó cikk opcionális.)*\n\nAz előadás felvételét az első hónapban több mint 4000-en látták.\n\nSzeretettel várunk minden kedden 17:00 órakor a soron következő DiabPONT előadáson! Részletek, csatlakozás: [ceosz.hu/diabpont](https://ceosz.hu/diabpont/)",
+    "expires_on": "2026-03-31T22:00:00.000Z",
     "max_score": 3
   },
   {
@@ -129,6 +130,7 @@
     "starts_on": "2025-03-03T23:00:00.000Z",
     "title": "Dr. Szálka Brigitta - Diabétesz + veseelégtelenség – hogy lehet a kétféle étrendet összehangolni?",
     "sending": true,
+    "expires_on": "2026-12-31T23:00:00.000Z",
     "max_score": 8
   },
   {
@@ -159,9 +161,9 @@
       }
     ],
     "sending": false,
-    "expires_on": "2026-02-14T23:00:00.000Z",
     "status": true,
     "description": "*(Ez a kvíz már lejárt.)*\n\nMivel az időskori cukorbetegség egyre többeket érint, fontos, hogy az érintettek megkapják azokat az információkat, amelyek könnyebbé tehetik a diabétesszel való együttélést. A keddi DiabPONT előadáson Dr. Domboróczki Zsolt mutatta be munkacsoportja hiánypótló tájékoztató füzetét, mely várhatóan hamarosan minden érdeklődőhöz eljut.",
+    "expires_on": "2026-02-16T23:00:00.000Z",
     "max_score": 1
   }
 ]

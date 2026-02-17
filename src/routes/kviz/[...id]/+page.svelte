@@ -35,7 +35,7 @@
 
   let submitBtn: HTMLInputElement | null = $state(null);
 	let c = kviz.questions?.length || 0
-  const scoreSent = $kvizScores[kviz.id]
+  const scoreSent = (new Date(kviz.expires_on).getTime() + 24 * 60 * 60 * 1000) < (new Date()).getTime() ? null : $kvizScores[kviz.id]
   // console.log({scoreSent})
 
   const handleSubmitEnhance: SubmitFunction = async ({ formData/* , formElement, action, controller, submitter */, cancel }) => {
@@ -45,8 +45,8 @@
 		// calling `cancel()` will prevent the submission
 		// `submitter` is the `HTMLElement` that caused the form to be submitted
 
-    formData.set('id', kviz.id);
-    formData.set('uid', $authUser?.uid || '');
+    formData.set('title', kviz.title);
+    // formData.set('uid', $authUser?.uid || '');
     formData.set('name', $authUser?.displayName || '');
     formData.set('email', $authUser?.email || '');
     formData.set('score', score.toString());
@@ -55,7 +55,7 @@
 
     $kvizScores[kviz.id] = score
 
-    console.log('uid: ', $authUser?.uid)
+    // console.log('uid: ', $authUser?.uid)
     return () => {
       cancel()
     }
@@ -148,7 +148,9 @@
           <label for="answer-{i}-{j}" class="bg-base-100 border-1 border-secondary p-2">
             {opt.option}
             {#if q.done}
-              <aside class="choice"><small>{opt.score} pont ({opt.feedback})</small></aside>
+              <aside class="choice">
+                <small>{opt.score} pont{opt.feedback ? ` (${opt.feedback})` : ''}</small>
+              </aside>
             {/if}
           </label>
         {/each}
@@ -172,16 +174,23 @@
     <fieldset id="thankyou">
       <legend class="uppercase pt-8 pb-2">Köszönjük, hogy kitöltötted a kvízt!</legend>
       {#if scoreSent == null}
-        <p>Pontszámodat rögzítettük.</p>
+        {#if (new Date(kviz.expires_on).getTime() + 24 * 60 * 60 * 1000) < (new Date()).getTime()}
+          <p>A beküldési határidő lejárt, pontjaidat nem rögzítettük.</p>
+        {:else}
+          <p>Pontszámodat rögzítettük.</p>
+        {/if}
       {:else}
         {#if scoreSent < score}
-        <p>Beküldött pontjaidnál ({scoreSent}) jobb eredményt értél el.</p>
+        <p>Beküldött pontjaidnál ({scoreSent} / {kviz.max_score} pont) jobb eredményt értél el.</p>
+        {/if}
+        {#if scoreSent > score}
+        <p>Beküldött pontjaidnál ({scoreSent} / {kviz.max_score} pont) kevesebb pontot értél el.</p>
         {/if}
         {#if scoreSent == score}
-        <p>Beküldött pontjaiddal ({scoreSent}) azonos eredményt értél el.</p>
+        <p>Beküldött pontjaiddal ({scoreSent} / {kviz.max_score} pont) azonos eredményt értél el.</p>
         {/if}
       {/if}
-      <a href="/kviz" class="btn btn-outline">Tovább</a>
+      <a href="/kviz" class="btn btn-outline mt-8">Tovább</a>
       <input id="submit" type="submit" value="Küldés" hidden class="hidden:true;" bind:this={submitBtn}>
     </fieldset>
     <input type="hidden" name="form-name" value="kviz">

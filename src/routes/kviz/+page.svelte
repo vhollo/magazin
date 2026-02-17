@@ -30,6 +30,7 @@ const { data }: PageProps = $props()
 const kvizzes = data.kvizzes
 // console.log({kvizzes})
 // marked is configured in $lib/marked.ts, imported via +page.ts
+
 </script>
 
 <svelte:head>
@@ -55,19 +56,33 @@ const kvizzes = data.kvizzes
 
 <div class="list max-w-screen-md mx-auto grid grid-cols-[auto 1fr auto] gap-4 mb-16 px-2">
   {#each kvizzes as kviz, i}
-  <h2 class="col-span-3 uppercase mt-4">{kviz.title}</h2>
-    <div class="font-thin opacity-60 tabular-nums text-sm">{@html new Date(kviz.starts_on).toLocaleDateString('hu-HU', { year: 'numeric', month: '2-digit', day: '2-digit' }).replace('. ', '.<br>').replace('. ', '.').slice(0, -1)}</div>
+  <h2 class="col-span-3 uppercase mt-4"><a class="!no-underline" href={`/kviz/${kviz.id}`}>{kviz.title}</a></h2>
+    <div class="font-thin tabular-nums text-sm"
+      class:text-primary={!isNaN($kvizScores[kviz.id])}
+      class:text-accent={isNaN($kvizScores[kviz.id])}
+      class:text-warning={(new Date(kviz.expires_on).getTime() + 24 * 60 * 60 * 1000) < (new Date()).getTime()}
+    >
+      {#if kviz.expires_on}
+      {@html new Date(kviz.expires_on).toLocaleDateString('hu-HU', { year: 'numeric', month: '2-digit', day: '2-digit' }).replace('. ', '.<br>').replace('. ', '.').slice(0, -1)}
+      {/if}
+    </div>
   <div class="opacity-60 hyphens-auto">{@html marked.parse(kviz.description || '')}</div>
   <span class="flex flex-col gap-1">
-  {#if  kviz.expires_on < new Date()}
+  {#if (new Date(kviz.expires_on).getTime() + 24 * 60 * 60 * 1000) < (new Date()).getTime()}
     <a href={`/kviz/${kviz.id}`} aria-label="Megtekintés" class="btn btn-outline btn-warning !hover:outline btn-square mx-auto">
       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
         <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99" />
       </svg>
     </a>
-    <span class="text-warning mx-auto text-sm">
-      {@html new Date(kviz.expires_on).toLocaleDateString('hu-HU', { year: 'numeric', month: '2-digit', day: '2-digit' }).replace('. ', '.').replace('. ', '.').slice(0, -1)}
+    {#if $kvizScores[kviz.id]}
+    <span class="text-warning mx-auto">
+      {$kvizScores[kviz.id]} / {kviz.max_score} pont
     </span>
+    {:else}
+    <span class="text-warning mx-auto text-sm">
+      Lejárt
+    </span>
+  {/if}
   {:else if !isNaN($kvizScores[kviz.id])}
     <a href={`/kviz/${kviz.id}`} aria-label="Kitöltés újra" class="btn btn-outline btn-primary !hover:outline btn-square mx-auto">
       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
