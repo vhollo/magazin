@@ -1,6 +1,7 @@
 // import { doc, getDoc, collection, getDocs } from 'firebase/firestore/lite';
 // import { db } from '$lib/firebase';
 import { db } from '$lib/firebase-admin';
+import type { QueryDocumentSnapshot } from 'firebase-admin/firestore';
 
 import { /* browser,  */building , dev/*, version */ } from '$app/environment';
 import fs from 'fs';
@@ -140,9 +141,10 @@ export const getKviz = async () => {
     try {
       const kvizRef = db.collection('kviz');
       const kvizSnap = await kvizRef.get();
-      const kvizData = kvizSnap.docs.filter(doc => doc.data().status).map(doc => {
-        const id = doc._ref._path.segments.pop()
-        const data = {id: id, ...doc.data()}
+      const kvizData = kvizSnap.docs.filter((doc: QueryDocumentSnapshot) => doc.data().status).map((doc: QueryDocumentSnapshot) => {
+        // console.log ('doc:', doc);
+        const id = doc.ref.path.split('/').pop()
+        const data: any = {id: id, ...doc.data()}
         data.starts_on = data.starts_on ? data.starts_on.toDate() : undefined
         data.expires_on = data.expires_on ? data.expires_on.toDate() : undefined
         // console.log(data.questions)//.map(q => q.score))
@@ -150,7 +152,6 @@ export const getKviz = async () => {
         return data;
       }).sort((a, b) => b.starts_on - a.starts_on) || [];
       writeData(kvizData, 'kviz.json')
-      // console.log (kvizData);
       return kvizData;
     } catch (error) {
       console.error("Error getting kviz:", error);

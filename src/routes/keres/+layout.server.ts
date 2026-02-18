@@ -28,19 +28,14 @@ const miniSearch = new MiniSearch({
 miniSearch.addAll(allDocs)
 
 
-interface Docs {
-  [key: string]: object;
-}
-
-
 export async function load({ url }) {
 
   const q = url?.searchParams?.get('q') || ''
-  let doc, docs:Docs = {}//, query, page = 0
+  let doc, docs: any[] = []//, query, page = 0
 
     doc = {'path': 'keres' , 'title': `Keresés: "${q}"` }
     docs = q ? miniSearch.search(q, { boost: { ellipsis: 2 }, fuzzy: 0.2 })/* .sort((a, b) => b.id - a.id) */ : []
-    console.log('search:',q,docs[0])
+    console.log('search:',q,docs.length)
     // console.log(docs[1])
 
     /* if (!docs.length) {

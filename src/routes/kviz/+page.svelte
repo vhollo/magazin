@@ -75,8 +75,8 @@ const kvizzes = data.kvizzes
       </svg>
     </a>
     {#if $kvizScores[kviz.id]}
-    <span class="text-warning mx-auto">
-      {$kvizScores[kviz.id]} / {kviz.max_score} pont
+    <span class="text-warning mx-auto text-sm">
+      {$kvizScores[kviz.id]} / {kviz.max_score}<br>pont
     </span>
     {:else}
     <span class="text-warning mx-auto text-sm">
@@ -90,7 +90,7 @@ const kvizzes = data.kvizzes
       </svg>
     </a>
     <span class="text-primary mx-auto">
-        {$kvizScores[kviz.id]} / {kviz.max_score} pont
+        {$kvizScores[kviz.id]} / {kviz.max_score}<br>pont
     </span>
   {:else}
     <a href={`/kviz/${kviz.id}`} aria-label="Beküldés" class="btn btn-outline btn-accent !hover:outline btn-square mx-auto">

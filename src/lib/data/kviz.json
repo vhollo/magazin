@@ -1,65 +1,5 @@
 [
   {
-    "id": "Br93qFfsbOU",
-    "image": "https://firebasestorage.googleapis.com/v0/b/diabetes-hu.firebasestorage.app/o/kviz%2Fj8056_CEOSZ-YT-cover_DiabPONT2025.jpg?alt=media&token=ac450fbb-cea4-43d1-ad39-1dba61511df0",
-    "video": "Br93qFfsbOU",
-    "title": "Dr. Szálka Brigitta - A magas húgysavszint étrendi terápiája",
-    "starts_on": "2025-06-30T22:00:00.000Z",
-    "status": true,
-    "tags": [],
-    "link": "/cikkek/hypertonia/1404/a-magas-hugysavszint-a-koszveny-etrendi-kezelesenek-lehetosegei",
-    "questions": [
-      {
-        "options": [
-          {
-            "score": 0,
-            "option": "<260 µmol/l",
-            "feedback": "A helyes válasz: <360 µmol/l"
-          },
-          {
-            "feedback": "Helyes válasz!",
-            "option": "<360 µmol/l",
-            "score": 1
-          },
-          {
-            "score": 0,
-            "option": "<460 µmol/l",
-            "feedback": "A helyes válasz: <360 µmol/l"
-          }
-        ],
-        "q": "Mi a húgysavszint célértéke? (Nem köszvény esetén)",
-        "d": "A helyes válasz: 1 pont.",
-        "multi": false
-      },
-      {
-        "q": "Mi a húgysavszint célértéke köszvény esetén?",
-        "d": "A helyes válasz: 2 pont.",
-        "multi": false,
-        "options": [
-          {
-            "option": "<200 µmol/l",
-            "score": 0,
-            "feedback": "A helyes válasz: <300 µmol/l"
-          },
-          {
-            "option": "<300 µmol/l",
-            "score": 2,
-            "feedback": "Helyes válasz!"
-          },
-          {
-            "option": "<400 µmol/l",
-            "score": 0,
-            "feedback": "A helyes válasz: <300 µmol/l"
-          }
-        ]
-      }
-    ],
-    "sending": true,
-    "description": "*(A kép, a videó és a Kapcsolódó cikk opcionális.)*\n\nAz előadás felvételét az első hónapban több mint 4000-en látták.\n\nSzeretettel várunk minden kedden 17:00 órakor a soron következő DiabPONT előadáson! Részletek, csatlakozás: [ceosz.hu/diabpont](https://ceosz.hu/diabpont/)",
-    "expires_on": "2026-03-31T22:00:00.000Z",
-    "max_score": 3
-  },
-  {
     "id": "VRvfnvKejCI",
     "image": "https://firebasestorage.googleapis.com/v0/b/diabetes-hu.firebasestorage.app/o/kviz%2Fw6v1b_CEOSZ-YT-cover_DiabPONT2025.jpg?alt=media&token=74107c54-da0b-428d-bb3b-4060c379b402",
     "description": "Tudtad, hogy minden harmadik cukorbetegnél vesebetegség alakul ki? Éppen ezért a cukorbetegségben követendő étrend tervezésénél érdemes néhány extra alapelvet is figyelembe venni, hogy a veséket is kíméljük. Az eheti DiabPONT előadásból megtudhatod, pontosan melyek ezek az alapelvek.",
@@ -127,11 +67,71 @@
     ],
     "video": "VRvfnvKejCI",
     "link": "/cikkek/diabetes/2301/nepbetegseg-megis-alig-beszelunk-rola",
-    "starts_on": "2025-03-03T23:00:00.000Z",
     "title": "Dr. Szálka Brigitta - Diabétesz + veseelégtelenség – hogy lehet a kétféle étrendet összehangolni?",
     "sending": true,
     "expires_on": "2026-12-31T23:00:00.000Z",
+    "starts_on": "2025-06-30T22:00:00.000Z",
     "max_score": 8
+  },
+  {
+    "id": "Br93qFfsbOU",
+    "image": "https://firebasestorage.googleapis.com/v0/b/diabetes-hu.firebasestorage.app/o/kviz%2Fj8056_CEOSZ-YT-cover_DiabPONT2025.jpg?alt=media&token=ac450fbb-cea4-43d1-ad39-1dba61511df0",
+    "video": "Br93qFfsbOU",
+    "title": "Dr. Szálka Brigitta - A magas húgysavszint étrendi terápiája",
+    "status": true,
+    "tags": [],
+    "link": "/cikkek/hypertonia/1404/a-magas-hugysavszint-a-koszveny-etrendi-kezelesenek-lehetosegei",
+    "questions": [
+      {
+        "options": [
+          {
+            "score": 0,
+            "option": "<260 µmol/l",
+            "feedback": "A helyes válasz: <360 µmol/l"
+          },
+          {
+            "feedback": "Helyes válasz!",
+            "option": "<360 µmol/l",
+            "score": 1
+          },
+          {
+            "score": 0,
+            "option": "<460 µmol/l",
+            "feedback": "A helyes válasz: <360 µmol/l"
+          }
+        ],
+        "q": "Mi a húgysavszint célértéke? (Nem köszvény esetén)",
+        "d": "A helyes válasz: 1 pont.",
+        "multi": false
+      },
+      {
+        "q": "Mi a húgysavszint célértéke köszvény esetén?",
+        "d": "A helyes válasz: 2 pont.",
+        "multi": false,
+        "options": [
+          {
+            "option": "<200 µmol/l",
+            "score": 0,
+            "feedback": "A helyes válasz: <300 µmol/l"
+          },
+          {
+            "option": "<300 µmol/l",
+            "score": 2,
+            "feedback": "Helyes válasz!"
+          },
+          {
+            "option": "<400 µmol/l",
+            "score": 0,
+            "feedback": "A helyes válasz: <300 µmol/l"
+          }
+        ]
+      }
+    ],
+    "sending": true,
+    "description": "*(A kép, a videó és a Kapcsolódó cikk opcionális.)*\n\nAz előadás felvételét az első hónapban több mint 4000-en látták.\n\nSzeretettel várunk minden kedden 17:00 órakor a soron következő DiabPONT előadáson! Részletek, csatlakozás: [ceosz.hu/diabpont](https://ceosz.hu/diabpont/)",
+    "expires_on": "2026-03-31T22:00:00.000Z",
+    "starts_on": "2025-03-03T23:00:00.000Z",
+    "max_score": 3
   },
   {
     "id": "BSGMKpNCBWc",
@@ -162,8 +162,8 @@
     ],
     "sending": false,
     "status": true,
-    "description": "*(Ez a kvíz már lejárt.)*\n\nMivel az időskori cukorbetegség egyre többeket érint, fontos, hogy az érintettek megkapják azokat az információkat, amelyek könnyebbé tehetik a diabétesszel való együttélést. A keddi DiabPONT előadáson Dr. Domboróczki Zsolt mutatta be munkacsoportja hiánypótló tájékoztató füzetét, mely várhatóan hamarosan minden érdeklődőhöz eljut.",
     "expires_on": "2026-02-16T23:00:00.000Z",
+    "description": "*(Ez a kvíz már lejárt, de ki lehet tölteni.)*\n\nMivel az időskori cukorbetegség egyre többeket érint, fontos, hogy az érintettek megkapják azokat az információkat, amelyek könnyebbé tehetik a diabétesszel való együttélést. A keddi DiabPONT előadáson Dr. Domboróczki Zsolt mutatta be munkacsoportja hiánypótló tájékoztató füzetét, mely várhatóan hamarosan minden érdeklődőhöz eljut.",
     "max_score": 1
   }
 ]
