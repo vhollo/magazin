@@ -16,7 +16,7 @@
   let _open_nav = false, target
 
   const _scrollIntoView = async (event) => {
-    // console.log(event)
+    console.log(event)
     event.preventDefault()
     target = event.target.getAttribute('href') || event.target.parentElement.getAttribute('href') || null
     if (target) {
@@ -25,12 +25,12 @@
       const el = document.querySelector(target)
       // console.log(event.target.getAttribute('href'), el)
       el.scrollIntoView({block: 'start', behavior: 'auto', offset: { top: 64 } })
-      console.log(el)
-    } else {
+      console.log(target)
+    } else { // open dropdown
       const el = event.target.parentElement
       await new Promise(resolve => setTimeout(resolve, 50))
       el.scrollIntoView({ block: 'center', behavior: 'auto', offset: { top: 128 } })
-      // console.log(el)
+      console.log(el)
     }
     target = null
   }
@@ -264,11 +264,11 @@
       <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
       <li tabindex="0" class="collapse collapse-arrow md:hidden text-nowrap"><!-- md:inline-block onblur={_uncheck} -->
         {#if typeof nav2[cat] === 'string'}
-          <a href="{nav2[cat]}" class="max-md:p-4 md:p-2 rounded-sm md:menu-title !text-neutral-content text-nowrap font-medium">{cat}</a>
+          <a href="{nav2[cat]}" class="max-md:p-4 md:p-2 rounded-sm md:menu-title !text-neutral-content text-nowrap font-medium" onclick={() => _open_nav = false}>{cat}</a>
         {:else}
           <input type="radio" name="collapse" class="md:hidden" onchange={ (e) => _scrollIntoView(e) }/>
           <div tabindex="0" role="button" class="max-md:collapse-title md:menu-title !text-neutral-content text-nowrap font-medium cursor-default">{cat}</div>
-          <ul tabindex="0" class="menu max-md:p-0 flex-nowrap max-md:collapse-content dropdown-content md:rounded-md text-neutral-content md:p-2 bg-neutral">
+          <ul tabindex="0" class="z-50 menu max-md:w-full flex-nowrap max-md:collapse-content dropdown-content md:rounded-md text-neutral-content p-0 md:p-2 bg-neutral">
             {#each Object.keys(nav2[cat]) as subcat}
               <li class=""><a class="p-2 text-nowrap rounded-sm-focus" class:menu--active={`${actual}` == nav2[cat][subcat]} href={nav2[cat][subcat]} onclick={() => _open_nav = false}>{subcat}</a></li>
             {/each}
@@ -277,19 +277,10 @@
       </li>
     {/each}
     <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
-    <!-- <li tabindex="0" class="drop-col collapse-arrow dropdown-hover dropdown-end text-nowrap">
-      <input type="radio" name="collapse" class="md:hidden" onchange={ (e) => _scrollIntoView(e) }/>
-      <div tabindex="0" role="button" class="max-md:collapse-title md:menu-title !text-neutral-content opacity-50 cursor-default btn btn-sm btn-circle" class:bg-accent={$authUser} class:opacity-100={$authUser}>⍜</div>
-      <ul tabindex="0" class="menu max-md:w-full flex-nowrap max-md:collapse-content dropdown-content md:rounded-md text-neutral-content md:p-2">
-        {#if $authUser}
-          <li class=""><button class="max-md:p-4 md:p-2 text-nowrap rounded-sm border-none" onclick={() => handleLogout()}>Kijelentkezés</button></li>
-        {:else}
-          <li class=""><button class="max-md:p-4 md:p-2 text-nowrap rounded-sm border-none" onclick={ () => {_open_nav = false; mod_login.showModal()}}>Bejelentkezés</button></li>
-        {/if}
-      </ul>
-    </li> -->
     <li tabindex="0" class="drop-col text-nowrap"><!-- md:inline-block onblur={_uncheck} -->
-      <a href="#search" onclick={() => _scrollIntoView} class="max-md:flex justify-between items-center max-md:p-4 md:p-2 rounded-sm md:menu-title !text-neutral-content text-nowrap font-medium"><span class="md:hidden">Keresés&nbsp;</span><svg class="inline h-[1em] opacity--50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+      <a href="#search" onclick={ (e) => _scrollIntoView(e) } class="max-md:flex justify-between items-center p-4 rounded-sm !text-neutral-content text-nowrap font-medium">
+        <span class="md:hidden">Keresés&nbsp;</span>
+        <svg class="inline h-[1em]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
         <g
           stroke-linejoin="round"
           stroke-linecap="round"
@@ -303,7 +294,14 @@
       </svg></a>
     </li>
     <li class="drop-col text-nowrap max-md:p-2">
-      <button class="max-md:ml-auto max-md:collapse-title md:menu-title cursor-default btn btn-sm !btn-circle border-none" class:bg-accent={$authUser} class:opacity-100={$authUser} onclick={() => user_click()}>⍜</button>
+      <button 
+        class="btn md:btn-sm max-md:flex max-md:justify-between max-md:items-center max-md:p-4 md:p-0 !rounded-full s-ize-[2.5rem] !text-neutral-content text-nowrap font-medium border-none shadow-none" 
+        class:btn-accent={$authUser} onclick={() => user_click()}>
+        <span class="md:hidden">Felhasználó&nbsp;</span>
+        <svg class="inline size-[1rem]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
+        </svg>
+      </button>
     </li>
   </ul>
 </nav>
@@ -337,6 +335,10 @@
         id="email"
         name="email"
         type="email"
+        autocomplete="email"
+        autocorrect="off"
+        autocapitalize="off"
+        spellcheck="false"
         placeholder="Email cím"
         class="h-8 px-2 border border-primary rounded-md flex-1"
         required
