@@ -75,7 +75,7 @@
 </script>
 
 <svelte:head>
-  <title>{(docstitle ? docstitle + '•' : '') + conf.sitename}</title>
+  <title>{(docstitle ? docstitle + ' • ' : '') + conf.sitename}</title>
   <meta name="description" content={doc.ellipsis || conf.description || 'www.diabetes.hu • Az Alapítvány a Cukorbetegekért betegtájékoztató lapja. Kiadja a Tudomány Kiadó Kft.'}/>
   <meta name="keywords" content={doc.tv?.tags?.join(', ') || conf.tags.join(', ') || 'diabetes, diabétesz, cukorbetegség, vese, keton, Tudomány Kiadó Kft'}/>
   <meta name="author" content={doc.tv?.szerzo?.join(', ') || 'diabetes.hu'}/>

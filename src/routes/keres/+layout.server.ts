@@ -38,14 +38,14 @@ export async function load({ url }) {
   const q = url?.searchParams?.get('q') || ''
   let doc, docs:Docs = {}//, query, page = 0
 
-      doc = {'path': 'keres' , 'title': `Keresés: "${q}"` }
-      docs = q ? miniSearch.search(q, { boost: { longtitle: 2 } })/* .sort((a, b) => b.id - a.id) */ : []
-      console.log('search:',q,docs.length)
-      // console.log(docs[1])
+    doc = {'path': 'keres' , 'title': `Keresés: "${q}"` }
+    docs = q ? miniSearch.search(q, { boost: { ellipsis: 2 }, fuzzy: 0.2 })/* .sort((a, b) => b.id - a.id) */ : []
+    console.log('search:',q,docs[0])
+    // console.log(docs[1])
 
-    if (!docs.length) {
+    /* if (!docs.length) {
       doc = {'path': 'keres' , 'title': `Nem található: "${q}"` }
-    }
+    } */
 
   /* if (!doc && !docs.length) {
     doc = {'path': '/'}

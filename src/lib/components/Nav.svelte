@@ -242,7 +242,7 @@
     </label>
   </div>
   <input id="mobile-nav" type="checkbox" bind:checked={_open_nav}/>
-  <ul class="ml-auto max-md:mx-auto max-md:max-w-sm z-40">
+  <ul class="ml-auto max-md:mx-auto max-md:max-w-sm">
     <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
     {#each Object.keys(nav1) as cat}
       <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
@@ -252,7 +252,7 @@
         {:else}
           <input type="radio" name="collapse" class="md:hidden" onchange={ (e) => _scrollIntoView(e) }/>
           <div tabindex="0" role="button" class="max-md:collapse-title md:menu-title !text-neutral-content text-nowrap font-medium cursor-default">{cat}</div>
-          <ul tabindex="0" class="menu max-md:w-full flex-nowrap max-md:collapse-content dropdown-content md:rounded-md text-neutral-content p-0 md:p-2 bg-neutral">
+          <ul tabindex="0" class="z-50 menu max-md:w-full flex-nowrap max-md:collapse-content dropdown-content md:rounded-md text-neutral-content p-0 md:p-2 bg-neutral">
             {#each Object.keys(nav1[cat]) as subcat}
               <li class=""><a class="p-2 text-nowrap rounded-sm-focus" class:menu--active={`${actual}` == nav1[cat][subcat]} href={nav1[cat][subcat]} onclick={() => _open_nav = false}>{subcat}</a></li>
             {/each}

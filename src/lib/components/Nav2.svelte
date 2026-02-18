@@ -19,7 +19,7 @@
   }
 </script>
 
-<nav class="sticky top-0 z-30 max-md:hidden navbar font--stretch-condensed bg-neutral text-neutral-content">
+<nav class="sticky top-0 z-40 max-md:hidden navbar font--stretch-condensed bg-neutral text-neutral-content">
   <!-- <input id="mobile--nav" type="checkbox" bind:checked={_open_nav}/> -->
   <ul class="mx-auto">
     <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
