@@ -14,23 +14,75 @@
   export let actual
   // console.log({actual})
   let _open_nav = false, target
+  let collapse = null
+  let lastClickedCat = null
+  let shouldToggleOff = false
+
+  const closeAllCollapses = () => {
+    collapse = null
+    lastClickedCat = null
+    shouldToggleOff = false
+  }
+
+  // Reactive statement to handle toggle when same collapse is clicked
+  $: if (shouldToggleOff && collapse === lastClickedCat && collapse !== null) {
+    const catToClose = collapse
+    collapse = null
+    lastClickedCat = null
+    shouldToggleOff = false
+    // Uncheck the radio
+    if (typeof document !== 'undefined') {
+      const radios = document.querySelectorAll(`input[name="collapse"][value="${catToClose}"]`)
+      radios.forEach(radio => radio.checked = false)
+    }
+  }
+
+  const handleCollapseClick = (cat, event) => {
+    // This might not fire if radio is clicked instead
+  }
+
+  const handleRadioClick = (cat, event) => {
+    // This fires BEFORE bind:group updates collapse
+    const currentState = collapse
+    
+    // If clicking the same radio that's already checked, toggle it off
+    if (currentState === cat) {
+      // Set flag - reactive statement will handle closing after bind:group updates
+      lastClickedCat = cat
+      shouldToggleOff = true
+    } else {
+      // Opening a new collapse
+      lastClickedCat = null
+      shouldToggleOff = false
+    }
+  }
+
+  const handleRadioChange = (cat, event) => {
+    // Update last clicked for next time
+    if (collapse === cat) {
+      lastClickedCat = cat
+    }
+  }
+
+  const handleCollapseKeydown = (cat, event) => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault()
+      handleCollapseClick(cat, event)
+    }
+  }
 
   const _scrollIntoView = async (event) => {
-    console.log(event)
     event.preventDefault()
     target = event.target.getAttribute('href') || event.target.parentElement.getAttribute('href') || null
     if (target) {
       _open_nav = false
       await new Promise(resolve => setTimeout(resolve, 500))
       const el = document.querySelector(target)
-      // console.log(event.target.getAttribute('href'), el)
       el.scrollIntoView({block: 'start', behavior: 'auto', offset: { top: 64 } })
-      console.log(target)
     } else { // open dropdown
       const el = event.target.parentElement
       await new Promise(resolve => setTimeout(resolve, 50))
       el.scrollIntoView({ block: 'center', behavior: 'auto', offset: { top: 128 } })
-      console.log(el)
     }
     target = null
   }
@@ -42,7 +94,7 @@
         // goto('/login');
       })
       .catch((error) => {
-        console.log(error);
+        // Error handling
       })
     _open_nav = false
   }
@@ -115,7 +167,6 @@
     .catch((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;
-      console.log(errorCode, errorMessage)
       success = false
       // ...
     });
@@ -140,8 +191,6 @@
     // The client SDK will parse the code from the link for you.
     signInWithEmailLink(firebaseAuth, email, window.location.href)
       .then(async (result) => {
-        console.log('User signed in:', result.user);
-        
         // Check if user has a display name
         if (!firebaseAuth.currentUser?.displayName) {
           /* displayName = window.prompt('Kérjük, add meg a neved');
@@ -171,7 +220,6 @@
       .catch((error) => {
         // Some error occurred, you can inspect the code: error.code
         // Common errors could be invalid email and invalid or expired OTPs.
-        console.log(error)
         success = false
         mod_login.showModal()
       });
@@ -207,7 +255,7 @@
   
 </script>
 
-<nav class="sticky top-0 z-40 bg-neutral text-neutral-content navbar max-md-block max-md:flex-col justify-top py-0">
+<nav class="sticky top-0 z-40 hover:z-50 bg-neutral text-neutral-content navbar max-md-block max-md:flex-col justify-top py-0">
   <!-- <label for="mobile-nav" aria-label="open sidebar" class="top-0 left-0 bg-neutral z-50 btn btn-lg btn-square btn-ghost md:hidden text-neutral-content">
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -248,13 +296,13 @@
       <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
       <li tabindex="0" class="first:max-md:pt-8 drop-col collapse-arrow dropdown-hover dropdown-end text-nowrap"><!-- md:inline-block onblur={_uncheck} -->
         {#if typeof nav1[cat] === 'string'}
-          <a href="{nav1[cat]}" class="max-md:p-4 md:p-2 rounded-sm md:menu-title !text-neutral-content text-nowrap font-medium" class:menu--active={`${actual}` == nav1[cat]} onclick={() => _open_nav = false}>{cat}</a>
+          <a href="{nav1[cat]}" class="max-md:p-4 md:p-2 rounded-sm md:menu-title !text-neutral-content text-nowrap font-medium" class:menu-active={`${actual}` == nav1[cat]} onclick={() => { _open_nav = false; closeAllCollapses(); }}>{cat}</a>
         {:else}
-          <input type="radio" name="collapse" class="md:hidden" onchange={ (e) => _scrollIntoView(e) }/>
-          <div tabindex="0" role="button" class="max-md:collapse-title md:menu-title !text-neutral-content text-nowrap font-medium cursor-default">{cat}</div>
+          <input type="radio" name="collapse" class="md:hidden" bind:group={collapse} value={cat} onclick={(e) => handleRadioClick(cat, e)} onchange={(e) => { handleRadioChange(cat, e); _scrollIntoView(e); }}/>
+          <div tabindex="0" role="button" class="max-md:collapse-title md:menu-title !text-neutral-content text-nowrap font-medium cursor-default" onclick={(e) => handleCollapseClick(cat, e)} onkeydown={(e) => handleCollapseKeydown(cat, e)}>{cat}</div>
           <ul tabindex="0" class="z-50 menu max-md:w-full flex-nowrap max-md:collapse-content dropdown-content md:rounded-md text-neutral-content p-0 md:p-2 bg-neutral">
             {#each Object.keys(nav1[cat]) as subcat}
-              <li class=""><a class="p-2 text-nowrap rounded-sm-focus" class:menu--active={`${actual}` == nav1[cat][subcat]} href={nav1[cat][subcat]} onclick={() => _open_nav = false}>{subcat}</a></li>
+              <li class=""><a class="p-2 text-nowrap" class:menu-active={`${actual}` == nav1[cat][subcat]} href={nav1[cat][subcat]} onclick={() => _open_nav = false}>{subcat}</a></li>
             {/each}
           </ul>
         {/if}
@@ -264,13 +312,13 @@
       <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
       <li tabindex="0" class="collapse collapse-arrow md:hidden text-nowrap"><!-- md:inline-block onblur={_uncheck} -->
         {#if typeof nav2[cat] === 'string'}
-          <a href="{nav2[cat]}" class="max-md:p-4 md:p-2 rounded-sm md:menu-title !text-neutral-content text-nowrap font-medium" onclick={() => _open_nav = false}>{cat}</a>
+          <a href="{nav2[cat]}" class="max-md:p-4 md:p-2 rounded-sm md:menu-title !text-neutral-content text-nowrap font-medium" class:menu-active={`${actual}` == nav1[cat]} onclick={() => { _open_nav = false; closeAllCollapses(); }}>{cat}</a>
         {:else}
-          <input type="radio" name="collapse" class="md:hidden" onchange={ (e) => _scrollIntoView(e) }/>
-          <div tabindex="0" role="button" class="max-md:collapse-title md:menu-title !text-neutral-content text-nowrap font-medium cursor-default">{cat}</div>
+          <input type="radio" name="collapse" class="md:hidden" bind:group={collapse} value={cat} onclick={(e) => handleRadioClick(cat, e)} onchange={(e) => { handleRadioChange(cat, e); _scrollIntoView(e); }}/>
+          <div tabindex="0" role="button" class="max-md:collapse-title md:menu-title !text-neutral-content text-nowrap font-medium cursor-default" onclick={(e) => handleCollapseClick(cat, e)} onkeydown={(e) => handleCollapseKeydown(cat, e)}>{cat}</div>
           <ul tabindex="0" class="z-50 menu max-md:w-full flex-nowrap max-md:collapse-content dropdown-content md:rounded-md text-neutral-content p-0 md:p-2 bg-neutral">
             {#each Object.keys(nav2[cat]) as subcat}
-              <li class=""><a class="p-2 text-nowrap rounded-sm-focus" class:menu--active={`${actual}` == nav2[cat][subcat]} href={nav2[cat][subcat]} onclick={() => _open_nav = false}>{subcat}</a></li>
+              <li class=""><a class="p-2 text-nowrap" class:menu-active={`${actual}` == nav2[cat][subcat]} href={nav2[cat][subcat]} onclick={() => _open_nav = false}>{subcat}</a></li>
             {/each}
           </ul>
         {/if}
@@ -278,7 +326,7 @@
     {/each}
     <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
     <li tabindex="0" class="drop-col text-nowrap"><!-- md:inline-block onblur={_uncheck} -->
-      <a href="#search" onclick={ (e) => _scrollIntoView(e) } class="max-md:flex justify-between items-center p-4 rounded-sm !text-neutral-content text-nowrap font-medium">
+      <a href="#search" onclick={ (e) => { closeAllCollapses(); _scrollIntoView(e); } } class="max-md:flex justify-between items-center p-4 rounded-sm !text-neutral-content text-nowrap font-medium">
         <span class="md:hidden">Keresés&nbsp;</span>
         <svg class="inline h-[1em]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
         <g
