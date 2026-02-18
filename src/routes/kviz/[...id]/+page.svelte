@@ -35,7 +35,8 @@
 
   let submitBtn: HTMLInputElement | null = $state(null);
 	let c = kviz.questions?.length || 0
-  const scoreSent = (new Date(kviz.expires_on).getTime() + 24 * 60 * 60 * 1000) < (new Date()).getTime() ? null : $kvizScores[kviz.id]
+  const expired = (new Date(kviz.expires_on).getTime() + 24 * 60 * 60 * 1000) < (new Date()).getTime()
+  const scoreSent = expired ? null : $kvizScores[kviz.id]
   // console.log({scoreSent})
 
   const handleSubmitEnhance: SubmitFunction = async ({ formData/* , formElement, action, controller, submitter */, cancel }) => {
@@ -74,7 +75,7 @@
 		//score[kviz.id].set(isNaN(parseInt(s,10)) && s.startsWith('x') ? score[kviz.id] * parseFloat(s.substr(1),10) : score[kviz.id] + parseInt(s,10))
     // $kvizScores[kviz.id] = score
     if (i == c-1) {
-      if (!scoreSent && submitBtn) {
+      if (!scoreSent && !expired && submitBtn) {
         submitBtn.click()
       } else {
 
@@ -108,18 +109,20 @@
 
   <!-- form-name=kviz&id=kviz-0&answer-0=99&score=99 -->
   <!-- <form name="kviz" class="max-w-screen-md mx-auto py-12"> -->
-  <div class="grid xs:grid-cols-2 gap-4 max-w-screen-md mx-auto py-12 px-2">
-    {#if $authUser?.displayName}
-    <p class="border border-primary bg-base-200 !h-full w-full p-2">{$authUser.email}</p>
-      <p class="border border-primary bg-base-200 !h-full w-full p-2">{$authUser.displayName}</p>
-    {:else}
-      <legend class="uppercase pt-8 pb-2">A teszt beküldéséhez ellenőrzött email cím és név szükséges</legend>
-      <button class="btn btn-outline" onclick={(e) => {e.preventDefault(); mod_login.showModal()}}>Megadom</button>
-      <a href="/kviz" class="btn btn-outline">Vissza</a>
+  {#if !expired}
+    <div class="grid xs:grid-cols-2 gap-4 max-w-screen-md mx-auto py-12 px-2">
+      {#if $authUser?.displayName}
+        <p class="border border-primary bg-base-200 !h-full w-full p-2">{$authUser.email}</p>
+        <p class="border border-primary bg-base-200 !h-full w-full p-2">{$authUser.displayName}</p>
+      {:else}
+        <legend class="uppercase pt-8 pb-2">A teszt beküldéséhez ellenőrzött email cím és név szükséges</legend>
+        <button class="btn btn-outline" onclick={(e) => {e.preventDefault(); mod_login.showModal()}}>Megadom</button>
+        <a href="/kviz" class="btn btn-outline">Mégsem</a>
       {/if}
-  </div>
+    </div>
+  {/if}
 
-  {#if $authUser?.displayName}
+  {#if $authUser?.displayName || expired}
   <form method="POST" name="kviz" use:enhance={handleSubmitEnhance} class="max-w-screen-md mx-auto py-12 px-2">
     {#each kviz.questions || [] as q, i}
     <fieldset class="grid xs:grid-cols-2 gap-4">
@@ -175,7 +178,7 @@
     <fieldset id="thankyou">
       <legend class="uppercase pt-8 pb-2">Köszönjük, hogy kitöltötted a kvízt!</legend>
       {#if scoreSent == null}
-        {#if (new Date(kviz.expires_on).getTime() + 24 * 60 * 60 * 1000) < (new Date()).getTime()}
+        {#if expired}
           <p>A beküldési határidő lejárt, pontjaidat nem rögzítettük.</p>
         {:else}
           <p>Pontszámodat rögzítettük.</p>
