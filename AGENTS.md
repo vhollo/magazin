@@ -294,16 +294,17 @@ Nav2 defines the secondary navigation menu with categorized content sections:
   - Auto-submits when last question answered (if not expired and no previous score)
   - **Retake Behavior**: 
     - If quiz is expired OR already completed (has existing score): Auto-submission is prevented
-    - Retaking expired/completed quizzes does NOT submit or record new scores
     - Form can still be filled out for viewing purposes, but scores are not saved
   - Shows comparison message if score already exists:
     - Better than previous: Shows improvement
     - Worse than previous: Shows decrease
     - Same as previous: Shows match
-  - Updates `kvizScores` store locally (for display), but server submission only occurs for first-time submissions when not expired
+  - Updates `kvizScores` store locally (line 59: `$kvizScores[kviz.id] = score`) for immediate UI feedback
+  - Form data is sent to server action (`+page.server.ts`) which handles Firebase writing server-side
+  - Server-side Firebase write only occurs for first-time submissions when not expired
 
 - **Expiration Handling**:
-  - Quizzes expire at the end of the expiration day (not 24 hours after the expiration date)
+  - Quizzes expire at the end of the expiration day
   - If expired: Shows message that score won't be recorded
   - Form still functional for viewing/retaking, but submission and score recording are disabled
   - Retaking expired quizzes does NOT submit or record new scores
@@ -351,19 +352,13 @@ Nav2 defines the secondary navigation menu with categorized content sections:
 
 **Files:**
 - `src/routes/patika/+page.svelte`
-- `src/routes/patika/+page.server.ts`
 - `src/routes/patika/+layout.server.ts`
 
 ### Layout Server (`+layout.server.ts`)
 
 - **Prerendering**: Enabled
 - Loads pharmacy data via `getPatika()`
-- Returns pharmacies array and document metadata
-
-### Page Server (`+page.server.ts`)
-
-- Filters documents with `template === 'patika'`
-- Returns filtered pharmacies array
+- Returns pharmacies array and document metadata (`patikas`, `doc` with path and title)
 
 ### Page Component (`+page.svelte`)
 
