@@ -47,7 +47,7 @@
 		// `submitter` is the `HTMLElement` that caused the form to be submitted
 
     // formData.set('id', kviz.id);
-    formData.set('subject', 'Kvíz: ' + kviz.title.truncate(100));
+    formData.set('subject', 'Kvíz: ' + (kviz.title.length > 100 ? kviz.title.slice(0, 100) + '…' : kviz.title));
     formData.set('title', kviz.title);
     formData.set('uid', $authUser?.uid || '');
     formData.set('name', $authUser?.displayName || '');

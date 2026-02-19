@@ -2,7 +2,6 @@
   {
     "id": "VRvfnvKejCI",
     "image": "https://firebasestorage.googleapis.com/v0/b/diabetes-hu.firebasestorage.app/o/kviz%2Fw6v1b_CEOSZ-YT-cover_DiabPONT2025.jpg?alt=media&token=74107c54-da0b-428d-bb3b-4060c379b402",
-    "description": "Tudtad, hogy minden harmadik cukorbetegnél vesebetegség alakul ki? Éppen ezért a cukorbetegségben követendő étrend tervezésénél érdemes néhány extra alapelvet is figyelembe venni, hogy a veséket is kíméljük. Az eheti DiabPONT előadásból megtudhatod, pontosan melyek ezek az alapelvek.",
     "status": true,
     "tags": [],
     "questions": [
@@ -71,6 +70,7 @@
     "sending": true,
     "expires_on": "2026-12-31T23:00:00.000Z",
     "starts_on": "2025-06-30T22:00:00.000Z",
+    "description": "*(A kép, a videó és a Kapcsolódó cikk opcionális.)*\n\nAz előadás felvételét az első hónapban több mint 4000-en látták.\n\nSzeretettel várunk minden kedden 17:00 órakor a soron következő DiabPONT előadáson! Részletek, csatlakozás: [ceosz.hu/diabpont](https://ceosz.hu/diabpont/)Tudtad, hogy minden harmadik cukorbetegnél vesebetegség alakul ki? Éppen ezért a cukorbetegségben követendő étrend tervezésénél érdemes néhány extra alapelvet is figyelembe venni, hogy a veséket is kíméljük. Az eheti DiabPONT előadásból megtudhatod, pontosan melyek ezek az alapelvek.",
     "max_score": 8
   },
   {
@@ -163,7 +163,7 @@
     "sending": false,
     "status": true,
     "expires_on": "2026-02-16T23:00:00.000Z",
-    "description": "*(Ez a kvíz már lejárt, de ki lehet tölteni.)*\n\nMivel az időskori cukorbetegség egyre többeket érint, fontos, hogy az érintettek megkapják azokat az információkat, amelyek könnyebbé tehetik a diabétesszel való együttélést. A keddi DiabPONT előadáson Dr. Domboróczki Zsolt mutatta be munkacsoportja hiánypótló tájékoztató füzetét, mely várhatóan hamarosan minden érdeklődőhöz eljut.",
+    "description": "*(Ez a kvíz már lejárt, bejelentkezés nélkül ki lehet tölteni.)*\n\nMivel az időskori cukorbetegség egyre többeket érint, fontos, hogy az érintettek megkapják azokat az információkat, amelyek könnyebbé tehetik a diabétesszel való együttélést. A keddi DiabPONT előadáson Dr. Domboróczki Zsolt mutatta be munkacsoportja hiánypótló tájékoztató füzetét, mely várhatóan hamarosan minden érdeklődőhöz eljut.",
     "max_score": 1
   }
 ]
