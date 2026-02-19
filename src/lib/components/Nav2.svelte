@@ -35,7 +35,7 @@
         <div tabindex="0" role="button" class="menu-title !text-neutral-content text-nowrap font-medium cursor-default">{cat}</div>
         <ul tabindex="0" class="menu flex-nowrap dropdown-content rounded-md text-neutral-content p-2 bg-neutral">
           {#each Object.keys(nav2[cat]) as subcat}
-            <li class=""><a class="p-2 text-nowrap rounded-sm" class:menu-active={`${actual}` == nav2[cat][subcat]} href={nav2[cat][subcat]}>{subcat}</a></li>
+            <li class=""><a class="p-2 text-nowrap rounded-sm" class:bg-accent={`${actual}` == nav2[cat][subcat]} href={nav2[cat][subcat]}>{subcat}</a></li>
           {/each}
         </ul>
       </li>

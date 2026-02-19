@@ -298,13 +298,13 @@
       <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
       <li tabindex="0" class="first:max-md:pt-8 drop-col collapse-arrow dropdown-hover dropdown-end text-nowrap"><!-- md:inline-block onblur={_uncheck} -->
         {#if typeof nav1[cat] === 'string'}
-          <a href="{nav1[cat]}" class="max-md:p-4 md:p-2 rounded-sm md:menu-title !text-neutral-content text-nowrap font-medium" class:menu-active={`${actual}` == nav1[cat]} onclick={() => { _open_nav = false; closeAllCollapses(); }}>{cat}</a>
+          <a href="{nav1[cat]}" class="max-md:p-4 md:p-2 rounded-sm md:menu-title !text-neutral-content text-nowrap font-medium" class:bg-accent={`${actual}` == nav1[cat]} onclick={() => { _open_nav = false; closeAllCollapses(); }}>{cat}</a>
         {:else}
           <input type="radio" name="collapse" class="md:hidden" bind:group={collapse} value={cat} onclick={(e) => handleRadioClick(cat, e)} onchange={(e) => { handleRadioChange(cat, e); _scrollIntoView(e); }}/>
           <div tabindex="0" role="button" class="max-md:collapse-title md:menu-title !text-neutral-content text-nowrap font-medium cursor-default" onclick={(e) => handleCollapseClick(cat, e)} onkeydown={(e) => handleCollapseKeydown(cat, e)}>{cat}</div>
           <ul tabindex="0" class="z-50 menu max-md:w-full flex-nowrap max-md:collapse-content dropdown-content md:rounded-md text-neutral-content p-0 md:p-2 bg-neutral">
             {#each Object.keys(nav1[cat]) as subcat}
-              <li class=""><a class="p-2 text-nowrap" class:menu-active={`${actual}` == nav1[cat][subcat]} href={nav1[cat][subcat]} onclick={() => _open_nav = false}>{subcat}</a></li>
+              <li class=""><a class="p-2 text-nowrap" class:bg-accent={`${actual}` == nav1[cat][subcat]} href={nav1[cat][subcat]} onclick={() => _open_nav = false}>{subcat}</a></li>
             {/each}
           </ul>
         {/if}
@@ -314,13 +314,13 @@
       <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
       <li tabindex="0" class="collapse collapse-arrow md:hidden text-nowrap"><!-- md:inline-block onblur={_uncheck} -->
         {#if typeof nav2[cat] === 'string'}
-          <a href="{nav2[cat]}" class="max-md:p-4 md:p-2 rounded-sm md:menu-title !text-neutral-content text-nowrap font-medium" class:menu-active={`${actual}` == nav1[cat]} onclick={() => { _open_nav = false; closeAllCollapses(); }}>{cat}</a>
+          <a href="{nav2[cat]}" class="max-md:p-4 md:p-2 rounded-sm md:menu-title !text-neutral-content text-nowrap font-medium" class:bg-accent={`${actual}` == nav1[cat]} onclick={() => { _open_nav = false; closeAllCollapses(); }}>{cat}</a>
         {:else}
           <input type="radio" name="collapse" class="md:hidden" bind:group={collapse} value={cat} onclick={(e) => handleRadioClick(cat, e)} onchange={(e) => { handleRadioChange(cat, e); _scrollIntoView(e); }}/>
           <div tabindex="0" role="button" class="max-md:collapse-title md:menu-title !text-neutral-content text-nowrap font-medium cursor-default" onclick={(e) => handleCollapseClick(cat, e)} onkeydown={(e) => handleCollapseKeydown(cat, e)}>{cat}</div>
           <ul tabindex="0" class="z-50 menu max-md:w-full flex-nowrap max-md:collapse-content dropdown-content md:rounded-md text-neutral-content p-0 md:p-2 bg-neutral">
             {#each Object.keys(nav2[cat]) as subcat}
-              <li class=""><a class="p-2 text-nowrap" class:menu-active={`${actual}` == nav2[cat][subcat]} href={nav2[cat][subcat]} onclick={() => _open_nav = false}>{subcat}</a></li>
+              <li class=""><a class="p-2 text-nowrap" class:bg-accent={`${actual}` == nav2[cat][subcat]} href={nav2[cat][subcat]} onclick={() => _open_nav = false}>{subcat}</a></li>
             {/each}
           </ul>
         {/if}
