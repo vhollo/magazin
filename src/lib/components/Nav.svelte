@@ -328,8 +328,8 @@
     {/each}
     <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
     <li tabindex="0" class="drop-col text-nowrap"><!-- md:inline-block onblur={_uncheck} -->
-      <a href="#search" onclick={ (e) => { closeAllCollapses(); _scrollIntoView(e); } } class="max-md:flex justify-between items-center p-4 rounded-sm !text-neutral-content text-nowrap font-medium">
-        <span class="md:hidden">Keresés&nbsp;</span>
+      <a href="#search" aria-labelledby="label-search" onclick={ (e) => { closeAllCollapses(); _scrollIntoView(e); } } class="max-md:flex justify-between items-center p-4 rounded-sm !text-neutral-content text-nowrap font-medium">
+        <span id="label-search" class="md:hidden">Keresés&nbsp;</span>
         <svg class="inline h-[1em]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
         <g
           stroke-linejoin="round"
@@ -341,13 +341,15 @@
           <circle cx="11" cy="11" r="8"></circle>
           <path d="m21 21-4.3-4.3"></path>
         </g>
-      </svg></a>
+        </svg>
+      </a>
     </li>
     <li class="drop-col text-nowrap max-md:p-2">
       <button 
+        aria-labelledby="label-user"
         class="btn md:btn-sm max-md:flex max-md:justify-between max-md:items-center max-md:p-4 md:p-0 !rounded-full s-ize-[2.5rem] !text-neutral-content text-nowrap font-medium border-none shadow-none" 
         class:btn-accent={$authUser} onclick={() => user_click()}>
-        <span class="md:hidden">Felhasználó&nbsp;</span>
+        <span id="label-user" class="md:hidden">Felhasználó&nbsp;</span>
         <svg class="inline size-[1rem]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
         </svg>
