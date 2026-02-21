@@ -139,9 +139,9 @@ input, .input {
   margin-bottom: revert;
 }
 
-/* .card a:not(.btn,.badge) {
+a.btn {
   text-decoration: none;
-} */
+}
 .prose :where(a):not(:where([class~="not-prose"],[class~="not-prose"] *)) {
   text-decoration: dashed underline;
   text-underline-offset: 4px;

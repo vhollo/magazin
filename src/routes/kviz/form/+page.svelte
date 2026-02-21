@@ -1,5 +1,5 @@
 <form data-netlify="true" name="kviz" class="hidden">
-  <input name="title">
+  <input name="subject">
   <input name="email">
   <input name="name">
   <input name="score">
