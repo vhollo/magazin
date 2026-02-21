@@ -10,6 +10,7 @@ import { onMount } from 'svelte';
 import { uid } from '$lib/authStore';
 import { get } from 'svelte/store';
 import { invalidateAll } from '$app/navigation';
+import { kvizScores } from '$lib/kvizStore';
 
 onMount(() => {
   let prev = !!get(uid);
@@ -23,8 +24,6 @@ onMount(() => {
   return stop;
 });
 
-import { kvizScores } from '$lib/kvizStore';
-// console.log($kvizScores)
 const { data }: PageProps = $props()
 // console.log({data})
 const kvizzes = data.kvizzes
@@ -52,6 +51,7 @@ const kvizzes = data.kvizzes
     <h1 class="text-center">DiabKVÍZ</h1>
     <!-- <h2 class="text-center">{kviz.title}</h2> -->
     <p class="text-center">Az alábbi kvízek csak példák.</p>
+    <!-- <p class="text-center"><a href="/kviz/tabella" class="btn btn-outline btn-sm">TABELLA</a></p> -->
   </article>
 
 <div class="list max-w-screen-md mx-auto grid grid-cols-[auto 1fr auto] gap-4 mb-16 px-2">

@@ -182,3 +182,55 @@ export const getPatika = async () => {
     return JSON.parse(data);
   }
 }
+
+export const getScores = async () => {
+  try {
+    // Get all quizzes with status: true
+    const activeKvizzes = await getKviz();
+    
+    if (!activeKvizzes || activeKvizzes.length === 0) {
+      return [];
+    }
+
+    // Aggregate scores by name
+    const scoreMap = new Map<string, number>();
+
+    // Fetch scores sequentially to avoid connection issues
+    for (const kviz of activeKvizzes) {
+      try {
+        if (!kviz?.id) continue;
+        
+        const scoresRef = db.collection(`kviz/${kviz.id}/scores`);
+        const scoresSnap = await scoresRef.get();
+
+        scoresSnap.docs.forEach((doc) => {
+          const data = doc.data();
+          const name = data.name;
+          const score = Number(data.score) || 0;
+
+          if (name && score > 0) {
+            const currentTotal = scoreMap.get(name) || 0;
+            scoreMap.set(name, currentTotal + score);
+          }
+        });
+      } catch (error) {
+        console.error(`Error fetching scores for quiz ${kviz.id}:`, error);
+        // Continue with next quiz instead of failing completely
+        continue;
+      }
+    }
+
+    // Convert map to array and sort by score (descending)
+    const leaderboard = Array.from(scoreMap.entries())
+      .map(([name, totalScore]) => ({
+        name,
+        score: totalScore
+      }))
+      .sort((a, b) => b.score - a.score);
+
+    return leaderboard;
+  } catch (error) {
+    console.error("Error getting scores:", error);
+    return [];
+  }
+}
