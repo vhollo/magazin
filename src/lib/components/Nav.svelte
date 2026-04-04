@@ -274,7 +274,9 @@
   </label> -->
   <div class="sticky top-2 flex justify-between max-md:w-full bg-neutral z-50">
     <a class="block" href="/" onclick={() => _open_nav = false}>
-      <img class="h-12" src={'/assets/logo-diabetes2-1.svg'} alt="diabetes.hu" height="60">
+      <img class="h-12 md:hidden" src={'/assets/logo-diabetes2-1.svg'} alt="diabetes.hu" height="60">
+      <img class="w-12 h-12 max-md:hidden lg:hidden" src={'/icon.svg'} alt="diabetes.hu">
+      <img class="h-12 max-lg:hidden" src={'/assets/logo-diabetes2-1.svg'} alt="diabetes.hu" height="60">
     </a>
     <label for="mobile-nav" aria-label="open sidebar" class="bg-neutral z-50 btn btn-lg btn-square btn-ghost md:hidden text-neutral-content">
       <svg
@@ -292,17 +294,17 @@
     </label>
   </div>
   <input id="mobile-nav" type="checkbox" bind:checked={_open_nav}/>
-  <ul class="ml-auto max-md:mx-auto max-md:max-w-sm">
+  <ul class="ml-auto max-md:mx-auto max-md:w-sm">
     <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
     {#each Object.keys(nav1) as cat}
       <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
       <li tabindex="0" class="first:max-md:pt-8 drop-col collapse-arrow dropdown-hover dropdown-end text-nowrap"><!-- md:inline-block onblur={_uncheck} -->
         {#if typeof nav1[cat] === 'string'}
-          <a href="{nav1[cat]}" class="max-md:p-4 md:p-2 rounded-sm md:menu-title !text-neutral-content text-nowrap font-medium" class:bg-accent={`${actual}` == nav1[cat]} onclick={() => { _open_nav = false; closeAllCollapses(); }}>{cat}</a>
+          <a href="{nav1[cat]}" class="max-md:p-4 md:py-2 rounded-sm md:menu-title !text-neutral-content text-nowrap font-medium" class:bg-accent={`${actual}` == nav1[cat]} onclick={() => { _open_nav = false; closeAllCollapses(); }}>{cat}</a>
         {:else}
           <input type="radio" name="collapse" class="md:hidden" bind:group={collapse} value={cat} onclick={(e) => handleRadioClick(cat, e)} onchange={(e) => { handleRadioChange(cat, e); _scrollIntoView(e); }}/>
           <div tabindex="0" role="button" class="max-md:collapse-title md:menu-title !text-neutral-content text-nowrap font-medium cursor-default" onclick={(e) => handleCollapseClick(cat, e)} onkeydown={(e) => handleCollapseKeydown(cat, e)}>{cat}</div>
-          <ul tabindex="0" class="z-50 menu max-md:w-full flex-nowrap max-md:collapse-content dropdown-content md:rounded-md text-neutral-content p-0 md:p-2 bg-neutral">
+          <ul tabindex="0" class="z-50 menu max-md:w-full flex-nowrap max-md:collapse-content dropdown-content md:rounded-md text-neutral-content py-0 md:p-2 bg-neutral">
             {#each Object.keys(nav1[cat]) as subcat}
               <li class=""><a class="p-2 text-nowrap" class:bg-accent={`${actual}` == nav1[cat][subcat]} href={nav1[cat][subcat]} onclick={() => _open_nav = false}>{subcat}</a></li>
             {/each}
@@ -318,7 +320,7 @@
         {:else}
           <input type="radio" name="collapse" class="md:hidden" bind:group={collapse} value={cat} onclick={(e) => handleRadioClick(cat, e)} onchange={(e) => { handleRadioChange(cat, e); _scrollIntoView(e); }}/>
           <div tabindex="0" role="button" class="max-md:collapse-title md:menu-title !text-neutral-content text-nowrap font-medium cursor-default" onclick={(e) => handleCollapseClick(cat, e)} onkeydown={(e) => handleCollapseKeydown(cat, e)}>{cat}</div>
-          <ul tabindex="0" class="z-50 menu max-md:w-full flex-nowrap max-md:collapse-content dropdown-content md:rounded-md text-neutral-content p-0 md:p-2 bg-neutral">
+          <ul tabindex="0" class="z-50 menu max-md:w-full flex-nowrap max-md:collapse-content dropdown-content md:rounded-md text-neutral-content py-0 md:p-2 bg-neutral">
             {#each Object.keys(nav2[cat]) as subcat}
               <li class=""><a class="p-2 text-nowrap" class:bg-accent={`${actual}` == nav2[cat][subcat]} href={nav2[cat][subcat]} onclick={() => _open_nav = false}>{subcat}</a></li>
             {/each}
@@ -347,7 +349,7 @@
     <li class="drop-col text-nowrap max-md:p-2">
       <button 
         aria-labelledby="label-user"
-        class="btn md:btn-sm max-md:flex max-md:justify-between max-md:items-center max-md:p-4 md:p-0 !rounded-full s-ize-[2.5rem] !text-neutral-content text-nowrap font-medium border-none shadow-none" 
+        class="btn md:btn-sm max-md:flex max-md:justify-between max-md:items-center max-md:p-4 md:p-0 !rounded-full text-nowrap font-medium border-none shadow-none" 
         class:btn-accent={$authUser} onclick={() => user_click()}>
         <span id="label-user" class="md:hidden">Felhasználó&nbsp;</span>
         <svg class="inline size-[1rem]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
@@ -522,9 +524,12 @@
     /* #mobile-nav:checked ~ ul > li{
       margin-block: 1rem;
     } */
+    /* max-md:collapse-content is not .collapse-content — DaisyUI keeps content-visibility:hidden until checked~.collapse-content */
     li input:checked ~ ul {
-      visibility: visible!important;
-      display: block!important;
+      visibility: visible !important;
+      display: block !important;
+      content-visibility: visible !important;
+      min-height: fit-content !important;
     }
 
     .collapse-arrow > .max-md\:collapse-title::after {
