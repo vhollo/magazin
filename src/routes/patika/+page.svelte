@@ -29,7 +29,7 @@
   <meta name="description" content="Keresőnkkel megtalálhatja az Önhöz legközelebb eső gyógyszertárat, ahol a Diabetes és/vagy Hypertonia betegtájékoztató magazin elérhető."/>
   <meta name="keywords" content={data.conf.tags.join(', ') || 'diabetes, diabétesz, cukorbetegség, vese, keton, Tudomány Kiadó Kft'}/>
   <meta name="author" content={data.conf.sitename}/>
-  <meta name="og:image" content={data.conf.ogi || '/assets/logo-uj-diabetes-web.svg'}/>
+  <meta name="og:image" content={data.conf.ogi || '/icon.svg'}/>
   <meta name="og:title" content={(data.doc.title ? data.doc.title + ' • ' : '') + data.conf.sitename}/>
   <meta name="og:description" content={data.conf.description || 'www.diabetes.hu • Az Alapítvány a Cukorbetegekért betegtájékoztató lapja. Kiadja a Tudomány Kiadó Kft.'}/>
   <meta name="og:url" content={data.conf.url || 'https://diabetes.hu'}/>

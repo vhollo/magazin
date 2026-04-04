@@ -339,7 +339,7 @@ summary h2 {
   width: calc(50% - 1rem);
   margin-bottom: 1rem;
 }
-.left, .right, .boxleft, :not(:aside + .boxright) {
+.left, .right, .boxleft, .boxright {
   margin-top: 2rem;
 }
 .left, .boxleft {
@@ -373,6 +373,19 @@ summary h2 {
   .left img, .right img {
     margin-inline: auto!important;
   }
+}
+
+.bold {
+  @apply font-bold;
+}
+.italic, .nev {
+  @apply italic;
+}
+.underline {
+  @apply underline;
+}
+.strikethrough {
+  @apply line-through;
 }
 
 

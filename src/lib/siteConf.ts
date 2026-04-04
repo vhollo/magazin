@@ -183,6 +183,62 @@ export const getPatika = async () => {
   }
 }
 
+export const getRecipes = async () => {
+  if (building || dev) {
+    try {
+      const recipesRef = db.collection('recipes');
+      const recipesSnap = await recipesRef.get();
+      if (recipesSnap.empty) {
+        console.log('No recipes in Firestore, using local JSON');
+        const data = fs.readFileSync(path.resolve(process.cwd(), 'src/lib/data', 'recipes.json'), 'utf-8');
+        return JSON.parse(data);
+      }
+      const recipesData = recipesSnap.docs.map((doc: QueryDocumentSnapshot) => {
+        const data: any = { ...doc.data() }
+        data.createdAt = data.createdAt?.toDate?.()?.toISOString() ?? data.createdAt
+        data.updatedAt = data.updatedAt?.toDate?.()?.toISOString() ?? data.updatedAt
+        return data
+      })
+      writeData(recipesData, 'recipes.json')
+      return recipesData
+    } catch (error) {
+      console.error("Error getting recipes:", error);
+      const data = fs.readFileSync(path.resolve(process.cwd(), 'src/lib/data', 'recipes.json'), 'utf-8');
+      return JSON.parse(data);
+    }
+  } else {
+    const data = fs.readFileSync(path.resolve(process.cwd(), 'src/lib/data', 'recipes.json'), 'utf-8');
+    return JSON.parse(data);
+  }
+}
+
+export const getCategories = async () => {
+  if (building || dev) {
+    try {
+      const catRef = db.collection('categories');
+      const catSnap = await catRef.get();
+      if (catSnap.empty) {
+        console.log('No categories in Firestore, using local JSON');
+        const data = fs.readFileSync(path.resolve(process.cwd(), 'src/lib/data', 'categories.json'), 'utf-8');
+        return JSON.parse(data);
+      }
+      const catData = catSnap.docs.map((doc: QueryDocumentSnapshot) => ({
+        id: doc.id,
+        ...doc.data()
+      })).sort((a: any, b: any) => a.order - b.order)
+      writeData(catData, 'categories.json')
+      return catData
+    } catch (error) {
+      console.error("Error getting categories:", error);
+      const data = fs.readFileSync(path.resolve(process.cwd(), 'src/lib/data', 'categories.json'), 'utf-8');
+      return JSON.parse(data);
+    }
+  } else {
+    const data = fs.readFileSync(path.resolve(process.cwd(), 'src/lib/data', 'categories.json'), 'utf-8');
+    return JSON.parse(data);
+  }
+}
+
 export const getScores = async () => {
   try {
     // Get all quizzes with status: true

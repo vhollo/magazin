@@ -1,4 +1,4 @@
-<script module>
+<script module lang="ts">
   import Search from '$lib/components/Search.svelte';
   import Nav2 from '$lib/components/Nav2.svelte';
   import type { PageProps } from "./$types";
@@ -37,7 +37,7 @@ const kvizzes = data.kvizzes
   <meta name="description" content="Szeretettel várunk minden kedden 17:00 órakor a soron következő DiabPONT előadáson! Részletek, csatlakozás: https://ceosz.hu/diabpont/"/>
   <meta name="keywords" content={data.conf.tags.join(', ') || 'diabetes, diabétesz, cukorbetegség, vese, keton, Tudomány Kiadó Kft'}/>
   <meta name="author" content={data.conf.sitename}/>
-  <meta name="og:image" content={data.conf.ogi || '/assets/logo-uj-diabetes-web.svg'}/>
+  <meta name="og:image" content={data.conf.ogi || '/icon.svg'}/>
   <meta name="og:title" content={(data.doc.title ? data.doc.title + ' • ' : '') + data.conf.sitename}/>
   <meta name="og:description" content={data.conf.description || 'www.diabetes.hu • Az Alapítvány a Cukorbetegekért betegtájékoztató lapja. Kiadja a Tudomány Kiadó Kft.'}/>
   <meta name="og:url" content={data.conf.url || 'https://diabetes.hu'}/>

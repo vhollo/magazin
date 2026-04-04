@@ -1,7 +1,7 @@
+export const prerender = false;
+
 import type { PageServerLoad } from './$types';
 import { getScores } from '$lib/siteConf';
-
-export const prerender = false;
 
 export const load: PageServerLoad = async () => {
 	try {

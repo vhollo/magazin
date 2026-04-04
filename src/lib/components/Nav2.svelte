@@ -21,11 +21,11 @@
 
 <nav class="sticky top-0 z-40 max-md:hidden navbar font--stretch-condensed bg-neutral text-neutral-content">
   <!-- <input id="mobile--nav" type="checkbox" bind:checked={_open_nav}/> -->
-  <ul class="mx-auto">
+  <ul class="mx-auto flex items-center">
     <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
     <li tabindex="0" class="drop-col text-nowrap">
       <a class="block menu-title !py-0 pl-0" href="/">
-        <img class="h-8 -mb-2" src={'/icon.svg'} alt="diabetes.hu" height="60">
+        <img class="h-12" src={'/icon.svg'} alt="diabetes.hu" height="60">
       </a>    
     </li>
     {#each Object.keys(nav2) as cat, i}

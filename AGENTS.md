@@ -552,16 +552,64 @@ Defined collections with tag queries:
 
 ---
 
+## Receptsarok Routes (`/receptsarok`)
+
+**Files:**
+- `src/routes/receptsarok/+layout.server.ts`
+- `src/routes/receptsarok/+page.svelte`
+- `src/routes/receptsarok/[category]/+page.svelte`
+- `src/routes/receptsarok/[category]/+page.server.ts`
+- `src/routes/receptsarok/[category]/[slug]/+page.svelte`
+- `src/routes/receptsarok/[category]/[slug]/+page.server.ts`
+
+### Data Source
+
+Recipes are loaded from Firestore `recipes` collection via `getRecipes()` in `src/lib/siteConf.ts`, following the same pattern as quizzes and pharmacies (Firebase Admin in dev/build, JSON cache in production).
+
+Categories from Firestore `categories` collection via `getCategories()`.
+
+Types and constants defined in `src/lib/receptsarok.ts`.
+
+### Paywall / Freemium Model
+
+- **FREE_SAMPLE_YEAR** (2025): All recipes from this year are free (full content visible)
+- **Other years**: Nutrition teaser visible to all, ingredients + instructions gated
+- **Subscription status**: Stored in Firestore `users/{uid}.subscription.receptsarok`
+- **Client-side gating**: `hasReceptsarokAccess` derived store in `authStore.ts`
+- Free magazine recipes (`recept`-tagged articles in MODX) remain free, unaffected
+
+### Route Structure
+
+- `/receptsarok` — Category grid (7 categories with cover images and counts), meal planner toggle
+- `/receptsarok/[category]` — Recipe list filtered by category, with nutrition filters (premium) and sorting
+- `/receptsarok/[category]/[slug]` — Individual recipe page (slug = `{year}-{id}`); shows full content if free or subscribed, paywall CTA otherwise
+
+### Components
+
+- `RecipeCard.svelte` — Card with title, image, author, compact nutrition, lock icon for gated recipes
+- `NutritionTable.svelte` — Full or compact nutrition table display
+- `RecipeFilters.svelte` — Nutrition range filters + ingredient search + sort (premium-gated)
+- `PaywallCTA.svelte` — Subscription prompt with context-specific messaging
+- `ReceptsarokWidget.svelte` — Cross-link widget for magazine recipe articles ("Hasonló receptek a Receptsarokban")
+- `MealPlanner.svelte` — Weekly meal planner with per-day recipe list, aggregated nutrition, and shopping list (premium-gated)
+
+### Cross-linking with Magazine
+
+When a magazine article has the `recept` tag, the `[...path]/+page.svelte` shows a `ReceptsarokWidget` with matching Receptsarok recipes (matched by title keywords against `searchTerms`/`ingredientNames`). Recipe data is loaded in the root `+layout.server.ts` and passed as `rsRecipes`.
+
+---
+
 ## Data Flow Summary
 
 1. **Site Configuration**: Loaded in layout servers, available to all routes
 2. **Documents**: Loaded from `allDocs` (MODX-based content)
 3. **Quizzes**: Loaded from Firestore via `getKviz()`
 4. **Scores**: Stored in Firestore at `kviz/{quizId}/scores/{uid}` (subcollection under each quiz document, stores `name`, `email`, `score`, `date` to the actual quiz/scores table)
-5. **Search**: Client-side (MiniSearch) for both articles and pharmacies
-6. **Navigation**: 
+5. **Recipes**: Loaded from Firestore via `getRecipes()` and `getCategories()`; JSON cached as `recipes.json` and `categories.json`
+6. **Search**: Client-side (MiniSearch) for both articles and pharmacies
+7. **Navigation**: 
    - **Nav1** (Primary): Main menu with direct links and dropdowns (`nav1.js`)
-   - **Nav2** (Secondary): Categorized content sections (`nav2.js`)
+   - **Nav2** (Secondary): Categorized content sections (`nav2.js`); includes Receptsarok link
    - Used for route matching and title generation
    - Active state highlighting based on current route
 
@@ -581,6 +629,7 @@ Defined collections with tag queries:
 ## Route Priority
 
 Routes are matched in this order:
-1. Exact routes (`/`, `/kviz`, `/keres`, `/patika`, `/elofizetes`)
-2. Quiz dynamic routes (`/kviz/[...id]`)
-3. Catch-all route (`/[...path]`) - handles collections and individual documents
+1. Exact routes (`/`, `/kviz`, `/keres`, `/patika`, `/elofizetes`, `/receptsarok`)
+2. Receptsarok dynamic routes (`/receptsarok/[category]`, `/receptsarok/[category]/[slug]`)
+3. Quiz dynamic routes (`/kviz/[...id]`)
+4. Catch-all route (`/[...path]`) - handles collections and individual documents

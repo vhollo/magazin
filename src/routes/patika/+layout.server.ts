@@ -1,3 +1,4 @@
+export const prerender = true
 import type { LayoutServerLoad } from './$types';
 
 import { getPatika } from '$lib/siteConf';
@@ -8,4 +9,3 @@ export const load: LayoutServerLoad = () => {
 	return { patikas, doc: { 'patikas': patikas, 'path': 'patika' , 'title': 'Gyógyszertárkereső' } }
 }
 
-export const prerender = true

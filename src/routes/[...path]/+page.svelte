@@ -5,6 +5,7 @@
   import Nav2 from '$lib/components/Nav2.svelte'
   import BannerSide from '$lib/components/BannerSide.svelte'
   import BannerTop from '$lib/components/BannerTop.svelte'
+  import ReceptsarokWidget from '$lib/components/ReceptsarokWidget.svelte'
 
   import { nav2 } from '$lib/nav2.js'
   let copycats = JSON.parse(JSON.stringify(nav2))
@@ -76,7 +77,15 @@
   });
 
   $: docstitle = doc.title || matchingSubcat
-  // $: console.log(doc.title, matchingSubcat)
+
+  $: isRecipeArticle = doc.tv?.tags?.includes('recept')
+  $: rsMatches = isRecipeArticle && data.rsRecipes
+    ? data.rsRecipes.filter(r => {
+        const titleWords = (doc.title || '').toLowerCase().split(/\s+/)
+        return r.searchTerms?.some(t => titleWords.some(w => w.length > 3 && t.includes(w)))
+          || r.ingredientNames?.some(n => titleWords.some(w => w.length > 3 && n.includes(w)))
+      }).slice(0, 4)
+    : []
 </script>
 
 <svelte:head>
@@ -84,7 +93,7 @@
   <meta name="description" content={doc.ellipsis || conf.description || 'www.diabetes.hu • Az Alapítvány a Cukorbetegekért betegtájékoztató lapja. Kiadja a Tudomány Kiadó Kft.'}/>
   <meta name="keywords" content={doc.tv?.tags?.join(', ') || conf.tags.join(', ') || 'diabetes, diabétesz, cukorbetegség, vese, keton, Tudomány Kiadó Kft'}/>
   <meta name="author" content={doc.tv?.szerzo?.join(', ') || 'diabetes.hu'}/>
-  <meta name="og:image" content={doc.tv?.ogi || conf.ogi || '/assets/logo-uj-diabetes-web.svg'}/>
+  <meta name="og:image" content={doc.tv?.ogi || conf.ogi || '/icon.svg'}/>
   <meta name="og:title" content={doc.longtitle || doc.title || conf.sitename || 'Diabetes'}/>
   <meta name="og:description" content={doc.description || conf.description || 'www.diabetes.hu • Az Alapítvány a Cukorbetegekért betegtájékoztató lapja. Kiadja a Tudomány Kiadó Kft.'}/>
   <meta name="og:url" content={doc.url || 'https://diabetes.hu'}/>
@@ -174,6 +183,10 @@
       <h2 class="text-center">Kapcsolódó cikkek</h2>
     </article>
     <Cards cards={doc.related} full={false}/>
+  {/if}
+
+  {#if isRecipeArticle && rsMatches.length}
+    <ReceptsarokWidget recipes={rsMatches} title={doc.title || ''} />
   {/if}
 
 {/if}

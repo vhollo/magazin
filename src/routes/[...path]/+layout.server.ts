@@ -1,3 +1,4 @@
+import { error } from '@sveltejs/kit';
 import { redirect } from '@sveltejs/kit';
 import { /* modxDoc,  */allDocs } from '$lib/modx'
 console.log('docs:',allDocs.length)
@@ -88,7 +89,7 @@ const docsByTags = (tags:Array<string>, id:string | undefined) => {
 }
 
 
-export async function load({ params, url }) {
+export async function load({ params, url, request }) {
 
   // const from = url?.searchParams?.get('from') || ''
   const path:string = (params.path/* ?.split('/')[0] || '/' */)//.replace(/.html/, '').replace('index', '/')
@@ -107,7 +108,7 @@ export async function load({ params, url }) {
       // query = queries[path] ///?
       doc = {'path': path}
       docs = docsByTags(queries[path], '0')
-      console.log(path,queries[path],docs.length)
+      //console.log(path,queries[path],docs.length)
       break
     // case path === 'keres': /// search results
     //   doc = {'path': 'keres' , 'title': `Keresés: "${q}"` }
@@ -120,7 +121,9 @@ export async function load({ params, url }) {
       doc = allDocs.find(d => d.path == path)
       if (!doc) {
         console.log('_miss:', path)
-        doc = {'path': path , 'title': `Nem található: "${path}"` }
+        /* error(404, {
+          message: 'Not found: ' + path
+        }); */
         redirect(307, '/keres?q=' + encodeURIComponent(path))
       } else {
         // console.log('found:', doc.path)

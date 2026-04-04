@@ -21,6 +21,7 @@ import path from 'path';
 
 import { render } from 'svelte/server'
 import Nagyito from '$lib/components/Nagyito.svelte'
+import { fromHtmlEntities } from '$lib/utils'
 
 /* Functions */
 
@@ -183,6 +184,14 @@ const _findPath = (doc: object) => {
         parent.tv.tags.push('folder')
       }
       doc.path = [ parent.path || '', doc.alias ].filter(x => x).join('/')
+      // If doc.path contains 'junior' and doc.tv.tags doesn't, then add 'junior' to tags
+      if (typeof doc.path === 'string' && doc.path.includes('junior')) {
+        doc.tv = doc.tv || {};
+        doc.tv.tags = doc.tv.tags || [];
+        if (!doc.tv.tags.includes('junior')) {
+          doc.tv.tags.push('junior');
+        }
+      }
     }
   }
   return doc
@@ -208,14 +217,14 @@ const _findRelated = (doc: Object) => {
   // let ids = dc.map(d1 => d1.id)
   if (doc.content != '') {
     dc.forEach((d2, i) => {
-      d2.related = [_relFields(doc), ...dc.filter(d3 => d3.id != dc[i].id && d3.content != '').map(d => _relFields(d))]
+      d2.related = [_relFields(doc), ...dc.filter(d3 => d3.id != dc[i].id && d3.content != '' && d3.tv.tags.length != 0).map(d => _relFields(d))]
       const mRel = everyDocs.find(d => d.id == d2.id)
       if (mRel) mRel.related = d2.related
     })
     doc.related = dc.map(d => _relFields(d))
   } else {
     dc.forEach((d2, i) => {
-      d2.related = dc.filter(d3 => d3.id != dc[i].id && d3.content != '').map(d => _relFields(d))
+      d2.related = dc.filter(d3 => d3.id != dc[i].id && d3.content != '' && d3.tv.tags.length != 0).map(d => _relFields(d))
       const mRel = everyDocs.find(d => d.id == d2.id)
       if (mRel) mRel.related = d2.related
     })
@@ -224,15 +233,18 @@ const _findRelated = (doc: Object) => {
 }
 
 const _alapjav = doc => {
-  // if (doc.id == 3400) console.log('_alapjav')
   const comments = /<!--.*?-->/gs
-  doc.content = doc.content.replaceAll(comments, '').replaceAll('http:', 'https:').replaceAll('&#160;', '&nbsp;').replaceAll('<p></p>\r\n', '').replaceAll('<p></p>', '').replaceAll('&nbsp;m2', '&nbsp;m²').replaceAll(' m2', '&nbsp;m²').replaceAll('/m2', '/m²').replaceAll('A1c', 'A<sub>1c</sub>').replaceAll('®', '<sup>®</sup>').replaceAll('rel="external"', 'rel="noopener" target="_blank"').replaceAll('"/assets', `"${PUBLIC_BASE_URL}assets`).replaceAll('"assets', `"${PUBLIC_BASE_URL}assets`)
+  doc.content = doc.content.replaceAll(comments, '').replaceAll('http:', 'https:').replaceAll('"www.', '"https://www.').replaceAll('"//', 'https://').replaceAll('&#160;', '&nbsp;').replaceAll('<p></p>\r\n', '').replaceAll('<p></p>', '').replaceAll('&nbsp;m2', '&nbsp;m²').replaceAll(' m2', '&nbsp;m²').replaceAll('/m2', '/m²').replaceAll('A1c', 'A<sub>1c</sub>').replaceAll('®', '<sup>®</sup>').replaceAll('rel="external"', 'rel="noopener" target="_blank"').replaceAll('"/assets', `"${PUBLIC_BASE_URL}assets`).replaceAll('"assets', `"${PUBLIC_BASE_URL}assets`)
+
+  doc.introtext = doc.introtext.replaceAll('cikkek?szerzo=', '/keres?q=')
+  doc.description = doc.description.replaceAll('cikkek?szerzo=', '/keres?q=')
+  doc.content = doc.content.replaceAll('cikkek?szerzo=', '/keres?q=')
   
   doc.content = doc.content.replaceAll(/\[\*parent\*\]/g, /*modxSiteContent.find(d => d.id == doc.parent)?.id ||*/ everyDocs.find(d => d.id == doc.parent)?.id || '')
   doc.introtext = doc.introtext.replaceAll(/\[\*parent\*\]/g, /*modxSiteContent.find(d => d.id == doc.parent)?.id ||*/ everyDocs.find(d => d.id == doc.parent)?.id || '')
   doc.description = doc.description.replaceAll(/\[\*parent\*\]/g, /*modxSiteContent.find(d => d.id == doc.parent)?.id ||*/ everyDocs.find(d => d.id == doc.parent)?.id || '')
 
-  const modxlink = /(?:https?:\/\/[^\/]+\/)?\[~(\d*)\]/g
+  const modxlink = /(?:https?:\/\/[^\/]+\/)?\[~(\d*)~\]/g
   doc.content = doc.content.replaceAll(/\[~\[\*id\*\]~\]/g, '').replaceAll(/\/\[~\[\*id\*\]~\]/g, '').replaceAll(/\[\*id\*\]/g, doc.id).replaceAll(modxlink, (match, p1) => _pathById(p1))
   doc.description = doc.description.replaceAll(/\[~\[\*id\*\]~\]/g, '').replaceAll(/\/\[~\[\*id\*\]~\]/g, '').replaceAll(/\[\*id\*\]/g, doc.id).replaceAll(modxlink, (match, p1) => _pathById(p1))
   doc.introtext = doc.introtext.replaceAll(/\[~\[\*id\*\]~\]/g, '').replaceAll(/\/\[~\[\*id\*\]~\]/g, '').replaceAll(/\[\*id\*\]/g, doc.id).replaceAll(modxlink, (match, p1) => _pathById(p1))
@@ -246,7 +258,13 @@ const _alapjav = doc => {
   const regexp7 = /<div\s+class="kep">(.*?)<\/div>/gs
   const regexp8 = /<div\s+class="j_cikk">(.*?)<\/div>\s*/gs
 
-  doc.content = doc.content.replaceAll(regexp1, '').replaceAll(regexp2, '').replaceAll(regexp3, '').replaceAll(regexp4, '')/* .replaceAll(regexp5, '') */.replaceAll(regexp6, '').replaceAll(regexp7, '$1').replaceAll(regexp8, '$1')
+  doc.content = doc.content.replaceAll(regexp1, '').replaceAll(regexp2, '').replaceAll(regexp3, '').replaceAll(regexp4, '')/* .replaceAll(regexp5, '') */.replaceAll(regexp6, '').replaceAll(regexp7, '$1').replaceAll(regexp8, '$1').trim()
+  // Replace HTML entities in doc.content with UTF-8 characters using fromHtmlEntities,
+  // and also convert plain ascii letter+accent sequences to proper Hungarian accented characters
+
+  doc.content = fromHtmlEntities(doc.content);
+
+
 
   // return doc
 }
@@ -339,9 +357,9 @@ if (building) {
     const data = fs.readFileSync(path.resolve(process.cwd(), 'src/lib/data', 'data.json'), 'utf8');
     lastEdit = parseInt(fs.readFileSync(path.resolve(process.cwd(), 'src/lib/data', 'lastedit.json'), 'utf8'));
     oldDocs = JSON.parse(data) || [];
-    console.log('FileAllDocs',oldDocs.length)
+    console.log('oldDocs',oldDocs.length)
   } catch (error) {
-    console.log('No data.json found, initializing with FB');
+    console.log('No data.json found, <s>initializing with FB</s>');
     oldDocs = [];
     lastEdit = 0;
     /* Firebase read TEMP OFF */
@@ -355,7 +373,7 @@ if (building) {
     const data = fs.readFileSync(path.resolve(process.cwd(), 'src/lib/data', 'data.json'), 'utf8');
     lastEdit = parseInt(fs.readFileSync(path.resolve(process.cwd(), 'src/lib/data', 'lastedit.json'), 'utf8'));
     oldDocs = JSON.parse(data) || [];
-    console.log('FileAllDocs',oldDocs.length)
+    console.log('oldDocs',oldDocs.length)
   } catch (error) {
     console.log('No data.json found, initializing with empty array');
     oldDocs = [];
@@ -438,23 +456,38 @@ if (newDocs.length) {
   everyDocs = Array.from(oldDocsMap.values())
 
   // Now, run the final processing that requires the complete, merged list of documents
+  const done = []
   for (let doc of newDocs) {
+    if (done.includes(doc.parent)) continue;
     const p = everyDocs.find(d => d.id == doc.parent && d.tv.tags.length > 1)
     if (p) {
       // console.log('d.id == doc.parent', doc.pagetitle)
       _findRelated(p);
+      done.push(p.id)
     }
   }
 
 
   // write data.json to file
-  if ((dev || building) && newDocs.length) {
+  if (dev || building) {
     const lastEdit = everyDocs.reduce((max, doc) => doc.editedon > max ? doc.editedon : max, 0)
     writeData(everyDocs, lastEdit)
+
+    const noTag = everyDocs.filter(doc => doc.tv.tags.length = 0 && doc.content != '').sort((a, b) => b.id - a.id)
+    console.log('*** writenoTag',noTag.length)
+    const dataPath = path.resolve(process.cwd(), 'src/lib/data', 'noTag.json');
+    const outputDir = path.dirname(dataPath);
+    if (!fs.existsSync(outputDir)) {
+      fs.mkdirSync(outputDir, { recursive: true });
+    }
+    fs.writeFileSync(dataPath, JSON.stringify(noTag, null, 2));
+    console.log(`*** noTag sikeresen mentve: ${dataPath}`);
+
   }
 }
 
 export const allDocs = everyDocs.filter(doc => doc.tv.tags.length > 0 && doc.tv.tags[0] != 'folder').sort((a, b) => b.id - a.id)
+
 
 // // Write fresh modxSiteContent into Firestore's collection 'docs'
 if (building && dev) { // TEMPORARY OFF
@@ -480,4 +513,3 @@ if (building && dev) { // TEMPORARY OFF
       console.error('Error writing documents to Firestore:', error);
     });
 }
-

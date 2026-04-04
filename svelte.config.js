@@ -15,8 +15,15 @@ const config = {
 		// See https://kit.svelte.dev/docs/adapters for more information about adapters.
 		adapter: adapter(),
     prerender: {
-      handleMissingId: 'ignore',//'warn',
-    },
+      handleMissingId: 'ignore',//'warn', How to respond when hash links don’t correspond to an id on the destination page
+			handleHttpError: ({ path, referrer, message }) => {
+        // This 'referrer' variable IS exactly what you are looking for.
+        console.error(`Dead link found: ${path} on page ${referrer}`);
+        
+        // Fail the build so you're forced to fix it
+        // throw new Error(message);
+      }
+		},
 		env: {
 			publicPrefix: 'PUBLIC_',
 			// privatePrefix: 'PRIVATE_'

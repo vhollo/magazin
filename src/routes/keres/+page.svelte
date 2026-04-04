@@ -79,7 +79,7 @@
   <meta name="description" content={doc.ellipsis || conf.description || 'www.diabetes.hu • Az Alapítvány a Cukorbetegekért betegtájékoztató lapja. Kiadja a Tudomány Kiadó Kft.'}/>
   <meta name="keywords" content={doc.tv?.tags?.join(', ') || conf.tags.join(', ') || 'diabetes, diabétesz, cukorbetegség, vese, keton, Tudomány Kiadó Kft'}/>
   <meta name="author" content={doc.tv?.szerzo?.join(', ') || 'diabetes.hu'}/>
-  <meta name="og:image" content={doc.tv?.ogi || conf.ogi || '/assets/logo-uj-diabetes-web.svg'}/>
+  <meta name="og:image" content={doc.tv?.ogi || conf.ogi || '/icon.svg'}/>
   <meta name="og:title" content={doc.longtitle || doc.title || conf.sitename || 'Diabetes'}/>
   <meta name="og:description" content={doc.description || conf.description || 'www.diabetes.hu • Az Alapítvány a Cukorbetegekért betegtájékoztató lapja. Kiadja a Tudomány Kiadó Kft.'}/>
   <meta name="og:url" content={doc.url || 'https://diabetes.hu'}/>

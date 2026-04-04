@@ -1,6 +1,5 @@
-<script module>
+<script module lang="ts">
   declare const mod_login: HTMLDialogElement;
-  import type { PageProps } from './$types';
   import { enhance } from '$app/forms';
   // import { invalidateAll } from '$app/navigation'; // Optional: for refreshing data after submission
   import type { SubmitFunction } from '@sveltejs/kit';
@@ -14,17 +13,19 @@
 <script lang="ts">
   import { authUser } from '$lib/authStore';
   import { kvizScores } from '$lib/kvizStore';
+  import type { PageData, PageProps } from './$types';
   // console.log($kvizScores)
   // import { firebaseAuth } from '$lib/firebase'
 
-  const { data }: PageProps = $props()
-  const count = data.count
-  // let docs = []//data.docs
-  // let conf = data.conf
+  let { data }: PageProps = $props()
+  let count = $derived(data.count)
 
-  // console.log({data})
-  // const kviz = data.kvizzes?.find(k => k.id === id)
-  let kviz = $state(data.kviz)
+  /** Local copy: mutated while answering; reset when load data changes (e.g. navigate to another quiz). */
+  let kviz = $state() as PageData['kviz']
+  $effect.pre(() => {
+    kviz = data.kviz
+  })
+
   let score: number = $state(0)
   /* $effect(() => {
     score = $kvizScores[kviz.id] || 0;
@@ -34,9 +35,11 @@
   }
 
   let submitBtn: HTMLInputElement | null = $state(null);
-	let c = kviz.questions?.length || 0
-  const expired = (new Date(kviz.expires_on).getTime() + 24 * 60 * 60 * 1000) < (new Date()).getTime()
-  const scoreSent = expired ? null : $kvizScores[kviz.id]
+  let c = $derived(kviz?.questions?.length || 0)
+  let expired = $derived(
+    kviz ? (new Date(kviz.expires_on).getTime() + 24 * 60 * 60 * 1000) < Date.now() : true
+  )
+  let scoreSent = $derived(expired || !kviz ? null : $kvizScores[kviz.id])
   // console.log({scoreSent})
 
   const handleSubmitEnhance: SubmitFunction = async ({ formData/* , formElement, action, controller, submitter */, cancel }) => {
@@ -255,7 +258,7 @@ input[type="radio"], input[type="checkbox"] { display: none; }
 } */
 label {
 	display: block;
-	position: relative;
+	/* position: relative; */
 	cursor: pointer;
 	/* padding: var(--gutter); */
 	/* background-color: var(--toolbg); */

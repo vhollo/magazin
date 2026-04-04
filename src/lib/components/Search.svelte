@@ -1,6 +1,6 @@
-<script>
+<script lang="ts">
   import { afterNavigate } from '$app/navigation';
-  let { count } = $props()
+  let { count }: { count: number } = $props()
   let submitted = $state(false) // should be reset on navigation
   let searchQuery = $state('')
 
