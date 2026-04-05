@@ -4,10 +4,29 @@
 }
 @plugin "@tailwindcss/typography";
 @plugin "daisyui" {
-  themes: light --default, dark --prefersdark;
+  /* themes: light --default, dark --prefersdark; */
   logs: false;
 }
-
+@plugin "daisyui/theme" {
+	default: true;
+	prefersdark: false;
+	color-scheme: light;
+  --color-primary: oklch(80.25% 0.0589 246.91);
+  --color-primary-content: var(--color-base-content);
+  --color-secondary: oklch(60.51% 0.1178 246.91);
+  --color-secondary-content: var(--color-base-content);
+  /* --color-primary: #3f87c4; */
+}
+@plugin "daisyui/theme" {
+	default: false;
+	prefersdark: true;
+	color-scheme: dark;
+  --color-primary: oklch(60.51% 0.1178 246.91);
+  /* --color-primary-content: oklch(100% 0 0); */
+  --color-secondary: oklch(80.25% 0.0589 246.91);
+  /* --color-secondary-content: oklch(100% 0 0); */
+  /* --color-primary: #3f87c4; */
+}
 :root {
   /* --color-primary: #3f87c4; */
   font-size: clamp(1rem, 0.5vw + 0.85rem, 1.25rem); /* 16px@480px --> 22px@1200px, */ /* https://fluidtypography.com/ */
@@ -28,19 +47,8 @@
   --color-accent: oklch(94.228% .189 105.306)!important; */
 }
 @media (prefers-color-scheme: light) {
-  :root {
-    /* --root-bg: var(--color-neutral-content); */
-  }
-  .card {
-    /* --root-bg: var(--color-neutral-content); */
-  }
 }
 @media (prefers-color-scheme: dark) {
-  /* :root {
-    --color-primary: oklch(71.772% .133 239.443)!important;
-    --color-secondary: oklch(64.476% .202 359.339)!important;
-    --color-accent: oklch(94.228% .189 105.306)!important;
-  } */
 }
 
 
@@ -88,9 +96,9 @@ body {
   .drop-col {
     @apply collapse;
   }
-  .navbar a.menu-active {
+  /* .navbar a.menu-active {
     @apply !bg-base-100;
-  }
+  } */
 }
 
 @media (width >= 48rem) {
@@ -100,9 +108,9 @@ body {
   /* .navbar li:hover ul {
     @apply bg-base-100;
   } */
-  .navbar a.menu-active {
+  /* .navbar a.menu-active {
     @apply !bg-base-200;
-  }
+  } */
 }
 
 /* FORMS */
@@ -263,7 +271,7 @@ article :not(table).nicebox {
   @apply my-[2.8rem];
 }
 article :not(table).nicebox, article :not(table).boxright, article :not(table).boxleft {
-  @apply card card-sm bg-neutral text-neutral-content shadow-xl card-body px-2 py-4 last:mb-0 gap-2;
+  @apply card card-sm bg-primary text-primary-content shadow-xl card-body px-2 py-4 last:mb-0 gap-2;
 
   & > * {
     @apply my-0/*  mx-4 */;

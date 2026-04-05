@@ -257,8 +257,8 @@
   
 </script>
 
-<nav class="sticky top-0 z-40 hover:z-50 bg-neutral text-neutral-content navbar max-md-block max-md:flex-col justify-top py-0">
-  <!-- <label for="mobile-nav" aria-label="open sidebar" class="top-0 left-0 bg-neutral z-50 btn btn-lg btn-square btn-ghost md:hidden text-neutral-content">
+<nav class="sticky top-0 z-40 hover:z-50 bg-base-300 text-base-content navbar max-md-block max-md:flex-col justify-top py-0 min-h-12 h-12">
+  <!-- <label for="mobile-nav" aria-label="open sidebar" class="top-0 left-0 bg-base-300 z-50 btn btn-lg btn-square btn-ghost md:hidden text-base-content">
     <svg
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
@@ -272,13 +272,13 @@
         d="M4 6h16M4 12h16M4 18h16"></path>
     </svg>
   </label> -->
-  <div class="sticky top-2 flex justify-between max-md:w-full bg-neutral z-50">
+  <div class="sticky max-md:top-2 flex justify-between max-md:w-full bg-base-300 z-50">
     <a class="block" href="/" onclick={() => _open_nav = false}>
-      <img class="h-12 md:hidden" src={'/assets/logo-diabetes2-1.svg'} alt="diabetes.hu" height="60">
-      <img class="w-12 h-12 max-md:hidden lg:hidden" src={'/icon.svg'} alt="diabetes.hu">
-      <img class="h-12 max-lg:hidden" src={'/assets/logo-diabetes2-1.svg'} alt="diabetes.hu" height="60">
+      <img class="h-10 md:hidden" src={'/assets/logo-diabetes2-1.svg'} alt="diabetes.hu" height="60">
+      <img class="w-12 h-10 max-md:hidden lg:hidden" src={'/icon.svg'} alt="diabetes.hu">
+      <img class="h-10 max-lg:hidden" src={'/assets/logo-diabetes2-1.svg'} alt="diabetes.hu" height="60">
     </a>
-    <label for="mobile-nav" aria-label="open sidebar" class="bg-neutral z-50 btn btn-lg btn-square btn-ghost md:hidden text-neutral-content">
+    <label for="mobile-nav" aria-label="open sidebar" class="bg-base-300 z-50 btn btn-lg btn-square btn-ghost md:hidden text-base-content">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
@@ -300,13 +300,13 @@
       <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
       <li tabindex="0" class="first:max-md:pt-8 drop-col collapse-arrow dropdown-hover dropdown-end text-nowrap"><!-- md:inline-block onblur={_uncheck} -->
         {#if typeof nav1[cat] === 'string'}
-          <a href="{nav1[cat]}" class="max-md:p-4 md:py-2 rounded-sm md:menu-title !text-neutral-content text-nowrap font-medium" class:bg-accent={`${actual}` == nav1[cat]} onclick={() => { _open_nav = false; closeAllCollapses(); }}>{cat}</a>
+          <a href="{nav1[cat]}" class="max-md:p-4 md:py-2 rounded-sm md:menu-title !text-base-content text-nowrap font-medium" class:bg-primary={`${actual}` == nav1[cat]} onclick={() => { _open_nav = false; closeAllCollapses(); }}>{cat}</a>
         {:else}
           <input type="radio" name="collapse" class="md:hidden" bind:group={collapse} value={cat} onclick={(e) => handleRadioClick(cat, e)} onchange={(e) => { handleRadioChange(cat, e); _scrollIntoView(e); }}/>
-          <div tabindex="0" role="button" class="max-md:collapse-title md:menu-title !text-neutral-content text-nowrap font-medium cursor-default" onclick={(e) => handleCollapseClick(cat, e)} onkeydown={(e) => handleCollapseKeydown(cat, e)}>{cat}</div>
-          <ul tabindex="0" class="z-50 menu max-md:w-full flex-nowrap max-md:collapse-content dropdown-content md:rounded-md text-neutral-content py-0 md:p-2 bg-neutral">
+          <div tabindex="0" role="button" class="max-md:collapse-title md:menu-title !text-base-content text-nowrap font-medium cursor-default" onclick={(e) => handleCollapseClick(cat, e)} onkeydown={(e) => handleCollapseKeydown(cat, e)}>{cat}</div>
+          <ul tabindex="0" class="z-50 menu max-md:w-full flex-nowrap max-md:collapse-content dropdown-content md:rounded-md text-base-content py-0 md:p-2 bg-base-300">
             {#each Object.keys(nav1[cat]) as subcat}
-              <li class=""><a class="p-2 text-nowrap" class:bg-accent={`${actual}` == nav1[cat][subcat]} href={nav1[cat][subcat]} onclick={() => _open_nav = false}>{subcat}</a></li>
+              <li class=""><a class="p-2 text-nowrap" class:bg-primary={`${actual}` == nav1[cat][subcat]} href={nav1[cat][subcat]} onclick={() => _open_nav = false}>{subcat}</a></li>
             {/each}
           </ul>
         {/if}
@@ -316,13 +316,13 @@
       <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
       <li tabindex="0" class="collapse collapse-arrow md:hidden text-nowrap"><!-- md:inline-block onblur={_uncheck} -->
         {#if typeof nav2[cat] === 'string'}
-          <a href="{nav2[cat]}" class="max-md:p-4 md:p-2 rounded-sm md:menu-title !text-neutral-content text-nowrap font-medium" class:bg-accent={`${actual}` == nav1[cat]} onclick={() => { _open_nav = false; closeAllCollapses(); }}>{cat}</a>
+          <a href="{nav2[cat]}" class="max-md:p-4 md:p-2 rounded-sm md:menu-title !text-base-content text-nowrap font-medium" class:bg-primary={`${actual}` == nav1[cat]} onclick={() => { _open_nav = false; closeAllCollapses(); }}>{cat}</a>
         {:else}
           <input type="radio" name="collapse" class="md:hidden" bind:group={collapse} value={cat} onclick={(e) => handleRadioClick(cat, e)} onchange={(e) => { handleRadioChange(cat, e); _scrollIntoView(e); }}/>
-          <div tabindex="0" role="button" class="max-md:collapse-title md:menu-title !text-neutral-content text-nowrap font-medium cursor-default" onclick={(e) => handleCollapseClick(cat, e)} onkeydown={(e) => handleCollapseKeydown(cat, e)}>{cat}</div>
-          <ul tabindex="0" class="z-50 menu max-md:w-full flex-nowrap max-md:collapse-content dropdown-content md:rounded-md text-neutral-content py-0 md:p-2 bg-neutral">
+          <div tabindex="0" role="button" class="max-md:collapse-title md:menu-title !text-base-content text-nowrap font-medium cursor-default" onclick={(e) => handleCollapseClick(cat, e)} onkeydown={(e) => handleCollapseKeydown(cat, e)}>{cat}</div>
+          <ul tabindex="0" class="z-50 menu max-md:w-full flex-nowrap max-md:collapse-content dropdown-content md:rounded-md text-base-content py-0 md:p-2 bg-base-300">
             {#each Object.keys(nav2[cat]) as subcat}
-              <li class=""><a class="p-2 text-nowrap" class:bg-accent={`${actual}` == nav2[cat][subcat]} href={nav2[cat][subcat]} onclick={() => _open_nav = false}>{subcat}</a></li>
+              <li class=""><a class="p-2 text-nowrap" class:bg-primary={`${actual}` == nav2[cat][subcat]} href={nav2[cat][subcat]} onclick={() => _open_nav = false}>{subcat}</a></li>
             {/each}
           </ul>
         {/if}
@@ -330,7 +330,7 @@
     {/each}
     <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
     <li tabindex="0" class="drop-col text-nowrap"><!-- md:inline-block onblur={_uncheck} -->
-      <a href="#search" aria-labelledby="label-search" onclick={ (e) => { closeAllCollapses(); _scrollIntoView(e); } } class="max-md:flex justify-between items-center p-4 rounded-sm !text-neutral-content text-nowrap font-medium">
+      <a href="#search" aria-labelledby="label-search" onclick={ (e) => { closeAllCollapses(); _scrollIntoView(e); } } class="max-md:flex justify-between items-center p-4 rounded-sm !text-base-content text-nowrap font-medium">
         <span id="label-search" class="md:hidden">Keresés&nbsp;</span>
         <svg class="inline h-[1em]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
         <g
@@ -350,7 +350,7 @@
       <button 
         aria-labelledby="label-user"
         class="btn md:btn-sm max-md:flex max-md:justify-between max-md:items-center max-md:p-4 md:p-0 !rounded-full text-nowrap font-medium border-none shadow-none" 
-        class:btn-accent={$authUser} onclick={() => user_click()}>
+        class:btn-primary={$authUser} onclick={() => user_click()}>
         <span id="label-user" class="md:hidden">Felhasználó&nbsp;</span>
         <svg class="inline size-[1rem]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
@@ -498,6 +498,14 @@
 </dialog> -->
 
 <style>
+  @media (prefers-color-scheme: light) {
+  }
+  @media (prefers-color-scheme: dark) {
+    .bg-primary {
+      /* background-color: var(--color-primary); */
+    }
+  }
+
   nav {
     /* background-color: oklch(27.95% 0.03688 260.049 / 0.9); */
     -webkit-backdrop-filter: blur(8px);

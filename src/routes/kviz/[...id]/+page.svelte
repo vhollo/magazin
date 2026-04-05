@@ -207,7 +207,7 @@
 
 </main>
 <footer class="bg-base-200 text-base-content py-2">
-  <p class="text-center">Pontszám: <span class="badge badge-accent">{score} / {kviz.max_score} pont</span></p>
+  <p class="text-center">Pontszám: <span class="badge badge-primary">{score} / {kviz.max_score} pont</span></p>
 </footer>
 
 <Search {count}/>
