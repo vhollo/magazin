@@ -21,7 +21,8 @@
   let count = $derived(data.count)
 
   /** Local copy: mutated while answering; reset when load data changes (e.g. navigate to another quiz). */
-  let kviz = $state() as PageData['kviz']
+  // Effects do not run during SSR — initialize from load data so the first server render has kviz.
+  let kviz = $state(data.kviz) as PageData['kviz']
   $effect.pre(() => {
     kviz = data.kviz
   })
@@ -136,10 +137,10 @@
       {#if q.multi}
         {#each q.options as opt, j}
           <input type="checkbox" id="answer-{i}-{j}" onchange={ (e) => {_mscore((e.target as HTMLInputElement).checked ? opt.score : -(opt.score), i) } }>
-          <label for="answer-{i}-{j}" class="bg-base-100 border-1 border-secondary p-2">
+          <label for="answer-{i}-{j}" class="bg-base-100 border-1 border-primary p-2">
             {opt.option}
             {#if q.done}
-              <aside><small>({opt.score} pont)</small></aside>
+              <aside class:good={opt.score > 0} class:bad={opt.score <= 0}><small>({opt.score} pont)</small></aside>
             {/if}
           </label>
         {/each}
@@ -153,10 +154,10 @@
       {:else}
         {#each q.options as opt, j}
           <input type="radio" name="answer-{i}" id="answer-{i}-{j}" required onchange={() => {_score(opt.score,i); _scroll(`q-${i}`)}}>
-          <label for="answer-{i}-{j}" class="bg-base-100 border-1 border-secondary p-2">
+          <label for="answer-{i}-{j}" class="bg-base-100 border-1 border-primary p-2" class:good={opt.score > 0}>
             {opt.option}
             {#if q.done}
-              <aside class="choice">
+              <aside class:good={opt.score > 0} class:bad={opt.score <= 0}>
                 <small>{opt.score} pont{opt.feedback ? ` (${opt.feedback})` : ''}</small>
               </aside>
             {/if}
@@ -165,19 +166,6 @@
       {/if}
     </fieldset>
     {/each}
-    <!-- <fieldset>
-      <legend id="q-{c}">Is Cartman your favorite South Park character? {c}</legend>
-      <input type="radio" name="answer-{c}" id="answer-{c}-0" required on:change={_score('x0',c),_scroll(`q-${c}`)}>
-      <label for="answer-{c}-0">
-        Absolutely not
-        <aside>gotcha boy <br><small>(x0 points)</small></aside>
-      </label>
-      <input type="radio" name="answer-{c}" id="answer-{c}-1" required on:change={_score('x0',c),_scroll(`q-${c}`)}>
-      <label for="answer-{c}-1">
-        Who else?
-        <aside>helyes! <br><small>(x0 points)</small></aside>
-      </label>
-    </fieldset> -->
 
     <fieldset id="thankyou">
       <legend class="uppercase pt-8 pb-2">Köszönjük, hogy kitöltötted a kvízt!</legend>
@@ -265,9 +253,17 @@ label {
 	height: max-content;
 }
 input:checked + label {
-	background-color: var(--color-secondary);
-	border-color: var(--color-secondary);
+	background-color: var(--color-primary);
+	border-color: var(--color-primary);
   color: var(--color-white);
+}
+input:checked + label:has(.good) {
+	background-color: var(--color-success);
+	border-color: var(--color-success);
+}
+input:checked + label:has(.bad) {
+	background-color: var(--color-error);
+	border-color: var(--color-error);
 }
 /* input:checked + label.border-primary {
 	background-color: var(--color-primary);
@@ -298,8 +294,8 @@ footer {
 	margin-top: var(--spacer); */
 	border-top: 1px solid var(--color-primary);
 	border-bottom: 1px solid var(--color-primary);
-	background-color: #00000080;
-	backdrop-filter: blur(4px);
+	/* background-color: #00000080; */
+	/* backdrop-filter: blur(4px); */
 }
 /* mark {
 	padding: 0 1rem;
