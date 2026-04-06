@@ -4,6 +4,7 @@
 
 <script>
 // @ts-nocheck
+  import { navLinkActive, navSubgroupActive } from '$lib/navActive.js'
   export let actual
   let el
   const _scrollIntoView = async (event) => {
@@ -30,12 +31,13 @@
     </li>
     {#each Object.keys(nav2) as cat, i}
       <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
-      <li tabindex="0" class="dropdown dropdown-hover text-nowrap" class:dropdown-end={Object.keys(nav2).length == i+1}>
+      <li tabindex="0" class="dropdown dropdown-hover relative text-nowrap" class:dropdown-end={Object.keys(nav2).length == i+1}>
         <input type="radio" name="collapse" class="hidden"/>
-        <div tabindex="0" role="button" class="menu-title text-nowrap font-medium cursor-default !text-base-content">{cat}</div>
-        <ul tabindex="0" class="menu flex-nowrap dropdown-content rounded-md bg-base-300 text-base-content p-2">
+        <!-- svelte-ignore a11y_invalid_attribute — label-only control; # prevented in onclick -->
+        <a href="#" tabindex="0" class="relative z-10 menu-title bg-base-300 py-2 text-nowrap font-medium rounded-sm no-underline transition-[color,background-color] duration-200 ease-out hover:bg-base-content/10 focus-visible:bg-base-content/10 focus-visible:outline-none" class:!text-base-content={!navSubgroupActive(actual, nav2[cat])} class:!text-secondary-content={navSubgroupActive(actual, nav2[cat])} class:bg-secondary={navSubgroupActive(actual, nav2[cat])} onclick={(e) => e.preventDefault()}>{cat}</a>
+        <ul tabindex="0" class="!z-0 menu flex-nowrap dropdown-content rounded-md bg-base-300 text-base-content p-2">
           {#each Object.keys(nav2[cat]) as subcat}
-            <li class=""><a class="p-2 text-nowrap rounded-sm" class:bg-primary={`${actual}` == nav2[cat][subcat]} href={nav2[cat][subcat]}>{subcat}</a></li>
+            <li class=""><a class="p-2 text-nowrap rounded-sm" class:bg-primary={navLinkActive(actual, nav2[cat][subcat])} href={nav2[cat][subcat]}>{subcat}</a></li>
           {/each}
         </ul>
       </li>
@@ -47,8 +49,5 @@
 @media (prefers-color-scheme: light) {
 }
 @media (prefers-color-scheme: dark) {
-  .bg-secondary {
-      /* background-color: var(--color-primary); */
-    }
 }
 </style>

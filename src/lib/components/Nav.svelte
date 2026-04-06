@@ -6,13 +6,14 @@
   import { sendSignInLinkToEmail, isSignInWithEmailLink, signInWithEmailLink, /* signInWithEmailAndPassword, setPersistence, browserLocalPersistence, getAdditionalUserInfo, */ updateProfile, /* createUserWithEmailAndPassword, */ onAuthStateChanged, signInWithPopup, GoogleAuthProvider, signOut } from 'firebase/auth'
   import { firebaseAuth/* , signInWithGoogle */ } from '$lib/firebase'
   import { authUser, email } from '$lib/authStore'
+  import { navLinkActive, navSubgroupActive } from '$lib/navActive.js'
 </script>
 
 <script>
   // @ts-nocheck
 
   export let actual
-  // console.log({actual})
+
   let _open_nav = false, target
   let collapse = null
   let lastClickedCat = null
@@ -257,7 +258,7 @@
   
 </script>
 
-<nav class="sticky top-0 z-40 hover:z-50 bg-base-300 text-base-content navbar max-md-block max-md:flex-col justify-top py-0 min-h-12 h-12">
+<nav class="sticky top-0 z-40 hover:z-50 bg-base-300 text-base-content navbar max-md-block max-md:flex-col justify-top py-0 min-h-12 h-12 max-md:overflow-y-auto">
   <!-- <label for="mobile-nav" aria-label="open sidebar" class="top-0 left-0 bg-base-300 z-50 btn btn-lg btn-square btn-ghost md:hidden text-base-content">
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -272,13 +273,13 @@
         d="M4 6h16M4 12h16M4 18h16"></path>
     </svg>
   </label> -->
-  <div class="sticky max-md:top-2 flex justify-between max-md:w-full bg-base-300 z-50">
+  <div class="max-md:sticky max-md:top-0 h-12 items-center flex justify-between max-md:w-full bg-base-300 z-50">
     <a class="block" href="/" onclick={() => _open_nav = false}>
-      <img class="h-10 md:hidden" src={'/assets/logo-diabetes2-1.svg'} alt="diabetes.hu" height="60">
-      <img class="w-12 h-10 max-md:hidden lg:hidden" src={'/icon.svg'} alt="diabetes.hu">
-      <img class="h-10 max-lg:hidden" src={'/assets/logo-diabetes2-1.svg'} alt="diabetes.hu" height="60">
+      <img class="h-10 md:hidden" src={'/assets/logo-diabetes2-1.svg'} alt="diabetes.hu">
+      <img class="w-10 h-10 max-md:hidden lg:hidden" src={'/icon.svg'} alt="diabetes.hu">
+      <img class="h-10 max-lg:hidden" src={'/assets/logo-diabetes2-1.svg'} alt="diabetes.hu">
     </a>
-    <label for="mobile-nav" aria-label="open sidebar" class="bg-base-300 z-50 btn btn-lg btn-square btn-ghost md:hidden text-base-content">
+    <label for="mobile-nav" aria-label="open sidebar" class="bg-base-300 z-50 btn btn-square btn-ghost md:hidden text-base-content">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
@@ -294,19 +295,20 @@
     </label>
   </div>
   <input id="mobile-nav" type="checkbox" bind:checked={_open_nav}/>
-  <ul class="ml-auto max-md:mx-auto max-md:w-sm">
+  <ul class="ml-auto max-md:mx-auto max-md:w-full max-md:max-w-sm overflow---y-auto">
     <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
     {#each Object.keys(nav1) as cat}
       <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
       <li tabindex="0" class="first:max-md:pt-8 drop-col collapse-arrow dropdown-hover dropdown-end text-nowrap"><!-- md:inline-block onblur={_uncheck} -->
         {#if typeof nav1[cat] === 'string'}
-          <a href="{nav1[cat]}" class="max-md:p-4 md:py-2 rounded-sm md:menu-title !text-base-content text-nowrap font-medium" class:bg-primary={`${actual}` == nav1[cat]} onclick={() => { _open_nav = false; closeAllCollapses(); }}>{cat}</a>
+          <a href="{nav1[cat]}" class="relative z-10 max-md:p-4 md:py-2 rounded-sm md:menu-title !text-base-content text-nowrap font-medium bg-base-300 transition-[color,background-color] duration-200 ease-out hover:bg-base-content/10 focus-visible:bg-base-content/10 focus-visible:outline-none" class:bg-primary={navLinkActive(actual, nav1[cat])} onclick={() => { _open_nav = false; closeAllCollapses(); }}>{cat}</a>
         {:else}
           <input type="radio" name="collapse" class="md:hidden" bind:group={collapse} value={cat} onclick={(e) => handleRadioClick(cat, e)} onchange={(e) => { handleRadioChange(cat, e); _scrollIntoView(e); }}/>
-          <div tabindex="0" role="button" class="max-md:collapse-title md:menu-title !text-base-content text-nowrap font-medium cursor-default" onclick={(e) => handleCollapseClick(cat, e)} onkeydown={(e) => handleCollapseKeydown(cat, e)}>{cat}</div>
-          <ul tabindex="0" class="z-50 menu max-md:w-full flex-nowrap max-md:collapse-content dropdown-content md:rounded-md text-base-content py-0 md:p-2 bg-base-300">
+          <!-- svelte-ignore a11y_invalid_attribute — same element as sibling links; # prevented in onclick -->
+          <a href="#" tabindex="0" class="relative z-10 max-md:collapse-title max-md:!min-h-0 max-md:!p-4 max-md:!pr-12 md:py-2 rounded-sm md:menu-title text-nowrap font-medium no-underline bg-base-300 transition-[color,background-color] duration-200 ease-out hover:bg-base-content/10 focus-visible:bg-base-content/10 focus-visible:outline-none" class:!text-base-content={!navSubgroupActive(actual, nav1[cat])} class:!text-secondary-content={navSubgroupActive(actual, nav1[cat])} class:bg-secondary={navSubgroupActive(actual, nav1[cat])} onclick={(e) => { e.preventDefault(); handleCollapseClick(cat, e) }} onkeydown={(e) => handleCollapseKeydown(cat, e)}>{cat}</a>
+          <ul tabindex="0" class="!z-0 menu max-md:w-full flex-nowrap max-md:collapse-content dropdown-content md:rounded-md text-base-content py-0 md:p-2 bg-base-300">
             {#each Object.keys(nav1[cat]) as subcat}
-              <li class=""><a class="p-2 text-nowrap" class:bg-primary={`${actual}` == nav1[cat][subcat]} href={nav1[cat][subcat]} onclick={() => _open_nav = false}>{subcat}</a></li>
+              <li class=""><a class="p-2 text-nowrap" class:bg-primary={navLinkActive(actual, nav1[cat][subcat])} href={nav1[cat][subcat]} onclick={() => _open_nav = false}>{subcat}</a></li>
             {/each}
           </ul>
         {/if}
@@ -316,13 +318,14 @@
       <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
       <li tabindex="0" class="collapse collapse-arrow md:hidden text-nowrap"><!-- md:inline-block onblur={_uncheck} -->
         {#if typeof nav2[cat] === 'string'}
-          <a href="{nav2[cat]}" class="max-md:p-4 md:p-2 rounded-sm md:menu-title !text-base-content text-nowrap font-medium" class:bg-primary={`${actual}` == nav1[cat]} onclick={() => { _open_nav = false; closeAllCollapses(); }}>{cat}</a>
+          <a href="{nav2[cat]}" class="relative z-10 max-md:p-4 md:p-2 rounded-sm md:menu-title !text-base-content text-nowrap font-medium bg-base-300 transition-[color,background-color] duration-200 ease-out hover:bg-base-content/10 focus-visible:bg-base-content/10 focus-visible:outline-none" class:bg-primary={navLinkActive(actual, nav2[cat])} onclick={() => { _open_nav = false; closeAllCollapses(); }}>{cat}</a>
         {:else}
           <input type="radio" name="collapse" class="md:hidden" bind:group={collapse} value={cat} onclick={(e) => handleRadioClick(cat, e)} onchange={(e) => { handleRadioChange(cat, e); _scrollIntoView(e); }}/>
-          <div tabindex="0" role="button" class="max-md:collapse-title md:menu-title !text-base-content text-nowrap font-medium cursor-default" onclick={(e) => handleCollapseClick(cat, e)} onkeydown={(e) => handleCollapseKeydown(cat, e)}>{cat}</div>
-          <ul tabindex="0" class="z-50 menu max-md:w-full flex-nowrap max-md:collapse-content dropdown-content md:rounded-md text-base-content py-0 md:p-2 bg-base-300">
+          <!-- svelte-ignore a11y_invalid_attribute — same element as sibling links; # prevented in onclick -->
+          <a href="#" tabindex="0" class="relative z-10 max-md:collapse-title max-md:!min-h-0 max-md:!p-4 max-md:!pr-12 md:p-2 rounded-sm md:menu-title text-nowrap font-medium no-underline bg-base-300 transition-[color,background-color] duration-200 ease-out hover:bg-base-content/10 focus-visible:bg-base-content/10 focus-visible:outline-none" class:!text-base-content={!navSubgroupActive(actual, nav2[cat])} class:!text-secondary-content={navSubgroupActive(actual, nav2[cat])} class:bg-secondary={navSubgroupActive(actual, nav2[cat])} onclick={(e) => { e.preventDefault(); handleCollapseClick(cat, e) }} onkeydown={(e) => handleCollapseKeydown(cat, e)}>{cat}</a>
+          <ul tabindex="0" class="!z-0 menu max-md:w-full flex-nowrap max-md:collapse-content dropdown-content md:rounded-md text-base-content py-0 md:p-2 bg-base-300">
             {#each Object.keys(nav2[cat]) as subcat}
-              <li class=""><a class="p-2 text-nowrap" class:bg-primary={`${actual}` == nav2[cat][subcat]} href={nav2[cat][subcat]} onclick={() => _open_nav = false}>{subcat}</a></li>
+              <li class=""><a class="p-2 text-nowrap" class:bg-primary={navLinkActive(actual, nav2[cat][subcat])} href={nav2[cat][subcat]} onclick={() => _open_nav = false}>{subcat}</a></li>
             {/each}
           </ul>
         {/if}
@@ -330,7 +333,7 @@
     {/each}
     <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
     <li tabindex="0" class="drop-col text-nowrap"><!-- md:inline-block onblur={_uncheck} -->
-      <a href="#search" aria-labelledby="label-search" onclick={ (e) => { closeAllCollapses(); _scrollIntoView(e); } } class="max-md:flex justify-between items-center p-4 rounded-sm !text-base-content text-nowrap font-medium">
+      <a href="#search" aria-labelledby="label-search" onclick={ (e) => { closeAllCollapses(); _scrollIntoView(e); } } class="max-md:flex justify-between items-center p-4 rounded-sm !text-base-content text-nowrap font-medium transition-[color,background-color] duration-200 ease-out hover:bg-base-content/10 focus-visible:bg-base-content/10 focus-visible:outline-none">
         <span id="label-search" class="md:hidden">Keresés&nbsp;</span>
         <svg class="inline h-[1em]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
         <g
@@ -501,16 +504,13 @@
   @media (prefers-color-scheme: light) {
   }
   @media (prefers-color-scheme: dark) {
-    .bg-primary {
-      /* background-color: var(--color-primary); */
-    }
   }
 
-  nav {
-    /* background-color: oklch(27.95% 0.03688 260.049 / 0.9); */
+  /* nav {
     -webkit-backdrop-filter: blur(8px);
     backdrop-filter: blur(8px);
-    --tw-bg-opacity: .85;  }
+    --tw-bg-opacity: .85;
+  } */
 
   #mobile-nav {
     display: none!important;
@@ -522,7 +522,7 @@
     }
     #mobile-nav ~ ul {
       transition: height 0.25s ease-in;
-      overflow: hidden;
+      /* overflow: hidden; */
       height: 0;
     }
     #mobile-nav:checked ~ ul {
@@ -540,7 +540,7 @@
       min-height: fit-content !important;
     }
 
-    .collapse-arrow > .max-md\:collapse-title::after {
+    .collapse-arrow > a.max-md\:collapse-title::after {
       content: "";
       transform-origin: 75% 75%;
       pointer-events: none;
@@ -557,7 +557,7 @@
       box-shadow: 2px 2px;
     }
 
-    .collapse-arrow:not(.collapse-close) > input[type="radio"]:checked ~ .max-md\:collapse-title::after {
+    .collapse-arrow:not(.collapse-close) > input[type="radio"]:checked ~ a.max-md\:collapse-title::after {
       transform: translateY(-50%) rotate(225deg);
     }
   }
