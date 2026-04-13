@@ -1,8 +1,8 @@
 <script lang="ts">
   import RecipeCard from '$lib/components/RecipeCard.svelte'
-  import type { Recipe } from '$lib/receptsarok'
+  import type { RecipeLayoutEntry, RecipeTeaser } from '$lib/receptsarok'
 
-  export let recipes: Recipe[] = []
+  export let recipes: (RecipeTeaser | RecipeLayoutEntry)[] = []
   export let title = ''
 
   $: shown = recipes.slice(0, 4)

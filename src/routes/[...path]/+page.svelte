@@ -79,13 +79,7 @@
   $: docstitle = doc.title || matchingSubcat
 
   $: isRecipeArticle = doc.tv?.tags?.includes('recept')
-  $: rsMatches = isRecipeArticle && data.rsRecipes
-    ? data.rsRecipes.filter(r => {
-        const titleWords = (doc.title || '').toLowerCase().split(/\s+/)
-        return r.searchTerms?.some(t => titleWords.some(w => w.length > 3 && t.includes(w)))
-          || r.ingredientNames?.some(n => titleWords.some(w => w.length > 3 && n.includes(w)))
-      }).slice(0, 4)
-    : []
+  $: rsMatches = data.rsWidgetRecipes ?? []
 </script>
 
 <svelte:head>

@@ -3,6 +3,7 @@
   import RecipeFilters from '$lib/components/RecipeFilters.svelte'
   import Search from '$lib/components/Search.svelte'
   import Nav2 from '$lib/components/Nav2.svelte'
+  import ReceptsarokLogo from '$lib/components/ReceptsarokLogo.svelte'
 </script>
 
 <script lang="ts">
@@ -61,14 +62,11 @@
   <meta name="description" content="{category?.name}: {allCategoryRecipes.length} diabétesz-barát recept tápanyagtáblázattal." />
 </svelte:head>
 
-<Search count={data.recipes.length} />
-<Nav2 actual="/receptsarok" />
-
 <article class="prose mt-8 mb-4 mx-auto w-full px-4">
-  <nav class="text-sm breadcrumbs">
-    <ul class="flex gap-1 not-prose list-none p-0 m-0">
-      <li><a href="/receptsarok" class="opacity-60 hover:opacity-100">Receptsarok</a></li>
-      <li class="before:content-['›'] before:mx-1 before:opacity-40">{category?.name || categoryId}</li>
+  <nav class="breadcrumbs text-sm not-prose" aria-label="Elérési út">
+    <ul>
+      <li><a href="/receptsarok" class="opacity-70 hover:opacity-100"><ReceptsarokLogo class="text-sm" /></a></li>
+      <li>{category?.name || categoryId}</li>
     </ul>
   </nav>
   <h1 class="text-center">{category?.name || categoryId}</h1>
@@ -92,6 +90,9 @@
 {#if filtered.length === 0}
   <p class="text-center py-12 opacity-50">Nincs a szűrési feltételeknek megfelelő recept.</p>
 {/if}
+
+<Search count={data.recipes.length} />
+<Nav2 actual="/receptsarok" />
 
 <style>
   section {

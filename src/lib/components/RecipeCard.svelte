@@ -1,38 +1,42 @@
 <script lang="ts">
   import NutritionTable from '$lib/components/NutritionTable.svelte'
-  import { isRecipeFree, recipeSlug } from '$lib/receptsarok'
+  import { isRecipeFree, recipeDetailPath } from '$lib/receptsarok'
   import type { Recipe, RecipeTeaser } from '$lib/receptsarok'
 
   export let recipe: Recipe | RecipeTeaser
   export let locked = false
 
   $: free = isRecipeFree(recipe)
-  $: slug = recipeSlug(recipe as Recipe)
-  $: href = `/receptsarok/${recipe.category}/${slug}`
+  $: href = recipeDetailPath(recipe as Recipe)
 </script>
 
-<a {href} class="card card-sm bg-base-200 rounded-sm hover:shadow-lg transition-shadow">
+<a {href} class="card card-sm bg-base-200 rounded-sm hover:shadow-lg transition-shadow max-h-fit" class:double={recipe.image}>
   {#if recipe.image}
     <figure class="rounded-t">
       <img
         loading="lazy"
-        src={recipe.image.src}
+        src="/rs/{recipe.year}/{recipe.image.src}"
         alt={recipe.image.alt}
         class="w-full object-cover"
         style="aspect-ratio: var(--imgratio);"
       />
+      {#if recipe.image.caption}
+        <figcaption class="px-2 pt-1 pb-0.5 text-xs leading-snug text-base-content/60 line-clamp-2">
+          {recipe.image.caption}
+        </figcaption>
+      {/if}
     </figure>
   {/if}
-  <div class="card-body gap-1 p-3">
+  <div class="card-body gap-0 p-2">
     <div class="flex items-start justify-between gap-2">
-      <h2 class="card-title text-base leading-tight">{recipe.title}</h2>
+      <h2 class="card-title text-base leading-tight pb-2 !mb-0">{recipe.title}</h2>
       {#if !free && locked}
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5 shrink-0 opacity-50">
           <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z" />
         </svg>
       {/if}
     </div>
-    <p class="text-sm italic opacity-70">{recipe.author} receptje</p>
+    <p class="text-sm italic opacity-70 pb-2">{recipe.author} receptje</p>
     <div class="mt-2">
       <NutritionTable compact table={{
         label: '',
@@ -44,7 +48,7 @@
         fiber: recipe.fiber
       }}/>
     </div>
-    <div class="card-actions justify-between items-center mt-2">
+    <div class="card-actions justify-between items-center mt-4">
       <small class="opacity-50">{recipe.servings.amount} {recipe.servings.unit}</small>
       <div class="flex gap-1">
         {#if free}
@@ -58,3 +62,9 @@
     </div>
   </div>
 </a>
+
+<style>
+  .double {
+    grid-row-end: span 2;
+  }
+</style>

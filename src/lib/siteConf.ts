@@ -183,13 +183,17 @@ export const getPatika = async () => {
   }
 }
 
-export const getRecipes = async () => {
+/** One shared in-flight / resolved result per process (dev server, prerender worker). */
+let recipesMemo: Promise<unknown[]> | null = null
+let categoriesMemo: Promise<unknown[]> | null = null
+
+async function loadRecipesUncached(): Promise<unknown[]> {
   if (building || dev) {
     try {
       const recipesRef = db.collection('recipes');
       const recipesSnap = await recipesRef.get();
       if (recipesSnap.empty) {
-        console.log('No recipes in Firestore, using local JSON');
+        if (dev) console.log('No recipes in Firestore, using local JSON');
         const data = fs.readFileSync(path.resolve(process.cwd(), 'src/lib/data', 'recipes.json'), 'utf-8');
         return JSON.parse(data);
       }
@@ -206,19 +210,18 @@ export const getRecipes = async () => {
       const data = fs.readFileSync(path.resolve(process.cwd(), 'src/lib/data', 'recipes.json'), 'utf-8');
       return JSON.parse(data);
     }
-  } else {
-    const data = fs.readFileSync(path.resolve(process.cwd(), 'src/lib/data', 'recipes.json'), 'utf-8');
-    return JSON.parse(data);
   }
+  const data = fs.readFileSync(path.resolve(process.cwd(), 'src/lib/data', 'recipes.json'), 'utf-8');
+  return JSON.parse(data);
 }
 
-export const getCategories = async () => {
+async function loadCategoriesUncached(): Promise<unknown[]> {
   if (building || dev) {
     try {
       const catRef = db.collection('categories');
       const catSnap = await catRef.get();
       if (catSnap.empty) {
-        console.log('No categories in Firestore, using local JSON');
+        if (dev) console.log('No categories in Firestore, using local JSON');
         const data = fs.readFileSync(path.resolve(process.cwd(), 'src/lib/data', 'categories.json'), 'utf-8');
         return JSON.parse(data);
       }
@@ -233,10 +236,29 @@ export const getCategories = async () => {
       const data = fs.readFileSync(path.resolve(process.cwd(), 'src/lib/data', 'categories.json'), 'utf-8');
       return JSON.parse(data);
     }
-  } else {
-    const data = fs.readFileSync(path.resolve(process.cwd(), 'src/lib/data', 'categories.json'), 'utf-8');
-    return JSON.parse(data);
   }
+  const data = fs.readFileSync(path.resolve(process.cwd(), 'src/lib/data', 'categories.json'), 'utf-8');
+  return JSON.parse(data);
+}
+
+export const getRecipes = async () => {
+  if (!recipesMemo) {
+    recipesMemo = loadRecipesUncached().catch((e) => {
+      recipesMemo = null
+      throw e
+    })
+  }
+  return recipesMemo as Promise<any[]>
+}
+
+export const getCategories = async () => {
+  if (!categoriesMemo) {
+    categoriesMemo = loadCategoriesUncached().catch((e) => {
+      categoriesMemo = null
+      throw e
+    })
+  }
+  return categoriesMemo as Promise<any[]>
 }
 
 export const getScores = async () => {

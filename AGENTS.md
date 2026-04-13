@@ -557,10 +557,12 @@ Defined collections with tag queries:
 **Files:**
 - `src/routes/receptsarok/+layout.server.ts`
 - `src/routes/receptsarok/+page.svelte`
-- `src/routes/receptsarok/[category]/+page.svelte`
-- `src/routes/receptsarok/[category]/+page.server.ts`
-- `src/routes/receptsarok/[category]/[slug]/+page.svelte`
-- `src/routes/receptsarok/[category]/[slug]/+page.server.ts`
+- `src/params/year.ts`, `src/params/category.ts` (disambiguate first segment)
+- `src/routes/receptsarok/[category=category]/+page.svelte`
+- `src/routes/receptsarok/[category=category]/+page.server.ts`
+- `src/routes/receptsarok/[year=year]/[id]/+page.svelte`
+- `src/routes/receptsarok/[year=year]/[id]/+page.server.ts`
+- `src/routes/api/receptsarok/recipe/[year]/[id]/+server.ts` (subscriber-only full recipe JSON)
 
 ### Data Source
 
@@ -576,13 +578,14 @@ Types and constants defined in `src/lib/receptsarok.ts`.
 - **Other years**: Nutrition teaser visible to all, ingredients + instructions gated
 - **Subscription status**: Stored in Firestore `users/{uid}.subscription.receptsarok`
 - **Client-side gating**: `hasReceptsarokAccess` derived store in `authStore.ts`
+- **Dev mode** (`vite dev`): any signed-in user is treated as a subscriber for UI and for `requireReceptsarokSubscriber` (after valid ID token); production behavior unchanged
 - Free magazine recipes (`recept`-tagged articles in MODX) remain free, unaffected
 
 ### Route Structure
 
 - `/receptsarok` — Category grid (7 categories with cover images and counts), meal planner toggle
 - `/receptsarok/[category]` — Recipe list filtered by category, with nutrition filters (premium) and sorting
-- `/receptsarok/[category]/[slug]` — Individual recipe page (slug = `{year}-{id}`); shows full content if free or subscribed, paywall CTA otherwise
+- `/receptsarok/[year]/[id]` — Individual recipe page (`id` = recipe slug field, not Firestore doc id); shows full content if free or subscribed, paywall CTA otherwise
 
 ### Components
 
@@ -595,7 +598,7 @@ Types and constants defined in `src/lib/receptsarok.ts`.
 
 ### Cross-linking with Magazine
 
-When a magazine article has the `recept` tag, the `[...path]/+page.svelte` shows a `ReceptsarokWidget` with matching Receptsarok recipes (matched by title keywords against `searchTerms`/`ingredientNames`). Recipe data is loaded in the root `+layout.server.ts` and passed as `rsRecipes`.
+When a magazine article has the `recept` tag, the `[...path]/+page.svelte` shows a `ReceptsarokWidget` with matching Receptsarok recipes (matched by title keywords against `searchTerms`/`ingredientNames`). Matches are computed in `[...path]/+page.server.ts` as slim `RecipeLayoutEntry[]` (`rsWidgetRecipes`) via memoized `getRecipes()` + `toLayoutRecipe`; the root layout does not ship full recipes.
 
 ---
 
@@ -608,8 +611,8 @@ When a magazine article has the `recept` tag, the `[...path]/+page.svelte` shows
 5. **Recipes**: Loaded from Firestore via `getRecipes()` and `getCategories()`; JSON cached as `recipes.json` and `categories.json`
 6. **Search**: Client-side (MiniSearch) for both articles and pharmacies
 7. **Navigation**: 
-   - **Nav1** (Primary): Main menu with direct links and dropdowns (`nav1.js`)
-   - **Nav2** (Secondary): Categorized content sections (`nav2.js`); includes Receptsarok link
+   - **Nav1** (Primary): Main menu with direct links and dropdowns (`nav1.js`); includes Receptsarok link
+   - **Nav2** (Secondary): Categorized content sections (`nav2.js`)
    - Used for route matching and title generation
    - Active state highlighting based on current route
 
@@ -630,6 +633,6 @@ When a magazine article has the `recept` tag, the `[...path]/+page.svelte` shows
 
 Routes are matched in this order:
 1. Exact routes (`/`, `/kviz`, `/keres`, `/patika`, `/elofizetes`, `/receptsarok`)
-2. Receptsarok dynamic routes (`/receptsarok/[category]`, `/receptsarok/[category]/[slug]`)
+2. Receptsarok dynamic routes (`/receptsarok/[category]`, `/receptsarok/[year]/[id]`)
 3. Quiz dynamic routes (`/kviz/[...id]`)
 4. Catch-all route (`/[...path]`) - handles collections and individual documents

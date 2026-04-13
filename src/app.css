@@ -14,7 +14,7 @@
   --color-primary: oklch(80.25% 0.0589 246.91);
   --color-primary-content: var(--color-base-content);
   --color-secondary: oklch(60.51% 0.1178 246.91);
-  --color-secondary-content: var(--color-base-content);
+  --color-secondary-content: #fff;
   /* --color-primary: #3f87c4; */
 }
 @plugin "daisyui/theme" {
@@ -22,9 +22,9 @@
 	prefersdark: true;
 	color-scheme: dark;
   --color-primary: oklch(60.51% 0.1178 246.91);
-  /* --color-primary-content: oklch(100% 0 0); */
+  --color-primary-content: var(--color-base-content);
   --color-secondary: oklch(80.25% 0.0589 246.91);
-  /* --color-secondary-content: oklch(100% 0 0); */
+  --color-secondary-content: #000;
   /* --color-primary: #3f87c4; */
 }
 :root {
@@ -50,7 +50,9 @@
 }
 @media (prefers-color-scheme: dark) {
 }
-
+.color-rs {
+  color: #de863e;
+}
 
 body {
   @apply flex flex-col min-h-screen;
@@ -454,3 +456,4 @@ summary h2 {
 article iframe[height="100%"] {
   height: unset;
 }
+

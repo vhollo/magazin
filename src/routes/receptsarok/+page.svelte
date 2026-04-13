@@ -2,6 +2,7 @@
   import Search from '$lib/components/Search.svelte'
   import Nav2 from '$lib/components/Nav2.svelte'
   import MealPlanner from '$lib/components/MealPlanner.svelte'
+  import ReceptsarokLogo from '$lib/components/ReceptsarokLogo.svelte'
 </script>
 
 <script lang="ts">
@@ -19,33 +20,56 @@
   <meta name="description" content="Több mint {totalRecipes} diabétesz-barát recept tápanyagtáblázattal, összetevőkkel és elkészítési útmutatóval." />
 </svelte:head>
 
-<Search count={totalRecipes} />
-<Nav2 actual="/receptsarok" />
-
-<article class="prose mt-8 mb-4 mx-auto w-full px-4">
-  <h1 class="text-center">Receptsarok</h1>
-  <p class="text-center max-w-prose mx-auto">
+<article class="prose mt-8 mb-4 w-full px-[clamp(1rem,4vw,2.75rem)] mx-auto">
+  <h1 class="text-center"><ReceptsarokLogo class="text-3xl sm:text-4xl" /></h1>
+  <p class="text-center mx-auto max-w-[min(65ch,calc(100vw-2rem))]">
     {totalRecipes} diabétesz-barát recept, tápanyagtáblázattal.
     <span class="text-success font-medium">{freeCount} recept ingyenesen elérhető.</span>
   </p>
 </article>
 
-<section class="grid gap-6 px-4 py-6 max-w-5xl mx-auto">
+<section
+  class="grid grid-cols-1 gap-[clamp(1rem,2.5vw,1.75rem)] w-full px-[clamp(1rem,4vw,2.75rem)] py-6 md:grid-cols-2 xl:grid-cols-3"
+>
   {#each categories as cat}
-    <a href="/receptsarok/{cat.id}" class="card card-side bg-base-200 rounded-sm hover:shadow-lg transition-shadow">
+    <a
+      href="/receptsarok/{cat.id}"
+      class="group grid min-h-[clamp(6.5rem,22vw,10rem)] w-full overflow-hidden rounded-2xl bg-base-300 shadow-md ring-1 ring-black/20 transition-shadow hover:shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-primary {cat.image ? 'grid-cols-2' : 'grid-cols-1'}"
+    >
       {#if cat.image}
-        <figure class="w-32 shrink-0">
-          <img loading="lazy" src={cat.image} alt={cat.name} class="w-full h-full object-cover" />
+        <figure
+          class="relative min-h-[clamp(6.5rem,22vw,10rem)] min-w-0 overflow-hidden self-stretch"
+        >
+          <img
+            loading="lazy"
+            src="/rs/{cat.image}"
+            alt={cat.name}
+            class="absolute inset-0 h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.02]"
+          />
         </figure>
       {/if}
-      <div class="card-body p-4">
-        <h2 class="card-title">{cat.name}</h2>
-        <p class="text-sm opacity-60">{cat.recipeCount} recept</p>
-      </div>
-      <div class="flex items-center pr-4">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 opacity-30">
-          <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
-        </svg>
+      <div
+        class="grid min-h-full min-w-0 grid-cols-[minmax(0,1fr)_auto] items-center gap-x-3 px-4 py-4 sm:gap-x-4 sm:px-5"
+      >
+        <div class="min-w-0">
+          <h2 class="break-words text-base font-semibold leading-snug hyphens-auto">
+            {cat.name}
+          </h2>
+          <p class="mt-1 text-sm text-[#9CA3AF]">{cat.recipeCount} recept</p>
+        </div>
+        <div class="flex shrink-0 items-center self-stretch pr-0.5">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="size-6 shrink-0 text-[#9CA3AF] transition-colors group-hover:text-[#D1D5DB]"
+            aria-hidden="true"
+          >
+            <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+          </svg>
+        </div>
       </div>
     </a>
   {/each}
@@ -61,13 +85,11 @@
 </div>
 
 {#if showPlanner}
-  <div class="px-4 py-6">
-    <MealPlanner recipes={data.recipes} />
+  <div class="w-full px-[clamp(1rem,4vw,2.75rem)] py-6">
+    <MealPlanner recipes={data.recipes} categories={data.categories} />
   </div>
 {/if}
 
-<style>
-  section {
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  }
-</style>
+<Search count={totalRecipes} />
+<Nav2 actual="/receptsarok" />
+

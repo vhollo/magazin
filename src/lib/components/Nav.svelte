@@ -7,6 +7,7 @@
   import { firebaseAuth/* , signInWithGoogle */ } from '$lib/firebase'
   import { authUser, email } from '$lib/authStore'
   import { navLinkActive, navSubgroupActive } from '$lib/navActive.js'
+  import ReceptsarokLogo from '$lib/components/ReceptsarokLogo.svelte'
 </script>
 
 <script>
@@ -301,7 +302,7 @@
       <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
       <li tabindex="0" class="first:max-md:pt-8 drop-col collapse-arrow dropdown-hover dropdown-end text-nowrap"><!-- md:inline-block onblur={_uncheck} -->
         {#if typeof nav1[cat] === 'string'}
-          <a href="{nav1[cat]}" class="relative max-md:p-4 md:py-2 rounded-sm md:menu-title text-nowrap font-medium bg-base-300 transition-[color,background-color] duration-200 ease-out hover:bg-base-content/10 focus-visible:bg-base-content/10 focus-visible:outline-none" class:!bg-secondary={navLinkActive(actual, nav1[cat])} class:!text-secondary-content={navLinkActive(actual, nav1[cat])} onclick={() => { _open_nav = false; closeAllCollapses(); }}>{cat}</a>
+          <a href="{nav1[cat]}" class="relative max-md:p-4 md:py-2 rounded-sm md:menu-title text-nowrap font-medium bg-base-300 transition-[color,background-color] duration-200 ease-out focus-visible:bg-base-content/10 focus-visible:outline-none" class:!text-base-content={!navLinkActive(actual, nav1[cat])} class:!text-primary-content={navLinkActive(actual, nav1[cat])} class:bg-primary={navLinkActive(actual, nav1[cat])} onclick={() => { _open_nav = false; closeAllCollapses(); }}>{#if cat === 'Receptsarok'}<span class="color-rs">RECEPTSAROK</span>{:else}{cat}{/if}</a>
         {:else}
           <input type="radio" name="collapse" class="md:hidden" bind:group={collapse} value={cat} onclick={(e) => handleRadioClick(cat, e)} onchange={(e) => { handleRadioChange(cat, e); _scrollIntoView(e); }}/>
           <!-- svelte-ignore a11y_invalid_attribute — same element as sibling links; # prevented in onclick -->

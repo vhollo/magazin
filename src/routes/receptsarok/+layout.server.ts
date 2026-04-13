@@ -1,7 +1,8 @@
 export const prerender = true
+import { dev } from '$app/environment'
 import type { LayoutServerLoad } from './$types'
 import { getRecipes, getCategories } from '$lib/siteConf'
-import { isRecipeFree } from '$lib/receptsarok'
+import { toLayoutRecipe } from '$lib/receptsarok'
 import type { Recipe, Category } from '$lib/receptsarok'
 
 const allRecipes: Recipe[] = await getRecipes()
@@ -15,16 +16,10 @@ for (const cat of categories) {
   cat.recipeCount = recipeCounts[cat.id] || 0
 }
 
-console.log('receptsarok:', allRecipes.length, 'recipes in', categories.length, 'categories')
+if (dev) console.log('receptsarok:', allRecipes.length, 'recipes in', categories.length, 'categories')
 
-export const load: LayoutServerLoad = () => {
-  const recipes = allRecipes.map(r => ({
-    ...r,
-    free: isRecipeFree(r)
-  }))
-  return {
-    recipes,
-    categories,
-    doc: { path: 'receptsarok', title: 'Receptsarok' }
-  }
-}
+export const load: LayoutServerLoad = () => ({
+  recipes: allRecipes.map(toLayoutRecipe),
+  categories,
+  doc: { path: 'receptsarok', title: 'Receptsarok' },
+})

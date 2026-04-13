@@ -1,8 +1,7 @@
-import { getSiteConf, getRecipes } from '$lib/siteConf';
+import { getSiteConf } from '$lib/siteConf';
 import { allDocs } from '$lib/modx';
 // import { building } from '$app/environment';
 const conf = await getSiteConf();
-const rsRecipes = await getRecipes();
 
 export async function load({ params, url }) {
   const doc = {'path': '/'}
@@ -14,5 +13,5 @@ export async function load({ params, url }) {
   // }
 
   // console.log('load:',docs.length, url.pathname)
-  return {conf, path: url.pathname, doc, docs, count: allDocs.length, rsRecipes}
+  return {conf, path: url.pathname, doc, docs, count: allDocs.length}
 }

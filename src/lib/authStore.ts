@@ -1,11 +1,7 @@
 import { writable, derived } from 'svelte/store';
-
-interface ReceptsarokSubscription {
-  status: 'active' | 'expired' | 'none';
-  type?: 'lifetime' | 'annual';
-  purchasedAt?: string;
-  expiresAt?: string;
-}
+import { dev } from '$app/environment';
+import type { ReceptsarokSubscription } from './receptsarokAccess';
+import { hasReceptsarokAccessFromSubscription } from './receptsarokAccess';
 
 interface AuthUserType {
   uid: string;
@@ -21,14 +17,12 @@ const email = writable<string | undefined>(undefined);
 const uid = writable<string | undefined>(undefined);
 const authReady = writable<boolean>(false);
 
+/** In dev, any signed-in user gets premium UI without Firestore subscription.receptsarok. */
 const hasReceptsarokAccess = derived(authUser, ($authUser) => {
-  if (!$authUser?.subscription?.receptsarok) return false;
-  const sub = $authUser.subscription.receptsarok;
-  if (sub.status !== 'active') return false;
-  if (sub.type === 'lifetime') return true;
-  if (sub.expiresAt && new Date(sub.expiresAt) < new Date()) return false;
-  return true;
+  if (dev && $authUser) return true;
+  return hasReceptsarokAccessFromSubscription($authUser?.subscription);
 });
 
 export { authUser, email, uid, authReady, hasReceptsarokAccess }
-export type { AuthUserType, ReceptsarokSubscription }
+export type { AuthUserType }
+export type { ReceptsarokSubscription } from './receptsarokAccess'

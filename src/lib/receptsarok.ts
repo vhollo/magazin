@@ -22,13 +22,20 @@ export interface IngredientGroup {
   items: IngredientItem[]
 }
 
+/** Hero / step image; optional `caption` from booklet line „Fotó: …”. */
+export type RecipeImage = {
+  src: string
+  alt: string
+  caption?: string | null
+}
+
 export interface SubRecipe {
   title: string
   servings: { amount: number; unit: string }
   nutritionTables: NutritionValues[]
   ingredientGroups: IngredientGroup[]
   instructions: string[]
-  image: { src: string; alt: string } | null
+  image: RecipeImage | null
 }
 
 export interface Recipe {
@@ -49,7 +56,7 @@ export interface Recipe {
   ingredientNames: string[]
   searchTerms: string[]
   instructions: string[]
-  image: { src: string; alt: string } | null
+  image: RecipeImage | null
   subRecipes: SubRecipe[]
   hasSubRecipes: boolean
   createdAt: string
@@ -69,10 +76,16 @@ export interface RecipeTeaser {
   saturatedFat: number
   carbs: number
   fiber: number
-  image: { src: string; alt: string } | null
+  image: RecipeImage | null
   servings: { amount: number; unit: string }
   hasSubRecipes: boolean
   free: boolean
+}
+
+/** Serialized on /receptsarok layout — no ingredients, instructions, or sub-recipes. */
+export type RecipeLayoutEntry = RecipeTeaser & {
+  ingredientNames: string[]
+  searchTerms: string[]
 }
 
 export interface Category {
@@ -83,12 +96,34 @@ export interface Category {
   recipeCount: number
 }
 
-export function recipeSlug(recipe: Recipe): string {
+/** Firestore document id convention: `{year}-{id}` */
+export function recipeSlug(recipe: Pick<Recipe, 'year' | 'id'>): string {
   return `${recipe.year}-${recipe.id}`
+}
+
+/** Public recipe URL path under `/receptsarok` (no leading slash): `{year}/{id}` */
+export function recipeDetailSegments(recipe: Pick<Recipe, 'year' | 'id'>): string {
+  return `${recipe.year}/${encodeURIComponent(recipe.id)}`
+}
+
+export function recipeDetailPath(recipe: Pick<Recipe, 'year' | 'id'>): string {
+  return `/receptsarok/${recipeDetailSegments(recipe)}`
 }
 
 export function isRecipeFree(recipe: { year: number; free?: boolean }): boolean {
   return recipe.year === FREE_SAMPLE_YEAR || recipe.free === true
+}
+
+/** Remove body fields from serialized recipe data (ingredients, instructions, search helpers). */
+export function stripRecipeGatedFields(recipe: Recipe): Recipe {
+  return {
+    ...recipe,
+    ingredientGroups: [],
+    instructions: [],
+    subRecipes: [],
+    ingredientNames: [],
+    searchTerms: [],
+  }
 }
 
 export function toTeaser(recipe: Recipe): RecipeTeaser {
@@ -108,5 +143,13 @@ export function toTeaser(recipe: Recipe): RecipeTeaser {
     servings: recipe.servings,
     hasSubRecipes: recipe.hasSubRecipes,
     free: isRecipeFree(recipe),
+  }
+}
+
+export function toLayoutRecipe(recipe: Recipe): RecipeLayoutEntry {
+  return {
+    ...toTeaser(recipe),
+    ingredientNames: recipe.ingredientNames ?? [],
+    searchTerms: recipe.searchTerms ?? [],
   }
 }

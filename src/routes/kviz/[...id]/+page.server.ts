@@ -1,4 +1,4 @@
-import { fail } from '@sveltejs/kit';
+import { error, fail } from '@sveltejs/kit';
 import type { Actions, PageServerLoad } from './$types';
 
 import { db } from '$lib/firebase-admin';
@@ -55,6 +55,7 @@ export const actions: Actions = {
 export const load: PageServerLoad = async ({ params, parent }) => {
 	const id = params.id
 	const { kvizzes } = await parent()
-	const kviz = kvizzes?.find((k: { id: string; }) => k.id === id)
+	const kviz = kvizzes?.find((k: { id: string }) => k.id === id)
+	if (!kviz) error(404, 'Kvíz nem található')
 	return { id, kviz }
 }
