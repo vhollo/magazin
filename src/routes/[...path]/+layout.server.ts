@@ -1,7 +1,6 @@
-import { error } from '@sveltejs/kit';
 import { redirect } from '@sveltejs/kit';
-import { /* modxDoc,  */allDocs } from '$lib/modx'
-console.log('docs:',allDocs.length)
+import { /* modxDoc,  */allDocs, listedDocs } from '$lib/modx'
+console.log('docs:', listedDocs.length)
 
 // import MiniSearch from 'minisearch'
 // const stopWords = new Set(['a', 'az', 'és', 'vagy', 'de', 'ha', 'hogy', 'is', 'nem', 'csak', 'meg', 'mint', 'mert', 'egy', 'kell', 'lehet', 'volt', 'lesz', 'van', 'itt', 'ott', 'ahol', 'amikor', 'akkor', 'így', 'úgy', 'még', 'már', 'sem', 'se', 'sok', 'kevés', 'több', 'kevesebb', 'nagyon', 'igen', 'majd', 'most', 'mindig', 'soha', 'talán', 'persze', 'valami', 'valaki', 'valahol', 'valamikor', 'minden', 'senki', 'semmi', 'sehol', 'semikor', 'ez', 'azt', 'ezt', 'ebben', 'abban', 'ettől', 'attól', 'ilyen', 'olyan', 'én', 'te', 'ő', 'mi', 'ti', 'ők', 'aki', 'ami', 'akik', 'amik', 'amely', 'amelyek', 'ahogy', 'amint', 'amíg', 'hiszen', 'hanem', 'illetve', 'valamint', 'tehát', 'azaz', 'vagyis', 'azonban', 'viszont', 'pedig', 'mégis', 'annak', 'ennek', 'azzal', 'ezzel', 'arra', 'erre', 'arról', 'erről' ])
@@ -72,7 +71,7 @@ const queries: Queries = {
 
 const docsByTags = (tags:Array<string>, id:string | undefined) => {
   // console.log(id,{tags})
-  let docs = allDocs.filter(doc => {
+  let docs = listedDocs.filter(doc => {
     // doc.rank = tags.length && !doc.tv.tags.find(tag => tags.includes(`-${tag}`)) && (tags.filter(t => t.startsWith('+')).length == doc.tv.tags.filter(tag => tags.includes(`+${tag}`)).length) && doc.tv.tags.filter(tag => (tags.includes(tag) || tags.includes(`+${tag}`) || tags.includes(`#${tag}`))).length || 0
     doc.rank = tags.length && !doc.tv.tags.find(tag => tags.includes(`-${tag}`)) && doc.tv.tags.filter(tag => (tags.includes(tag) || tags.includes(`+${tag}`) || tags.includes(`#${tag}`))).length || 0
     
@@ -126,15 +125,18 @@ export async function load({ params, url, request }) {
         }); */
         redirect(307, '/keres?q=' + encodeURIComponent(path))
       } else {
-        // console.log('found:', doc.path)
+        const redirectPath = (doc as { redirect?: string }).redirect
+        if (redirectPath) {
+          redirect(308, redirectPath)
+        }
       }
       // query = doc.tv && doc.tv.tags || []
       // docs = allDocs.filter((doc: { tvs: { tag: string | any[]; }; }) => doc.tv.tags?.length).slice(0, 18 * 3)
-      docs = doc.tv && docsByTags(doc.tv.tags, doc.id) || allDocs.slice(0, 18 * 4)
+      docs = doc.tv && docsByTags(doc.tv.tags, doc.id) || listedDocs.slice(0, 18 * 4)
       // console.log('ID:',doc.id, 'path:', path, docs.length)
   }
 
-  return {doc, docs, count: allDocs.length}
+  return {doc, docs, count: listedDocs.length, articleCount: listedDocs.length}
 }
 
 /// 3834: /cikkek/diabetes/2306/lent-es-fent

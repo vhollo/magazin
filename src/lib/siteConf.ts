@@ -4,6 +4,7 @@ import { db } from '$lib/firebase-admin';
 import type { QueryDocumentSnapshot } from 'firebase-admin/firestore';
 
 import { /* browser,  */building , dev/*, version */ } from '$app/environment';
+import { recipeHeroToCardImg } from '$lib/receptsarok';
 import fs from 'fs';
 import path from 'path';
 async function writeData(data: object | object[], filename: string) {
@@ -215,26 +216,29 @@ function normalizeRecipeForExport(rawData: any): any | null {
   const data: any = { ...rawData }
   data.createdAt = data.createdAt?.toDate?.()?.toISOString() ?? data.createdAt
   data.updatedAt = data.updatedAt?.toDate?.()?.toISOString() ?? data.updatedAt
+  data.free =
+    data.free === true ||
+    (typeof data.free === 'string' && data.free.trim().toLowerCase() === 'true')
 
   if (!shouldKeepRecipe(data)) {
     return null
   }
 
-  if (!data.img && data.image) {
-    data.img = data.image
-  }
-  if (data.image) {
-    delete data.image
+  const cardImg = recipeHeroToCardImg(data.year, data.image, data.img)
+  if (cardImg) {
+    data.img = cardImg
+  } else {
+    delete data.img
   }
 
   return data
 }
 
 function toRuntimeRecipe(data: any): any {
-  if (!data?.image && data?.img) {
-    return { ...data, image: data.img }
-  }
-  return data
+  const cardImg = recipeHeroToCardImg(data.year, data.image, data.img)
+  if (cardImg) return { ...data, img: cardImg }
+  const { img: _drop, ...rest } = data
+  return rest
 }
 
 function parseRecipesJson(raw: string): any[] {

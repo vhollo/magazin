@@ -4,7 +4,16 @@ import { getRecipes } from '$lib/siteConf'
 import { toLayoutRecipe, type Recipe, type RecipeLayoutEntry } from '$lib/receptsarok'
 import type { PageServerLoad } from './$types'
 
-function widgetMatchesForDoc(doc: { title?: string; tv?: { tags?: string[] } }, entries: RecipeLayoutEntry[]): RecipeLayoutEntry[] {
+type WidgetDoc = {
+  title?: string
+  redirect?: string
+  tv?: { tags?: string[] }
+}
+
+type RecipePublished = Recipe & { published?: boolean }
+
+function widgetMatchesForDoc(doc: WidgetDoc, entries: RecipeLayoutEntry[]): RecipeLayoutEntry[] {
+  if (doc?.redirect) return []
   if (!doc?.tv?.tags?.includes('recept')) return []
   const titleWords = (doc.title || '').toLowerCase().split(/\s+/)
   return entries
@@ -18,11 +27,13 @@ function widgetMatchesForDoc(doc: { title?: string; tv?: { tags?: string[] } }, 
 
 export const load: PageServerLoad = async ({ parent }) => {
   const { doc } = await parent()
-  const d = doc as { title?: string; tv?: { tags?: string[] } }
-  if (!d?.tv?.tags?.includes('recept')) {
+  const d = doc as WidgetDoc
+  if (d?.redirect || !d?.tv?.tags?.includes('recept')) {
     return { rsWidgetRecipes: [] as RecipeLayoutEntry[] }
   }
   const full = (await getRecipes()) as Recipe[]
-  const entries = full.map(toLayoutRecipe)
+  const entries = full
+    .filter((r: Recipe) => (r as RecipePublished).published !== false)
+    .map(toLayoutRecipe)
   return { rsWidgetRecipes: widgetMatchesForDoc(d, entries) }
 }

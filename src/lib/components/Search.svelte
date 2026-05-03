@@ -1,6 +1,6 @@
 <script lang="ts">
   import { afterNavigate } from '$app/navigation';
-  let { count }: { count: number } = $props()
+  let { articles, recipes }: { articles: number; recipes: number } = $props()
   let submitted = $state(false) // should be reset on navigation
   let searchQuery = $state('')
 
@@ -26,7 +26,7 @@
         <path d="m21 21-4.3-4.3"></path>
       </g>
     </svg> -->
-    <input type="search" name="q" placeholder={`Keresés ${count} cikkben`} class="border-none max-lg:flex-1 text-sm px-0" bind:value={searchQuery}/>
+    <input type="search" name="q" placeholder={`Keresés ${articles} cikkben és ${recipes} receptben`} class="border-none max-lg:flex-1 text-sm px-0" bind:value={searchQuery}/>
   </label>
   <button class="btn btn-neutral join-item border-s-0 !rounded-s-none h-8 w-10" aria-label="Keresés" disabled={searchQuery.length < 4}>
     {#if submitted}

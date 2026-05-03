@@ -7,7 +7,7 @@
   import { firebaseAuth } from '$lib/firebase'
   import { hasReceptsarokAccess } from '$lib/authStore'
   import ReceptsarokLogo from '$lib/components/ReceptsarokLogo.svelte'
-  import { recipeDetailSegments, type Recipe } from '$lib/receptsarok'
+  import { recipeDetailSegments, recipeHeroToCardImg, type Recipe } from '$lib/receptsarok'
   import type { PageProps } from './$types'
 
   let { data }: PageProps = $props()
@@ -22,6 +22,10 @@
   let fullLoading = $state(false)
 
   let displayRecipe = $derived((fullRecipe ?? recipe) as Recipe)
+
+  let heroCardImg = $derived(
+    recipeHeroToCardImg(displayRecipe.year, displayRecipe.image, displayRecipe.img)
+  )
 
   $effect(() => {
     if (!browser) return
@@ -72,9 +76,9 @@
 <svelte:head>
   <title>{recipe.title} • Receptsarok</title>
   <meta name="description" content="{recipe.author} receptje — {recipe.energy} kcal, {recipe.protein}g fehérje, {recipe.carbs}g szénhidrát" />
-  {#if recipe.image}
-    <meta property="og:image" content="/rs/{recipe.year}/{recipe.image.src}" />
-    <link rel="preload" href="/rs/{recipe.year}/{recipe.image.src}" as="image" />
+  {#if heroCardImg}
+    <meta property="og:image" content={heroCardImg.src} />
+    <link rel="preload" href={heroCardImg.src} as="image" />
   {/if}
 </svelte:head>
 
@@ -93,11 +97,11 @@
 </article>
 
 <article class="prose mx-auto w-full max-w-prose px-4 pb-12">
-  {#if recipe.image}
+  {#if heroCardImg}
     <figure class="text-center not-prose">
-      <img src="/rs/{recipe.year}/{recipe.image.src}" alt={recipe.image.alt} class="mx-auto" />
-      {#if recipe.image.caption}
-        <figcaption class="mt-2 text-sm text-base-content/70">{recipe.image.caption}</figcaption>
+      <img src={heroCardImg.src} alt={displayRecipe.image?.alt ?? displayRecipe.title} class="mx-auto" />
+      {#if displayRecipe.image?.caption}
+        <figcaption class="mt-2 text-sm text-base-content/70">{displayRecipe.image.caption}</figcaption>
       {/if}
     </figure>
   {/if}
@@ -194,5 +198,5 @@
   {/if}
 </article>
 
-<Search count={data.recipes.length} />
+<Search articles={data.articleCount} recipes={data.recipeCount} />
 <Nav2 actual="/receptsarok" />

@@ -1,5 +1,5 @@
-import { getSiteConf } from '$lib/siteConf';
-import { allDocs } from '$lib/modx';
+import { getSiteConf, getRecipes } from '$lib/siteConf';
+import { listedDocs } from '$lib/modx';
 // import { building } from '$app/environment';
 const conf = await getSiteConf();
 
@@ -9,9 +9,19 @@ export async function load({ params, url }) {
   // if (building) {
   //   docs = allDocs
   // } else {
-    docs = allDocs.slice(0, 18 * 4)
+    docs = listedDocs.slice(0, 18 * 4)
   // }
 
+  const recipes = await getRecipes()
+  const recipeCount = recipes.filter((r: { published?: boolean }) => r.published !== false).length
   // console.log('load:',docs.length, url.pathname)
-  return {conf, path: url.pathname, doc, docs, count: allDocs.length}
+  return {
+    conf,
+    path: url.pathname,
+    doc,
+    docs,
+    count: listedDocs.length,
+    articleCount: listedDocs.length,
+    recipeCount,
+  }
 }

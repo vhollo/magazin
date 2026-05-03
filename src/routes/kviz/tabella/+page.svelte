@@ -4,7 +4,7 @@
 	import Nav2 from '$lib/components/Nav2.svelte';
 
 	const { data }: PageProps = $props();
-	const { leaderboard, doc, conf, count } = data;
+	const { leaderboard, doc, conf } = data;
 </script>
 
 <svelte:head>
@@ -50,5 +50,5 @@
 	</div>
 </main>
 
-<Search {count} />
+<Search articles={data.articleCount} recipes={data.recipeCount} />
 <Nav2 actual={doc.path} />

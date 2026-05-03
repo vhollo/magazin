@@ -37,8 +37,6 @@
 
   $: doc = data.doc
   let docs = data.docs  // $: if (doc.id) console.log(doc.tv)
-  let count = data.count
-
   let matchingSubcat = null;
 
   $: Object.keys(copycats).forEach(cat => {
@@ -76,7 +74,7 @@
 {#if conf.top_banners.length}
   <BannerTop banners={conf.top_banners}/>
 {/if}
-<Search {count}/>
+<Search articles={data.articleCount} recipes={data.recipeCount} />
 <Nav2 actual={data.path}/>
 
 {#if docs.length}

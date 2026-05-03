@@ -1,0 +1,5069 @@
+{
+  "generatedAt": "2026-05-03T21:56:11.216Z",
+  "summary": {
+    "magazineCandidates": 508,
+    "redirects": 508,
+    "unpublishCount": 0,
+    "createDrafts": 1,
+    "applyLocal": true,
+    "createLocal": true
+  },
+  "entries": [
+    {
+      "type": "rs-winner",
+      "modxContentId": 4431,
+      "modxPath": "receptsarok/husetelek/sult-csirkecomb-kaposztas-raguval",
+      "winner": "2025-sult-csirkecomb-kaposztas-raguval",
+      "matched": [
+        "2025-sult-csirkecomb-kaposztas-raguval"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 4426,
+      "modxPath": "receptsarok/desszertek/kaposztas-pogacsa",
+      "winner": "2025-kaposztas-pogacsa",
+      "matched": [
+        "2025-kaposztas-pogacsa"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 4423,
+      "modxPath": "receptsarok/husetelek/sargarepas-stefania-vagdalt-airfryerben",
+      "winner": "2025-sargarepas-stefania-vagdalt-airfryerben",
+      "matched": [
+        "2025-sargarepas-stefania-vagdalt-airfryerben"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 4422,
+      "modxPath": "receptsarok/husetelek/csirkemell-csicseriborsos-bulgurral-salataagyon",
+      "winner": "2025-csirkemell-csicseriborsos-bulgurral-salataagyon",
+      "matched": [
+        "2025-csirkemell-csicseriborsos-bulgurral-salataagyon"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 4419,
+      "modxPath": "cikkek/diabetes/husveti-receptek-2026/sutotokos-repas-almas-pite",
+      "winner": "2024-almas-pite",
+      "matched": [
+        "2024-almas-pite"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 4418,
+      "modxPath": "cikkek/diabetes/husveti-receptek-2026/olivas-sajtkremes-toltott-tojas",
+      "winner": "2026-olivas-sajtkremes-toltott-tojas",
+      "matched": [
+        "2026-olivas-sajtkremes-toltott-tojas"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 4417,
+      "modxPath": "cikkek/diabetes/husveti-receptek-2026/tavaszi-mini-stefania-vagdalt",
+      "winner": "2025-mini-stefania-vagdalt",
+      "matched": [
+        "2025-mini-stefania-vagdalt"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 4416,
+      "modxPath": "cikkek/diabetes/husveti-receptek-2026/mimozasalata",
+      "winner": "2026-mimozasalata",
+      "matched": [
+        "2026-mimozasalata"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 4415,
+      "modxPath": "cikkek/diabetes/husveti-receptek-2026/kaposztas-hagymas-pogacsa",
+      "winner": "2024-kaposztas-hagymas-pogacsa",
+      "matched": [
+        "2024-kaposztas-hagymas-pogacsa"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 4412,
+      "modxPath": "receptsarok/desszertek/rantasos-retesvariaciok",
+      "winner": "2026-rantasos-retesvariaciok",
+      "matched": [
+        "2026-rantasos-retesvariaciok"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 4407,
+      "modxPath": "receptsarok/desszertek/madartej",
+      "winner": "2025-madartej",
+      "matched": [
+        "2025-madartej"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 4396,
+      "modxPath": "receptsarok/husetelek/resztelt-csirkemaj-paszternakpurevel",
+      "winner": "2025-resztelt-csirkemaj-paszternakpurevel",
+      "matched": [
+        "2025-resztelt-csirkemaj-paszternakpurevel"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 4387,
+      "modxPath": "receptsarok/levesek/almakremleves-kolessel",
+      "winner": "2025-almakremleves-kolessel",
+      "matched": [
+        "2025-almakremleves-kolessel"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 4386,
+      "modxPath": "receptsarok/levesek/nagyi-hires-csorbaja",
+      "winner": "2025-nagyi-hires-csorbaja",
+      "matched": [
+        "2025-nagyi-hires-csorbaja"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 4385,
+      "modxPath": "receptsarok/levesek/palocleves-savanyitott-zoldbabbal",
+      "winner": "2025-palocleves",
+      "matched": [
+        "2025-palocleves"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 4384,
+      "modxPath": "receptsarok/levesek/palocleves",
+      "winner": "2025-palocleves",
+      "matched": [
+        "2025-palocleves"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 4383,
+      "modxPath": "receptsarok/levesek/kapros-joghurtos-citromos-pikans-tokleves",
+      "winner": "2025-kapros-joghurtos-citromos-pikans-tokleves",
+      "matched": [
+        "2025-kapros-joghurtos-citromos-pikans-tokleves"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 4353,
+      "modxPath": "cikkek/diabetes/kozos-karacsonyi-menu/karacsonyi-kaposzta",
+      "winner": "2026-karacsonyi-kaposzta",
+      "matched": [
+        "2026-karacsonyi-kaposzta"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 4352,
+      "modxPath": "cikkek/diabetes/kozos-karacsonyi-menu/sutotokos-kremes",
+      "winner": "2026-sutotokos-kremes",
+      "matched": [
+        "2026-sutotokos-kremes"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 4351,
+      "modxPath": "cikkek/diabetes/kozos-karacsonyi-menu/sajttal-sonkaval-toltott-pulykamell",
+      "winner": "2026-sajttal-sonkaval-toltott-pulykamell",
+      "matched": [
+        "2026-sajttal-sonkaval-toltott-pulykamell"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 4350,
+      "modxPath": "cikkek/diabetes/kozos-karacsonyi-menu/napraforgos-bundaban-sult-csirkemell-narancssalataval",
+      "winner": "2026-napraforgos-bundaban-sult-csirkemell-narancssalataval",
+      "matched": [
+        "2026-napraforgos-bundaban-sult-csirkemell-narancssalataval"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 4349,
+      "modxPath": "cikkek/diabetes/kozos-karacsonyi-menu/voroskaposzta-kremleves",
+      "winner": "2026-voroskaposzta-kremleves",
+      "matched": [
+        "2026-voroskaposzta-kremleves"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 4348,
+      "modxPath": "cikkek/diabetes/kozos-karacsonyi-menu/karacsonyi-makos-kifli-ujragondolva",
+      "winner": "2026-karacsonyi-makos-kifli-ujragondolva",
+      "matched": [
+        "2026-karacsonyi-makos-kifli-ujragondolva"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 4347,
+      "modxPath": "cikkek/diabetes/kozos-karacsonyi-menu/lazacfile-kortes-zoldsalataval",
+      "winner": "2026-lazacfile-kortes-zoldsalataval",
+      "matched": [
+        "2026-lazacfile-kortes-zoldsalataval"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 4346,
+      "modxPath": "cikkek/diabetes/kozos-karacsonyi-menu/puszedli",
+      "winner": "2026-puszedli",
+      "matched": [
+        "2026-puszedli"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 4345,
+      "modxPath": "cikkek/diabetes/kozos-karacsonyi-menu/almas-ceklaleves-fahejas-parolt-almakockakkal",
+      "winner": "2017-almas-ceklaleves",
+      "matched": [
+        "2017-almas-ceklaleves"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 4344,
+      "modxPath": "cikkek/diabetes/kozos-karacsonyi-menu/korhely-halaszle",
+      "winner": "2026-korhely-halaszle",
+      "matched": [
+        "2026-korhely-halaszle"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 4343,
+      "modxPath": "cikkek/diabetes/kozos-karacsonyi-menu",
+      "winner": "2026-kozos-karacsonyi-menu",
+      "matched": [
+        "2026-kozos-karacsonyi-menu"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 4338,
+      "modxPath": "cikkek/diabetes/nagymamaink-receptjei-modern-kontosben/gombas-kenyerlangos",
+      "winner": "2026-gombas-kenyerlangos",
+      "matched": [
+        "2026-gombas-kenyerlangos"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 4335,
+      "modxPath": "cikkek/diabetes/nagymamaink-receptjei-modern-kontosben/almas-kokuszgolyo",
+      "winner": "2016-birsalmas-kokuszgolyo",
+      "matched": [
+        "2016-birsalmas-kokuszgolyo"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 4331,
+      "modxPath": "cikkek/diabetes/nagymamaink-receptjei-modern-kontosben/hazi-zsemle",
+      "winner": "2026-hazi-zsemle",
+      "matched": [
+        "2026-hazi-zsemle"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 4326,
+      "modxPath": "cikkek/diabetes/nagymamaink-receptjei-modern-kontosben/avokados-salata",
+      "winner": "2026-avokados-salata",
+      "matched": [
+        "2026-avokados-salata"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 4319,
+      "modxPath": "cikkek/diabetes/nagymamaink-receptjei-modern-kontosben/hagymas-kacsamaj-leveles-tesztaban",
+      "winner": "2026-hagymas-kacsamaj-leveles-tesztaban",
+      "matched": [
+        "2026-hagymas-kacsamaj-leveles-tesztaban"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 4314,
+      "modxPath": "cikkek/diabetes/nagymamaink-receptjei-modern-kontosben/csokitorta",
+      "winner": "2021-ceklas-narancsos-csokitorta",
+      "matched": [
+        "2021-ceklas-narancsos-csokitorta"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 4307,
+      "modxPath": "cikkek/diabetes/nagymamaink-receptjei-modern-kontosben/toltott-paprika",
+      "winner": "2018-cukkinis-toltott-paprika",
+      "matched": [
+        "2018-cukkinis-toltott-paprika"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 4304,
+      "modxPath": "cikkek/diabetes/nagymamaink-receptjei-modern-kontosben/almas-fahejas-cukormentes-muffin",
+      "winner": "2026-almas-fahejas-cukormentes-muffin",
+      "matched": [
+        "2026-almas-fahejas-cukormentes-muffin"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 4293,
+      "modxPath": "cikkek/diabetes/nagymamaink-receptjei-modern-kontosben/mogyorokremes-teljes-kiorlesu-minicsigak",
+      "winner": "2026-mogyorokremes-teljes-kiorlesu-minicsigak",
+      "matched": [
+        "2026-mogyorokremes-teljes-kiorlesu-minicsigak"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 4288,
+      "modxPath": "cikkek/diabetes/nagymamaink-receptjei-modern-kontosben/villamgyors-vegan-gesztenyes-meggyes-tonkolybatyuk",
+      "winner": "2026-villamgyors-vegan-gesztenyes-meggyes-tonkolybatyuk",
+      "matched": [
+        "2026-villamgyors-vegan-gesztenyes-meggyes-tonkolybatyuk"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 4284,
+      "modxPath": "cikkek/diabetes/nagymamaink-receptjei-modern-kontosben/meggyleves-hozzaadott-cukor-nelkul",
+      "winner": "2013-meggyleves",
+      "matched": [
+        "2013-meggyleves"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 4276,
+      "modxPath": "cikkek/diabetes/nagymamaink-receptjei-modern-kontosben/tok-vagy-cukkinifozelek",
+      "winner": "2018-cukkinifozelek",
+      "matched": [
+        "2018-cukkinifozelek"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 4272,
+      "modxPath": "cikkek/diabetes/nagymamaink-receptjei-modern-kontosben/paradicsomos-cukkinikremleves",
+      "winner": "2026-paradicsomos-cukkinikremleves",
+      "matched": [
+        "2026-paradicsomos-cukkinikremleves"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 4270,
+      "modxPath": "cikkek/diabetes/nagymamaink-receptjei-modern-kontosben/wokban-forgatott-lazacfile-friss-salataval-szarzellerrel",
+      "winner": "2026-wokban-forgatott-lazacfile-friss-salataval-szarzellerrel",
+      "matched": [
+        "2026-wokban-forgatott-lazacfile-friss-salataval-szarzellerrel"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 4265,
+      "modxPath": "cikkek/diabetes/nagymamaink-receptjei-modern-kontosben/kokuszos-gyumolcsrizspohar",
+      "winner": "2026-kokuszos-gyumolcsrizspohar",
+      "matched": [
+        "2026-kokuszos-gyumolcsrizspohar"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "new-rs-required",
+      "modxContentId": 4258,
+      "modxPath": "cikkek/diabetes/nagymamaink-receptjei-modern-kontosben/sargarepas-voroslencsefasirt",
+      "target": "2026-sargarepas-voroslencsefasirt"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 4247,
+      "modxPath": "cikkek/diabetes/nagymamaink-receptjei-modern-kontosben/toltott-paradicsom-es-gomba-sutoben-sutve",
+      "winner": "2026-toltott-paradicsom-es-gomba-sutoben-sutve",
+      "matched": [
+        "2026-toltott-paradicsom-es-gomba-sutoben-sutve"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 4241,
+      "modxPath": "cikkek/diabetes/nagymamaink-receptjei-modern-kontosben/zoldseges-puspokkenyer",
+      "winner": "2026-zoldseges-puspokkenyer",
+      "matched": [
+        "2026-zoldseges-puspokkenyer"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 4236,
+      "modxPath": "cikkek/diabetes/nagymamaink-receptjei-modern-kontosben/lecso-gyongybabbal",
+      "winner": "2026-lecso-gyongybabbal",
+      "matched": [
+        "2026-lecso-gyongybabbal"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 4231,
+      "modxPath": "cikkek/diabetes/nagymamaink-receptjei-modern-kontosben/karalabefozelek-zabpelyhes-husgomboccal",
+      "winner": "2026-karalabefozelek-zabpelyhes-husgomboccal",
+      "matched": [
+        "2026-karalabefozelek-zabpelyhes-husgomboccal"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 4225,
+      "modxPath": "cikkek/diabetes/nagymamaink-receptjei-modern-kontosben/lucskos-kaposzta",
+      "winner": "2026-lucskos-kaposzta",
+      "matched": [
+        "2026-lucskos-kaposzta"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 4220,
+      "modxPath": "cikkek/diabetes/nagymamaink-receptjei-modern-kontosben/cukkinis-rakott-burgonya",
+      "winner": "2026-cukkinis-rakott-burgonya",
+      "matched": [
+        "2026-cukkinis-rakott-burgonya"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 4214,
+      "modxPath": "cikkek/diabetes/nagymamaink-receptjei-modern-kontosben/lencses-toltott-kel",
+      "winner": "2026-lencses-toltott-kel",
+      "matched": [
+        "2026-lencses-toltott-kel"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 4213,
+      "modxPath": "cikkek/diabetes/nagymamaink-receptjei-modern-kontosben",
+      "winner": "2026-nagymamaink-receptjei-modern-kontosben",
+      "matched": [
+        "2026-nagymamaink-receptjei-modern-kontosben"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 4191,
+      "modxPath": "cikkek/diabetes/1504/toltsuk-fel-a-kamrat/hazi-etelizesito",
+      "winner": "2015-hazi-etelizesito",
+      "matched": [
+        "2015-hazi-etelizesito"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 4190,
+      "modxPath": "cikkek/diabetes/1504/toltsuk-fel-a-kamrat/vegyes-vagott-savanyusag",
+      "winner": "2015-vegyes-vagott-savanyusag",
+      "matched": [
+        "2015-vegyes-vagott-savanyusag"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 4184,
+      "modxPath": "cikkek/diabetes/husveti-receptek-2025/cukormentes-repasuti-pohardesszert",
+      "winner": "2025-cukormentes-repasuti-pohardesszert",
+      "matched": [
+        "2025-cukormentes-repasuti-pohardesszert"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 4183,
+      "modxPath": "cikkek/diabetes/husveti-receptek-2025/majas-hase-furjtojassal",
+      "winner": "2025-majas-hase-furjtojassal",
+      "matched": [
+        "2025-majas-hase-furjtojassal"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 4182,
+      "modxPath": "cikkek/diabetes/husveti-receptek-2025/zoldfuszeres-habart-tojas-piritossal",
+      "winner": "2025-zoldfuszeres-habart-tojas-piritossal",
+      "matched": [
+        "2025-zoldfuszeres-habart-tojas-piritossal"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 4181,
+      "modxPath": "cikkek/diabetes/husveti-receptek-2025/tojaskremleves-zoldfuszeres-ropogossal",
+      "winner": "2025-tojaskremleves-zoldfuszeres-ropogossal",
+      "matched": [
+        "2025-tojaskremleves-zoldfuszeres-ropogossal"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 4166,
+      "modxPath": "cikkek/diabetes/2501/ujhagymas-rantotta-tortillaagyon-salataval",
+      "winner": "2025-ujhagymas-rantotta-tortillaagyon-salataval",
+      "matched": [
+        "2025-ujhagymas-rantotta-tortillaagyon-salataval"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 4165,
+      "modxPath": "cikkek/diabetes/2501/fonott-kalacs",
+      "winner": "2025-fonott-kalacs",
+      "matched": [
+        "2025-fonott-kalacs"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 4164,
+      "modxPath": "cikkek/diabetes/2501/zoldborsoleves-sajat-anyagaval-suritve",
+      "winner": "2025-zoldborsoleves-sajat-anyagaval-suritve",
+      "matched": [
+        "2025-zoldborsoleves-sajat-anyagaval-suritve"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 4156,
+      "modxPath": "cikkek/hypertonia/2401/desszertek-ujragondolva/joghurttorta",
+      "winner": "2024-joghurttorta",
+      "matched": [
+        "2024-joghurttorta"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 4154,
+      "modxPath": "cikkek/hypertonia/2401/desszertek-ujragondolva/kokuszos-joghurt",
+      "winner": "2024-kokuszos-joghurt",
+      "matched": [
+        "2024-kokuszos-joghurt"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 4153,
+      "modxPath": "cikkek/hypertonia/2401/desszertek-ujragondolva/kaposztas-hagymas-pogacsa",
+      "winner": "2024-kaposztas-hagymas-pogacsa",
+      "matched": [
+        "2024-kaposztas-hagymas-pogacsa"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 4151,
+      "modxPath": "cikkek/hypertonia/2401/desszertek-ujragondolva/vegan-brownie",
+      "winner": "2024-vegan-brownie",
+      "matched": [
+        "2024-vegan-brownie"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 4149,
+      "modxPath": "cikkek/hypertonia/2401/desszertek-ujragondolva/edesburgonyas-krumplifutar",
+      "winner": "2024-edesburgonyas-krumplifutar",
+      "matched": [
+        "2024-edesburgonyas-krumplifutar"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 4148,
+      "modxPath": "cikkek/hypertonia/2401/desszertek-ujragondolva/kalacsmuffin",
+      "winner": "2024-kalacsmuffin",
+      "matched": [
+        "2024-kalacsmuffin"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 4147,
+      "modxPath": "cikkek/hypertonia/2401/desszertek-ujragondolva/tejbegrizgomboc",
+      "winner": "2024-tejbegrizgomboc",
+      "matched": [
+        "2024-tejbegrizgomboc"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 4145,
+      "modxPath": "cikkek/hypertonia/2401/desszertek-ujragondolva/almas-repas-vitamingolyo",
+      "winner": "2024-almas-repas-vitamingolyo",
+      "matched": [
+        "2024-almas-repas-vitamingolyo"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 4143,
+      "modxPath": "cikkek/diabetes/2405/desszertek-ujragondolva/ceklas-sutotokos-retes",
+      "winner": "2024-ceklas-sutotokos-retes",
+      "matched": [
+        "2024-ceklas-sutotokos-retes"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 4142,
+      "modxPath": "cikkek/diabetes/2405/desszertek-ujragondolva/rebarbaras-almas-pite",
+      "winner": "2024-almas-pite",
+      "matched": [
+        "2024-almas-pite"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 4141,
+      "modxPath": "cikkek/diabetes/2405/desszertek-ujragondolva/kaposztas-hagymas-pogacsa",
+      "winner": "2024-kaposztas-hagymas-pogacsa",
+      "matched": [
+        "2024-kaposztas-hagymas-pogacsa"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 4137,
+      "modxPath": "cikkek/diabetes/2405/desszertek-ujragondolva/koleses-turofelfujt",
+      "winner": "2024-koleses-turofelfujt",
+      "matched": [
+        "2024-koleses-turofelfujt"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 4133,
+      "modxPath": "cikkek/diabetes/2405/desszertek-ujragondolva/meggyes-makos-zabgolyo",
+      "winner": "2024-meggyes-makos-zabgolyo",
+      "matched": [
+        "2024-meggyes-makos-zabgolyo"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 4113,
+      "modxPath": "cikkek/diabetes/2405/desszertek-ujragondolva/turogombocmuffin",
+      "winner": "2024-turogombocmuffin",
+      "matched": [
+        "2024-turogombocmuffin"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 4119,
+      "modxPath": "cikkek/diabetes/2405/desszertek-ujragondolva/bejglivariaciok",
+      "winner": "2024-bejglivariaciok",
+      "matched": [
+        "2024-bejglivariaciok"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 4114,
+      "modxPath": "cikkek/diabetes/2405/desszertek-ujragondolva/turos-kortes-retes",
+      "winner": "2024-turos-kortes-retes",
+      "matched": [
+        "2024-turos-kortes-retes"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 4108,
+      "modxPath": "cikkek/diabetes/2406/karacsonyi-menu/edesburgonya-kremleves-harcsachipsszel",
+      "winner": "2024-edesburgonya-kremleves-harcsachipsszel",
+      "matched": [
+        "2024-edesburgonya-kremleves-harcsachipsszel"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 4107,
+      "modxPath": "cikkek/diabetes/2406/karacsonyi-menu/turopotty",
+      "winner": "2024-turopotty",
+      "matched": [
+        "2024-turopotty"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 4106,
+      "modxPath": "cikkek/diabetes/2406/karacsonyi-menu/karacsonyi-halas-palacsinta",
+      "winner": "2024-karacsonyi-halas-palacsinta",
+      "matched": [
+        "2024-karacsonyi-halas-palacsinta"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 4105,
+      "modxPath": "cikkek/diabetes/2406/karacsonyi-menu/sult-tokehal-lengyeles-zoldbabbal-es-gombamartassal",
+      "winner": "2024-sult-tokehal-lengyeles-zoldbabbal-es-gombamartassal",
+      "matched": [
+        "2024-sult-tokehal-lengyeles-zoldbabbal-es-gombamartassal"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 4104,
+      "modxPath": "cikkek/diabetes/2406/karacsonyi-menu/sonkas-leveles-karacsonyfa",
+      "winner": "2024-sonkas-leveles-karacsonyfa",
+      "matched": [
+        "2024-sonkas-leveles-karacsonyfa"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 4099,
+      "modxPath": "cikkek/diabetes/2405/desszertek-ujragondolva/sajtos-taller",
+      "winner": "2024-sajtos-taller",
+      "matched": [
+        "2024-sajtos-taller"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 4091,
+      "modxPath": "cikkek/diabetes/2405/desszertek-ujragondolva/sutotokos-narancsos-kokuszgolyo",
+      "winner": "2024-sutotokos-narancsos-kokuszgolyo",
+      "matched": [
+        "2024-sutotokos-narancsos-kokuszgolyo"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 4086,
+      "modxPath": "cikkek/diabetes/2405/desszertek-ujragondolva/cukkinis-brownie",
+      "winner": "2024-cukkinis-brownie",
+      "matched": [
+        "2024-cukkinis-brownie"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 4085,
+      "modxPath": "cikkek/diabetes/2405/desszertek-ujragondolva",
+      "winner": "2024-desszertek-ujragondolva",
+      "matched": [
+        "2024-desszertek-ujragondolva"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 4078,
+      "modxPath": "cikkek/diabetes/2404/desszertek-ujragondolva/epres-sajtorta",
+      "winner": "2024-epres-sajtorta",
+      "matched": [
+        "2024-epres-sajtorta"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 4073,
+      "modxPath": "cikkek/diabetes/2404/desszertek-ujragondolva/erdei-gyumolcsos-rukkolas-joghurt",
+      "winner": "2024-erdei-gyumolcsos-rukkolas-joghurt",
+      "matched": [
+        "2024-erdei-gyumolcsos-rukkolas-joghurt"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 4070,
+      "modxPath": "cikkek/diabetes/2404/desszertek-ujragondolva/citromos-kremes",
+      "winner": "2024-citromos-kremes",
+      "matched": [
+        "2024-citromos-kremes"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 4066,
+      "modxPath": "cikkek/diabetes/2404/desszertek-ujragondolva/cukkinis-afonyas-muffin",
+      "winner": "2024-cukkinis-afonyas-muffin",
+      "matched": [
+        "2024-cukkinis-afonyas-muffin"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 4061,
+      "modxPath": "cikkek/diabetes/2404/desszertek-ujragondolva/cukormentes-tiramisu",
+      "winner": "2024-cukormentes-tiramisu",
+      "matched": [
+        "2024-cukormentes-tiramisu"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 4053,
+      "modxPath": "cikkek/diabetes/2403/desszertek-ujragondolva/afonyas-makos-sajttorta",
+      "winner": "2024-afonyas-makos-sajttorta",
+      "matched": [
+        "2024-afonyas-makos-sajttorta"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 4052,
+      "modxPath": "cikkek/diabetes/2403/desszertek-ujragondolva/hamis-turos-almas-pite",
+      "winner": "2024-almas-pite",
+      "matched": [
+        "2024-almas-pite"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 4050,
+      "modxPath": "cikkek/diabetes/2403/desszertek-ujragondolva/joghurtos-meggyes",
+      "winner": "2024-joghurtos-meggyes",
+      "matched": [
+        "2024-joghurtos-meggyes"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 4046,
+      "modxPath": "cikkek/diabetes/2403/desszertek-ujragondolva/reszelt-epres-szelet",
+      "winner": "2024-reszelt-epres-szelet",
+      "matched": [
+        "2024-reszelt-epres-szelet"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 4041,
+      "modxPath": "cikkek/diabetes/2403/desszertek-ujragondolva/turos-tejfolos-almatorta",
+      "winner": "2024-turos-tejfolos-almatorta",
+      "matched": [
+        "2024-turos-tejfolos-almatorta"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3997,
+      "modxPath": "cikkek/diabetes/2402/torta-helyett/almaspite-poharkrem",
+      "winner": "2024-almaspite-poharkrem",
+      "matched": [
+        "2024-almaspite-poharkrem"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3996,
+      "modxPath": "cikkek/diabetes/2402/torta-helyett/pudingos-kosarka",
+      "winner": "2024-pudingos-kosarka",
+      "matched": [
+        "2024-pudingos-kosarka"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3990,
+      "modxPath": "cikkek/diabetes/2402/torta-helyett/szezamos-ceklakrem",
+      "winner": "2024-szezamos-ceklakrem",
+      "matched": [
+        "2024-szezamos-ceklakrem"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3986,
+      "modxPath": "cikkek/hypertonia/2302/zoldseget-a-tanyerra/olaszos-zoldsegleves",
+      "winner": "2023-olaszos-zoldsegleves",
+      "matched": [
+        "2023-olaszos-zoldsegleves"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3982,
+      "modxPath": "cikkek/hypertonia/2302/zoldseget-a-tanyerra/spargas-zoldborsos-pite",
+      "winner": "2023-spargas-zoldborsos-pite",
+      "matched": [
+        "2023-spargas-zoldborsos-pite"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3935,
+      "modxPath": "cikkek/hypertonia/2302/zoldseget-a-tanyerra/padlizsankosar",
+      "winner": "2023-padlizsankosar",
+      "matched": [
+        "2023-padlizsankosar"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3929,
+      "modxPath": "cikkek/hypertonia/2302/zoldseget-a-tanyerra/lencsefasirt",
+      "winner": "2025-kinaikel-fozelek-voroslencsefasirttal",
+      "matched": [
+        "2025-kinaikel-fozelek-voroslencsefasirttal"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3927,
+      "modxPath": "cikkek/diabetes/2305/ceosz-receptverseny-2023/mentas-kakaos-cukkinipuding",
+      "winner": "2024-kakaos-cukkinipuding",
+      "matched": [
+        "2024-kakaos-cukkinipuding"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3922,
+      "modxPath": "cikkek/diabetes/2305/ceosz-receptverseny-2023/vorosborban-furdo-kakascomb",
+      "winner": "2023-vorosborban-furdo-kakascomb",
+      "matched": [
+        "2023-vorosborban-furdo-kakascomb"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3918,
+      "modxPath": "cikkek/diabetes/2305/ceosz-receptverseny-2023/cukkinis-huskenyer",
+      "winner": "2023-cukkinis-huskenyer",
+      "matched": [
+        "2023-cukkinis-huskenyer"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3913,
+      "modxPath": "cikkek/diabetes/2305/ceosz-receptverseny-2023/cukkinis-quiche",
+      "winner": "2023-cukkinis-quiche",
+      "matched": [
+        "2023-cukkinis-quiche"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3909,
+      "modxPath": "cikkek/diabetes/2305/ceosz-receptverseny-2023/citrusos-granatalmas-kacsamellsalata",
+      "winner": "2023-citrusos-granatalmas-kacsamellsalata",
+      "matched": [
+        "2023-citrusos-granatalmas-kacsamellsalata"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3904,
+      "modxPath": "cikkek/diabetes/2305/ceosz-receptverseny-2023/sargarepas-gofriszendvics-hamburgerhussal",
+      "winner": "2023-sargarepas-gofriszendvics-hamburgerhussal",
+      "matched": [
+        "2023-sargarepas-gofriszendvics-hamburgerhussal"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3898,
+      "modxPath": "cikkek/diabetes/2305/ceosz-receptverseny-2023/magyaros-cukkinigomboc-leves",
+      "winner": "2023-magyaros-cukkinigomboc-leves",
+      "matched": [
+        "2023-magyaros-cukkinigomboc-leves"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3893,
+      "modxPath": "cikkek/diabetes/2305/ceosz-receptverseny-2023/sutoporos-edesburgonyas-pogacsa",
+      "winner": "2023-sutoporos-edesburgonyas-pogacsa",
+      "matched": [
+        "2023-sutoporos-edesburgonyas-pogacsa"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3890,
+      "modxPath": "cikkek/diabetes/2305/ceosz-receptverseny-2023/fuszeres-cukkinispagetti",
+      "winner": "2023-fuszeres-cukkinispagetti",
+      "matched": [
+        "2023-fuszeres-cukkinispagetti"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3887,
+      "modxPath": "cikkek/diabetes/2305/ceosz-receptverseny-2023/edesburgonyas-pite",
+      "winner": "2023-edesburgonyas-pite",
+      "matched": [
+        "2023-edesburgonyas-pite"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3882,
+      "modxPath": "cikkek/diabetes/2303/receptsarok/citromos-gombas-ragu-teljes-kiorlesu-szelesmetelttel",
+      "winner": "2023-citromos-gombas-ragu-teljes-kiorlesu-szelesmetelttel",
+      "matched": [
+        "2023-citromos-gombas-ragu-teljes-kiorlesu-szelesmetelttel"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3877,
+      "modxPath": "cikkek/diabetes/2303/receptsarok/fuszeres-lazac-spargaval-es-feherbormartassal",
+      "winner": "2023-fuszeres-lazac-spargaval-es-feherbormartassal",
+      "matched": [
+        "2023-fuszeres-lazac-spargaval-es-feherbormartassal"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3872,
+      "modxPath": "cikkek/diabetes/2303/receptsarok/spargas-zoldborsos-pite",
+      "winner": "2023-spargas-zoldborsos-pite",
+      "matched": [
+        "2023-spargas-zoldborsos-pite"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3870,
+      "modxPath": "cikkek/diabetes/2303/receptsarok/spargas-szalonnas-metelt-teszta",
+      "winner": "2023-spargas-szalonnas-metelt-teszta",
+      "matched": [
+        "2023-spargas-szalonnas-metelt-teszta"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "new-rs-required",
+      "modxContentId": 3867,
+      "modxPath": "cikkek/diabetes/2304/receptsarok/sargarepas-joghurtos-kaposztasalata",
+      "target": "2023-sargarepas-joghurtos-kaposztasalata"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3865,
+      "modxPath": "cikkek/diabetes/2304/receptsarok/sargarepa-natur-csirkemellel",
+      "winner": "2023-sargarepa-natur-csirkemellel",
+      "matched": [
+        "2023-sargarepa-natur-csirkemellel"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3862,
+      "modxPath": "cikkek/diabetes/2304/receptsarok/sutotokos-borsoleves",
+      "winner": "2023-sutotokos-borsoleves",
+      "matched": [
+        "2023-sutotokos-borsoleves"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3855,
+      "modxPath": "cikkek/diabetes/2304/receptsarok/zoldfuszeres-cukkinifalatok",
+      "winner": "2023-zoldfuszeres-cukkinifalatok",
+      "matched": [
+        "2023-zoldfuszeres-cukkinifalatok"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3850,
+      "modxPath": "cikkek/diabetes/2304/receptsarok/sajtos-cukkinikrem",
+      "winner": "2023-sajtos-cukkinikrem",
+      "matched": [
+        "2023-sajtos-cukkinikrem"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3845,
+      "modxPath": "cikkek/diabetes/2304/receptsarok/villamgyors-cekla-mentas-feta-sajtos-martogatossal",
+      "winner": "2023-villamgyors-cekla-mentas-feta-sajtos-martogatossal",
+      "matched": [
+        "2023-villamgyors-cekla-mentas-feta-sajtos-martogatossal"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3841,
+      "modxPath": "cikkek/diabetes/2306/karacsonyi-menu/sutoben-sult-rantott-hal-waldorf-salataval",
+      "winner": "2014-waldorf-salata",
+      "matched": [
+        "2014-waldorf-salata"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3840,
+      "modxPath": "cikkek/diabetes/2306/karacsonyi-menu/karacsonyi-almas-fahejas-poharkrem",
+      "winner": "2023-karacsonyi-almas-fahejas-poharkrem",
+      "matched": [
+        "2023-karacsonyi-almas-fahejas-poharkrem"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3839,
+      "modxPath": "cikkek/diabetes/2306/karacsonyi-menu/gombas-harcsakrem",
+      "winner": "2023-gombas-harcsakrem",
+      "matched": [
+        "2023-gombas-harcsakrem"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3832,
+      "modxPath": "cikkek/diabetes/2306/karacsonyi-menu/zoldseges-halkremleves",
+      "winner": "2023-zoldseges-halkremleves",
+      "matched": [
+        "2023-zoldseges-halkremleves"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3831,
+      "modxPath": "cikkek/diabetes/2306/karacsonyi-menu/zoldfuszeres-gombaval-toltott-sertesszuz-lilakaposzta-salataval",
+      "winner": "2023-zoldfuszeres-gombaval-toltott-sertesszuz-lilakaposzta-salataval",
+      "matched": [
+        "2023-zoldfuszeres-gombaval-toltott-sertesszuz-lilakaposzta-salataval"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3826,
+      "modxPath": "cikkek/diabetes/2304/receptsarok/szines-teli-salata",
+      "winner": "2023-szines-teli-salata",
+      "matched": [
+        "2023-szines-teli-salata"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3822,
+      "modxPath": "cikkek/diabetes/2304/receptsarok/olaszos-zoldsegleves",
+      "winner": "2023-olaszos-zoldsegleves",
+      "matched": [
+        "2023-olaszos-zoldsegleves"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3818,
+      "modxPath": "cikkek/diabetes/2304/receptsarok/szines-bulgur-cukkinis-sargarepaval",
+      "winner": "2023-szines-bulgur-cukkinis-sargarepaval",
+      "matched": [
+        "2023-szines-bulgur-cukkinis-sargarepaval"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3814,
+      "modxPath": "cikkek/diabetes/2304/receptsarok/biborszinu-salata",
+      "winner": "2023-biborszinu-salata",
+      "matched": [
+        "2023-biborszinu-salata"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3803,
+      "modxPath": "cikkek/diabetes/2304/receptsarok/villamgyors-soskaleves",
+      "winner": "2023-villamgyors-soskaleves",
+      "matched": [
+        "2023-villamgyors-soskaleves"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3800,
+      "modxPath": "cikkek/diabetes/2304/receptsarok/csorba-nyulhussal",
+      "winner": "2023-csorba-nyulhussal",
+      "matched": [
+        "2023-csorba-nyulhussal"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3798,
+      "modxPath": "cikkek/diabetes/2304/receptsarok/gyorsan-elkeszitheto-pontypatko",
+      "winner": "2023-gyorsan-elkeszitheto-pontypatko",
+      "matched": [
+        "2023-gyorsan-elkeszitheto-pontypatko"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3792,
+      "modxPath": "cikkek/diabetes/2304/receptsarok/fogasfile-szines-korettel",
+      "winner": "2023-fogasfile-szines-korettel",
+      "matched": [
+        "2023-fogasfile-szines-korettel"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3787,
+      "modxPath": "cikkek/diabetes/2303/receptsarok/tejfolos-mustaros-brokkolikremleves",
+      "winner": "2023-tejfolos-mustaros-brokkolikremleves",
+      "matched": [
+        "2023-tejfolos-mustaros-brokkolikremleves"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3782,
+      "modxPath": "cikkek/diabetes/2303/receptsarok/zoldseges-kapros-lazacleves",
+      "winner": "2023-zoldseges-kapros-lazacleves",
+      "matched": [
+        "2023-zoldseges-kapros-lazacleves"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3779,
+      "modxPath": "cikkek/hypertonia/2301/receptek/ceklas-almas-vitaminsalata",
+      "winner": "2023-ceklas-almas-vitaminsalata",
+      "matched": [
+        "2023-ceklas-almas-vitaminsalata"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3774,
+      "modxPath": "cikkek/hypertonia/2301/receptek/csicseriborsos-csirkemaj",
+      "winner": "2023-csicseriborsos-csirkemaj",
+      "matched": [
+        "2023-csicseriborsos-csirkemaj"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3767,
+      "modxPath": "cikkek/diabetes/2303/receptsarok/sult-csirkecomb-szezammagos-zoldbabbal",
+      "winner": "2023-sult-csirkecomb-szezammagos-zoldbabbal",
+      "matched": [
+        "2023-sult-csirkecomb-szezammagos-zoldbabbal"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3762,
+      "modxPath": "cikkek/diabetes/2303/receptsarok/sajtos-zoldseges-lepeny-furjtojassal",
+      "winner": "2023-sajtos-zoldseges-lepeny-furjtojassal",
+      "matched": [
+        "2023-sajtos-zoldseges-lepeny-furjtojassal"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3755,
+      "modxPath": "cikkek/diabetes/2303/receptsarok/gombas-csirkemaj-paszternakpurevel-es-parolt-zoldsegekkel",
+      "winner": "2023-gombas-csirkemaj-paszternakpurevel-es-parolt-zoldsegekkel",
+      "matched": [
+        "2023-gombas-csirkemaj-paszternakpurevel-es-parolt-zoldsegekkel"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3751,
+      "modxPath": "cikkek/diabetes/2303/receptsarok/kolessalata",
+      "winner": "2023-kolessalata",
+      "matched": [
+        "2023-kolessalata"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3688,
+      "modxPath": "cikkek/diabetes/2301/ujdonsagok-az-unnepi-asztalra/kecskesajttal-toltott-csirkekorong-kakukkfuves-sargarepakorettel-ceklapurevel-es-jus-vel",
+      "winner": "2023-kecskesajttal-toltott-csirkekorong-kakukkfuves-sargarepakorettel-ceklapurevel-es-jus-vel",
+      "matched": [
+        "2023-kecskesajttal-toltott-csirkekorong-kakukkfuves-sargarepakorettel-ceklapurevel-es-jus-vel"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3687,
+      "modxPath": "cikkek/diabetes/2301/ujdonsagok-az-unnepi-asztalra/kecskesajtos-rakott-csirkemell-sult-repaval-es-ceklaval",
+      "winner": "2022-rakott-csirke",
+      "matched": [
+        "2022-rakott-csirke"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3686,
+      "modxPath": "cikkek/diabetes/2301/ujdonsagok-az-unnepi-asztalra/ceklas-tzatziki",
+      "winner": "2019-tzatziki",
+      "matched": [
+        "2019-tzatziki"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3685,
+      "modxPath": "cikkek/diabetes/2301/ujdonsagok-az-unnepi-asztalra/porehagyma-kremleves",
+      "winner": "2023-porehagyma-kremleves",
+      "matched": [
+        "2023-porehagyma-kremleves"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3684,
+      "modxPath": "cikkek/diabetes/2301/ujdonsagok-az-unnepi-asztalra/sos-teljes-kiorlesu-kalacs",
+      "winner": "2023-sos-teljes-kiorlesu-kalacs",
+      "matched": [
+        "2023-sos-teljes-kiorlesu-kalacs"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3683,
+      "modxPath": "cikkek/diabetes/2301/ujdonsagok-az-unnepi-asztalra/kuszkuszos-baranysalata",
+      "winner": "2023-kuszkuszos-baranysalata",
+      "matched": [
+        "2023-kuszkuszos-baranysalata"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3680,
+      "modxPath": "cikkek/diabetes/2301/ujdonsagok-az-unnepi-asztalra/husveti-spenotos-tojaslepeny",
+      "winner": "2023-husveti-spenotos-tojaslepeny",
+      "matched": [
+        "2023-husveti-spenotos-tojaslepeny"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3661,
+      "modxPath": "cikkek/hypertonia/2202/receptsarok/rakott-ceruzabab-kolessel",
+      "winner": "2022-rakott-ceruzabab-kolessel",
+      "matched": [
+        "2022-rakott-ceruzabab-kolessel"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3656,
+      "modxPath": "cikkek/hypertonia/2202/receptsarok/turos-pite",
+      "winner": "2022-turos-pite",
+      "matched": [
+        "2022-turos-pite"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3649,
+      "modxPath": "cikkek/hypertonia/2202/receptsarok/lecsos-csirkecombfalatok-sult-hagymakarikakkal-kaposztaspalacsinta-boglyaval",
+      "winner": "2022-lecsos-csirkecombfalatok-sult-hagymakarikakkal-kaposztaspalacsinta-boglyaval",
+      "matched": [
+        "2022-lecsos-csirkecombfalatok-sult-hagymakarikakkal-kaposztaspalacsinta-boglyaval"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3642,
+      "modxPath": "cikkek/diabetes/2205/gasztroblogger-a-receptsarokban/teljes-kiorlesu-sajtos-pogacsa",
+      "winner": "2022-teljes-kiorlesu-sajtos-pogacsa",
+      "matched": [
+        "2022-teljes-kiorlesu-sajtos-pogacsa"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3641,
+      "modxPath": "cikkek/diabetes/2205/gasztroblogger-a-receptsarokban/csokolades-epres-brownie",
+      "winner": "2022-csokolades-epres-brownie",
+      "matched": [
+        "2022-csokolades-epres-brownie"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3635,
+      "modxPath": "cikkek/diabetes/2205/gasztroblogger-a-receptsarokban/paradicsomos-halleves-rizstesztaval",
+      "winner": "2022-paradicsomos-halleves-rizstesztaval",
+      "matched": [
+        "2022-paradicsomos-halleves-rizstesztaval"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3630,
+      "modxPath": "cikkek/diabetes/2205/gasztroblogger-a-receptsarokban/husgomboc-kapormartasban",
+      "winner": "2022-husgomboc-kapormartasban",
+      "matched": [
+        "2022-husgomboc-kapormartasban"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3625,
+      "modxPath": "cikkek/diabetes/2205/gasztroblogger-a-receptsarokban/citromos-meggyes-poharkrem",
+      "winner": "2022-citromos-meggyes-poharkrem",
+      "matched": [
+        "2022-citromos-meggyes-poharkrem"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3612,
+      "modxPath": "cikkek/diabetes/2206/unnepi-fogasok/narancsos-makos-vanilias-kosarka",
+      "winner": "2022-narancsos-makos-vanilias-kosarka",
+      "matched": [
+        "2022-narancsos-makos-vanilias-kosarka"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3611,
+      "modxPath": "cikkek/diabetes/2206/unnepi-fogasok/tejszines-kelkaposztas-kacsaleves",
+      "winner": "2022-tejszines-kelkaposztas-kacsaleves",
+      "matched": [
+        "2022-tejszines-kelkaposztas-kacsaleves"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3610,
+      "modxPath": "cikkek/diabetes/2206/unnepi-fogasok/cukormentes-makos-panna-cotta",
+      "winner": "2022-cukormentes-makos-panna-cotta",
+      "matched": [
+        "2022-cukormentes-makos-panna-cotta"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3609,
+      "modxPath": "cikkek/diabetes/2206/unnepi-fogasok/toltottkaposzta-torta",
+      "winner": "2022-toltottkaposzta-torta",
+      "matched": [
+        "2022-toltottkaposzta-torta"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3608,
+      "modxPath": "cikkek/diabetes/2206/unnepi-fogasok/gyomberes-sutotokkremleves",
+      "winner": "2015-sutotokkrem",
+      "matched": [
+        "2015-sutotokkrem"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3604,
+      "modxPath": "cikkek/diabetes/2205/gasztroblogger-a-receptsarokban/halfasirt-sutoben-sutve",
+      "winner": "2022-halfasirt-sutoben-sutve",
+      "matched": [
+        "2022-halfasirt-sutoben-sutve"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3595,
+      "modxPath": "cikkek/diabetes/2205/gasztroblogger-a-receptsarokban/dios-kalacs",
+      "winner": "2022-dios-kalacs",
+      "matched": [
+        "2022-dios-kalacs"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3579,
+      "modxPath": "cikkek/diabetes/2204/hagyomanyos-magyar-konyha/turonudli-vorosboros-szilvaraguval",
+      "winner": "2022-turonudli-vorosboros-szilvaraguval",
+      "matched": [
+        "2022-turonudli-vorosboros-szilvaraguval"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3570,
+      "modxPath": "cikkek/diabetes/2204/hagyomanyos-magyar-konyha/cigany-lecso-edes-kaposztaval-es-csirkevel",
+      "winner": "2022-cigany-lecso-edes-kaposztaval-es-csirkevel",
+      "matched": [
+        "2022-cigany-lecso-edes-kaposztaval-es-csirkevel"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3569,
+      "modxPath": "cikkek/diabetes/2204/hagyomanyos-magyar-konyha/cukkinis-hagymas-csirkemaj",
+      "winner": "2022-cukkinis-hagymas-csirkemaj",
+      "matched": [
+        "2022-cukkinis-hagymas-csirkemaj"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3568,
+      "modxPath": "cikkek/diabetes/2204/hagyomanyos-magyar-konyha/nyulsult-porgos-bulgurral",
+      "winner": "2022-nyulsult-porgos-bulgurral",
+      "matched": [
+        "2022-nyulsult-porgos-bulgurral"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3560,
+      "modxPath": "cikkek/diabetes/2204/diab-dieta-a-la-panka-receptek/cobbler",
+      "winner": "2022-cobbler",
+      "matched": [
+        "2022-cobbler"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3559,
+      "modxPath": "cikkek/diabetes/2204/diab-dieta-a-la-panka-receptek/csirkefrikassze-tejszines-ragu",
+      "winner": "2022-csirkefrikassze-tejszines-ragu",
+      "matched": [
+        "2022-csirkefrikassze-tejszines-ragu"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3542,
+      "modxPath": "cikkek/diabetes/2203/nyari-levesek/ceklaleves",
+      "winner": "2017-almas-ceklaleves",
+      "matched": [
+        "2017-almas-ceklaleves"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3538,
+      "modxPath": "cikkek/diabetes/2203/nyari-levesek/hideg-oszibarack-kremleves",
+      "winner": "2022-hideg-oszibarack-kremleves",
+      "matched": [
+        "2022-hideg-oszibarack-kremleves"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3526,
+      "modxPath": "cikkek/diabetes/2203/nyari-levesek/nyers-soskaleves-edesitoszerrel",
+      "winner": "2022-nyers-soskaleves-edesitoszerrel",
+      "matched": [
+        "2022-nyers-soskaleves-edesitoszerrel"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3525,
+      "modxPath": "cikkek/diabetes/2203/nyari-levesek/gorog-salataleves",
+      "winner": "2011-salataleves",
+      "matched": [
+        "2011-salataleves"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3524,
+      "modxPath": "cikkek/diabetes/2203/nyari-levesek/almaleves-cukor-nelkul",
+      "winner": "2022-almaleves-cukor-nelkul",
+      "matched": [
+        "2022-almaleves-cukor-nelkul"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3523,
+      "modxPath": "cikkek/diabetes/2203/nyari-levesek/gazpacho",
+      "winner": "2016-gazpacho",
+      "matched": [
+        "2016-gazpacho"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3491,
+      "modxPath": "cikkek/hypertonia/2102/a-cekla/sult-ceruzabab-ceklaval-salataagyon",
+      "winner": "2021-sult-ceruzabab-ceklaval-salataagyon",
+      "matched": [
+        "2021-sult-ceruzabab-ceklaval-salataagyon"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3490,
+      "modxPath": "cikkek/hypertonia/2102/a-cekla/glutenmentes-ropogos-bundaban-sult-fogasfile-ceklasalataval",
+      "winner": "2009-ceklasalata",
+      "matched": [
+        "2009-ceklasalata"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3489,
+      "modxPath": "cikkek/hypertonia/2102/a-cekla/feta-sajtos-ceklakrem",
+      "winner": "2021-feta-sajtos-ceklakrem",
+      "matched": [
+        "2021-feta-sajtos-ceklakrem"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3485,
+      "modxPath": "cikkek/hypertonia/2102/a-cekla/ceklafasirt-friss-salataval-mustaros-csicseriborsokremmel",
+      "winner": "2021-ceklafasirt-friss-salataval-mustaros-csicseriborsokremmel",
+      "matched": [
+        "2021-ceklafasirt-friss-salataval-mustaros-csicseriborsokremmel"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3479,
+      "modxPath": "cikkek/hypertonia/2102/a-cekla/ceklas-narancsos-csokitorta",
+      "winner": "2021-ceklas-narancsos-csokitorta",
+      "matched": [
+        "2021-ceklas-narancsos-csokitorta"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3478,
+      "modxPath": "cikkek/hypertonia/2102/a-cekla/gombas-hagymas-szuzermek-rozmaringos-szelesmetelttel-es-sult-ceklaval",
+      "winner": "2021-gombas-hagymas-szuzermek-rozmaringos-szelesmetelttel-es-sult-ceklaval",
+      "matched": [
+        "2021-gombas-hagymas-szuzermek-rozmaringos-szelesmetelttel-es-sult-ceklaval"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3463,
+      "modxPath": "cikkek/diabetes/2202/hagyomanyos-levesek/zoldsegkremleves-kakukkfuves-piritott-dioval",
+      "winner": "2022-zoldsegkremleves-kakukkfuves-piritott-dioval",
+      "matched": [
+        "2022-zoldsegkremleves-kakukkfuves-piritott-dioval"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3456,
+      "modxPath": "cikkek/diabetes/2202/hagyomanyos-levesek/zoldborsoleves-teljes-kiorlesu-galuskaval",
+      "winner": "2022-zoldborsoleves-teljes-kiorlesu-galuskaval",
+      "matched": [
+        "2022-zoldborsoleves-teljes-kiorlesu-galuskaval"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3451,
+      "modxPath": "cikkek/diabetes/2202/hagyomanyos-levesek/lestyanos-csorbaleves",
+      "winner": "2022-lestyanos-csorbaleves",
+      "matched": [
+        "2022-lestyanos-csorbaleves"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3430,
+      "modxPath": "cikkek/diabetes/2201/husveti-receptek/tojassal-toltott-hus-ozgerincben",
+      "winner": "2022-tojassal-toltott-hus-ozgerincben",
+      "matched": [
+        "2022-tojassal-toltott-hus-ozgerincben"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3426,
+      "modxPath": "cikkek/diabetes/2201/husveti-receptek/sonkas-pulykamajrolad",
+      "winner": "2022-sonkas-pulykamajrolad",
+      "matched": [
+        "2022-sonkas-pulykamajrolad"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3420,
+      "modxPath": "cikkek/diabetes/2201/husveti-receptek/gombaval-toltott-rozmaringos-pulyka-hercegnoburgonyaval",
+      "winner": "2022-gombaval-toltott-rozmaringos-pulyka-hercegnoburgonyaval",
+      "matched": [
+        "2022-gombaval-toltott-rozmaringos-pulyka-hercegnoburgonyaval"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3413,
+      "modxPath": "cikkek/diabetes/2201/husveti-receptek/nyulraguleves",
+      "winner": "2022-nyulraguleves",
+      "matched": [
+        "2022-nyulraguleves"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3409,
+      "modxPath": "cikkek/diabetes/2201/husveti-receptek/tojasba-toltott-friss-bulgursalata",
+      "winner": "2022-tojasba-toltott-friss-bulgursalata",
+      "matched": [
+        "2022-tojasba-toltott-friss-bulgursalata"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3363,
+      "modxPath": "cikkek/diabetes/2106/karacsonyi-receptek/szenhidratcsokkentett-karacsonyi-palacsinta",
+      "winner": "2022-szenhidratcsokkentett-karacsonyi-palacsinta",
+      "matched": [
+        "2022-szenhidratcsokkentett-karacsonyi-palacsinta"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3362,
+      "modxPath": "cikkek/diabetes/2106/karacsonyi-receptek/cukormentes-piskotanyaloka",
+      "winner": "2022-cukormentes-piskotanyaloka",
+      "matched": [
+        "2022-cukormentes-piskotanyaloka"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3361,
+      "modxPath": "cikkek/diabetes/2106/karacsonyi-receptek/toltott-csirkemell-hercegnoburgonyaval-almamartassal",
+      "winner": "2021-toltott-csirkemell-hercegnoburgonyaval-almamartassal",
+      "matched": [
+        "2021-toltott-csirkemell-hercegnoburgonyaval-almamartassal"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3360,
+      "modxPath": "cikkek/diabetes/2106/karacsonyi-receptek/borleves-mandulas-habgaluskaval",
+      "winner": "2022-borleves-mandulas-habgaluskaval",
+      "matched": [
+        "2022-borleves-mandulas-habgaluskaval"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3359,
+      "modxPath": "cikkek/diabetes/2106/karacsonyi-receptek/korhely-harcsahalaszle",
+      "winner": "2022-korhely-harcsahalaszle",
+      "matched": [
+        "2022-korhely-harcsahalaszle"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3358,
+      "modxPath": "cikkek/diabetes/2106/karacsonyi-receptek/narancsos-pulykaraguleves",
+      "winner": "2021-narancsos-pulykaraguleves",
+      "matched": [
+        "2021-narancsos-pulykaraguleves"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3356,
+      "modxPath": "cikkek/diabetes/2106/karacsonyi-receptek/szilvas-karajos-teljes-kiorlesu-pite",
+      "winner": "2022-szilvas-karajos-teljes-kiorlesu-pite",
+      "matched": [
+        "2022-szilvas-karajos-teljes-kiorlesu-pite"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3354,
+      "modxPath": "cikkek/diabetes/2106/karacsonyi-receptek/serpenyos-cekla-kukoricadaras-pisztrangfilevel",
+      "winner": "2022-serpenyos-cekla-kukoricadaras-pisztrangfilevel",
+      "matched": [
+        "2022-serpenyos-cekla-kukoricadaras-pisztrangfilevel"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3349,
+      "modxPath": "cikkek/diabetes/2106/karacsonyi-receptek/pekandios-aprosuti",
+      "winner": "2022-pekandios-aprosuti",
+      "matched": [
+        "2022-pekandios-aprosuti"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "new-rs-required",
+      "modxContentId": 3348,
+      "modxPath": "cikkek/diabetes/2106/karacsonyi-receptek",
+      "target": "2021-karacsonyi-receptek"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2828,
+      "modxPath": "cikkek/diabetes/1906/finn-unnepi-etelek/aszaltszilvaleves",
+      "winner": "2019-aszaltszilvaleves",
+      "matched": [
+        "2019-aszaltszilvaleves"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2829,
+      "modxPath": "cikkek/diabetes/1906/finn-unnepi-etelek/karacsonyi-muffin",
+      "winner": "2019-karacsonyi-muffin",
+      "matched": [
+        "2019-karacsonyi-muffin"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2830,
+      "modxPath": "cikkek/diabetes/1906/finn-unnepi-etelek/hering-poharban",
+      "winner": "2019-hering-poharban",
+      "matched": [
+        "2019-hering-poharban"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2831,
+      "modxPath": "cikkek/diabetes/1906/finn-unnepi-etelek/edesburgonya-sargarepa-rakottas",
+      "winner": "2019-edesburgonya-sargarepa-rakottas",
+      "matched": [
+        "2019-edesburgonya-sargarepa-rakottas"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2832,
+      "modxPath": "cikkek/diabetes/1906/finn-unnepi-etelek/fustolt-hal-konnyu-kremmel",
+      "winner": "2019-fustolt-hal-konnyu-kremmel",
+      "matched": [
+        "2019-fustolt-hal-konnyu-kremmel"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2833,
+      "modxPath": "cikkek/diabetes/1906/finn-unnepi-etelek/edes-burgonyapure",
+      "winner": "2019-edes-burgonyapure",
+      "matched": [
+        "2019-edes-burgonyapure"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2834,
+      "modxPath": "cikkek/diabetes/1906/finn-unnepi-etelek/karacsonyi-forgok",
+      "winner": "2019-karacsonyi-forgok",
+      "matched": [
+        "2019-karacsonyi-forgok"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2835,
+      "modxPath": "cikkek/diabetes/1906/finn-unnepi-etelek/sult-sonka",
+      "winner": "2019-sult-sonka",
+      "matched": [
+        "2019-sult-sonka"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2836,
+      "modxPath": "cikkek/diabetes/1906/finn-unnepi-etelek/fuszeres-sertesszuz",
+      "winner": "2019-fuszeres-sertesszuz",
+      "matched": [
+        "2019-fuszeres-sertesszuz"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2837,
+      "modxPath": "cikkek/diabetes/1906/finn-unnepi-etelek/gombasalata",
+      "winner": "2019-nyers-gombasalata",
+      "matched": [
+        "2019-nyers-gombasalata"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3297,
+      "modxPath": "cikkek/diabetes/2103/nyari-receptek/cseresznyelekvar",
+      "winner": "2021-cseresznyelekvar",
+      "matched": [
+        "2021-cseresznyelekvar"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3292,
+      "modxPath": "cikkek/diabetes/2104/kisetkezesek/kapros-zoldborsopure-pacolt-furjtojassal",
+      "winner": "2021-kapros-zoldborsopure-pacolt-furjtojassal",
+      "matched": [
+        "2021-kapros-zoldborsopure-pacolt-furjtojassal"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3287,
+      "modxPath": "cikkek/diabetes/2104/kisetkezesek/magvas-zoldseggolyo",
+      "winner": "2021-magvas-zoldseggolyo",
+      "matched": [
+        "2021-magvas-zoldseggolyo"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3279,
+      "modxPath": "cikkek/diabetes/2103/nyari-receptek/fahejas-reszelt-alma",
+      "winner": "2021-fahejas-reszelt-alma",
+      "matched": [
+        "2021-fahejas-reszelt-alma"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3278,
+      "modxPath": "cikkek/diabetes/2103/nyari-receptek/erdei-light-smoothie",
+      "winner": "2021-erdei-light-smoothie",
+      "matched": [
+        "2021-erdei-light-smoothie"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3277,
+      "modxPath": "cikkek/diabetes/2103/nyari-receptek/rozmaringos-sargabarackbefott",
+      "winner": "2021-rozmaringos-sargabarackbefott",
+      "matched": [
+        "2021-rozmaringos-sargabarackbefott"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3275,
+      "modxPath": "cikkek/diabetes/2103/nyari-receptek/kakukkfuves-narancsdzsem",
+      "winner": "2021-kakukkfuves-narancsdzsem",
+      "matched": [
+        "2021-kakukkfuves-narancsdzsem"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3274,
+      "modxPath": "cikkek/diabetes/2103/nyari-receptek/cukormentes-meggyleves",
+      "winner": "2013-meggyleves",
+      "matched": [
+        "2013-meggyleves"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3272,
+      "modxPath": "cikkek/diabetes/2103/nyari-receptek/korianderes-hideg-uborkaleves",
+      "winner": "2021-korianderes-hideg-uborkaleves",
+      "matched": [
+        "2021-korianderes-hideg-uborkaleves"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3269,
+      "modxPath": "cikkek/diabetes/2103/nyari-receptek/kokuszleves-oszibarackkoktel",
+      "winner": "2021-kokuszleves-oszibarackkoktel",
+      "matched": [
+        "2021-kokuszleves-oszibarackkoktel"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3236,
+      "modxPath": "cikkek/diabetes/2102/kisetkezesek/kakaoscsiga",
+      "winner": "2021-kakaoscsiga",
+      "matched": [
+        "2021-kakaoscsiga"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3235,
+      "modxPath": "cikkek/diabetes/2102/kisetkezesek/rukkolas-epres-salata-nyari-napokra",
+      "winner": "2021-rukkolas-epres-salata-nyari-napokra",
+      "matched": [
+        "2021-rukkolas-epres-salata-nyari-napokra"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3234,
+      "modxPath": "cikkek/diabetes/2102/kisetkezesek/kesudios-olivas-tonhalkrem",
+      "winner": "2021-kesudios-olivas-tonhalkrem",
+      "matched": [
+        "2021-kesudios-olivas-tonhalkrem"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3233,
+      "modxPath": "cikkek/diabetes/2102/kisetkezesek/narancsos-lilakaposzta-salata",
+      "winner": "2021-narancsos-lilakaposzta-salata",
+      "matched": [
+        "2021-narancsos-lilakaposzta-salata"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3232,
+      "modxPath": "cikkek/diabetes/2102/grillreceptek/mititei-mics",
+      "winner": "2021-mititei-mics",
+      "matched": [
+        "2021-mititei-mics"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3231,
+      "modxPath": "cikkek/diabetes/2102/grillreceptek/aszaltszilvas-baconos-csirkenyars",
+      "winner": "2021-aszaltszilvas-baconos-csirkenyars",
+      "matched": [
+        "2021-aszaltszilvas-baconos-csirkenyars"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3230,
+      "modxPath": "cikkek/diabetes/2102/grillreceptek/grillezett-kecskesajt-padlizsanba-tekerve",
+      "winner": "2021-grillezett-kecskesajt-padlizsanba-tekerve",
+      "matched": [
+        "2021-grillezett-kecskesajt-padlizsanba-tekerve"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3229,
+      "modxPath": "cikkek/diabetes/2102/grillreceptek/furjtojas-szaftos-husfeszekben",
+      "winner": "2021-furjtojas-szaftos-husfeszekben",
+      "matched": [
+        "2021-furjtojas-szaftos-husfeszekben"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3228,
+      "modxPath": "cikkek/diabetes/2102/grillreceptek/pulled-pork",
+      "winner": "2021-pulled-pork",
+      "matched": [
+        "2021-pulled-pork"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3227,
+      "modxPath": "cikkek/diabetes/2102/grillreceptek/amerikai-kaposztasalata",
+      "winner": "2021-amerikai-kaposztasalata",
+      "matched": [
+        "2021-amerikai-kaposztasalata"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3226,
+      "modxPath": "cikkek/diabetes/2102/grillreceptek/hazi-keszitesu-kolbasz-ujragondolva",
+      "winner": "2021-hazi-keszitesu-kolbasz-ujragondolva",
+      "matched": [
+        "2021-hazi-keszitesu-kolbasz-ujragondolva"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3225,
+      "modxPath": "cikkek/diabetes/2102/grillreceptek/saslik",
+      "winner": "2017-saslik-ceklas-uvegtesztaval",
+      "matched": [
+        "2017-saslik-ceklas-uvegtesztaval"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3222,
+      "modxPath": "cikkek/diabetes/2102/kisetkezesek/sos-zoldfuszeres-sarga-turo",
+      "winner": "2021-sos-zoldfuszeres-sarga-turo",
+      "matched": [
+        "2021-sos-zoldfuszeres-sarga-turo"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3216,
+      "modxPath": "cikkek/diabetes/2102/kisetkezesek/malnas-zabpehely",
+      "winner": "2021-malnas-zabpehely",
+      "matched": [
+        "2021-malnas-zabpehely"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3185,
+      "modxPath": "cikkek/diabetes/2101/receptek-husvetra/medvehagymas-ceklasalata",
+      "winner": "2009-ceklasalata",
+      "matched": [
+        "2009-ceklasalata"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3184,
+      "modxPath": "cikkek/diabetes/2101/receptek-husvetra/repas-lepenykenyer",
+      "winner": "2021-repas-lepenykenyer",
+      "matched": [
+        "2021-repas-lepenykenyer"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3183,
+      "modxPath": "cikkek/diabetes/2101/receptek-husvetra/ujhagymas-reteksalata",
+      "winner": "2021-ujhagymas-reteksalata",
+      "matched": [
+        "2021-ujhagymas-reteksalata"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3179,
+      "modxPath": "cikkek/diabetes/2101/receptek-husvetra/cukormentes-repamuffin",
+      "winner": "2021-cukormentes-repamuffin",
+      "matched": [
+        "2021-cukormentes-repamuffin"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3178,
+      "modxPath": "cikkek/diabetes/2101/receptek-husvetra/narancsos-nyulgerinc-burgonyarozsaval",
+      "winner": "2021-narancsos-nyulgerinc-burgonyarozsaval",
+      "matched": [
+        "2021-narancsos-nyulgerinc-burgonyarozsaval"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3177,
+      "modxPath": "cikkek/diabetes/2101/receptek-husvetra/zoldseges-tarja-polentaval",
+      "winner": "2021-zoldseges-tarja-polentaval",
+      "matched": [
+        "2021-zoldseges-tarja-polentaval"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3176,
+      "modxPath": "cikkek/diabetes/2101/receptek-husvetra/fustoltsonka-krem",
+      "winner": "2021-fustoltsonka-krem",
+      "matched": [
+        "2021-fustoltsonka-krem"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3175,
+      "modxPath": "cikkek/diabetes/2101/receptek-husvetra/juhturos-tojaskrem-szines-tojasban",
+      "winner": "2021-juhturos-tojaskrem-szines-tojasban",
+      "matched": [
+        "2021-juhturos-tojaskrem-szines-tojasban"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3174,
+      "modxPath": "cikkek/diabetes/2101/receptek-husvetra/fokhagymas-sonkakoszoru",
+      "winner": "2021-fokhagymas-sonkakoszoru",
+      "matched": [
+        "2021-fokhagymas-sonkakoszoru"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3173,
+      "modxPath": "cikkek/diabetes/2101/receptek-husvetra/szenhidratcsokkentett-sos-kalacs",
+      "winner": "2021-szenhidratcsokkentett-sos-kalacs",
+      "matched": [
+        "2021-szenhidratcsokkentett-sos-kalacs"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3137,
+      "modxPath": "cikkek/diabetes/2005/receptsarok-kulonkiadas/liszt-nelkuli-cukormentes-oszibarackos-turos-kocka",
+      "winner": "2020-liszt-nelkuli-cukormentes-oszibarackos-turos-kocka",
+      "matched": [
+        "2020-liszt-nelkuli-cukormentes-oszibarackos-turos-kocka"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3129,
+      "modxPath": "cikkek/diabetes/2005/receptsarok-kulonkiadas/mozaikos-tojasos-majas",
+      "winner": "2020-mozaikos-tojasos-majas",
+      "matched": [
+        "2020-mozaikos-tojasos-majas"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3117,
+      "modxPath": "cikkek/diabetes/2005/receptsarok-kulonkiadas/citromos-kakukkfuves-kapros-pisztrang-zoldbabsalataval",
+      "winner": "2020-citromos-kakukkfuves-kapros-pisztrang-zoldbabsalataval",
+      "matched": [
+        "2020-citromos-kakukkfuves-kapros-pisztrang-zoldbabsalataval"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3113,
+      "modxPath": "cikkek/diabetes/2005/receptsarok-kulonkiadas/makos-kokuszos-szelet-almaval-bolonditva",
+      "winner": "2020-makos-kokuszos-szelet-almaval-bolonditva",
+      "matched": [
+        "2020-makos-kokuszos-szelet-almaval-bolonditva"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3105,
+      "modxPath": "cikkek/diabetes/2005/receptsarok-kulonkiadas/paradicsom-kremleves",
+      "winner": "2020-paradicsom-kremleves",
+      "matched": [
+        "2020-paradicsom-kremleves"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3101,
+      "modxPath": "cikkek/diabetes/2005/receptsarok-kulonkiadas/zoldbablecso",
+      "winner": "2020-zoldbablecso",
+      "matched": [
+        "2020-zoldbablecso"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3096,
+      "modxPath": "cikkek/diabetes/2005/receptsarok-kulonkiadas/skot-tojas-spagettibab-salataval",
+      "winner": "2020-skot-tojas-spagettibab-salataval",
+      "matched": [
+        "2020-skot-tojas-spagettibab-salataval"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3082,
+      "modxPath": "cikkek/diabetes/2006/karacsonyi-receptek-2020/halkremmel-toltott-vendegvaro-kosarka",
+      "winner": "2006-halkremmel-toltott-vendegvaro-kosarka",
+      "matched": [
+        "2006-halkremmel-toltott-vendegvaro-kosarka"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3081,
+      "modxPath": "cikkek/diabetes/2006/karacsonyi-receptek-2020/zoldseges-stefania-szelet",
+      "winner": "2006-zoldseges-stefania-szelet",
+      "matched": [
+        "2006-zoldseges-stefania-szelet"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3080,
+      "modxPath": "cikkek/diabetes/2006/karacsonyi-receptek-2020/aszalt-szilvas-gongyolt-karaj-sult-zoldsegagyon",
+      "winner": "2006-aszalt-szilvas-gongyolt-karaj-sult-zoldsegagyon",
+      "matched": [
+        "2006-aszalt-szilvas-gongyolt-karaj-sult-zoldsegagyon"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3079,
+      "modxPath": "cikkek/diabetes/2006/karacsonyi-receptek-2020/zoldseges-tonhalsalata",
+      "winner": "2013-tonhalsalata",
+      "matched": [
+        "2013-tonhalsalata"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3078,
+      "modxPath": "cikkek/diabetes/2006/karacsonyi-receptek-2020/sult-pulykacomb-rozmaringos-fenyes-gesztenyevel",
+      "winner": "2006-sult-pulykacomb-rozmaringos-fenyes-gesztenyevel",
+      "matched": [
+        "2006-sult-pulykacomb-rozmaringos-fenyes-gesztenyevel"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3077,
+      "modxPath": "cikkek/diabetes/2006/karacsonyi-receptek-2020/szenhidratcsokkentett-sajtos-sonkas-tekercs",
+      "winner": "2011-sonkas-tekercs",
+      "matched": [
+        "2011-sonkas-tekercs"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3076,
+      "modxPath": "cikkek/diabetes/2006/karacsonyi-receptek-2020/karacsonyi-almas-mascarpones-suti",
+      "winner": "2006-karacsonyi-almas-mascarpones-suti",
+      "matched": [
+        "2006-karacsonyi-almas-mascarpones-suti"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3065,
+      "modxPath": "cikkek/diabetes/2005/receptsarok-kulonkiadas/torok-fahejas-paradicsomos-husgomboc-borsos-bulgurral",
+      "winner": "2022-paradicsomos-husgomboc",
+      "matched": [
+        "2022-paradicsomos-husgomboc"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3063,
+      "modxPath": "cikkek/diabetes/2005/receptsarok-kulonkiadas/kortesalata-napraforgomaggal",
+      "winner": "2020-kortesalata-napraforgomaggal",
+      "matched": [
+        "2020-kortesalata-napraforgomaggal"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3042,
+      "modxPath": "cikkek/diabetes/2004/receptsarok/tarkonyos-pulykamell-spargaval",
+      "winner": "2021-tarkonyos-pulykamell-spargaval",
+      "matched": [
+        "2021-tarkonyos-pulykamell-spargaval"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3041,
+      "modxPath": "cikkek/diabetes/2004/receptsarok/citromos-cukkinikremleves-tojasmetelttel",
+      "winner": "2021-citromos-cukkinikremleves-tojasmetelttel",
+      "matched": [
+        "2021-citromos-cukkinikremleves-tojasmetelttel"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3040,
+      "modxPath": "cikkek/diabetes/2004/receptsarok/aszpikos-sonkatorta",
+      "winner": "2021-aszpikos-sonkatorta",
+      "matched": [
+        "2021-aszpikos-sonkatorta"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3039,
+      "modxPath": "cikkek/diabetes/2004/receptsarok/glutenmentes-sutoporos-fank",
+      "winner": "2021-glutenmentes-sutoporos-fank",
+      "matched": [
+        "2021-glutenmentes-sutoporos-fank"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3038,
+      "modxPath": "cikkek/diabetes/2004/receptsarok/meggyes-pite",
+      "winner": "2024-dios-meggyes-pitetorta",
+      "matched": [
+        "2024-dios-meggyes-pitetorta"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3037,
+      "modxPath": "cikkek/diabetes/2004/receptsarok/paprikas-fuszeres-kukoricakenyer",
+      "winner": "2021-paprikas-fuszeres-kukoricakenyer",
+      "matched": [
+        "2021-paprikas-fuszeres-kukoricakenyer"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3036,
+      "modxPath": "cikkek/diabetes/2004/receptsarok/avokados-tojassalata",
+      "winner": "2021-avokados-tojassalata",
+      "matched": [
+        "2021-avokados-tojassalata"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 3035,
+      "modxPath": "cikkek/diabetes/2004/receptsarok/kaposztas-csirkecomb",
+      "winner": "2021-kaposztas-csirkecomb",
+      "matched": [
+        "2021-kaposztas-csirkecomb"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2984,
+      "modxPath": "cikkek/diabetes/2003/receptsarok/tehenturos-puliszka",
+      "winner": "2021-tehenturos-puliszka",
+      "matched": [
+        "2021-tehenturos-puliszka"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2983,
+      "modxPath": "cikkek/diabetes/2003/receptsarok/minestrone-vagyis-olasz-zoldsegleves",
+      "winner": "2021-minestrone-vagyis-olasz-zoldsegleves",
+      "matched": [
+        "2021-minestrone-vagyis-olasz-zoldsegleves"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2987,
+      "modxPath": "cikkek/diabetes/2003/receptsarok/roppanos-alaszkai-halfile",
+      "winner": "2021-roppanos-alaszkai-halfile",
+      "matched": [
+        "2021-roppanos-alaszkai-halfile"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2986,
+      "modxPath": "cikkek/diabetes/2003/receptsarok/villamgyors-padlizsan",
+      "winner": "2021-villamgyors-padlizsan",
+      "matched": [
+        "2021-villamgyors-padlizsan"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2907,
+      "modxPath": "cikkek/diabetes/2001/receptsarok/dietas-turogomboc",
+      "winner": "2021-dietas-turogomboc",
+      "matched": [
+        "2021-dietas-turogomboc"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2905,
+      "modxPath": "cikkek/diabetes/2001/receptsarok/bulgursalata-tabule-salata",
+      "winner": "2021-bulgursalata-tabule-salata",
+      "matched": [
+        "2021-bulgursalata-tabule-salata"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2904,
+      "modxPath": "cikkek/diabetes/2001/receptsarok/joghurtos-fank",
+      "winner": "2021-joghurtos-fank",
+      "matched": [
+        "2021-joghurtos-fank"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2903,
+      "modxPath": "cikkek/diabetes/2001/receptsarok/koleskoch",
+      "winner": "2021-koleskoch",
+      "matched": [
+        "2021-koleskoch"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2938,
+      "modxPath": "cikkek/diabetes/2002/zoldborsokremleves-kecskesajttal",
+      "winner": "2021-zoldborsokremleves",
+      "matched": [
+        "2021-zoldborsokremleves"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2939,
+      "modxPath": "cikkek/diabetes/2002/toltott-csirkemell-supreme-kolbaszos-morzsaval-cukkinilecsoval-szalonnas-zoldbabbal-es-dodollevel",
+      "winner": "2025-dodolle",
+      "matched": [
+        "2025-dodolle"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2940,
+      "modxPath": "cikkek/diabetes/2002/kortetorta-torokmezzel-es-eperrel",
+      "winner": "2002-kortetorta-torokmezzel-es-eperrel",
+      "matched": [
+        "2002-kortetorta-torokmezzel-es-eperrel"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2944,
+      "modxPath": "cikkek/diabetes/2002/receptsarok/tejfolos-kaposztaleves",
+      "winner": "2021-tejfolos-kaposztaleves",
+      "matched": [
+        "2021-tejfolos-kaposztaleves"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2945,
+      "modxPath": "cikkek/diabetes/2002/receptsarok/olivas-sajtkremmel-toltott-tojas",
+      "winner": "2021-olivas-sajtkremmel-toltott-tojas",
+      "matched": [
+        "2021-olivas-sajtkremmel-toltott-tojas"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2942,
+      "modxPath": "cikkek/diabetes/2002/receptsarok/tarkonyos-halgombocleves",
+      "winner": "2021-tarkonyos-halgombocleves",
+      "matched": [
+        "2021-tarkonyos-halgombocleves"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2943,
+      "modxPath": "cikkek/diabetes/2002/receptsarok/glutenmentes-obwarzanek-lengyel-pereckulonlegesseg",
+      "winner": "2021-glutenmentes-obwarzanek-lengyel-pereckulonlegesseg",
+      "matched": [
+        "2021-glutenmentes-obwarzanek-lengyel-pereckulonlegesseg"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2941,
+      "modxPath": "cikkek/diabetes/2002/receptsarok",
+      "winner": "2002-receptsarok",
+      "matched": [
+        "2002-receptsarok"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2841,
+      "modxPath": "cikkek/diabetes/1906/receptsarok/csirkejava-szines-korettel",
+      "winner": "2019-csirkejava-szines-korettel",
+      "matched": [
+        "2019-csirkejava-szines-korettel"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2842,
+      "modxPath": "cikkek/diabetes/1906/receptsarok/gombas-csirkemell",
+      "winner": "2019-gombas-csirkemell",
+      "matched": [
+        "2019-gombas-csirkemell"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2843,
+      "modxPath": "cikkek/diabetes/1906/receptsarok/gombas-sertesszuzerme",
+      "winner": "2019-gombas-sertesszuzerme",
+      "matched": [
+        "2019-gombas-sertesszuzerme"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2844,
+      "modxPath": "cikkek/diabetes/1906/receptsarok/karacsonyi-zabkeksz",
+      "winner": "2019-karacsonyi-zabkeksz",
+      "matched": [
+        "2019-karacsonyi-zabkeksz"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2845,
+      "modxPath": "cikkek/diabetes/1906/receptsarok/serpenyos-kacsamaj",
+      "winner": "2019-serpenyos-kacsamaj",
+      "matched": [
+        "2019-serpenyos-kacsamaj"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "new-rs-required",
+      "modxContentId": 2846,
+      "modxPath": "cikkek/diabetes/1906/receptsarok/sult-repa",
+      "target": "2019-sult-repa"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2847,
+      "modxPath": "cikkek/diabetes/1906/receptsarok/szezammagos-csirkemell-brokkolipurevel",
+      "winner": "2019-szezammagos-csirkemell-brokkolipurevel",
+      "matched": [
+        "2019-szezammagos-csirkemell-brokkolipurevel"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2848,
+      "modxPath": "cikkek/diabetes/1906/receptsarok/tejfolos-medvehagymaleves",
+      "winner": "2019-tejfolos-medvehagymaleves",
+      "matched": [
+        "2019-tejfolos-medvehagymaleves"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2849,
+      "modxPath": "cikkek/diabetes/1906/receptsarok/tonhalas-brokkolis-teszta",
+      "winner": "2019-tonhalas-brokkolis-teszta",
+      "matched": [
+        "2019-tonhalas-brokkolis-teszta"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2906,
+      "modxPath": "cikkek/diabetes/2001/receptsarok/cukormentes-bociszelet",
+      "winner": "2021-cukormentes-bociszelet",
+      "matched": [
+        "2021-cukormentes-bociszelet"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2840,
+      "modxPath": "cikkek/diabetes/1906/receptsarok/almas-kremes",
+      "winner": "2019-almas-kremes",
+      "matched": [
+        "2019-almas-kremes"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2908,
+      "modxPath": "cikkek/diabetes/2001/receptsarok/rakott-cukkini-bulgurral",
+      "winner": "2021-rakott-cukkini-bulgurral",
+      "matched": [
+        "2021-rakott-cukkini-bulgurral"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2576,
+      "modxPath": "cikkek/diabetes/1902/almas-husszelet-sajttal",
+      "winner": "2021-almas-husszelet-sajttal",
+      "matched": [
+        "2021-almas-husszelet-sajttal"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2574,
+      "modxPath": "cikkek/diabetes/1902/zoldseggel-toltott-csirkecomb",
+      "winner": "2021-zoldseggel-toltott-csirkecomb",
+      "matched": [
+        "2021-zoldseggel-toltott-csirkecomb"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2618,
+      "modxPath": "cikkek/diabetes/1903/japan-zoldsegleves",
+      "winner": "2019-japan-zoldsegleves",
+      "matched": [
+        "2019-japan-zoldsegleves"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2617,
+      "modxPath": "cikkek/diabetes/1903/spenotsalata-gyomberes-ontettel",
+      "winner": "2019-spenotsalata-gyomberes-ontettel",
+      "matched": [
+        "2019-spenotsalata-gyomberes-ontettel"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2615,
+      "modxPath": "cikkek/diabetes/1903/uborkaba-tekert-szusi",
+      "winner": "2019-uborkaba-tekert-szusi",
+      "matched": [
+        "2019-uborkaba-tekert-szusi"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2677,
+      "modxPath": "cikkek/diabetes/1904/sajtos-kaposztas-krumplis-pirog",
+      "winner": "2019-sajtos-kaposztas-krumplis-pirog",
+      "matched": [
+        "2019-sajtos-kaposztas-krumplis-pirog"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2678,
+      "modxPath": "cikkek/diabetes/1904/hagyomanyos-orosz-kaposztaleves",
+      "winner": "2019-hagyomanyos-orosz-kaposztaleves",
+      "matched": [
+        "2019-hagyomanyos-orosz-kaposztaleves"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2679,
+      "modxPath": "cikkek/diabetes/1904/orosz-kemeny-tojas",
+      "winner": "2019-orosz-kemeny-tojas",
+      "matched": [
+        "2019-orosz-kemeny-tojas"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2680,
+      "modxPath": "cikkek/diabetes/1904/borscs",
+      "winner": "2019-borscs",
+      "matched": [
+        "2019-borscs"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2681,
+      "modxPath": "cikkek/diabetes/1904/orosz-ceklasalata",
+      "winner": "2009-ceklasalata",
+      "matched": [
+        "2009-ceklasalata"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2686,
+      "modxPath": "cikkek/diabetes/1904/mustaros-tojasos-csirkehussalata",
+      "winner": "2019-mustaros-tojasos-csirkehussalata",
+      "matched": [
+        "2019-mustaros-tojasos-csirkehussalata"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2685,
+      "modxPath": "cikkek/diabetes/1904/fustolt-lazacos-blini",
+      "winner": "2019-fustolt-lazacos-blini",
+      "matched": [
+        "2019-fustolt-lazacos-blini"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "new-rs-required",
+      "modxContentId": 2684,
+      "modxPath": "cikkek/diabetes/1904/zoldfuszeres-serteshussal-cukkinivel-es-kolessel-toltott-paprika",
+      "target": "2019-zoldfuszeres-serteshussal-cukkinivel-es-kolessel-toltott-paprika"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2683,
+      "modxPath": "cikkek/diabetes/1904/egyszeru-kaposztasalata",
+      "winner": "2019-egyszeru-kaposztasalata",
+      "matched": [
+        "2019-egyszeru-kaposztasalata"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2682,
+      "modxPath": "cikkek/diabetes/1904/marhaszegy-sztroganov-modra",
+      "winner": "2019-marhaszegy-sztroganov-modra",
+      "matched": [
+        "2019-marhaszegy-sztroganov-modra"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2718,
+      "modxPath": "cikkek/diabetes/1905/cukkinis-sargaborsosaute",
+      "winner": "2019-cukkinis-sargaborsosaute",
+      "matched": [
+        "2019-cukkinis-sargaborsosaute"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2717,
+      "modxPath": "cikkek/diabetes/1905/lencses-arpas-gombaleves",
+      "winner": "2009-gombaleves",
+      "matched": [
+        "2009-gombaleves"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2715,
+      "modxPath": "cikkek/diabetes/1905/fuszeres-lencseleves-fodros-kellel",
+      "winner": "2019-fuszeres-lencseleves-fodros-kellel",
+      "matched": [
+        "2019-fuszeres-lencseleves-fodros-kellel"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2714,
+      "modxPath": "cikkek/diabetes/1905/vadrizzsel-es-almaval-toltott-sutotok",
+      "winner": "2019-vadrizzsel-es-almaval-toltott-sutotok",
+      "matched": [
+        "2019-vadrizzsel-es-almaval-toltott-sutotok"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2713,
+      "modxPath": "cikkek/diabetes/1905/spenotos-gombas-arpas-pilaf",
+      "winner": "2019-spenotos-gombas-arpas-pilaf",
+      "matched": [
+        "2019-spenotos-gombas-arpas-pilaf"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2711,
+      "modxPath": "cikkek/diabetes/1905/feher-husu-hal-sult-hagymaval-es-lencsepurevel",
+      "winner": "2019-feher-husu-hal-sult-hagymaval-es-lencsepurevel",
+      "matched": [
+        "2019-feher-husu-hal-sult-hagymaval-es-lencsepurevel"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2710,
+      "modxPath": "cikkek/diabetes/1905/kanadai-sargaborsoleves-sonkaval",
+      "winner": "2019-kanadai-sargaborsoleves-sonkaval",
+      "matched": [
+        "2019-kanadai-sargaborsoleves-sonkaval"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2709,
+      "modxPath": "cikkek/diabetes/1905/lazac-citromos-gyomberszosszal",
+      "winner": "2019-lazac-citromos-gyomberszosszal",
+      "matched": [
+        "2019-lazac-citromos-gyomberszosszal"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2716,
+      "modxPath": "cikkek/diabetes/1905/dios-lenmagos-repatallerok",
+      "winner": "2019-dios-lenmagos-repatallerok",
+      "matched": [
+        "2019-dios-lenmagos-repatallerok"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2712,
+      "modxPath": "cikkek/diabetes/1905/marhahusos-rakott-kaposzta",
+      "winner": "2019-marhahusos-rakott-kaposzta",
+      "matched": [
+        "2019-marhahusos-rakott-kaposzta"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2413,
+      "modxPath": "cikkek/diabetes/1806/karacsonyi-receptsarok/klasszikus-tourtiere-quebeci-serteshusos-pite-kanadabol",
+      "winner": "2018-klasszikus-tourtiere-quebeci-serteshusos-pite-kanadabol",
+      "matched": [
+        "2018-klasszikus-tourtiere-quebeci-serteshusos-pite-kanadabol"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2412,
+      "modxPath": "cikkek/diabetes/1806/karacsonyi-receptsarok/etvagyhozo-husgolyok-svedorszagbol",
+      "winner": "2011-husgolyo",
+      "matched": [
+        "2011-husgolyo"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2421,
+      "modxPath": "cikkek/diabetes/1806/karacsonyi-receptsarok/szaritottgomba-leves-lengyelorszagbol",
+      "winner": "2018-szaritottgomba-leves-lengyelorszagbol",
+      "matched": [
+        "2018-szaritottgomba-leves-lengyelorszagbol"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2420,
+      "modxPath": "cikkek/diabetes/1806/karacsonyi-receptsarok/burgundi-szarvasragu-franciaorszagbol",
+      "winner": "2018-burgundi-szarvasragu-franciaorszagbol",
+      "matched": [
+        "2018-burgundi-szarvasragu-franciaorszagbol"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2419,
+      "modxPath": "cikkek/diabetes/1806/karacsonyi-receptsarok/tengeri-suger-nemetorszagbol",
+      "winner": "2018-tengeri-suger-nemetorszagbol",
+      "matched": [
+        "2018-tengeri-suger-nemetorszagbol"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2418,
+      "modxPath": "cikkek/diabetes/1806/karacsonyi-receptsarok/fetas-rakott-krumpli-gorogorszagbol",
+      "winner": "2018-fetas-rakott-krumpli-gorogorszagbol",
+      "matched": [
+        "2018-fetas-rakott-krumpli-gorogorszagbol"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2417,
+      "modxPath": "cikkek/diabetes/1806/karacsonyi-receptsarok/dios-stollen-kalacs-nemetorszagbol",
+      "winner": "2018-dios-stollen-kalacs-nemetorszagbol",
+      "matched": [
+        "2018-dios-stollen-kalacs-nemetorszagbol"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2416,
+      "modxPath": "cikkek/diabetes/1806/karacsonyi-receptsarok/olasz-marharagu",
+      "winner": "2018-olasz-marharagu",
+      "matched": [
+        "2018-olasz-marharagu"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2415,
+      "modxPath": "cikkek/diabetes/1806/karacsonyi-receptsarok/hamis-mezeskalacs-angliabol",
+      "winner": "2018-hamis-mezeskalacs-angliabol",
+      "matched": [
+        "2018-hamis-mezeskalacs-angliabol"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2539,
+      "modxPath": "cikkek/diabetes/1901/receptek-a-multbol",
+      "winner": "2019-receptek-a-multbol",
+      "matched": [
+        "2019-receptek-a-multbol"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2541,
+      "modxPath": "cikkek/diabetes/1901/marhahussalata-curryvel",
+      "winner": "2019-marhahussalata-curryvel",
+      "matched": [
+        "2019-marhahussalata-curryvel"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2540,
+      "modxPath": "cikkek/diabetes/1901/pacolt-csirkemell",
+      "winner": "2019-iroban-pacolt-csirkemell-zoldsegekkel-sutve",
+      "matched": [
+        "2019-iroban-pacolt-csirkemell-zoldsegekkel-sutve"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2414,
+      "modxPath": "cikkek/diabetes/1806/karacsonyi-receptsarok/rosolli-ceklasalata-finnorszagbol",
+      "winner": "2009-ceklasalata",
+      "matched": [
+        "2009-ceklasalata"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2613,
+      "modxPath": "cikkek/diabetes/1903/sult-tok-gyomberes-misomartassal",
+      "winner": "2019-sult-tok-gyomberes-misomartassal",
+      "matched": [
+        "2019-sult-tok-gyomberes-misomartassal"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2408,
+      "modxPath": "cikkek/diabetes/1806/kosheri-lencsevel-quinoaval-es-csicseriborsoval",
+      "winner": "2018-kosheri-lencsevel-quinoaval-es-csicseriborsoval",
+      "matched": [
+        "2018-kosheri-lencsevel-quinoaval-es-csicseriborsoval"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2537,
+      "modxPath": "cikkek/diabetes/1901/foldimogyoros-ragu",
+      "winner": "2019-foldimogyoros-ragu",
+      "matched": [
+        "2019-foldimogyoros-ragu"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2575,
+      "modxPath": "cikkek/diabetes/1902/toltott-pulykatekercs",
+      "winner": "2021-toltott-pulykatekercs",
+      "matched": [
+        "2021-toltott-pulykatekercs"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2407,
+      "modxPath": "cikkek/diabetes/1806/falafel",
+      "winner": "2018-falafel",
+      "matched": [
+        "2018-falafel"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2611,
+      "modxPath": "cikkek/diabetes/1903/ujhagymas-csirkes-rizstal",
+      "winner": "2019-ujhagymas-csirkes-rizstal",
+      "matched": [
+        "2019-ujhagymas-csirkes-rizstal"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2619,
+      "modxPath": "cikkek/diabetes/1903/soba-teszta-sult-padlizsannal",
+      "winner": "2019-soba-teszta-sult-padlizsannal",
+      "matched": [
+        "2019-soba-teszta-sult-padlizsannal"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2616,
+      "modxPath": "cikkek/diabetes/1903/tsukune-csirkehusgolyok",
+      "winner": "2011-husgolyo",
+      "matched": [
+        "2011-husgolyo"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2612,
+      "modxPath": "cikkek/diabetes/1903/narancslevel-es-szojaval-marinalt-lazac",
+      "winner": "2019-narancslevel-es-szojaval-marinalt-lazac",
+      "matched": [
+        "2019-narancslevel-es-szojaval-marinalt-lazac"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2614,
+      "modxPath": "cikkek/diabetes/1903/yakitori-csirkemell",
+      "winner": "2019-yakitori-csirkemell",
+      "matched": [
+        "2019-yakitori-csirkemell"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2542,
+      "modxPath": "cikkek/diabetes/1901/habos-turos-kocka",
+      "winner": "2019-habos-turos-kocka",
+      "matched": [
+        "2019-habos-turos-kocka"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2544,
+      "modxPath": "cikkek/diabetes/1901/toksalata",
+      "winner": "2019-toksalata",
+      "matched": [
+        "2019-toksalata"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2543,
+      "modxPath": "cikkek/diabetes/1901/joghurtleves",
+      "winner": "2019-joghurtleves",
+      "matched": [
+        "2019-joghurtleves"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2446,
+      "modxPath": "cikkek/hypertonia/1802/vanilias-gesztenyetorta",
+      "winner": "2015-gesztenyetorta",
+      "matched": [
+        "2015-gesztenyetorta"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2448,
+      "modxPath": "cikkek/hypertonia/1802/joghurtos-fahejas-szilvaleves",
+      "winner": "2018-joghurtos-fahejas-szilvaleves",
+      "matched": [
+        "2018-joghurtos-fahejas-szilvaleves"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2447,
+      "modxPath": "cikkek/hypertonia/1802/toltott-paprika",
+      "winner": "2018-cukkinis-toltott-paprika",
+      "matched": [
+        "2018-cukkinis-toltott-paprika"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2536,
+      "modxPath": "cikkek/diabetes/1901/zoldseggel-toltott-karfiolpalacsinta-glutenmentes",
+      "winner": "2019-zoldseggel-toltott-karfiolpalacsinta-glutenmentes",
+      "matched": [
+        "2019-zoldseggel-toltott-karfiolpalacsinta-glutenmentes"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2445,
+      "modxPath": "cikkek/hypertonia/1802/haltekercs-olivabogyos-korettel",
+      "winner": "2018-haltekercs-olivabogyos-korettel",
+      "matched": [
+        "2018-haltekercs-olivabogyos-korettel"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2410,
+      "modxPath": "cikkek/diabetes/1806/ful-medames",
+      "winner": "2018-ful-medames",
+      "matched": [
+        "2018-ful-medames"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2409,
+      "modxPath": "cikkek/diabetes/1806/tabule",
+      "winner": "2021-bulgursalata-tabule-salata",
+      "matched": [
+        "2021-bulgursalata-tabule-salata"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2535,
+      "modxPath": "cikkek/diabetes/1901/lazacsalata-ceklaval-es-rukkolaval",
+      "winner": "2019-lazacsalata-ceklaval-es-rukkolaval",
+      "matched": [
+        "2019-lazacsalata-ceklaval-es-rukkolaval"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2534,
+      "modxPath": "cikkek/diabetes/1901/tintahalsalata-chilis-olivabogyoval",
+      "winner": "2019-tintahalsalata-chilis-olivabogyoval",
+      "matched": [
+        "2019-tintahalsalata-chilis-olivabogyoval"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2429,
+      "modxPath": "cikkek/recept",
+      "winner": "2019-receptek-a-multbol",
+      "matched": [
+        "2019-receptek-a-multbol"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2383,
+      "modxPath": "cikkek/diabetes/1805/toltott-szololevel-hidegen-talalva",
+      "winner": "2018-toltott-szololevel-hidegen-talalva",
+      "matched": [
+        "2018-toltott-szololevel-hidegen-talalva"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2382,
+      "modxPath": "cikkek/diabetes/1805/almakremleves-karamellizalt-almaval",
+      "winner": "2018-almakremleves-karamellizalt-almaval",
+      "matched": [
+        "2018-almakremleves-karamellizalt-almaval"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2381,
+      "modxPath": "cikkek/diabetes/1805/epres-sajttorta",
+      "winner": "2018-epres-sajttorta",
+      "matched": [
+        "2018-epres-sajttorta"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2380,
+      "modxPath": "cikkek/diabetes/1805/mango-avokado-salsa",
+      "winner": "2018-mango-avokado-salsa",
+      "matched": [
+        "2018-mango-avokado-salsa"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2379,
+      "modxPath": "cikkek/diabetes/1805/rostonsult-csirkemell-csipos-sargarepasalataval-es-spagettivel",
+      "winner": "2018-rostonsult-csirkemell-csipos-sargarepasalataval-es-spagettivel",
+      "matched": [
+        "2018-rostonsult-csirkemell-csipos-sargarepasalataval-es-spagettivel"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2378,
+      "modxPath": "cikkek/diabetes/1805/csokis-mogyoros-keksz",
+      "winner": "2018-csokis-mogyoros-keksz",
+      "matched": [
+        "2018-csokis-mogyoros-keksz"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2377,
+      "modxPath": "cikkek/diabetes/1805/turofelfujt-mandarinnal",
+      "winner": "2018-turofelfujt-mandarinnal",
+      "matched": [
+        "2018-turofelfujt-mandarinnal"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2376,
+      "modxPath": "cikkek/diabetes/1805/dios-repatorta-liszt-nelkul",
+      "winner": "2025-dios-repatorta",
+      "matched": [
+        "2025-dios-repatorta"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2375,
+      "modxPath": "cikkek/diabetes/1805/cukkinis-palacsinta",
+      "winner": "2018-cukkinis-palacsinta",
+      "matched": [
+        "2018-cukkinis-palacsinta"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2374,
+      "modxPath": "cikkek/diabetes/1805/kuszkuszsalata-sajttal-sonkaval",
+      "winner": "2018-kuszkuszsalata-sajttal-sonkaval",
+      "matched": [
+        "2018-kuszkuszsalata-sajttal-sonkaval"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2272,
+      "modxPath": "cikkek/hypertonia/1801/roston-sult-csirke-supreme-zoldsegekkel",
+      "winner": "2018-roston-sult-csirke-supreme-zoldsegekkel",
+      "matched": [
+        "2018-roston-sult-csirke-supreme-zoldsegekkel"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2300,
+      "modxPath": "cikkek/diabetes/1803/bolinhos-bacalhau-azaz-brazil-tokehalpogacsak",
+      "winner": "2009-halpogacsa",
+      "matched": [
+        "2009-halpogacsa"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2299,
+      "modxPath": "cikkek/diabetes/1803/arroz-con-pollo-vagyis-brazil-rizses-csirke",
+      "winner": "2018-arroz-con-pollo-vagyis-brazil-rizses-csirke",
+      "matched": [
+        "2018-arroz-con-pollo-vagyis-brazil-rizses-csirke"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2298,
+      "modxPath": "cikkek/diabetes/1803/feijoada-azaz-fekete-bab-ragu",
+      "winner": "2018-feijoada-azaz-fekete-bab-ragu",
+      "matched": [
+        "2018-feijoada-azaz-fekete-bab-ragu"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2297,
+      "modxPath": "cikkek/diabetes/1803/farofa",
+      "winner": "2018-farofa",
+      "matched": [
+        "2018-farofa"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2296,
+      "modxPath": "cikkek/diabetes/1803/salada-de-couve-com-manga-azaz-kelkaposzta-es-mango-salata",
+      "winner": "2018-salada-de-couve-com-manga-azaz-kelkaposzta-es-mango-salata",
+      "matched": [
+        "2018-salada-de-couve-com-manga-azaz-kelkaposzta-es-mango-salata"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2295,
+      "modxPath": "cikkek/diabetes/1803/pulyka-vatapa",
+      "winner": "2018-pulyka-vatapa",
+      "matched": [
+        "2018-pulyka-vatapa"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2294,
+      "modxPath": "cikkek/diabetes/1803/vegetarianus-feijoada",
+      "winner": "2018-vegetarianus-feijoada",
+      "matched": [
+        "2018-vegetarianus-feijoada"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2293,
+      "modxPath": "cikkek/diabetes/1803/brazil-hal",
+      "winner": "2018-brazil-hal",
+      "matched": [
+        "2018-brazil-hal"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2292,
+      "modxPath": "cikkek/diabetes/1803/csirkemell-fuszeres-kokusztejszosszal",
+      "winner": "2018-csirkemell-fuszeres-kokusztejszosszal",
+      "matched": [
+        "2018-csirkemell-fuszeres-kokusztejszosszal"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2245,
+      "modxPath": "cikkek/diabetes/1802/mandulas-desszert",
+      "winner": "2018-mandulas-desszert",
+      "matched": [
+        "2018-mandulas-desszert"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2244,
+      "modxPath": "cikkek/diabetes/1802/hoisin-szoszos-daralt-csirkehus-salataagyon",
+      "winner": "2018-hoisin-szoszos-daralt-csirkehus-salataagyon",
+      "matched": [
+        "2018-hoisin-szoszos-daralt-csirkehus-salataagyon"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2243,
+      "modxPath": "cikkek/diabetes/1802/sult-tofu-hajdinametelttel",
+      "winner": "2018-sult-tofu-hajdinametelttel",
+      "matched": [
+        "2018-sult-tofu-hajdinametelttel"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2242,
+      "modxPath": "cikkek/diabetes/1802/sult-karfiol",
+      "winner": "2015-fuszeres-sult-karfiol",
+      "matched": [
+        "2015-fuszeres-sult-karfiol"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2241,
+      "modxPath": "cikkek/diabetes/1802/vegetarianus-tekercsek",
+      "winner": "2018-vegetarianus-tekercsek",
+      "matched": [
+        "2018-vegetarianus-tekercsek"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2240,
+      "modxPath": "cikkek/diabetes/1802/nyulraguleves-goji-bogyoval",
+      "winner": "2022-nyulraguleves",
+      "matched": [
+        "2022-nyulraguleves"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2238,
+      "modxPath": "cikkek/diabetes/1802/szecsuani-csirke",
+      "winner": "2018-szecsuani-csirke",
+      "matched": [
+        "2018-szecsuani-csirke"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2239,
+      "modxPath": "cikkek/diabetes/1802/konnyu-ropogos-tekercsek",
+      "winner": "2018-konnyu-ropogos-tekercsek",
+      "matched": [
+        "2018-konnyu-ropogos-tekercsek"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2237,
+      "modxPath": "cikkek/diabetes/1802/csurgatott-tojasleves-csirkehussal",
+      "winner": "2018-csurgatott-tojasleves-csirkehussal",
+      "matched": [
+        "2018-csurgatott-tojasleves-csirkehussal"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2336,
+      "modxPath": "cikkek/diabetes/1804/grillezett-marhahusos-chimichanga",
+      "winner": "2018-grillezett-marhahusos-chimichanga",
+      "matched": [
+        "2018-grillezett-marhahusos-chimichanga"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2335,
+      "modxPath": "cikkek/diabetes/1804/chilis-joghurtos-kuszkusz",
+      "winner": "2018-chilis-joghurtos-kuszkusz",
+      "matched": [
+        "2018-chilis-joghurtos-kuszkusz"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2334,
+      "modxPath": "cikkek/diabetes/1804/spenotos-csirkes-sult-flautas",
+      "winner": "2018-spenotos-csirkes-sult-flautas",
+      "matched": [
+        "2018-spenotos-csirkes-sult-flautas"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2333,
+      "modxPath": "cikkek/diabetes/1804/spenotos-sajtos-enchilada",
+      "winner": "2018-spenotos-sajtos-enchilada",
+      "matched": [
+        "2018-spenotos-sajtos-enchilada"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2332,
+      "modxPath": "cikkek/diabetes/1804/edesburgonyas-enchilada",
+      "winner": "2018-edesburgonyas-enchilada",
+      "matched": [
+        "2018-edesburgonyas-enchilada"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2331,
+      "modxPath": "cikkek/diabetes/1804/bableves-salsaval-es-tortillachipsszel",
+      "winner": "2018-bableves-salsaval-es-tortillachipsszel",
+      "matched": [
+        "2018-bableves-salsaval-es-tortillachipsszel"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2271,
+      "modxPath": "cikkek/hypertonia/1801/ozgerinc-grillezett-zoldsegekkel",
+      "winner": "2018-ozgerinc-grillezett-zoldsegekkel",
+      "matched": [
+        "2018-ozgerinc-grillezett-zoldsegekkel"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2270,
+      "modxPath": "cikkek/hypertonia/1801/toltott-karalabe-kokusztejben-sutve",
+      "winner": "2023-toltott-karalabe",
+      "matched": [
+        "2023-toltott-karalabe"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2269,
+      "modxPath": "cikkek/hypertonia/1801/rantott-pulykamell-parolt-spargaval-zoldsegekkel",
+      "winner": "2018-rantott-pulykamell-parolt-spargaval-zoldsegekkel",
+      "matched": [
+        "2018-rantott-pulykamell-parolt-spargaval-zoldsegekkel"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2187,
+      "modxPath": "junior/2018/cikkek/becsi-turos-palacsinta-mindenmentesen",
+      "winner": "2018-becsi-turos-palacsinta-mindenmentesen",
+      "matched": [
+        "2018-becsi-turos-palacsinta-mindenmentesen"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2186,
+      "modxPath": "junior/2018/cikkek/mexikoi-melegszendvics",
+      "winner": "2018-mexikoi-melegszendvics",
+      "matched": [
+        "2018-mexikoi-melegszendvics"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2185,
+      "modxPath": "junior/2018/cikkek/kokuszgolyo-zabpehelybol",
+      "winner": "2018-kokuszgolyo-zabpehelybol",
+      "matched": [
+        "2018-kokuszgolyo-zabpehelybol"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2223,
+      "modxPath": "cikkek/diabetes/1801/farsangi-fank",
+      "winner": "2018-farsangi-fank",
+      "matched": [
+        "2018-farsangi-fank"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2222,
+      "modxPath": "cikkek/diabetes/1801/tejszines-zoldseges-csirkeegytal",
+      "winner": "2012-zoldseges-csirke",
+      "matched": [
+        "2012-zoldseges-csirke"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2221,
+      "modxPath": "cikkek/diabetes/1801/mascarpones-sonkas-sajtos-melegszendvicskrem",
+      "winner": "2018-mascarpones-sonkas-sajtos-melegszendvicskrem",
+      "matched": [
+        "2018-mascarpones-sonkas-sajtos-melegszendvicskrem"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2218,
+      "modxPath": "cikkek/diabetes/1801/kheera-nariyal-raita-uborka-es-kokusz-kapros-joghurtban",
+      "winner": "2017-kheera-nariyal-raita-uborka-es-kokusz-kapros-joghurtban",
+      "matched": [
+        "2017-kheera-nariyal-raita-uborka-es-kokusz-kapros-joghurtban"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2217,
+      "modxPath": "cikkek/diabetes/1801/paneer-sajt-cukkini-es-kaliforniai-paprika",
+      "winner": "2017-paneer-sajt-cukkini-es-kaliforniai-paprika",
+      "matched": [
+        "2017-paneer-sajt-cukkini-es-kaliforniai-paprika"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2216,
+      "modxPath": "cikkek/diabetes/1801/cukkini-zold-kaliforniai-paprika-es-paradicsom-egyszeru-nyari-ebedetel",
+      "winner": "2017-cukkini-zold-kaliforniai-paprika-es-paradicsom-egyszeru-nyari-ebedetel",
+      "matched": [
+        "2017-cukkini-zold-kaliforniai-paprika-es-paradicsom-egyszeru-nyari-ebedetel"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2215,
+      "modxPath": "cikkek/diabetes/1801/zoldborsos-kaposzta",
+      "winner": "2017-zoldborsos-kaposzta",
+      "matched": [
+        "2017-zoldborsos-kaposzta"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2214,
+      "modxPath": "cikkek/diabetes/1801/avokadokremes-karfiolcsoda",
+      "winner": "2021-avokadokrem",
+      "matched": [
+        "2021-avokadokrem"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2213,
+      "modxPath": "cikkek/diabetes/1801/nariyal-matar-shorba-paradicsomos-brokkoli",
+      "winner": "2017-nariyal-matar-shorba-paradicsomos-brokkoli",
+      "matched": [
+        "2017-nariyal-matar-shorba-paradicsomos-brokkoli"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2212,
+      "modxPath": "cikkek/diabetes/1801/tok-zoldborsoval-es-mandulaval",
+      "winner": "2017-tok-zoldborsoval-es-mandulaval",
+      "matched": [
+        "2017-tok-zoldborsoval-es-mandulaval"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2211,
+      "modxPath": "cikkek/diabetes/1801/parolt-spenot",
+      "winner": "2017-parolt-spenot",
+      "matched": [
+        "2017-parolt-spenot"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2210,
+      "modxPath": "cikkek/diabetes/1801/indiai-paradicsomleves",
+      "winner": "2018-indiai-paradicsomleves",
+      "matched": [
+        "2018-indiai-paradicsomleves"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2209,
+      "modxPath": "cikkek/diabetes/1801/vajpuha-tok-paradicsommal",
+      "winner": "2017-vajpuha-tok-paradicsommal",
+      "matched": [
+        "2017-vajpuha-tok-paradicsommal"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2219,
+      "modxPath": "cikkek/diabetes/1801/parolt-spenot-friss-sajttal",
+      "winner": "2017-parolt-spenot",
+      "matched": [
+        "2017-parolt-spenot"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2096,
+      "modxPath": "cikkek/hypertonia/1702/piritottzoldseg-tal",
+      "winner": "2017-piritottzoldseg-tal",
+      "matched": [
+        "2017-piritottzoldseg-tal"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2095,
+      "modxPath": "cikkek/hypertonia/1702/kelkaposztas-retes",
+      "winner": "2017-kelkaposztas-retes",
+      "matched": [
+        "2017-kelkaposztas-retes"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2094,
+      "modxPath": "cikkek/hypertonia/1702/mediterran-ceruzabab",
+      "winner": "2017-mediterran-ceruzabab",
+      "matched": [
+        "2017-mediterran-ceruzabab"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2093,
+      "modxPath": "cikkek/hypertonia/1702/tarkonyos-zoldbableves-palocosan",
+      "winner": "2017-tarkonyos-zoldbableves-palocosan",
+      "matched": [
+        "2017-tarkonyos-zoldbableves-palocosan"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2075,
+      "modxPath": "cikkek/diabetes/1706/cekla-sargarepa-narancs-smoothie",
+      "winner": "2017-cekla-sargarepa-narancs-smoothie",
+      "matched": [
+        "2017-cekla-sargarepa-narancs-smoothie"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2074,
+      "modxPath": "cikkek/diabetes/1706/majonezes-ceklasalata",
+      "winner": "2009-ceklasalata",
+      "matched": [
+        "2009-ceklasalata"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2073,
+      "modxPath": "cikkek/diabetes/1706/zoldbabos-pulykaragu",
+      "winner": "2017-zoldbabos-pulykaragu",
+      "matched": [
+        "2017-zoldbabos-pulykaragu"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2072,
+      "modxPath": "cikkek/diabetes/1706/almas-ceklaleves",
+      "winner": "2017-almas-ceklaleves",
+      "matched": [
+        "2017-almas-ceklaleves"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2071,
+      "modxPath": "cikkek/diabetes/1706/kortes-zellerleves",
+      "winner": "2017-kortes-zellerleves",
+      "matched": [
+        "2017-kortes-zellerleves"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2117,
+      "modxPath": "cikkek/hypertonia/1701/tiramisu-mousse",
+      "winner": "2017-tiramisu-mousse",
+      "matched": [
+        "2017-tiramisu-mousse"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2116,
+      "modxPath": "cikkek/hypertonia/1701/zoldfuszeres-csirkecombok-hagymas-burgonyapurevel",
+      "winner": "2017-zoldfuszeres-csirkecombok-hagymas-burgonyapurevel",
+      "matched": [
+        "2017-zoldfuszeres-csirkecombok-hagymas-burgonyapurevel"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2115,
+      "modxPath": "cikkek/hypertonia/1701/kapros-turoval-toltott-pulyamell-vajas-gyumolcsokkel",
+      "winner": "2017-kapros-turoval-toltott-pulyamell-vajas-gyumolcsokkel",
+      "matched": [
+        "2017-kapros-turoval-toltott-pulyamell-vajas-gyumolcsokkel"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2114,
+      "modxPath": "cikkek/hypertonia/1701/husos-rakott-karfiol",
+      "winner": "2017-husos-rakott-karfiol",
+      "matched": [
+        "2017-husos-rakott-karfiol"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2043,
+      "modxPath": "cikkek/diabetes/1705/szezammagos-csirkemell-brokkolipurevel",
+      "winner": "2019-szezammagos-csirkemell-brokkolipurevel",
+      "matched": [
+        "2019-szezammagos-csirkemell-brokkolipurevel"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2042,
+      "modxPath": "cikkek/diabetes/1705/quinoa-bruschetta",
+      "winner": "2017-quinoa-bruschetta",
+      "matched": [
+        "2017-quinoa-bruschetta"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2041,
+      "modxPath": "cikkek/diabetes/1705/lecso-ujragondolva",
+      "winner": "2017-lecso-ujragondolva",
+      "matched": [
+        "2017-lecso-ujragondolva"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2040,
+      "modxPath": "cikkek/diabetes/1705/kelbimbosalata",
+      "winner": "2017-kelbimbosalata",
+      "matched": [
+        "2017-kelbimbosalata"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2039,
+      "modxPath": "cikkek/diabetes/1705/karolyi-salata",
+      "winner": "2017-karolyi-salata",
+      "matched": [
+        "2017-karolyi-salata"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2038,
+      "modxPath": "cikkek/diabetes/1705/epres-pohardesszert",
+      "winner": "2017-epres-pohardesszert",
+      "matched": [
+        "2017-epres-pohardesszert"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2037,
+      "modxPath": "cikkek/diabetes/1705/cukkinis-raguleves",
+      "winner": "2017-cukkinis-raguleves",
+      "matched": [
+        "2017-cukkinis-raguleves"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2036,
+      "modxPath": "cikkek/diabetes/1705/avokadokremes-karfiolcsoda",
+      "winner": "2021-avokadokrem",
+      "matched": [
+        "2021-avokadokrem"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2035,
+      "modxPath": "cikkek/diabetes/1705/afonyas-sajttorta",
+      "winner": "2017-afonyas-sajttorta",
+      "matched": [
+        "2017-afonyas-sajttorta"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2001,
+      "modxPath": "cikkek/diabetes/1704/cukkinis-raguleves",
+      "winner": "2017-cukkinis-raguleves",
+      "matched": [
+        "2017-cukkinis-raguleves"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 2000,
+      "modxPath": "cikkek/diabetes/1704/zoldsegleves-husgomboccal",
+      "winner": "2017-zoldsegleves-husgomboccal",
+      "matched": [
+        "2017-zoldsegleves-husgomboccal"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 1999,
+      "modxPath": "cikkek/diabetes/1704/csoben-sult-sajtos-tejfolos-zoldbab",
+      "winner": "2017-csoben-sult-sajtos-tejfolos-zoldbab",
+      "matched": [
+        "2017-csoben-sult-sajtos-tejfolos-zoldbab"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 1998,
+      "modxPath": "cikkek/diabetes/1704/sargabarackos-zabpelyhes-suti",
+      "winner": "2017-sargabarackos-zabpelyhes-suti",
+      "matched": [
+        "2017-sargabarackos-zabpelyhes-suti"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 1997,
+      "modxPath": "cikkek/diabetes/1704/paradicsomos-cukkiniragu",
+      "winner": "2017-paradicsomos-cukkiniragu",
+      "matched": [
+        "2017-paradicsomos-cukkiniragu"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 1996,
+      "modxPath": "cikkek/diabetes/1704/mediterran-csirkefalatok",
+      "winner": "2017-mediterran-csirkefalatok",
+      "matched": [
+        "2017-mediterran-csirkefalatok"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 1995,
+      "modxPath": "cikkek/diabetes/1704/tepsis-tengeri-suger",
+      "winner": "2017-tepsis-tengeri-suger",
+      "matched": [
+        "2017-tepsis-tengeri-suger"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 1953,
+      "modxPath": "cikkek/diabetes/1703/nagy-margit-gyumolcsos-receptjei",
+      "winner": "2017-nagy-margit-gyumolcsos-receptjei",
+      "matched": [
+        "2017-nagy-margit-gyumolcsos-receptjei"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 1912,
+      "modxPath": "cikkek/diabetes/1702/sutes-nelkuli-gyumolcstorta",
+      "winner": "2017-sutes-nelkuli-gyumolcstorta",
+      "matched": [
+        "2017-sutes-nelkuli-gyumolcstorta"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 1911,
+      "modxPath": "cikkek/diabetes/1702/medvehagymas-salataleves",
+      "winner": "2011-salataleves",
+      "matched": [
+        "2011-salataleves"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 1910,
+      "modxPath": "cikkek/diabetes/1702/tavaszi-tepsis-csirke",
+      "winner": "2015-tepsis-csirke",
+      "matched": [
+        "2015-tepsis-csirke"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 1909,
+      "modxPath": "cikkek/diabetes/1702/triplasajtos-cukkinis-csirkemell",
+      "winner": "2017-triplasajtos-cukkinis-csirkemell",
+      "matched": [
+        "2017-triplasajtos-cukkinis-csirkemell"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 1908,
+      "modxPath": "cikkek/diabetes/1702/zoldfuszeres-fasirt",
+      "winner": "2017-zoldfuszeres-fasirt",
+      "matched": [
+        "2017-zoldfuszeres-fasirt"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 1907,
+      "modxPath": "cikkek/diabetes/1702/kapros-cukkiniragu",
+      "winner": "2017-kapros-cukkiniragu",
+      "matched": [
+        "2017-kapros-cukkiniragu"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 1906,
+      "modxPath": "cikkek/diabetes/1702/dupla-sajtos-nyulcomb",
+      "winner": "2017-dupla-sajtos-nyulcomb",
+      "matched": [
+        "2017-dupla-sajtos-nyulcomb"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 1905,
+      "modxPath": "cikkek/diabetes/1702/varganyaleves-zoldfuszeres-galuskaval",
+      "winner": "2017-varganyaleves-zoldfuszeres-galuskaval",
+      "matched": [
+        "2017-varganyaleves-zoldfuszeres-galuskaval"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 1904,
+      "modxPath": "cikkek/diabetes/1702/mediterran-csirkemell",
+      "winner": "2017-mediterran-csirkemell",
+      "matched": [
+        "2017-mediterran-csirkemell"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 1903,
+      "modxPath": "cikkek/diabetes/1702/kapros-cukkinifozelek",
+      "winner": "2018-cukkinifozelek",
+      "matched": [
+        "2018-cukkinifozelek"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 1902,
+      "modxPath": "cikkek/diabetes/1702/paradicsommartas",
+      "winner": "2022-kaposztas-vagdalt-paradicsommartassal",
+      "matched": [
+        "2022-kaposztas-vagdalt-paradicsommartassal"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 1901,
+      "modxPath": "cikkek/diabetes/1702/csirkemell-gazdagon",
+      "winner": "2017-csirkemell-gazdagon",
+      "matched": [
+        "2017-csirkemell-gazdagon"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 1858,
+      "modxPath": "cikkek/diabetes/1701/epres-kokuszos-sutemeny",
+      "winner": "2019-epres-kokuszos-sutemeny",
+      "matched": [
+        "2019-epres-kokuszos-sutemeny"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 1857,
+      "modxPath": "cikkek/diabetes/1701/bazsalikomos-husgomboc-paradicsomszosszal-spagettivel",
+      "winner": "2019-bazsalikomos-husgomboc-paradicsomszosszal-spagettivel",
+      "matched": [
+        "2019-bazsalikomos-husgomboc-paradicsomszosszal-spagettivel"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 1856,
+      "modxPath": "cikkek/diabetes/1701/mentas-citromhabos-falatok",
+      "winner": "2019-mentas-citromhabos-falatok",
+      "matched": [
+        "2019-mentas-citromhabos-falatok"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 1855,
+      "modxPath": "cikkek/diabetes/1701/karfiolos-brokkolis-vegyes-tal",
+      "winner": "2019-karfiolos-brokkolis-vegyes-tal",
+      "matched": [
+        "2019-karfiolos-brokkolis-vegyes-tal"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 1854,
+      "modxPath": "cikkek/diabetes/1701/krumplis-pestos-hosszumetelt",
+      "winner": "2019-krumplis-pestos-hosszumetelt",
+      "matched": [
+        "2019-krumplis-pestos-hosszumetelt"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 1853,
+      "modxPath": "cikkek/diabetes/1701/tzatziki",
+      "winner": "2019-tzatziki",
+      "matched": [
+        "2019-tzatziki"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 1852,
+      "modxPath": "cikkek/diabetes/1701/minestrone-leves",
+      "winner": "2019-minestrone-leves",
+      "matched": [
+        "2019-minestrone-leves"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 1851,
+      "modxPath": "cikkek/diabetes/1701/brokkolis-vagdalt-edesburgonyaval",
+      "winner": "2019-brokkolis-vagdalt-edesburgonyaval",
+      "matched": [
+        "2019-brokkolis-vagdalt-edesburgonyaval"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 1850,
+      "modxPath": "cikkek/diabetes/1701/coq-au-vin",
+      "winner": "2019-coq-au-vin",
+      "matched": [
+        "2019-coq-au-vin"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 1849,
+      "modxPath": "cikkek/diabetes/1701/husveti-toltott-tojas",
+      "winner": "2019-husveti-toltott-tojas",
+      "matched": [
+        "2019-husveti-toltott-tojas"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 1848,
+      "modxPath": "cikkek/diabetes/1701/iroban-pacolt-csirkemell-zoldsegekkel-sutve",
+      "winner": "2019-iroban-pacolt-csirkemell-zoldsegekkel-sutve",
+      "matched": [
+        "2019-iroban-pacolt-csirkemell-zoldsegekkel-sutve"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 1784,
+      "modxPath": "cikkek/diabetes/1606/kokuszos-tapiokamousse-fugevel-es-dioval",
+      "winner": "2016-kokuszos-tapiokamousse-fugevel-es-dioval",
+      "matched": [
+        "2016-kokuszos-tapiokamousse-fugevel-es-dioval"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 1783,
+      "modxPath": "cikkek/diabetes/1606/borjuszuzpecsenye-zoldseges-hajdinaval-es-kagyloval",
+      "winner": "2016-borjuszuzpecsenye-zoldseges-hajdinaval-es-kagyloval",
+      "matched": [
+        "2016-borjuszuzpecsenye-zoldseges-hajdinaval-es-kagyloval"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 1782,
+      "modxPath": "cikkek/diabetes/1606/narancsos-halveloute-szent-peter-halaval-es-szojasajttal",
+      "winner": "2016-narancsos-halveloute-szent-peter-halaval-es-szojasajttal",
+      "matched": [
+        "2016-narancsos-halveloute-szent-peter-halaval-es-szojasajttal"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 1693,
+      "modxPath": "cikkek/hypertonia/1601/meggyes-tejszines-csokis-torta",
+      "winner": "2016-meggyes-tejszines-csokis-torta",
+      "matched": [
+        "2016-meggyes-tejszines-csokis-torta"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 1692,
+      "modxPath": "cikkek/hypertonia/1601/spenottal-toltott-gongyolt-pulyka-karamellizalt-gyumolcsokkel",
+      "winner": "2016-spenottal-toltott-gongyolt-pulyka-karamellizalt-gyumolcsokkel",
+      "matched": [
+        "2016-spenottal-toltott-gongyolt-pulyka-karamellizalt-gyumolcsokkel"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 1691,
+      "modxPath": "cikkek/hypertonia/1601/zablisztes-szilvakremes-gomboc",
+      "winner": "2016-zablisztes-szilvakremes-gomboc",
+      "matched": [
+        "2016-zablisztes-szilvakremes-gomboc"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 1690,
+      "modxPath": "cikkek/hypertonia/1601/vanilias-meggyleves",
+      "winner": "2013-meggyleves",
+      "matched": [
+        "2013-meggyleves"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 1657,
+      "modxPath": "cikkek/diabetes/1602/kaszinotojas",
+      "winner": "2016-kaszinotojas",
+      "matched": [
+        "2016-kaszinotojas"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 1656,
+      "modxPath": "cikkek/diabetes/1602/zabos-almas-muffin",
+      "winner": "2016-zabos-almas-muffin",
+      "matched": [
+        "2016-zabos-almas-muffin"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 1655,
+      "modxPath": "cikkek/diabetes/1602/frissito-malnas-limonade",
+      "winner": "2016-frissito-malnas-limonade",
+      "matched": [
+        "2016-frissito-malnas-limonade"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 1628,
+      "modxPath": "cikkek/diabetes/1601/tavaszi-salata",
+      "winner": "2016-tavaszi-salata-furjtojassal",
+      "matched": [
+        "2016-tavaszi-salata-furjtojassal"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 1627,
+      "modxPath": "cikkek/diabetes/1601/paradicsomos-spenotsalata",
+      "winner": "2016-paradicsomos-spenotsalata",
+      "matched": [
+        "2016-paradicsomos-spenotsalata"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 1626,
+      "modxPath": "cikkek/diabetes/1601/rukkolasalata-eperrel",
+      "winner": "2016-rukkolasalata-eperrel",
+      "matched": [
+        "2016-rukkolasalata-eperrel"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 1625,
+      "modxPath": "cikkek/diabetes/1601/tavaszi-toltott-szololevel-hidegen-talalva",
+      "winner": "2018-toltott-szololevel-hidegen-talalva",
+      "matched": [
+        "2018-toltott-szololevel-hidegen-talalva"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 1624,
+      "modxPath": "cikkek/diabetes/1601/rukkolasalata-narancsos-ontettel",
+      "winner": "2016-rukkolasalata-narancsos-ontettel",
+      "matched": [
+        "2016-rukkolasalata-narancsos-ontettel"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 1511,
+      "modxPath": "cikkek/diabetes/1506/sved-mandulatorta",
+      "winner": "2015-sved-mandulatorta",
+      "matched": [
+        "2015-sved-mandulatorta"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 1510,
+      "modxPath": "cikkek/diabetes/1506/kolbaszos-sajtos-rud",
+      "winner": "2019-sajtos-rud",
+      "matched": [
+        "2019-sajtos-rud"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 1509,
+      "modxPath": "cikkek/diabetes/1506/kakaoscsiga",
+      "winner": "2021-kakaoscsiga",
+      "matched": [
+        "2021-kakaoscsiga"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 1508,
+      "modxPath": "cikkek/diabetes/1506/mustaros-tejszines-csirkeragu",
+      "winner": "2015-mustaros-tejszines-csirkeragu",
+      "matched": [
+        "2015-mustaros-tejszines-csirkeragu"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 1507,
+      "modxPath": "cikkek/diabetes/1506/zoldseges-barna-rizs",
+      "winner": "2015-zoldseges-barna-rizs",
+      "matched": [
+        "2015-zoldseges-barna-rizs"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 1506,
+      "modxPath": "cikkek/diabetes/1506/karacsonyi-gesztenyekremleves",
+      "winner": "2011-gesztenyekremleves",
+      "matched": [
+        "2011-gesztenyekremleves"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "new-rs-required",
+      "modxContentId": 1447,
+      "modxPath": "cikkek/diabetes/1503/recept-sarok",
+      "target": "2015-recept-sarok"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 1291,
+      "modxPath": "cikkek/diabetes/1306/makos-es-dios-bejgli",
+      "winner": "2013-makos-es-dios-bejgli",
+      "matched": [
+        "2013-makos-es-dios-bejgli"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 1288,
+      "modxPath": "cikkek/diabetes/1406/parazslo-sutotokpure-voroscurry-martassal-es-rozmaringos-grillkolbaszkakkal",
+      "winner": "2014-parazslo-sutotokpure-voroscurry-martassal-es-rozmaringos-grillkolbaszkakkal",
+      "matched": [
+        "2014-parazslo-sutotokpure-voroscurry-martassal-es-rozmaringos-grillkolbaszkakkal"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 1289,
+      "modxPath": "cikkek/diabetes/1406/sutotokos-zabtaller-feher-csokival",
+      "winner": "2014-sutotokos-zabtaller-feher-csokival",
+      "matched": [
+        "2014-sutotokos-zabtaller-feher-csokival"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 1290,
+      "modxPath": "cikkek/diabetes/1406/barsonyos-gyomberes-sutotokleves",
+      "winner": "2015-sutotokleves",
+      "matched": [
+        "2015-sutotokleves"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 1284,
+      "modxPath": "cikkek/diabetes/1406/sargarepa-es-uborkasalata-korianderes-fetaval",
+      "winner": "2014-sargarepa-es-uborkasalata-korianderes-fetaval",
+      "matched": [
+        "2014-sargarepa-es-uborkasalata-korianderes-fetaval"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 1285,
+      "modxPath": "cikkek/diabetes/1406/paradicsom-consomme-rakkal-zoldbabbal",
+      "winner": "2014-paradicsom-consomme-rakkal-zoldbabbal",
+      "matched": [
+        "2014-paradicsom-consomme-rakkal-zoldbabbal"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 1286,
+      "modxPath": "cikkek/diabetes/1406/grillezett-harcsa-piritott-mogyoros-rizs-soskamartas",
+      "winner": "2014-grillezett-harcsa-piritott-mogyoros-rizs-soskamartas",
+      "matched": [
+        "2014-grillezett-harcsa-piritott-mogyoros-rizs-soskamartas"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 1220,
+      "modxPath": "cikkek/diabetes/1404/azsiai-zoldsegleves-hajdinaval",
+      "winner": "2014-azsiai-zoldsegleves-hajdinaval",
+      "matched": [
+        "2014-azsiai-zoldsegleves-hajdinaval"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 1221,
+      "modxPath": "cikkek/diabetes/1404/currys-repatorta-hajdinaval",
+      "winner": "2014-currys-repatorta-hajdinaval",
+      "matched": [
+        "2014-currys-repatorta-hajdinaval"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 1222,
+      "modxPath": "cikkek/diabetes/1404/tokmagolajos-hajdinasalata",
+      "winner": "2014-tokmagolajos-hajdinasalata",
+      "matched": [
+        "2014-tokmagolajos-hajdinasalata"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 1100,
+      "modxPath": "cikkek/diabetes/1403/currys-gyomberes-rakott-csirke",
+      "winner": "2022-rakott-csirke",
+      "matched": [
+        "2022-rakott-csirke"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 1101,
+      "modxPath": "cikkek/diabetes/1403/edeskomenyes-csicsokakremleves",
+      "winner": "2014-edeskomenyes-csicsokakremleves",
+      "matched": [
+        "2014-edeskomenyes-csicsokakremleves"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 1102,
+      "modxPath": "cikkek/diabetes/1403/almas-makos-kukoricasuti-csicsokaval",
+      "winner": "2014-almas-makos-kukoricasuti-csicsokaval",
+      "matched": [
+        "2014-almas-makos-kukoricasuti-csicsokaval"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 1078,
+      "modxPath": "cikkek/diabetes/1402/joghurtos-panna-cotta-citromfuvel-es-erdeiszamoca-ontettel",
+      "winner": "2014-joghurtos-panna-cotta-citromfuvel-es-erdeiszamoca-ontettel",
+      "matched": [
+        "2014-joghurtos-panna-cotta-citromfuvel-es-erdeiszamoca-ontettel"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 1079,
+      "modxPath": "cikkek/diabetes/1402/polentafelfujt-steviaval",
+      "winner": "2014-polentafelfujt-steviaval",
+      "matched": [
+        "2014-polentafelfujt-steviaval"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 1080,
+      "modxPath": "cikkek/diabetes/1402/epres-kokuszos-tapiokapuding",
+      "winner": "2014-epres-kokuszos-tapiokapuding",
+      "matched": [
+        "2014-epres-kokuszos-tapiokapuding"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 1065,
+      "modxPath": "cikkek/diabetes/1401/tarkonyos-savanyukaposzta-kremleves",
+      "winner": "2014-tarkonyos-savanyukaposzta-kremleves",
+      "matched": [
+        "2014-tarkonyos-savanyukaposzta-kremleves"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 1066,
+      "modxPath": "cikkek/diabetes/1401/orosz-falusi-zoldsegsalata",
+      "winner": "2009-zoldsegsalata",
+      "matched": [
+        "2009-zoldsegsalata"
+      ],
+      "reason": "id"
+    },
+    {
+      "type": "rs-winner",
+      "modxContentId": 1064,
+      "modxPath": "cikkek/diabetes/1401/savanyu-kaposzta-birsalmaval-es-husgombocokkal",
+      "winner": "2014-savanyu-kaposzta-birsalmaval-es-husgombocokkal",
+      "matched": [
+        "2014-savanyu-kaposzta-birsalmaval-es-husgombocokkal"
+      ],
+      "reason": "id"
+    }
+  ]
+}

@@ -1,5 +1,3 @@
-export const FREE_SAMPLE_YEAR = 2025
-
 export interface NutritionValues {
   label: string
   energy: number
@@ -27,6 +25,40 @@ export type RecipeImage = {
   src: string
   alt: string
   caption?: string | null
+}
+
+/** Magazine-style card image (same shape as MODX `doc.img` for `CardV`). */
+export type RecipeCardImage = {
+  src: string
+  pos: string
+  ext: string
+}
+
+/** Absolute URL or `/rs/...` path suitable for `<img src>`. */
+export function normalizeRecipeAssetSrc(year: number, raw: string): string {
+  if (/^https?:\/\//i.test(raw)) return raw
+  if (raw.startsWith('/')) return raw
+  return `/rs/${year}/${raw}`
+}
+
+/**
+ * Build `img` for `CardV` from hero `image`, an existing sloppy `img`, or both.
+ */
+export function recipeHeroToCardImg(
+  year: number,
+  hero: { src: string; alt?: string; caption?: string | null } | null | undefined,
+  sloppyImg?: { src?: string; pos?: string; ext?: string } | null
+): RecipeCardImage | null {
+  const raw = sloppyImg?.src ?? hero?.src
+  if (!raw) return null
+  return {
+    src: normalizeRecipeAssetSrc(year, raw),
+    pos: sloppyImg?.pos || '50% 40%',
+    ext:
+      (typeof sloppyImg?.ext === 'string' && sloppyImg.ext) ||
+      raw.split('.').pop()?.split('?')[0] ||
+      'jpg',
+  }
 }
 
 export interface SubRecipe {
@@ -57,11 +89,16 @@ export interface Recipe {
   searchTerms: string[]
   instructions: string[]
   image: RecipeImage | null
+  /** CardV / search: normalized `{ src, pos, ext }`; derived from `image` when missing. */
+  img?: RecipeCardImage | null
   subRecipes: SubRecipe[]
   hasSubRecipes: boolean
   createdAt: string
   updatedAt: string
+  published?: boolean
   free?: boolean
+  video?: string
+  sourceModxId?: number
 }
 
 export interface RecipeTeaser {
@@ -77,6 +114,7 @@ export interface RecipeTeaser {
   carbs: number
   fiber: number
   image: RecipeImage | null
+  img?: RecipeCardImage | null
   servings: { amount: number; unit: string }
   hasSubRecipes: boolean
   free: boolean
@@ -110,8 +148,11 @@ export function recipeDetailPath(recipe: Pick<Recipe, 'year' | 'id'>): string {
   return `/receptsarok/${recipeDetailSegments(recipe)}`
 }
 
-export function isRecipeFree(recipe: { year: number; free?: boolean }): boolean {
-  return recipe.year === FREE_SAMPLE_YEAR || recipe.free === true
+export function isRecipeFree(recipe: { free?: boolean | string }): boolean {
+  return (
+    recipe.free === true ||
+    (typeof recipe.free === 'string' && recipe.free.trim().toLowerCase() === 'true')
+  )
 }
 
 /** Remove body fields from serialized recipe data (ingredients, instructions, search helpers). */
@@ -140,6 +181,7 @@ export function toTeaser(recipe: Recipe): RecipeTeaser {
     carbs: recipe.carbs,
     fiber: recipe.fiber,
     image: recipe.image,
+    img: recipe.img ?? recipeHeroToCardImg(recipe.year, recipe.image, undefined),
     servings: recipe.servings,
     hasSubRecipes: recipe.hasSubRecipes,
     free: isRecipeFree(recipe),

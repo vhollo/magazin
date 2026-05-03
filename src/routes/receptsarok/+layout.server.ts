@@ -5,7 +5,10 @@ import { getRecipes, getCategories } from '$lib/siteConf'
 import { toLayoutRecipe } from '$lib/receptsarok'
 import type { Recipe, Category } from '$lib/receptsarok'
 
-const allRecipes: Recipe[] = await getRecipes()
+type RecipePublished = Recipe & { published?: boolean }
+const allRecipes: Recipe[] = (await getRecipes()).filter(
+  (r: Recipe) => (r as RecipePublished).published !== false
+)
 const categories: Category[] = await getCategories()
 
 const recipeCounts: Record<string, number> = {}

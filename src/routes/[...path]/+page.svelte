@@ -37,7 +37,6 @@
   $: doc = data.doc
   $: docs = data.docs
   // $: console.log('docs.count', data.docs.count)
-  let count = data.count
   // $: if (doc.id) console.log(doc.tv)
 
 
@@ -188,7 +187,7 @@
 {#if conf.top_banners.length}
   <BannerTop banners={conf.top_banners}/>
 {/if}
-<Search {count}/>
+<Search articles={data.articleCount} recipes={data.recipeCount} />
 <Nav2 actual={data.path}/>
 
 {#if docs.length}

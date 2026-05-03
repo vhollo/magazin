@@ -1,0 +1,17 @@
+{
+  "generatedAt": "2026-05-03T21:56:11.216Z",
+  "instructions": "Review and fill required recipe body fields, then import to Firestore/recipes.json.",
+  "entries": [
+    {
+      "key": "2015-recept-sarok",
+      "year": 2015,
+      "id": "recept-sarok",
+      "title": "Recept-sarok",
+      "sourceModxId": 1447,
+      "sourcePath": "cikkek/diabetes/1503/recept-sarok",
+      "author": "",
+      "free": true,
+      "note": "Fill ingredientGroups, nutritionTables, instructions manually before publish."
+    }
+  ]
+}

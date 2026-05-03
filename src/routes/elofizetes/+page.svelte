@@ -192,9 +192,6 @@ if (browser) {
   }
 }
 const { data }: PageProps = $props()
-let count = data.count
-
-
 </script>
 
 <svelte:head>
@@ -253,7 +250,7 @@ let count = data.count
   </p>
 </article>
 
-<Search {count}/>
+<Search articles={data.articleCount} recipes={data.recipeCount} />
 <Nav2 actual='elofizetes'/><!--  actual={data.doc.path} -->
 
 </main>

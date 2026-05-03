@@ -16,7 +16,9 @@
 		"db:generate": "drizzle-kit generate",
 		"db:studio": "drizzle-kit studio",
 		"recipes:review:export": "node scripts/export-magazin-recipe-category-review.mjs",
-		"recipes:review:import": "node scripts/import-magazin-recipe-category-review.mjs"
+		"recipes:review:import": "node scripts/import-magazin-recipe-category-review.mjs",
+		"recipes:dedupe": "node scripts/dedupe-magazin-receptsarok.mjs",
+		"recipes:dedupe:apply-local": "node scripts/dedupe-magazin-receptsarok.mjs --apply-local"
 	},
 	"devDependencies": {
 		"@sveltejs/adapter-auto": "^3.2.5",

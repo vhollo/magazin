@@ -104,5 +104,5 @@ const kvizzes = data.kvizzes
   {/each}
 </div>
 </main>
-<Search count={data.count}/>
+<Search articles={data.articleCount} recipes={data.recipeCount} />
 <Nav2 actual={data.path}/>

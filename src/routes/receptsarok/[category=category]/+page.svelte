@@ -1,5 +1,5 @@
-<script context="module">
-  import RecipeCard from '$lib/components/RecipeCard.svelte'
+<script lang="ts" module>
+  import CardV from '$lib/components/CardV.svelte'
   import RecipeFilters from '$lib/components/RecipeFilters.svelte'
   import Search from '$lib/components/Search.svelte'
   import Nav2 from '$lib/components/Nav2.svelte'
@@ -8,11 +8,13 @@
 
 <script lang="ts">
   import { hasReceptsarokAccess } from '$lib/authStore'
+  import { recipeToReceptsarokListCard } from '$lib/recipeReceptsarokListCard'
+  import { isRecipeFree } from '$lib/receptsarok'
   let { data } = $props()
 
-  const categoryId = data.categoryId
-  const category = data.categories.find((c: any) => c.id === categoryId)
-  const allCategoryRecipes = data.recipes.filter((r: any) => r.category === categoryId)
+  const categoryId = $derived(data.categoryId)
+  const category = $derived(data.categories.find((c: any) => c.id === categoryId))
+  const allCategoryRecipes = $derived(data.recipes.filter((r: any) => r.category === categoryId))
 
   let filters = $state({
     maxEnergy: 0,
@@ -81,9 +83,20 @@
   </p>
 {/if}
 
-<section class="grid gap-6 px-4 py-6">
+<section class="grid gap-x-6 gap-y-0 px-4 py-6">
   {#each filtered as recipe (recipe.year + '-' + recipe.id)}
-    <RecipeCard {recipe} locked={!$hasReceptsarokAccess} />
+    {@const base = recipeToReceptsarokListCard(recipe)}
+    {@const card = {
+      ...base,
+      locked: !isRecipeFree(recipe) && !$hasReceptsarokAccess,
+    }}
+    <aside
+      class="card gap-2 rounded-sm bg-base-200"
+      class:double={card.img}
+      class:triple={card.description && card.img}
+    >
+      <CardV {card} />
+    </aside>
   {/each}
 </section>
 
@@ -91,12 +104,25 @@
   <p class="text-center py-12 opacity-50">Nincs a szűrési feltételeknek megfelelő recept.</p>
 {/if}
 
-<Search count={data.recipes.length} />
+<Search articles={data.articleCount} recipes={data.recipeCount} />
 <Nav2 actual="/receptsarok" />
 
 <style>
   section {
     grid-template-columns: repeat(auto-fill, minmax(24ch, 1fr));
     grid-auto-flow: dense;
+    grid-auto-rows: auto;
+  }
+  aside {
+    position: unset;
+    min-height: 20ch;
+    max-height: fit-content;
+    margin-bottom: 3rem;
+  }
+  aside.double {
+    grid-row-end: span 2;
+  }
+  aside.triple {
+    grid-row-end: span 2;
   }
 </style>

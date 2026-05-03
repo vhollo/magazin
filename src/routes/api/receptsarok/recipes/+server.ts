@@ -8,7 +8,9 @@ export const GET: RequestHandler = async ({ request }) => {
   const auth = await requireReceptsarokSubscriber(request)
   if (!auth.ok) return auth.response
 
-  const recipes = await getRecipes()
+  const recipes = (await getRecipes()).filter(
+    (r: { published?: boolean }) => r.published !== false
+  )
   const withFlags = recipes.map((r: { year: number; free?: boolean }) => ({
     ...r,
     free: isRecipeFree(r),

@@ -18,10 +18,79 @@ import { db } from '$lib/firebase-admin';
 import { /* browser,  */building , dev/*, version */ } from '$app/environment';
 import fs from 'fs';
 import path from 'path';
+import { execFileSync } from 'node:child_process'
 
 import { render } from 'svelte/server'
 import Nagyito from '$lib/components/Nagyito.svelte'
 import { fromHtmlEntities } from '$lib/utils'
+
+const RS_REDIRECTS_PATH = path.resolve(process.cwd(), 'src/lib/data', 'receptsarok-redirects.json')
+
+type RedirectManifestEntry = {
+  modxContentId?: number
+  path?: string
+  year?: number
+  id?: string
+}
+
+function normalizeDocPath(pathValue: unknown): string {
+  return String(pathValue ?? '').trim().replace(/^\/+/, '')
+}
+
+const redirectByContentId = new Map<number, string>()
+const redirectByPath = new Map<string, string>()
+
+function loadRedirectManifestMaps() {
+  redirectByContentId.clear()
+  redirectByPath.clear()
+  try {
+    const raw = fs.readFileSync(RS_REDIRECTS_PATH, 'utf8')
+    const parsed = JSON.parse(raw)
+    const entries: RedirectManifestEntry[] = Array.isArray(parsed)
+      ? parsed
+      : Array.isArray(parsed?.entries)
+        ? parsed.entries
+        : []
+    for (const entry of entries) {
+      const year = Number(entry?.year)
+      const id = typeof entry?.id === 'string' ? entry.id.trim() : ''
+      if (!Number.isFinite(year) || !id) continue
+      const redirect = `/receptsarok/${year}/${encodeURIComponent(id)}`
+      if (Number.isFinite(entry?.modxContentId)) {
+        redirectByContentId.set(Number(entry.modxContentId), redirect)
+      }
+      const keyPath = normalizeDocPath(entry?.path)
+      if (keyPath) redirectByPath.set(keyPath, redirect)
+    }
+  } catch {
+    // Missing manifest is expected in normal development.
+  }
+}
+loadRedirectManifestMaps()
+
+function runAutomaticRecipeDedupe() {
+  const scriptPath = path.resolve(process.cwd(), 'scripts', 'dedupe-magazin-receptsarok.mjs')
+  if (!fs.existsSync(scriptPath)) return
+  try {
+    execFileSync(process.execPath, [scriptPath, '--apply-local', '--create-local'], {
+      stdio: 'inherit',
+      cwd: process.cwd(),
+    })
+  } catch (error) {
+    console.error('Automatic dedupe failed:', error)
+  }
+}
+
+const _setReceptsarokRedirect = (doc: any, fallbackRedirect?: string) => {
+  const byId = Number.isFinite(doc.id) ? redirectByContentId.get(Number(doc.id)) : undefined
+  const byPath = redirectByPath.get(normalizeDocPath(doc.path))
+  const target = byId || byPath || fallbackRedirect
+  if (typeof target === 'string' && target.trim().length > 0) {
+    doc.redirect = target.trim()
+  } else {
+    delete doc.redirect
+  }
+}
 
 /* Functions */
 
@@ -303,6 +372,7 @@ const _docFields = doc => {
     ellipsis: doc.ellipsis,
     table: doc.table,
     video: doc.video,
+    redirect: doc.redirect,
     publishedon: doc.publishedon,
     editedon: doc.editedon,
     isfolder: doc.isfolder,
@@ -322,6 +392,7 @@ const _relFields = doc => {
     ellipsis: doc.ellipsis,
     table: doc.table,
     video: doc.video,
+    redirect: doc.redirect,
   }
 }
 
@@ -440,6 +511,7 @@ if (newDocs.length) {
 
   // Process each fresh document from modxSiteContent and merge it into the map
   for (let doc of newDocs) {
+    const cachedDoc = oldDocsMap.get(doc.id)
     // These functions modify the 'doc' object directly
     _addTVs(doc);
     _findPath(doc);
@@ -447,6 +519,7 @@ if (newDocs.length) {
     _nagyito(doc);
     _alapjav(doc);
     _ellipsis(doc);
+    _setReceptsarokRedirect(doc, cachedDoc?.redirect);
     
     oldDocsMap.set(doc.id, _docFields(doc));
   }
@@ -470,8 +543,18 @@ if (newDocs.length) {
 
   // write data.json to file
   if (dev || building) {
-    const lastEdit = everyDocs.reduce((max, doc) => doc.editedon > max ? doc.editedon : max, 0)
+    let lastEdit = everyDocs.reduce((max, doc) => doc.editedon > max ? doc.editedon : max, 0)
     writeData(everyDocs, lastEdit)
+
+    if (newDocs.length > 0) {
+      runAutomaticRecipeDedupe()
+      loadRedirectManifestMaps()
+      for (const doc of everyDocs) {
+        _setReceptsarokRedirect(doc, doc.redirect)
+      }
+      lastEdit = everyDocs.reduce((max, doc) => doc.editedon > max ? doc.editedon : max, 0)
+      writeData(everyDocs, lastEdit)
+    }
 
     const noTag = everyDocs.filter(doc => doc.tv.tags.length == 0 && doc.content != '').sort((a, b) => b.id - a.id)
     console.log('*** writenoTag',noTag.length)
@@ -487,6 +570,7 @@ if (newDocs.length) {
 }
 
 export const allDocs = everyDocs.filter(doc => doc.tv.tags.length > 0 && doc.tv.tags[0] != 'folder').sort((a, b) => b.id - a.id)
+export const listedDocs = allDocs.filter((doc) => !doc.redirect)
 
 
 // // Write fresh modxSiteContent into Firestore's collection 'docs'

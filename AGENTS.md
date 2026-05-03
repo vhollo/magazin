@@ -574,7 +574,7 @@ Types and constants defined in `src/lib/receptsarok.ts`.
 
 ### Paywall / Freemium Model
 
-- **FREE_SAMPLE_YEAR** (2025): All recipes from this year are free (full content visible)
+- **Free recipes**: Firestore `recipes` documents with **`free: true`** are free (full content visible); the app uses `isRecipeFree()` in `src/lib/receptsarok.ts` (`recipe.free === true` only). Sample-year recipes must set this flag in data (e.g. all 2025 booklet recipes ship with `free: true` in `recipes.json` / Firestore).
 - **Other years**: Nutrition teaser visible to all, ingredients + instructions gated
 - **Subscription status**: Stored in Firestore `users/{uid}.subscription.receptsarok`
 - **Client-side gating**: `hasReceptsarokAccess` derived store in `authStore.ts`

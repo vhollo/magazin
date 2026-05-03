@@ -18,8 +18,6 @@
   // import { firebaseAuth } from '$lib/firebase'
 
   let { data }: PageProps = $props()
-  let count = $derived(data.count)
-
   /** Local copy: mutated while answering; reset when load data changes (e.g. navigate to another quiz). */
   // Effects do not run during SSR — initialize from load data so the first server render has kviz.
   let kviz = $state(data.kviz) as PageData['kviz']
@@ -198,7 +196,7 @@
   <p class="text-center">Pontszám: <span class="badge badge-primary">{score} / {kviz.max_score} pont</span></p>
 </footer>
 
-<Search {count}/>
+<Search articles={data.articleCount} recipes={data.recipeCount} />
 <Nav2 actual={data.path}/>
 
 <!-- {#if docs.length}

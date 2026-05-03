@@ -62,7 +62,7 @@
     {/each}
   </ul>
 </main>
-<Search count={data.count}/>
+<Search articles={data.articleCount} recipes={data.recipeCount} />
 <Nav2 actual={data.path}/>
 
 <style>
