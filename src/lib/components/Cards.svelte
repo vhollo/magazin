@@ -17,6 +17,41 @@
   export let ads_distance = 4
   // import { ads } from '$lib/ads.js'
   export let cards: any[], full = true
+
+  // Dense masonry: derive grid-row span from each item's actual content height.
+  // Reads grid-auto-rows + row-gap from the parent so CSS stays the source of truth.
+  function masonryItem(node: HTMLElement) {
+    let ROW = 4, GAP = 0
+    const parent = node.parentElement
+    if (parent) {
+      const cs = getComputedStyle(parent)
+      ROW = parseFloat(cs.gridAutoRows) || ROW
+      GAP = parseFloat(cs.rowGap) || GAP
+    }
+    let lastSpan = 0
+    const setSpan = () => {
+      const h = node.getBoundingClientRect().height
+      if (!h) return
+      const span = Math.max(1, Math.ceil((h + GAP) / (ROW + GAP)))
+      if (span !== lastSpan) {
+        lastSpan = span
+        node.style.gridRowEnd = `span ${span}`
+      }
+    }
+    setSpan()
+    const ro = new ResizeObserver(setSpan)
+    ro.observe(node)
+    const imgs = Array.from(node.querySelectorAll('img'))
+    imgs.forEach((img) => {
+      if (!img.complete) img.addEventListener('load', setSpan)
+    })
+    return {
+      destroy() {
+        ro.disconnect()
+        imgs.forEach((img) => img.removeEventListener('load', setSpan))
+      }
+    }
+  }
   
   let /* win: { location: { hash: string; }; }, */ pagenum = 1, volume = 18
   afterNavigate(() => {
@@ -47,16 +82,16 @@
 <!-- <svelte:window bind:this={win}/> -->
 
 {#if full}
-  <section class="grid gap-x-6 gap-y-0 px-4 py-6">
+  <section class="grid gap-x-6 gap-y-12 px-4 py-6">
     {#each cards.slice(0, volume * pagenum) as card, i}
-      <aside in:fade={{ duration: 1000 }} class:double={card.img || card.video} class:triple={card.description && (card.img || card.video)} class="card gap-2 rounded-sm bg-base-200" style="order:{i}">
+      <aside in:fade={{ duration: 1000 }} use:masonryItem class="card gap-2 rounded-sm bg-base-200" style="order:{i}">
         <CardV {card}/>
       </aside>
     {/each}
     {#key hirds}
     {#if !$authUser && browser && hirds.length}
       {#each hirds as item, i}
-      <aside class="" style="order:{i * ads_distance + 1}">
+      <aside use:masonryItem style="order:{i * ads_distance + 1}">
         <BannerSide banner={item}/>
       </aside>
       {/each}
@@ -80,28 +115,14 @@
   section {
     scroll-behavior: auto;
     grid-template-columns: repeat(auto-fill, minmax(24ch, 1fr));
-    grid-auto-rows: auto;
+    /* small unit so dynamic spans can hug each card's actual height */
+    grid-auto-rows: 4px;
     grid-auto-flow: dense;
-    grid-template-rows: masonry; /* future spec */
   }
   aside {
     position: unset;
-    min-height: 20ch;
-    max-height: fit-content;
-    /* grid-row-end: span 3; */
-    margin-bottom: 3rem;
+    /* prevent stretch-to-track so ResizeObserver reports content height */
+    align-self: start;
   }
-  aside.double {
-    grid-row-end: span 2;
-  }
-  aside.triple {
-    grid-row-end: span 2;
-  }
-  /* aside.triple :global(figure) {
-    display: none;
-  } */
-  /* :global(aside.triple:has(figure)) {
-    grid-row-end: span 2;
-  } */
 </style>
   
