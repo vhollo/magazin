@@ -187,6 +187,70 @@ export const getPatika = async () => {
 let recipesMemo: Promise<unknown[]> | null = null
 let categoriesMemo: Promise<unknown[]> | null = null
 
+function normalizeTag(value: unknown): string {
+  return String(value ?? '').trim().toLowerCase()
+}
+
+function getRecipeTags(data: any): string[] {
+  const source = Array.isArray(data?.tags)
+    ? data.tags
+    : Array.isArray(data?.searchTerms)
+      ? data.searchTerms
+      : []
+  return source
+    .map(normalizeTag)
+    .filter(Boolean)
+}
+
+function shouldKeepRecipe(data: any): boolean {
+  const tags = getRecipeTags(data)
+  const hasRecept = tags.includes('recept')
+  if (!hasRecept) return true
+  const extraTags = tags.filter((t) => t !== 'recept')
+  // Keep only magazin-import recipes where `recept` is the sole tag.
+  return extraTags.length === 0
+}
+
+function normalizeRecipeForExport(rawData: any): any | null {
+  const data: any = { ...rawData }
+  data.createdAt = data.createdAt?.toDate?.()?.toISOString() ?? data.createdAt
+  data.updatedAt = data.updatedAt?.toDate?.()?.toISOString() ?? data.updatedAt
+
+  if (!shouldKeepRecipe(data)) {
+    return null
+  }
+
+  if (!data.img && data.image) {
+    data.img = data.image
+  }
+  if (data.image) {
+    delete data.image
+  }
+
+  return data
+}
+
+function toRuntimeRecipe(data: any): any {
+  if (!data?.image && data?.img) {
+    return { ...data, image: data.img }
+  }
+  return data
+}
+
+function parseRecipesJson(raw: string): any[] {
+  const parsed = JSON.parse(raw)
+  if (!Array.isArray(parsed)) return []
+  return parsed.map(toRuntimeRecipe)
+}
+
+function parseRecipesForExport(raw: string): any[] {
+  const parsed = JSON.parse(raw)
+  if (!Array.isArray(parsed)) return []
+  return parsed
+    .map((item) => normalizeRecipeForExport(item))
+    .filter(Boolean)
+}
+
 async function loadRecipesUncached(): Promise<unknown[]> {
   if (building || dev) {
     try {
@@ -195,24 +259,25 @@ async function loadRecipesUncached(): Promise<unknown[]> {
       if (recipesSnap.empty) {
         if (dev) console.log('No recipes in Firestore, using local JSON');
         const data = fs.readFileSync(path.resolve(process.cwd(), 'src/lib/data', 'recipes.json'), 'utf-8');
-        return JSON.parse(data);
+        const recipesDataForExport = parseRecipesForExport(data)
+        writeData(recipesDataForExport, 'recipes.json')
+        return recipesDataForExport.map(toRuntimeRecipe)
       }
-      const recipesData = recipesSnap.docs.map((doc: QueryDocumentSnapshot) => {
-        const data: any = { ...doc.data() }
-        data.createdAt = data.createdAt?.toDate?.()?.toISOString() ?? data.createdAt
-        data.updatedAt = data.updatedAt?.toDate?.()?.toISOString() ?? data.updatedAt
-        return data
-      })
-      writeData(recipesData, 'recipes.json')
-      return recipesData
+      const recipesDataForExport = recipesSnap.docs
+        .map((doc: QueryDocumentSnapshot) => normalizeRecipeForExport(doc.data()))
+        .filter(Boolean)
+      writeData(recipesDataForExport, 'recipes.json')
+      return recipesDataForExport.map(toRuntimeRecipe)
     } catch (error) {
       console.error("Error getting recipes:", error);
       const data = fs.readFileSync(path.resolve(process.cwd(), 'src/lib/data', 'recipes.json'), 'utf-8');
-      return JSON.parse(data);
+      const recipesDataForExport = parseRecipesForExport(data)
+      writeData(recipesDataForExport, 'recipes.json')
+      return recipesDataForExport.map(toRuntimeRecipe)
     }
   }
   const data = fs.readFileSync(path.resolve(process.cwd(), 'src/lib/data', 'recipes.json'), 'utf-8');
-  return JSON.parse(data);
+  return parseRecipesJson(data);
 }
 
 async function loadCategoriesUncached(): Promise<unknown[]> {

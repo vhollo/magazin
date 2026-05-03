@@ -473,7 +473,7 @@ if (newDocs.length) {
     const lastEdit = everyDocs.reduce((max, doc) => doc.editedon > max ? doc.editedon : max, 0)
     writeData(everyDocs, lastEdit)
 
-    const noTag = everyDocs.filter(doc => doc.tv.tags.length = 0 && doc.content != '').sort((a, b) => b.id - a.id)
+    const noTag = everyDocs.filter(doc => doc.tv.tags.length == 0 && doc.content != '').sort((a, b) => b.id - a.id)
     console.log('*** writenoTag',noTag.length)
     const dataPath = path.resolve(process.cwd(), 'src/lib/data', 'noTag.json');
     const outputDir = path.dirname(dataPath);

@@ -77,7 +77,7 @@ const docsByTags = (tags:Array<string>, id:string | undefined) => {
     doc.rank = tags.length && !doc.tv.tags.find(tag => tags.includes(`-${tag}`)) && doc.tv.tags.filter(tag => (tags.includes(tag) || tags.includes(`+${tag}`) || tags.includes(`#${tag}`))).length || 0
     
     // doc.rank = doc.tv.tags.filter(tag => tags.includes(`+${tag}`)).length * 1
-    doc.rank = doc.tv.tags.filter(tag => tags.includes(`+${tag}`)).length * 100 + doc.tv.tags.filter(tag => tags.includes(`#${tag}`)).length * 10 + doc.rank
+    doc.rank = doc.tv.tags.filter(tag => tags.includes(`+${tag}`)).length * 10 + doc.tv.tags.filter(tag => tags.includes(`#${tag}`)).length * 2 + doc.rank
     //if (doc.id == '4091') console.log(doc.tv.tags,tags,doc.rank)
     //if (doc.rank > 0) console.log('R',doc.rank)
     return doc.id != id && !doc.isfolder && doc.rank > 0

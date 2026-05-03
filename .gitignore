@@ -29,5 +29,5 @@ magazin.code-workspace
 # TEMP
 # /src/routes/auth/
 
-/src/lib/data/*
+#/src/lib/data/*
 /static/banners

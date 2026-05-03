@@ -1,0 +1,72 @@
+{
+  "generatedAt": "2026-05-02T19:09:45.183Z",
+  "source": "src/lib/data/recipes.json",
+  "instructions": "Edit only `entries[].category`, then run: npm run recipes:review:import",
+  "entries": [
+    {
+      "key": "2024/a-recept-elkeszitese",
+      "year": 2024,
+      "id": "a-recept-elkeszitese",
+      "title": "A recept elkészítése",
+      "author": "CEOSZ karácsonyi receptek Kovács Bencével",
+      "category": "levesek",
+      "searchTerms": [
+        "recept",
+        "elkeszitese"
+      ],
+      "img": "https://www.diabetes.hu/assets/media/receptsarok/karacsony-2024/sonkas-leveles-karacsonyfa.jpg"
+    },
+    {
+      "key": "2023/a-recept-elkeszitese",
+      "year": 2023,
+      "id": "a-recept-elkeszitese",
+      "title": "A recept elkészítése",
+      "author": "Kovács Bence",
+      "category": "sos-edes-sutemenyek-desszertek-tesztak",
+      "searchTerms": [
+        "recept",
+        "elkeszitese"
+      ],
+      "img": "https://www.diabetes.hu/assets/images/cikkek/dt2301/dt2301-husvetikaja-_IMG9483.jpg"
+    },
+    {
+      "key": "2022/a-recept-elkeszitese",
+      "year": 2022,
+      "id": "a-recept-elkeszitese",
+      "title": "A recept elkészítése",
+      "author": "Kovács Bence",
+      "category": "sos-edes-sutemenyek-desszertek-tesztak",
+      "searchTerms": [
+        "recept",
+        "elkeszitese"
+      ],
+      "img": "https://www.diabetes.hu/assets/images/cikkek/dt2201/dt2201-kaja-_IMG3293.jpg"
+    },
+    {
+      "key": "2021/a-recept-elkeszitese",
+      "year": 2021,
+      "id": "a-recept-elkeszitese",
+      "title": "A recept elkészítése",
+      "author": "Kard Éva",
+      "category": "levesek",
+      "searchTerms": [
+        "recept",
+        "elkeszitese"
+      ],
+      "img": "https://www.diabetes.hu/assets/images/cikkek/dt2101/dt2101-studio-session-027-1.jpg"
+    },
+    {
+      "key": "2006/a-recept-elkeszitese",
+      "year": 2006,
+      "id": "a-recept-elkeszitese",
+      "title": "A recept elkészítése",
+      "author": "Karácsonyi receptek 2020.",
+      "category": "haletelek",
+      "searchTerms": [
+        "recept",
+        "elkeszitese"
+      ],
+      "img": "https://www.diabetes.hu/assets/images/cikkek/dt2006/dt2006-kar-csony2020-036-1.jpg"
+    }
+  ]
+}

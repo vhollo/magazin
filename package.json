@@ -14,7 +14,9 @@
 		"db:introspect": "drizzle-kit introspect",
 		"db:migrate": "drizzle-kit migrate",
 		"db:generate": "drizzle-kit generate",
-		"db:studio": "drizzle-kit studio"
+		"db:studio": "drizzle-kit studio",
+		"recipes:review:export": "node scripts/export-magazin-recipe-category-review.mjs",
+		"recipes:review:import": "node scripts/import-magazin-recipe-category-review.mjs"
 	},
 	"devDependencies": {
 		"@sveltejs/adapter-auto": "^3.2.5",
