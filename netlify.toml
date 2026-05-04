@@ -1,2 +1,9 @@
+[build]
+  command = "npm run build"
+  publish = "build"
+
+[functions]
+  directory = ".netlify/functions-internal"
+
 [build.processing.html]
   pretty_urls = true
