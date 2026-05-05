@@ -15,10 +15,14 @@
 		"db:migrate": "drizzle-kit migrate",
 		"db:generate": "drizzle-kit generate",
 		"db:studio": "drizzle-kit studio",
+		"recipes:category:patterns": "node scripts/build-recipe-category-patterns.mjs",
+		"recipes:category:eval": "node scripts/eval-recipe-category-patterns.mjs",
 		"recipes:review:export": "node scripts/export-magazin-recipe-category-review.mjs",
 		"recipes:review:import": "node scripts/import-magazin-recipe-category-review.mjs",
+		"recipes:uncategorized:import": "node scripts/import-receptsarok-uncategorized-review.mjs",
 		"recipes:dedupe": "node scripts/dedupe-magazin-receptsarok.mjs",
-		"recipes:dedupe:apply-local": "node scripts/dedupe-magazin-receptsarok.mjs --apply-local"
+		"recipes:dedupe:apply-local": "node scripts/dedupe-magazin-receptsarok.mjs --apply-local",
+		"recipes:dedupe:validate": "node scripts/validate-recipe-dedupe-v2.mjs"
 	},
 	"devDependencies": {
 		"@sveltejs/adapter-auto": "^3.2.5",

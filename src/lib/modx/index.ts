@@ -254,7 +254,7 @@ const _findPath = (doc: object) => {
       }
       doc.path = [ parent.path || '', doc.alias ].filter(x => x).join('/')
       // If doc.path contains 'junior' and doc.tv.tags doesn't, then add 'junior' to tags
-      if (typeof doc.path === 'string' && doc.path.includes('junior')) {
+      if (typeof doc.path === 'string' && doc.path.includes('junior') && (doc.tv?.tags && !doc.tv.tags.includes('recept'))) {
         doc.tv = doc.tv || {};
         doc.tv.tags = doc.tv.tags || [];
         if (!doc.tv.tags.includes('junior')) {
