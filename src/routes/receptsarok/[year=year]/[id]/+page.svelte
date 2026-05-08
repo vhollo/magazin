@@ -106,9 +106,9 @@
     </figure>
   {/if}
 
-  <div class="flex flex-wrap gap-2 mb-4">
-    <span class="badge badge-outline">{recipe.servings.amount} {recipe.servings.unit}</span>
-    <span class="badge badge-outline">{recipe.year}</span>
+  <div class="flex flex-wrap gap-2 my-4">
+    <span class="badge badge-outline badge-sm">{recipe.servings.amount} {recipe.servings.unit}</span>
+    <span class="badge badge-outline badge-sm">{recipe.year}</span>
     {#if isFree}
       <span class="badge badge-success">ingyenes</span>
     {/if}

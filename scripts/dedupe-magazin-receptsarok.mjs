@@ -25,6 +25,17 @@ const CATEGORY_REVIEW_PATH = path.resolve(
 
 const applyLocal = process.argv.includes('--apply-local')
 const createLocal = process.argv.includes('--create-local')
+const allowMissingData = process.argv.includes('--allow-missing-data')
+
+if (!fs.existsSync(DATA_PATH)) {
+  if (allowMissingData) {
+    console.warn(
+      `dedupe skipped: missing input file ${DATA_PATH} (this is allowed with --allow-missing-data)`
+    )
+    process.exit(0)
+  }
+  throw new Error(`Missing required input file: ${DATA_PATH}`)
+}
 
 function tokenize(value) {
   return normalizeText(value).split(/\s+/).filter(Boolean)
@@ -111,10 +122,12 @@ for (const entry of categoryReview.entries) {
   categoryByKey.set(`${year}-${id}`, category)
 }
 
-const magazineCandidates = docs.filter((doc) => {
+function hasReceptTag(doc) {
   const tags = Array.isArray(doc?.tv?.tags) ? doc.tv.tags : []
-  return tags.length === 1 && tags[0] === 'recept'
-})
+  return tags.length === 1 && normalizeText(tags[0]) === 'recept'
+}
+
+const magazineCandidates = docs.filter((doc) => hasReceptTag(doc))
 
 const redirects = []
 const createRecipes = []
@@ -132,8 +145,13 @@ function enforceFreeForMagazinOrigin(recipe) {
 function hasRequiredRecipeBody(recipe) {
   const ingredientGroups = Array.isArray(recipe?.ingredientGroups) ? recipe.ingredientGroups : []
   const instructions = Array.isArray(recipe?.instructions) ? recipe.instructions : []
+  const instructionsHtml = String(recipe?.instructionsHtml ?? '').trim()
   const nutritionTables = Array.isArray(recipe?.nutritionTables) ? recipe.nutritionTables : []
-  return ingredientGroups.length > 0 && instructions.length > 0 && nutritionTables.length > 0
+  return (
+    ingredientGroups.length > 0 &&
+    (instructions.length > 0 || instructionsHtml.length > 0) &&
+    nutritionTables.length > 0
+  )
 }
 
 for (const doc of magazineCandidates) {
@@ -155,6 +173,17 @@ for (const doc of magazineCandidates) {
   if (matches.length > 0) {
     const { winner, reason } = chooseWinner(matches)
     if (!winner) continue
+    // Keep winner subrecipe structure in sync with current MODX parser rules.
+    // This prevents legacy false-positive subrecipes (e.g. "További receptek" link lists).
+    const { recipe: reparsedWinner } = buildRecipeFromModxDoc(doc, {
+      year: Number(winner.year),
+      id: String(winner.id),
+      categoryByKey,
+      predictCategory: predictRecipeCategory,
+    })
+    winner.subRecipes = Array.isArray(reparsedWinner?.subRecipes) ? reparsedWinner.subRecipes : []
+    winner.hasSubRecipes = winner.subRecipes.length > 0
+
     let categorySource = 'winner-original'
     let categoryDecision = {
       category: normalizeCategory(winner.category),

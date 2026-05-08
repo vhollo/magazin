@@ -192,6 +192,7 @@ if (browser) {
   }
 }
 const { data }: PageProps = $props()
+const freeCount = $derived(data.freeCount)
 </script>
 
 <svelte:head>
@@ -246,7 +247,7 @@ const { data }: PageProps = $props()
     </div>
   </div>
   <p class="text-center text-sm mt-4 opacity-60">
-    A Receptsarok 2025 receptjei (77 recept) ingyenesen elérhetők, regisztráció nélkül.
+    A Diabetes és Hypertonia lapokban megjelent <span class="text-success font-medium">{freeCount}</span> recept ingyenesen elérhető, regisztráció nélkül.
   </p>
 </article>
 

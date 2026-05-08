@@ -2,7 +2,11 @@ import assert from 'node:assert/strict'
 import fs from 'node:fs'
 import path from 'node:path'
 import { compareRecipeCandidates } from '../src/lib/receptsarokDedupeShared.js'
-import { isDescriptionAuthorCompatible } from './lib/modx-to-rs-parser.mjs'
+import {
+  buildRecipeFromModxDoc,
+  isDescriptionAuthorCompatible,
+  parseYearFromMagazinPath,
+} from './lib/modx-to-rs-parser.mjs'
 import { predictRecipeCategory, loadCategoryPatterns } from './lib/receptsarok-category-predictor.mjs'
 
 const root = process.cwd()
@@ -58,6 +62,160 @@ function testAuthorGate() {
   assert.equal(isDescriptionAuthorCompatible('Kovács Bence receptje', ''), true)
 }
 
+function testParserEntityAndYearResilience() {
+  const parsedYear = parseYearFromMagazinPath('/receptsarok/2024/oszi-menu')
+  assert.equal(parsedYear, 2024)
+  const fallbackYear = parseYearFromMagazinPath('/receptsarok/archiv/menu')
+  assert.ok(Number.isInteger(fallbackYear), 'Fallback year should remain a finite integer')
+
+  const doc = {
+    alias: 'teszt-entity',
+    path: '/receptsarok/2025/teszt-entity',
+    longtitle: 'T&#xE1;rgy',
+    content: `
+      <h2>Hozzávalók 2 adaghoz</h2>
+      <ul><li>1 csipet s&#243;</li></ul>
+      <h2>Elkészítés</h2>
+      <p>Keverjük össze.</p>
+      <p>Energia: 120 kcal</p>
+      <p>Fehérje: 3 g</p>
+    `,
+    description: 'Teszt Szerz&#337; receptje',
+  }
+  const { recipe } = buildRecipeFromModxDoc(doc, {
+    year: 2025,
+    id: 'teszt-entity',
+    categoryByKey: new Map(),
+  })
+  assert.equal(recipe.title, 'T&#xE1;rgy')
+  assert.equal(recipe.author, 'Teszt Szerző')
+  assert.equal(recipe.servings.amount, 2)
+  assert.equal(recipe.servings.unit, 'adag')
+  assert.ok(recipe.ingredientNames.includes('só'), 'Expected decoded ingredient name')
+}
+
+function testParserNutritionFallbackFromParagraphs() {
+  const doc = {
+    alias: 'teszt-nutrition',
+    path: '/receptsarok/2025/teszt-nutrition',
+    title: 'Paragraph nutrition',
+    content: `
+      <h2>Hozzávalók</h2>
+      <ul><li>1 db alma</li></ul>
+      <h2>Elkészítés</h2>
+      <p>Keverés.</p>
+      <p>1 adag energia- és tápanyagtartalma:</p>
+      <p>Energia: 101 kcal</p>
+      <p>Fehérje: 4,5 g</p>
+      <p>Zsír: 2 g</p>
+      <p>Szénhidrát: 10 g</p>
+      <p>Rost: 1 g</p>
+    `,
+  }
+  const { recipe } = buildRecipeFromModxDoc(doc, {
+    year: 2025,
+    id: 'teszt-nutrition',
+    categoryByKey: new Map(),
+  })
+  assert.ok(recipe.nutritionTables.length > 0, 'Nutrition fallback should produce a table')
+  assert.equal(recipe.energy, 101)
+  assert.equal(recipe.protein, 4.5)
+  assert.equal(recipe.carbs, 10)
+}
+
+function testParserIngredientAndServingFallbacks() {
+  const doc = {
+    alias: 'teszt-ingredients',
+    path: '/receptsarok/2025/teszt-ingredients',
+    title: 'Ingredients fallback',
+    content: `
+      <h2>Hozzávalók 4 adaghoz</h2>
+      <ul>
+        <li>1,</li>
+        <li>5 dl tej</li>
+        <li>2 db tojás, 1 csipet só</li>
+      </ul>
+      <h2>Elkészítés</h2>
+      <p>Összekeverjük.</p>
+      <p>Energia: 90 kcal</p>
+      <p>Fehérje: 3 g</p>
+    `,
+  }
+  const { recipe } = buildRecipeFromModxDoc(doc, {
+    year: 2025,
+    id: 'teszt-ingredients',
+    categoryByKey: new Map(),
+  })
+  const firstGroup = recipe.ingredientGroups[0] || { items: [] }
+  assert.ok(firstGroup.items.length >= 3, 'Expected comma-separated list expansion')
+  assert.equal(firstGroup.items[0]?.amount, 1.5)
+  assert.equal(recipe.servings.amount, 4)
+  assert.equal(recipe.servings.unit, 'adag')
+}
+
+function testParserParagraphIngredientsAndSubrecipes() {
+  const doc = {
+    alias: 'teszt-sub',
+    path: '/receptsarok/2025/teszt-sub',
+    title: 'Sub recipe support',
+    content: `
+      <h2>Hozzávalók</h2>
+      <p>6 adaghoz: 2 db tojás, 1 dl tej</p>
+      <h2>A krém</h2>
+      <ul><li>10 dkg vaj</li><li>2 dkg cukor</li></ul>
+      <table>
+        <tr><th>Energia</th><th>Fehérje</th><th>Zsír</th><th>Telített zsír</th><th>Szénhidrát</th><th>Rost</th></tr>
+        <tr><td>180</td><td>2</td><td>12</td><td>5</td><td>8</td><td>1</td></tr>
+      </table>
+      <h2>Elkészítés</h2>
+      <p>Kész.</p>
+      <p>Energia: 75 kcal</p>
+      <p>Fehérje: 1 g</p>
+    `,
+  }
+  const { recipe } = buildRecipeFromModxDoc(doc, {
+    year: 2025,
+    id: 'teszt-sub',
+    categoryByKey: new Map(),
+  })
+  assert.equal(recipe.servings.amount, 6)
+  assert.ok(recipe.subRecipes.length > 0, 'Expected heading-delimited subrecipe extraction')
+  assert.equal(recipe.hasSubRecipes, true)
+}
+
+function testParserDoesNotTreatRelatedLinksAsSubrecipe() {
+  const doc = {
+    alias: 'lazac-citromos-gyomberszosszal',
+    path: '/cikkek/diabetes/1905/lazac-citromos-gyomberszosszal',
+    title: 'Lazac citromos gyömbérszósszal',
+    content: `
+      <table>
+        <tr><th>Energia</th><th>Fehérje</th><th>Zsír</th><th>Szénhidrát</th></tr>
+        <tr><td>332 kcal</td><td>30 g</td><td>22 g</td><td>2 g</td></tr>
+      </table>
+      <h2>Hozzávalók 4 adaghoz:</h2>
+      <ul>
+        <li>4 szelet lazacfilé (600 g)</li>
+        <li>2 szál újhagyma</li>
+        <li>1 tk. reszelt citromhéj</li>
+      </ul>
+      <p>Melegítsük elő a sütőt 200 °C-ra, és süssük készre a lazacot.</p>
+      <h3>További receptek kanadából:</h3>
+      <ul>
+        <li><a href="/cikkek/diabetes/1905/kanadai-sargaborsoleves-sonkaval">Kanadai sárgaborsóleves sonkával</a></li>
+        <li><a href="/cikkek/diabetes/1905/feher-husu-hal-sult-hagymaval-es-lencsepurevel">Fehér húsú hal sült hagymával és lencsepürével</a></li>
+      </ul>
+    `,
+  }
+  const { recipe } = buildRecipeFromModxDoc(doc, {
+    year: 2026,
+    id: 'lazac-citromos-gyomberszosszal',
+    categoryByKey: new Map(),
+  })
+  assert.equal(recipe.hasSubRecipes, false)
+  assert.equal(recipe.subRecipes.length, 0)
+}
+
 function testParsedBranchBCompleteness() {
   const review = readJson(createReviewPath)
   const entries = Array.isArray(review?.entries) ? review.entries : []
@@ -65,8 +223,13 @@ function testParsedBranchBCompleteness() {
     const recipe = entry?.recipe ?? {}
     const ingredientGroups = Array.isArray(recipe.ingredientGroups) ? recipe.ingredientGroups : []
     const instructions = Array.isArray(recipe.instructions) ? recipe.instructions : []
+    const instructionsHtml = String(recipe.instructionsHtml ?? '').trim()
     const nutritionTables = Array.isArray(recipe.nutritionTables) ? recipe.nutritionTables : []
-    return ingredientGroups.length === 0 || instructions.length === 0 || nutritionTables.length === 0
+    return (
+      ingredientGroups.length === 0 ||
+      (instructions.length === 0 && instructionsHtml.length === 0) ||
+      nutritionTables.length === 0
+    )
   })
   assert.equal(missingBody.length, 0, `Parsed recipes missing body fields: ${missingBody.length}`)
 }
@@ -100,6 +263,16 @@ function testCategoryPatternsShapeAndPredictor() {
     ingredientNames: ['csirkemell', 'sargarepa', 'zeller', 'petrezselyemgyoker', 'tarkony'],
   })
   assert.ok(prediction.predictedCategory, 'Predictor did not return a top category')
+
+  const husKeywordBoost = predictRecipeCategory({
+    title: 'Serteskaraj steak tepsis zoldsegekkel',
+    ingredientNames: [],
+  })
+  assert.equal(
+    husKeywordBoost.category,
+    'husetelek',
+    'Meat keywords in title should boost prediction toward husetelek'
+  )
 }
 
 function testUncategorizedQueueConsistency() {
@@ -129,6 +302,11 @@ function testUncategorizedQueueConsistency() {
 
 testComparatorOrder()
 testAuthorGate()
+testParserEntityAndYearResilience()
+testParserNutritionFallbackFromParagraphs()
+testParserIngredientAndServingFallbacks()
+testParserParagraphIngredientsAndSubrecipes()
+testParserDoesNotTreatRelatedLinksAsSubrecipe()
 testParsedBranchBCompleteness()
 testRedirectsShape()
 testCategoryPatternsShapeAndPredictor()

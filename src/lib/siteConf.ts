@@ -187,6 +187,8 @@ export const getPatika = async () => {
 /** One shared in-flight / resolved result per process (dev server, prerender worker). */
 let recipesMemo: Promise<unknown[]> | null = null
 let categoriesMemo: Promise<unknown[]> | null = null
+let recipesMemoCacheKey: string | null = null
+const RECIPES_JSON_PATH = path.resolve(process.cwd(), 'src/lib/data', 'recipes.json')
 
 function normalizeTag(value: unknown): string {
   return String(value ?? '').trim().toLowerCase()
@@ -255,6 +257,15 @@ function parseRecipesForExport(raw: string): any[] {
     .filter(Boolean)
 }
 
+function getRecipesCacheKeyForDev(): string {
+  try {
+    const stat = fs.statSync(RECIPES_JSON_PATH)
+    return String(stat.mtimeMs)
+  } catch {
+    return 'missing'
+  }
+}
+
 async function loadRecipesUncached(): Promise<unknown[]> {
   if (building || dev) {
     try {
@@ -264,7 +275,6 @@ async function loadRecipesUncached(): Promise<unknown[]> {
         if (dev) console.log('No recipes in Firestore, using local JSON');
         const data = fs.readFileSync(path.resolve(process.cwd(), 'src/lib/data', 'recipes.json'), 'utf-8');
         const recipesDataForExport = parseRecipesForExport(data)
-        writeData(recipesDataForExport, 'recipes.json')
         return recipesDataForExport.map(toRuntimeRecipe)
       }
       const recipesDataForExport = recipesSnap.docs
@@ -276,7 +286,6 @@ async function loadRecipesUncached(): Promise<unknown[]> {
       console.error("Error getting recipes:", error);
       const data = fs.readFileSync(path.resolve(process.cwd(), 'src/lib/data', 'recipes.json'), 'utf-8');
       const recipesDataForExport = parseRecipesForExport(data)
-      writeData(recipesDataForExport, 'recipes.json')
       return recipesDataForExport.map(toRuntimeRecipe)
     }
   }
@@ -311,9 +320,12 @@ async function loadCategoriesUncached(): Promise<unknown[]> {
 }
 
 export const getRecipes = async () => {
-  if (!recipesMemo) {
+  const cacheKey = dev ? getRecipesCacheKeyForDev() : 'static'
+  if (!recipesMemo || recipesMemoCacheKey !== cacheKey) {
+    recipesMemoCacheKey = cacheKey
     recipesMemo = loadRecipesUncached().catch((e) => {
       recipesMemo = null
+      recipesMemoCacheKey = null
       throw e
     })
   }

@@ -541,20 +541,18 @@ if (newDocs.length) {
   }
 
 
-  // write data.json to file
-  if (dev || building) {
+  // write data.json only when there are fresh MODX docs
+  if ((dev || building) && newDocs.length > 0) {
     let lastEdit = everyDocs.reduce((max, doc) => doc.editedon > max ? doc.editedon : max, 0)
     writeData(everyDocs, lastEdit)
 
-    if (newDocs.length > 0) {
-      runAutomaticRecipeDedupe()
-      loadRedirectManifestMaps()
-      for (const doc of everyDocs) {
-        _setReceptsarokRedirect(doc, doc.redirect)
-      }
-      lastEdit = everyDocs.reduce((max, doc) => doc.editedon > max ? doc.editedon : max, 0)
-      writeData(everyDocs, lastEdit)
+    runAutomaticRecipeDedupe()
+    loadRedirectManifestMaps()
+    for (const doc of everyDocs) {
+      _setReceptsarokRedirect(doc, doc.redirect)
     }
+    lastEdit = everyDocs.reduce((max, doc) => doc.editedon > max ? doc.editedon : max, 0)
+    writeData(everyDocs, lastEdit)
 
     const noTag = everyDocs.filter(doc => doc.tv.tags.length == 0 && doc.content != '').sort((a, b) => b.id - a.id)
     console.log('*** writenoTag',noTag.length)

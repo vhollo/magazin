@@ -1,13 +1,35 @@
+const DEFAULT_NUTRITION_LABEL = '1 adag energia- es tapanyagtartalma:'
+
+const NAMED_HTML_ENTITIES = {
+  nbsp: ' ',
+  amp: '&',
+  quot: '"',
+  apos: "'",
+  lt: '<',
+  gt: '>',
+}
+
 function decodeHtmlEntities(value) {
   if (!value) return ''
   return String(value)
-    .replace(/&nbsp;|&#160;/gi, ' ')
-    .replace(/&amp;/gi, '&')
-    .replace(/&quot;/gi, '"')
-    .replace(/&apos;/gi, "'")
-    .replace(/&lt;/gi, '<')
-    .replace(/&gt;/gi, '>')
-    .replace(/&#(\d+);/g, (_, code) => String.fromCharCode(Number(code)))
+    .replace(/&#x([0-9a-f]+);/gi, (_, code) => {
+      const parsed = Number.parseInt(code, 16)
+      return Number.isFinite(parsed) ? String.fromCodePoint(parsed) : ''
+    })
+    .replace(/&#(\d+);/g, (_, code) => {
+      const parsed = Number(code)
+      return Number.isFinite(parsed) ? String.fromCodePoint(parsed) : ''
+    })
+    .replace(/&([a-z][a-z0-9]+);/gi, (match, name) => NAMED_HTML_ENTITIES[name.toLowerCase()] ?? match)
+}
+
+function normalizeReadableText(value) {
+  return decodeHtmlEntities(String(value ?? ''))
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .replace(/\s+/g, ' ')
+    .trim()
 }
 
 function stripHtml(value) {
@@ -46,18 +68,42 @@ function parseNumber(value) {
   return Number.isFinite(num) ? num : 0
 }
 
+function parseNullableNumber(value) {
+  const raw = String(value ?? '').trim()
+  if (!raw) return null
+  const match = raw.replace(/\s+/g, '').match(/-?\d+(?:[.,]\d+)?/)
+  if (!match) return null
+  const num = Number(match[0].replace(',', '.'))
+  return Number.isFinite(num) ? num : null
+}
+
 function parseYearFromMagazinPath(pathValue) {
-  const tokens = String(pathValue ?? '').split(/[^0-9]+/).filter(Boolean)
-  for (const token of tokens) {
-    if (/^20\d{2}$/.test(token)) return Number(token)
-  }
-  for (const token of tokens) {
-    if (/^\d{4}$/.test(token)) {
-      const year = Number(`20${token.slice(0, 2)}`)
-      if (year >= 2000 && year <= 2099) return year
-    }
-  }
-  return new Date().getFullYear()
+  const match = String(pathValue ?? '').match(/(?:^|[^0-9])(20\d{2})(?:[^0-9]|$)/)
+  if (!match?.[1]) return new Date().getUTCFullYear()
+  const year = Number(match[1])
+  return Number.isFinite(year) ? year : new Date().getUTCFullYear()
+}
+
+function parseValidYear(value) {
+  const parsed = Number(value)
+  if (!Number.isInteger(parsed)) return null
+  return parsed >= 2000 && parsed <= 2099 ? parsed : null
+}
+
+function deriveYear(doc, options) {
+  const fromOption = parseValidYear(options?.year)
+  if (fromOption) return fromOption
+  const fromPath = parseValidYear(parseYearFromMagazinPath(doc?.path))
+  if (fromPath) return fromPath
+  const publishedRaw = Number(doc?.publishedon)
+  const publishedMs = Number.isFinite(publishedRaw)
+    ? publishedRaw > 9999999999
+      ? publishedRaw
+      : publishedRaw * 1000
+    : NaN
+  const fromPublished = parseValidYear(new Date(publishedMs).getUTCFullYear())
+  if (fromPublished) return fromPublished
+  return new Date().getUTCFullYear()
 }
 
 function splitParagraphsFromTag(content, tagName) {
@@ -84,9 +130,10 @@ function parseIngredientItem(text) {
   const tail = amountMatch[2].trim()
   const tokens = tail.split(/\s+/)
   const first = tokens[0] ?? ''
-  const looksLikeUnit = /^(dkg|kg|g|mg|ml|cl|dl|l|db|ek\.?|tk\.?|kk\.?|cs\.?|tasak|szelet|adag|fej|szal|csipet|evokanal|teaskanal)$/i.test(
+  const looksLikeUnit =
+    /^(dkg|kg|g|mg|ml|cl|dl|l|db|ek\.?|tk\.?|kk\.?|cs\.?|tasak|szelet|adag|fej|szal|csipet|evokanal|teaskanal|csomag|gerezd|marok|pohar|kanal)$/i.test(
     first
-  )
+    )
   if (!looksLikeUnit) {
     return { text: clean, amount, unit: null, name: tail }
   }
@@ -94,32 +141,185 @@ function parseIngredientItem(text) {
   return { text: clean, amount, unit: first, name }
 }
 
+function splitIngredientListByComma(text) {
+  return String(text ?? '')
+    .split(/,(?=\s)/)
+    .map((chunk) => chunk.trim())
+    .filter(Boolean)
+}
+
+function mergeSplitDecimalIngredientLines(lines) {
+  const merged = []
+  for (let i = 0; i < lines.length; i += 1) {
+    const current = String(lines[i] ?? '').trim()
+    const next = String(lines[i + 1] ?? '').trim()
+    if (/^\d+,\s*$/.test(current) && /^\d+(?:[.,]\d+)?\s+\S+/.test(next)) {
+      merged.push(`${current}${next}`)
+      i += 1
+      continue
+    }
+    if (current) merged.push(current)
+  }
+  return merged
+}
+
+function parseIngredientLines(lines) {
+  const merged = mergeSplitDecimalIngredientLines(lines)
+  const out = []
+  for (const line of merged) {
+    const chunks = splitIngredientListByComma(line)
+    if (chunks.length <= 1) {
+      out.push(parseIngredientItem(line))
+      continue
+    }
+    for (const chunk of chunks) {
+      out.push(parseIngredientItem(chunk))
+    }
+  }
+  return out.filter((item) => item.name)
+}
+
+function parseParagraphIngredientGroups(content) {
+  const out = []
+  const sectionMatch = String(content ?? '').match(
+    /<h[1-6][^>]*>\s*Hozz[aá]val[oó]k[^<]*<\/h[1-6]>([\s\S]*?)(?:<h[1-6][^>]*>\s*(?:A\s+recept\s+elk[eé]sz[íi]t[eé]se|Elk[eé]sz[íi]t[eé]s)\s*<\/h[1-6]>|$)/i
+  )
+  if (!sectionMatch?.[1]) return out
+  const lines = splitParagraphsFromTag(sectionMatch[1], 'p')
+  if (lines.length === 0) return out
+  const defaultItems = []
+  for (const line of lines) {
+    const clean = String(line ?? '').trim()
+    if (!clean) continue
+    const sectionLine = clean.match(/^(.{2,}?)\s+hoz:\s*(.+)$/i)
+    if (sectionLine?.[1] && sectionLine?.[2]) {
+      out.push({
+        section: sectionLine[1].trim(),
+        items: parseIngredientLines([sectionLine[2]]),
+      })
+      continue
+    }
+    defaultItems.push(clean)
+  }
+  const parsedDefaults = parseIngredientLines(defaultItems)
+  if (parsedDefaults.length > 0) {
+    out.push({ section: null, items: parsedDefaults })
+  }
+  return out.filter((group) => group.items.length > 0)
+}
+
 function parseIngredientGroups(content) {
   const groups = []
-  const headingListRegex = /<h[1-6][^>]*>([\s\S]*?)<\/h[1-6]>\s*<ul[^>]*>([\s\S]*?)<\/ul>/gi
+  const headingListRegex = /<h[1-6][^>]*>([\s\S]*?)<\/h[1-6]>\s*<(ul|ol)[^>]*>([\s\S]*?)<\/\2>/gi
   let match
   while ((match = headingListRegex.exec(content))) {
     const section = stripHtml(match[1]) || null
-    const itemTexts = splitParagraphsFromTag(match[2], 'li')
+    const itemTexts = splitParagraphsFromTag(match[3], 'li')
     if (itemTexts.length === 0) continue
     groups.push({
       section,
-      items: itemTexts.map(parseIngredientItem).filter((item) => item.name),
+      items: parseIngredientLines(itemTexts),
     })
   }
 
   if (groups.length === 0) {
-    const listRegex = /<ul[^>]*>([\s\S]*?)<\/ul>/gi
+    const listRegex = /<(ul|ol)[^>]*>([\s\S]*?)<\/\1>/gi
     while ((match = listRegex.exec(content))) {
-      const itemTexts = splitParagraphsFromTag(match[1], 'li')
+      const itemTexts = splitParagraphsFromTag(match[2], 'li')
       if (itemTexts.length === 0) continue
       groups.push({
         section: null,
-        items: itemTexts.map(parseIngredientItem).filter((item) => item.name),
+        items: parseIngredientLines(itemTexts),
       })
     }
   }
-  return groups
+  if (groups.length > 0) return groups
+  return parseParagraphIngredientGroups(content)
+}
+
+function emptyNutritionTable(label = DEFAULT_NUTRITION_LABEL) {
+  return {
+    label,
+    energy: null,
+    protein: null,
+    fat: null,
+    saturatedFat: null,
+    carbs: null,
+    fiber: null,
+  }
+}
+
+function nutritionFieldPatterns() {
+  return [
+    { key: 'energy', header: /ener/, value: /(?:\be(?:\.|nergia)?\b|energia|kcal)/i },
+    { key: 'protein', header: /feherje|protein/, value: /(?:feherje|protein)/i },
+    { key: 'fat', header: /zsir(?!sav)/, value: /(?:\bzsir\b|zsir\s*tartalom|fat)/i },
+    { key: 'saturatedFat', header: /telitett|saturated/, value: /(?:telitett|saturated)/i },
+    { key: 'carbs', header: /szenhidrat|carb/, value: /(?:szenhidrat|carb)/i },
+    { key: 'fiber', header: /rost|fiber/, value: /(?:\brost\b|fiber)/i },
+  ]
+}
+
+function countNutritionValues(table) {
+  return ['energy', 'protein', 'fat', 'saturatedFat', 'carbs', 'fiber'].filter((field) =>
+    Number.isFinite(Number(table?.[field]))
+  ).length
+}
+
+function parseNutritionFromRows(rows) {
+  const rowMeta = rows.map((cells) => cells.map((cell) => normalizeReadableText(cell)))
+  const fieldDefs = nutritionFieldPatterns()
+  const headerRowIndex = rowMeta.findIndex((cells) => {
+    const hits = fieldDefs.filter((field) => cells.some((cell) => field.header.test(cell)))
+    return hits.length >= 2
+  })
+  if (headerRowIndex < 0) return null
+  const valuesRowIndex = rowMeta.findIndex((cells, idx) => idx > headerRowIndex && cells.length > 0)
+  if (valuesRowIndex < 0) return null
+  const headers = rowMeta[headerRowIndex]
+  const values = rows[valuesRowIndex]
+  const labelRow = rows.find((row, idx) => idx < headerRowIndex && row.length === 1)
+  const table = emptyNutritionTable(labelRow?.[0] || DEFAULT_NUTRITION_LABEL)
+  for (const field of fieldDefs) {
+    const index = headers.findIndex((header) => field.header.test(header))
+    if (index < 0) continue
+    table[field.key] = parseNullableNumber(values[index])
+  }
+  return countNutritionValues(table) > 0 ? table : null
+}
+
+function parseNutritionFromText(content) {
+  const textRows = []
+  const paragraphRegex = /<(p|div|li)\b[^>]*>([\s\S]*?)<\/\1>/gi
+  let paragraphMatch
+  while ((paragraphMatch = paragraphRegex.exec(String(content ?? '')))) {
+    const line = stripHtml(paragraphMatch[2])
+    if (!line) continue
+    textRows.push(line)
+  }
+  if (textRows.length === 0) return []
+
+  const table = emptyNutritionTable()
+  for (const row of textRows) {
+    const normalized = normalizeReadableText(row)
+    if (
+      !table.label &&
+      /(energia|tapanyag|tapertek|kcal|feherje|zsir|szenhidrat|rost|e\.)/.test(normalized)
+    ) {
+      table.label = row
+    }
+    for (const field of nutritionFieldPatterns()) {
+      if (!field.value.test(normalized)) continue
+      if (table[field.key] !== null) continue
+      const valueMatch = normalized.match(
+        new RegExp(`${field.value.source}[^0-9-]*(-?\\d+(?:[.,]\\d+)?)`, 'i')
+      )
+      if (!valueMatch?.[1]) continue
+      table[field.key] = parseNullableNumber(valueMatch[1])
+    }
+  }
+
+  return countNutritionValues(table) >= 2 ? [table] : []
 }
 
 function parseNutritionTables(content) {
@@ -142,32 +342,11 @@ function parseNutritionTables(content) {
     }
     if (rows.length === 0) continue
 
-    const headerRowIndex = rows.findIndex((row) =>
-      row.some((cell) => normalizeText(cell).includes('energia'))
-    )
-    if (headerRowIndex < 0 || headerRowIndex + 1 >= rows.length) continue
-
-    const headers = rows[headerRowIndex].map((cell) => normalizeText(cell))
-    const values = rows[headerRowIndex + 1]
-    const labelRow = rows.find((row, idx) => idx < headerRowIndex && row.length === 1)
-    const label = labelRow?.[0] || '1 adag energia- es tapanyagtartalma:'
-
-    const lookup = (pattern) => {
-      const index = headers.findIndex((h) => pattern.test(h))
-      return index >= 0 ? parseNumber(values[index]) : 0
-    }
-
-    tables.push({
-      label: label || '1 adag energia- es tapanyagtartalma:',
-      energy: lookup(/ener/),
-      protein: lookup(/feherje|protein/),
-      fat: lookup(/zsir(?!sav)/),
-      saturatedFat: lookup(/telitett|saturated/),
-      carbs: lookup(/szenhidrat|carb/),
-      fiber: lookup(/rost|fiber/),
-    })
+    const parsed = parseNutritionFromRows(rows)
+    if (parsed) tables.push(parsed)
   }
-  return tables
+  if (tables.length > 0) return tables
+  return parseNutritionFromText(content)
 }
 
 function deriveAuthor(doc) {
@@ -251,16 +430,52 @@ function uniqueByNormalized(values) {
 }
 
 function deriveInstructions(content) {
-  const paragraphs = splitParagraphsFromTag(content, 'p')
+  const instructionHtml = deriveInstructionsHtml(content)
+  const source = instructionHtml || content
+  const paragraphs = splitParagraphsFromTag(source, 'p')
   const orderedListItems = []
   const orderedListRegex = /<ol\b[^>]*>([\s\S]*?)<\/ol>/gi
   let listMatch
-  while ((listMatch = orderedListRegex.exec(content))) {
+  while ((listMatch = orderedListRegex.exec(source))) {
     orderedListItems.push(...splitParagraphsFromTag(listMatch[1], 'li'))
   }
+  const divLines = splitParagraphsFromTag(source, 'div')
+  const looseLines = htmlToTextLines(source)
   const instructionItems = orderedListItems
-  const steps = [...paragraphs, ...instructionItems].filter((text) => text.length > 6)
+  const steps = [...paragraphs, ...instructionItems, ...divLines, ...looseLines].filter(
+    (text) => text.length > 6
+  )
   return uniqueByNormalized(steps)
+}
+
+function htmlToTextLines(content) {
+  if (!content) return []
+  const text = decodeHtmlEntities(
+    String(content)
+      .replace(/<br\s*\/?>/gi, '\n')
+      .replace(/<\/(p|div|li|h[1-6]|tr)>/gi, '\n')
+      .replace(/<[^>]+>/g, '')
+  )
+  return text
+    .split('\n')
+    .map((line) => line.replace(/\s+/g, ' ').trim())
+    .filter(Boolean)
+}
+
+function deriveInstructionsHtml(content) {
+  const headingRegex =
+    /<h[1-6][^>]*>\s*(?:A\s+recept\s+elk[eé]sz[íi]t[eé]se|Elk[eé]sz[íi]t[eé]s)\s*<\/h[1-6]>([\s\S]*)/i
+  const match = String(content ?? '').match(headingRegex)
+  if (!match?.[1]) return ''
+  return match[1].trim()
+}
+
+function deriveVideo(doc, content) {
+  if (typeof doc?.video === 'string' && doc.video.trim()) {
+    return doc.video
+  }
+  const match = String(content ?? '').match(/<video\b[\s\S]*?<\/video>/i)
+  return match?.[0]?.trim() || undefined
 }
 
 function deriveImage(doc) {
@@ -280,6 +495,101 @@ function deriveSearchTerms({ title, ingredientNames }) {
     ...ingredientNames.flatMap((name) => normalizeText(name).split(/\s+/)),
   ].filter((token) => token.length >= 3)
   return uniqueByNormalized(words)
+}
+
+function normalizeServingUnit(unitValue) {
+  const key = normalizeReadableText(unitValue).replace(/\./g, '')
+  const unitMap = new Map([
+    ['adag', 'adag'],
+    ['db', 'db'],
+    ['darab', 'db'],
+    ['szelet', 'szelet'],
+    ['fo', 'fo'],
+    ['pohar', 'pohar'],
+    ['tepsi', 'tepsi'],
+    ['tortaforma', 'tortaforma'],
+    ['rud', 'rud'],
+  ])
+  return unitMap.get(key) || key || 'adag'
+}
+
+function parseServingsFromText(value) {
+  const text = normalizeReadableText(value)
+  if (!text) return null
+  const match = text.match(
+    /(\d+(?:[.,]\d+)?)\s*(adag|db|darab|szelet|fo|pohar|tepsi|tortaforma|rud)\s*(?:hoz|hez|hoz|re|ra|nak|nek)?/
+  )
+  if (!match?.[1]) return null
+  const amount = parseNullableNumber(match[1])
+  if (amount === null || amount <= 0) return null
+  return { amount, unit: normalizeServingUnit(match[2] || 'adag') }
+}
+
+function deriveServings({ ingredientGroups, content, nutritionTables }) {
+  for (const group of ingredientGroups) {
+    const parsed = parseServingsFromText(group?.section ?? '')
+    if (parsed) return parsed
+  }
+
+  const paragraphLines = splitParagraphsFromTag(content, 'p')
+  for (const line of paragraphLines) {
+    const parsed = parseServingsFromText(line)
+    if (parsed) return parsed
+  }
+
+  for (const table of nutritionTables) {
+    const parsed = parseServingsFromText(table?.label ?? '')
+    if (parsed) return parsed
+  }
+
+  return { amount: 0, unit: '' }
+}
+
+function deriveSubRecipes(content) {
+  const source = String(content ?? '')
+  const preInstruction = source.split(
+    /<h[1-6][^>]*>\s*(?:A\s+recept\s+elk[eé]sz[íi]t[eé]se|Elk[eé]sz[íi]t[eé]s)\s*<\/h[1-6]>/i
+  )[0]
+  if (!preInstruction) return []
+
+  const hasLinkOnlyList = (html) => {
+    const liMatches = [...String(html ?? '').matchAll(/<li\b[^>]*>([\s\S]*?)<\/li>/gi)]
+    if (liMatches.length === 0) return false
+    const linkLiCount = liMatches.filter((li) => /<a\b/i.test(li[1])).length
+    return linkLiCount > 0 && linkLiCount === liMatches.length
+  }
+
+  const hasIngredientLikeItems = (ingredientGroups) =>
+    ingredientGroups.some((group) =>
+      group.items.some((item) => item.amount !== null || (typeof item.unit === 'string' && item.unit.trim()))
+    )
+
+  const subRecipes = []
+  const headingRegex = /<h([2-5])[^>]*>([\s\S]*?)<\/h\1>([\s\S]*?)(?=<h[2-5][^>]*>|$)/gi
+  let match
+  while ((match = headingRegex.exec(preInstruction))) {
+    const title = stripHtml(match[2])
+    const titleKey = normalizeText(title)
+    if (!titleKey || /hozzavalok|elkeszites/.test(titleKey)) continue
+    if (/tovabbi\s+recept|kapcsolodo|ajanlott/.test(titleKey)) continue
+    const blockHtml = match[3]
+    if (hasLinkOnlyList(blockHtml)) continue
+    const ingredientGroups = parseIngredientGroups(blockHtml)
+    if (ingredientGroups.length === 0) continue
+    if (!hasIngredientLikeItems(ingredientGroups)) continue
+    const nutritionTables = parseNutritionTables(blockHtml)
+    const instructions = deriveInstructions(blockHtml)
+    const servings = deriveServings({ ingredientGroups, content: blockHtml, nutritionTables })
+    subRecipes.push({
+      title,
+      servings,
+      nutritionTables,
+      ingredientGroups,
+      instructions,
+      image: null,
+    })
+  }
+  return subRecipes
 }
 
 function timestampFromUnix(value, fallback) {
@@ -308,11 +618,19 @@ function timestampFromUnix(value, fallback) {
  */
 export function buildRecipeFromModxDoc(doc, options) {
   const nowIso = new Date().toISOString()
-  const year = Number.isFinite(options?.year) ? options.year : parseYearFromMagazinPath(doc?.path)
+  const year = deriveYear(doc, options)
   const id = String(options?.id || doc?.alias || '').trim()
   const title = String(doc?.longtitle || doc?.title || '').trim()
   const content = String(doc?.content || '')
+  const ingredientGroups = parseIngredientGroups(content)
   const nutritionTables = parseNutritionTables(content)
+  const subRecipes = deriveSubRecipes(content)
+  if (nutritionTables.length === 0) {
+    const firstSubNutrition = subRecipes.find((sub) => Array.isArray(sub.nutritionTables) && sub.nutritionTables.length > 0)
+    if (firstSubNutrition?.nutritionTables?.[0]) {
+      nutritionTables.push(firstSubNutrition.nutritionTables[0])
+    }
+  }
   const firstNutrition = nutritionTables[0] || {
     energy: 0,
     protein: 0,
@@ -321,7 +639,6 @@ export function buildRecipeFromModxDoc(doc, options) {
     carbs: 0,
     fiber: 0,
   }
-  const ingredientGroups = parseIngredientGroups(content)
   const ingredientNames = uniqueByNormalized(
     ingredientGroups.flatMap((group) => group.items.map((item) => item.name))
   )
@@ -334,10 +651,8 @@ export function buildRecipeFromModxDoc(doc, options) {
     predictCategory: options.predictCategory,
   })
   const instructions = deriveInstructions(content)
-  const servingsAmount =
-    ingredientGroups.length > 0
-      ? parseNumber(ingredientGroups[0]?.section ?? '') || 0
-      : 0
+  const instructionsHtml = deriveInstructionsHtml(content)
+  const servings = deriveServings({ ingredientGroups, content, nutritionTables })
 
   const recipe = {
     id,
@@ -345,29 +660,27 @@ export function buildRecipeFromModxDoc(doc, options) {
     title,
     author: deriveAuthor(doc),
     category: categoryDecision.category || '',
-    servings: {
-      amount: servingsAmount,
-      unit: servingsAmount > 0 ? 'adag' : '',
-    },
-    energy: firstNutrition.energy,
-    protein: firstNutrition.protein,
-    fat: firstNutrition.fat,
-    saturatedFat: firstNutrition.saturatedFat,
-    carbs: firstNutrition.carbs,
-    fiber: firstNutrition.fiber,
+    servings,
+    energy: firstNutrition.energy ?? 0,
+    protein: firstNutrition.protein ?? 0,
+    fat: firstNutrition.fat ?? 0,
+    saturatedFat: firstNutrition.saturatedFat ?? 0,
+    carbs: firstNutrition.carbs ?? 0,
+    fiber: firstNutrition.fiber ?? 0,
     nutritionTables,
     ingredientGroups,
     ingredientNames,
     searchTerms: deriveSearchTerms({ title, ingredientNames }),
     instructions,
+    instructionsHtml: instructionsHtml || undefined,
     image: deriveImage(doc),
     img: doc?.img && typeof doc.img === 'object' ? doc.img : undefined,
-    subRecipes: [],
-    hasSubRecipes: false,
+    subRecipes,
+    hasSubRecipes: subRecipes.length > 0,
     createdAt: timestampFromUnix(doc?.publishedon, nowIso),
     updatedAt: timestampFromUnix(doc?.editedon, nowIso),
     free: true,
-    video: typeof doc?.video === 'string' ? doc.video : undefined,
+    video: deriveVideo(doc, content),
   }
   const sourceModxId = Number(doc?.id)
   if (Number.isFinite(sourceModxId)) {

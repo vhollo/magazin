@@ -88,6 +88,7 @@ export interface Recipe {
   ingredientNames: string[]
   searchTerms: string[]
   instructions: string[]
+  instructionsHtml?: string
   image: RecipeImage | null
   /** CardV / search: normalized `{ src, pos, ext }`; derived from `image` when missing. */
   img?: RecipeCardImage | null
@@ -161,6 +162,7 @@ export function stripRecipeGatedFields(recipe: Recipe): Recipe {
     ...recipe,
     ingredientGroups: [],
     instructions: [],
+    instructionsHtml: '',
     subRecipes: [],
     ingredientNames: [],
     searchTerms: [],

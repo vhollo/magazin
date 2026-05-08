@@ -1,737 +1,271 @@
 {
-  "generatedAt": "2026-05-05T14:43:45.738Z",
+  "generatedAt": "2026-05-05T20:21:01.814Z",
   "sourceRecipes": "src/lib/data/recipes.json",
   "summary": {
     "applyLocal": true,
-    "publishedRecipes": 1454,
-    "duplicateClusters": 72,
-    "losersUnpublished": 78
+    "publishedRecipes": 1723,
+    "duplicateClusters": 26,
+    "losersUnpublished": 26
   },
   "entries": [
     {
-      "title": "Avokádókrém",
-      "winner": "2021-avokadokrem",
+      "title": "Almás hússzelet sajttal",
+      "winner": "2021-almas-husszelet-sajttal",
       "reason": "year",
       "clusterSize": 2,
       "matched": [
-        "2021-avokadokrem",
-        "2020-avokadokrem"
+        "2021-almas-husszelet-sajttal",
+        "2019-almas-husszelet-sajttal"
       ]
     },
     {
-      "title": "Avokádókrém zöldségekkel",
-      "winner": "2021-avokadokrem-zoldsegekkel",
+      "title": "Avokádókrémes karfiolcsoda",
+      "winner": "2018-avokadokremes-karfiolcsoda",
       "reason": "year",
       "clusterSize": 2,
       "matched": [
-        "2021-avokadokrem-zoldsegekkel",
-        "2018-avokadokrem-zoldsegekkel"
+        "2017-avokadokremes-karfiolcsoda",
+        "2018-avokadokremes-karfiolcsoda"
       ]
     },
     {
-      "title": "Avokádókrémmel töltött paradicsom",
-      "winner": "2017-avokadokremmel-toltott-paradicsom",
-      "reason": "nutrition",
-      "clusterSize": 2,
-      "matched": [
-        "2017-avokadokremmel-toltott-paradicsom",
-        "2011-avokadokremmel-toltott-paradicsom"
-      ]
-    },
-    {
-      "title": "Baconös-cukkinis serpenyős tojás",
-      "winner": "2019-baconos-cukkinis-serpenyos-tojas",
+      "title": "Bazsalikomos húsgombóc paradicsomszósszal, spagettivel",
+      "winner": "2019-bazsalikomos-husgomboc-paradicsomszosszal-spagettivel",
       "reason": "year",
       "clusterSize": 2,
       "matched": [
-        "2019-baconos-cukkinis-serpenyos-tojas",
-        "2017-baconos-cukkinis-serpenyos-tojas"
+        "2019-bazsalikomos-husgomboc-paradicsomszosszal-spagettivel",
+        "2017-bazsalikomos-husgomboc-paradicsomszosszal-spagettivel"
       ]
     },
     {
-      "title": "Barackos turmix",
-      "winner": "2013-barackos-turmix",
+      "title": "Brokkolis vagdalt édesburgonyával",
+      "winner": "2019-brokkolis-vagdalt-edesburgonyaval",
       "reason": "year",
       "clusterSize": 2,
       "matched": [
-        "2013-barackos-turmix",
-        "2012-barackos-turmix"
+        "2019-brokkolis-vagdalt-edesburgonyaval",
+        "2017-brokkolis-vagdalt-edesburgonyaval"
       ]
     },
     {
-      "title": "Citromhab kivivel",
-      "winner": "2011-citromhab-kivivel",
+      "title": "Bulgursaláta – Tabulé saláta",
+      "winner": "2021-bulgursalata-tabule-salata",
       "reason": "year",
       "clusterSize": 2,
       "matched": [
-        "2011-citromhab-kivivel",
-        "2009-citromhab-kivivel"
+        "2021-bulgursalata-tabule-salata",
+        "2001-bulgursalata-tabule-salata"
       ]
     },
     {
-      "title": "Citromos patisszonfőzelék",
-      "winner": "2019-citromos-patisszonfozelek",
+      "title": "Coq au vin",
+      "winner": "2019-coq-au-vin",
       "reason": "year",
       "clusterSize": 2,
       "matched": [
-        "2019-citromos-patisszonfozelek",
-        "2017-citromos-patisszonfozelek"
+        "2019-coq-au-vin",
+        "2017-coq-au-vin"
       ]
     },
     {
-      "title": "Cukkinis pulykatekercs",
-      "winner": "2016-cukkinis-pulykatekercs",
+      "title": "Epres-kókuszos sütemény",
+      "winner": "2019-epres-kokuszos-sutemeny",
       "reason": "year",
       "clusterSize": 2,
       "matched": [
-        "2016-cukkinis-pulykatekercs",
-        "2015-cukkinis-pulykatekercs"
-      ]
-    },
-    {
-      "title": "Cukkinitekercs",
-      "winner": "2023-cukkinitekercs",
-      "reason": "nutrition",
-      "clusterSize": 2,
-      "matched": [
-        "2023-cukkinitekercs",
-        "2009-cukkinitekercs"
-      ]
-    },
-    {
-      "title": "Csicseriborsó-krémleves",
-      "winner": "2023-csicseriborso-kremleves",
-      "reason": "year",
-      "clusterSize": 2,
-      "matched": [
-        "2023-csicseriborso-kremleves",
-        "2012-csicseriborso-kremleves"
-      ]
-    },
-    {
-      "title": "Csirkés-pestós tepsis pizza",
-      "winner": "2013-csirkes-pestos-tepsis-pizza",
-      "reason": "year",
-      "clusterSize": 2,
-      "matched": [
-        "2013-csirkes-pestos-tepsis-pizza",
-        "2012-csirkes-pestos-tepsis-pizza"
-      ]
-    },
-    {
-      "title": "Csirkesaláta",
-      "winner": "2017-csirkesalata",
-      "reason": "year",
-      "clusterSize": 2,
-      "matched": [
-        "2017-csirkesalata",
-        "2013-csirkesalata"
-      ]
-    },
-    {
-      "title": "Édesapám kedvenc hala",
-      "winner": "2018-edesapam-kedvenc-hala",
-      "reason": "year",
-      "clusterSize": 2,
-      "matched": [
-        "2018-edesapam-kedvenc-hala",
-        "2012-edesapam-kedvenc-hala"
-      ]
-    },
-    {
-      "title": "Fetás harcsa salátával",
-      "winner": "2016-fetas-harcsa-salataval",
-      "reason": "year",
-      "clusterSize": 2,
-      "matched": [
-        "2016-fetas-harcsa-salataval",
-        "2012-fetas-harcsa-salataval"
-      ]
-    },
-    {
-      "title": "Gazpacho",
-      "winner": "2016-gazpacho",
-      "reason": "year",
-      "clusterSize": 2,
-      "matched": [
-        "2016-gazpacho",
-        "2013-gazpacho"
-      ]
-    },
-    {
-      "title": "Gulyásleves",
-      "winner": "2015-gulyasleves",
-      "reason": "nutrition",
-      "clusterSize": 2,
-      "matched": [
-        "2015-gulyasleves",
-        "2011-gulyasleves"
+        "2019-epres-kokuszos-sutemeny",
+        "2017-epres-kokuszos-sutemeny"
       ]
     },
     {
       "title": "Gyümölcskenyér",
-      "winner": "2014-gyumolcskenyer",
-      "reason": "nutrition",
+      "winner": "2015-gyumolcskenyer",
+      "reason": "year",
       "clusterSize": 2,
       "matched": [
         "2014-gyumolcskenyer",
-        "2009-gyumolcskenyer"
+        "2015-gyumolcskenyer"
       ]
     },
     {
-      "title": "Gyümölcssaláta",
-      "winner": "2014-gyumolcssalata",
+      "title": "Húsvéti töltött tojás",
+      "winner": "2019-husveti-toltott-tojas",
       "reason": "year",
       "clusterSize": 2,
       "matched": [
-        "2014-gyumolcssalata",
-        "2012-gyumolcssalata"
+        "2019-husveti-toltott-tojas",
+        "2017-husveti-toltott-tojas"
       ]
     },
     {
-      "title": "Hagymaropogós",
-      "winner": "2018-hagymaropogos",
+      "title": "Íróban pácolt csirkemell zöldségekkel sütve",
+      "winner": "2019-iroban-pacolt-csirkemell-zoldsegekkel-sutve",
       "reason": "year",
       "clusterSize": 2,
       "matched": [
-        "2018-hagymaropogos",
-        "2017-hagymaropogos"
+        "2019-iroban-pacolt-csirkemell-zoldsegekkel-sutve",
+        "2017-iroban-pacolt-csirkemell-zoldsegekkel-sutve"
       ]
     },
     {
-      "title": "Halkocsonya",
-      "winner": "2012-halkocsonya",
-      "reason": "nutrition",
-      "clusterSize": 3,
-      "matched": [
-        "2012-halkocsonya",
-        "2011-halkocsonya",
-        "2009-halkocsonya"
-      ]
-    },
-    {
-      "title": "Húsos saláta",
-      "winner": "2015-husos-salata",
-      "reason": "nutrition",
-      "clusterSize": 2,
-      "matched": [
-        "2015-husos-salata",
-        "2009-husos-salata"
-      ]
-    },
-    {
-      "title": "Indiai paradicsomleves",
-      "winner": "2018-indiai-paradicsomleves",
+      "title": "Kakaóscsiga",
+      "winner": "2021-kakaoscsiga",
       "reason": "year",
       "clusterSize": 2,
       "matched": [
-        "2018-indiai-paradicsomleves",
-        "2017-indiai-paradicsomleves"
+        "2021-kakaoscsiga",
+        "2015-kakaoscsiga"
       ]
     },
     {
-      "title": "Káposztába ágyazott sertéscsülök",
-      "winner": "2016-kaposztaba-agyazott-sertescsulok",
+      "title": "Karfiolos-brokkolis vegyes tál",
+      "winner": "2019-karfiolos-brokkolis-vegyes-tal",
       "reason": "year",
       "clusterSize": 2,
       "matched": [
-        "2016-kaposztaba-agyazott-sertescsulok",
-        "2015-kaposztaba-agyazott-sertescsulok"
+        "2019-karfiolos-brokkolis-vegyes-tal",
+        "2017-karfiolos-brokkolis-vegyes-tal"
       ]
     },
     {
-      "title": "Káposztás csirkecomb",
-      "winner": "2021-kaposztas-csirkecomb",
-      "reason": "nutrition",
-      "clusterSize": 2,
-      "matched": [
-        "2021-kaposztas-csirkecomb",
-        "2011-kaposztas-csirkecomb"
-      ]
-    },
-    {
-      "title": "Káposztasaláta",
-      "winner": "2012-kaposztasalata",
-      "reason": "nutrition",
-      "clusterSize": 2,
-      "matched": [
-        "2012-kaposztasalata",
-        "2009-kaposztasalata"
-      ]
-    },
-    {
-      "title": "Karfiolkrém",
-      "winner": "2025-karfiolkrem",
-      "reason": "nutrition",
-      "clusterSize": 2,
-      "matched": [
-        "2025-karfiolkrem",
-        "2012-karfiolkrem"
-      ]
-    },
-    {
-      "title": "Karfiolsaláta",
-      "winner": "2017-karfiolsalata",
-      "reason": "nutrition",
-      "clusterSize": 2,
-      "matched": [
-        "2017-karfiolsalata",
-        "2011-karfiolsalata"
-      ]
-    },
-    {
-      "title": "Kefires-almás zöldbabsaláta",
-      "winner": "2016-kefires-almas-zoldbabsalata",
+      "title": "Kheera nariyal raita – uborka és kókusz kapros joghurtban",
+      "winner": "2018-kheera-nariyal-raita-uborka-es-kokusz-kapros-joghurtban",
       "reason": "year",
       "clusterSize": 2,
       "matched": [
-        "2016-kefires-almas-zoldbabsalata",
-        "2015-kefires-almas-zoldbabsalata"
+        "2017-kheera-nariyal-raita-uborka-es-kokusz-kapros-joghurtban",
+        "2018-kheera-nariyal-raita-uborka-es-kokusz-kapros-joghurtban"
       ]
     },
     {
-      "title": "Kefirtorta",
-      "winner": "2024-kefirtorta",
+      "title": "Krumplis-pestós hosszúmetélt",
+      "winner": "2019-krumplis-pestos-hosszumetelt",
       "reason": "year",
       "clusterSize": 2,
       "matched": [
-        "2024-kefirtorta",
-        "2020-kefirtorta"
+        "2019-krumplis-pestos-hosszumetelt",
+        "2017-krumplis-pestos-hosszumetelt"
       ]
     },
     {
-      "title": "Lazacos saláta gránátalmával",
-      "winner": "2021-lazacos-salata-granatalmaval",
+      "title": "Mentás, citromhabos falatok",
+      "winner": "2019-mentas-citromhabos-falatok",
       "reason": "year",
       "clusterSize": 2,
       "matched": [
-        "2021-lazacos-salata-granatalmaval",
-        "2019-lazacos-salata-granatalmaval"
+        "2019-mentas-citromhabos-falatok",
+        "2017-mentas-citromhabos-falatok"
       ]
     },
     {
-      "title": "Lencsefasírt",
-      "winner": "2023-lencsefasirt",
+      "title": "Minestrone leves",
+      "winner": "2019-minestrone-leves",
       "reason": "year",
       "clusterSize": 2,
       "matched": [
-        "2023-lencsefasirt",
-        "2022-lencsefasirt"
+        "2019-minestrone-leves",
+        "2017-minestrone-leves"
       ]
     },
     {
-      "title": "Madártej",
-      "winner": "2025-madartej",
-      "reason": "nutrition",
-      "clusterSize": 2,
-      "matched": [
-        "2025-madartej",
-        "2014-madartej"
-      ]
-    },
-    {
-      "title": "Mákos sütemény",
-      "winner": "2017-makos-sutemeny",
-      "reason": "nutrition",
-      "clusterSize": 2,
-      "matched": [
-        "2017-makos-sutemeny",
-        "2009-makos-sutemeny"
-      ]
-    },
-    {
-      "title": "Márványsajtos kelbimbó",
-      "winner": "2021-marvanysajtos-kelbimbo",
+      "title": "Nariyal matar shorba – paradicsomos brokkoli",
+      "winner": "2018-nariyal-matar-shorba-paradicsomos-brokkoli",
       "reason": "year",
       "clusterSize": 2,
       "matched": [
-        "2021-marvanysajtos-kelbimbo",
-        "2019-marvanysajtos-kelbimbo"
+        "2017-nariyal-matar-shorba-paradicsomos-brokkoli",
+        "2018-nariyal-matar-shorba-paradicsomos-brokkoli"
       ]
     },
     {
-      "title": "Meggyes pite",
-      "winner": "2021-meggyes-pite",
+      "title": "Paneer sajt, cukkini és kaliforniai paprika",
+      "winner": "2018-paneer-sajt-cukkini-es-kaliforniai-paprika",
       "reason": "year",
       "clusterSize": 2,
       "matched": [
-        "2021-meggyes-pite",
-        "2018-meggyes-pite"
+        "2017-paneer-sajt-cukkini-es-kaliforniai-paprika",
+        "2018-paneer-sajt-cukkini-es-kaliforniai-paprika"
       ]
     },
     {
-      "title": "Mustáros csirkemáj",
-      "winner": "2011-mustaros-csirkemaj",
+      "title": "Párolt spenót",
+      "winner": "2018-parolt-spenot",
       "reason": "year",
       "clusterSize": 2,
       "matched": [
-        "2011-mustaros-csirkemaj",
-        "2009-mustaros-csirkemaj"
+        "2017-parolt-spenot",
+        "2018-parolt-spenot"
       ]
     },
     {
-      "title": "Narancsos kuglóf",
-      "winner": "2025-narancsos-kuglof",
-      "reason": "nutrition",
-      "clusterSize": 2,
-      "matched": [
-        "2025-narancsos-kuglof",
-        "2021-narancsos-kuglof"
-      ]
-    },
-    {
-      "title": "Nyers cékla- és tormasaláta",
-      "winner": "2018-nyers-cekla-es-tormasalata",
+      "title": "Párolt spenót friss sajttal",
+      "winner": "2018-parolt-spenot-friss-sajttal",
       "reason": "year",
       "clusterSize": 2,
       "matched": [
-        "2018-nyers-cekla-es-tormasalata",
-        "2012-nyers-cekla-es-tormasalata"
+        "2017-parolt-spenot-friss-sajttal",
+        "2018-parolt-spenot-friss-sajttal"
       ]
     },
     {
-      "title": "Olajos hal",
-      "winner": "2018-olajos-hal",
+      "title": "Tök zöldborsóval és mandulával",
+      "winner": "2018-tok-zoldborsoval-es-mandulaval",
       "reason": "year",
       "clusterSize": 2,
       "matched": [
-        "2018-olajos-hal",
-        "2012-olajos-hal"
+        "2017-tok-zoldborsoval-es-mandulaval",
+        "2018-tok-zoldborsoval-es-mandulaval"
       ]
     },
     {
-      "title": "Őszibarack túróval töltve",
-      "winner": "2021-oszibarack-turoval-toltve",
+      "title": "Töltött pulykatekercs",
+      "winner": "2021-toltott-pulykatekercs",
       "reason": "year",
       "clusterSize": 2,
       "matched": [
-        "2021-oszibarack-turoval-toltve",
-        "2018-oszibarack-turoval-toltve"
+        "2021-toltott-pulykatekercs",
+        "2019-toltott-pulykatekercs"
       ]
     },
     {
-      "title": "Őszibarackleves",
-      "winner": "2015-oszibarackleves",
+      "title": "Tzatziki",
+      "winner": "2019-tzatziki",
       "reason": "year",
       "clusterSize": 2,
       "matched": [
-        "2015-oszibarackleves",
-        "2013-oszibarackleves"
+        "2019-tzatziki",
+        "2017-tzatziki"
       ]
     },
     {
-      "title": "Padlizsánkrém",
-      "winner": "2021-padlizsankrem",
-      "reason": "nutrition",
-      "clusterSize": 3,
-      "matched": [
-        "2021-padlizsankrem",
-        "2014-padlizsankrem",
-        "2011-padlizsankrem"
-      ]
-    },
-    {
-      "title": "Palócleves",
-      "winner": "2025-palocleves",
-      "reason": "nutrition",
-      "clusterSize": 2,
-      "matched": [
-        "2025-palocleves",
-        "2011-palocleves"
-      ]
-    },
-    {
-      "title": "Paradicsomos csirkemell",
-      "winner": "2016-paradicsomos-csirkemell",
-      "reason": "nutrition",
-      "clusterSize": 2,
-      "matched": [
-        "2016-paradicsomos-csirkemell",
-        "2011-paradicsomos-csirkemell"
-      ]
-    },
-    {
-      "title": "Rakott hús",
-      "winner": "2014-rakott-hus",
-      "reason": "nutrition",
-      "clusterSize": 2,
-      "matched": [
-        "2014-rakott-hus",
-        "2009-rakott-hus"
-      ]
-    },
-    {
-      "title": "Rakott kínai kel",
-      "winner": "2020-rakott-kinai-kel",
+      "title": "Vajpuha tök paradicsommal",
+      "winner": "2018-vajpuha-tok-paradicsommal",
       "reason": "year",
       "clusterSize": 2,
       "matched": [
-        "2020-rakott-kinai-kel",
-        "2015-rakott-kinai-kel"
+        "2017-vajpuha-tok-paradicsommal",
+        "2018-vajpuha-tok-paradicsommal"
       ]
     },
     {
-      "title": "Rakott zöldbab csicsókával",
-      "winner": "2015-rakott-zoldbab-csicsokaval",
+      "title": "Zöldborsós káposzta",
+      "winner": "2018-zoldborsos-kaposzta",
       "reason": "year",
       "clusterSize": 2,
       "matched": [
-        "2015-rakott-zoldbab-csicsokaval",
-        "2012-rakott-zoldbab-csicsokaval"
+        "2017-zoldborsos-kaposzta",
+        "2018-zoldborsos-kaposzta"
       ]
     },
     {
-      "title": "Ropogós zöldséggolyók",
-      "winner": "2020-ropogos-zoldseggolyok",
+      "title": "Zöldséggel töltött csirkecomb",
+      "winner": "2021-zoldseggel-toltott-csirkecomb",
       "reason": "year",
       "clusterSize": 2,
       "matched": [
-        "2020-ropogos-zoldseggolyok",
-        "2018-ropogos-zoldseggolyok"
-      ]
-    },
-    {
-      "title": "Roston, fóliában sült hal",
-      "winner": "2018-roston-foliaban-sult-hal",
-      "reason": "year",
-      "clusterSize": 2,
-      "matched": [
-        "2018-roston-foliaban-sult-hal",
-        "2012-roston-foliaban-sult-hal"
-      ]
-    },
-    {
-      "title": "Sajtsaláta",
-      "winner": "2011-sajtsalata",
-      "reason": "year",
-      "clusterSize": 2,
-      "matched": [
-        "2011-sajtsalata",
-        "2009-sajtsalata"
-      ]
-    },
-    {
-      "title": "Sós muffin",
-      "winner": "2021-sos-muffin",
-      "reason": "year",
-      "clusterSize": 2,
-      "matched": [
-        "2021-sos-muffin",
-        "2016-sos-muffin"
-      ]
-    },
-    {
-      "title": "Sült alma",
-      "winner": "2021-sult-alma",
-      "reason": "year",
-      "clusterSize": 2,
-      "matched": [
-        "2021-sult-alma",
-        "2020-sult-alma"
-      ]
-    },
-    {
-      "title": "Sült csirkecomb káposztás raguval",
-      "winner": "2025-sult-csirkecomb-kaposztas-raguval",
-      "reason": "nutrition",
-      "clusterSize": 2,
-      "matched": [
-        "2025-sult-csirkecomb-kaposztas-raguval",
-        "2022-sult-csirkecomb-kaposztas-raguval"
-      ]
-    },
-    {
-      "title": "Sült hal zöldségesen",
-      "winner": "2020-sult-hal-zoldsegesen",
-      "reason": "year",
-      "clusterSize": 3,
-      "matched": [
-        "2020-sult-hal-zoldsegesen",
-        "2016-sult-hal-zoldsegesen",
-        "2015-sult-hal-zoldsegesen"
-      ]
-    },
-    {
-      "title": "Szezámmagos csirkemell brokkolipürével",
-      "winner": "2019-szezammagos-csirkemell-brokkolipurevel",
-      "reason": "year",
-      "clusterSize": 2,
-      "matched": [
-        "2019-szezammagos-csirkemell-brokkolipurevel",
-        "2017-szezammagos-csirkemell-brokkolipurevel"
-      ]
-    },
-    {
-      "title": "Színes téli saláta",
-      "winner": "2023-szines-teli-salata",
-      "reason": "year",
-      "clusterSize": 2,
-      "matched": [
-        "2023-szines-teli-salata",
-        "2016-szines-teli-salata"
-      ]
-    },
-    {
-      "title": "Tepertős pogácsa",
-      "winner": "2017-tepertos-pogacsa",
-      "reason": "year",
-      "clusterSize": 2,
-      "matched": [
-        "2017-tepertos-pogacsa",
-        "2015-tepertos-pogacsa"
-      ]
-    },
-    {
-      "title": "Tésztasaláta",
-      "winner": "2013-tesztasalata",
-      "reason": "nutrition",
-      "clusterSize": 2,
-      "matched": [
-        "2013-tesztasalata",
-        "2009-tesztasalata"
-      ]
-    },
-    {
-      "title": "Töltött burgonya",
-      "winner": "2014-toltott-burgonya",
-      "reason": "nutrition",
-      "clusterSize": 2,
-      "matched": [
-        "2014-toltott-burgonya",
-        "2011-toltott-burgonya"
-      ]
-    },
-    {
-      "title": "Töltött cukkini",
-      "winner": "2015-toltott-cukkini",
-      "reason": "nutrition",
-      "clusterSize": 3,
-      "matched": [
-        "2015-toltott-cukkini",
-        "2011-toltott-cukkini",
-        "2009-toltott-cukkini"
-      ]
-    },
-    {
-      "title": "Töltött csirkecomb",
-      "winner": "2011-toltott-csirkecomb",
-      "reason": "year",
-      "clusterSize": 2,
-      "matched": [
-        "2011-toltott-csirkecomb",
-        "2009-toltott-csirkecomb"
-      ]
-    },
-    {
-      "title": "Töltött csirkemell",
-      "winner": "2022-toltott-csirkemell",
-      "reason": "nutrition",
-      "clusterSize": 2,
-      "matched": [
-        "2022-toltott-csirkemell",
-        "2009-toltott-csirkemell"
-      ]
-    },
-    {
-      "title": "Töltött karalábé",
-      "winner": "2023-toltott-karalabe",
-      "reason": "nutrition",
-      "clusterSize": 3,
-      "matched": [
-        "2023-toltott-karalabe",
-        "2014-toltott-karalabe",
-        "2009-toltott-karalabe"
-      ]
-    },
-    {
-      "title": "Töltött padlizsán",
-      "winner": "2015-toltott-padlizsan",
-      "reason": "nutrition",
-      "clusterSize": 2,
-      "matched": [
-        "2015-toltott-padlizsan",
-        "2011-toltott-padlizsan"
-      ]
-    },
-    {
-      "title": "Töltött pulykamell",
-      "winner": "2011-toltott-pulykamell",
-      "reason": "year",
-      "clusterSize": 2,
-      "matched": [
-        "2011-toltott-pulykamell",
-        "2009-toltott-pulykamell"
-      ]
-    },
-    {
-      "title": "Túrótorta",
-      "winner": "2016-turotorta",
-      "reason": "nutrition",
-      "clusterSize": 2,
-      "matched": [
-        "2016-turotorta",
-        "2009-turotorta"
-      ]
-    },
-    {
-      "title": "Vegyes saláta",
-      "winner": "2012-vegyes-salata",
-      "reason": "nutrition",
-      "clusterSize": 3,
-      "matched": [
-        "2012-vegyes-salata",
-        "2011-vegyes-salata",
-        "2009-vegyes-salata"
-      ]
-    },
-    {
-      "title": "Zabpelyhes almás süti",
-      "winner": "2024-zabpelyhes-almas-suti",
-      "reason": "year",
-      "clusterSize": 2,
-      "matched": [
-        "2024-zabpelyhes-almas-suti",
-        "2014-zabpelyhes-almas-suti"
-      ]
-    },
-    {
-      "title": "Zöldséges muffin",
-      "winner": "2021-zoldseges-muffin",
-      "reason": "year",
-      "clusterSize": 2,
-      "matched": [
-        "2021-zoldseges-muffin",
-        "2013-zoldseges-muffin"
-      ]
-    },
-    {
-      "title": "Zöldséges tészta",
-      "winner": "2015-zoldseges-teszta",
-      "reason": "nutrition",
-      "clusterSize": 2,
-      "matched": [
-        "2015-zoldseges-teszta",
-        "2009-zoldseges-teszta"
-      ]
-    },
-    {
-      "title": "Zöldséges-tonhalas rétes",
-      "winner": "2019-zoldseges-tonhalas-retes",
-      "reason": "year",
-      "clusterSize": 2,
-      "matched": [
-        "2019-zoldseges-tonhalas-retes",
-        "2018-zoldseges-tonhalas-retes"
-      ]
-    },
-    {
-      "title": "Zöldséggel, túróval töltött uborka",
-      "winner": "2011-zoldseggel-turoval-toltott-uborka",
-      "reason": "year",
-      "clusterSize": 2,
-      "matched": [
-        "2011-zoldseggel-turoval-toltott-uborka",
-        "2009-zoldseggel-turoval-toltott-uborka"
+        "2021-zoldseggel-toltott-csirkecomb",
+        "2019-zoldseggel-toltott-csirkecomb"
       ]
     }
   ]

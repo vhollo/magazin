@@ -111,6 +111,52 @@ function collectText({ title = '', ingredientNames = [], searchTerms = [] }) {
   return parts.join(' ')
 }
 
+const TITLE_CATEGORY_KEYWORDS = {
+  husetelek: [
+    'hus',
+    'csirke',
+    'marha',
+    'sertes',
+    'pulyka',
+    'tarja',
+    'karaj',
+    'comb',
+    'maj',
+    'nyul',
+    'virsli',
+    'vagdalt',
+    'fasirt',
+    'fasirozott',
+    'jerce',
+    'steak',
+    'csibe',
+    'szuz',
+    'tokany',
+    'sonka',
+    'pecsenye',
+  ],
+}
+
+const TITLE_KEYWORD_BOOST = 1.8
+
+function titleKeywordBoosts(title) {
+  const normalizedTitle = normalizeForCategoryModel(title)
+  if (!normalizedTitle) return []
+  const boosts = []
+  for (const [category, keywords] of Object.entries(TITLE_CATEGORY_KEYWORDS)) {
+    for (const keyword of keywords) {
+      if (!keyword) continue
+      if (!normalizedTitle.includes(keyword)) continue
+      boosts.push({
+        category,
+        feature: `title:*${keyword}*`,
+        score: TITLE_KEYWORD_BOOST,
+      })
+    }
+  }
+  return boosts
+}
+
 /**
  * @param {{
  *   title?: string
@@ -139,6 +185,7 @@ export function predictRecipeCategory(input) {
 
   const tokens = tokenize(collectText(input ?? {}))
   const features = featuresFromTokens(tokens)
+  const boosts = titleKeywordBoosts(input?.title)
   if (features.length === 0) {
     return {
       resolved: false,
@@ -163,6 +210,11 @@ export function predictRecipeCategory(input) {
       if (!Number.isFinite(weight) || weight <= 0) continue
       score += weight
       contributions.push({ feature, score: weight })
+    }
+    for (const boost of boosts) {
+      if (boost.category !== category) continue
+      score += boost.score
+      contributions.push({ feature: boost.feature, score: boost.score })
     }
     contributions.sort((a, b) => b.score - a.score)
     contributionsByCategory.set(category, contributions)

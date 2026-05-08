@@ -11,6 +11,12 @@
   const categories = data.categories
   const totalRecipes = data.recipes.length
   const freeCount = data.recipes.filter((r: any) => r.free).length
+  const freeCountsByCategory = data.recipes.reduce((acc: Record<string, number>, recipe: any) => {
+    if (recipe.free) {
+      acc[recipe.category] = (acc[recipe.category] ?? 0) + 1
+    }
+    return acc
+  }, {})
 
   let showPlanner = $state(false)
 </script>
@@ -20,21 +26,21 @@
   <meta name="description" content="Több mint {totalRecipes} diabétesz-barát recept tápanyagtáblázattal, összetevőkkel és elkészítési útmutatóval." />
 </svelte:head>
 
-<article class="prose mt-8 mb-4 w-full px-[clamp(1rem,4vw,2.75rem)] mx-auto">
-  <h1 class="text-center"><ReceptsarokLogo class="text-3xl sm:text-4xl" /></h1>
-  <p class="text-center mx-auto max-w-[min(65ch,calc(100vw-2rem))]">
-    {totalRecipes} diabétesz-barát recept, tápanyagtáblázattal.
-    <span class="text-success font-medium">{freeCount} recept ingyenesen elérhető.</span>
-  </p>
+<article class="prose mt-8 mb-4 w-full px-[clamp(1rem,4vw,2.75rem)] text-center mx-auto">
+  <h1><ReceptsarokLogo class="text-3xl sm:text-4xl" /></h1>
+  <p>
+    {totalRecipes} diabétesz-barát recept, tápanyagtáblázattal.</p>
+  <p class="text-success font-medium">A Diabetes és Hypertonia lapokban megjelent {freeCount} recept ingyenesen elérhető.</p>
+  
 </article>
 
 <section
-  class="grid grid-cols-1 gap-[clamp(1rem,2.5vw,1.75rem)] w-full px-[clamp(1rem,4vw,2.75rem)] py-6 md:grid-cols-2 xl:grid-cols-3"
+  class="grid grid-cols-1 gap-[clamp(1rem,2.5vw,1.75rem)] w-full px-[clamp(1rem,4vw,2.75rem)] py-6 md:grid-cols-4 xl:grid-cols-6"
 >
   {#each categories as cat}
     <a
       href="/receptsarok/{cat.id}"
-      class="group grid min-h-[clamp(6.5rem,22vw,10rem)] w-full overflow-hidden rounded-2xl bg-base-300 shadow-md ring-1 ring-black/20 transition-shadow hover:shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-primary {cat.image ? 'grid-cols-2' : 'grid-cols-1'}"
+      class="group grid min-h-[clamp(6.5rem,22vw,10rem)] w-full overflow-hidden rounded-2xl bg-base-300 shadow-md ring-1 ring-black/20 transition-shadow hover:shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-primary {cat.image ? 'grid-cols-2' : 'grid-cols-1'} md:col-span-2 md:last:col-start-2 xl:last:col-start-3"
     >
       {#if cat.image}
         <figure
@@ -56,6 +62,7 @@
             {cat.name}
           </h2>
           <p class="mt-1 text-sm text-[#9CA3AF]">{cat.recipeCount} recept</p>
+          <p class="mt-0.5 text-xs text-success/90">{freeCountsByCategory[cat.id] ?? 0} ingyenes recept</p>
         </div>
         <div class="flex shrink-0 items-center self-stretch pr-0.5">
           <svg

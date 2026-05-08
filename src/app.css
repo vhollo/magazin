@@ -326,6 +326,13 @@ table.nicebox {
   padding-left: 1rem;
 }
 
+article table:not(.nicebox) {
+  @apply table table-xs w-full min-w-[min(100%,32rem)] w-full rounded-lg border border-base-300 bg-base-200/4;
+}
+article table:not(.nicebox) thead th {
+  @apply bg-base-200 text-left font-normal;
+}
+
 article figure img {
   max-height: 75vh;
 }
