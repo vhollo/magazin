@@ -27,6 +27,7 @@
   // import { page, navigating } from '$app/state';
   export let data
 
+  import { hasReceptsarokAccess } from '$lib/authStore'
   import { ads } from '$lib/ads.js'
   const conf = data.conf
   const prominent = conf.side_banners.filter(sb => sb.prominent)
@@ -36,7 +37,13 @@
   // console.log('[path]', data.doc.related)
 
   $: doc = data.doc
-  $: docs = data.docs
+  /** Receptsarok hits: subscription-aware lock (see CardBody). */
+  $: docs = data.docs.map((c) => {
+    if (typeof c.path === 'string' && c.path.startsWith('receptsarok/')) {
+      return { ...c, locked: !c.free && !$hasReceptsarokAccess }
+    }
+    return c
+  })
   // $: if (doc.id) console.log(doc.tv)
 
 

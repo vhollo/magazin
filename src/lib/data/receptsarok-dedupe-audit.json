@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-05-08T19:31:00.394Z",
+  "generatedAt": "2026-05-11T21:49:49.539Z",
   "summary": {
-    "magazineCandidates": 514,
-    "redirects": 484,
+    "magazineCandidates": 513,
+    "redirects": 499,
     "unpublishCount": 10,
     "createDrafts": 348,
-    "unresolvedCategoryDrafts": 30,
+    "unresolvedCategoryDrafts": 17,
     "applyLocal": true,
     "createLocal": true
   },
@@ -21,41 +21,17 @@
       "reason": "id",
       "categorySource": "predicted",
       "categoryDecision": {
-        "category": "egytaletelek",
-        "confidence": 0.9916638815428475,
-        "margin": 0.9870243870587604,
+        "category": "husetelek",
+        "confidence": 1,
+        "margin": 1,
         "matchedFeatures": [
           {
-            "feature": "olajspre",
-            "score": 1.692179
+            "feature": "ingredientProof:sertes",
+            "score": 999
           },
           {
-            "feature": "sertescomb",
-            "score": 1.581675
-          },
-          {
-            "feature": "bors_izles",
-            "score": 1.431184
-          },
-          {
-            "feature": "petrezselyemzold_bors",
-            "score": 1.322228
-          },
-          {
-            "feature": "oregano",
-            "score": 1.104468
-          },
-          {
-            "feature": "edesburgonya",
-            "score": 1.101324
-          },
-          {
-            "feature": "voroshagyma",
-            "score": 0.711259
-          },
-          {
-            "feature": "olaj",
-            "score": 0.651319
+            "feature": "ingredientProof:comb",
+            "score": 999
           }
         ],
         "reason": "no-loser-votes"
@@ -91,6 +67,34 @@
         "margin": 1,
         "matchedFeatures": [],
         "reason": "winner-original"
+      }
+    },
+    {
+      "type": "new-rs-category-unresolved",
+      "modxContentId": 4436,
+      "modxPath": "junior/2015/cikkek/receptsarok/mandarinos-francia-palacsinta",
+      "target": "2015-mandarinos-francia-palacsinta",
+      "categoryDecision": {
+        "resolved": false,
+        "category": null,
+        "categorySource": "unresolved",
+        "confidence": 0.4521212122401888,
+        "margin": 0.059670841660703966,
+        "matchedFeatures": [
+          {
+            "feature": "folyekony",
+            "score": 1.061199
+          },
+          {
+            "feature": "folyekony_edesitoszer",
+            "score": 1.025745
+          },
+          {
+            "feature": "nehany",
+            "score": 0.615098
+          }
+        ],
+        "reason": "below-threshold"
       }
     },
     {
@@ -546,6 +550,13 @@
     },
     {
       "type": "new-rs-required",
+      "modxContentId": 4293,
+      "modxPath": "cikkek/diabetes/nagymamaink-receptjei-modern-kontosben/mogyorokremes-teljes-kiorlesu-minicsigak",
+      "target": "2026-mogyorokremes-teljes-kiorlesu-minicsigak",
+      "categorySource": "predicted-or-manual"
+    },
+    {
+      "type": "new-rs-required",
       "modxContentId": 4288,
       "modxPath": "cikkek/diabetes/nagymamaink-receptjei-modern-kontosben/villamgyors-vegan-gesztenyes-meggyes-tonkolybatyuk",
       "target": "2026-villamgyors-vegan-gesztenyes-meggyes-tonkolybatyuk",
@@ -636,52 +647,11 @@
       "categorySource": "predicted-or-manual"
     },
     {
-      "type": "new-rs-category-unresolved",
+      "type": "new-rs-required",
       "modxContentId": 4214,
       "modxPath": "cikkek/diabetes/nagymamaink-receptjei-modern-kontosben/lencses-toltott-kel",
       "target": "2026-lencses-toltott-kel",
-      "categoryDecision": {
-        "resolved": false,
-        "category": null,
-        "categorySource": "unresolved",
-        "confidence": 0.42091731563656565,
-        "margin": 0.08130877385168772,
-        "matchedFeatures": [
-          {
-            "feature": "kel",
-            "score": 2.216172
-          },
-          {
-            "feature": "lencse",
-            "score": 1.611168
-          },
-          {
-            "feature": "sertescomb",
-            "score": 1.581675
-          },
-          {
-            "feature": "paradicsomle",
-            "score": 1.322228
-          },
-          {
-            "feature": "fuszerpaprika",
-            "score": 0.96908
-          },
-          {
-            "feature": "tejszin",
-            "score": 0.74604
-          },
-          {
-            "feature": "voroshagyma",
-            "score": 0.711259
-          },
-          {
-            "feature": "toltott",
-            "score": 0.681936
-          }
-        ],
-        "reason": "below-threshold"
-      }
+      "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
@@ -698,40 +668,11 @@
       "categorySource": "predicted-or-manual"
     },
     {
-      "type": "new-rs-category-unresolved",
+      "type": "new-rs-required",
       "modxContentId": 4182,
       "modxPath": "cikkek/diabetes/husveti-receptek-2025/zoldfuszeres-habart-tojas-piritossal",
       "target": "2025-zoldfuszeres-habart-tojas-piritossal",
-      "categoryDecision": {
-        "resolved": false,
-        "category": null,
-        "categorySource": "unresolved",
-        "confidence": 0.44816855029650765,
-        "margin": 0.15150650080990924,
-        "matchedFeatures": [
-          {
-            "feature": "kis",
-            "score": 1.181909
-          },
-          {
-            "feature": "petrezselyemzold",
-            "score": 1.054197
-          },
-          {
-            "feature": "metelohagyma",
-            "score": 0.599161
-          },
-          {
-            "feature": "bors",
-            "score": 0.544138
-          },
-          {
-            "feature": "vaj",
-            "score": 0.451837
-          }
-        ],
-        "reason": "below-threshold"
-      }
+      "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
@@ -744,21 +685,21 @@
       "type": "new-rs-required",
       "modxContentId": 4166,
       "modxPath": "cikkek/diabetes/2501/ujhagymas-rantotta-tortillaagyon-salataval",
-      "target": "2026-ujhagymas-rantotta-tortillaagyon-salataval",
+      "target": "2025-ujhagymas-rantotta-tortillaagyon-salataval",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 4165,
       "modxPath": "cikkek/diabetes/2501/fonott-kalacs",
-      "target": "2026-fonott-kalacs",
+      "target": "2025-fonott-kalacs",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 4164,
       "modxPath": "cikkek/diabetes/2501/zoldborsoleves-sajat-anyagaval-suritve",
-      "target": "2026-zoldborsoleves-sajat-anyagaval-suritve",
+      "target": "2025-zoldborsoleves-sajat-anyagaval-suritve",
       "categorySource": "predicted-or-manual"
     },
     {
@@ -816,24 +757,11 @@
       }
     },
     {
-      "type": "new-rs-category-unresolved",
+      "type": "new-rs-required",
       "modxContentId": 4151,
       "modxPath": "cikkek/hypertonia/2401/desszertek-ujragondolva/vegan-brownie",
-      "target": "2026-vegan-brownie",
-      "categoryDecision": {
-        "resolved": false,
-        "category": null,
-        "categorySource": "unresolved",
-        "confidence": 0.6042584897662464,
-        "margin": 0.26014769749905753,
-        "matchedFeatures": [
-          {
-            "feature": "kakaopor",
-            "score": 4.021734
-          }
-        ],
-        "reason": "below-threshold"
-      }
+      "target": "2024-vegan-brownie",
+      "categorySource": "predicted-or-manual"
     },
     {
       "type": "rs-winner",
@@ -857,14 +785,14 @@
       "type": "new-rs-required",
       "modxContentId": 4148,
       "modxPath": "cikkek/hypertonia/2401/desszertek-ujragondolva/kalacsmuffin",
-      "target": "2026-kalacsmuffin",
+      "target": "2024-kalacsmuffin",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 4147,
       "modxPath": "cikkek/hypertonia/2401/desszertek-ujragondolva/tejbegrizgomboc",
-      "target": "2026-tejbegrizgomboc",
+      "target": "2024-tejbegrizgomboc",
       "categorySource": "predicted-or-manual"
     },
     {
@@ -889,14 +817,14 @@
       "type": "new-rs-required",
       "modxContentId": 4143,
       "modxPath": "cikkek/diabetes/2405/desszertek-ujragondolva/ceklas-sutotokos-retes",
-      "target": "2026-ceklas-sutotokos-retes",
+      "target": "2024-ceklas-sutotokos-retes",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 4142,
       "modxPath": "cikkek/diabetes/2405/desszertek-ujragondolva/rebarbaras-almas-pite",
-      "target": "2026-rebarbaras-almas-pite",
+      "target": "2024-rebarbaras-almas-pite",
       "categorySource": "predicted-or-manual"
     },
     {
@@ -939,91 +867,91 @@
       "type": "new-rs-required",
       "modxContentId": 4133,
       "modxPath": "cikkek/diabetes/2405/desszertek-ujragondolva/meggyes-makos-zabgolyo",
-      "target": "2026-meggyes-makos-zabgolyo",
+      "target": "2024-meggyes-makos-zabgolyo",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 4113,
       "modxPath": "cikkek/diabetes/2405/desszertek-ujragondolva/turogombocmuffin",
-      "target": "2026-turogombocmuffin",
+      "target": "2024-turogombocmuffin",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 4119,
       "modxPath": "cikkek/diabetes/2405/desszertek-ujragondolva/bejglivariaciok",
-      "target": "2026-bejglivariaciok",
+      "target": "2024-bejglivariaciok",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 4114,
       "modxPath": "cikkek/diabetes/2405/desszertek-ujragondolva/turos-kortes-retes",
-      "target": "2026-turos-kortes-retes",
+      "target": "2024-turos-kortes-retes",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 4108,
       "modxPath": "cikkek/diabetes/2406/karacsonyi-menu/edesburgonya-kremleves-harcsachipsszel",
-      "target": "2026-edesburgonya-kremleves-harcsachipsszel",
+      "target": "2024-edesburgonya-kremleves-harcsachipsszel",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 4107,
       "modxPath": "cikkek/diabetes/2406/karacsonyi-menu/turopotty",
-      "target": "2026-turopotty",
+      "target": "2024-turopotty",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 4106,
       "modxPath": "cikkek/diabetes/2406/karacsonyi-menu/karacsonyi-halas-palacsinta",
-      "target": "2026-karacsonyi-halas-palacsinta",
+      "target": "2024-karacsonyi-halas-palacsinta",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 4105,
       "modxPath": "cikkek/diabetes/2406/karacsonyi-menu/sult-tokehal-lengyeles-zoldbabbal-es-gombamartassal",
-      "target": "2026-sult-tokehal-lengyeles-zoldbabbal-es-gombamartassal",
+      "target": "2024-sult-tokehal-lengyeles-zoldbabbal-es-gombamartassal",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 4104,
       "modxPath": "cikkek/diabetes/2406/karacsonyi-menu/sonkas-leveles-karacsonyfa",
-      "target": "2026-sonkas-leveles-karacsonyfa",
+      "target": "2024-sonkas-leveles-karacsonyfa",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 4099,
       "modxPath": "cikkek/diabetes/2405/desszertek-ujragondolva/sajtos-taller",
-      "target": "2026-sajtos-taller",
+      "target": "2024-sajtos-taller",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 4091,
       "modxPath": "cikkek/diabetes/2405/desszertek-ujragondolva/sutotokos-narancsos-kokuszgolyo",
-      "target": "2026-sutotokos-narancsos-kokuszgolyo",
+      "target": "2024-sutotokos-narancsos-kokuszgolyo",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 4086,
       "modxPath": "cikkek/diabetes/2405/desszertek-ujragondolva/cukkinis-brownie",
-      "target": "2026-cukkinis-brownie",
+      "target": "2024-cukkinis-brownie",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 4078,
       "modxPath": "cikkek/diabetes/2404/desszertek-ujragondolva/epres-sajtorta",
-      "target": "2026-epres-sajtorta",
+      "target": "2024-epres-sajtorta",
       "categorySource": "predicted-or-manual"
     },
     {
@@ -1048,7 +976,7 @@
       "type": "new-rs-required",
       "modxContentId": 4070,
       "modxPath": "cikkek/diabetes/2404/desszertek-ujragondolva/citromos-kremes",
-      "target": "2026-citromos-kremes",
+      "target": "2024-citromos-kremes",
       "categorySource": "predicted-or-manual"
     },
     {
@@ -1091,21 +1019,21 @@
       "type": "new-rs-required",
       "modxContentId": 4053,
       "modxPath": "cikkek/diabetes/2403/desszertek-ujragondolva/afonyas-makos-sajttorta",
-      "target": "2026-afonyas-makos-sajttorta",
+      "target": "2024-afonyas-makos-sajttorta",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 4052,
       "modxPath": "cikkek/diabetes/2403/desszertek-ujragondolva/hamis-turos-almas-pite",
-      "target": "2026-hamis-turos-almas-pite",
+      "target": "2024-hamis-turos-almas-pite",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 4050,
       "modxPath": "cikkek/diabetes/2403/desszertek-ujragondolva/joghurtos-meggyes",
-      "target": "2026-joghurtos-meggyes",
+      "target": "2024-joghurtos-meggyes",
       "categorySource": "predicted-or-manual"
     },
     {
@@ -1130,28 +1058,28 @@
       "type": "new-rs-required",
       "modxContentId": 4041,
       "modxPath": "cikkek/diabetes/2403/desszertek-ujragondolva/turos-tejfolos-almatorta",
-      "target": "2026-turos-tejfolos-almatorta",
+      "target": "2024-turos-tejfolos-almatorta",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 3997,
       "modxPath": "cikkek/diabetes/2402/torta-helyett/almaspite-poharkrem",
-      "target": "2026-almaspite-poharkrem",
-      "categorySource": "predicted-or-manual"
+      "target": "2024-almaspite-poharkrem",
+      "categorySource": "existing-rs"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 3996,
       "modxPath": "cikkek/diabetes/2402/torta-helyett/pudingos-kosarka",
-      "target": "2026-pudingos-kosarka",
+      "target": "2024-pudingos-kosarka",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 3990,
       "modxPath": "cikkek/diabetes/2402/torta-helyett/szezamos-ceklakrem",
-      "target": "2026-szezamos-ceklakrem",
+      "target": "2024-szezamos-ceklakrem",
       "categorySource": "predicted-or-manual"
     },
     {
@@ -1518,7 +1446,7 @@
       "type": "new-rs-required",
       "modxContentId": 3862,
       "modxPath": "cikkek/diabetes/2304/receptsarok/sutotokos-borsoleves",
-      "target": "2026-sutotokos-borsoleves",
+      "target": "2023-sutotokos-borsoleves",
       "categorySource": "predicted-or-manual"
     },
     {
@@ -1579,35 +1507,35 @@
       "type": "new-rs-required",
       "modxContentId": 3841,
       "modxPath": "cikkek/diabetes/2306/karacsonyi-menu/sutoben-sult-rantott-hal-waldorf-salataval",
-      "target": "2026-sutoben-sult-rantott-hal-waldorf-salataval",
+      "target": "2023-sutoben-sult-rantott-hal-waldorf-salataval",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 3840,
       "modxPath": "cikkek/diabetes/2306/karacsonyi-menu/karacsonyi-almas-fahejas-poharkrem",
-      "target": "2026-karacsonyi-almas-fahejas-poharkrem",
+      "target": "2023-karacsonyi-almas-fahejas-poharkrem",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 3839,
       "modxPath": "cikkek/diabetes/2306/karacsonyi-menu/gombas-harcsakrem",
-      "target": "2026-gombas-harcsakrem",
+      "target": "2023-gombas-harcsakrem",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 3832,
       "modxPath": "cikkek/diabetes/2306/karacsonyi-menu/zoldseges-halkremleves",
-      "target": "2026-zoldseges-halkremleves",
+      "target": "2023-zoldseges-halkremleves",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 3831,
       "modxPath": "cikkek/diabetes/2306/karacsonyi-menu/zoldfuszeres-gombaval-toltott-sertesszuz-lilakaposzta-salataval",
-      "target": "2026-zoldfuszeres-gombaval-toltott-sertesszuz-lilakaposzta-salataval",
+      "target": "2023-zoldfuszeres-gombaval-toltott-sertesszuz-lilakaposzta-salataval",
       "categorySource": "predicted-or-manual"
     },
     {
@@ -1651,7 +1579,7 @@
       "type": "new-rs-required",
       "modxContentId": 3818,
       "modxPath": "cikkek/diabetes/2304/receptsarok/szines-bulgur-cukkinis-sargarepaval",
-      "target": "2026-szines-bulgur-cukkinis-sargarepaval",
+      "target": "2023-szines-bulgur-cukkinis-sargarepaval",
       "categorySource": "predicted-or-manual"
     },
     {
@@ -1749,7 +1677,7 @@
       "type": "new-rs-required",
       "modxContentId": 3787,
       "modxPath": "cikkek/diabetes/2303/receptsarok/tejfolos-mustaros-brokkolikremleves",
-      "target": "2026-tejfolos-mustaros-brokkolikremleves",
+      "target": "2023-tejfolos-mustaros-brokkolikremleves",
       "categorySource": "predicted-or-manual"
     },
     {
@@ -1792,7 +1720,7 @@
       "type": "new-rs-required",
       "modxContentId": 3774,
       "modxPath": "cikkek/hypertonia/2301/receptek/csicseriborsos-csirkemaj",
-      "target": "2026-csicseriborsos-csirkemaj",
+      "target": "2023-csicseriborsos-csirkemaj",
       "categorySource": "predicted-or-manual"
     },
     {
@@ -1817,7 +1745,7 @@
       "type": "new-rs-required",
       "modxContentId": 3762,
       "modxPath": "cikkek/diabetes/2303/receptsarok/sajtos-zoldseges-lepeny-furjtojassal",
-      "target": "2026-sajtos-zoldseges-lepeny-furjtojassal",
+      "target": "2023-sajtos-zoldseges-lepeny-furjtojassal",
       "categorySource": "predicted-or-manual"
     },
     {
@@ -1860,49 +1788,49 @@
       "type": "new-rs-required",
       "modxContentId": 3688,
       "modxPath": "cikkek/diabetes/2301/ujdonsagok-az-unnepi-asztalra/kecskesajttal-toltott-csirkekorong-kakukkfuves-sargarepakorettel-ceklapurevel-es-jus-vel",
-      "target": "2026-kecskesajttal-toltott-csirkekorong-kakukkfuves-sargarepakorettel-ceklapurevel-es-jus-vel",
+      "target": "2023-kecskesajttal-toltott-csirkekorong-kakukkfuves-sargarepakorettel-ceklapurevel-es-jus-vel",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 3687,
       "modxPath": "cikkek/diabetes/2301/ujdonsagok-az-unnepi-asztalra/kecskesajtos-rakott-csirkemell-sult-repaval-es-ceklaval",
-      "target": "2026-kecskesajtos-rakott-csirkemell-sult-repaval-es-ceklaval",
+      "target": "2023-kecskesajtos-rakott-csirkemell-sult-repaval-es-ceklaval",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 3686,
       "modxPath": "cikkek/diabetes/2301/ujdonsagok-az-unnepi-asztalra/ceklas-tzatziki",
-      "target": "2026-ceklas-tzatziki",
+      "target": "2023-ceklas-tzatziki",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 3685,
       "modxPath": "cikkek/diabetes/2301/ujdonsagok-az-unnepi-asztalra/porehagyma-kremleves",
-      "target": "2026-porehagyma-kremleves",
+      "target": "2023-porehagyma-kremleves",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 3684,
       "modxPath": "cikkek/diabetes/2301/ujdonsagok-az-unnepi-asztalra/sos-teljes-kiorlesu-kalacs",
-      "target": "2026-sos-teljes-kiorlesu-kalacs",
+      "target": "2023-sos-teljes-kiorlesu-kalacs",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 3683,
       "modxPath": "cikkek/diabetes/2301/ujdonsagok-az-unnepi-asztalra/kuszkuszos-baranysalata",
-      "target": "2026-kuszkuszos-baranysalata",
+      "target": "2023-kuszkuszos-baranysalata",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 3680,
       "modxPath": "cikkek/diabetes/2301/ujdonsagok-az-unnepi-asztalra/husveti-spenotos-tojaslepeny",
-      "target": "2026-husveti-spenotos-tojaslepeny",
+      "target": "2023-husveti-spenotos-tojaslepeny",
       "categorySource": "predicted-or-manual"
     },
     {
@@ -1963,85 +1891,85 @@
       "type": "new-rs-required",
       "modxContentId": 3642,
       "modxPath": "cikkek/diabetes/2205/gasztroblogger-a-receptsarokban/teljes-kiorlesu-sajtos-pogacsa",
-      "target": "2026-teljes-kiorlesu-sajtos-pogacsa",
-      "categorySource": "predicted-or-manual"
+      "target": "2022-teljes-kiorlesu-sajtos-pogacsa",
+      "categorySource": "existing-rs"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 3641,
       "modxPath": "cikkek/diabetes/2205/gasztroblogger-a-receptsarokban/csokolades-epres-brownie",
-      "target": "2026-csokolades-epres-brownie",
-      "categorySource": "predicted-or-manual"
+      "target": "2022-csokolades-epres-brownie",
+      "categorySource": "existing-rs"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 3635,
       "modxPath": "cikkek/diabetes/2205/gasztroblogger-a-receptsarokban/paradicsomos-halleves-rizstesztaval",
-      "target": "2026-paradicsomos-halleves-rizstesztaval",
-      "categorySource": "predicted-or-manual"
+      "target": "2022-paradicsomos-halleves-rizstesztaval",
+      "categorySource": "existing-rs"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 3630,
       "modxPath": "cikkek/diabetes/2205/gasztroblogger-a-receptsarokban/husgomboc-kapormartasban",
-      "target": "2026-husgomboc-kapormartasban",
-      "categorySource": "predicted-or-manual"
+      "target": "2022-husgomboc-kapormartasban",
+      "categorySource": "existing-rs"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 3625,
       "modxPath": "cikkek/diabetes/2205/gasztroblogger-a-receptsarokban/citromos-meggyes-poharkrem",
-      "target": "2026-citromos-meggyes-poharkrem",
-      "categorySource": "predicted-or-manual"
+      "target": "2022-citromos-meggyes-poharkrem",
+      "categorySource": "existing-rs"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 3612,
       "modxPath": "cikkek/diabetes/2206/unnepi-fogasok/narancsos-makos-vanilias-kosarka",
-      "target": "2026-narancsos-makos-vanilias-kosarka",
+      "target": "2022-narancsos-makos-vanilias-kosarka",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 3611,
       "modxPath": "cikkek/diabetes/2206/unnepi-fogasok/tejszines-kelkaposztas-kacsaleves",
-      "target": "2026-tejszines-kelkaposztas-kacsaleves",
+      "target": "2022-tejszines-kelkaposztas-kacsaleves",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 3610,
       "modxPath": "cikkek/diabetes/2206/unnepi-fogasok/cukormentes-makos-panna-cotta",
-      "target": "2026-cukormentes-makos-panna-cotta",
+      "target": "2022-cukormentes-makos-panna-cotta",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 3609,
       "modxPath": "cikkek/diabetes/2206/unnepi-fogasok/toltottkaposzta-torta",
-      "target": "2026-toltottkaposzta-torta",
+      "target": "2022-toltottkaposzta-torta",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 3608,
       "modxPath": "cikkek/diabetes/2206/unnepi-fogasok/gyomberes-sutotokkremleves",
-      "target": "2026-gyomberes-sutotokkremleves",
+      "target": "2022-gyomberes-sutotokkremleves",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 3604,
       "modxPath": "cikkek/diabetes/2205/gasztroblogger-a-receptsarokban/halfasirt-sutoben-sutve",
-      "target": "2026-halfasirt-sutoben-sutve",
-      "categorySource": "predicted-or-manual"
+      "target": "2022-halfasirt-sutoben-sutve",
+      "categorySource": "existing-rs"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 3595,
       "modxPath": "cikkek/diabetes/2205/gasztroblogger-a-receptsarokban/dios-kalacs",
-      "target": "2026-dios-kalacs",
-      "categorySource": "predicted-or-manual"
+      "target": "2022-dios-kalacs",
+      "categorySource": "existing-rs"
     },
     {
       "type": "rs-winner",
@@ -2072,41 +2000,17 @@
       "reason": "id",
       "categorySource": "predicted",
       "categoryDecision": {
-        "category": "egytaletelek",
-        "confidence": 0.9834695931581079,
-        "margin": 0.9670611854023734,
+        "category": "husetelek",
+        "confidence": 1,
+        "margin": 1,
         "matchedFeatures": [
           {
-            "feature": "edeskaposzta",
-            "score": 2.803711
+            "feature": "ingredientProof:csirke",
+            "score": 999
           },
           {
-            "feature": "lecso",
-            "score": 1.956293
-          },
-          {
-            "feature": "bors_fuszerpaprika",
-            "score": 1.330949
-          },
-          {
-            "feature": "voroshagyma_olaj",
-            "score": 1.282746
-          },
-          {
-            "feature": "paradicsom_voroshagyma",
-            "score": 1.192806
-          },
-          {
-            "feature": "olaj_bors",
-            "score": 1.168456
-          },
-          {
-            "feature": "fuszerpaprika",
-            "score": 0.96908
-          },
-          {
-            "feature": "paradicsom",
-            "score": 0.802819
+            "feature": "ingredientProof:comb",
+            "score": 999
           }
         ],
         "reason": "no-loser-votes"
@@ -2116,8 +2020,8 @@
       "type": "new-rs-required",
       "modxContentId": 3569,
       "modxPath": "cikkek/diabetes/2204/hagyomanyos-magyar-konyha/cukkinis-hagymas-csirkemaj",
-      "target": "2026-cukkinis-hagymas-csirkemaj",
-      "categorySource": "predicted-or-manual"
+      "target": "2022-cukkinis-hagymas-csirkemaj",
+      "categorySource": "existing-rs"
     },
     {
       "type": "rs-winner",
@@ -2141,203 +2045,140 @@
       "type": "new-rs-required",
       "modxContentId": 3560,
       "modxPath": "cikkek/diabetes/2204/diab-dieta-a-la-panka-receptek/cobbler",
-      "target": "2026-cobbler",
+      "target": "2022-cobbler",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 3559,
       "modxPath": "cikkek/diabetes/2204/diab-dieta-a-la-panka-receptek/csirkefrikassze-tejszines-ragu",
-      "target": "2026-csirkefrikassze-tejszines-ragu",
+      "target": "2022-csirkefrikassze-tejszines-ragu",
       "categorySource": "predicted-or-manual"
     },
     {
-      "type": "new-rs-category-unresolved",
+      "type": "new-rs-required",
       "modxContentId": 3542,
       "modxPath": "cikkek/diabetes/2203/nyari-levesek/ceklaleves",
-      "target": "2026-ceklaleves",
-      "categoryDecision": {
-        "resolved": false,
-        "category": null,
-        "categorySource": "unresolved",
-        "confidence": 0.4680932030554171,
-        "margin": 0.026406743817186884,
-        "matchedFeatures": [
-          {
-            "feature": "eritrit",
-            "score": 2.829342
-          }
-        ],
-        "reason": "below-threshold"
-      }
+      "target": "2022-ceklaleves",
+      "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 3538,
       "modxPath": "cikkek/diabetes/2203/nyari-levesek/hideg-oszibarack-kremleves",
-      "target": "2026-hideg-oszibarack-kremleves",
+      "target": "2022-hideg-oszibarack-kremleves",
       "categorySource": "predicted-or-manual"
     },
     {
-      "type": "new-rs-category-unresolved",
+      "type": "new-rs-required",
       "modxContentId": 3526,
       "modxPath": "cikkek/diabetes/2203/nyari-levesek/nyers-soskaleves-edesitoszerrel",
-      "target": "2026-nyers-soskaleves-edesitoszerrel",
-      "categoryDecision": {
-        "resolved": false,
-        "category": null,
-        "categorySource": "unresolved",
-        "confidence": 0.6154622343183844,
-        "margin": 0.5314669971482653,
-        "matchedFeatures": [
-          {
-            "feature": "nyers",
-            "score": 1.962438
-          }
-        ],
-        "reason": "below-threshold"
-      }
+      "target": "2022-nyers-soskaleves-edesitoszerrel",
+      "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 3525,
       "modxPath": "cikkek/diabetes/2203/nyari-levesek/gorog-salataleves",
-      "target": "2026-gorog-salataleves",
+      "target": "2022-gorog-salataleves",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 3524,
       "modxPath": "cikkek/diabetes/2203/nyari-levesek/almaleves-cukor-nelkul",
-      "target": "2026-almaleves-cukor-nelkul",
+      "target": "2022-almaleves-cukor-nelkul",
       "categorySource": "predicted-or-manual"
     },
     {
-      "type": "new-rs-category-unresolved",
+      "type": "new-rs-required",
       "modxContentId": 3523,
       "modxPath": "cikkek/diabetes/2203/nyari-levesek/gazpacho",
-      "target": "2026-gazpacho",
-      "categoryDecision": {
-        "resolved": false,
-        "category": null,
-        "categorySource": "unresolved",
-        "confidence": 0.3830858287024831,
-        "margin": 0.1069670087048663,
-        "matchedFeatures": [
-          {
-            "feature": "tarkony",
-            "score": 1.711344
-          },
-          {
-            "feature": "voroshagyma",
-            "score": 1.162487
-          },
-          {
-            "feature": "fuszerpaprika",
-            "score": 0.94761
-          },
-          {
-            "feature": "petrezselyem",
-            "score": 0.708409
-          },
-          {
-            "feature": "metelohagyma",
-            "score": 0.599161
-          },
-          {
-            "feature": "fokhagyma",
-            "score": 0.300808
-          },
-          {
-            "feature": "paradicsom",
-            "score": 0.29673
-          }
-        ],
-        "reason": "below-threshold"
-      }
+      "target": "2022-gazpacho",
+      "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 3491,
       "modxPath": "cikkek/hypertonia/2102/a-cekla/sult-ceruzabab-ceklaval-salataagyon",
-      "target": "2026-sult-ceruzabab-ceklaval-salataagyon",
+      "target": "2021-sult-ceruzabab-ceklaval-salataagyon",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 3490,
       "modxPath": "cikkek/hypertonia/2102/a-cekla/glutenmentes-ropogos-bundaban-sult-fogasfile-ceklasalataval",
-      "target": "2026-glutenmentes-ropogos-bundaban-sult-fogasfile-ceklasalataval",
+      "target": "2021-glutenmentes-ropogos-bundaban-sult-fogasfile-ceklasalataval",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 3489,
       "modxPath": "cikkek/hypertonia/2102/a-cekla/feta-sajtos-ceklakrem",
-      "target": "2026-feta-sajtos-ceklakrem",
+      "target": "2021-feta-sajtos-ceklakrem",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 3485,
       "modxPath": "cikkek/hypertonia/2102/a-cekla/ceklafasirt-friss-salataval-mustaros-csicseriborsokremmel",
-      "target": "2026-ceklafasirt-friss-salataval-mustaros-csicseriborsokremmel",
+      "target": "2021-ceklafasirt-friss-salataval-mustaros-csicseriborsokremmel",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 3479,
       "modxPath": "cikkek/hypertonia/2102/a-cekla/ceklas-narancsos-csokitorta",
-      "target": "2026-ceklas-narancsos-csokitorta",
+      "target": "2021-ceklas-narancsos-csokitorta",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 3478,
       "modxPath": "cikkek/hypertonia/2102/a-cekla/gombas-hagymas-szuzermek-rozmaringos-szelesmetelttel-es-sult-ceklaval",
-      "target": "2026-gombas-hagymas-szuzermek-rozmaringos-szelesmetelttel-es-sult-ceklaval",
+      "target": "2021-gombas-hagymas-szuzermek-rozmaringos-szelesmetelttel-es-sult-ceklaval",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 3463,
       "modxPath": "cikkek/diabetes/2202/hagyomanyos-levesek/zoldsegkremleves-kakukkfuves-piritott-dioval",
-      "target": "2026-zoldsegkremleves-kakukkfuves-piritott-dioval",
+      "target": "2022-zoldsegkremleves-kakukkfuves-piritott-dioval",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 3456,
       "modxPath": "cikkek/diabetes/2202/hagyomanyos-levesek/zoldborsoleves-teljes-kiorlesu-galuskaval",
-      "target": "2026-zoldborsoleves-teljes-kiorlesu-galuskaval",
-      "categorySource": "predicted-or-manual"
+      "target": "2022-zoldborsoleves-teljes-kiorlesu-galuskaval",
+      "categorySource": "existing-rs"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 3451,
       "modxPath": "cikkek/diabetes/2202/hagyomanyos-levesek/lestyanos-csorbaleves",
-      "target": "2026-lestyanos-csorbaleves",
+      "target": "2022-lestyanos-csorbaleves",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 3430,
       "modxPath": "cikkek/diabetes/2201/husveti-receptek/tojassal-toltott-hus-ozgerincben",
-      "target": "2026-tojassal-toltott-hus-ozgerincben",
+      "target": "2022-tojassal-toltott-hus-ozgerincben",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 3426,
       "modxPath": "cikkek/diabetes/2201/husveti-receptek/sonkas-pulykamajrolad",
-      "target": "2026-sonkas-pulykamajrolad",
+      "target": "2022-sonkas-pulykamajrolad",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 3420,
       "modxPath": "cikkek/diabetes/2201/husveti-receptek/gombaval-toltott-rozmaringos-pulyka-hercegnoburgonyaval",
-      "target": "2026-gombaval-toltott-rozmaringos-pulyka-hercegnoburgonyaval",
+      "target": "2022-gombaval-toltott-rozmaringos-pulyka-hercegnoburgonyaval",
       "categorySource": "predicted-or-manual"
     },
     {
@@ -2362,7 +2203,7 @@
       "type": "new-rs-required",
       "modxContentId": 3409,
       "modxPath": "cikkek/diabetes/2201/husveti-receptek/tojasba-toltott-friss-bulgursalata",
-      "target": "2026-tojasba-toltott-friss-bulgursalata",
+      "target": "2022-tojasba-toltott-friss-bulgursalata",
       "categorySource": "predicted-or-manual"
     },
     {
@@ -2459,7 +2300,7 @@
       "type": "new-rs-required",
       "modxContentId": 3358,
       "modxPath": "cikkek/diabetes/2106/karacsonyi-receptek/narancsos-pulykaraguleves",
-      "target": "2026-narancsos-pulykaraguleves",
+      "target": "2021-narancsos-pulykaraguleves",
       "categorySource": "predicted-or-manual"
     },
     {
@@ -2520,7 +2361,7 @@
       "type": "new-rs-category-unresolved",
       "modxContentId": 3348,
       "modxPath": "cikkek/diabetes/2106/karacsonyi-receptek",
-      "target": "2026-karacsonyi-receptek",
+      "target": "2021-karacsonyi-receptek",
       "categoryDecision": {
         "resolved": false,
         "category": null,
@@ -2533,110 +2374,92 @@
     },
     {
       "type": "new-rs-required",
+      "modxContentId": 3348,
+      "modxPath": "cikkek/diabetes/2106/karacsonyi-receptek",
+      "target": "2021-karacsonyi-receptek",
+      "categorySource": "predicted-or-manual"
+    },
+    {
+      "type": "new-rs-required",
       "modxContentId": 2828,
       "modxPath": "cikkek/diabetes/1906/finn-unnepi-etelek/aszaltszilvaleves",
-      "target": "2026-aszaltszilvaleves",
+      "target": "2019-aszaltszilvaleves",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 2829,
       "modxPath": "cikkek/diabetes/1906/finn-unnepi-etelek/karacsonyi-muffin",
-      "target": "2026-karacsonyi-muffin",
+      "target": "2019-karacsonyi-muffin",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 2830,
       "modxPath": "cikkek/diabetes/1906/finn-unnepi-etelek/hering-poharban",
-      "target": "2026-hering-poharban",
+      "target": "2019-hering-poharban",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 2831,
       "modxPath": "cikkek/diabetes/1906/finn-unnepi-etelek/edesburgonya-sargarepa-rakottas",
-      "target": "2026-edesburgonya-sargarepa-rakottas",
+      "target": "2019-edesburgonya-sargarepa-rakottas",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 2832,
       "modxPath": "cikkek/diabetes/1906/finn-unnepi-etelek/fustolt-hal-konnyu-kremmel",
-      "target": "2026-fustolt-hal-konnyu-kremmel",
+      "target": "2019-fustolt-hal-konnyu-kremmel",
       "categorySource": "predicted-or-manual"
     },
     {
-      "type": "new-rs-category-unresolved",
+      "type": "new-rs-required",
       "modxContentId": 2833,
       "modxPath": "cikkek/diabetes/1906/finn-unnepi-etelek/edes-burgonyapure",
-      "target": "2026-edes-burgonyapure",
-      "categoryDecision": {
-        "resolved": false,
-        "category": null,
-        "categorySource": "unresolved",
-        "confidence": 0.4141589775973975,
-        "margin": 0.10498160783787264,
-        "matchedFeatures": [
-          {
-            "feature": "burgonya",
-            "score": 1.036814
-          },
-          {
-            "feature": "liszt",
-            "score": 0.783948
-          },
-          {
-            "feature": "szerecsendio",
-            "score": 0.496487
-          },
-          {
-            "feature": "vaj",
-            "score": 0.451837
-          }
-        ],
-        "reason": "below-threshold"
-      }
+      "target": "2019-edes-burgonyapure",
+      "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 2834,
       "modxPath": "cikkek/diabetes/1906/finn-unnepi-etelek/karacsonyi-forgok",
-      "target": "2026-karacsonyi-forgok",
+      "target": "2019-karacsonyi-forgok",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 2835,
       "modxPath": "cikkek/diabetes/1906/finn-unnepi-etelek/sult-sonka",
-      "target": "2026-sult-sonka",
+      "target": "2019-sult-sonka",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 2836,
       "modxPath": "cikkek/diabetes/1906/finn-unnepi-etelek/fuszeres-sertesszuz",
-      "target": "2026-fuszeres-sertesszuz",
+      "target": "2019-fuszeres-sertesszuz",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 2837,
       "modxPath": "cikkek/diabetes/1906/finn-unnepi-etelek/gombasalata",
-      "target": "2026-gombasalata",
+      "target": "2019-gombasalata",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-category-unresolved",
       "modxContentId": 3297,
       "modxPath": "cikkek/diabetes/2103/nyari-receptek/cseresznyelekvar",
-      "target": "2026-cseresznyelekvar",
+      "target": "2021-cseresznyelekvar",
       "categoryDecision": {
         "resolved": false,
         "category": null,
         "categorySource": "unresolved",
-        "confidence": 0.7597205913116909,
-        "margin": 0.6599605658229342,
+        "confidence": 0.5403524796510886,
+        "margin": 0.3203639971750917,
         "matchedFeatures": [
           {
             "feature": "eritrit",
@@ -2645,6 +2468,13 @@
         ],
         "reason": "below-threshold"
       }
+    },
+    {
+      "type": "new-rs-required",
+      "modxContentId": 3297,
+      "modxPath": "cikkek/diabetes/2103/nyari-receptek/cseresznyelekvar",
+      "target": "2021-cseresznyelekvar",
+      "categorySource": "predicted-or-manual"
     },
     {
       "type": "rs-winner",
@@ -2668,35 +2498,35 @@
       "type": "new-rs-required",
       "modxContentId": 3287,
       "modxPath": "cikkek/diabetes/2104/kisetkezesek/magvas-zoldseggolyo",
-      "target": "2026-magvas-zoldseggolyo",
-      "categorySource": "predicted-or-manual"
+      "target": "2021-magvas-zoldseggolyo",
+      "categorySource": "existing-rs"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 3279,
       "modxPath": "cikkek/diabetes/2103/nyari-receptek/fahejas-reszelt-alma",
-      "target": "2026-fahejas-reszelt-alma",
+      "target": "2021-fahejas-reszelt-alma",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 3278,
       "modxPath": "cikkek/diabetes/2103/nyari-receptek/erdei-light-smoothie",
-      "target": "2026-erdei-light-smoothie",
+      "target": "2021-erdei-light-smoothie",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 3277,
       "modxPath": "cikkek/diabetes/2103/nyari-receptek/rozmaringos-sargabarackbefott",
-      "target": "2026-rozmaringos-sargabarackbefott",
+      "target": "2021-rozmaringos-sargabarackbefott",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-category-unresolved",
       "modxContentId": 3275,
       "modxPath": "cikkek/diabetes/2103/nyari-receptek/kakukkfuves-narancsdzsem",
-      "target": "2026-kakukkfuves-narancsdzsem",
+      "target": "2021-kakukkfuves-narancsdzsem",
       "categoryDecision": {
         "resolved": false,
         "category": null,
@@ -2714,54 +2544,31 @@
     },
     {
       "type": "new-rs-required",
-      "modxContentId": 3274,
-      "modxPath": "cikkek/diabetes/2103/nyari-receptek/cukormentes-meggyleves",
-      "target": "2026-cukormentes-meggyleves",
+      "modxContentId": 3275,
+      "modxPath": "cikkek/diabetes/2103/nyari-receptek/kakukkfuves-narancsdzsem",
+      "target": "2021-kakukkfuves-narancsdzsem",
       "categorySource": "predicted-or-manual"
     },
     {
-      "type": "new-rs-category-unresolved",
-      "modxContentId": 3272,
-      "modxPath": "cikkek/diabetes/2103/nyari-receptek/korianderes-hideg-uborkaleves",
-      "target": "2026-korianderes-hideg-uborkaleves",
-      "categoryDecision": {
-        "resolved": false,
-        "category": null,
-        "categorySource": "unresolved",
-        "confidence": 0.4633640922572821,
-        "margin": 0.07221243729849341,
-        "matchedFeatures": [
-          {
-            "feature": "koriander",
-            "score": 1.944005
-          },
-          {
-            "feature": "hideg",
-            "score": 1.160735
-          }
-        ],
-        "reason": "below-threshold"
-      }
+      "type": "new-rs-required",
+      "modxContentId": 3274,
+      "modxPath": "cikkek/diabetes/2103/nyari-receptek/cukormentes-meggyleves",
+      "target": "2021-cukormentes-meggyleves",
+      "categorySource": "predicted-or-manual"
     },
     {
-      "type": "new-rs-category-unresolved",
+      "type": "new-rs-required",
+      "modxContentId": 3272,
+      "modxPath": "cikkek/diabetes/2103/nyari-receptek/korianderes-hideg-uborkaleves",
+      "target": "2021-korianderes-hideg-uborkaleves",
+      "categorySource": "predicted-or-manual"
+    },
+    {
+      "type": "new-rs-required",
       "modxContentId": 3269,
       "modxPath": "cikkek/diabetes/2103/nyari-receptek/kokuszleves-oszibarackkoktel",
-      "target": "2026-kokuszleves-oszibarackkoktel",
-      "categoryDecision": {
-        "resolved": false,
-        "category": null,
-        "categorySource": "unresolved",
-        "confidence": 0.7672448808059709,
-        "margin": 0.7022028682950705,
-        "matchedFeatures": [
-          {
-            "feature": "eritrit",
-            "score": 2.829342
-          }
-        ],
-        "reason": "below-threshold"
-      }
+      "target": "2021-kokuszleves-oszibarackkoktel",
+      "categorySource": "predicted-or-manual"
     },
     {
       "type": "rs-winner",
@@ -2836,105 +2643,59 @@
       }
     },
     {
-      "type": "new-rs-category-unresolved",
+      "type": "new-rs-required",
       "modxContentId": 3232,
       "modxPath": "cikkek/diabetes/2102/grillreceptek/mititei-mics",
-      "target": "2026-mititei-mics",
-      "categoryDecision": {
-        "resolved": false,
-        "category": null,
-        "categorySource": "unresolved",
-        "confidence": 0.5124368952564237,
-        "margin": 0.11379575543718773,
-        "matchedFeatures": [
-          {
-            "feature": "serteshus",
-            "score": 1.648099
-          },
-          {
-            "feature": "borsikafu",
-            "score": 1.164504
-          },
-          {
-            "feature": "marhahus",
-            "score": 1.05118
-          },
-          {
-            "feature": "fokhagyma_fuszerpaprika",
-            "score": 0.972632
-          }
-        ],
-        "reason": "below-threshold"
-      }
+      "target": "2021-mititei-mics",
+      "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 3231,
       "modxPath": "cikkek/diabetes/2102/grillreceptek/aszaltszilvas-baconos-csirkenyars",
-      "target": "2026-aszaltszilvas-baconos-csirkenyars",
+      "target": "2021-aszaltszilvas-baconos-csirkenyars",
       "categorySource": "predicted-or-manual"
     },
     {
-      "type": "new-rs-category-unresolved",
+      "type": "new-rs-required",
       "modxContentId": 3230,
       "modxPath": "cikkek/diabetes/2102/grillreceptek/grillezett-kecskesajt-padlizsanba-tekerve",
-      "target": "2026-grillezett-kecskesajt-padlizsanba-tekerve",
-      "categoryDecision": {
-        "resolved": false,
-        "category": null,
-        "categorySource": "unresolved",
-        "confidence": 0.33495349690390186,
-        "margin": 0.01806605867251282,
-        "matchedFeatures": [
-          {
-            "feature": "padlizsan",
-            "score": 1.25936
-          },
-          {
-            "feature": "kemeny",
-            "score": 1.071038
-          },
-          {
-            "feature": "kozepes",
-            "score": 0.705506
-          }
-        ],
-        "reason": "below-threshold"
-      }
+      "target": "2021-grillezett-kecskesajt-padlizsanba-tekerve",
+      "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 3229,
       "modxPath": "cikkek/diabetes/2102/grillreceptek/furjtojas-szaftos-husfeszekben",
-      "target": "2026-furjtojas-szaftos-husfeszekben",
+      "target": "2021-furjtojas-szaftos-husfeszekben",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 3228,
       "modxPath": "cikkek/diabetes/2102/grillreceptek/pulled-pork",
-      "target": "2026-pulled-pork",
+      "target": "2021-pulled-pork",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 3227,
       "modxPath": "cikkek/diabetes/2102/grillreceptek/amerikai-kaposztasalata",
-      "target": "2026-amerikai-kaposztasalata",
+      "target": "2021-amerikai-kaposztasalata",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 3226,
       "modxPath": "cikkek/diabetes/2102/grillreceptek/hazi-keszitesu-kolbasz-ujragondolva",
-      "target": "2026-hazi-keszitesu-kolbasz-ujragondolva",
+      "target": "2021-hazi-keszitesu-kolbasz-ujragondolva",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 3225,
       "modxPath": "cikkek/diabetes/2102/grillreceptek/saslik",
-      "target": "2026-saslik",
+      "target": "2021-saslik",
       "categorySource": "predicted-or-manual"
     },
     {
@@ -2977,20 +2738,20 @@
       "type": "new-rs-required",
       "modxContentId": 3185,
       "modxPath": "cikkek/diabetes/2101/receptek-husvetra/medvehagymas-ceklasalata",
-      "target": "2026-medvehagymas-ceklasalata",
+      "target": "2021-medvehagymas-ceklasalata",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-category-unresolved",
       "modxContentId": 3184,
       "modxPath": "cikkek/diabetes/2101/receptek-husvetra/repas-lepenykenyer",
-      "target": "2026-repas-lepenykenyer",
+      "target": "2021-repas-lepenykenyer",
       "categoryDecision": {
         "resolved": false,
         "category": null,
         "categorySource": "unresolved",
-        "confidence": 0.6517192687190485,
-        "margin": 0.3958585354366538,
+        "confidence": 0.5480760631170578,
+        "margin": 0.33290497621750637,
         "matchedFeatures": [
           {
             "feature": "eleszto",
@@ -3002,91 +2763,65 @@
     },
     {
       "type": "new-rs-required",
+      "modxContentId": 3184,
+      "modxPath": "cikkek/diabetes/2101/receptek-husvetra/repas-lepenykenyer",
+      "target": "2021-repas-lepenykenyer",
+      "categorySource": "predicted-or-manual"
+    },
+    {
+      "type": "new-rs-required",
       "modxContentId": 3183,
       "modxPath": "cikkek/diabetes/2101/receptek-husvetra/ujhagymas-reteksalata",
-      "target": "2026-ujhagymas-reteksalata",
+      "target": "2021-ujhagymas-reteksalata",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 3179,
       "modxPath": "cikkek/diabetes/2101/receptek-husvetra/cukormentes-repamuffin",
-      "target": "2026-cukormentes-repamuffin",
+      "target": "2021-cukormentes-repamuffin",
       "categorySource": "predicted-or-manual"
     },
     {
-      "type": "new-rs-category-unresolved",
+      "type": "new-rs-required",
       "modxContentId": 3178,
       "modxPath": "cikkek/diabetes/2101/receptek-husvetra/narancsos-nyulgerinc-burgonyarozsaval",
-      "target": "2026-narancsos-nyulgerinc-burgonyarozsaval",
-      "categoryDecision": {
-        "resolved": false,
-        "category": null,
-        "categorySource": "unresolved",
-        "confidence": 0.3526883241581385,
-        "margin": 0.024221549076162807,
-        "matchedFeatures": [
-          {
-            "feature": "narancsos",
-            "score": 1.213962
-          },
-          {
-            "feature": "burgonya",
-            "score": 1.036814
-          },
-          {
-            "feature": "bors",
-            "score": 0.544138
-          },
-          {
-            "feature": "olivaolaj",
-            "score": 0.366977
-          },
-          {
-            "feature": "fokhagyma",
-            "score": 0.300808
-          },
-          {
-            "feature": "narancs",
-            "score": 0.182152
-          }
-        ],
-        "reason": "below-threshold"
-      }
+      "target": "2021-narancsos-nyulgerinc-burgonyarozsaval",
+      "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 3177,
       "modxPath": "cikkek/diabetes/2101/receptek-husvetra/zoldseges-tarja-polentaval",
-      "target": "2026-zoldseges-tarja-polentaval",
+      "target": "2021-zoldseges-tarja-polentaval",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 3176,
       "modxPath": "cikkek/diabetes/2101/receptek-husvetra/fustoltsonka-krem",
-      "target": "2026-fustoltsonka-krem",
+      "target": "2021-fustoltsonka-krem",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 3175,
       "modxPath": "cikkek/diabetes/2101/receptek-husvetra/juhturos-tojaskrem-szines-tojasban",
-      "target": "2026-juhturos-tojaskrem-szines-tojasban",
+      "target": "2021-juhturos-tojaskrem-szines-tojasban",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 3174,
       "modxPath": "cikkek/diabetes/2101/receptek-husvetra/fokhagymas-sonkakoszoru",
-      "target": "2026-fokhagymas-sonkakoszoru",
+      "target": "2021-fokhagymas-sonkakoszoru",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 3173,
       "modxPath": "cikkek/diabetes/2101/receptek-husvetra/szenhidratcsokkentett-sos-kalacs",
-      "target": "2026-szenhidratcsokkentett-sos-kalacs",
+      "target": "2021-szenhidratcsokkentett-sos-kalacs",
       "categorySource": "predicted-or-manual"
     },
     {
@@ -3190,41 +2925,25 @@
       "reason": "id",
       "categorySource": "predicted",
       "categoryDecision": {
-        "category": "egytaletelek",
-        "confidence": 0.9020831956591355,
-        "margin": 0.8210283572826782,
+        "category": "zoldsegetelek",
+        "confidence": 1,
+        "margin": 1,
         "matchedFeatures": [
           {
-            "feature": "pirospaprika_bors",
-            "score": 1.450084
+            "feature": "ingredientProof:bab",
+            "score": 999
           },
           {
-            "feature": "voroshagyma_paradicsom",
-            "score": 1.248526
+            "feature": "ingredientProof:hagyma",
+            "score": 999
           },
           {
-            "feature": "zoldbab",
-            "score": 1.00911
+            "feature": "ingredientProof:paradicsom",
+            "score": 999
           },
           {
-            "feature": "paradicsom",
-            "score": 0.802819
-          },
-          {
-            "feature": "voroshagyma",
-            "score": 0.711259
-          },
-          {
-            "feature": "olaj",
-            "score": 0.651319
-          },
-          {
-            "feature": "zoldpaprika",
-            "score": 0.645634
-          },
-          {
-            "feature": "pirospaprika",
-            "score": 0.410463
+            "feature": "ingredientProof:paprika",
+            "score": 999
           }
         ],
         "reason": "no-loser-votes"
@@ -3256,44 +2975,11 @@
       "categorySource": "predicted-or-manual"
     },
     {
-      "type": "new-rs-category-unresolved",
+      "type": "new-rs-required",
       "modxContentId": 3081,
       "modxPath": "cikkek/diabetes/2006/karacsonyi-receptek-2020/zoldseges-stefania-szelet",
       "target": "2006-zoldseges-stefania-szelet",
-      "categoryDecision": {
-        "resolved": false,
-        "category": null,
-        "categorySource": "unresolved",
-        "confidence": 0.3638965468077486,
-        "margin": 0.004889496257171777,
-        "matchedFeatures": [
-          {
-            "feature": "tojas_bors",
-            "score": 1.431184
-          },
-          {
-            "feature": "hus",
-            "score": 1.224012
-          },
-          {
-            "feature": "zoldseges",
-            "score": 0.950026
-          },
-          {
-            "feature": "burgonya",
-            "score": 0.48533
-          },
-          {
-            "feature": "bors",
-            "score": 0.374867
-          },
-          {
-            "feature": "petrezselyemzold",
-            "score": 0.337094
-          }
-        ],
-        "reason": "below-threshold"
-      }
+      "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
@@ -3776,108 +3462,74 @@
       }
     },
     {
-      "type": "new-rs-category-unresolved",
+      "type": "new-rs-required",
+      "modxContentId": 2941,
+      "modxPath": "cikkek/diabetes/2002/receptsarok",
+      "target": "2002-receptsarok",
+      "categorySource": "predicted-or-manual"
+    },
+    {
+      "type": "new-rs-required",
       "modxContentId": 2841,
       "modxPath": "cikkek/diabetes/1906/receptsarok/csirkejava-szines-korettel",
-      "target": "2026-csirkejava-szines-korettel",
-      "categoryDecision": {
-        "resolved": false,
-        "category": null,
-        "categorySource": "unresolved",
-        "confidence": 0.44221712564189697,
-        "margin": 0.054879095169181435,
-        "matchedFeatures": [
-          {
-            "feature": "hagyma_fokhagyma",
-            "score": 1.564567
-          },
-          {
-            "feature": "bors_petrezselyemzold",
-            "score": 1.26752
-          },
-          {
-            "feature": "cukkini",
-            "score": 1.136379
-          },
-          {
-            "feature": "cukkini_sargarepa",
-            "score": 1.126297
-          },
-          {
-            "feature": "bors_olivaolaj",
-            "score": 1.017335
-          },
-          {
-            "feature": "paprika",
-            "score": 0.978263
-          },
-          {
-            "feature": "fokhagyma",
-            "score": 0.969099
-          },
-          {
-            "feature": "frissen",
-            "score": 0.92086
-          }
-        ],
-        "reason": "below-threshold"
-      }
+      "target": "2019-csirkejava-szines-korettel",
+      "categorySource": "existing-rs"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 2842,
       "modxPath": "cikkek/diabetes/1906/receptsarok/gombas-csirkemell",
-      "target": "2026-gombas-csirkemell",
-      "categorySource": "predicted-or-manual"
+      "target": "2019-gombas-csirkemell",
+      "categorySource": "existing-rs"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 2843,
       "modxPath": "cikkek/diabetes/1906/receptsarok/gombas-sertesszuzerme",
-      "target": "2026-gombas-sertesszuzerme",
+      "target": "2019-gombas-sertesszuzerme",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 2844,
       "modxPath": "cikkek/diabetes/1906/receptsarok/karacsonyi-zabkeksz",
-      "target": "2026-karacsonyi-zabkeksz",
-      "categorySource": "predicted-or-manual"
+      "target": "2019-karacsonyi-zabkeksz",
+      "categorySource": "existing-rs"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 2845,
       "modxPath": "cikkek/diabetes/1906/receptsarok/serpenyos-kacsamaj",
-      "target": "2026-serpenyos-kacsamaj",
-      "categorySource": "predicted-or-manual"
+      "target": "2019-serpenyos-kacsamaj",
+      "categorySource": "existing-rs"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 2846,
       "modxPath": "cikkek/diabetes/1906/receptsarok/sult-repa",
-      "target": "2026-sult-repa",
-      "categorySource": "predicted-or-manual"
+      "target": "2019-sult-repa",
+      "categorySource": "existing-rs"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 2847,
       "modxPath": "cikkek/diabetes/1906/receptsarok/szezammagos-csirkemell-brokkolipurevel",
-      "target": "2026-szezammagos-csirkemell-brokkolipurevel",
-      "categorySource": "predicted-or-manual"
+      "target": "2019-szezammagos-csirkemell-brokkolipurevel",
+      "categorySource": "existing-rs"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 2848,
       "modxPath": "cikkek/diabetes/1906/receptsarok/tejfolos-medvehagymaleves",
-      "target": "2026-tejfolos-medvehagymaleves",
-      "categorySource": "predicted-or-manual"
+      "target": "2019-tejfolos-medvehagymaleves",
+      "categorySource": "existing-rs"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 2849,
       "modxPath": "cikkek/diabetes/1906/receptsarok/tonhalas-brokkolis-teszta",
-      "target": "2026-tonhalas-brokkolis-teszta",
-      "categorySource": "predicted-or-manual"
+      "target": "2019-tonhalas-brokkolis-teszta",
+      "categorySource": "existing-rs"
     },
     {
       "type": "rs-winner",
@@ -3901,8 +3553,8 @@
       "type": "new-rs-required",
       "modxContentId": 2840,
       "modxPath": "cikkek/diabetes/1906/receptsarok/almas-kremes",
-      "target": "2026-almas-kremes",
-      "categorySource": "predicted-or-manual"
+      "target": "2019-almas-kremes",
+      "categorySource": "existing-rs"
     },
     {
       "type": "rs-winner",
@@ -3927,466 +3579,351 @@
       "type": "new-rs-required",
       "modxContentId": 2576,
       "modxPath": "cikkek/diabetes/1902/almas-husszelet-sajttal",
-      "target": "2026-almas-husszelet-sajttal",
+      "target": "2019-almas-husszelet-sajttal",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 2574,
       "modxPath": "cikkek/diabetes/1902/zoldseggel-toltott-csirkecomb",
-      "target": "2026-zoldseggel-toltott-csirkecomb",
+      "target": "2019-zoldseggel-toltott-csirkecomb",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 2618,
       "modxPath": "cikkek/diabetes/1903/japan-zoldsegleves",
-      "target": "2026-japan-zoldsegleves",
+      "target": "2019-japan-zoldsegleves",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 2617,
       "modxPath": "cikkek/diabetes/1903/spenotsalata-gyomberes-ontettel",
-      "target": "2026-spenotsalata-gyomberes-ontettel",
+      "target": "2019-spenotsalata-gyomberes-ontettel",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 2615,
       "modxPath": "cikkek/diabetes/1903/uborkaba-tekert-szusi",
-      "target": "2026-uborkaba-tekert-szusi",
+      "target": "2019-uborkaba-tekert-szusi",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 2677,
       "modxPath": "cikkek/diabetes/1904/sajtos-kaposztas-krumplis-pirog",
-      "target": "2026-sajtos-kaposztas-krumplis-pirog",
+      "target": "2019-sajtos-kaposztas-krumplis-pirog",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 2678,
       "modxPath": "cikkek/diabetes/1904/hagyomanyos-orosz-kaposztaleves",
-      "target": "2026-hagyomanyos-orosz-kaposztaleves",
+      "target": "2019-hagyomanyos-orosz-kaposztaleves",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 2679,
       "modxPath": "cikkek/diabetes/1904/orosz-kemeny-tojas",
-      "target": "2026-orosz-kemeny-tojas",
+      "target": "2019-orosz-kemeny-tojas",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 2680,
       "modxPath": "cikkek/diabetes/1904/borscs",
-      "target": "2026-borscs",
+      "target": "2019-borscs",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 2681,
       "modxPath": "cikkek/diabetes/1904/orosz-ceklasalata",
-      "target": "2026-orosz-ceklasalata",
+      "target": "2019-orosz-ceklasalata",
       "categorySource": "predicted-or-manual"
     },
     {
-      "type": "new-rs-category-unresolved",
+      "type": "new-rs-required",
       "modxContentId": 2686,
       "modxPath": "cikkek/diabetes/1904/mustaros-tojasos-csirkehussalata",
-      "target": "2026-mustaros-tojasos-csirkehussalata",
-      "categoryDecision": {
-        "resolved": false,
-        "category": null,
-        "categorySource": "unresolved",
-        "confidence": 0.518485118986292,
-        "margin": 0.0545810345556168,
-        "matchedFeatures": [
-          {
-            "feature": "csirkemellfile",
-            "score": 2.769577
-          },
-          {
-            "feature": "mustaros",
-            "score": 2.599574
-          },
-          {
-            "feature": "title:*hus*",
-            "score": 1.8
-          },
-          {
-            "feature": "title:*csirke*",
-            "score": 1.8
-          }
-        ],
-        "reason": "below-threshold"
-      }
+      "target": "2019-mustaros-tojasos-csirkehussalata",
+      "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 2685,
       "modxPath": "cikkek/diabetes/1904/fustolt-lazacos-blini",
-      "target": "2026-fustolt-lazacos-blini",
+      "target": "2019-fustolt-lazacos-blini",
       "categorySource": "predicted-or-manual"
     },
     {
-      "type": "new-rs-category-unresolved",
+      "type": "new-rs-required",
       "modxContentId": 2684,
       "modxPath": "cikkek/diabetes/1904/zoldfuszeres-serteshussal-cukkinivel-es-kolessel-toltott-paprika",
-      "target": "2026-zoldfuszeres-serteshussal-cukkinivel-es-kolessel-toltott-paprika",
-      "categoryDecision": {
-        "resolved": false,
-        "category": null,
-        "categorySource": "unresolved",
-        "confidence": 0.41548673712062345,
-        "margin": 0.06386890358099517,
-        "matchedFeatures": [
-          {
-            "feature": "200",
-            "score": 2.040093
-          },
-          {
-            "feature": "toltott_paprika",
-            "score": 2.040093
-          },
-          {
-            "feature": "cukkini_voroshagyma",
-            "score": 1.692179
-          },
-          {
-            "feature": "serteshus",
-            "score": 1.330949
-          },
-          {
-            "feature": "paradicsomle",
-            "score": 1.322228
-          },
-          {
-            "feature": "paradicsom",
-            "score": 0.802819
-          },
-          {
-            "feature": "voroshagyma",
-            "score": 0.711259
-          },
-          {
-            "feature": "toltott",
-            "score": 0.681936
-          }
-        ],
-        "reason": "below-threshold"
-      }
+      "target": "2019-zoldfuszeres-serteshussal-cukkinivel-es-kolessel-toltott-paprika",
+      "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 2683,
       "modxPath": "cikkek/diabetes/1904/egyszeru-kaposztasalata",
-      "target": "2026-egyszeru-kaposztasalata",
+      "target": "2019-egyszeru-kaposztasalata",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 2682,
       "modxPath": "cikkek/diabetes/1904/marhaszegy-sztroganov-modra",
-      "target": "2026-marhaszegy-sztroganov-modra",
+      "target": "2019-marhaszegy-sztroganov-modra",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 2718,
       "modxPath": "cikkek/diabetes/1905/cukkinis-sargaborsosaute",
-      "target": "2026-cukkinis-sargaborsosaute",
+      "target": "2019-cukkinis-sargaborsosaute",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 2717,
       "modxPath": "cikkek/diabetes/1905/lencses-arpas-gombaleves",
-      "target": "2026-lencses-arpas-gombaleves",
+      "target": "2019-lencses-arpas-gombaleves",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 2715,
       "modxPath": "cikkek/diabetes/1905/fuszeres-lencseleves-fodros-kellel",
-      "target": "2026-fuszeres-lencseleves-fodros-kellel",
+      "target": "2019-fuszeres-lencseleves-fodros-kellel",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 2714,
       "modxPath": "cikkek/diabetes/1905/vadrizzsel-es-almaval-toltott-sutotok",
-      "target": "2026-vadrizzsel-es-almaval-toltott-sutotok",
+      "target": "2019-vadrizzsel-es-almaval-toltott-sutotok",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 2713,
       "modxPath": "cikkek/diabetes/1905/spenotos-gombas-arpas-pilaf",
-      "target": "2026-spenotos-gombas-arpas-pilaf",
+      "target": "2019-spenotos-gombas-arpas-pilaf",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 2711,
       "modxPath": "cikkek/diabetes/1905/feher-husu-hal-sult-hagymaval-es-lencsepurevel",
-      "target": "2026-feher-husu-hal-sult-hagymaval-es-lencsepurevel",
+      "target": "2019-feher-husu-hal-sult-hagymaval-es-lencsepurevel",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 2710,
       "modxPath": "cikkek/diabetes/1905/kanadai-sargaborsoleves-sonkaval",
-      "target": "2026-kanadai-sargaborsoleves-sonkaval",
+      "target": "2019-kanadai-sargaborsoleves-sonkaval",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 2709,
       "modxPath": "cikkek/diabetes/1905/lazac-citromos-gyomberszosszal",
-      "target": "2026-lazac-citromos-gyomberszosszal",
+      "target": "2019-lazac-citromos-gyomberszosszal",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 2716,
       "modxPath": "cikkek/diabetes/1905/dios-lenmagos-repatallerok",
-      "target": "2026-dios-lenmagos-repatallerok",
+      "target": "2019-dios-lenmagos-repatallerok",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 2712,
       "modxPath": "cikkek/diabetes/1905/marhahusos-rakott-kaposzta",
-      "target": "2026-marhahusos-rakott-kaposzta",
+      "target": "2019-marhahusos-rakott-kaposzta",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 2413,
       "modxPath": "cikkek/diabetes/1806/karacsonyi-receptsarok/klasszikus-tourtiere-quebeci-serteshusos-pite-kanadabol",
-      "target": "2026-klasszikus-tourtiere-quebeci-serteshusos-pite-kanadabol",
+      "target": "2018-klasszikus-tourtiere-quebeci-serteshusos-pite-kanadabol",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 2412,
       "modxPath": "cikkek/diabetes/1806/karacsonyi-receptsarok/etvagyhozo-husgolyok-svedorszagbol",
-      "target": "2026-etvagyhozo-husgolyok-svedorszagbol",
+      "target": "2018-etvagyhozo-husgolyok-svedorszagbol",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 2421,
       "modxPath": "cikkek/diabetes/1806/karacsonyi-receptsarok/szaritottgomba-leves-lengyelorszagbol",
-      "target": "2026-szaritottgomba-leves-lengyelorszagbol",
+      "target": "2018-szaritottgomba-leves-lengyelorszagbol",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 2420,
       "modxPath": "cikkek/diabetes/1806/karacsonyi-receptsarok/burgundi-szarvasragu-franciaorszagbol",
-      "target": "2026-burgundi-szarvasragu-franciaorszagbol",
+      "target": "2018-burgundi-szarvasragu-franciaorszagbol",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 2419,
       "modxPath": "cikkek/diabetes/1806/karacsonyi-receptsarok/tengeri-suger-nemetorszagbol",
-      "target": "2026-tengeri-suger-nemetorszagbol",
+      "target": "2018-tengeri-suger-nemetorszagbol",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 2418,
       "modxPath": "cikkek/diabetes/1806/karacsonyi-receptsarok/fetas-rakott-krumpli-gorogorszagbol",
-      "target": "2026-fetas-rakott-krumpli-gorogorszagbol",
+      "target": "2018-fetas-rakott-krumpli-gorogorszagbol",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 2417,
       "modxPath": "cikkek/diabetes/1806/karacsonyi-receptsarok/dios-stollen-kalacs-nemetorszagbol",
-      "target": "2026-dios-stollen-kalacs-nemetorszagbol",
+      "target": "2018-dios-stollen-kalacs-nemetorszagbol",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 2416,
       "modxPath": "cikkek/diabetes/1806/karacsonyi-receptsarok/olasz-marharagu",
-      "target": "2026-olasz-marharagu",
+      "target": "2018-olasz-marharagu",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 2415,
       "modxPath": "cikkek/diabetes/1806/karacsonyi-receptsarok/hamis-mezeskalacs-angliabol",
-      "target": "2026-hamis-mezeskalacs-angliabol",
-      "categorySource": "predicted-or-manual"
-    },
-    {
-      "type": "new-rs-required",
-      "modxContentId": 2539,
-      "modxPath": "cikkek/diabetes/1901/receptek-a-multbol",
-      "target": "2026-receptek-a-multbol",
+      "target": "2018-hamis-mezeskalacs-angliabol",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 2541,
       "modxPath": "cikkek/diabetes/1901/marhahussalata-curryvel",
-      "target": "2026-marhahussalata-curryvel",
+      "target": "2019-marhahussalata-curryvel",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 2540,
       "modxPath": "cikkek/diabetes/1901/pacolt-csirkemell",
-      "target": "2026-pacolt-csirkemell",
+      "target": "2019-pacolt-csirkemell",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 2414,
       "modxPath": "cikkek/diabetes/1806/karacsonyi-receptsarok/rosolli-ceklasalata-finnorszagbol",
-      "target": "2026-rosolli-ceklasalata-finnorszagbol",
+      "target": "2018-rosolli-ceklasalata-finnorszagbol",
       "categorySource": "predicted-or-manual"
     },
     {
-      "type": "new-rs-category-unresolved",
+      "type": "new-rs-required",
       "modxContentId": 2613,
       "modxPath": "cikkek/diabetes/1903/sult-tok-gyomberes-misomartassal",
-      "target": "2026-sult-tok-gyomberes-misomartassal",
-      "categoryDecision": {
-        "resolved": false,
-        "category": null,
-        "categorySource": "unresolved",
-        "confidence": 0.34012911264658713,
-        "margin": 0.05812540796982968,
-        "matchedFeatures": [
-          {
-            "feature": "tok",
-            "score": 2.178464
-          },
-          {
-            "feature": "koriander",
-            "score": 1.944005
-          },
-          {
-            "feature": "szal",
-            "score": 0.653997
-          },
-          {
-            "feature": "szojaszosz",
-            "score": 0.599609
-          }
-        ],
-        "reason": "below-threshold"
-      }
+      "target": "2019-sult-tok-gyomberes-misomartassal",
+      "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 2408,
       "modxPath": "cikkek/diabetes/1806/kosheri-lencsevel-quinoaval-es-csicseriborsoval",
-      "target": "2026-kosheri-lencsevel-quinoaval-es-csicseriborsoval",
+      "target": "2018-kosheri-lencsevel-quinoaval-es-csicseriborsoval",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 2537,
       "modxPath": "cikkek/diabetes/1901/foldimogyoros-ragu",
-      "target": "2026-foldimogyoros-ragu",
+      "target": "2019-foldimogyoros-ragu",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 2575,
       "modxPath": "cikkek/diabetes/1902/toltott-pulykatekercs",
-      "target": "2026-toltott-pulykatekercs",
+      "target": "2019-toltott-pulykatekercs",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 2407,
       "modxPath": "cikkek/diabetes/1806/falafel",
-      "target": "2026-falafel",
+      "target": "2018-falafel",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 2611,
       "modxPath": "cikkek/diabetes/1903/ujhagymas-csirkes-rizstal",
-      "target": "2026-ujhagymas-csirkes-rizstal",
+      "target": "2019-ujhagymas-csirkes-rizstal",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 2619,
       "modxPath": "cikkek/diabetes/1903/soba-teszta-sult-padlizsannal",
-      "target": "2026-soba-teszta-sult-padlizsannal",
+      "target": "2019-soba-teszta-sult-padlizsannal",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 2616,
       "modxPath": "cikkek/diabetes/1903/tsukune-csirkehusgolyok",
-      "target": "2026-tsukune-csirkehusgolyok",
+      "target": "2019-tsukune-csirkehusgolyok",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 2612,
       "modxPath": "cikkek/diabetes/1903/narancslevel-es-szojaval-marinalt-lazac",
-      "target": "2026-narancslevel-es-szojaval-marinalt-lazac",
+      "target": "2019-narancslevel-es-szojaval-marinalt-lazac",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 2614,
       "modxPath": "cikkek/diabetes/1903/yakitori-csirkemell",
-      "target": "2026-yakitori-csirkemell",
+      "target": "2019-yakitori-csirkemell",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 2542,
       "modxPath": "cikkek/diabetes/1901/habos-turos-kocka",
-      "target": "2026-habos-turos-kocka",
+      "target": "2019-habos-turos-kocka",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 2544,
       "modxPath": "cikkek/diabetes/1901/toksalata",
-      "target": "2026-toksalata",
+      "target": "2019-toksalata",
       "categorySource": "predicted-or-manual"
     },
     {
-      "type": "new-rs-category-unresolved",
+      "type": "new-rs-required",
       "modxContentId": 2543,
       "modxPath": "cikkek/diabetes/1901/joghurtleves",
-      "target": "2026-joghurtleves",
-      "categoryDecision": {
-        "resolved": false,
-        "category": null,
-        "categorySource": "unresolved",
-        "confidence": 0.32836482027603986,
-        "margin": 0.08738012460206332,
-        "matchedFeatures": [
-          {
-            "feature": "csirkemell",
-            "score": 2.407749
-          },
-          {
-            "feature": "pacolt",
-            "score": 1.212341
-          }
-        ],
-        "reason": "below-threshold"
-      }
+      "target": "2019-joghurtleves",
+      "categorySource": "predicted-or-manual"
     },
     {
       "type": "rs-winner",
@@ -4410,7 +3947,7 @@
       "type": "new-rs-required",
       "modxContentId": 2448,
       "modxPath": "cikkek/hypertonia/1802/joghurtos-fahejas-szilvaleves",
-      "target": "2026-joghurtos-fahejas-szilvaleves",
+      "target": "2018-joghurtos-fahejas-szilvaleves",
       "categorySource": "predicted-or-manual"
     },
     {
@@ -4440,42 +3977,42 @@
       "type": "new-rs-required",
       "modxContentId": 2536,
       "modxPath": "cikkek/diabetes/1901/zoldseggel-toltott-karfiolpalacsinta-glutenmentes",
-      "target": "2026-zoldseggel-toltott-karfiolpalacsinta-glutenmentes",
+      "target": "2019-zoldseggel-toltott-karfiolpalacsinta-glutenmentes",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 2445,
       "modxPath": "cikkek/hypertonia/1802/haltekercs-olivabogyos-korettel",
-      "target": "2026-haltekercs-olivabogyos-korettel",
+      "target": "2018-haltekercs-olivabogyos-korettel",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 2410,
       "modxPath": "cikkek/diabetes/1806/ful-medames",
-      "target": "2026-ful-medames",
+      "target": "2018-ful-medames",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 2409,
       "modxPath": "cikkek/diabetes/1806/tabule",
-      "target": "2026-tabule",
+      "target": "2018-tabule",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 2535,
       "modxPath": "cikkek/diabetes/1901/lazacsalata-ceklaval-es-rukkolaval",
-      "target": "2026-lazacsalata-ceklaval-es-rukkolaval",
+      "target": "2019-lazacsalata-ceklaval-es-rukkolaval",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 2534,
       "modxPath": "cikkek/diabetes/1901/tintahalsalata-chilis-olivabogyoval",
-      "target": "2026-tintahalsalata-chilis-olivabogyoval",
+      "target": "2019-tintahalsalata-chilis-olivabogyoval",
       "categorySource": "predicted-or-manual"
     },
     {
@@ -4495,279 +4032,261 @@
     },
     {
       "type": "new-rs-required",
+      "modxContentId": 2429,
+      "modxPath": "cikkek/recept",
+      "target": "2026-recept",
+      "categorySource": "predicted-or-manual"
+    },
+    {
+      "type": "new-rs-required",
       "modxContentId": 2383,
       "modxPath": "cikkek/diabetes/1805/toltott-szololevel-hidegen-talalva",
-      "target": "2026-toltott-szololevel-hidegen-talalva",
-      "categorySource": "predicted-or-manual"
+      "target": "2018-toltott-szololevel-hidegen-talalva",
+      "categorySource": "existing-rs"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 2382,
       "modxPath": "cikkek/diabetes/1805/almakremleves-karamellizalt-almaval",
-      "target": "2026-almakremleves-karamellizalt-almaval",
-      "categorySource": "predicted-or-manual"
+      "target": "2018-almakremleves-karamellizalt-almaval",
+      "categorySource": "existing-rs"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 2381,
       "modxPath": "cikkek/diabetes/1805/epres-sajttorta",
-      "target": "2026-epres-sajttorta",
-      "categorySource": "predicted-or-manual"
+      "target": "2018-epres-sajttorta",
+      "categorySource": "existing-rs"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 2380,
       "modxPath": "cikkek/diabetes/1805/mango-avokado-salsa",
-      "target": "2026-mango-avokado-salsa",
-      "categorySource": "predicted-or-manual"
+      "target": "2018-mango-avokado-salsa",
+      "categorySource": "existing-rs"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 2379,
       "modxPath": "cikkek/diabetes/1805/rostonsult-csirkemell-csipos-sargarepasalataval-es-spagettivel",
-      "target": "2026-rostonsult-csirkemell-csipos-sargarepasalataval-es-spagettivel",
-      "categorySource": "predicted-or-manual"
+      "target": "2018-rostonsult-csirkemell-csipos-sargarepasalataval-es-spagettivel",
+      "categorySource": "existing-rs"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 2378,
       "modxPath": "cikkek/diabetes/1805/csokis-mogyoros-keksz",
-      "target": "2026-csokis-mogyoros-keksz",
-      "categorySource": "predicted-or-manual"
+      "target": "2018-csokis-mogyoros-keksz",
+      "categorySource": "existing-rs"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 2377,
       "modxPath": "cikkek/diabetes/1805/turofelfujt-mandarinnal",
-      "target": "2026-turofelfujt-mandarinnal",
-      "categorySource": "predicted-or-manual"
+      "target": "2018-turofelfujt-mandarinnal",
+      "categorySource": "existing-rs"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 2376,
       "modxPath": "cikkek/diabetes/1805/dios-repatorta-liszt-nelkul",
-      "target": "2026-dios-repatorta-liszt-nelkul",
-      "categorySource": "predicted-or-manual"
+      "target": "2018-dios-repatorta-liszt-nelkul",
+      "categorySource": "existing-rs"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 2375,
       "modxPath": "cikkek/diabetes/1805/cukkinis-palacsinta",
-      "target": "2026-cukkinis-palacsinta",
-      "categorySource": "predicted-or-manual"
+      "target": "2018-cukkinis-palacsinta",
+      "categorySource": "existing-rs"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 2374,
       "modxPath": "cikkek/diabetes/1805/kuszkuszsalata-sajttal-sonkaval",
-      "target": "2026-kuszkuszsalata-sajttal-sonkaval",
-      "categorySource": "predicted-or-manual"
+      "target": "2018-kuszkuszsalata-sajttal-sonkaval",
+      "categorySource": "existing-rs"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 2272,
       "modxPath": "cikkek/hypertonia/1801/roston-sult-csirke-supreme-zoldsegekkel",
-      "target": "2026-roston-sult-csirke-supreme-zoldsegekkel",
+      "target": "2018-roston-sult-csirke-supreme-zoldsegekkel",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 2300,
       "modxPath": "cikkek/diabetes/1803/bolinhos-bacalhau-azaz-brazil-tokehalpogacsak",
-      "target": "2026-bolinhos-bacalhau-azaz-brazil-tokehalpogacsak",
+      "target": "2018-bolinhos-bacalhau-azaz-brazil-tokehalpogacsak",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 2299,
       "modxPath": "cikkek/diabetes/1803/arroz-con-pollo-vagyis-brazil-rizses-csirke",
-      "target": "2026-arroz-con-pollo-vagyis-brazil-rizses-csirke",
+      "target": "2018-arroz-con-pollo-vagyis-brazil-rizses-csirke",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 2298,
       "modxPath": "cikkek/diabetes/1803/feijoada-azaz-fekete-bab-ragu",
-      "target": "2026-feijoada-azaz-fekete-bab-ragu",
+      "target": "2018-feijoada-azaz-fekete-bab-ragu",
       "categorySource": "predicted-or-manual"
     },
     {
-      "type": "new-rs-category-unresolved",
+      "type": "new-rs-required",
       "modxContentId": 2297,
       "modxPath": "cikkek/diabetes/1803/farofa",
-      "target": "2026-farofa",
-      "categoryDecision": {
-        "resolved": false,
-        "category": null,
-        "categorySource": "unresolved",
-        "confidence": 0.5089362276696938,
-        "margin": 0.05030006118850727,
-        "matchedFeatures": [
-          {
-            "feature": "salata",
-            "score": 3.141676
-          },
-          {
-            "feature": "kemeny_tojas",
-            "score": 2.273414
-          },
-          {
-            "feature": "kemeny",
-            "score": 1.749703
-          },
-          {
-            "feature": "olivabogyo",
-            "score": 1.513587
-          }
-        ],
-        "reason": "below-threshold"
-      }
+      "target": "2018-farofa",
+      "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 2296,
       "modxPath": "cikkek/diabetes/1803/salada-de-couve-com-manga-azaz-kelkaposzta-es-mango-salata",
-      "target": "2026-salada-de-couve-com-manga-azaz-kelkaposzta-es-mango-salata",
+      "target": "2018-salada-de-couve-com-manga-azaz-kelkaposzta-es-mango-salata",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 2295,
       "modxPath": "cikkek/diabetes/1803/pulyka-vatapa",
-      "target": "2026-pulyka-vatapa",
+      "target": "2018-pulyka-vatapa",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 2294,
       "modxPath": "cikkek/diabetes/1803/vegetarianus-feijoada",
-      "target": "2026-vegetarianus-feijoada",
+      "target": "2018-vegetarianus-feijoada",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 2293,
       "modxPath": "cikkek/diabetes/1803/brazil-hal",
-      "target": "2026-brazil-hal",
+      "target": "2018-brazil-hal",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 2292,
       "modxPath": "cikkek/diabetes/1803/csirkemell-fuszeres-kokusztejszosszal",
-      "target": "2026-csirkemell-fuszeres-kokusztejszosszal",
+      "target": "2018-csirkemell-fuszeres-kokusztejszosszal",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 2245,
       "modxPath": "cikkek/diabetes/1802/mandulas-desszert",
-      "target": "2026-mandulas-desszert",
+      "target": "2018-mandulas-desszert",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 2244,
       "modxPath": "cikkek/diabetes/1802/hoisin-szoszos-daralt-csirkehus-salataagyon",
-      "target": "2026-hoisin-szoszos-daralt-csirkehus-salataagyon",
+      "target": "2018-hoisin-szoszos-daralt-csirkehus-salataagyon",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 2243,
       "modxPath": "cikkek/diabetes/1802/sult-tofu-hajdinametelttel",
-      "target": "2026-sult-tofu-hajdinametelttel",
+      "target": "2018-sult-tofu-hajdinametelttel",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 2242,
       "modxPath": "cikkek/diabetes/1802/sult-karfiol",
-      "target": "2026-sult-karfiol",
+      "target": "2018-sult-karfiol",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 2241,
       "modxPath": "cikkek/diabetes/1802/vegetarianus-tekercsek",
-      "target": "2026-vegetarianus-tekercsek",
+      "target": "2018-vegetarianus-tekercsek",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 2240,
       "modxPath": "cikkek/diabetes/1802/nyulraguleves-goji-bogyoval",
-      "target": "2026-nyulraguleves-goji-bogyoval",
+      "target": "2018-nyulraguleves-goji-bogyoval",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 2238,
       "modxPath": "cikkek/diabetes/1802/szecsuani-csirke",
-      "target": "2026-szecsuani-csirke",
+      "target": "2018-szecsuani-csirke",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 2239,
       "modxPath": "cikkek/diabetes/1802/konnyu-ropogos-tekercsek",
-      "target": "2026-konnyu-ropogos-tekercsek",
+      "target": "2018-konnyu-ropogos-tekercsek",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 2237,
       "modxPath": "cikkek/diabetes/1802/csurgatott-tojasleves-csirkehussal",
-      "target": "2026-csurgatott-tojasleves-csirkehussal",
+      "target": "2018-csurgatott-tojasleves-csirkehussal",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 2336,
       "modxPath": "cikkek/diabetes/1804/grillezett-marhahusos-chimichanga",
-      "target": "2026-grillezett-marhahusos-chimichanga",
+      "target": "2018-grillezett-marhahusos-chimichanga",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 2335,
       "modxPath": "cikkek/diabetes/1804/chilis-joghurtos-kuszkusz",
-      "target": "2026-chilis-joghurtos-kuszkusz",
+      "target": "2018-chilis-joghurtos-kuszkusz",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 2334,
       "modxPath": "cikkek/diabetes/1804/spenotos-csirkes-sult-flautas",
-      "target": "2026-spenotos-csirkes-sult-flautas",
+      "target": "2018-spenotos-csirkes-sult-flautas",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 2333,
       "modxPath": "cikkek/diabetes/1804/spenotos-sajtos-enchilada",
-      "target": "2026-spenotos-sajtos-enchilada",
+      "target": "2018-spenotos-sajtos-enchilada",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 2332,
       "modxPath": "cikkek/diabetes/1804/edesburgonyas-enchilada",
-      "target": "2026-edesburgonyas-enchilada",
+      "target": "2018-edesburgonyas-enchilada",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 2331,
       "modxPath": "cikkek/diabetes/1804/bableves-salsaval-es-tortillachipsszel",
-      "target": "2026-bableves-salsaval-es-tortillachipsszel",
+      "target": "2018-bableves-salsaval-es-tortillachipsszel",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 2271,
       "modxPath": "cikkek/hypertonia/1801/ozgerinc-grillezett-zoldsegekkel",
-      "target": "2026-ozgerinc-grillezett-zoldsegekkel",
+      "target": "2018-ozgerinc-grillezett-zoldsegekkel",
       "categorySource": "predicted-or-manual"
     },
     {
@@ -4792,7 +4311,7 @@
       "type": "new-rs-required",
       "modxContentId": 2269,
       "modxPath": "cikkek/hypertonia/1801/rantott-pulykamell-parolt-spargaval-zoldsegekkel",
-      "target": "2026-rantott-pulykamell-parolt-spargaval-zoldsegekkel",
+      "target": "2018-rantott-pulykamell-parolt-spargaval-zoldsegekkel",
       "categorySource": "predicted-or-manual"
     },
     {
@@ -4838,40 +4357,147 @@
       "type": "new-rs-required",
       "modxContentId": 2223,
       "modxPath": "cikkek/diabetes/1801/farsangi-fank",
-      "target": "2026-farsangi-fank",
+      "target": "2018-farsangi-fank",
+      "categorySource": "predicted-or-manual"
+    },
+    {
+      "type": "new-rs-required",
+      "modxContentId": 2222,
+      "modxPath": "cikkek/diabetes/1801/tejszines-zoldseges-csirkeegytal",
+      "target": "2018-tejszines-zoldseges-csirkeegytal",
+      "categorySource": "predicted-or-manual"
+    },
+    {
+      "type": "new-rs-required",
+      "modxContentId": 2221,
+      "modxPath": "cikkek/diabetes/1801/mascarpones-sonkas-sajtos-melegszendvicskrem",
+      "target": "2018-mascarpones-sonkas-sajtos-melegszendvicskrem",
+      "categorySource": "predicted-or-manual"
+    },
+    {
+      "type": "new-rs-required",
+      "modxContentId": 2218,
+      "modxPath": "cikkek/diabetes/1801/kheera-nariyal-raita-uborka-es-kokusz-kapros-joghurtban",
+      "target": "2018-kheera-nariyal-raita-uborka-es-kokusz-kapros-joghurtban",
+      "categorySource": "predicted-or-manual"
+    },
+    {
+      "type": "new-rs-required",
+      "modxContentId": 2217,
+      "modxPath": "cikkek/diabetes/1801/paneer-sajt-cukkini-es-kaliforniai-paprika",
+      "target": "2018-paneer-sajt-cukkini-es-kaliforniai-paprika",
+      "categorySource": "predicted-or-manual"
+    },
+    {
+      "type": "new-rs-required",
+      "modxContentId": 2216,
+      "modxPath": "cikkek/diabetes/1801/cukkini-zold-kaliforniai-paprika-es-paradicsom-egyszeru-nyari-ebedetel",
+      "target": "2018-cukkini-zold-kaliforniai-paprika-es-paradicsom-egyszeru-nyari-ebedetel",
+      "categorySource": "predicted-or-manual"
+    },
+    {
+      "type": "new-rs-required",
+      "modxContentId": 2215,
+      "modxPath": "cikkek/diabetes/1801/zoldborsos-kaposzta",
+      "target": "2018-zoldborsos-kaposzta",
+      "categorySource": "predicted-or-manual"
+    },
+    {
+      "type": "new-rs-required",
+      "modxContentId": 2214,
+      "modxPath": "cikkek/diabetes/1801/avokadokremes-karfiolcsoda",
+      "target": "2018-avokadokremes-karfiolcsoda",
+      "categorySource": "predicted-or-manual"
+    },
+    {
+      "type": "new-rs-required",
+      "modxContentId": 2213,
+      "modxPath": "cikkek/diabetes/1801/nariyal-matar-shorba-paradicsomos-brokkoli",
+      "target": "2018-nariyal-matar-shorba-paradicsomos-brokkoli",
+      "categorySource": "predicted-or-manual"
+    },
+    {
+      "type": "new-rs-required",
+      "modxContentId": 2212,
+      "modxPath": "cikkek/diabetes/1801/tok-zoldborsoval-es-mandulaval",
+      "target": "2018-tok-zoldborsoval-es-mandulaval",
+      "categorySource": "predicted-or-manual"
+    },
+    {
+      "type": "new-rs-required",
+      "modxContentId": 2211,
+      "modxPath": "cikkek/diabetes/1801/parolt-spenot",
+      "target": "2018-parolt-spenot",
+      "categorySource": "predicted-or-manual"
+    },
+    {
+      "type": "new-rs-required",
+      "modxContentId": 2210,
+      "modxPath": "cikkek/diabetes/1801/indiai-paradicsomleves",
+      "target": "2018-indiai-paradicsomleves",
+      "categorySource": "existing-rs"
+    },
+    {
+      "type": "new-rs-required",
+      "modxContentId": 2209,
+      "modxPath": "cikkek/diabetes/1801/vajpuha-tok-paradicsommal",
+      "target": "2018-vajpuha-tok-paradicsommal",
+      "categorySource": "predicted-or-manual"
+    },
+    {
+      "type": "new-rs-required",
+      "modxContentId": 2219,
+      "modxPath": "cikkek/diabetes/1801/parolt-spenot-friss-sajttal",
+      "target": "2018-parolt-spenot-friss-sajttal",
+      "categorySource": "predicted-or-manual"
+    },
+    {
+      "type": "new-rs-required",
+      "modxContentId": 2096,
+      "modxPath": "cikkek/hypertonia/1702/piritottzoldseg-tal",
+      "target": "2017-piritottzoldseg-tal",
+      "categorySource": "predicted-or-manual"
+    },
+    {
+      "type": "new-rs-required",
+      "modxContentId": 2095,
+      "modxPath": "cikkek/hypertonia/1702/kelkaposztas-retes",
+      "target": "2017-kelkaposztas-retes",
+      "categorySource": "predicted-or-manual"
+    },
+    {
+      "type": "new-rs-required",
+      "modxContentId": 2094,
+      "modxPath": "cikkek/hypertonia/1702/mediterran-ceruzabab",
+      "target": "2017-mediterran-ceruzabab",
+      "categorySource": "predicted-or-manual"
+    },
+    {
+      "type": "new-rs-required",
+      "modxContentId": 2093,
+      "modxPath": "cikkek/hypertonia/1702/tarkonyos-zoldbableves-palocosan",
+      "target": "2017-tarkonyos-zoldbableves-palocosan",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-category-unresolved",
-      "modxContentId": 2222,
-      "modxPath": "cikkek/diabetes/1801/tejszines-zoldseges-csirkeegytal",
-      "target": "2026-tejszines-zoldseges-csirkeegytal",
+      "modxContentId": 2075,
+      "modxPath": "cikkek/diabetes/1706/cekla-sargarepa-narancs-smoothie",
+      "target": "2017-cekla-sargarepa-narancs-smoothie",
       "categoryDecision": {
         "resolved": false,
         "category": null,
         "categorySource": "unresolved",
-        "confidence": 0.5127319144690516,
-        "margin": 0.06340668219357876,
+        "confidence": 0.42488348838828993,
+        "margin": 0.0036806419125732792,
         "matchedFeatures": [
           {
-            "feature": "pulykamellfile",
-            "score": 3.029486
+            "feature": "cekla",
+            "score": 1.753431
           },
           {
-            "feature": "csirke",
-            "score": 2.527351
-          },
-          {
-            "feature": "title:*csirke*",
-            "score": 1.8
-          },
-          {
-            "feature": "morzsolt",
-            "score": 1.570411
-          },
-          {
-            "feature": "majoranna",
-            "score": 1.487359
+            "feature": "narancs",
+            "score": 0.893255
           }
         ],
         "reason": "below-threshold"
@@ -4879,121 +4505,9 @@
     },
     {
       "type": "new-rs-required",
-      "modxContentId": 2221,
-      "modxPath": "cikkek/diabetes/1801/mascarpones-sonkas-sajtos-melegszendvicskrem",
-      "target": "2026-mascarpones-sonkas-sajtos-melegszendvicskrem",
-      "categorySource": "predicted-or-manual"
-    },
-    {
-      "type": "new-rs-required",
-      "modxContentId": 2218,
-      "modxPath": "cikkek/diabetes/1801/kheera-nariyal-raita-uborka-es-kokusz-kapros-joghurtban",
-      "target": "2026-kheera-nariyal-raita-uborka-es-kokusz-kapros-joghurtban",
-      "categorySource": "predicted-or-manual"
-    },
-    {
-      "type": "new-rs-required",
-      "modxContentId": 2217,
-      "modxPath": "cikkek/diabetes/1801/paneer-sajt-cukkini-es-kaliforniai-paprika",
-      "target": "2026-paneer-sajt-cukkini-es-kaliforniai-paprika",
-      "categorySource": "predicted-or-manual"
-    },
-    {
-      "type": "new-rs-required",
-      "modxContentId": 2216,
-      "modxPath": "cikkek/diabetes/1801/cukkini-zold-kaliforniai-paprika-es-paradicsom-egyszeru-nyari-ebedetel",
-      "target": "2026-cukkini-zold-kaliforniai-paprika-es-paradicsom-egyszeru-nyari-ebedetel",
-      "categorySource": "predicted-or-manual"
-    },
-    {
-      "type": "new-rs-required",
-      "modxContentId": 2215,
-      "modxPath": "cikkek/diabetes/1801/zoldborsos-kaposzta",
-      "target": "2026-zoldborsos-kaposzta",
-      "categorySource": "predicted-or-manual"
-    },
-    {
-      "type": "new-rs-required",
-      "modxContentId": 2214,
-      "modxPath": "cikkek/diabetes/1801/avokadokremes-karfiolcsoda",
-      "target": "2026-avokadokremes-karfiolcsoda",
-      "categorySource": "predicted-or-manual"
-    },
-    {
-      "type": "new-rs-required",
-      "modxContentId": 2213,
-      "modxPath": "cikkek/diabetes/1801/nariyal-matar-shorba-paradicsomos-brokkoli",
-      "target": "2026-nariyal-matar-shorba-paradicsomos-brokkoli",
-      "categorySource": "predicted-or-manual"
-    },
-    {
-      "type": "new-rs-required",
-      "modxContentId": 2212,
-      "modxPath": "cikkek/diabetes/1801/tok-zoldborsoval-es-mandulaval",
-      "target": "2026-tok-zoldborsoval-es-mandulaval",
-      "categorySource": "predicted-or-manual"
-    },
-    {
-      "type": "new-rs-required",
-      "modxContentId": 2211,
-      "modxPath": "cikkek/diabetes/1801/parolt-spenot",
-      "target": "2026-parolt-spenot",
-      "categorySource": "predicted-or-manual"
-    },
-    {
-      "type": "new-rs-required",
-      "modxContentId": 2210,
-      "modxPath": "cikkek/diabetes/1801/indiai-paradicsomleves",
-      "target": "2026-indiai-paradicsomleves",
-      "categorySource": "predicted-or-manual"
-    },
-    {
-      "type": "new-rs-required",
-      "modxContentId": 2209,
-      "modxPath": "cikkek/diabetes/1801/vajpuha-tok-paradicsommal",
-      "target": "2026-vajpuha-tok-paradicsommal",
-      "categorySource": "predicted-or-manual"
-    },
-    {
-      "type": "new-rs-required",
-      "modxContentId": 2219,
-      "modxPath": "cikkek/diabetes/1801/parolt-spenot-friss-sajttal",
-      "target": "2026-parolt-spenot-friss-sajttal",
-      "categorySource": "predicted-or-manual"
-    },
-    {
-      "type": "new-rs-required",
-      "modxContentId": 2096,
-      "modxPath": "cikkek/hypertonia/1702/piritottzoldseg-tal",
-      "target": "2026-piritottzoldseg-tal",
-      "categorySource": "predicted-or-manual"
-    },
-    {
-      "type": "new-rs-required",
-      "modxContentId": 2095,
-      "modxPath": "cikkek/hypertonia/1702/kelkaposztas-retes",
-      "target": "2026-kelkaposztas-retes",
-      "categorySource": "predicted-or-manual"
-    },
-    {
-      "type": "new-rs-required",
-      "modxContentId": 2094,
-      "modxPath": "cikkek/hypertonia/1702/mediterran-ceruzabab",
-      "target": "2026-mediterran-ceruzabab",
-      "categorySource": "predicted-or-manual"
-    },
-    {
-      "type": "new-rs-required",
-      "modxContentId": 2093,
-      "modxPath": "cikkek/hypertonia/1702/tarkonyos-zoldbableves-palocosan",
-      "target": "2026-tarkonyos-zoldbableves-palocosan",
-      "categorySource": "predicted-or-manual"
-    },
-    {
-      "type": "new-rs-required",
       "modxContentId": 2075,
       "modxPath": "cikkek/diabetes/1706/cekla-sargarepa-narancs-smoothie",
-      "target": "2026-cekla-sargarepa-narancs-smoothie",
+      "target": "2017-cekla-sargarepa-narancs-smoothie",
       "categorySource": "predicted-or-manual"
     },
     {
@@ -5018,49 +4532,49 @@
       "type": "new-rs-required",
       "modxContentId": 2073,
       "modxPath": "cikkek/diabetes/1706/zoldbabos-pulykaragu",
-      "target": "2026-zoldbabos-pulykaragu",
+      "target": "2017-zoldbabos-pulykaragu",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 2072,
       "modxPath": "cikkek/diabetes/1706/almas-ceklaleves",
-      "target": "2026-almas-ceklaleves",
+      "target": "2017-almas-ceklaleves",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 2071,
       "modxPath": "cikkek/diabetes/1706/kortes-zellerleves",
-      "target": "2026-kortes-zellerleves",
+      "target": "2017-kortes-zellerleves",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 2117,
       "modxPath": "cikkek/hypertonia/1701/tiramisu-mousse",
-      "target": "2026-tiramisu-mousse",
+      "target": "2017-tiramisu-mousse",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 2116,
       "modxPath": "cikkek/hypertonia/1701/zoldfuszeres-csirkecombok-hagymas-burgonyapurevel",
-      "target": "2026-zoldfuszeres-csirkecombok-hagymas-burgonyapurevel",
+      "target": "2017-zoldfuszeres-csirkecombok-hagymas-burgonyapurevel",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 2115,
       "modxPath": "cikkek/hypertonia/1701/kapros-turoval-toltott-pulyamell-vajas-gyumolcsokkel",
-      "target": "2026-kapros-turoval-toltott-pulyamell-vajas-gyumolcsokkel",
+      "target": "2017-kapros-turoval-toltott-pulyamell-vajas-gyumolcsokkel",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 2114,
       "modxPath": "cikkek/hypertonia/1701/husos-rakott-karfiol",
-      "target": "2026-husos-rakott-karfiol",
+      "target": "2017-husos-rakott-karfiol",
       "categorySource": "predicted-or-manual"
     },
     {
@@ -5110,41 +4624,13 @@
       "reason": "id",
       "categorySource": "predicted",
       "categoryDecision": {
-        "category": "egytaletelek",
-        "confidence": 0.9999203408294641,
-        "margin": 0.9998537757540559,
+        "category": "husetelek",
+        "confidence": 1,
+        "margin": 1,
         "matchedFeatures": [
           {
-            "feature": "tojas_szines",
-            "score": 3.893843
-          },
-          {
-            "feature": "bacon_tojas",
-            "score": 2.803711
-          },
-          {
-            "feature": "lecso",
-            "score": 1.956293
-          },
-          {
-            "feature": "virsli",
-            "score": 1.322228
-          },
-          {
-            "feature": "paradicsom_voroshagyma",
-            "score": 1.192806
-          },
-          {
-            "feature": "paprika_paradicsom",
-            "score": 1.115748
-          },
-          {
-            "feature": "bacon",
-            "score": 0.945053
-          },
-          {
-            "feature": "paradicsom",
-            "score": 0.802819
+            "feature": "ingredientProof:sertes",
+            "score": 999
           }
         ],
         "reason": "no-loser-votes"
@@ -5262,59 +4748,145 @@
       "type": "new-rs-required",
       "modxContentId": 2001,
       "modxPath": "cikkek/diabetes/1704/cukkinis-raguleves",
-      "target": "2026-cukkinis-raguleves",
-      "categorySource": "predicted-or-manual"
+      "target": "2017-cukkinis-raguleves",
+      "categorySource": "existing-rs"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 2000,
       "modxPath": "cikkek/diabetes/1704/zoldsegleves-husgomboccal",
-      "target": "2026-zoldsegleves-husgomboccal",
-      "categorySource": "predicted-or-manual"
+      "target": "2017-zoldsegleves-husgomboccal",
+      "categorySource": "existing-rs"
+    },
+    {
+      "type": "new-rs-required",
+      "modxContentId": 1999,
+      "modxPath": "cikkek/diabetes/1704/csoben-sult-sajtos-tejfolos-zoldbab",
+      "target": "2017-csoben-sult-sajtos-tejfolos-zoldbab",
+      "categorySource": "existing-rs"
+    },
+    {
+      "type": "new-rs-required",
+      "modxContentId": 1998,
+      "modxPath": "cikkek/diabetes/1704/sargabarackos-zabpelyhes-suti",
+      "target": "2017-sargabarackos-zabpelyhes-suti",
+      "categorySource": "existing-rs"
+    },
+    {
+      "type": "new-rs-required",
+      "modxContentId": 1997,
+      "modxPath": "cikkek/diabetes/1704/paradicsomos-cukkiniragu",
+      "target": "2017-paradicsomos-cukkiniragu",
+      "categorySource": "existing-rs"
+    },
+    {
+      "type": "new-rs-required",
+      "modxContentId": 1996,
+      "modxPath": "cikkek/diabetes/1704/mediterran-csirkefalatok",
+      "target": "2017-mediterran-csirkefalatok",
+      "categorySource": "existing-rs"
+    },
+    {
+      "type": "new-rs-required",
+      "modxContentId": 1995,
+      "modxPath": "cikkek/diabetes/1704/tepsis-tengeri-suger",
+      "target": "2017-tepsis-tengeri-suger",
+      "categorySource": "existing-rs"
+    },
+    {
+      "type": "new-rs-collection-split",
+      "modxContentId": 1953,
+      "modxPath": "cikkek/diabetes/1703/nagy-margit-gyumolcsos-receptjei",
+      "sourceAlias": "nagy-margit-gyumolcsos-receptjei",
+      "targets": [
+        "2017-malnas-joghurthab",
+        "2017-szederleves",
+        "2017-alufoliaban-sult-hustekercs",
+        "2017-almasalata",
+        "2017-csirke-almamartassal",
+        "2017-pulykamell-almaval",
+        "2017-salata-narancsba-toltve",
+        "2017-kortes-sertesmaj",
+        "2017-sargabarackos-turokrem",
+        "2017-csirkecomb-birsalmaval",
+        "2017-meggymartas",
+        "2017-almas-tojaslepeny",
+        "2017-almas-szelet",
+        "2017-ribiszkemartas",
+        "2017-pulyka-oszibarackkal",
+        "2017-almas-burgonyasalata",
+        "2017-eperkremleves",
+        "2017-oszibarackos-csirkemell",
+        "2017-kulonleges-csirkecomb",
+        "2017-almaval-toltott-csirkemell",
+        "2017-kortes-almas-sult-hab",
+        "2017-narancsos-savanyu-kaposzta",
+        "2017-almagomboc"
+      ]
     },
     {
       "type": "new-rs-category-unresolved",
-      "modxContentId": 1999,
-      "modxPath": "cikkek/diabetes/1704/csoben-sult-sajtos-tejfolos-zoldbab",
-      "target": "2026-csoben-sult-sajtos-tejfolos-zoldbab",
+      "modxContentId": 1953,
+      "modxPath": "cikkek/diabetes/1703/nagy-margit-gyumolcsos-receptjei",
+      "target": "2017-almas-tojaslepeny",
       "categoryDecision": {
         "resolved": false,
         "category": null,
         "categorySource": "unresolved",
-        "confidence": 0.5039551822502586,
-        "margin": 0.024227737303702257,
+        "confidence": 0.4244298851440877,
+        "margin": 0.21335339923835198,
         "matchedFeatures": [
           {
-            "feature": "zsemlemorzsa_vaj",
-            "score": 2.288228
+            "feature": "durvara",
+            "score": 1.126297
           },
           {
-            "feature": "kikenesehez",
-            "score": 1.62909
+            "feature": "tojas_tej",
+            "score": 1.037879
           },
           {
-            "feature": "reszelt_parmezan",
-            "score": 1.455605
-          },
+            "feature": "szerecsendio",
+            "score": 0.72685
+          }
+        ],
+        "reason": "below-threshold"
+      }
+    },
+    {
+      "type": "new-rs-category-unresolved",
+      "modxContentId": 1953,
+      "modxPath": "cikkek/diabetes/1703/nagy-margit-gyumolcsos-receptjei",
+      "target": "2017-ribiszkemartas",
+      "categoryDecision": {
+        "resolved": false,
+        "category": null,
+        "categorySource": "unresolved",
+        "confidence": 0.30511741124942565,
+        "margin": 0.12498313051517998,
+        "matchedFeatures": [
           {
-            "feature": "zsemlemorzsa",
-            "score": 1.288981
-          },
+            "feature": "liszt_tej",
+            "score": 1.490193
+          }
+        ],
+        "reason": "below-threshold"
+      }
+    },
+    {
+      "type": "new-rs-category-unresolved",
+      "modxContentId": 1953,
+      "modxPath": "cikkek/diabetes/1703/nagy-margit-gyumolcsos-receptjei",
+      "target": "2017-almagomboc",
+      "categoryDecision": {
+        "resolved": false,
+        "category": null,
+        "categorySource": "unresolved",
+        "confidence": 0.4825087971613983,
+        "margin": 0.31641249401749694,
+        "matchedFeatures": [
           {
-            "feature": "metelohagyma",
-            "score": 1.075019
-          },
-          {
-            "feature": "parmezan",
-            "score": 0.991068
-          },
-          {
-            "feature": "kremsajt",
-            "score": 0.909219
-          },
-          {
-            "feature": "bors",
-            "score": 0.731791
+            "feature": "fahejas",
+            "score": 2.942758
           }
         ],
         "reason": "below-threshold"
@@ -5322,253 +4894,184 @@
     },
     {
       "type": "new-rs-required",
-      "modxContentId": 1998,
-      "modxPath": "cikkek/diabetes/1704/sargabarackos-zabpelyhes-suti",
-      "target": "2026-sargabarackos-zabpelyhes-suti",
-      "categorySource": "predicted-or-manual"
-    },
-    {
-      "type": "new-rs-required",
-      "modxContentId": 1997,
-      "modxPath": "cikkek/diabetes/1704/paradicsomos-cukkiniragu",
-      "target": "2026-paradicsomos-cukkiniragu",
-      "categorySource": "predicted-or-manual"
-    },
-    {
-      "type": "new-rs-required",
-      "modxContentId": 1996,
-      "modxPath": "cikkek/diabetes/1704/mediterran-csirkefalatok",
-      "target": "2026-mediterran-csirkefalatok",
-      "categorySource": "predicted-or-manual"
-    },
-    {
-      "type": "new-rs-required",
-      "modxContentId": 1995,
-      "modxPath": "cikkek/diabetes/1704/tepsis-tengeri-suger",
-      "target": "2026-tepsis-tengeri-suger",
-      "categorySource": "predicted-or-manual"
-    },
-    {
-      "type": "new-rs-required",
       "modxContentId": 1953,
       "modxPath": "cikkek/diabetes/1703/nagy-margit-gyumolcsos-receptjei",
-      "target": "2026-nagy-margit-gyumolcsos-receptjei",
+      "target": "2017-nagy-margit-gyumolcsos-receptjei",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 1912,
       "modxPath": "cikkek/diabetes/1702/sutes-nelkuli-gyumolcstorta",
-      "target": "2026-sutes-nelkuli-gyumolcstorta",
+      "target": "2017-sutes-nelkuli-gyumolcstorta",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 1911,
       "modxPath": "cikkek/diabetes/1702/medvehagymas-salataleves",
-      "target": "2026-medvehagymas-salataleves",
+      "target": "2017-medvehagymas-salataleves",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 1910,
       "modxPath": "cikkek/diabetes/1702/tavaszi-tepsis-csirke",
-      "target": "2026-tavaszi-tepsis-csirke",
+      "target": "2017-tavaszi-tepsis-csirke",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 1909,
       "modxPath": "cikkek/diabetes/1702/triplasajtos-cukkinis-csirkemell",
-      "target": "2026-triplasajtos-cukkinis-csirkemell",
+      "target": "2017-triplasajtos-cukkinis-csirkemell",
       "categorySource": "predicted-or-manual"
     },
     {
-      "type": "new-rs-category-unresolved",
+      "type": "new-rs-required",
       "modxContentId": 1908,
       "modxPath": "cikkek/diabetes/1702/zoldfuszeres-fasirt",
-      "target": "2026-zoldfuszeres-fasirt",
-      "categoryDecision": {
-        "resolved": false,
-        "category": null,
-        "categorySource": "unresolved",
-        "confidence": 0.45624906803695714,
-        "margin": 0.08826278242804447,
-        "matchedFeatures": [
-          {
-            "feature": "krumpli",
-            "score": 1.213962
-          },
-          {
-            "feature": "zold",
-            "score": 1.067577
-          },
-          {
-            "feature": "petrezselyemzold",
-            "score": 1.054197
-          },
-          {
-            "feature": "csokor_petrezselyemzold",
-            "score": 0.978855
-          },
-          {
-            "feature": "szal",
-            "score": 0.950807
-          },
-          {
-            "feature": "fuszerpaprika",
-            "score": 0.94761
-          },
-          {
-            "feature": "csokor",
-            "score": 0.694867
-          },
-          {
-            "feature": "metelohagyma",
-            "score": 0.599161
-          }
-        ],
-        "reason": "below-threshold"
-      }
+      "target": "2017-zoldfuszeres-fasirt",
+      "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 1907,
       "modxPath": "cikkek/diabetes/1702/kapros-cukkiniragu",
-      "target": "2026-kapros-cukkiniragu",
+      "target": "2017-kapros-cukkiniragu",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 1906,
       "modxPath": "cikkek/diabetes/1702/dupla-sajtos-nyulcomb",
-      "target": "2026-dupla-sajtos-nyulcomb",
+      "target": "2017-dupla-sajtos-nyulcomb",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 1905,
       "modxPath": "cikkek/diabetes/1702/varganyaleves-zoldfuszeres-galuskaval",
-      "target": "2026-varganyaleves-zoldfuszeres-galuskaval",
+      "target": "2017-varganyaleves-zoldfuszeres-galuskaval",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 1904,
       "modxPath": "cikkek/diabetes/1702/mediterran-csirkemell",
-      "target": "2026-mediterran-csirkemell",
+      "target": "2017-mediterran-csirkemell",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 1903,
       "modxPath": "cikkek/diabetes/1702/kapros-cukkinifozelek",
-      "target": "2026-kapros-cukkinifozelek",
+      "target": "2017-kapros-cukkinifozelek",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 1902,
       "modxPath": "cikkek/diabetes/1702/paradicsommartas",
-      "target": "2026-paradicsommartas",
+      "target": "2017-paradicsommartas",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 1901,
       "modxPath": "cikkek/diabetes/1702/csirkemell-gazdagon",
-      "target": "2026-csirkemell-gazdagon",
+      "target": "2017-csirkemell-gazdagon",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 1858,
       "modxPath": "cikkek/diabetes/1701/epres-kokuszos-sutemeny",
-      "target": "2026-epres-kokuszos-sutemeny",
+      "target": "2017-epres-kokuszos-sutemeny",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 1857,
       "modxPath": "cikkek/diabetes/1701/bazsalikomos-husgomboc-paradicsomszosszal-spagettivel",
-      "target": "2026-bazsalikomos-husgomboc-paradicsomszosszal-spagettivel",
+      "target": "2017-bazsalikomos-husgomboc-paradicsomszosszal-spagettivel",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 1856,
       "modxPath": "cikkek/diabetes/1701/mentas-citromhabos-falatok",
-      "target": "2026-mentas-citromhabos-falatok",
+      "target": "2017-mentas-citromhabos-falatok",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 1855,
       "modxPath": "cikkek/diabetes/1701/karfiolos-brokkolis-vegyes-tal",
-      "target": "2026-karfiolos-brokkolis-vegyes-tal",
+      "target": "2017-karfiolos-brokkolis-vegyes-tal",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 1854,
       "modxPath": "cikkek/diabetes/1701/krumplis-pestos-hosszumetelt",
-      "target": "2026-krumplis-pestos-hosszumetelt",
+      "target": "2017-krumplis-pestos-hosszumetelt",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 1853,
       "modxPath": "cikkek/diabetes/1701/tzatziki",
-      "target": "2026-tzatziki",
+      "target": "2017-tzatziki",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 1852,
       "modxPath": "cikkek/diabetes/1701/minestrone-leves",
-      "target": "2026-minestrone-leves",
+      "target": "2017-minestrone-leves",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 1851,
       "modxPath": "cikkek/diabetes/1701/brokkolis-vagdalt-edesburgonyaval",
-      "target": "2026-brokkolis-vagdalt-edesburgonyaval",
+      "target": "2017-brokkolis-vagdalt-edesburgonyaval",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 1850,
       "modxPath": "cikkek/diabetes/1701/coq-au-vin",
-      "target": "2026-coq-au-vin",
+      "target": "2017-coq-au-vin",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 1849,
       "modxPath": "cikkek/diabetes/1701/husveti-toltott-tojas",
-      "target": "2026-husveti-toltott-tojas",
+      "target": "2017-husveti-toltott-tojas",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 1848,
       "modxPath": "cikkek/diabetes/1701/iroban-pacolt-csirkemell-zoldsegekkel-sutve",
-      "target": "2026-iroban-pacolt-csirkemell-zoldsegekkel-sutve",
+      "target": "2017-iroban-pacolt-csirkemell-zoldsegekkel-sutve",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 1784,
       "modxPath": "cikkek/diabetes/1606/kokuszos-tapiokamousse-fugevel-es-dioval",
-      "target": "2026-kokuszos-tapiokamousse-fugevel-es-dioval",
+      "target": "2016-kokuszos-tapiokamousse-fugevel-es-dioval",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 1783,
       "modxPath": "cikkek/diabetes/1606/borjuszuzpecsenye-zoldseges-hajdinaval-es-kagyloval",
-      "target": "2026-borjuszuzpecsenye-zoldseges-hajdinaval-es-kagyloval",
+      "target": "2016-borjuszuzpecsenye-zoldseges-hajdinaval-es-kagyloval",
       "categorySource": "predicted-or-manual"
     },
     {
@@ -5593,21 +5096,61 @@
       "type": "new-rs-required",
       "modxContentId": 1693,
       "modxPath": "cikkek/hypertonia/1601/meggyes-tejszines-csokis-torta",
-      "target": "2026-meggyes-tejszines-csokis-torta",
+      "target": "2016-meggyes-tejszines-csokis-torta",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 1692,
       "modxPath": "cikkek/hypertonia/1601/spenottal-toltott-gongyolt-pulyka-karamellizalt-gyumolcsokkel",
-      "target": "2026-spenottal-toltott-gongyolt-pulyka-karamellizalt-gyumolcsokkel",
+      "target": "2016-spenottal-toltott-gongyolt-pulyka-karamellizalt-gyumolcsokkel",
       "categorySource": "predicted-or-manual"
+    },
+    {
+      "type": "new-rs-category-unresolved",
+      "modxContentId": 1691,
+      "modxPath": "cikkek/hypertonia/1601/zablisztes-szilvakremes-gomboc",
+      "target": "2016-zablisztes-szilvakremes-gomboc",
+      "categoryDecision": {
+        "resolved": false,
+        "category": null,
+        "categorySource": "unresolved",
+        "confidence": 0.48019298416776446,
+        "margin": 0.11418936812185021,
+        "matchedFeatures": [
+          {
+            "feature": "viz",
+            "score": 1.088228
+          },
+          {
+            "feature": "burgonya",
+            "score": 1.036814
+          },
+          {
+            "feature": "finomra",
+            "score": 0.828392
+          },
+          {
+            "feature": "vaj",
+            "score": 0.451837
+          },
+          {
+            "feature": "fahej",
+            "score": 0.262022
+          },
+          {
+            "feature": "nagy",
+            "score": 0.16266
+          }
+        ],
+        "reason": "below-threshold"
+      }
     },
     {
       "type": "new-rs-required",
       "modxContentId": 1691,
       "modxPath": "cikkek/hypertonia/1601/zablisztes-szilvakremes-gomboc",
-      "target": "2026-zablisztes-szilvakremes-gomboc",
+      "target": "2016-zablisztes-szilvakremes-gomboc",
       "categorySource": "predicted-or-manual"
     },
     {
@@ -5632,21 +5175,21 @@
       "type": "new-rs-required",
       "modxContentId": 1657,
       "modxPath": "cikkek/diabetes/1602/kaszinotojas",
-      "target": "2026-kaszinotojas",
+      "target": "2016-kaszinotojas",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 1656,
       "modxPath": "cikkek/diabetes/1602/zabos-almas-muffin",
-      "target": "2026-zabos-almas-muffin",
+      "target": "2016-zabos-almas-muffin",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 1655,
       "modxPath": "cikkek/diabetes/1602/frissito-malnas-limonade",
-      "target": "2026-frissito-malnas-limonade",
+      "target": "2016-frissito-malnas-limonade",
       "categorySource": "predicted-or-manual"
     },
     {
@@ -5671,14 +5214,14 @@
       "type": "new-rs-required",
       "modxContentId": 1627,
       "modxPath": "cikkek/diabetes/1601/paradicsomos-spenotsalata",
-      "target": "2026-paradicsomos-spenotsalata",
+      "target": "2016-paradicsomos-spenotsalata",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 1626,
       "modxPath": "cikkek/diabetes/1601/rukkolasalata-eperrel",
-      "target": "2026-rukkolasalata-eperrel",
+      "target": "2016-rukkolasalata-eperrel",
       "categorySource": "predicted-or-manual"
     },
     {
@@ -5703,57 +5246,110 @@
       "type": "new-rs-required",
       "modxContentId": 1624,
       "modxPath": "cikkek/diabetes/1601/rukkolasalata-narancsos-ontettel",
-      "target": "2026-rukkolasalata-narancsos-ontettel",
+      "target": "2016-rukkolasalata-narancsos-ontettel",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 1511,
       "modxPath": "cikkek/diabetes/1506/sved-mandulatorta",
-      "target": "2026-sved-mandulatorta",
+      "target": "2015-sved-mandulatorta",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 1510,
       "modxPath": "cikkek/diabetes/1506/kolbaszos-sajtos-rud",
-      "target": "2026-kolbaszos-sajtos-rud",
+      "target": "2015-kolbaszos-sajtos-rud",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 1509,
       "modxPath": "cikkek/diabetes/1506/kakaoscsiga",
-      "target": "2026-kakaoscsiga",
+      "target": "2015-kakaoscsiga",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 1508,
       "modxPath": "cikkek/diabetes/1506/mustaros-tejszines-csirkeragu",
-      "target": "2026-mustaros-tejszines-csirkeragu",
+      "target": "2015-mustaros-tejszines-csirkeragu",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 1507,
       "modxPath": "cikkek/diabetes/1506/zoldseges-barna-rizs",
-      "target": "2026-zoldseges-barna-rizs",
+      "target": "2015-zoldseges-barna-rizs",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 1506,
       "modxPath": "cikkek/diabetes/1506/karacsonyi-gesztenyekremleves",
-      "target": "2026-karacsonyi-gesztenyekremleves",
+      "target": "2015-karacsonyi-gesztenyekremleves",
       "categorySource": "predicted-or-manual"
+    },
+    {
+      "type": "new-rs-collection-split",
+      "modxContentId": 1447,
+      "modxPath": "cikkek/diabetes/1503/recept-sarok",
+      "sourceAlias": "recept-sarok",
+      "targets": [
+        "2015-csalafinta-joghurtos-citromfagyi",
+        "2015-rantott-camembert-diobundaban-afonyas-szedermartassal",
+        "2015-pilotakeksz-hazilag-cukor-nelkul",
+        "2015-cseresznyes-rebarbaradzsem-fahejas-meggyel",
+        "2015-tonhalas-krumpligolyok-csilis-citromos-joghurttal"
+      ]
     },
     {
       "type": "new-rs-required",
       "modxContentId": 1447,
       "modxPath": "cikkek/diabetes/1503/recept-sarok",
-      "target": "2026-recept-sarok",
+      "target": "2015-recept-sarok",
       "categorySource": "predicted-or-manual"
+    },
+    {
+      "type": "new-rs-parse-incomplete",
+      "modxContentId": 1352,
+      "modxPath": "junior/2015/cikkek/csupa-csoki",
+      "target": "2015-csupa-csoki",
+      "categoryDecision": {
+        "resolved": true,
+        "category": "sos-edes-sutemenyek-desszertek-tesztak",
+        "categorySource": "predicted",
+        "confidence": 0.9999999901530688,
+        "margin": 0.9999999826527374,
+        "matchedFeatures": [
+          {
+            "feature": "keksz",
+            "score": 4.654803
+          },
+          {
+            "feature": "xilit",
+            "score": 3.876416
+          },
+          {
+            "feature": "csokis",
+            "score": 3.485469
+          },
+          {
+            "feature": "diabetikus",
+            "score": 3.372868
+          },
+          {
+            "feature": "canderel",
+            "score": 3.29098
+          },
+          {
+            "feature": "puha",
+            "score": 3.29098
+          }
+        ],
+        "reason": "parse-incomplete"
+      }
     },
     {
       "type": "new-rs-required",
@@ -5766,21 +5362,69 @@
       "type": "new-rs-required",
       "modxContentId": 1291,
       "modxPath": "cikkek/diabetes/1306/makos-es-dios-bejgli",
-      "target": "2026-makos-es-dios-bejgli",
+      "target": "2013-makos-es-dios-bejgli",
       "categorySource": "predicted-or-manual"
+    },
+    {
+      "type": "new-rs-category-unresolved",
+      "modxContentId": 1288,
+      "modxPath": "cikkek/diabetes/1406/parazslo-sutotokpure-voroscurry-martassal-es-rozmaringos-grillkolbaszkakkal",
+      "target": "2014-parazslo-sutotokpure-voroscurry-martassal-es-rozmaringos-grillkolbaszkakkal",
+      "categoryDecision": {
+        "resolved": false,
+        "category": null,
+        "categorySource": "unresolved",
+        "confidence": 0.54796536480567,
+        "margin": 0.09934538346727817,
+        "matchedFeatures": [
+          {
+            "feature": "evokanal",
+            "score": 2.105495
+          },
+          {
+            "feature": "bors_olivaolaj",
+            "score": 1.628707
+          },
+          {
+            "feature": "csipos",
+            "score": 1.023918
+          },
+          {
+            "feature": "szines",
+            "score": 0.948629
+          },
+          {
+            "feature": "szines_bors",
+            "score": 0.903395
+          },
+          {
+            "feature": "frissen",
+            "score": 0.865552
+          },
+          {
+            "feature": "olivaolaj",
+            "score": 0.58589
+          },
+          {
+            "feature": "bors",
+            "score": 0.475888
+          }
+        ],
+        "reason": "below-threshold"
+      }
     },
     {
       "type": "new-rs-required",
       "modxContentId": 1288,
       "modxPath": "cikkek/diabetes/1406/parazslo-sutotokpure-voroscurry-martassal-es-rozmaringos-grillkolbaszkakkal",
-      "target": "2026-parazslo-sutotokpure-voroscurry-martassal-es-rozmaringos-grillkolbaszkakkal",
+      "target": "2014-parazslo-sutotokpure-voroscurry-martassal-es-rozmaringos-grillkolbaszkakkal",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 1289,
       "modxPath": "cikkek/diabetes/1406/sutotokos-zabtaller-feher-csokival",
-      "target": "2026-sutotokos-zabtaller-feher-csokival",
+      "target": "2014-sutotokos-zabtaller-feher-csokival",
       "categorySource": "predicted-or-manual"
     },
     {
@@ -5802,67 +5446,138 @@
       }
     },
     {
+      "type": "new-rs-category-unresolved",
+      "modxContentId": 1284,
+      "modxPath": "cikkek/diabetes/1406/sargarepa-es-uborkasalata-korianderes-fetaval",
+      "target": "2014-sargarepa-es-uborkasalata-korianderes-fetaval",
+      "categoryDecision": {
+        "resolved": false,
+        "category": null,
+        "categorySource": "unresolved",
+        "confidence": 0.43029235847796043,
+        "margin": 0.14567741551833258,
+        "matchedFeatures": [
+          {
+            "feature": "pacolt",
+            "score": 1.99855
+          },
+          {
+            "feature": "feta",
+            "score": 1.174804
+          },
+          {
+            "feature": "frissen",
+            "score": 0.865552
+          },
+          {
+            "feature": "ecet",
+            "score": 0.728447
+          },
+          {
+            "feature": "olivaolaj",
+            "score": 0.58589
+          },
+          {
+            "feature": "sargarepa",
+            "score": 0.549514
+          },
+          {
+            "feature": "napraforgoolaj",
+            "score": 0.432409
+          },
+          {
+            "feature": "sajtos",
+            "score": 0.127003
+          }
+        ],
+        "reason": "below-threshold"
+      }
+    },
+    {
       "type": "new-rs-required",
       "modxContentId": 1284,
       "modxPath": "cikkek/diabetes/1406/sargarepa-es-uborkasalata-korianderes-fetaval",
-      "target": "2026-sargarepa-es-uborkasalata-korianderes-fetaval",
+      "target": "2014-sargarepa-es-uborkasalata-korianderes-fetaval",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 1285,
       "modxPath": "cikkek/diabetes/1406/paradicsom-consomme-rakkal-zoldbabbal",
-      "target": "2026-paradicsom-consomme-rakkal-zoldbabbal",
+      "target": "2014-paradicsom-consomme-rakkal-zoldbabbal",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 1286,
       "modxPath": "cikkek/diabetes/1406/grillezett-harcsa-piritott-mogyoros-rizs-soskamartas",
-      "target": "2026-grillezett-harcsa-piritott-mogyoros-rizs-soskamartas",
+      "target": "2014-grillezett-harcsa-piritott-mogyoros-rizs-soskamartas",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 1220,
       "modxPath": "cikkek/diabetes/1404/azsiai-zoldsegleves-hajdinaval",
-      "target": "2026-azsiai-zoldsegleves-hajdinaval",
+      "target": "2014-azsiai-zoldsegleves-hajdinaval",
       "categorySource": "predicted-or-manual"
+    },
+    {
+      "type": "new-rs-category-unresolved",
+      "modxContentId": 1221,
+      "modxPath": "cikkek/diabetes/1404/currys-repatorta-hajdinaval",
+      "target": "2014-currys-repatorta-hajdinaval",
+      "categoryDecision": {
+        "resolved": false,
+        "category": null,
+        "categorySource": "unresolved",
+        "confidence": 0.49504943851922967,
+        "margin": 0.10941246599221788,
+        "matchedFeatures": [
+          {
+            "feature": "curry",
+            "score": 1.457381
+          },
+          {
+            "feature": "sargarepa",
+            "score": 1.407536
+          },
+          {
+            "feature": "viz",
+            "score": 1.088228
+          },
+          {
+            "feature": "piritott",
+            "score": 1.009524
+          },
+          {
+            "feature": "szem",
+            "score": 0.496635
+          },
+          {
+            "feature": "nagy",
+            "score": 0.16266
+          },
+          {
+            "feature": "kakukkfu",
+            "score": 0.116628
+          }
+        ],
+        "reason": "below-threshold"
+      }
     },
     {
       "type": "new-rs-required",
       "modxContentId": 1221,
       "modxPath": "cikkek/diabetes/1404/currys-repatorta-hajdinaval",
-      "target": "2026-currys-repatorta-hajdinaval",
+      "target": "2014-currys-repatorta-hajdinaval",
       "categorySource": "predicted-or-manual"
     },
     {
-      "type": "new-rs-category-unresolved",
+      "type": "new-rs-required",
       "modxContentId": 1222,
       "modxPath": "cikkek/diabetes/1404/tokmagolajos-hajdinasalata",
-      "target": "2026-tokmagolajos-hajdinasalata",
-      "categoryDecision": {
-        "resolved": false,
-        "category": null,
-        "categorySource": "unresolved",
-        "confidence": 0.347382528184364,
-        "margin": 0.07020052571426366,
-        "matchedFeatures": [
-          {
-            "feature": "paprika",
-            "score": 0.978263
-          },
-          {
-            "feature": "kapia",
-            "score": 0.97153
-          },
-          {
-            "feature": "kapia_paprika",
-            "score": 0.97153
-          }
-        ],
-        "reason": "below-threshold"
-      }
+      "target": "2014-tokmagolajos-hajdinasalata",
+      "categorySource": "predicted-or-manual"
     },
     {
       "type": "rs-winner",
@@ -5876,40 +5591,12 @@
       "categorySource": "predicted",
       "categoryDecision": {
         "category": "egytaletelek",
-        "confidence": 0.8620277168975766,
-        "margin": 0.7345098335326063,
+        "confidence": 1,
+        "margin": 1,
         "matchedFeatures": [
           {
-            "feature": "rakott",
-            "score": 2.408614
-          },
-          {
-            "feature": "paradicsom_voroshagyma",
-            "score": 1.192806
-          },
-          {
-            "feature": "tejfol_olaj",
-            "score": 0.981751
-          },
-          {
-            "feature": "paradicsom",
-            "score": 0.802819
-          },
-          {
-            "feature": "voroshagyma_tejfol",
-            "score": 0.717147
-          },
-          {
-            "feature": "voroshagyma",
-            "score": 0.711259
-          },
-          {
-            "feature": "olaj",
-            "score": 0.651319
-          },
-          {
-            "feature": "zoldpaprika",
-            "score": 0.645634
+            "feature": "titleProof:rakott",
+            "score": 5
           }
         ],
         "reason": "no-loser-votes"
@@ -5919,42 +5606,42 @@
       "type": "new-rs-required",
       "modxContentId": 1101,
       "modxPath": "cikkek/diabetes/1403/edeskomenyes-csicsokakremleves",
-      "target": "2026-edeskomenyes-csicsokakremleves",
+      "target": "2014-edeskomenyes-csicsokakremleves",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 1102,
       "modxPath": "cikkek/diabetes/1403/almas-makos-kukoricasuti-csicsokaval",
-      "target": "2026-almas-makos-kukoricasuti-csicsokaval",
+      "target": "2014-almas-makos-kukoricasuti-csicsokaval",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 1078,
       "modxPath": "cikkek/diabetes/1402/joghurtos-panna-cotta-citromfuvel-es-erdeiszamoca-ontettel",
-      "target": "2026-joghurtos-panna-cotta-citromfuvel-es-erdeiszamoca-ontettel",
+      "target": "2014-joghurtos-panna-cotta-citromfuvel-es-erdeiszamoca-ontettel",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 1079,
       "modxPath": "cikkek/diabetes/1402/polentafelfujt-steviaval",
-      "target": "2026-polentafelfujt-steviaval",
+      "target": "2014-polentafelfujt-steviaval",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 1080,
       "modxPath": "cikkek/diabetes/1402/epres-kokuszos-tapiokapuding",
-      "target": "2026-epres-kokuszos-tapiokapuding",
+      "target": "2014-epres-kokuszos-tapiokapuding",
       "categorySource": "predicted-or-manual"
     },
     {
       "type": "new-rs-required",
       "modxContentId": 1065,
       "modxPath": "cikkek/diabetes/1401/tarkonyos-savanyukaposzta-kremleves",
-      "target": "2026-tarkonyos-savanyukaposzta-kremleves",
+      "target": "2014-tarkonyos-savanyukaposzta-kremleves",
       "categorySource": "predicted-or-manual"
     },
     {
@@ -5979,7 +5666,7 @@
       "type": "new-rs-required",
       "modxContentId": 1064,
       "modxPath": "cikkek/diabetes/1401/savanyu-kaposzta-birsalmaval-es-husgombocokkal",
-      "target": "2026-savanyu-kaposzta-birsalmaval-es-husgombocokkal",
+      "target": "2014-savanyu-kaposzta-birsalmaval-es-husgombocokkal",
       "categorySource": "predicted-or-manual"
     }
   ]

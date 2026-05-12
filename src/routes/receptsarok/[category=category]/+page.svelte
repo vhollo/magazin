@@ -28,13 +28,13 @@
     let result = [...allCategoryRecipes]
 
     if (filters.maxEnergy > 0) {
-      result = result.filter(r => r.energy <= filters.maxEnergy)
+      result = result.filter((r) => typeof r.energy === 'number' && r.energy <= filters.maxEnergy)
     }
     if (filters.maxCarbs > 0) {
-      result = result.filter(r => r.carbs <= filters.maxCarbs)
+      result = result.filter((r) => typeof r.carbs === 'number' && r.carbs <= filters.maxCarbs)
     }
     if (filters.minProtein > 0) {
-      result = result.filter(r => r.protein >= filters.minProtein)
+      result = result.filter((r) => typeof r.protein === 'number' && r.protein >= filters.minProtein)
     }
     if (filters.ingredient.trim()) {
       const term = filters.ingredient.toLowerCase().trim()
@@ -44,9 +44,21 @@
     }
 
     switch (filters.sortBy) {
-      case 'energy': result.sort((a, b) => a.energy - b.energy); break
-      case 'protein': result.sort((a, b) => b.protein - a.protein); break
-      case 'carbs': result.sort((a, b) => a.carbs - b.carbs); break
+      case 'energy':
+        result.sort(
+          (a, b) => (typeof a.energy === 'number' ? a.energy : Infinity) - (typeof b.energy === 'number' ? b.energy : Infinity)
+        )
+        break
+      case 'protein':
+        result.sort(
+          (a, b) => (typeof b.protein === 'number' ? b.protein : -Infinity) - (typeof a.protein === 'number' ? a.protein : -Infinity)
+        )
+        break
+      case 'carbs':
+        result.sort(
+          (a, b) => (typeof a.carbs === 'number' ? a.carbs : Infinity) - (typeof b.carbs === 'number' ? b.carbs : Infinity)
+        )
+        break
       case 'year': result.sort((a, b) => b.year - a.year); break
       default: result.sort((a, b) => a.title.localeCompare(b.title, 'hu'))
     }

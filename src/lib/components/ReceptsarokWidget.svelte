@@ -1,6 +1,7 @@
 <script lang="ts">
+  import { hasReceptsarokAccess } from '$lib/authStore'
   import RecipeCard from '$lib/components/RecipeCard.svelte'
-  import type { RecipeLayoutEntry, RecipeTeaser } from '$lib/receptsarok'
+  import { isRecipeFree, type RecipeLayoutEntry, type RecipeTeaser } from '$lib/receptsarok'
   import ReceptsarokLogo from './ReceptsarokLogo.svelte';
 
   export let recipes: (RecipeTeaser | RecipeLayoutEntry)[] = []
@@ -22,7 +23,7 @@
 
     <div class="grid gap-4 mt-6 max-w-5xl mx-auto">
       {#each shown as recipe}
-        <RecipeCard {recipe} />
+        <RecipeCard {recipe} locked={!isRecipeFree(recipe) && !$hasReceptsarokAccess} />
       {/each}
     </div>
 

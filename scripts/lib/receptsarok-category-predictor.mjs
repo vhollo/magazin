@@ -6,6 +6,16 @@ const DEFAULT_PATTERNS_PATH = path.resolve(
   'src/lib/data/receptsarok-category-patterns.json'
 )
 
+const CATEGORY_IDS = [
+  'levesek',
+  'zoldsegetelek',
+  'haletelek',
+  'husetelek',
+  'egytaletelek',
+  'koretek-italok-hidegkonyha',
+  'sos-edes-sutemenyek-desszertek-tesztak',
+]
+
 const DEFAULT_STOPWORDS = new Set([
   'egy',
   'ketto',
@@ -104,14 +114,43 @@ export function loadCategoryPatterns(patternsPath = DEFAULT_PATTERNS_PATH) {
   return cachedModel
 }
 
-function collectText({ title = '', ingredientNames = [], searchTerms = [] }) {
+function collectText({ title = '', ingredientNames = [], searchTerms = [], instructions = [] }) {
   const parts = [title]
   if (Array.isArray(ingredientNames)) parts.push(...ingredientNames)
   if (Array.isArray(searchTerms)) parts.push(...searchTerms)
+  if (Array.isArray(instructions)) parts.push(...instructions)
   return parts.join(' ')
 }
 
-const TITLE_CATEGORY_KEYWORDS = {
+function sourcePathCategoryProof(sourcePath) {
+  const normalizedPath = normalizeForCategoryModel(sourcePath)
+  if (!normalizedPath) return null
+  const pathTokens = new Set(normalizedPath.split(/\s+/).filter((token) => token.length >= 4))
+  if (pathTokens.size === 0) return null
+
+  const scores = []
+  for (const category of CATEGORY_IDS) {
+    const categoryParts = category.split('-').filter((part) => part.length >= 4)
+    if (categoryParts.length === 0) continue
+    const matched = categoryParts.filter((part) => pathTokens.has(part))
+    if (matched.length === 0) continue
+    scores.push({
+      category,
+      score: matched.length,
+      matchedFeatures: matched.map((part) => ({ feature: `sourcePath:${part}`, score: 5 })),
+    })
+  }
+
+  if (scores.length === 0) return null
+  scores.sort((a, b) => b.score - a.score || a.category.localeCompare(b.category))
+  const top = scores[0]
+  const second = scores[1]
+  if (second && second.score === top.score) return null
+  return top
+}
+
+const CATEGORY_KEYWORDS = {
+  levesek: ['leves', 'levesek', 'kremleves', 'huseleves', 'gyumolcsleves'],
   husetelek: [
     'hus',
     'csirke',
@@ -135,26 +174,335 @@ const TITLE_CATEGORY_KEYWORDS = {
     'sonka',
     'pecsenye',
   ],
+  haletelek: [
+    'hal',
+    'lazac',
+    'tonhal',
+    'tokehal',
+    'harcsa',
+    'pisztrang',
+    'heck',
+    'busa',
+    'ponty',
+    'makrela',
+    'szardinia',
+    'hering',
+    'rak',
+    'garnela',
+    'garnela',
+    'kagyl',
+    'tintahal',
+    'polip',
+    'surimi',
+    'halrudacska',
+    'halkonzerv',
+    'halszelet',
+    'halfile',
+  ],
+}
+
+/** Phrases in Elkészítés / instructions (normalized, accent-stripped). */
+const INSTRUCTION_CATEGORY_KEYWORDS = {
+  'koretek-italok-hidegkonyha': ['koret', 'koretnek', 'korethez', 'koretkent', 'koretet'],
+}
+
+const TITLE_CATEGORY_PROOF = {
+  levesek: ['leves'],
+  egytaletelek: ['rakott'],
 }
 
 const TITLE_KEYWORD_BOOST = 1.8
+const INGREDIENT_KEYWORD_BOOST = 2.2
+const INSTRUCTION_KEYWORD_BOOST = 2.6
+const STUFFED_FORBIDDEN_CATEGORY = 'levesek'
 
-function titleKeywordBoosts(title) {
+const STUFFED_MEAT_KEYWORDS = [
+  'hus',
+  'csirke',
+  'marha',
+  'sertes',
+  'pulyka',
+  'tarja',
+  'karaj',
+  'comb',
+  'maj',
+  'nyul',
+  'virsli',
+  'vagdalt',
+  'fasirt',
+  'fasirozott',
+  'jerce',
+  'steak',
+  'csibe',
+  'szuz',
+  'tokany',
+  'sonka',
+  'pecsenye',
+  'daralthus',
+]
+
+const STUFFED_GREEN_KEYWORDS = [
+  'zoldseg',
+  'cukkini',
+  'sutotok',
+  'tok',
+  'padlizsan',
+  'karalabe',
+  'kel',
+  'kaposzta',
+  'spenot',
+  'brokkoli',
+  'karfiol',
+  'paprika',
+  'paradicsom',
+  'gomba',
+  'burgonya',
+  'zeller',
+  'hagyma',
+]
+
+const STUFFED_SWEET_KEYWORDS = [
+  'gyumolcs',
+  'alma',
+  'korte',
+  'barack',
+  'szilva',
+  'meggy',
+  'cseresznye',
+  'malna',
+  'eper',
+  'afonya',
+  'narancs',
+  'citrom',
+  'dio',
+  'mandula',
+  'mogyoro',
+  'gesztenye',
+  'aszalt',
+]
+
+const MEAT_INGREDIENT_KEYWORDS = [
+  'marhahus',
+  'serteshus',
+  'csirkehus',
+  'pulykahus',
+  'daralthus',
+  'husgoly',
+  'hus',
+  'marha',
+  'sertes',
+  'csirke',
+  'pulyka',
+  'karaj',
+  'tarja',
+  'comb',
+  'maj',
+  'sonka',
+  'szuzpecsenye',
+]
+
+const GREEN_INGREDIENT_KEYWORDS = [
+  'zoldseg',
+  'cukkini',
+  'spenot',
+  'gomba',
+  'brokkoli',
+  'karfiol',
+  'padlizsan',
+  'sutotok',
+  'tok',
+  'sargaborso',
+  'borso',
+  'bab',
+  'lencse',
+  'kaposzta',
+  'kel',
+  'zeller',
+  'hagyma',
+  'paradicsom',
+  'paprika',
+  'karalabe',
+]
+
+const FISH_INGREDIENT_KEYWORDS = [
+  'hal',
+  'lazac',
+  'tonhal',
+  'harcsa',
+  'pisztrang',
+  'ponty',
+  'tokehal',
+  'halfile',
+]
+
+function keywordMatches(text, keywords) {
+  const out = []
+  for (const keyword of keywords) {
+    if (!keyword) continue
+    if (text.includes(keyword)) out.push(keyword)
+  }
+  return [...new Set(out)]
+}
+
+function hasSoupSignals({ title = '', sourcePath = '', searchTerms = [] }) {
+  const signal = normalizeForCategoryModel([title, sourcePath, ...(Array.isArray(searchTerms) ? searchTerms : [])].join(' '))
+  return signal.includes('leves') || signal.includes('kremleves') || signal.includes('huseleves')
+}
+
+function ingredientCategoryProof({ title = '', ingredientNames = [], searchTerms = [], sourcePath = '' }) {
+  const ingredientText = normalizeForCategoryModel(
+    [...(Array.isArray(ingredientNames) ? ingredientNames : []), ...(Array.isArray(searchTerms) ? searchTerms : [])].join(' ')
+  )
+  if (!ingredientText) return null
+
+  const meatMatches = keywordMatches(ingredientText, MEAT_INGREDIENT_KEYWORDS)
+  if (meatMatches.length > 0) {
+    return {
+      category: 'husetelek',
+      reason: 'ingredient-proof-meat',
+      matchedFeatures: meatMatches.slice(0, 6).map((token) => ({ feature: `ingredientProof:${token}`, score: 999 })),
+    }
+  }
+
+  const fishMatches = keywordMatches(ingredientText, FISH_INGREDIENT_KEYWORDS)
+  if (fishMatches.length > 0) {
+    return {
+      category: 'haletelek',
+      reason: 'ingredient-proof-fish',
+      matchedFeatures: fishMatches.slice(0, 6).map((token) => ({ feature: `ingredientProof:${token}`, score: 999 })),
+    }
+  }
+
+  const greenMatches = keywordMatches(ingredientText, GREEN_INGREDIENT_KEYWORDS)
+  if (
+    greenMatches.length >= 2 &&
+    !hasSoupSignals({ title, sourcePath, searchTerms })
+  ) {
+    return {
+      category: 'zoldsegetelek',
+      reason: 'ingredient-proof-greens',
+      matchedFeatures: greenMatches.slice(0, 6).map((token) => ({ feature: `ingredientProof:${token}`, score: 999 })),
+    }
+  }
+
+  return null
+}
+
+function titleCategoryProof(title) {
   const normalizedTitle = normalizeForCategoryModel(title)
-  if (!normalizedTitle) return []
+  if (!normalizedTitle) return null
+
+  for (const [category, keywords] of Object.entries(TITLE_CATEGORY_PROOF)) {
+    for (const keyword of keywords) {
+      if (!keyword || !normalizedTitle.includes(keyword)) continue
+      return {
+        category,
+        matchedFeatures: [{ feature: `titleProof:${keyword}`, score: 5 }],
+      }
+    }
+  }
+  return null
+}
+
+function keywordBoostsFromText(categoryKeywords, text, featurePrefix, boostScore) {
+  const normalized = normalizeForCategoryModel(text)
+  if (!normalized) return []
   const boosts = []
-  for (const [category, keywords] of Object.entries(TITLE_CATEGORY_KEYWORDS)) {
+  for (const [category, keywords] of Object.entries(categoryKeywords)) {
     for (const keyword of keywords) {
       if (!keyword) continue
-      if (!normalizedTitle.includes(keyword)) continue
+      if (!normalized.includes(keyword)) continue
       boosts.push({
         category,
-        feature: `title:*${keyword}*`,
-        score: TITLE_KEYWORD_BOOST,
+        feature: `${featurePrefix}:*${keyword}*`,
+        score: boostScore,
       })
     }
   }
   return boosts
+}
+
+function titleKeywordBoosts(title) {
+  return keywordBoostsFromText(CATEGORY_KEYWORDS, title, 'title', TITLE_KEYWORD_BOOST)
+}
+
+function ingredientKeywordBoosts(ingredientNames, searchTerms) {
+  const ingredientText = [
+    ...(Array.isArray(ingredientNames) ? ingredientNames : []),
+    ...(Array.isArray(searchTerms) ? searchTerms : []),
+  ].join(' ')
+  return keywordBoostsFromText(CATEGORY_KEYWORDS, ingredientText, 'ingredient', INGREDIENT_KEYWORD_BOOST)
+}
+
+function instructionKeywordBoosts(instructions) {
+  const text = Array.isArray(instructions) ? instructions.join(' ') : ''
+  return keywordBoostsFromText(
+    INSTRUCTION_CATEGORY_KEYWORDS,
+    text,
+    'instruction',
+    INSTRUCTION_KEYWORD_BOOST
+  )
+}
+
+function firstKeywordMatch(haystack, keywords) {
+  for (const keyword of keywords) {
+    if (!keyword) continue
+    if (haystack.includes(keyword)) return keyword
+  }
+  return null
+}
+
+function stuffedTitleRule({ title = '', ingredientNames = [], searchTerms = [] }) {
+  const normalizedTitle = normalizeForCategoryModel(title)
+  if (!normalizedTitle.includes('toltott')) return { active: false }
+
+  const signalText = normalizeForCategoryModel(
+    [title, ...(Array.isArray(ingredientNames) ? ingredientNames : []), ...(Array.isArray(searchTerms) ? searchTerms : [])].join(
+      ' '
+    )
+  )
+
+  const meat = firstKeywordMatch(signalText, STUFFED_MEAT_KEYWORDS)
+  if (meat) {
+    return {
+      active: true,
+      resolved: true,
+      category: 'husetelek',
+      reason: 'stuffed-title-meat',
+      matchedFeatures: [{ feature: `stuffed:${meat}`, score: 999 }],
+    }
+  }
+
+  const greens = firstKeywordMatch(signalText, STUFFED_GREEN_KEYWORDS)
+  if (greens) {
+    return {
+      active: true,
+      resolved: true,
+      category: 'zoldsegetelek',
+      reason: 'stuffed-title-greens',
+      matchedFeatures: [{ feature: `stuffed:${greens}`, score: 999 }],
+    }
+  }
+
+  const sweet = firstKeywordMatch(signalText, STUFFED_SWEET_KEYWORDS)
+  if (sweet) {
+    return {
+      active: true,
+      resolved: true,
+      category: 'sos-edes-sutemenyek-desszertek-tesztak',
+      reason: 'stuffed-title-sweet',
+      matchedFeatures: [{ feature: `stuffed:${sweet}`, score: 999 }],
+    }
+  }
+
+  return {
+    active: true,
+    resolved: false,
+    category: null,
+    reason: 'stuffed-title-no-soup',
+    matchedFeatures: [{ feature: 'stuffed:title', score: 5 }],
+    forbiddenCategory: STUFFED_FORBIDDEN_CATEGORY,
+  }
 }
 
 /**
@@ -162,6 +510,8 @@ function titleKeywordBoosts(title) {
  *   title?: string
  *   ingredientNames?: string[]
  *   searchTerms?: string[]
+ *   instructions?: string[]
+ *   sourcePath?: string
  *   patternsPath?: string
  *   minConfidence?: number
  *   minMargin?: number
@@ -169,6 +519,58 @@ function titleKeywordBoosts(title) {
  * }} input
  */
 export function predictRecipeCategory(input) {
+  const sourcePathProof = sourcePathCategoryProof(input?.sourcePath)
+  if (sourcePathProof?.category) {
+    return {
+      resolved: true,
+      category: sourcePathProof.category,
+      predictedCategory: sourcePathProof.category,
+      confidence: 1,
+      margin: 1,
+      matchedFeatures: sourcePathProof.matchedFeatures,
+      reason: 'source-path-proof',
+    }
+  }
+
+  const stuffedRule = stuffedTitleRule(input ?? {})
+  if (stuffedRule.active && stuffedRule.resolved && stuffedRule.category) {
+    return {
+      resolved: true,
+      category: stuffedRule.category,
+      predictedCategory: stuffedRule.category,
+      confidence: 1,
+      margin: 1,
+      matchedFeatures: stuffedRule.matchedFeatures,
+      reason: stuffedRule.reason,
+    }
+  }
+
+  const strongTitleProof = titleCategoryProof(input?.title)
+  if (strongTitleProof?.category && !stuffedRule.active) {
+    return {
+      resolved: true,
+      category: strongTitleProof.category,
+      predictedCategory: strongTitleProof.category,
+      confidence: 1,
+      margin: 1,
+      matchedFeatures: strongTitleProof.matchedFeatures,
+      reason: 'title-proof',
+    }
+  }
+
+  const ingredientProof = ingredientCategoryProof(input ?? {})
+  if (ingredientProof?.category) {
+    return {
+      resolved: true,
+      category: ingredientProof.category,
+      predictedCategory: ingredientProof.category,
+      confidence: 1,
+      margin: 1,
+      matchedFeatures: ingredientProof.matchedFeatures,
+      reason: ingredientProof.reason,
+    }
+  }
+
   const model = loadCategoryPatterns(input?.patternsPath)
   const categories = model.categories
   if (categories.length === 0) {
@@ -185,7 +587,11 @@ export function predictRecipeCategory(input) {
 
   const tokens = tokenize(collectText(input ?? {}))
   const features = featuresFromTokens(tokens)
-  const boosts = titleKeywordBoosts(input?.title)
+  const boosts = [
+    ...titleKeywordBoosts(input?.title),
+    ...ingredientKeywordBoosts(input?.ingredientNames, input?.searchTerms),
+    ...instructionKeywordBoosts(input?.instructions),
+  ]
   if (features.length === 0) {
     return {
       resolved: false,
@@ -215,6 +621,10 @@ export function predictRecipeCategory(input) {
       if (boost.category !== category) continue
       score += boost.score
       contributions.push({ feature: boost.feature, score: boost.score })
+    }
+    if (stuffedRule.active && stuffedRule.forbiddenCategory === category) {
+      score -= 1000
+      contributions.push({ feature: 'stuffed:forbid-levesek', score: -1000 })
     }
     contributions.sort((a, b) => b.score - a.score)
     contributionsByCategory.set(category, contributions)
@@ -263,6 +673,7 @@ export function categoryFeaturesFromRecipe(recipe) {
   const title = String(recipe?.title ?? '')
   const ingredientNames = Array.isArray(recipe?.ingredientNames) ? recipe.ingredientNames : []
   const searchTerms = Array.isArray(recipe?.searchTerms) ? recipe.searchTerms : []
-  const tokens = tokenize([title, ...ingredientNames, ...searchTerms].join(' '))
+  const instructions = Array.isArray(recipe?.instructions) ? recipe.instructions : []
+  const tokens = tokenize([title, ...ingredientNames, ...searchTerms, ...instructions].join(' '))
   return featuresFromTokens(tokens)
 }

@@ -18,7 +18,7 @@ import { db } from '$lib/firebase-admin';
 import { /* browser,  */building , dev/*, version */ } from '$app/environment';
 import fs from 'fs';
 import path from 'path';
-import { execFileSync } from 'node:child_process'
+import * as receptsarokDedupePipeline from '$lib/receptsarokDedupePipeline.js'
 
 import { render } from 'svelte/server'
 import Nagyito from '$lib/components/Nagyito.svelte'
@@ -66,15 +66,13 @@ function loadRedirectManifestMaps() {
     // Missing manifest is expected in normal development.
   }
 }
-loadRedirectManifestMaps()
 
-function runAutomaticRecipeDedupe() {
-  const scriptPath = path.resolve(process.cwd(), 'scripts', 'dedupe-magazin-receptsarok.mjs')
-  if (!fs.existsSync(scriptPath)) return
+async function runAutomaticRecipeDedupe(docs: object[]) {
   try {
-    execFileSync(process.execPath, [scriptPath, '--apply-local', '--create-local'], {
-      stdio: 'inherit',
-      cwd: process.cwd(),
+    await (receptsarokDedupePipeline as any).runMagazinRecipeDedupe({
+      docs,
+      applyLocal: true,
+      createLocal: true,
     })
   } catch (error) {
     console.error('Automatic dedupe failed:', error)
@@ -543,16 +541,13 @@ if (newDocs.length) {
 
   // write data.json only when there are fresh MODX docs
   if ((dev || building) && newDocs.length > 0) {
-    let lastEdit = everyDocs.reduce((max, doc) => doc.editedon > max ? doc.editedon : max, 0)
-    writeData(everyDocs, lastEdit)
-
-    runAutomaticRecipeDedupe()
+    await runAutomaticRecipeDedupe(newDocs)
     loadRedirectManifestMaps()
     for (const doc of everyDocs) {
       _setReceptsarokRedirect(doc, doc.redirect)
     }
-    lastEdit = everyDocs.reduce((max, doc) => doc.editedon > max ? doc.editedon : max, 0)
-    writeData(everyDocs, lastEdit)
+    const currentLastEdit = everyDocs.reduce((max, doc) => doc.editedon > max ? doc.editedon : max, 0)
+    writeData(everyDocs, currentLastEdit)
 
     const noTag = everyDocs.filter(doc => doc.tv.tags.length == 0 && doc.content != '').sort((a, b) => b.id - a.id)
     console.log('*** writenoTag',noTag.length)

@@ -3,9 +3,7 @@
 	"version": "0.0.1",
 	"private": true,
 	"scripts": {
-		"predev": "npm run recipes:dedupe:create-local:safe",
 		"dev": "vite dev --host",
-		"prebuild": "npm run recipes:dedupe:create-local:safe",
 		"build": "vite build",
 		"preview": "vite preview --host",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
@@ -22,10 +20,10 @@
 		"recipes:review:export": "node scripts/export-magazin-recipe-category-review.mjs",
 		"recipes:review:import": "node scripts/import-magazin-recipe-category-review.mjs",
 		"recipes:uncategorized:import": "node scripts/import-receptsarok-uncategorized-review.mjs",
-		"recipes:dedupe": "node scripts/dedupe-magazin-receptsarok.mjs",
-		"recipes:dedupe:create-local": "node scripts/dedupe-magazin-receptsarok.mjs --create-local",
-		"recipes:dedupe:create-local:safe": "node scripts/dedupe-magazin-receptsarok.mjs --create-local --allow-missing-data",
-		"recipes:dedupe:apply-local": "node scripts/dedupe-magazin-receptsarok.mjs --apply-local",
+		"recipes:dedupe:manual": "node scripts/manual-receptsarok-dedupe.js",
+		"recipes:dedupe:manual:create-local": "node scripts/manual-receptsarok-dedupe.js --create-local",
+		"recipes:dedupe:manual:create-local:safe": "node scripts/manual-receptsarok-dedupe.js --create-local --allow-missing-data",
+		"recipes:dedupe:manual:apply-local": "node scripts/manual-receptsarok-dedupe.js --apply-local",
 		"recipes:dedupe:validate": "node scripts/validate-recipe-dedupe-v2.mjs"
 	},
 	"devDependencies": {

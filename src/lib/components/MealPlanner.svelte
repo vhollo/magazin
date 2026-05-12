@@ -118,12 +118,13 @@
   const dayTotals = $derived(
     Object.fromEntries(days.map(day => {
       const totals = plan[day].reduce((acc, r) => ({
-        energy: acc.energy + r.energy,
-        protein: acc.protein + r.protein,
-        fat: acc.fat + r.fat,
-        saturatedFat: acc.saturatedFat + r.saturatedFat,
-        carbs: acc.carbs + r.carbs,
-        fiber: acc.fiber + r.fiber,
+        // Missing values are stored as `null` now — treat them as 0 for totals.
+        energy: acc.energy + (r.energy ?? 0),
+        protein: acc.protein + (r.protein ?? 0),
+        fat: acc.fat + (r.fat ?? 0),
+        saturatedFat: acc.saturatedFat + (r.saturatedFat ?? 0),
+        carbs: acc.carbs + (r.carbs ?? 0),
+        fiber: acc.fiber + (r.fiber ?? 0),
       }), { energy: 0, protein: 0, fat: 0, saturatedFat: 0, carbs: 0, fiber: 0 })
       return [day, totals]
     }))
@@ -317,35 +318,35 @@
   }
 
   function recipeMatchesPlannerEnergyTarget(r: Recipe, num: number): boolean {
-    if (plannerNutritionValuesEqual(r.energy, num)) return true
+    if (typeof r.energy === 'number' && plannerNutritionValuesEqual(r.energy, num)) return true
     for (const tbl of r.nutritionTables ?? []) {
-      if (plannerNutritionValuesEqual(tbl.energy, num)) return true
+      if (typeof tbl.energy === 'number' && plannerNutritionValuesEqual(tbl.energy, num)) return true
     }
     return false
   }
 
   function recipeMatchesPlannerCarbsTarget(r: Recipe, num: number): boolean {
-    if (plannerNutritionValuesEqual(r.carbs, num)) return true
+    if (typeof r.carbs === 'number' && plannerNutritionValuesEqual(r.carbs, num)) return true
     for (const tbl of r.nutritionTables ?? []) {
-      if (plannerNutritionValuesEqual(tbl.carbs, num)) return true
+      if (typeof tbl.carbs === 'number' && plannerNutritionValuesEqual(tbl.carbs, num)) return true
     }
     return false
   }
 
   function recipePlannerEnergyInRange(r: Recipe, min: number, max: number): boolean {
     const ok = (v: number) => v >= min && v <= max
-    if (ok(r.energy)) return true
+    if (typeof r.energy === 'number' && ok(r.energy)) return true
     for (const tbl of r.nutritionTables ?? []) {
-      if (ok(tbl.energy)) return true
+      if (typeof tbl.energy === 'number' && ok(tbl.energy)) return true
     }
     return false
   }
 
   function recipePlannerCarbsInRange(r: Recipe, min: number, max: number): boolean {
     const ok = (v: number) => v >= min && v <= max
-    if (ok(r.carbs)) return true
+    if (typeof r.carbs === 'number' && ok(r.carbs)) return true
     for (const tbl of r.nutritionTables ?? []) {
-      if (ok(tbl.carbs)) return true
+      if (typeof tbl.carbs === 'number' && ok(tbl.carbs)) return true
     }
     return false
   }
@@ -423,7 +424,9 @@
               onclick={() => { addToDay(activeDay, recipe); searchQuery = '' }}
             >
               <span class="flex-1 truncate text-sm">{recipe.title}</span>
-              <span class="text-xs opacity-50 shrink-0">{recipe.energy} kcal</span>
+              <span class="text-xs opacity-50 shrink-0">
+                {typeof recipe.energy === 'number' ? `${recipe.energy} kcal` : ''}
+              </span>
             </button>
           {/each}
         </div>
@@ -459,7 +462,11 @@
                   <a href={recipeDetailPath(recipe)} class="font-medium text-sm hover:underline">
                     {recipe.title}
                   </a>
-                  <p class="text-xs opacity-50">{recipe.energy} kcal · {recipe.protein}g F · {recipe.carbs}g Sz</p>
+                  <p class="text-xs opacity-50">
+                    {typeof recipe.energy === 'number' ? `${recipe.energy} kcal` : '-'} ·
+                    {typeof recipe.protein === 'number' ? `${recipe.protein}g F` : '-'} ·
+                    {typeof recipe.carbs === 'number' ? `${recipe.carbs}g Sz` : '-'}
+                  </p>
                 </div>
                 <button class="btn btn-ghost btn-xs" onclick={() => removeFromDay(activeDay, recipe)} aria-label="Törlés">
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4">

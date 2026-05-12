@@ -167,8 +167,8 @@ function testParserParagraphIngredientsAndSubrecipes() {
         <tr><th>Energia</th><th>Fehérje</th><th>Zsír</th><th>Telített zsír</th><th>Szénhidrát</th><th>Rost</th></tr>
         <tr><td>180</td><td>2</td><td>12</td><td>5</td><td>8</td><td>1</td></tr>
       </table>
+      <p>Összekeverjük, majd készre hűtjük.</p>
       <h2>Elkészítés</h2>
-      <p>Kész.</p>
       <p>Energia: 75 kcal</p>
       <p>Fehérje: 1 g</p>
     `,
@@ -223,11 +223,10 @@ function testParsedBranchBCompleteness() {
     const recipe = entry?.recipe ?? {}
     const ingredientGroups = Array.isArray(recipe.ingredientGroups) ? recipe.ingredientGroups : []
     const instructions = Array.isArray(recipe.instructions) ? recipe.instructions : []
-    const instructionsHtml = String(recipe.instructionsHtml ?? '').trim()
     const nutritionTables = Array.isArray(recipe.nutritionTables) ? recipe.nutritionTables : []
     return (
       ingredientGroups.length === 0 ||
-      (instructions.length === 0 && instructionsHtml.length === 0) ||
+      instructions.length === 0 ||
       nutritionTables.length === 0
     )
   })
@@ -273,6 +272,99 @@ function testCategoryPatternsShapeAndPredictor() {
     'husetelek',
     'Meat keywords in title should boost prediction toward husetelek'
   )
+
+  const levesInTitle = predictRecipeCategory({
+    title: 'Szederleves',
+    ingredientNames: [],
+  })
+  assert.equal(levesInTitle.category, 'levesek', 'Title containing leves should boost toward levesek')
+  assert.equal(levesInTitle.reason, 'title-proof')
+
+  const koretInInstructions = predictRecipeCategory({
+    title: 'Narancsos savanyú káposzta',
+    ingredientNames: ['fejes káposzta', 'narancs'],
+    instructions: ['Keverjük össze, és tálaljuk köretként a sült hús mellé.'],
+  })
+  assert.equal(
+    koretInInstructions.category,
+    'koretek-italok-hidegkonyha',
+    'Instruction mention of köret should boost toward koretek-italok-hidegkonyha'
+  )
+
+  const sourcePathProof = predictRecipeCategory({
+    title: 'Rantasos retesvariaciok',
+    ingredientNames: [],
+    sourcePath: 'receptsarok/desszertek/rantasos-retesvariaciok',
+  })
+  assert.equal(
+    sourcePathProof.category,
+    'sos-edes-sutemenyek-desszertek-tesztak',
+    'sourcePath category-part token should act as proof'
+  )
+  assert.equal(sourcePathProof.reason, 'source-path-proof')
+
+  const stuffedWithMeat = predictRecipeCategory({
+    title: 'Toltott paprika',
+    ingredientNames: ['daralthus', 'rizs'],
+  })
+  assert.equal(stuffedWithMeat.category, 'husetelek', 'Stuffed + meat should map to husetelek')
+
+  const stuffedWithGreens = predictRecipeCategory({
+    title: 'Toltott sutotok',
+    ingredientNames: ['sutotok', 'gomba', 'cukkini'],
+  })
+  assert.equal(stuffedWithGreens.category, 'zoldsegetelek', 'Stuffed + greens should map to zoldsegetelek')
+
+  const stuffedWithSweet = predictRecipeCategory({
+    title: 'Toltott alma',
+    ingredientNames: ['alma', 'dio'],
+  })
+  assert.equal(
+    stuffedWithSweet.category,
+    'sos-edes-sutemenyek-desszertek-tesztak',
+    'Stuffed + fruits/nuts should map to sweets category'
+  )
+
+  const stuffedNoSoup = predictRecipeCategory({
+    title: 'Toltott valami',
+    ingredientNames: ['rizs'],
+  })
+  assert.notEqual(stuffedNoSoup.predictedCategory, 'levesek', 'Stuffed title must not end up in levesek')
+
+  const ingredientMeatProof = predictRecipeCategory({
+    title: 'Etvagyhozo husgolyok',
+    ingredientNames: ['sovany daralt marhahus', 'voroshagyma'],
+    sourcePath: '/cikkek/diabetes/1806/karacsonyi-receptsarok/etvagyhozo-husgolyok-svedorszagbol',
+  })
+  assert.equal(ingredientMeatProof.category, 'husetelek', 'Explicit meat ingredient should map to husetelek')
+  assert.equal(ingredientMeatProof.reason, 'ingredient-proof-meat')
+
+  const titleSoupBeatsMeat = predictRecipeCategory({
+    title: 'Kanadai sargaborsoleves sonkaval',
+    ingredientNames: ['sargaborso', 'sonka'],
+    sourcePath: '/cikkek/diabetes/1905/kanadai-sargaborsoleves-sonkaval',
+  })
+  assert.equal(titleSoupBeatsMeat.category, 'levesek', 'Leves in title should keep soup category generally')
+  assert.equal(titleSoupBeatsMeat.reason, 'title-proof')
+
+  const rakottProof = predictRecipeCategory({
+    title: 'Rakott karfiol',
+    ingredientNames: ['karfiol', 'tejfol', 'sajt'],
+  })
+  assert.equal(rakottProof.category, 'egytaletelek', 'Rakott in title should map to egytaletelek')
+  assert.equal(rakottProof.reason, 'title-proof')
+
+  const ingredientGreensProof = predictRecipeCategory({
+    title: 'Spenotos gombas arpas pilaf',
+    ingredientNames: ['gomba', 'bebispenot', 'voroshagyma'],
+    sourcePath: '/cikkek/diabetes/1905/spenotos-gombas-arpas-pilaf',
+  })
+  assert.equal(
+    ingredientGreensProof.category,
+    'zoldsegetelek',
+    'Vegetable-only ingredient profile without soup signal should map to zoldsegetelek'
+  )
+  assert.equal(ingredientGreensProof.reason, 'ingredient-proof-greens')
 }
 
 function testUncategorizedQueueConsistency() {

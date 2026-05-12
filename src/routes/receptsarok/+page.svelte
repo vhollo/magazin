@@ -35,12 +35,12 @@
 </article>
 
 <section
-  class="grid grid-cols-1 gap-[clamp(1rem,2.5vw,1.75rem)] w-full px-[clamp(1rem,4vw,2.75rem)] py-6 md:grid-cols-4 xl:grid-cols-6"
+  class="grid grid-cols-1 gap-[clamp(1rem,2.5vw,1.75rem)] w-full px-[clamp(1rem,4vw,2.75rem)] py-6 md:grid-cols-4 2xl:grid-cols-6"
 >
   {#each categories as cat}
     <a
       href="/receptsarok/{cat.id}"
-      class="group grid min-h-[clamp(6.5rem,22vw,10rem)] w-full overflow-hidden rounded-2xl bg-base-300 shadow-md ring-1 ring-black/20 transition-shadow hover:shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-primary {cat.image ? 'grid-cols-2' : 'grid-cols-1'} md:col-span-2 md:last:col-start-2 xl:last:col-start-3"
+      class="group grid min-h-[clamp(6.5rem,22vw,10rem)] w-full overflow-hidden rounded-2xl bg-base-300 shadow-md ring-1 ring-black/20 transition-shadow hover:shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-primary {cat.image ? 'grid-cols-2' : 'grid-cols-1'} md:col-span-2 md:last:col-start-2 2xl:last:col-start-3"
     >
       {#if cat.image}
         <figure

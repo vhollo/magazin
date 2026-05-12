@@ -7,7 +7,7 @@ import {
 type CandidateLike = {
   id: string
   year: number
-  video?: string | null
+  video?: string | { src?: string | null } | null
   nutritionTables?: NutritionValues[] | null
   subRecipes?: SubRecipe[] | null
 }

@@ -190,30 +190,6 @@ let categoriesMemo: Promise<unknown[]> | null = null
 let recipesMemoCacheKey: string | null = null
 const RECIPES_JSON_PATH = path.resolve(process.cwd(), 'src/lib/data', 'recipes.json')
 
-function normalizeTag(value: unknown): string {
-  return String(value ?? '').trim().toLowerCase()
-}
-
-function getRecipeTags(data: any): string[] {
-  const source = Array.isArray(data?.tags)
-    ? data.tags
-    : Array.isArray(data?.searchTerms)
-      ? data.searchTerms
-      : []
-  return source
-    .map(normalizeTag)
-    .filter(Boolean)
-}
-
-function shouldKeepRecipe(data: any): boolean {
-  const tags = getRecipeTags(data)
-  const hasRecept = tags.includes('recept')
-  if (!hasRecept) return true
-  const extraTags = tags.filter((t) => t !== 'recept')
-  // Keep only magazin-import recipes where `recept` is the sole tag.
-  return extraTags.length === 0
-}
-
 function normalizeRecipeForExport(rawData: any): any | null {
   const data: any = { ...rawData }
   data.createdAt = data.createdAt?.toDate?.()?.toISOString() ?? data.createdAt
@@ -221,10 +197,6 @@ function normalizeRecipeForExport(rawData: any): any | null {
   data.free =
     data.free === true ||
     (typeof data.free === 'string' && data.free.trim().toLowerCase() === 'true')
-
-  if (!shouldKeepRecipe(data)) {
-    return null
-  }
 
   const cardImg = recipeHeroToCardImg(data.year, data.image, data.img)
   if (cardImg) {

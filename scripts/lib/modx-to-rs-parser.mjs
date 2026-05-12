@@ -7,6 +7,24 @@ const NAMED_HTML_ENTITIES = {
   apos: "'",
   lt: '<',
   gt: '>',
+  aacute: 'á',
+  eacute: 'é',
+  iacute: 'í',
+  oacute: 'ó',
+  uacute: 'ú',
+  ouml: 'ö',
+  uuml: 'ü',
+  odblac: 'ő',
+  udblac: 'ű',
+  Aacute: 'Á',
+  Eacute: 'É',
+  Iacute: 'Í',
+  Oacute: 'Ó',
+  Uacute: 'Ú',
+  Ouml: 'Ö',
+  Uuml: 'Ü',
+  Odblac: 'Ő',
+  Udblac: 'Ű',
 }
 
 function decodeHtmlEntities(value) {
@@ -78,10 +96,21 @@ function parseNullableNumber(value) {
 }
 
 function parseYearFromMagazinPath(pathValue) {
-  const match = String(pathValue ?? '').match(/(?:^|[^0-9])(20\d{2})(?:[^0-9]|$)/)
-  if (!match?.[1]) return new Date().getUTCFullYear()
-  const year = Number(match[1])
-  return Number.isFinite(year) ? year : new Date().getUTCFullYear()
+  const path = String(pathValue ?? '')
+  const explicitYear = path.match(/(?:^|[^0-9])(20\d{2})(?:[^0-9]|$)/)
+  if (explicitYear?.[1]) {
+    const year = Number(explicitYear[1])
+    if (Number.isFinite(year)) return year
+  }
+
+  // Legacy issue code support: YYMM (e.g. 1904 -> 2019, 2301 -> 2023).
+  const issueCodeMatch = path.match(/(?:^|[^0-9])(\d{2})(0[1-9]|1[0-2])(?:[^0-9]|$)/)
+  if (issueCodeMatch?.[1]) {
+    const yy = Number(issueCodeMatch[1])
+    if (Number.isFinite(yy)) return 2000 + yy
+  }
+
+  return new Date().getUTCFullYear()
 }
 
 function parseValidYear(value) {
@@ -90,9 +119,43 @@ function parseValidYear(value) {
   return parsed >= 2000 && parsed <= 2099 ? parsed : null
 }
 
+/** ISO timestamp from import/Firestore `createdAt` or MODX `publishedon` only (no clock fallback). */
+function deriveDocCreatedAtIso(doc) {
+  const raw = doc?.createdAt
+  if (raw && typeof raw.toDate === 'function') {
+    try {
+      const d = raw.toDate()
+      if (d instanceof Date && !Number.isNaN(d.getTime())) return d.toISOString()
+    } catch {
+      /* ignore */
+    }
+  }
+  if (typeof raw === 'string' && raw.trim()) {
+    const ms = Date.parse(raw.trim())
+    if (!Number.isNaN(ms)) {
+      const iso = new Date(ms).toISOString()
+      if (!Number.isNaN(Date.parse(iso))) return iso
+    }
+  }
+  const num = Number(doc?.publishedon)
+  if (!Number.isFinite(num) || num <= 0) return null
+  const ms = num > 9999999999 ? num : num * 1000
+  const iso = new Date(ms).toISOString()
+  return Number.isNaN(Date.parse(iso)) ? null : iso
+}
+
+function parseYearFromIso(iso) {
+  const ms = Date.parse(String(iso ?? ''))
+  if (Number.isNaN(ms)) return null
+  return parseValidYear(new Date(ms).getUTCFullYear())
+}
+
 function deriveYear(doc, options) {
   const fromOption = parseValidYear(options?.year)
   if (fromOption) return fromOption
+  const fromCreatedIso = deriveDocCreatedAtIso(doc)
+  const fromCreated = fromCreatedIso ? parseYearFromIso(fromCreatedIso) : null
+  if (fromCreated) return fromCreated
   const fromPath = parseValidYear(parseYearFromMagazinPath(doc?.path))
   if (fromPath) return fromPath
   const publishedRaw = Number(doc?.publishedon)
@@ -208,33 +271,80 @@ function parseParagraphIngredientGroups(content) {
   return out.filter((group) => group.items.length > 0)
 }
 
-function parseIngredientGroups(content) {
-  const groups = []
-  const headingListRegex = /<h[1-6][^>]*>([\s\S]*?)<\/h[1-6]>\s*<(ul|ol)[^>]*>([\s\S]*?)<\/\2>/gi
-  let match
-  while ((match = headingListRegex.exec(content))) {
-    const section = stripHtml(match[1]) || null
-    const itemTexts = splitParagraphsFromTag(match[3], 'li')
-    if (itemTexts.length === 0) continue
-    groups.push({
-      section,
-      items: parseIngredientLines(itemTexts),
-    })
-  }
+function preInstructionContent(content) {
+  const source = String(content ?? '')
+  const match = source.match(
+    /([\s\S]*?)(?:<h[1-6][^>]*>\s*(?:A\s+recept\s+elk[eé]sz[íi]t[eé]se|Elk[eé]sz[íi]t[eé]s)\s*<\/h[1-6]>|$)/i
+  )
+  return match?.[1] ?? source
+}
 
-  if (groups.length === 0) {
-    const listRegex = /<(ul|ol)[^>]*>([\s\S]*?)<\/\1>/gi
-    while ((match = listRegex.exec(content))) {
-      const itemTexts = splitParagraphsFromTag(match[2], 'li')
+function parseIngredientGroups(content) {
+  const source = String(content ?? '')
+  const cleanIngredientSectionLabel = (sectionValue) => {
+    const raw = String(sectionValue ?? '').replace(/\s+/g, ' ').trim()
+    if (!raw) return null
+    const hozzavalokSlice = raw.match(/(Hozz[aá]val[oó]k.*)$/i)
+    return (hozzavalokSlice?.[1] || raw).trim()
+  }
+  const isLikelyIngredientHeading = (section) => {
+    const normalized = normalizeReadableText(section)
+    if (!normalized) return false
+    return /hozzaval/.test(normalized) || /\bhoz:?$/.test(normalized) || /\bhez:?$/.test(normalized)
+  }
+  const hasMeasuredIngredientItems = (items) =>
+    items.some((item) => item.amount !== null || (typeof item.unit === 'string' && item.unit.trim()))
+
+  const parseGroupsFromSource = (htmlSource) => {
+    const groups = []
+    const headingListRegex = /<h[1-6][^>]*>([\s\S]*?)<\/h[1-6]>\s*<(ul|ol)[^>]*>([\s\S]*?)<\/\2>/gi
+    let match
+    while ((match = headingListRegex.exec(htmlSource))) {
+      const section = cleanIngredientSectionLabel(stripHtml(match[1]))
+      const itemTexts = splitParagraphsFromTag(match[3], 'li')
       if (itemTexts.length === 0) continue
+      const items = parseIngredientLines(itemTexts)
+      if (items.length === 0) continue
+      // Prevent non-ingredient promo/navigation lists from becoming ingredient groups.
+      if (!hasMeasuredIngredientItems(items) && !isLikelyIngredientHeading(section)) continue
       groups.push({
-        section: null,
-        items: parseIngredientLines(itemTexts),
+        section,
+        items,
       })
     }
+
+    if (groups.length === 0) {
+      const listRegex = /<(ul|ol)[^>]*>([\s\S]*?)<\/\1>/gi
+      while ((match = listRegex.exec(htmlSource))) {
+        const itemTexts = splitParagraphsFromTag(match[2], 'li')
+        if (itemTexts.length === 0) continue
+        const items = parseIngredientLines(itemTexts)
+        if (items.length === 0) continue
+        if (!hasMeasuredIngredientItems(items)) continue
+        groups.push({
+          section: null,
+          items,
+        })
+      }
+    }
+    if (groups.length > 0) return groups
+    return parseParagraphIngredientGroups(htmlSource)
   }
-  if (groups.length > 0) return groups
-  return parseParagraphIngredientGroups(content)
+
+  const beforeInstruction = preInstructionContent(source)
+  const groupsBeforeInstruction = parseGroupsFromSource(beforeInstruction)
+  if (groupsBeforeInstruction.length > 0) return groupsBeforeInstruction
+
+  // Some MODX imports place "Hozzávalók" after "A recept elkészítése";
+  // fallback to the full HTML so those lists can still be parsed.
+  const groupsFromFullContent = parseGroupsFromSource(source)
+  if (groupsFromFullContent.length > 0) return groupsFromFullContent
+
+  const instructionHtml = deriveInstructionsHtml(source)
+  if (!instructionHtml) {
+    return []
+  }
+  return parseGroupsFromSource(instructionHtml)
 }
 
 function emptyNutritionTable(label = DEFAULT_NUTRITION_LABEL) {
@@ -261,9 +371,12 @@ function nutritionFieldPatterns() {
 }
 
 function countNutritionValues(table) {
-  return ['energy', 'protein', 'fat', 'saturatedFat', 'carbs', 'fiber'].filter((field) =>
-    Number.isFinite(Number(table?.[field]))
-  ).length
+  return ['energy', 'protein', 'fat', 'saturatedFat', 'carbs', 'fiber'].filter((field) => {
+    const v = table?.[field]
+    // `null`/`undefined` means “missing”, not “0”.
+    if (v === null || v === undefined) return false
+    return Number.isFinite(Number(v))
+  }).length
 }
 
 function parseNutritionFromRows(rows) {
@@ -363,7 +476,16 @@ function deriveAuthor(doc) {
     .trim()
 }
 
-function deriveCategoryDecision({ year, id, categoryByKey, title, ingredientNames, predictCategory }) {
+function deriveCategoryDecision({
+  year,
+  id,
+  sourcePath,
+  categoryByKey,
+  title,
+  ingredientNames,
+  instructions,
+  predictCategory,
+}) {
   const slashKey = `${year}/${id}`
   const dashKey = `${year}-${id}`
   const manualCategory = categoryByKey.get(slashKey) || categoryByKey.get(dashKey)
@@ -380,7 +502,7 @@ function deriveCategoryDecision({ year, id, categoryByKey, title, ingredientName
   }
 
   if (typeof predictCategory === 'function') {
-    const prediction = predictCategory({ title, ingredientNames })
+    const prediction = predictCategory({ title, ingredientNames, sourcePath, instructions })
     if (prediction?.resolved && prediction?.category) {
       return {
         resolved: true,
@@ -431,6 +553,11 @@ function uniqueByNormalized(values) {
 
 function deriveInstructions(content) {
   const instructionHtml = deriveInstructionsHtml(content)
+  if (instructionHtml) {
+    // Preserve full imported MODX instruction flow (including heading/list text).
+    const lines = htmlToTextLines(instructionHtml).filter((text) => text.length > 1)
+    return uniqueByNormalized(lines)
+  }
   const source = instructionHtml || content
   const paragraphs = splitParagraphsFromTag(source, 'p')
   const orderedListItems = []
@@ -440,9 +567,9 @@ function deriveInstructions(content) {
     orderedListItems.push(...splitParagraphsFromTag(listMatch[1], 'li'))
   }
   const divLines = splitParagraphsFromTag(source, 'div')
-  const looseLines = htmlToTextLines(source)
   const instructionItems = orderedListItems
-  const steps = [...paragraphs, ...instructionItems, ...divLines, ...looseLines].filter(
+  // Avoid flattening full HTML (tables, ingredient lists, side lists) into instructions.
+  const steps = [...paragraphs, ...instructionItems, ...divLines].filter(
     (text) => text.length > 6
   )
   return uniqueByNormalized(steps)
@@ -470,12 +597,37 @@ function deriveInstructionsHtml(content) {
   return match[1].trim()
 }
 
+function parseVideoObject(videoHtmlOrUrl) {
+  const raw = String(videoHtmlOrUrl ?? '').trim()
+  if (!raw) return undefined
+  if (!raw.includes('<')) {
+    return { src: raw, poster: null }
+  }
+  const srcMatch =
+    raw.match(/<source\b[^>]*\bsrc=(['"])(.*?)\1/i) ||
+    raw.match(/<video\b[^>]*\bsrc=(['"])(.*?)\1/i)
+  const posterMatch = raw.match(/<video\b[^>]*\bposter=(['"])(.*?)\1/i)
+  const src = String(srcMatch?.[2] ?? '').trim()
+  if (!src) return undefined
+  const poster = String(posterMatch?.[2] ?? '').trim()
+  return { src, poster: poster || null }
+}
+
 function deriveVideo(doc, content) {
+  if (doc?.video && typeof doc.video === 'object') {
+    const src = String(doc.video.src ?? '').trim()
+    if (src) {
+      const poster = String(doc.video.poster ?? '').trim()
+      return { src, poster: poster || null }
+    }
+  }
   if (typeof doc?.video === 'string' && doc.video.trim()) {
-    return doc.video
+    const parsed = parseVideoObject(doc.video)
+    if (parsed) return parsed
   }
   const match = String(content ?? '').match(/<video\b[\s\S]*?<\/video>/i)
-  return match?.[0]?.trim() || undefined
+  if (!match?.[0]) return undefined
+  return parseVideoObject(match[0])
 }
 
 function deriveImage(doc) {
@@ -545,12 +697,27 @@ function deriveServings({ ingredientGroups, content, nutritionTables }) {
   return { amount: 0, unit: '' }
 }
 
+/** Magazine-style main ingredients are usually an `<h2>` whose text starts with Hozzávalók. */
+function hasMainStyleHozzavalokH2(content) {
+  return /<h2\b[^>]*>\s*Hozzávalók/i.test(String(content ?? ''))
+}
+
+function hasExplicitInstructionHeading(content) {
+  return /<h[1-6][^>]*>\s*(?:A\s+recept\s+elk[eé]sz[íi]t[eé]se|Elk[eé]sz[íi]t[eé]s)\s*<\/h[1-6]>/i.test(
+    String(content ?? '')
+  )
+}
+
 function deriveSubRecipes(content) {
   const source = String(content ?? '')
   const preInstruction = source.split(
     /<h[1-6][^>]*>\s*(?:A\s+recept\s+elk[eé]sz[íi]t[eé]se|Elk[eé]sz[íi]t[eé]s)\s*<\/h[1-6]>/i
   )[0]
-  if (!preInstruction) return []
+  if (!preInstruction) return { subRecipes: [], fallbackInstructionLines: [] }
+
+  /** When there is no magazine-style `<h2>Hozzávalók…</h2>` shell, `<h3>Hozzávalók…</h3>` must stay inside the preceding `<h2>Dish</h2>` block (multi-recipe collections). */
+  const useH2OnlySubrecipeHeadings =
+    !hasMainStyleHozzavalokH2(source) && !hasExplicitInstructionHeading(source)
 
   const hasLinkOnlyList = (html) => {
     const liMatches = [...String(html ?? '').matchAll(/<li\b[^>]*>([\s\S]*?)<\/li>/gi)]
@@ -565,31 +732,212 @@ function deriveSubRecipes(content) {
     )
 
   const subRecipes = []
-  const headingRegex = /<h([2-5])[^>]*>([\s\S]*?)<\/h\1>([\s\S]*?)(?=<h[2-5][^>]*>|$)/gi
-  let match
-  while ((match = headingRegex.exec(preInstruction))) {
-    const title = stripHtml(match[2])
+  const fallbackInstructionLines = []
+  const blockToInstructionLines = (title, blockHtml) => {
+    const lines = htmlToTextLines(blockHtml)
+    const heading = String(title ?? '').trim()
+    if (!heading && lines.length === 0) return []
+    return [heading ? `${heading}:` : '', ...lines].filter(Boolean)
+  }
+  const headingRegex = useH2OnlySubrecipeHeadings
+    ? /<h2\b[^>]*>([\s\S]*?)<\/h2>([\s\S]*?)(?=<h2\b[^>]*>|$)/gi
+    : /<h([2-5])[^>]*>([\s\S]*?)<\/h\1>([\s\S]*?)(?=<h[2-5][^>]*>|$)/gi
+  const parseSubRecipeBlock = (title, blockHtml) => {
     const titleKey = normalizeText(title)
-    if (!titleKey || /hozzavalok|elkeszites/.test(titleKey)) continue
-    if (/tovabbi\s+recept|kapcsolodo|ajanlott/.test(titleKey)) continue
-    const blockHtml = match[3]
-    if (hasLinkOnlyList(blockHtml)) continue
+    if (!titleKey || /hozzavalok|elkeszites/.test(titleKey)) return null
+    if (/tovabbi\s+recept|kapcsolodo|ajanlott/.test(titleKey)) return null
+    if (hasLinkOnlyList(blockHtml)) return null
     const ingredientGroups = parseIngredientGroups(blockHtml)
-    if (ingredientGroups.length === 0) continue
-    if (!hasIngredientLikeItems(ingredientGroups)) continue
     const nutritionTables = parseNutritionTables(blockHtml)
     const instructions = deriveInstructions(blockHtml)
+    const ingredientLikeBlock =
+      ingredientGroups.length > 0 && hasIngredientLikeItems(ingredientGroups)
+    const hasCompleteSubRecipe =
+      ingredientLikeBlock &&
+      nutritionTables.length > 0 &&
+      instructions.length > 0
+    if (!hasCompleteSubRecipe) {
+      // If this block is clearly an ingredient subsection (e.g. "A ...hoz"),
+      // keep it only in ingredientGroups and do not duplicate it in instructions.
+      if (ingredientLikeBlock) return { ignoredInstructionFallback: true }
+      return { fallbackLines: blockToInstructionLines(title, blockHtml) }
+    }
     const servings = deriveServings({ ingredientGroups, content: blockHtml, nutritionTables })
-    subRecipes.push({
-      title,
-      servings,
-      nutritionTables,
-      ingredientGroups,
-      instructions,
-      image: null,
-    })
+    return {
+      subRecipe: {
+        title,
+        servings,
+        nutritionTables,
+        ingredientGroups,
+        instructions,
+        image: null,
+      },
+    }
   }
-  return subRecipes
+
+  const appendParsedBlock = (title, blockHtml) => {
+    const parsed = parseSubRecipeBlock(title, blockHtml)
+    if (!parsed) return
+    if (parsed.subRecipe) {
+      subRecipes.push(parsed.subRecipe)
+      return
+    }
+    if (parsed.ignoredInstructionFallback) return
+    if (Array.isArray(parsed.fallbackLines) && parsed.fallbackLines.length > 0) {
+      fallbackInstructionLines.push(...parsed.fallbackLines)
+    }
+  }
+
+  let match
+  while ((match = headingRegex.exec(preInstruction))) {
+    const title = stripHtml(useH2OnlySubrecipeHeadings ? match[1] : match[2])
+    const blockHtml = useH2OnlySubrecipeHeadings ? match[2] : match[3]
+    appendParsedBlock(title, blockHtml)
+  }
+
+  // General inline multi-recipe format: repeated <h3> dish blocks where each
+  // block has its own table + ingredients + instructions.
+  if (subRecipes.length === 0) {
+    const h3BlockRegex = /<h3\b[^>]*>([\s\S]*?)<\/h3>([\s\S]*?)(?=<h3\b[^>]*>|$)/gi
+    const h3ParsedSubRecipes = []
+    while ((match = h3BlockRegex.exec(source))) {
+      const title = stripHtml(match[1])
+      const blockHtml = match[2]
+      const parsed = parseSubRecipeBlock(title, blockHtml)
+      if (parsed?.subRecipe) {
+        h3ParsedSubRecipes.push(parsed.subRecipe)
+      }
+    }
+    // Require multiple complete blocks to avoid splitting regular single recipes.
+    if (h3ParsedSubRecipes.length >= 2) {
+      subRecipes.push(...h3ParsedSubRecipes)
+    }
+  }
+  return { subRecipes, fallbackInstructionLines }
+}
+
+/**
+ * HTML is a multi-recipe collection (e.g. several `<h2>Dish name</h2>` blocks with table + ingredients + steps),
+ * with no single parent recipe skeleton.
+ */
+function isOnlyStandaloneRecipeCollection(content, subRecipes) {
+  if (!Array.isArray(subRecipes) || subRecipes.length < 2) return false
+  const c = String(content ?? '')
+  if (hasMainStyleHozzavalokH2(c)) return false
+  if (hasExplicitInstructionHeading(c)) return false
+  return true
+}
+
+function idSlugFromRecipeTitle(title) {
+  const key = normalizeText(String(title ?? ''))
+    .replace(/\s+/g, '-')
+    .replace(/-+/g, '-')
+    .replace(/^-|-$/g, '')
+  return key || 'recept'
+}
+
+/**
+ * When MODX content is only multiple complete mini-recipes (no main Hozzávalók / Elkészítés shell),
+ * returns one `{ recipe, categoryDecision }` per dish. Otherwise returns a single-item array (same as {@link buildRecipeFromModxDoc}).
+ *
+ * @param {any} doc
+ * @param {{
+ *   year?: number
+ *   id?: string
+ *   categoryByKey: Map<string, string>
+ *   predictCategory?: (input: { title?: string; ingredientNames?: string[]; instructions?: string[] }) => {
+ *     resolved: boolean
+ *     category: string | null
+ *     confidence?: number
+ *     margin?: number
+ *     matchedFeatures?: Array<{ feature: string; score: number }>
+ *     reason?: string
+ *   }
+ * }} options
+ * @returns {Array<{ recipe: object, categoryDecision: object }>}
+ */
+export function buildRecipesFromModxDoc(doc, options) {
+  const nowIso = new Date().toISOString()
+  const year = deriveYear(doc, options)
+  const createdAt = deriveDocCreatedAtIso(doc) ?? timestampFromUnix(doc?.publishedon, nowIso)
+  const content = String(doc?.content || '')
+  const { subRecipes } = deriveSubRecipes(content)
+
+  if (!isOnlyStandaloneRecipeCollection(content, subRecipes)) {
+    return [buildRecipeFromModxDoc(doc, options)]
+  }
+
+  const usedIds = new Set()
+  const out = []
+  for (const sub of subRecipes) {
+    const subTitle = String(sub.title ?? '').trim()
+    if (!subTitle) continue
+
+    let id = idSlugFromRecipeTitle(subTitle)
+    let uniqueId = id
+    let n = 2
+    while (usedIds.has(uniqueId)) {
+      uniqueId = `${id}-${n}`
+      n += 1
+    }
+    usedIds.add(uniqueId)
+
+    const ingredientNames = uniqueByNormalized(
+      sub.ingredientGroups.flatMap((group) => group.items.map((item) => item.name))
+    )
+    const categoryDecision = deriveCategoryDecision({
+      year,
+      id: uniqueId,
+      sourcePath: doc?.path,
+      categoryByKey: options.categoryByKey,
+      title: subTitle,
+      ingredientNames,
+      instructions: sub.instructions,
+      predictCategory: options.predictCategory,
+    })
+    const firstNutrition = sub.nutritionTables[0] || {
+      energy: null,
+      protein: null,
+      fat: null,
+      saturatedFat: null,
+      carbs: null,
+      fiber: null,
+    }
+    const recipe = {
+      id: uniqueId,
+      year,
+      title: subTitle,
+      author: deriveAuthor(doc),
+      category: categoryDecision.category || '',
+      servings: sub.servings,
+      energy: firstNutrition.energy ?? null,
+      protein: firstNutrition.protein ?? null,
+      fat: firstNutrition.fat ?? null,
+      saturatedFat: firstNutrition.saturatedFat ?? null,
+      carbs: firstNutrition.carbs ?? null,
+      fiber: firstNutrition.fiber ?? null,
+      nutritionTables: sub.nutritionTables,
+      ingredientGroups: sub.ingredientGroups,
+      ingredientNames,
+      searchTerms: deriveSearchTerms({ title: subTitle, ingredientNames }),
+      instructions: sub.instructions,
+      image: deriveImage(doc),
+      img: doc?.img && typeof doc.img === 'object' ? doc.img : undefined,
+      subRecipes: [],
+      hasSubRecipes: false,
+      createdAt,
+      updatedAt: timestampFromUnix(doc?.editedon, nowIso),
+      free: true,
+      video: deriveVideo(doc, content),
+    }
+    const sourceModxId = Number(doc?.id)
+    if (Number.isFinite(sourceModxId)) {
+      recipe.sourceModxId = sourceModxId
+    }
+    out.push({ recipe, categoryDecision })
+  }
+
+  return out.length > 0 ? out : [buildRecipeFromModxDoc(doc, options)]
 }
 
 function timestampFromUnix(value, fallback) {
@@ -606,7 +954,7 @@ function timestampFromUnix(value, fallback) {
  *   year: number
  *   id: string
  *   categoryByKey: Map<string, string>
- *   predictCategory?: (input: { title?: string; ingredientNames?: string[] }) => {
+ *   predictCategory?: (input: { title?: string; ingredientNames?: string[]; instructions?: string[] }) => {
  *     resolved: boolean
  *     category: string | null
  *     confidence?: number
@@ -619,12 +967,13 @@ function timestampFromUnix(value, fallback) {
 export function buildRecipeFromModxDoc(doc, options) {
   const nowIso = new Date().toISOString()
   const year = deriveYear(doc, options)
+  const createdAt = deriveDocCreatedAtIso(doc) ?? timestampFromUnix(doc?.publishedon, nowIso)
   const id = String(options?.id || doc?.alias || '').trim()
   const title = String(doc?.longtitle || doc?.title || '').trim()
   const content = String(doc?.content || '')
   const ingredientGroups = parseIngredientGroups(content)
   const nutritionTables = parseNutritionTables(content)
-  const subRecipes = deriveSubRecipes(content)
+  const { subRecipes, fallbackInstructionLines } = deriveSubRecipes(content)
   if (nutritionTables.length === 0) {
     const firstSubNutrition = subRecipes.find((sub) => Array.isArray(sub.nutritionTables) && sub.nutritionTables.length > 0)
     if (firstSubNutrition?.nutritionTables?.[0]) {
@@ -632,26 +981,35 @@ export function buildRecipeFromModxDoc(doc, options) {
     }
   }
   const firstNutrition = nutritionTables[0] || {
-    energy: 0,
-    protein: 0,
-    fat: 0,
-    saturatedFat: 0,
-    carbs: 0,
-    fiber: 0,
+    energy: null,
+    protein: null,
+    fat: null,
+    saturatedFat: null,
+    carbs: null,
+    fiber: null,
   }
   const ingredientNames = uniqueByNormalized(
     ingredientGroups.flatMap((group) => group.items.map((item) => item.name))
   )
+  const mainInstructions = deriveInstructions(content)
+  const seenInstructions = new Set(mainInstructions.map((line) => String(line ?? '').trim()).filter(Boolean))
+  const instructions = [...mainInstructions]
+  for (const line of fallbackInstructionLines) {
+    const trimmed = String(line ?? '').trim()
+    if (!trimmed || seenInstructions.has(trimmed)) continue
+    instructions.push(line)
+    seenInstructions.add(trimmed)
+  }
   const categoryDecision = deriveCategoryDecision({
     year,
     id,
+    sourcePath: doc?.path,
     categoryByKey: options.categoryByKey,
     title,
     ingredientNames,
+    instructions,
     predictCategory: options.predictCategory,
   })
-  const instructions = deriveInstructions(content)
-  const instructionsHtml = deriveInstructionsHtml(content)
   const servings = deriveServings({ ingredientGroups, content, nutritionTables })
 
   const recipe = {
@@ -661,23 +1019,22 @@ export function buildRecipeFromModxDoc(doc, options) {
     author: deriveAuthor(doc),
     category: categoryDecision.category || '',
     servings,
-    energy: firstNutrition.energy ?? 0,
-    protein: firstNutrition.protein ?? 0,
-    fat: firstNutrition.fat ?? 0,
-    saturatedFat: firstNutrition.saturatedFat ?? 0,
-    carbs: firstNutrition.carbs ?? 0,
-    fiber: firstNutrition.fiber ?? 0,
+    energy: firstNutrition.energy ?? null,
+    protein: firstNutrition.protein ?? null,
+    fat: firstNutrition.fat ?? null,
+    saturatedFat: firstNutrition.saturatedFat ?? null,
+    carbs: firstNutrition.carbs ?? null,
+    fiber: firstNutrition.fiber ?? null,
     nutritionTables,
     ingredientGroups,
     ingredientNames,
     searchTerms: deriveSearchTerms({ title, ingredientNames }),
     instructions,
-    instructionsHtml: instructionsHtml || undefined,
     image: deriveImage(doc),
     img: doc?.img && typeof doc.img === 'object' ? doc.img : undefined,
     subRecipes,
     hasSubRecipes: subRecipes.length > 0,
-    createdAt: timestampFromUnix(doc?.publishedon, nowIso),
+    createdAt,
     updatedAt: timestampFromUnix(doc?.editedon, nowIso),
     free: true,
     video: deriveVideo(doc, content),

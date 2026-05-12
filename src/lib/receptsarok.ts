@@ -1,11 +1,11 @@
 export interface NutritionValues {
   label: string
-  energy: number
-  protein: number
-  fat: number
-  saturatedFat: number
-  carbs: number
-  fiber: number
+  energy: number | null
+  protein: number | null
+  fat: number | null
+  saturatedFat: number | null
+  carbs: number | null
+  fiber: number | null
 }
 
 export interface IngredientItem {
@@ -32,6 +32,11 @@ export type RecipeCardImage = {
   src: string
   pos: string
   ext: string
+}
+
+export type RecipeVideo = {
+  src: string
+  poster: string | null
 }
 
 /** Absolute URL or `/rs/...` path suitable for `<img src>`. */
@@ -77,18 +82,17 @@ export interface Recipe {
   author: string
   category: string
   servings: { amount: number; unit: string }
-  energy: number
-  protein: number
-  fat: number
-  saturatedFat: number
-  carbs: number
-  fiber: number
+  energy: number | null
+  protein: number | null
+  fat: number | null
+  saturatedFat: number | null
+  carbs: number | null
+  fiber: number | null
   nutritionTables: NutritionValues[]
   ingredientGroups: IngredientGroup[]
   ingredientNames: string[]
   searchTerms: string[]
   instructions: string[]
-  instructionsHtml?: string
   image: RecipeImage | null
   /** CardV / search: normalized `{ src, pos, ext }`; derived from `image` when missing. */
   img?: RecipeCardImage | null
@@ -98,7 +102,7 @@ export interface Recipe {
   updatedAt: string
   published?: boolean
   free?: boolean
-  video?: string
+  video?: RecipeVideo | string
   sourceModxId?: number
 }
 
@@ -108,14 +112,15 @@ export interface RecipeTeaser {
   title: string
   author: string
   category: string
-  energy: number
-  protein: number
-  fat: number
-  saturatedFat: number
-  carbs: number
-  fiber: number
+  energy: number | null
+  protein: number | null
+  fat: number | null
+  saturatedFat: number | null
+  carbs: number | null
+  fiber: number | null
   image: RecipeImage | null
   img?: RecipeCardImage | null
+  video?: RecipeVideo | string
   servings: { amount: number; unit: string }
   hasSubRecipes: boolean
   free: boolean
@@ -162,7 +167,6 @@ export function stripRecipeGatedFields(recipe: Recipe): Recipe {
     ...recipe,
     ingredientGroups: [],
     instructions: [],
-    instructionsHtml: '',
     subRecipes: [],
     ingredientNames: [],
     searchTerms: [],
@@ -184,6 +188,7 @@ export function toTeaser(recipe: Recipe): RecipeTeaser {
     fiber: recipe.fiber,
     image: recipe.image,
     img: recipe.img ?? recipeHeroToCardImg(recipe.year, recipe.image, undefined),
+    video: recipe.video,
     servings: recipe.servings,
     hasSubRecipes: recipe.hasSubRecipes,
     free: isRecipeFree(recipe),

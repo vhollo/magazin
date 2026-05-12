@@ -13,10 +13,52 @@
     recipe.image,
     (recipe as Recipe & { img?: { src: string; pos?: string; ext?: string } }).img
   )
+  $: cardVideo = (() => {
+    const video = (recipe as Recipe & { video?: unknown }).video
+
+    if (video && typeof video === 'object') {
+      const src = typeof (video as { src?: unknown }).src === 'string' ? (video as { src: string }).src.trim() : ''
+      if (!src || src.includes('<')) return null
+
+      const poster =
+        typeof (video as { poster?: unknown }).poster === 'string' &&
+        (video as { poster: string }).poster.trim()
+          ? (video as { poster: string }).poster.trim()
+          : null
+
+      return { src, poster }
+    }
+
+    if (typeof video === 'string') {
+      const src = video.trim()
+      if (!src || src.includes('<')) return null
+      return { src, poster: null }
+    }
+
+    return null
+  })()
 </script>
 
-<a {href} class="card card-sm bg-base-200 rounded-sm hover:shadow-lg transition-shadow max-h-fit" class:double={cardImg}>
-  {#if cardImg}
+<a {href} class="card card-sm bg-base-200 rounded-sm hover:shadow-lg transition-shadow max-h-fit" class:double={cardImg || cardVideo}>
+  {#if cardVideo}
+    <figure class="rounded-t">
+      <!-- svelte-ignore a11y_media_has_caption -->
+      <video
+        preload="metadata"
+        playsinline
+        controls
+        src={cardVideo.src}
+        poster={cardVideo.poster ?? undefined}
+        class="w-full object-cover"
+        style="aspect-ratio: var(--imgratio);"
+      ></video>
+      {#if recipe.image?.caption}
+        <figcaption class="px-2 pt-1 pb-0.5 text-xs leading-snug text-base-content/60 line-clamp-2">
+          {recipe.image.caption}
+        </figcaption>
+      {/if}
+    </figure>
+  {:else if cardImg}
     <figure class="rounded-t">
       <img
         loading="lazy"
@@ -34,7 +76,7 @@
   {/if}
   <div class="card-body gap-0 p-2">
     {#if recipe.author?.trim()}
-      <h4 class="italic">{recipe.author.trim()} receptje</h4>
+      <h4 class="italic">{recipe.author.trim()}</h4>
     {/if}
     <div class="flex items-start justify-between gap-2 pb-2">
       <h2 class="card-title text-base leading-tight !mb-0 flex-1 min-w-0">{recipe.title}</h2>

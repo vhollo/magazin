@@ -305,6 +305,10 @@ p.nicebox, p.boxleft, p.boxright {
   @apply !p-2;
 }
 
+.nicebox:has(table) {
+  @apply my-4 overflow-x-auto w-full rounded-lg border border-base-300 bg-base-200/40;
+}
+
 table.nicebox {
   /* @apply table table-xs; */
   /* font-size: 0.75rem; */
@@ -329,8 +333,11 @@ table.nicebox {
 article table:not(.nicebox) {
   @apply table table-xs w-full min-w-[min(100%,32rem)] w-full rounded-lg border border-base-300 bg-base-200/4;
 }
-article table:not(.nicebox) thead th {
-  @apply bg-base-200 text-left font-normal;
+/* article table:not(.nicebox) thead th {
+  @apply bg-base-200 font-normal;
+} */
+article th + th, article td + td {
+  @apply text-center;
 }
 
 article figure img {

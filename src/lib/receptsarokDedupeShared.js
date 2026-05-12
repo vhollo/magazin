@@ -2,23 +2,23 @@
  * @typedef {object} CandidateLike
  * @property {string} id
  * @property {number} year
- * @property {string | null | undefined} [video]
+ * @property {string | { src?: string | null } | null | undefined} [video]
  * @property {Array<{
- *   energy?: number
- *   protein?: number
- *   fat?: number
- *   saturatedFat?: number
- *   carbs?: number
- *   fiber?: number
+ *   energy?: number | null
+ *   protein?: number | null
+ *   fat?: number | null
+ *   saturatedFat?: number | null
+ *   carbs?: number | null
+ *   fiber?: number | null
  * }> | null | undefined} [nutritionTables]
  * @property {Array<{
  *   nutritionTables?: Array<{
- *     energy?: number
- *     protein?: number
- *     fat?: number
- *     saturatedFat?: number
- *     carbs?: number
- *     fiber?: number
+ *     energy?: number | null
+ *     protein?: number | null
+ *     fat?: number | null
+ *     saturatedFat?: number | null
+ *     carbs?: number | null
+ *     fiber?: number | null
  *   }> | null
  * }> | null | undefined} [subRecipes]
  */
@@ -59,7 +59,13 @@ export function countNutritionValues(recipe) {
  * @returns {boolean}
  */
 export function hasVideo(recipe) {
-  return typeof recipe?.video === 'string' && recipe.video.trim().length > 0
+  if (typeof recipe?.video === 'string') {
+    return recipe.video.trim().length > 0
+  }
+  if (recipe?.video && typeof recipe.video === 'object') {
+    return String(recipe.video.src ?? '').trim().length > 0
+  }
+  return false
 }
 
 /**

@@ -16,6 +16,14 @@
   const isFree = $derived(data.isFree)
   const category = $derived(data.categories.find((c: any) => c.id === data.categoryId))
 
+  const metaDescription = $derived.by(() => {
+    const parts: string[] = []
+    if (typeof recipe.energy === 'number') parts.push(`${recipe.energy} kcal`)
+    if (typeof recipe.protein === 'number') parts.push(`${recipe.protein} g fehérje`)
+    if (typeof recipe.carbs === 'number') parts.push(`${recipe.carbs} g szénhidrát`)
+    return parts.length ? `${recipe.author} receptje — ${parts.join(', ')}` : `${recipe.author} receptje`
+  })
+
   let canView = $derived(isFree || $hasReceptsarokAccess)
 
   let fullRecipe = $state<Recipe | null>(null)
@@ -26,6 +34,27 @@
   let heroCardImg = $derived(
     recipeHeroToCardImg(displayRecipe.year, displayRecipe.image, displayRecipe.img)
   )
+  let recipeVideo = $derived.by(() => {
+    const video = displayRecipe.video
+
+    if (video && typeof video === 'object') {
+      const src = typeof video.src === 'string' ? video.src.trim() : ''
+      if (!src || src.includes('<')) return null
+
+      const poster =
+        typeof video.poster === 'string' && video.poster.trim() ? video.poster.trim() : null
+
+      return { src, poster }
+    }
+
+    if (typeof video === 'string') {
+      const src = video.trim()
+      if (!src || src.includes('<')) return null
+      return { src, poster: null }
+    }
+
+    return null
+  })
 
   $effect(() => {
     if (!browser) return
@@ -75,7 +104,7 @@
 
 <svelte:head>
   <title>{recipe.title} • Receptsarok</title>
-  <meta name="description" content="{recipe.author} receptje — {recipe.energy} kcal, {recipe.protein}g fehérje, {recipe.carbs}g szénhidrát" />
+  <meta name="description" content="{metaDescription}" />
   {#if heroCardImg}
     <meta property="og:image" content={heroCardImg.src} />
     <link rel="preload" href={heroCardImg.src} as="image" />
@@ -93,11 +122,23 @@
     </ul>
   </nav>
   <h1 class="text-center">{recipe.title}</h1>
-  <p class="text-center italic">{recipe.author} receptje</p>
+  <p class="text-center italic">{recipe.author}</p>
 </article>
 
 <article class="prose mx-auto w-full max-w-prose px-4 pb-12">
-  {#if heroCardImg}
+  {#if recipeVideo?.src}
+    <figure class="not-prose my-6">
+      <video
+        class="w-full rounded-lg"
+        controls
+        playsinline
+        preload="metadata"
+        poster={recipeVideo.poster ?? undefined}
+      >
+        <source src={recipeVideo.src} type="video/mp4" />
+      </video>
+    </figure>
+  {:else if heroCardImg}
     <figure class="text-center not-prose">
       <img src={heroCardImg.src} alt={displayRecipe.image?.alt ?? displayRecipe.title} class="mx-auto" />
       {#if displayRecipe.image?.caption}
