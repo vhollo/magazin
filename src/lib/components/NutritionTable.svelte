@@ -18,18 +18,15 @@
   ])
 
   const visibleColumns = $derived(columns.filter((column) => column.value !== null && column.value !== undefined))
-
-  /** Card compact grid: 2 / 4 / 6 columns to match 2–6 visible metrics (no fixed 3-col wrap). */
-  const compactGridCols = $derived(
-    visibleColumns.length <= 2 ? 'grid-cols-2' : visibleColumns.length <= 4 ? 'grid-cols-4' : 'grid-cols-6'
-  )
 </script>
 
 {#if visibleColumns.length > 0}
   {#if compact}
-    <div class="grid gap-2 text-xs {compactGridCols}">
+    <!-- Two columns: label (bold) | value + unit (normal), one row per metric -->
+    <div class="grid grid-cols-2 gap-x-4 text-xs text-left items-baseline">
       {#each visibleColumns as column (column.key)}
-        <span title={column.title}>{column.short}: <b class="whitespace-nowrap">{column.value} {column.unit}</b></span>
+        <span class="font-semibold shrink-0" title={column.title}>{column.title}</span>
+        <span class="font-normal whitespace-nowrap tabular-nums">{column.value} {column.unit}</span>
       {/each}
     </div>
   {:else}

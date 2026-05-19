@@ -238,8 +238,8 @@ article figure {
   display: none; 
 }
 .ellipsis > table {
-  @apply prose;
-  font-size: 0.875rem;
+  @apply prose text-xs;
+  /* font-size: 0.875rem; */
   /* line-height: var(--lh-card, 1.5); */
   margin-bottom: .75rem;
   margin-top: 0;

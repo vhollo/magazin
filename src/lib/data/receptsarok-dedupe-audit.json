@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-05-11T21:49:49.539Z",
+  "generatedAt": "2026-05-14T16:40:32.979Z",
   "summary": {
     "magazineCandidates": 513,
-    "redirects": 499,
+    "redirects": 497,
     "unpublishCount": 10,
-    "createDrafts": 348,
-    "unresolvedCategoryDrafts": 17,
+    "createDrafts": 352,
+    "unresolvedCategoryDrafts": 16,
     "applyLocal": true,
     "createLocal": true
   },
@@ -5312,44 +5312,16 @@
       "categorySource": "predicted-or-manual"
     },
     {
-      "type": "new-rs-parse-incomplete",
+      "type": "new-rs-collection-split",
       "modxContentId": 1352,
       "modxPath": "junior/2015/cikkek/csupa-csoki",
-      "target": "2015-csupa-csoki",
-      "categoryDecision": {
-        "resolved": true,
-        "category": "sos-edes-sutemenyek-desszertek-tesztak",
-        "categorySource": "predicted",
-        "confidence": 0.9999999901530688,
-        "margin": 0.9999999826527374,
-        "matchedFeatures": [
-          {
-            "feature": "keksz",
-            "score": 4.654803
-          },
-          {
-            "feature": "xilit",
-            "score": 3.876416
-          },
-          {
-            "feature": "csokis",
-            "score": 3.485469
-          },
-          {
-            "feature": "diabetikus",
-            "score": 3.372868
-          },
-          {
-            "feature": "canderel",
-            "score": 3.29098
-          },
-          {
-            "feature": "puha",
-            "score": 3.29098
-          }
-        ],
-        "reason": "parse-incomplete"
-      }
+      "sourceAlias": "csupa-csoki",
+      "targets": [
+        "2015-csokolades-taller",
+        "2015-csokilava",
+        "2015-csokis-kuglof",
+        "2015-csokiontet-turos-palacsintahoz"
+      ]
     },
     {
       "type": "new-rs-required",

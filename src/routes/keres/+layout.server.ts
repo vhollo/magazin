@@ -6,7 +6,7 @@ import MiniSearch from 'minisearch'
 import { /* modxDoc,  */listedDocs } from '$lib/modx'
 import { getRecipes } from '$lib/siteConf'
 import { recipeListDescriptionLine, recipeToReceptsarokListCard } from '$lib/recipeReceptsarokListCard'
-import { type Recipe } from '$lib/receptsarok'
+import { type Recipe, toTeaser } from '$lib/receptsarok'
 
 // const stopWords = new Set(['a', 'az', 'és', 'vagy', 'de', 'ha', 'hogy', 'is', 'nem', 'csak', 'meg', 'mint', 'mert', 'egy', 'kell', 'lehet', 'volt', 'lesz', 'van', 'itt', 'ott', 'ahol', 'amikor', 'akkor', 'így', 'úgy', 'még', 'már', 'sem', 'se', 'sok', 'kevés', 'több', 'kevesebb', 'nagyon', 'igen', 'majd', 'most', 'mindig', 'soha', 'talán', 'persze', 'valami', 'valaki', 'valahol', 'valamikor', 'minden', 'senki', 'semmi', 'sehol', 'semikor', 'ez', 'azt', 'ezt', 'ebben', 'abban', 'ettől', 'attól', 'ilyen', 'olyan', 'én', 'te', 'ő', 'mi', 'ti', 'ők', 'aki', 'ami', 'akik', 'amik', 'amely', 'amelyek', 'ahogy', 'amint', 'amíg', 'hiszen', 'hanem', 'illetve', 'valamint', 'tehát', 'azaz', 'vagyis', 'azonban', 'viszont', 'pedig', 'mégis', 'annak', 'ennek', 'azzal', 'ezzel', 'arra', 'erre', 'arról', 'erről' ])
 
@@ -21,6 +21,7 @@ const miniSearch = new MiniSearch({
     'img',
     'tv',
     'free',
+    'recipeTeaser',
   ],
   // processTerm: (term, _fieldName) => stopWords.has(term) ? null : term.toLowerCase(),
   extractField: (document, fieldName) => {
@@ -48,6 +49,8 @@ function recipeToKeresDoc(r: Recipe) {
     id: `rs-${r.year}-${r.id}`,
     szerzo: r.author,
     ...base,
+    /** Same payload as `RecipeCard` / Receptsarok category list. */
+    recipeTeaser: toTeaser(r),
     content: `${terms} ${ing} ${r.title} ${r.author} ${recipeListDescriptionLine(r)}`.trim(),
   }
 }

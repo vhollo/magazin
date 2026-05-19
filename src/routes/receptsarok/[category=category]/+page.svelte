@@ -103,7 +103,7 @@
       locked: !isRecipeFree(recipe) && !$hasReceptsarokAccess,
     }}
     <aside
-      class="card gap-2 rounded-sm bg-base-200"
+      class="card card-sm rounded-sm bg-base-200"
       class:double={card.img}
       class:triple={card.description && card.img}
     >

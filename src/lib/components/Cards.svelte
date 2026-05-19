@@ -13,6 +13,7 @@
 } from 'svelte/transition'
   import CardV from '$lib/components/CardV.svelte'
   import CardH from '$lib/components/CardH.svelte'
+  import RecipeCard from '$lib/components/RecipeCard.svelte'
   import BannerSide from '$lib/components/BannerSide.svelte'
   export let ads_distance = 4
   // import { ads } from '$lib/ads.js'
@@ -84,9 +85,20 @@
 {#if full}
   <section class="grid gap-x-6 gap-y-12 px-4 py-6">
     {#each cards.slice(0, volume * pagenum) as card, i}
-      <aside in:fade={{ duration: 1000 }} use:masonryItem class="card gap-2 rounded-sm bg-base-200" style="order:{i}">
-        <CardV {card}/>
-      </aside>
+      {#if card.recipeTeaser}
+        <aside
+          in:fade={{ duration: 1000 }}
+          use:masonryItem
+          class:double={Boolean(card.recipeTeaser.img || card.recipeTeaser.video)}
+          style="order:{i}"
+        >
+          <RecipeCard recipe={card.recipeTeaser} locked={Boolean(card.locked)} />
+        </aside>
+      {:else}
+        <aside in:fade={{ duration: 1000 }} use:masonryItem class="card card-sm gap-2 rounded-sm bg-base-200" style="order:{i}">
+          <CardV {card}/>
+        </aside>
+      {/if}
     {/each}
     {#key hirds}
     {#if !$authUser && browser && hirds.length}

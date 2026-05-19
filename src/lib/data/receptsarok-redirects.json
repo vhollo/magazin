@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-11T21:49:49.539Z",
+  "generatedAt": "2026-05-14T16:40:32.979Z",
   "sourceDocs": "src/lib/data/data.json",
   "sourceRecipes": "src/lib/data/recipes.json",
   "entries": [
@@ -98,12 +98,6 @@
       "path": "cikkek/diabetes/1406/sutotokos-zabtaller-feher-csokival",
       "year": 2014,
       "id": "sutotokos-zabtaller-feher-csokival"
-    },
-    {
-      "modxContentId": 1447,
-      "path": "cikkek/diabetes/1503/recept-sarok",
-      "year": 2015,
-      "id": "csalafinta-joghurtos-citromfagyi"
     },
     {
       "modxContentId": 1509,
@@ -344,12 +338,6 @@
       "path": "cikkek/diabetes/1702/zoldfuszeres-fasirt",
       "year": 2017,
       "id": "zoldfuszeres-fasirt"
-    },
-    {
-      "modxContentId": 1953,
-      "path": "cikkek/diabetes/1703/nagy-margit-gyumolcsos-receptjei",
-      "year": 2017,
-      "id": "malnas-joghurthab"
     },
     {
       "modxContentId": 1999,

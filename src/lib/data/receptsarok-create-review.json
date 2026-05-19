@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-11T21:49:49.539Z",
+  "generatedAt": "2026-05-14T16:40:32.979Z",
   "instructions": "Review parsed MODX->RS recipes before import/write.",
   "entries": [
     {
@@ -60038,6 +60038,657 @@
           }
         ],
         "reason": "ingredient-proof-fish"
+      }
+    },
+    {
+      "key": "2015-csokolades-taller",
+      "sourcePath": "junior/2015/cikkek/csupa-csoki",
+      "recipe": {
+        "id": "csokolades-taller",
+        "year": 2015,
+        "title": "Csokoládés tallér",
+        "author": "Kicsák Marian",
+        "category": "sos-edes-sutemenyek-desszertek-tesztak",
+        "servings": {
+          "amount": 20,
+          "unit": "db"
+        },
+        "energy": 124,
+        "protein": 2,
+        "fat": 8,
+        "saturatedFat": null,
+        "carbs": 11,
+        "fiber": null,
+        "nutritionTables": [
+          {
+            "label": "1 db:",
+            "energy": 124,
+            "protein": 2,
+            "fat": 8,
+            "saturatedFat": null,
+            "carbs": 11,
+            "fiber": null
+          }
+        ],
+        "ingredientGroups": [
+          {
+            "section": "20 darabhoz:",
+            "items": [
+              {
+                "text": "15 dkg liszt",
+                "amount": 15,
+                "unit": "dkg",
+                "name": "liszt"
+              },
+              {
+                "text": "10 dkg 85%-os étcsokoládé",
+                "amount": 10,
+                "unit": "dkg",
+                "name": "85%-os étcsokoládé"
+              },
+              {
+                "text": "10 dkg vaj",
+                "amount": 10,
+                "unit": "dkg",
+                "name": "vaj"
+              },
+              {
+                "text": "1 db tojás",
+                "amount": 1,
+                "unit": "db",
+                "name": "tojás"
+              },
+              {
+                "text": "1 evőkanál kakaópor",
+                "amount": 1,
+                "unit": null,
+                "name": "evőkanál kakaópor"
+              },
+              {
+                "text": "4 dkg xilit",
+                "amount": 4,
+                "unit": "dkg",
+                "name": "xilit"
+              },
+              {
+                "text": "1 dkg Canderel por",
+                "amount": 1,
+                "unit": "dkg",
+                "name": "Canderel por"
+              },
+              {
+                "text": "fél teáskanál szódabikarbóna",
+                "amount": null,
+                "unit": null,
+                "name": "fél teáskanál szódabikarbóna"
+              },
+              {
+                "text": "fél teáskanál fahéj",
+                "amount": null,
+                "unit": null,
+                "name": "fél teáskanál fahéj"
+              }
+            ]
+          }
+        ],
+        "ingredientNames": [
+          "liszt",
+          "85%-os étcsokoládé",
+          "vaj",
+          "tojás",
+          "evőkanál kakaópor",
+          "xilit",
+          "Canderel por",
+          "fél teáskanál szódabikarbóna",
+          "fél teáskanál fahéj"
+        ],
+        "searchTerms": [
+          "csokolades",
+          "taller",
+          "liszt",
+          "etcsokolade",
+          "vaj",
+          "tojas",
+          "evokanal",
+          "kakaopor",
+          "xilit",
+          "canderel",
+          "por",
+          "fel",
+          "teaskanal",
+          "szodabikarbona",
+          "fahej"
+        ],
+        "instructions": [
+          "A csokit késsel apró csokiforgácsokra vágjuk. A lisztet és a kakaót egy tálba átszitáljuk. Ebbe tesszük a csokiforgácsot, a Canderel port, a szódabikarbónát és a fahéjat is. A puha vajat a xilittel és tojással kikeverjük. A vajas masszába belekeverjük a lisztes keveréket. Sűrű masszát kapunk. Sütőpapírral kibélelt tepsibe két kanál segítségével kanálnyi halmokat teszünk. Vizes kézzel még kicsit formázzuk. 20 db kis halom (keksz) lesz. 190-200 C&deg;-on 8-10 percig sütjük."
+        ],
+        "image": {
+          "src": "https://www.diabetes.hu/assets/images/dj1501/kaja-csokolades_taller.png",
+          "alt": "Csupa csoki",
+          "caption": null
+        },
+        "img": {
+          "src": "https://www.diabetes.hu/assets/images/dj1501/kaja-csokolades_taller.png",
+          "pos": "50% 40%",
+          "ext": "png",
+          "caption": ""
+        },
+        "subRecipes": [],
+        "hasSubRecipes": false,
+        "createdAt": "2015-02-21T11:43:33.000Z",
+        "updatedAt": "2021-11-17T15:24:58.000Z",
+        "free": true,
+        "sourceModxId": 1352
+      },
+      "categoryDecision": {
+        "resolved": true,
+        "category": "sos-edes-sutemenyek-desszertek-tesztak",
+        "categorySource": "predicted",
+        "confidence": 0.9999999999939637,
+        "margin": 0.9999999999918814,
+        "matchedFeatures": [
+          {
+            "feature": "keksz",
+            "score": 4.654803
+          },
+          {
+            "feature": "etcsokolade",
+            "score": 4.30617
+          },
+          {
+            "feature": "kakaopor",
+            "score": 4.021734
+          },
+          {
+            "feature": "xilit",
+            "score": 3.876416
+          },
+          {
+            "feature": "canderel",
+            "score": 3.29098
+          },
+          {
+            "feature": "puha",
+            "score": 3.29098
+          },
+          {
+            "feature": "csokolades",
+            "score": 3.051169
+          },
+          {
+            "feature": "etcsokolade_vaj",
+            "score": 3.051169
+          }
+        ],
+        "reason": "predicted"
+      }
+    },
+    {
+      "key": "2015-csokilava",
+      "sourcePath": "junior/2015/cikkek/csupa-csoki",
+      "recipe": {
+        "id": "csokilava",
+        "year": 2015,
+        "title": "Csokiláva",
+        "author": "Kicsák Marian",
+        "category": "sos-edes-sutemenyek-desszertek-tesztak",
+        "servings": {
+          "amount": 6,
+          "unit": "db"
+        },
+        "energy": 316,
+        "protein": 8,
+        "fat": 25,
+        "saturatedFat": null,
+        "carbs": 13,
+        "fiber": null,
+        "nutritionTables": [
+          {
+            "label": "1 db:",
+            "energy": 316,
+            "protein": 8,
+            "fat": 25,
+            "saturatedFat": null,
+            "carbs": 13,
+            "fiber": null
+          }
+        ],
+        "ingredientGroups": [
+          {
+            "section": "6 darabhoz:",
+            "items": [
+              {
+                "text": "20 dkg 85%-os kakaótartalmú csokoládé",
+                "amount": 20,
+                "unit": "dkg",
+                "name": "85%-os kakaótartalmú csokoládé"
+              },
+              {
+                "text": "2 db tojás",
+                "amount": 2,
+                "unit": "db",
+                "name": "tojás"
+              },
+              {
+                "text": "4 dkg liszt",
+                "amount": 4,
+                "unit": "dkg",
+                "name": "liszt"
+              },
+              {
+                "text": "4 dkg vaj",
+                "amount": 4,
+                "unit": "dkg",
+                "name": "vaj"
+              },
+              {
+                "text": "4 dkg xilit",
+                "amount": 4,
+                "unit": "dkg",
+                "name": "xilit"
+              },
+              {
+                "text": "folyékony energiamentes édesítőszer",
+                "amount": null,
+                "unit": null,
+                "name": "folyékony energiamentes édesítőszer"
+              }
+            ]
+          }
+        ],
+        "ingredientNames": [
+          "85%-os kakaótartalmú csokoládé",
+          "tojás",
+          "liszt",
+          "vaj",
+          "xilit",
+          "folyékony energiamentes édesítőszer"
+        ],
+        "searchTerms": [
+          "csokilava",
+          "kakaotartalmu",
+          "csokolade",
+          "tojas",
+          "liszt",
+          "vaj",
+          "xilit",
+          "folyekony",
+          "energiamentes",
+          "edesitoszer"
+        ],
+        "instructions": [
+          "A darabokra tört csokit vajjal gőz felett megolvasztjuk. Az egész tojásokat a xilittel habosra kikeverjük. A csokoládés masszát a tojáshabba keverjük, majd beleszitáljuk a lisztet és addig keverjük, amíg teljesen egynemű masszát kapunk. ízlés szerint kevés folyékony mesterséges édesítőszerrel édesítjük. 6 db muffinformát kivajazunk, 3/4-ig töltjük, majd hűtőszekrénybe tesszük, míg meg nem dermed. Előmelegített sütőben, 200 C&deg;-on kb. 8 percig sütjük, amíg kéreg képződik a süteményeken. Fontos, hogy ne süssük túl! Langyosan tálaljuk. Ha nem sütöttük túl, a csoki belül folyós marad."
+        ],
+        "image": {
+          "src": "https://www.diabetes.hu/assets/images/dj1501/kaja-csokolades_taller.png",
+          "alt": "Csupa csoki",
+          "caption": null
+        },
+        "img": {
+          "src": "https://www.diabetes.hu/assets/images/dj1501/kaja-csokolades_taller.png",
+          "pos": "50% 40%",
+          "ext": "png",
+          "caption": ""
+        },
+        "subRecipes": [],
+        "hasSubRecipes": false,
+        "createdAt": "2015-02-21T11:43:33.000Z",
+        "updatedAt": "2021-11-17T15:24:58.000Z",
+        "free": true,
+        "sourceModxId": 1352
+      },
+      "categoryDecision": {
+        "resolved": true,
+        "category": "sos-edes-sutemenyek-desszertek-tesztak",
+        "categorySource": "predicted",
+        "confidence": 0.9969581893760088,
+        "margin": 0.9944092095300158,
+        "matchedFeatures": [
+          {
+            "feature": "xilit",
+            "score": 3.876416
+          },
+          {
+            "feature": "csokolade",
+            "score": 3.485469
+          },
+          {
+            "feature": "csokolades",
+            "score": 3.051169
+          }
+        ],
+        "reason": "predicted"
+      }
+    },
+    {
+      "key": "2015-csokis-kuglof",
+      "sourcePath": "junior/2015/cikkek/csupa-csoki",
+      "recipe": {
+        "id": "csokis-kuglof",
+        "year": 2015,
+        "title": "Csokis kuglóf",
+        "author": "Kicsák Marian",
+        "category": "sos-edes-sutemenyek-desszertek-tesztak",
+        "servings": {
+          "amount": 20,
+          "unit": "szelet"
+        },
+        "energy": 182,
+        "protein": 4,
+        "fat": 11,
+        "saturatedFat": null,
+        "carbs": 16,
+        "fiber": null,
+        "nutritionTables": [
+          {
+            "label": "1 szelet:",
+            "energy": 182,
+            "protein": 4,
+            "fat": 11,
+            "saturatedFat": null,
+            "carbs": 16,
+            "fiber": null
+          }
+        ],
+        "ingredientGroups": [
+          {
+            "section": "20 szelethez:",
+            "items": [
+              {
+                "text": "20 dkg margarin",
+                "amount": 20,
+                "unit": "dkg",
+                "name": "margarin"
+              },
+              {
+                "text": "10 dkg xilit",
+                "amount": 10,
+                "unit": "dkg",
+                "name": "xilit"
+              },
+              {
+                "text": "1 dkg Canderel por",
+                "amount": 1,
+                "unit": "dkg",
+                "name": "Canderel por"
+              },
+              {
+                "text": "15 dkg rétesliszt",
+                "amount": 15,
+                "unit": "dkg",
+                "name": "rétesliszt"
+              },
+              {
+                "text": "15 dkg finomliszt",
+                "amount": 15,
+                "unit": "dkg",
+                "name": "finomliszt"
+              },
+              {
+                "text": "10 dkg 85%-os étcsoki",
+                "amount": 10,
+                "unit": "dkg",
+                "name": "85%-os étcsoki"
+              },
+              {
+                "text": "1,5 dl tej",
+                "amount": 1.5,
+                "unit": "dl",
+                "name": "tej"
+              },
+              {
+                "text": "4 db tojás",
+                "amount": 4,
+                "unit": "db",
+                "name": "tojás"
+              },
+              {
+                "text": "1 evőkanál kakaópor",
+                "amount": 1,
+                "unit": null,
+                "name": "evőkanál kakaópor"
+              },
+              {
+                "text": "1 csomag sütőpor",
+                "amount": 1,
+                "unit": "csomag",
+                "name": "sütőpor"
+              },
+              {
+                "text": "fél kávéskanál fahéj",
+                "amount": null,
+                "unit": null,
+                "name": "fél kávéskanál fahéj"
+              }
+            ]
+          }
+        ],
+        "ingredientNames": [
+          "margarin",
+          "xilit",
+          "Canderel por",
+          "rétesliszt",
+          "finomliszt",
+          "85%-os étcsoki",
+          "tej",
+          "tojás",
+          "evőkanál kakaópor",
+          "sütőpor",
+          "fél kávéskanál fahéj"
+        ],
+        "searchTerms": [
+          "csokis",
+          "kuglof",
+          "margarin",
+          "xilit",
+          "canderel",
+          "por",
+          "retesliszt",
+          "finomliszt",
+          "etcsoki",
+          "tej",
+          "tojas",
+          "evokanal",
+          "kakaopor",
+          "sutopor",
+          "fel",
+          "kaveskanal",
+          "fahej"
+        ],
+        "instructions": [
+          "A csokoládéból késsel csokiforgácsokat vágunk. A tojásokat szétválasztjuk. A margarint a xilittel és a tojások sárgájával jó alaposan kikeverjük. Ebbe a masszába keverjük apránként a lisztet, a kakaót, a csokiforgácsot, majd belekeverjük a sütőport és a fahéjat. Közben kis adagokban adjuk hozzá a tejet. A tojásfehérjét kemény habbá verjük, és végül azt is a tészta masszájába keverjük. Egy kuglófformát margarinnal kikenünk, liszttel meghintjük, majd ebbe öntjük a tésztamasszát. Előmelegített sütőben 180&deg;C-on 35-40 percig sütjük."
+        ],
+        "image": {
+          "src": "https://www.diabetes.hu/assets/images/dj1501/kaja-csokolades_taller.png",
+          "alt": "Csupa csoki",
+          "caption": null
+        },
+        "img": {
+          "src": "https://www.diabetes.hu/assets/images/dj1501/kaja-csokolades_taller.png",
+          "pos": "50% 40%",
+          "ext": "png",
+          "caption": ""
+        },
+        "subRecipes": [],
+        "hasSubRecipes": false,
+        "createdAt": "2015-02-21T11:43:33.000Z",
+        "updatedAt": "2021-11-17T15:24:58.000Z",
+        "free": true,
+        "sourceModxId": 1352
+      },
+      "categoryDecision": {
+        "resolved": true,
+        "category": "sos-edes-sutemenyek-desszertek-tesztak",
+        "categorySource": "predicted",
+        "confidence": 0.9999999816485353,
+        "margin": 0.9999999751693588,
+        "matchedFeatures": [
+          {
+            "feature": "kakaopor",
+            "score": 4.021734
+          },
+          {
+            "feature": "sutopor",
+            "score": 4.002003
+          },
+          {
+            "feature": "xilit",
+            "score": 3.876416
+          },
+          {
+            "feature": "csokis",
+            "score": 3.485469
+          },
+          {
+            "feature": "canderel",
+            "score": 3.29098
+          },
+          {
+            "feature": "margarin_xilit",
+            "score": 3.051169
+          }
+        ],
+        "reason": "predicted"
+      }
+    },
+    {
+      "key": "2015-csokiontet-turos-palacsintahoz",
+      "sourcePath": "junior/2015/cikkek/csupa-csoki",
+      "recipe": {
+        "id": "csokiontet-turos-palacsintahoz",
+        "year": 2015,
+        "title": "Csokiöntet (túrós palacsintához)",
+        "author": "Kicsák Marian",
+        "category": "sos-edes-sutemenyek-desszertek-tesztak",
+        "servings": {
+          "amount": 4,
+          "unit": "adag"
+        },
+        "energy": 198,
+        "protein": 4,
+        "fat": 18,
+        "saturatedFat": null,
+        "carbs": 3,
+        "fiber": null,
+        "nutritionTables": [
+          {
+            "label": "1 adag:",
+            "energy": 198,
+            "protein": 4,
+            "fat": 18,
+            "saturatedFat": null,
+            "carbs": 3,
+            "fiber": null
+          }
+        ],
+        "ingredientGroups": [
+          {
+            "section": "4 adaghoz:",
+            "items": [
+              {
+                "text": "5 dkg 85%-os étcsoki",
+                "amount": 5,
+                "unit": "dkg",
+                "name": "85%-os étcsoki"
+              },
+              {
+                "text": "2 db tojássárgája",
+                "amount": 2,
+                "unit": "db",
+                "name": "tojássárgája"
+              },
+              {
+                "text": "2 teáskanál kakaópor",
+                "amount": 2,
+                "unit": null,
+                "name": "teáskanál kakaópor"
+              },
+              {
+                "text": "1 dl tej",
+                "amount": 1,
+                "unit": "dl",
+                "name": "tej"
+              },
+              {
+                "text": "2 teáskanál vaj",
+                "amount": 2,
+                "unit": null,
+                "name": "teáskanál vaj"
+              },
+              {
+                "text": "folyékony energiamentes édesítőszer",
+                "amount": null,
+                "unit": null,
+                "name": "folyékony energiamentes édesítőszer"
+              }
+            ]
+          }
+        ],
+        "ingredientNames": [
+          "85%-os étcsoki",
+          "tojássárgája",
+          "teáskanál kakaópor",
+          "tej",
+          "teáskanál vaj",
+          "folyékony energiamentes édesítőszer"
+        ],
+        "searchTerms": [
+          "csokiontet",
+          "turos",
+          "palacsintahoz",
+          "etcsoki",
+          "tojassargaja",
+          "teaskanal",
+          "kakaopor",
+          "tej",
+          "vaj",
+          "folyekony",
+          "energiamentes",
+          "edesitoszer"
+        ],
+        "instructions": [
+          "A csokoládét vízgőz felett felolvasztjuk. A tejet felforraljuk, és beleöntjük a felolvasztott csokit. A vajat a tojássárgájával összekeverjük, beleszórjuk a kakaót és édesítőszerrel ízesítjük. Amikor a tejes-csokis massza kissé kihűlt, a tojásos masszát belekeverjük. Visszatesszük a tűzhelyre, és éppen csak felforraljuk. Tálaláskor a megtöltött túrós palacsintára teszünk keveset ebből a finom csokis mártásból. Természetesen a csokiöntet tápanyagtartalmához hozzá kell adni a palacsintákét is.",
+          "Kicsák Marian"
+        ],
+        "image": {
+          "src": "https://www.diabetes.hu/assets/images/dj1501/kaja-csokolades_taller.png",
+          "alt": "Csupa csoki",
+          "caption": null
+        },
+        "img": {
+          "src": "https://www.diabetes.hu/assets/images/dj1501/kaja-csokolades_taller.png",
+          "pos": "50% 40%",
+          "ext": "png",
+          "caption": ""
+        },
+        "subRecipes": [],
+        "hasSubRecipes": false,
+        "createdAt": "2015-02-21T11:43:33.000Z",
+        "updatedAt": "2021-11-17T15:24:58.000Z",
+        "free": true,
+        "sourceModxId": 1352
+      },
+      "categoryDecision": {
+        "resolved": true,
+        "category": "sos-edes-sutemenyek-desszertek-tesztak",
+        "categorySource": "predicted",
+        "confidence": 0.9969336355337416,
+        "margin": 0.9940934295197833,
+        "matchedFeatures": [
+          {
+            "feature": "kakaopor",
+            "score": 4.021734
+          },
+          {
+            "feature": "csokis",
+            "score": 3.485469
+          },
+          {
+            "feature": "turos",
+            "score": 2.672275
+          }
+        ],
+        "reason": "predicted"
       }
     },
     {
