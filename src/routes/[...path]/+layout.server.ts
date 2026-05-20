@@ -1,4 +1,5 @@
 import { redirect } from '@sveltejs/kit';
+import { MAGAZINE_CACHE_CONTROL } from '$lib/magazine/cacheHeaders';
 import { collectionQueries, rankDocByTags } from '$lib/modx/collections';
 import { getMagazineArticle, getMagazineCollection, isCollectionSlug } from '$lib/magazine/firestore';
 import type { LayoutServerLoad } from './$types';
@@ -25,9 +26,7 @@ function bestCollectionSlug(articleTags: string[]): string | null {
 export const load: LayoutServerLoad = async ({ params, setHeaders }) => {
 	const path: string = params.path ?? '';
 
-	setHeaders({
-		'Cache-Control': 'public, s-maxage=86400, stale-while-revalidate=2592000'
-	});
+	setHeaders({ 'Cache-Control': MAGAZINE_CACHE_CONTROL });
 
 	// ── Collection page ───────────────────────────────────────────────────────
 	if (isCollectionSlug(path)) {

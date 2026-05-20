@@ -1,6 +1,5 @@
 <script context="module">
   import Cards from '$lib/components/Cards.svelte'
-  // import Carousel from '$lib/components/Carousel.svelte'
   import Search from '$lib/components/Search.svelte'
   import Nav2 from '$lib/components/Nav2.svelte'
   import BannerSide from '$lib/components/BannerSide.svelte'
@@ -23,77 +22,75 @@
 
 <script>
 // @ts-nocheck
-  // import { afterNavigate, replaceState } from '$app/navigation';
-  // import { page, navigating } from '$app/state';
-  export let data
+  import { onMount } from 'svelte'
+  import { page } from '$app/stores'
+  import MiniSearch from 'minisearch'
 
   import { hasReceptsarokAccess } from '$lib/authStore'
-  import { ads } from '$lib/ads.js'
+
+  export let data
+
   const conf = data.conf
-  const prominent = conf.side_banners.filter(sb => sb.prominent)
-  // console.log('conf.side_banners',conf.side_banners)
+  const doc = data.doc
 
-  let docstitle
-  // console.log('[path]', data.doc.related)
+  let ms = null
+  let ready = false
+  let indexLoading = false
+  let loadError = null
 
-  $: doc = data.doc
-  /** Receptsarok hits: subscription-aware lock (see CardBody). */
-  $: docs = data.docs.map((c) => {
+  onMount(async () => {
+    indexLoading = true
+    try {
+      const meta = await fetch('/search-meta.json').then(r => {
+        if (!r.ok) throw new Error(`search-meta.json: ${r.status}`)
+        return r.json()
+      })
+      const resp = await fetch(meta.indexUrl)
+      if (!resp.ok) throw new Error(`index fetch: ${resp.status}`)
+      const ds = new DecompressionStream('gzip')
+      const decompressed = resp.body.pipeThrough(ds)
+      const text = await new Response(decompressed).text()
+      ms = MiniSearch.loadJSON(text, {
+        fields: ['szerzo', 'longtitle', 'description', 'ellipsis', 'content'],
+        storeFields: ['id', 'path', 'title', 'longtitle', 'description', 'ellipsis', 'content', 'img', 'tv', 'szerzo', 'free', 'recipeTeaser'],
+      })
+      ready = true
+    } catch (err) {
+      loadError = err?.message ?? 'Hiba a keresési index betöltésekor.'
+    } finally {
+      indexLoading = false
+    }
+  })
+
+  $: q = $page.url.searchParams.get('q') ?? ''
+
+  $: hits = (ready && q && q.length >= 2)
+    ? ms.search(q, { boost: { ellipsis: 2 }, fuzzy: 0.2 })
+    : []
+
+  $: docs = hits.map((c) => {
     if (typeof c.path === 'string' && c.path.startsWith('receptsarok/')) {
       return { ...c, locked: !c.free && !$hasReceptsarokAccess }
     }
     return c
   })
-  // $: if (doc.id) console.log(doc.tv)
 
-
-
-  /* let win, pagenum = 1, volume = 18, docs = []
-  afterNavigate(() => {
-    pagenum = win?.location.hash.replace('#', '') || 1
-    docs = data.docs.slice(0, volume * pagenum)
-  })
-  const _pagenum = () => {
-    pagenum++
-    docs = data.docs.slice(0, volume * pagenum)
-    // if (volume * pagenum >= data.docs.length) pagenum = 0
-    replaceState('#'+pagenum);
-    // console.log(pagenum)
-  } */
-
-  $: pubdate = doc && new Date(doc.publishedon * 1000).toLocaleDateString('hu-HU')
-  $: editdate = doc && new Date(doc.editedon * 1000).toLocaleDateString('hu-HU')
-  // $: console.log('editedon',doc.editedon)
-  // $: console.log('publishedon',doc.publishedon)
-
-  let matchingSubcat = null;
-
-  $: Object.keys(copycats).forEach(cat => {
-    Object.keys(copycats[cat]).forEach(subcat => {
-      if (copycats[cat][subcat] === `/${doc.path}`) {
-        matchingSubcat = subcat; // Store the matching subcategory name
-      }
-    });
-  });
-
-  $: docstitle = doc.title || matchingSubcat
-  // $: console.log(doc.title, matchingSubcat)
+  $: docstitle = q ? `Keresés: "${q}"` : 'Keresés'
 </script>
 
 <svelte:head>
   <title>{(docstitle ? docstitle + ' • ' : '') + conf.sitename}</title>
-  <meta name="description" content={doc.ellipsis || conf.description || 'www.diabetes.hu • Az Alapítvány a Cukorbetegekért betegtájékoztató lapja. Kiadja a Tudomány Kiadó Kft.'}/>
-  <meta name="keywords" content={doc.tv?.tags?.join(', ') || conf.tags.join(', ') || 'diabetes, diabétesz, cukorbetegség, vese, keton, Tudomány Kiadó Kft'}/>
-  <meta name="author" content={doc.tv?.szerzo?.join(', ') || 'diabetes.hu'}/>
-  <meta name="og:image" content={doc.tv?.ogi || conf.ogi || '/icon.svg'}/>
-  <meta name="og:title" content={doc.longtitle || doc.title || conf.sitename || 'Diabetes'}/>
-  <meta name="og:description" content={doc.description || conf.description || 'www.diabetes.hu • Az Alapítvány a Cukorbetegekért betegtájékoztató lapja. Kiadja a Tudomány Kiadó Kft.'}/>
-  <meta name="og:url" content={doc.url || 'https://diabetes.hu'}/>
+  <meta name="description" content={conf.description || 'www.diabetes.hu • Az Alapítvány a Cukorbetegekért betegtájékoztató lapja. Kiadja a Tudomány Kiadó Kft.'}/>
+  <meta name="keywords" content={conf.tags?.join(', ') || 'diabetes, diabétesz, cukorbetegség, vese, keton, Tudomány Kiadó Kft'}/>
+  <meta name="author" content="diabetes.hu"/>
+  <meta name="og:image" content={conf.ogi || '/icon.svg'}/>
+  <meta name="og:title" content={docstitle || conf.sitename || 'Diabetes'}/>
+  <meta name="og:description" content={conf.description || 'www.diabetes.hu • Az Alapítvány a Cukorbetegekért betegtájékoztató lapja. Kiadja a Tudomány Kiadó Kft.'}/>
+  <meta name="og:url" content="https://diabetes.hu/keres"/>
   <meta name="og:site_name" content="Diabetes"/>
   <meta name="og:type" content="article"/>
   <meta name="og:locale" content="hu_HU"/>
 </svelte:head>
-<!-- <svelte:window bind:this={win}/> -->
 
 {#if conf.top_banners.length}
   <BannerTop banners={conf.top_banners}/>
@@ -101,13 +98,17 @@
 <Search articles={data.articleCount} recipes={data.recipeCount} />
 <Nav2 actual='keres'/>
 
+<article id="lista" class="prose mt-16 mb-8 mx-auto w-full">
+  {#if indexLoading && !ready}
+    <div class="flex justify-center py-8 not-prose">
+      <span class="loading loading-spinner loading-lg"></span>
+    </div>
+  {:else if loadError}
+    <p class="text-center text-error">{loadError}</p>
+  {:else if docs.length}
+    <h1 class="text-center">{docstitle}</h1>
+  {/if}
+</article>
 {#if docs.length}
-  <article id="lista" class="prose mt-16 mb-8 mx-auto w-full">
-    {#if !doc.id}
-      <h1 class="text-center">{doc.id && '' || docstitle}</h1>
-    {:else}
-      <h2 class="text-center">Hasonló cikkek</h2>
-    {/if}
-  </article>
   <Cards cards={docs} banners={conf.side_banners} ads_distance={conf.ads_distance}/>
 {/if}
