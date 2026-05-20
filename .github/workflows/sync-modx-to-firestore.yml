@@ -1,0 +1,83 @@
+# Incremental MODX → Firestore sync (scripts/sync-modx-to-firestore.mjs).
+#
+# Required repository secrets:
+#   MODXDB_HOST, MODXDB_USER, MODXDB_DATABASE, MODXDB_PASSWORD
+#   FIREBASE_ADMIN_KEY  — Firebase service account JSON (single line)
+#   FIREBASE_STORAGE_BUCKET
+#   CPANEL_URL          — cPanel HTTPS API base, e.g. https://example.com:2083
+#   CPANEL_USER         — cPanel account username (API token owner)
+#   CPANEL_TOKEN        — cPanel API token (e.g. GitHubActions)
+#
+# Optional secrets:
+#   MODXDB_PORT              (default 3306 in the sync script)
+#   PUBLIC_BASE_URL          (default https://www.diabetes.hu/)
+#   NETLIFY_SITE_ID, NETLIFY_ACCESS_TOKEN  (edge-cache purge after changes)
+
+name: Sync MODX to Firestore
+
+on:
+  schedule:
+    # Every 20 minutes (UTC). GitHub may delay scheduled runs by several minutes.
+    - cron: '*/20 * * * *'
+  workflow_dispatch:
+
+concurrency:
+  group: modx-firestore-sync
+  cancel-in-progress: false
+
+jobs:
+  # Allow → sync → revoke must stay in this single job so revoke can read
+  # steps.cpanel_mysql.outputs.ip (step outputs are not visible across jobs).
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Allow GitHub Actions runner IP in cPanel Remote MySQL
+        id: cpanel_mysql
+        env:
+          CPANEL_URL: ${{ secrets.CPANEL_URL }}
+          CPANEL_USER: ${{ secrets.CPANEL_USER }}
+          CPANEL_TOKEN: ${{ secrets.CPANEL_TOKEN }}
+        run: |
+          set -euo pipefail
+          RUNNER_IP="$(curl -4 -fsS https://api.ipify.org)"
+          echo "ip=${RUNNER_IP}" >> "$GITHUB_OUTPUT"
+          bash scripts/cpanel-remote-mysql-ip.sh add "${RUNNER_IP}"
+
+      - name: Wait for Remote MySQL ACL propagation
+        run: sleep 5
+
+      - name: Run MODX → Firestore sync
+        run: npm run sync:modx
+        env:
+          MODXDB_HOST: ${{ secrets.MODXDB_HOST }}
+          MODXDB_PORT: ${{ secrets.MODXDB_PORT }}
+          MODXDB_USER: ${{ secrets.MODXDB_USER }}
+          MODXDB_DATABASE: ${{ secrets.MODXDB_DATABASE }}
+          MODXDB_PASSWORD: ${{ secrets.MODXDB_PASSWORD }}
+          FIREBASE_ADMIN_KEY: ${{ secrets.FIREBASE_ADMIN_KEY }}
+          FIREBASE_STORAGE_BUCKET: ${{ secrets.FIREBASE_STORAGE_BUCKET }}
+          PUBLIC_BASE_URL: ${{ secrets.PUBLIC_BASE_URL }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+          NETLIFY_ACCESS_TOKEN: ${{ secrets.NETLIFY_ACCESS_TOKEN }}
+
+      - name: Revoke GitHub Actions runner IP from cPanel Remote MySQL
+        if: always() && steps.cpanel_mysql.outcome == 'success'
+        env:
+          CPANEL_URL: ${{ secrets.CPANEL_URL }}
+          CPANEL_USER: ${{ secrets.CPANEL_USER }}
+          CPANEL_TOKEN: ${{ secrets.CPANEL_TOKEN }}
+        run: bash scripts/cpanel-remote-mysql-ip.sh remove "${{ steps.cpanel_mysql.outputs.ip }}"

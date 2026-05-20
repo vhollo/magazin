@@ -1,28 +1,23 @@
 import { getSiteConf, getRecipes } from '$lib/siteConf';
-import { listedDocs } from '$lib/modx';
-// import { building } from '$app/environment';
+import { getMagazineStats } from '$lib/magazine/firestore';
 const conf = await getSiteConf();
 
-export async function load({ params, url }) {
-  const doc = {'path': '/'}
-  let docs:object[]
-  // if (building) {
-  //   docs = allDocs
-  // } else {
-    docs = listedDocs.slice(0, 18 * 4)
-  // }
+export async function load({ url }) {
+  const doc = { path: '/' }
 
-  const recipes = await getRecipes()
+  const [stats, recipes] = await Promise.all([
+    getMagazineStats(),
+    getRecipes(),
+  ])
+
   const recipeCount = recipes.filter((r: { published?: boolean }) => r.published !== false).length
   const freeCount = recipes.filter((r: { published?: boolean; free?: boolean }) => r.published !== false && r.free === true).length
-  // console.log('load:',docs.length, url.pathname)
+
   return {
     conf,
     path: url.pathname,
     doc,
-    docs,
-    count: listedDocs.length,
-    articleCount: listedDocs.length,
+    articleCount: stats.articleCount,
     recipeCount,
     freeCount,
   }

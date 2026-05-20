@@ -1,5 +1,3 @@
-export const prerender = true
-
 import { getRecipes } from '$lib/siteConf'
 import { toLayoutRecipe, type Recipe, type RecipeLayoutEntry } from '$lib/receptsarok'
 import type { PageServerLoad } from './$types'
