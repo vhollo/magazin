@@ -1,0 +1,15 @@
+[
+  {
+    "origin": [
+      "http://localhost:5173",
+      "http://localhost:5174",
+      "http://localhost:4173",
+      "http://127.0.0.1:4173",
+      "https://diabetes.hu",
+      "https://www.diabetes.hu"
+    ],
+    "method": ["GET", "HEAD"],
+    "responseHeader": ["Content-Type", "Content-Length", "Content-Encoding"],
+    "maxAgeSeconds": 3600
+  }
+]

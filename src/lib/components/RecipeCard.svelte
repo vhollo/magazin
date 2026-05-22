@@ -98,7 +98,9 @@
       }}/>
     </div>
     <div class="card-actions justify-between items-center mt-4">
-      <small class="opacity-50">{recipe.servings.amount} {recipe.servings.unit}</small>
+      {#if recipe.servings?.amount}
+        <small class="opacity-50">{recipe.servings.amount} {recipe.servings.unit}</small>
+      {/if}
       <div class="flex gap-1">
         {#if free}
           <span class="badge badge-success badge-xs">ingyenes</span>

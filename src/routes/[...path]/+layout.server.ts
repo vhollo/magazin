@@ -1,13 +1,10 @@
 import { redirect } from '@sveltejs/kit';
 import { MAGAZINE_CACHE_CONTROL } from '$lib/magazine/cacheHeaders';
-import { collectionQueries, rankDocByTags } from '$lib/modx/collections';
+import { collectionQueries, rankDocByTags, type ThinCard } from '$lib/modx/collections';
 import { getMagazineArticle, getMagazineCollection, isCollectionSlug } from '$lib/magazine/firestore';
 import type { LayoutServerLoad } from './$types';
 
-/**
- * Returns the collection slug whose tag query best matches the article's tags.
- * Used to populate the "Hasonló cikkek" grid on article pages.
- */
+/** Best tag-collection slug for an article's tags (fallback similar-articles source). */
 function bestCollectionSlug(articleTags: string[]): string | null {
 	if (!articleTags.length) return null;
 	let best: string | null = null;
@@ -21,6 +18,19 @@ function bestCollectionSlug(articleTags: string[]): string | null {
 		}
 	}
 	return best;
+}
+
+function similarCards(
+	doc: { id?: number | string; relatedCards?: ThinCard[] },
+	articleTags: string[],
+	slug: string | null
+): Promise<ThinCard[]> {
+	const stored = doc.relatedCards?.filter((c) => String(c.id) !== String(doc.id));
+	if (stored?.length) return Promise.resolve(stored);
+	if (!slug) return Promise.resolve([]);
+	return getMagazineCollection(slug).then((col) =>
+		(col?.cards ?? []).filter((c) => String(c.id) !== String(doc.id))
+	);
 }
 
 export const load: LayoutServerLoad = async ({ params, setHeaders }) => {
@@ -48,18 +58,8 @@ export const load: LayoutServerLoad = async ({ params, setHeaders }) => {
 		redirect(308, doc.redirect);
 	}
 
-	// Load similar articles from the best-matching collection (one extra read).
 	const articleTags: string[] = (doc.tv?.tags as string[]) ?? [];
-	const slug = bestCollectionSlug(articleTags);
-	let docs: unknown[] = [];
-
-	if (slug) {
-		const col = await getMagazineCollection(slug);
-		if (col) {
-			// Exclude the current article from the similar list
-			docs = (col.cards ?? []).filter((c) => String(c.id) !== String((doc as any).id));
-		}
-	}
+	const docs = await similarCards(doc, articleTags, bestCollectionSlug(articleTags));
 
 	return { doc, docs };
 };

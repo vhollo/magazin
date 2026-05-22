@@ -12,6 +12,7 @@ This document describes the logic and behavior of all routes in the Diabetes.hu 
 6. [Subscription Route (`/elofizetes`)](#subscription-route-elofizetes)
 7. [Dynamic Content Routes (`/[...path]`)](#dynamic-content-routes-path)
 8. [Authentication Logic](#authentication-logic)
+9. [Magazine Content Sync (MODX → Firestore)](#magazine-content-sync-modx--firestore)
 
 ---
 
@@ -160,11 +161,10 @@ Nav2 defines the secondary navigation menu with categorized content sections:
 
 ### Server-Side Logic (`+page.server.ts`)
 
-- **Prerendering**: Enabled (`prerender = true`)
+- **SSR** (not prerendered): one Firestore read of `collections/home`
 - **Data Loading**:
-  - Loads site configuration via `getSiteConf()`
-  - Retrieves first 72 documents (18 × 4) from `allDocs`
-  - Returns: `conf`, `path`, `doc` (with path `/`), `docs` (limited), and `count` (total docs)
+  - Returns latest 72 article cards from `collections/home`
+  - `Cache-Control`: CDN-cached (`s-maxage=86400`)
 
 ### Client-Side Logic (`+page.svelte`)
 
@@ -320,30 +320,25 @@ Nav2 defines the secondary navigation menu with categorized content sections:
 **Files:**
 - `src/routes/keres/+page.svelte`
 - `src/routes/keres/+layout.server.ts`
+- `src/routes/api/search-meta/+server.ts`
 
 ### Layout Server (`+layout.server.ts`)
 
-- **Prerendering**: Disabled (`prerender = false`)
-- **Search Setup**:
-  - Initializes MiniSearch with fields: `szerzo`, `longtitle`, `description`, `ellipsis`, `content`
-  - Stores fields: `longtitle`, `path`, `description`, `ellipsis`, `content`
-  - Custom field extractor for `szerzo` (joins author names)
-  - Indexes all documents
+- **Prerendering**: Enabled (`prerender = true`) — static page shell only
+- Returns `{ doc: { path: 'keres', title: 'Keresés' } }`; no document index on the server
 
-### Page Load (`+layout.server.ts`)
+### Search index (client-side)
 
-- **Query Processing**:
-  - Extracts `q` parameter from URL
-  - Performs search with fuzzy matching (0.2 threshold)
-  - Boosts `ellipsis` field (weight: 2)
-  - Returns search results and document count
+- On mount, fetches `/api/search-meta` (fallback: `/search-meta.json`)
+- Downloads gzipped MiniSearch index from Firebase Storage (`meta/search.indexUrl`)
+- All queries run locally in the browser (`MiniSearch.loadJSON`, fuzzy 0.2, `ellipsis` boost 2)
+- If index unavailable: friendly error message; nav/search box still render
 
 ### Page Component (`+page.svelte`)
 
 - **Display**:
   - Shows search query in title: `Keresés: "{query}"`
-  - Displays results using `Cards` component
-  - Shows "Hasonló cikkek" if viewing specific document
+  - Displays results using `Cards` component (includes Receptsarok hits with lock state)
   - Empty results show no error (handled by Cards component)
 
 ---
@@ -414,21 +409,16 @@ Nav2 defines the secondary navigation menu with categorized content sections:
 
 ### Layout Server (`+layout.server.ts`)
 
-- **Prerendering**: Enabled
-- Loads site configuration
-- Returns configuration and document count
+- **SSR** (not prerendered): one Firestore read per request (`collections/{slug}` or `docs/{encodedPath}`)
+- **Collection slugs**: precomputed `collections/{slug}` (top 72 cards)
+- **Article paths**: `docs/{encodedPath}`; similar articles from `doc.relatedCards` or fallback collection read
+- **Cache-Control**: CDN-cached (`s-maxage=86400`)
+- Tag-collection definitions and ranking live in `src/lib/modx/collections.ts` (same logic as sync worker)
 
-### Page Server (`+page.server.ts`)
+#### Collection slugs (precomputed at sync time)
 
-- **Prerendering**: Enabled
-- **Route Matching Logic**:
-
-#### 1. Collection Routes (Tag-Based)
-
-Defined collections with tag queries:
 - `s-o-s`: ['diabpont', 'edukáció', '-covid-19']
 - `junior`: ['+junior', '-covid-19']
-- `gdm`: ['+várandósság', '-személyes']
 - `varandossag`: ['+várandósság', '+személyes']
 - `gyermekvallalas`: ['+várandósság', 'edukáció']
 - `inzulinok`: ['+inzulin', 'piac', 'kezelés', '-önellenőrzés']
@@ -473,18 +463,16 @@ Defined collections with tag queries:
 5. Sorts by rank (descending)
 6. Returns top 72 documents (18 × 4)
 
-#### 2. Individual Document Routes
+#### Individual document routes
 
-- Finds document by matching `path` parameter
-- If not found: Redirects to search page with path as query
-- If found: Returns document and related articles based on document's tags
+- Loads `docs/{encodeDocPathId(path)}` from Firestore
+- If not found: redirects to `/keres?q=…`
+- If found: returns document; similar articles from `doc.relatedCards` (precomputed at sync) or collection fallback
 
-#### 3. Related Articles Logic
+#### Related articles
 
-- Uses document's tags to find related content
-- Excludes current document (`doc.id`)
-- Filters out folders (`!doc.isfolder`)
-- Returns top 72 related articles sorted by relevance
+- Primary source: `doc.relatedCards` on the Firestore document (patched by sync worker)
+- Fallback: read matching `collections/{slug}` when relatedCards empty
 
 ### Page Component (`+page.svelte`)
 
@@ -602,14 +590,61 @@ When a magazine article has the `recept` tag, the `[...path]/+page.svelte` shows
 
 ---
 
+## Magazine Content Sync (MODX → Firestore)
+
+Magazine articles are **not** bundled in the Netlify build. MODX MySQL is read only by the sync worker (`scripts/sync-modx-to-firestore.mjs`), which writes to Firestore and Firebase Storage. The live app reads `docs/{path}`, `collections/{slug}`, and `meta/search` at SSR/browse time.
+
+**Scheduled sync**: GitHub Actions workflow `.github/workflows/sync-modx-to-firestore.yml` (every ~15 min). Manual run supports **full backfill** via workflow input.
+
+**Receptsarok redirects**: Static entries in `src/lib/data/receptsarok-redirects.json` are loaded at sync time. For new magazine `recept` docs, the sync worker also **matches against `recipes.json`** (title/author/alias, same rules as `recipes:dedupe:manual`) and sets `doc.redirect` → `/receptsarok/{year}/{id}`. New matches are appended to `receptsarok-redirects.json` during sync (commit that file when it changes locally).
+
+### Commands
+
+Run from repo root (`magazin/`). Requires `.env` with `MODXDB_*`, `FIREBASE_ADMIN_KEY`; Storage uploads also need `FIREBASE_STORAGE_BUCKET` (or project id in service account → `{project}.firebasestorage.app`).
+
+| Command | Script | When to use |
+|---------|--------|-------------|
+| `npm run sync:modx` | `scripts/sync-modx-to-firestore.mjs` | **Incremental sync** — MODX rows with `editedon > meta/sync.lastEdit`. Normal production updates (also run by cron). |
+| `npm run sync:modx:full` | `… --full` | **One-time / full backfill** — all published magazine rows → Firestore `docs/`, `collections/`, search index, `relatedCards`, `meta/sync`. New environment or empty Firestore. |
+| `npm run sync:modx:finish` | `scripts/finish-modx-sync.mjs` | **Repair pass** — `docs/` already populated but search index, `relatedCards`, or `meta/search` missing (e.g. sync failed mid-run). |
+| `npm run verify:firestore-magazine` | `scripts/verify-firestore-magazine.mjs` | **Spot-check** — counts `docs/*`, `collections/*`, `meta/search`, sample routes, index URL reachability. |
+
+**Optional env** (sync worker): `NETLIFY_SITE_ID`, `NETLIFY_ACCESS_TOKEN` — purge CDN cache for changed article paths after sync (non-fatal if unset).
+
+**What gets written**
+
+- `docs/{encodedPath}` — full article payload
+- `collections/{slug}` + `collections/home` — top 72 thin cards per tag collection
+- `meta/search` — `{ indexUrl, version, articleCount, recipeCount }`
+- `meta/stats`, `meta/sync.lastEdit`
+- `static/search-meta.json` — fallback for `/keres` when API unavailable
+
+### Agent reminders
+
+**When assisting the user, proactively remind them to run the relevant command if their task matches:**
+
+| User situation | Remind them to run |
+|----------------|-------------------|
+| First deploy, new Firebase project, or empty article pages / 503 on `/api/search-meta` | `npm run sync:modx:full` then `npm run verify:firestore-magazine` |
+| Edited/published MODX article but live site still stale (and cron not enough) | `npm run sync:modx` (or trigger GitHub Actions **Sync MODX to Firestore** workflow) |
+| `/keres` shows “index not available” but articles load | `npm run sync:modx:finish` |
+| After any sync, or debugging missing/wrong article counts | `npm run verify:firestore-magazine` |
+| New MODX `recept` article should redirect to Receptsarok but doesn't | Run `npm run sync:modx` — redirect is computed at sync time; commit updated `receptsarok-redirects.json` if changed |
+| Transform pipeline / collection query logic changed in code | `npm run sync:modx:full` (or incremental if only future edits matter) |
+| User asks how content gets to production without Netlify rebuild | Explain cron + `sync:modx`; code deploys ≠ content deploy |
+
+Do **not** suggest `npm run build` to refresh article text — content updates come from the sync worker, not the SvelteKit build.
+
+---
+
 ## Data Flow Summary
 
 1. **Site Configuration**: Loaded in layout servers, available to all routes
-2. **Documents**: Loaded from `allDocs` (MODX-based content)
+2. **Documents**: Firestore `docs/` + `collections/` via `$lib/magazine/firestore` (synced from MODX by `npm run sync:modx*`)
 3. **Quizzes**: Loaded from Firestore via `getKviz()`
 4. **Scores**: Stored in Firestore at `kviz/{quizId}/scores/{uid}` (subcollection under each quiz document, stores `name`, `email`, `score`, `date` to the actual quiz/scores table)
 5. **Recipes**: Loaded from Firestore via `getRecipes()` and `getCategories()`; JSON cached as `recipes.json` and `categories.json`
-6. **Search**: Client-side (MiniSearch) for both articles and pharmacies
+6. **Search**: Client-side MiniSearch index from Firebase Storage (`/keres`; meta via `/api/search-meta`)
 7. **Navigation**: 
    - **Nav1** (Primary): Main menu with direct links and dropdowns (`nav1.js`); includes Receptsarok link
    - **Nav2** (Secondary): Categorized content sections (`nav2.js`)

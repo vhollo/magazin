@@ -18,8 +18,22 @@ function getFirebaseStorage() {
  * @param {string} contentType
  * @param {Record<string, string>} [metadata]
  */
+function resolveBucketName() {
+  if (process.env.FIREBASE_STORAGE_BUCKET) return process.env.FIREBASE_STORAGE_BUCKET
+  const raw = process.env.FIREBASE_ADMIN_KEY
+  if (raw) {
+    try {
+      const projectId = JSON.parse(raw).project_id
+      if (projectId) return `${projectId}.firebasestorage.app`
+    } catch {
+      /* ignore */
+    }
+  }
+  return null
+}
+
 export async function uploadPublicFile(objectPath, buffer, contentType, metadata = {}) {
-  const bucketName = process.env.FIREBASE_STORAGE_BUCKET
+  const bucketName = resolveBucketName()
   if (!bucketName) {
     throw new Error('FIREBASE_STORAGE_BUCKET is required for Storage uploads')
   }

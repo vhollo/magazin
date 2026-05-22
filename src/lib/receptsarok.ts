@@ -161,6 +161,32 @@ export function isRecipeFree(recipe: { free?: boolean | string }): boolean {
   )
 }
 
+/** True for `/receptsarok/{year}/{id}` recipe detail paths, not magazine paths like `/receptsarok/levesek/...`. */
+export function isReceptsarokRecipePath(path: string | undefined | null): boolean {
+  return typeof path === 'string' && /^receptsarok\/\d{4}\//.test(path)
+}
+
+/** Top-level macros with fallback to the first nutrition table row. */
+export function recipeMacroFields(recipe: {
+  energy?: number | null
+  protein?: number | null
+  fat?: number | null
+  saturatedFat?: number | null
+  carbs?: number | null
+  fiber?: number | null
+  nutritionTables?: NutritionValues[]
+}): Pick<RecipeTeaser, 'energy' | 'protein' | 'fat' | 'saturatedFat' | 'carbs' | 'fiber'> {
+  const t = recipe.nutritionTables?.[0]
+  return {
+    energy: recipe.energy ?? t?.energy ?? null,
+    protein: recipe.protein ?? t?.protein ?? null,
+    fat: recipe.fat ?? t?.fat ?? null,
+    saturatedFat: recipe.saturatedFat ?? t?.saturatedFat ?? null,
+    carbs: recipe.carbs ?? t?.carbs ?? null,
+    fiber: recipe.fiber ?? t?.fiber ?? null,
+  }
+}
+
 /** Remove body fields from serialized recipe data (ingredients, instructions, search helpers). */
 export function stripRecipeGatedFields(recipe: Recipe): Recipe {
   return {
@@ -174,24 +200,35 @@ export function stripRecipeGatedFields(recipe: Recipe): Recipe {
 }
 
 export function toTeaser(recipe: Recipe): RecipeTeaser {
+  return normalizeRecipeTeaser(recipe)
+}
+
+/** Fill gaps in search-index / legacy stored teasers so RecipeCard always has required fields. */
+export function normalizeRecipeTeaser(
+  raw: Partial<RecipeTeaser> & Pick<RecipeTeaser, 'year' | 'id' | 'title'>
+): RecipeTeaser {
+  const servings =
+    raw.servings &&
+    typeof raw.servings === 'object' &&
+    typeof raw.servings.amount === 'number'
+      ? raw.servings
+      : { amount: 0, unit: '' }
+
+  const macros = recipeMacroFields(raw)
+
   return {
-    id: recipe.id,
-    year: recipe.year,
-    title: recipe.title,
-    author: recipe.author,
-    category: recipe.category,
-    energy: recipe.energy,
-    protein: recipe.protein,
-    fat: recipe.fat,
-    saturatedFat: recipe.saturatedFat,
-    carbs: recipe.carbs,
-    fiber: recipe.fiber,
-    image: recipe.image,
-    img: recipe.img ?? recipeHeroToCardImg(recipe.year, recipe.image, undefined),
-    video: recipe.video,
-    servings: recipe.servings,
-    hasSubRecipes: recipe.hasSubRecipes,
-    free: isRecipeFree(recipe),
+    id: raw.id,
+    year: raw.year,
+    title: raw.title,
+    author: raw.author ?? '',
+    category: raw.category ?? '',
+    ...macros,
+    image: raw.image ?? null,
+    img: raw.img ?? recipeHeroToCardImg(raw.year, raw.image, undefined) ?? undefined,
+    video: raw.video,
+    servings,
+    hasSubRecipes: Boolean(raw.hasSubRecipes),
+    free: isRecipeFree(raw),
   }
 }
 

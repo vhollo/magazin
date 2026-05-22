@@ -1,4 +1,4 @@
-<script context="module">
+<script module>
   import { nav1 } from '$lib/nav1.js'
   import { nav2 } from '$lib/nav2.js'
   import { goto } from '$app/navigation'

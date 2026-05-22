@@ -1,4 +1,4 @@
-<script context="module">
+<script module>
   const cats = {
     'orvos': 'Orvosok üzenetei',
     'szemle': 'Hasznos tudnivalók',

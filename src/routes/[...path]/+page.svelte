@@ -1,4 +1,4 @@
-<script context="module">
+<script module>
   import Cards from '$lib/components/Cards.svelte'
   import Carousel from '$lib/components/Carousel.svelte'
   import Search from '$lib/components/Search.svelte'
@@ -27,8 +27,8 @@
   export let data
 
   import { ads } from '$lib/ads.js'
-  const conf = data.conf
-  const prominent = conf.side_banners.filter(sb => sb.prominent)
+  $: conf = data.conf
+  $: prominent = conf.side_banners.filter(sb => sb.prominent)
   // console.log('conf.side_banners',conf.side_banners)
 
   // let docstitle

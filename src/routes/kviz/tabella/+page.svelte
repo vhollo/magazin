@@ -4,7 +4,9 @@
 	import Nav2 from '$lib/components/Nav2.svelte';
 
 	const { data }: PageProps = $props();
-	const { leaderboard, doc, conf } = data;
+	const leaderboard = $derived(data.leaderboard);
+	const doc = $derived(data.doc);
+	const conf = $derived(data.conf);
 </script>
 
 <svelte:head>

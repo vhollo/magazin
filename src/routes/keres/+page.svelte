@@ -1,4 +1,4 @@
-<script context="module">
+<script module>
   import Cards from '$lib/components/Cards.svelte'
   import Search from '$lib/components/Search.svelte'
   import Nav2 from '$lib/components/Nav2.svelte'
@@ -22,58 +22,136 @@
 
 <script>
 // @ts-nocheck
-  import { onMount } from 'svelte'
+  import { browser } from '$app/environment'
+  import { afterNavigate } from '$app/navigation'
+  import { onMount, tick } from 'svelte'
   import { page } from '$app/stores'
-  import MiniSearch from 'minisearch'
 
   import { hasReceptsarokAccess } from '$lib/authStore'
+  import { getCachedSearchIndex, getSearchIndex } from '$lib/magazine/searchIndexCache'
+  import { isReceptsarokRecipePath, normalizeRecipeTeaser } from '$lib/receptsarok'
 
   export let data
 
-  const conf = data.conf
-  const doc = data.doc
+  $: conf = data.conf
+  $: doc = data.doc
+  $: recipeTeasersByKey = data.recipeTeasersByKey ?? {}
 
-  let ms = null
-  let ready = false
-  let indexLoading = false
+  const cachedOnInit = browser ? getCachedSearchIndex() : null
+  let ms = cachedOnInit
+  let ready = !!cachedOnInit
+  let indexLoading = !cachedOnInit
   let loadError = null
+  /** Cards restored from snapshot on browser Back (instant paint). */
+  let restoredDocs = null
+  /** Scroll to apply after result cards have rendered (SvelteKit scroll runs too early). */
+  let pendingScrollY = null
+
+  async function restoreScrollWhenReady() {
+    if (pendingScrollY == null || !browser) return
+    const y = pendingScrollY
+    await tick()
+    await tick()
+
+    let attempts = 0
+    const tryScroll = () => {
+      window.scrollTo({ top: y, left: 0, behavior: 'auto' })
+      attempts++
+      const maxScroll = Math.max(0, document.documentElement.scrollHeight - window.innerHeight)
+      const target = Math.min(y, maxScroll)
+      if (Math.abs(window.scrollY - target) <= 2 || attempts >= 12) {
+        pendingScrollY = null
+        return
+      }
+      setTimeout(tryScroll, 50)
+    }
+
+    requestAnimationFrame(() => requestAnimationFrame(tryScroll))
+  }
+
+  /** @type {import('./$types').Snapshot<{ docs: unknown[]; scrollY: number }>} */
+  export const snapshot = {
+    capture: () => ({
+      docs: displayDocs,
+      scrollY: browser ? window.scrollY : 0,
+    }),
+    restore: (value) => {
+      if (value?.docs?.length) restoredDocs = value.docs
+      if (browser && typeof value?.scrollY === 'number') {
+        pendingScrollY = value.scrollY
+      }
+    },
+  }
+
+  afterNavigate((navigation) => {
+    if (navigation.type !== 'popstate') return
+    if (navigation.to?.url?.pathname !== '/keres') return
+    if (displayDocs.length && pendingScrollY != null) restoreScrollWhenReady()
+  })
 
   onMount(async () => {
+    if (ready) return
     indexLoading = true
     try {
-      const meta = await fetch('/search-meta.json').then(r => {
-        if (!r.ok) throw new Error(`search-meta.json: ${r.status}`)
-        return r.json()
-      })
-      const resp = await fetch(meta.indexUrl)
-      if (!resp.ok) throw new Error(`index fetch: ${resp.status}`)
-      const ds = new DecompressionStream('gzip')
-      const decompressed = resp.body.pipeThrough(ds)
-      const text = await new Response(decompressed).text()
-      ms = MiniSearch.loadJSON(text, {
-        fields: ['szerzo', 'longtitle', 'description', 'ellipsis', 'content'],
-        storeFields: ['id', 'path', 'title', 'longtitle', 'description', 'ellipsis', 'content', 'img', 'tv', 'szerzo', 'free', 'recipeTeaser'],
-      })
+      ms = await getSearchIndex()
       ready = true
     } catch (err) {
-      loadError = err?.message ?? 'Hiba a keresési index betöltésekor.'
+      loadError =
+        'A keresési index még nem érhető el. Próbálja újra később, vagy böngésszen a rovatok között.'
+      if (import.meta.env.DEV || (typeof window !== 'undefined' && /localhost|127\.0\.0\.1/.test(window.location.hostname))) {
+        console.warn('search index load failed:', err)
+        console.warn(
+          'Bucket CORS (production direct fetch): gsutil cors set scripts/storage-cors.json gs://diabetes-hu.firebasestorage.app'
+        )
+      }
     } finally {
       indexLoading = false
     }
   })
 
-  $: q = $page.url.searchParams.get('q') ?? ''
+  $: q = browser ? ($page.url.searchParams.get('q') ?? '') : ''
 
   $: hits = (ready && q && q.length >= 2)
     ? ms.search(q, { boost: { ellipsis: 2 }, fuzzy: 0.2 })
     : []
 
+  function recipeTeaserFromHit(c, teasersByKey) {
+    const partial = c.recipeTeaser ?? {}
+    let year = partial.year
+    let id = partial.id
+    const m = /^receptsarok\/(\d+)\/([^/]+)/.exec(c.path ?? '')
+    if (m) {
+      year = Number(m[1])
+      id = decodeURIComponent(m[2])
+    }
+    const key = year && id ? `${year}/${id}` : ''
+    const fromRecipes = key ? teasersByKey?.[key] : null
+    return normalizeRecipeTeaser({
+      ...(fromRecipes ?? partial),
+      year: year ?? partial.year,
+      id: id ?? partial.id,
+      title: (fromRecipes ?? partial).title ?? c.title ?? '',
+    })
+  }
+
   $: docs = hits.map((c) => {
-    if (typeof c.path === 'string' && c.path.startsWith('receptsarok/')) {
-      return { ...c, locked: !c.free && !$hasReceptsarokAccess }
+    if (isReceptsarokRecipePath(c.path)) {
+      return {
+        ...c,
+        recipeTeaser: recipeTeaserFromHit(c, recipeTeasersByKey),
+        locked: !c.free && !$hasReceptsarokAccess,
+      }
     }
     return c
   })
+
+  $: if (docs.length) restoredDocs = null
+
+  $: displayDocs = docs.length ? docs : (restoredDocs ?? [])
+
+  $: if (browser && displayDocs.length && pendingScrollY != null) {
+    restoreScrollWhenReady()
+  }
 
   $: docstitle = q ? `Keresés: "${q}"` : 'Keresés'
 </script>
@@ -95,20 +173,20 @@
 {#if conf.top_banners.length}
   <BannerTop banners={conf.top_banners}/>
 {/if}
-<Search articles={data.articleCount} recipes={data.recipeCount} />
+<Search articles={data.articleCount} recipes={data.recipeCount} {q} />
 <Nav2 actual='keres'/>
 
 <article id="lista" class="prose mt-16 mb-8 mx-auto w-full">
-  {#if indexLoading && !ready}
+  {#if indexLoading && !ready && !displayDocs.length}
     <div class="flex justify-center py-8 not-prose">
       <span class="loading loading-spinner loading-lg"></span>
     </div>
   {:else if loadError}
     <p class="text-center text-error">{loadError}</p>
-  {:else if docs.length}
+  {:else if displayDocs.length}
     <h1 class="text-center">{docstitle}</h1>
   {/if}
 </article>
-{#if docs.length}
-  <Cards cards={docs} banners={conf.side_banners} ads_distance={conf.ads_distance}/>
+{#if displayDocs.length}
+  <Cards cards={displayDocs} banners={conf.side_banners} ads_distance={conf.ads_distance}/>
 {/if}

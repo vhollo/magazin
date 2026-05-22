@@ -1,4 +1,4 @@
-<script context="module">
+<script module>
   import { nav2 } from '$lib/nav2.js'
 </script>
 

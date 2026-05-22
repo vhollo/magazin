@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-05-14T16:40:32.979Z",
-  "sourceDocs": "src/lib/data/data.json",
+  "generatedAt": "2026-05-22T22:15:45.695Z",
+  "sourceDocs": "sync worker (dynamic match + existing manifest)",
   "sourceRecipes": "src/lib/data/recipes.json",
   "entries": [
     {
@@ -2954,6 +2954,12 @@
       "path": "receptsarok/husetelek/sult-csirkecomb-kaposztas-raguval",
       "year": 2025,
       "id": "sult-csirkecomb-kaposztas-raguval"
+    },
+    {
+      "modxContentId": 4458,
+      "path": "receptsarok/koretek-italok-hidegkonyha/hazi-keszitesu-pulykaszalami",
+      "year": 2025,
+      "id": "hazi-keszitesu-pulykaszalami"
     },
     {
       "modxContentId": 4387,

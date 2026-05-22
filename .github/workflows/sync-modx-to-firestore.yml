@@ -17,13 +17,25 @@ name: Sync MODX to Firestore
 
 on:
   schedule:
-    # Every 20 minutes (UTC). GitHub may delay scheduled runs by several minutes.
-    - cron: '*/20 * * * *'
+    # Every 15 minutes (UTC). GitHub may delay scheduled runs by several minutes.
+    - cron: '*/15 * * * *'
   workflow_dispatch:
+    inputs:
+      full_backfill:
+        description: 'Run full backfill (--full) instead of incremental sync'
+        required: false
+        default: 'false'
+        type: choice
+        options:
+          - 'false'
+          - 'true'
 
 concurrency:
   group: modx-firestore-sync
   cancel-in-progress: false
+
+permissions:
+  contents: write
 
 jobs:
   # Allow → sync → revoke must stay in this single job so revoke can read
@@ -61,7 +73,8 @@ jobs:
         run: sleep 5
 
       - name: Run MODX → Firestore sync
-        run: npm run sync:modx
+        id: sync
+        run: ${{ (github.event_name == 'workflow_dispatch' && github.event.inputs.full_backfill == 'true') && 'npm run sync:modx:full' || 'npm run sync:modx' }}
         env:
           MODXDB_HOST: ${{ secrets.MODXDB_HOST }}
           MODXDB_PORT: ${{ secrets.MODXDB_PORT }}
@@ -73,6 +86,25 @@ jobs:
           PUBLIC_BASE_URL: ${{ secrets.PUBLIC_BASE_URL }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
           NETLIFY_ACCESS_TOKEN: ${{ secrets.NETLIFY_ACCESS_TOKEN }}
+
+      - name: Commit redirect manifest updates
+        if: success() && steps.sync.outcome == 'success'
+        continue-on-error: true
+        run: |
+          set -euo pipefail
+          if git diff --quiet -- src/lib/data/receptsarok-redirects.json; then
+            echo "No redirect manifest changes"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src/lib/data/receptsarok-redirects.json
+          git commit -m "$(cat <<'EOF'
+chore(sync): update receptsarok redirect manifest from MODX sync
+
+EOF
+)"
+          git push
 
       - name: Revoke GitHub Actions runner IP from cPanel Remote MySQL
         if: always() && steps.cpanel_mysql.outcome == 'success'

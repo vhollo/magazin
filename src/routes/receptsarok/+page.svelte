@@ -1,4 +1,4 @@
-<script context="module">
+<script module>
   import Search from '$lib/components/Search.svelte'
   import Nav2 from '$lib/components/Nav2.svelte'
   import MealPlanner from '$lib/components/MealPlanner.svelte'
@@ -8,15 +8,17 @@
 <script lang="ts">
   let { data } = $props()
 
-  const categories = data.categories
-  const totalRecipes = data.recipes.length
-  const freeCount = data.recipes.filter((r: any) => r.free).length
-  const freeCountsByCategory = data.recipes.reduce((acc: Record<string, number>, recipe: any) => {
-    if (recipe.free) {
-      acc[recipe.category] = (acc[recipe.category] ?? 0) + 1
-    }
-    return acc
-  }, {})
+  const categories = $derived(data.categories)
+  const totalRecipes = $derived(data.recipes.length)
+  const freeCount = $derived(data.recipes.filter((r: { free?: boolean }) => r.free).length)
+  const freeCountsByCategory = $derived(
+    data.recipes.reduce((acc: Record<string, number>, recipe: { free?: boolean; category?: string }) => {
+      if (recipe.free) {
+        acc[recipe.category ?? ''] = (acc[recipe.category ?? ''] ?? 0) + 1
+      }
+      return acc
+    }, {})
+  )
 
   let showPlanner = $state(false)
 </script>

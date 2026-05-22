@@ -1,4 +1,4 @@
-<script context="module">
+<script module>
   import { onMount, onDestroy } from 'svelte';
   import {
 	//crossfade,

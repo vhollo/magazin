@@ -7,21 +7,21 @@
 <script lang="ts">
   import type { PageProps } from "./$types";
   const { data }: PageProps = $props()
-  // console.log('data',data.doc.patikas)
-  const patikas = data.doc.patikas
-  // console.log('patikas2',patikas.length)
+  const patikas = $derived(data.doc.patikas)
 
-  const miniSearch = new MiniSearch({
-    idField: 'patika',
-    fields: ['irsz', 'varos', 'cegnev', 'cim', 'patika'],
-    storeFields: ['patika', 'irsz', 'varos', 'cim', 'email'],
-    // processTerm: (term, _fieldName) => term.toLowerCase(),
+  const miniSearch = $derived.by(() => {
+    const ms = new MiniSearch({
+      idField: 'patika',
+      fields: ['irsz', 'varos', 'cegnev', 'cim', 'patika'],
+      storeFields: ['patika', 'irsz', 'varos', 'cim', 'email'],
+    })
+    ms.addAll(patikas)
+    return ms
   })
-  miniSearch.addAll(patikas)
 
   let query = $state('')
 
-	let list: any[] = $derived(query ? miniSearch.search(query, { fuzzy: 0.25 }) : patikas)
+  let list = $derived(query ? miniSearch.search(query, { fuzzy: 0.25 }) : patikas)
 </script>
 
 <svelte:head>

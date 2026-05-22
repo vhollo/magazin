@@ -674,7 +674,9 @@ export async function runMagazinRecipeDedupeFromDataFile({ applyLocal = false, c
     if (allowMissingData) {
       return null
     }
-    throw new Error(`Missing required input file: ${DATA_PATH}`)
+    throw new Error(
+      `Missing ${DATA_PATH} — magazine articles now live in Firestore; run npm run sync:modx:full or pass docs to runMagazinRecipeDedupe()`
+    )
   }
   const docs = readJson(DATA_PATH)
   if (!Array.isArray(docs)) throw new Error('data.json must be an array')

@@ -1,4 +1,4 @@
-<script context="module">
+<script module>
   import { afterUpdate } from 'svelte'
   import CarItem from '$lib/components/CarItem.svelte'
   import { PUBLIC_BASE_URL } from '$env/static/public'

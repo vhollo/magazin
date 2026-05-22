@@ -25,7 +25,10 @@
 		"recipes:dedupe:manual:create-local:safe": "node scripts/manual-receptsarok-dedupe.js --create-local --allow-missing-data",
 		"recipes:dedupe:manual:apply-local": "node scripts/manual-receptsarok-dedupe.js --apply-local",
 		"recipes:dedupe:validate": "node scripts/validate-recipe-dedupe-v2.mjs",
-		"sync:modx": "tsx scripts/sync-modx-to-firestore.mjs"
+		"sync:modx": "tsx scripts/sync-modx-to-firestore.mjs",
+		"sync:modx:full": "tsx scripts/sync-modx-to-firestore.mjs --full",
+		"sync:modx:finish": "tsx scripts/finish-modx-sync.mjs",
+		"verify:firestore-magazine": "tsx scripts/verify-firestore-magazine.mjs"
 	},
 	"devDependencies": {
 		"@sveltejs/adapter-auto": "^3.2.5",

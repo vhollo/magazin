@@ -3,7 +3,9 @@ import MiniSearch from 'minisearch'
 import { pathToFileURL } from 'node:url'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
+import { encodeDocPathId } from './doc-path-id.mjs'
 import { uploadPublicFile } from './firebase-storage.mjs'
+
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const root = path.resolve(__dirname, '../..')
@@ -24,6 +26,14 @@ const SEARCH_STORE_FIELDS = [
   'recipeTeaser',
 ]
 
+/** MiniSearch document id — path is unique; MODX id is not (folders vs articles). */
+function searchDocId(doc) {
+  if (typeof doc.path === 'string' && doc.path.trim()) return doc.path.trim()
+  if (typeof doc.id === 'string' && doc.id.trim()) return doc.id.trim()
+  if (doc.id != null) return `modx-${doc.id}`
+  return `doc-${encodeDocPathId(String(doc.path ?? 'unknown'))}`
+}
+
 /**
  * @param {Record<string, unknown>} doc
  */
@@ -34,7 +44,8 @@ export function articleToSearchDoc(doc) {
     szerzo = authors.map((a) => a?.name || a?.val || '').filter(Boolean).join(' ')
   }
   return {
-    id: doc.id,
+    id: searchDocId(doc),
+    modxId: doc.id,
     path: doc.path,
     title: doc.title,
     longtitle: doc.longtitle,
@@ -89,14 +100,32 @@ export function recipeToSearchDoc(r) {
     img: r.image,
     tv: { tags: ['recept'] },
     free: r.free === true,
-    recipeTeaser: {
-      year: r.year,
+    recipeTeaser: (() => {
+      const t = r.nutritionTables?.[0]
+      const num = (v) => (typeof v === 'number' ? v : null)
+      return {
       id: r.id,
+      year: r.year,
       title: r.title,
-      author: r.author,
-      image: r.image,
+      author: r.author ?? '',
+      category: r.category ?? '',
+      energy: num(r.energy) ?? num(t?.energy),
+      protein: num(r.protein) ?? num(t?.protein),
+      fat: num(r.fat) ?? num(t?.fat),
+      saturatedFat: num(r.saturatedFat) ?? num(t?.saturatedFat),
+      carbs: num(r.carbs) ?? num(t?.carbs),
+      fiber: num(r.fiber) ?? num(t?.fiber),
+      image: r.image ?? null,
+      img: r.img ?? null,
+      video: r.video,
+      servings:
+        r.servings && typeof r.servings.amount === 'number'
+          ? r.servings
+          : { amount: 0, unit: '' },
+      hasSubRecipes: Boolean(r.hasSubRecipes),
       free: r.free === true,
-    },
+    }
+    })(),
   }
 }
 
@@ -123,14 +152,19 @@ export function buildMiniSearchIndex(articles, recipes) {
   const listed = articles.filter((d) => {
     const tags = d.tv?.tags ?? []
     if (!tags.length || tags[0] === 'folder' || d.redirect) return false
-    return true
+    return typeof d.path === 'string' && d.path.trim().length > 0
   })
+  const byPath = new Map()
+  for (const doc of listed) {
+    byPath.set(doc.path, doc)
+  }
+  const uniqueListed = [...byPath.values()]
   const docs = [
-    ...listed.map(articleToSearchDoc),
+    ...uniqueListed.map(articleToSearchDoc),
     ...recipes.map(recipeToSearchDoc),
   ]
   miniSearch.addAll(docs)
-  return { miniSearch, articleCount: listed.length, recipeCount: recipes.length, docs }
+  return { miniSearch, articleCount: uniqueListed.length, recipeCount: recipes.length, docs }
 }
 
 /**

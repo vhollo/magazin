@@ -9,8 +9,12 @@
  * 6. Build MiniSearch index, gzip-upload to Storage, update meta/search
  * 7. Update meta/sync.lastEdit
  *
- * Usage: node scripts/sync-modx-to-firestore.mjs
+ * Usage:
+ *   node scripts/sync-modx-to-firestore.mjs          # incremental
+ *   node scripts/sync-modx-to-firestore.mjs --full   # one-time backfill (lastEdit ignored)
+ *
  * Env: MODXDB_*, FIREBASE_ADMIN_KEY, FIREBASE_STORAGE_BUCKET, PUBLIC_BASE_URL (optional)
+ * Optional: NETLIFY_SITE_ID, NETLIFY_ACCESS_TOKEN (edge-cache purge)
  */
 import 'dotenv/config'
 import path from 'node:path'
@@ -26,6 +30,18 @@ import {
 import { getFirestoreDb } from './lib/firebase-admin.mjs'
 import { encodeDocPathId } from './lib/doc-path-id.mjs'
 import { buildAndUploadSearchIndex } from './lib/search-index.mjs'
+import { updateRelatedCards } from './lib/related-cards.mjs'
+import { purgeNetlifyPaths } from './lib/netlify-purge.mjs'
+import {
+  loadRecipesFromJson,
+  resolveReceptsarokRedirect,
+} from './lib/receptsarok-redirect-match.mjs'
+import {
+  appendRedirectsManifest,
+  registerRedirectEntries,
+} from './lib/receptsarok-redirects-manifest.mjs'
+
+const isFullSync = process.argv.includes('--full')
 
 const COLLECTIONS_COLLECTION = 'collections'
 const HOME_COLLECTION_ID = 'home'
@@ -34,6 +50,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const root = path.resolve(__dirname, '..')
 const PUBLIC_BASE_URL = process.env.PUBLIC_BASE_URL || 'https://www.diabetes.hu/'
 const RS_REDIRECTS_PATH = path.join(root, 'src/lib/data/receptsarok-redirects.json')
+const RECIPES_JSON_PATH = path.join(root, 'src/lib/data/recipes.json')
 const META_SYNC_DOC = 'sync'
 
 /** @param {import('drizzle-orm/mysql2').MySql2Database} modxdb */
@@ -62,6 +79,47 @@ async function queryChangedRows(modxdb, lastEdit) {
         and(eq(modx_site_content.id, 2797), gt(modx_site_content.editedon, lastEdit)),
         and(
           gt(modx_site_content.editedon, lastEdit),
+          eq(modx_site_content.parent, 1),
+          eq(modx_site_content.deleted, 0),
+          eq(modx_site_content.hidemenu, 0),
+          eq(modx_site_content.published, 1),
+          eq(modx_site_content.type, 'document')
+        )
+      )
+    )
+
+  const byId = new Map()
+  for (const row of [...newDocs, ...modxSiteHirek]) {
+    byId.set(row.id, row)
+  }
+  return [...byId.values()]
+}
+
+/** All published magazine rows (for --full backfill). */
+/** @param {import('drizzle-orm/mysql2').MySql2Database} modxdb */
+async function queryAllRows(modxdb) {
+  const newDocs = await modxdb
+    .select()
+    .from(modx_site_content)
+    .orderBy(desc(modx_site_content.publishedon))
+    .where(
+      and(
+        eq(modx_site_content.deleted, 0),
+        eq(modx_site_content.published, 1),
+        eq(modx_site_content.type, 'document'),
+        ne(modx_site_content.parent, 1),
+        or(eq(modx_site_content.template, 9), eq(modx_site_content.template, 13))
+      )
+    )
+
+  const modxSiteHirek = await modxdb
+    .select()
+    .from(modx_site_content)
+    .orderBy(desc(modx_site_content.publishedon))
+    .where(
+      or(
+        eq(modx_site_content.id, 2797),
+        and(
           eq(modx_site_content.parent, 1),
           eq(modx_site_content.deleted, 0),
           eq(modx_site_content.hidemenu, 0),
@@ -139,8 +197,17 @@ async function getExistingRedirect(firestore, docPath) {
  * @param {Map<number, Record<string, unknown>>} workingById
  * @param {ReturnType<import('../src/lib/modx/transform.ts').loadReceptsarokRedirectMaps>} redirectMaps
  * @param {import('firebase-admin/firestore').Firestore} firestore
+ * @param {Record<string, unknown>[]} recipes
  */
-async function processRow(modxTransform, rawRow, changedIds, workingById, redirectMaps, firestore) {
+async function processRow(
+  modxTransform,
+  rawRow,
+  changedIds,
+  workingById,
+  redirectMaps,
+  firestore,
+  recipes
+) {
   const doc = structuredClone(rawRow)
   const cached = workingById.get(doc.id)
 
@@ -158,12 +225,13 @@ async function processRow(modxTransform, rawRow, changedIds, workingById, redire
         ? await getExistingRedirect(firestore, doc.path)
         : undefined
 
-  modxTransform.setReceptsarokRedirect(doc, fallbackRedirect)
+  const resolved = resolveReceptsarokRedirect(doc, redirectMaps, recipes, fallbackRedirect)
+  modxTransform.setReceptsarokRedirect(doc, resolved.redirect)
   const processed = modxTransform.docFields(doc)
   workingById.set(doc.id, processed)
 
   if (!changedIds.has(doc.id)) {
-    return { written: false, processed }
+    return { written: false, processed, dynamicEntry: resolved.dynamicEntry }
   }
 
   if (!processed.path) {
@@ -173,7 +241,12 @@ async function processRow(modxTransform, rawRow, changedIds, workingById, redire
 
   const docId = encodeDocPathId(processed.path)
   await firestore.collection('docs').doc(docId).set(processed)
-  return { written: true, processed, docId }
+  if (resolved.dynamicEntry) {
+    console.log(
+      `  redirect id=${processed.id} → /receptsarok/${resolved.dynamicEntry.year}/${resolved.dynamicEntry.id} (dynamic match)`
+    )
+  }
+  return { written: true, processed, docId, dynamicEntry: resolved.dynamicEntry }
 }
 
 async function readLastEdit(firestore) {
@@ -278,8 +351,12 @@ async function main() {
   )
 
   const firestore = getFirestoreDb()
-  const lastEdit = await readLastEdit(firestore)
-  console.log(`meta/${META_SYNC_DOC}.lastEdit = ${lastEdit}`)
+  const lastEdit = isFullSync ? 0 : await readLastEdit(firestore)
+  console.log(
+    isFullSync
+      ? 'full backfill (lastEdit forced to 0)'
+      : `meta/${META_SYNC_DOC}.lastEdit = ${lastEdit}`
+  )
 
   const connection = await mysql.createConnection({
     host: process.env.MODXDB_HOST,
@@ -292,13 +369,15 @@ async function main() {
 
   let changedRows
   try {
-    changedRows = await queryChangedRows(modxdb, lastEdit)
+    changedRows = isFullSync
+      ? await queryAllRows(modxdb)
+      : await queryChangedRows(modxdb, lastEdit)
   } catch (error) {
     await connection.end()
     throw error
   }
 
-  console.log(`changed MODX rows: ${changedRows.length}`)
+  console.log(`${isFullSync ? 'total' : 'changed'} MODX rows: ${changedRows.length}`)
 
   if (changedRows.length === 0) {
     await connection.end()
@@ -319,8 +398,11 @@ async function main() {
   await connection.end()
 
   const redirectMaps = loadReceptsarokRedirectMaps(RS_REDIRECTS_PATH)
+  const recipes = loadRecipesFromJson(RECIPES_JSON_PATH)
   /** @type {Map<number, Record<string, unknown>>} */
   const workingById = new Map()
+  /** @type {object[]} */
+  const dynamicRedirectEntries = []
 
   const modxTransform = createModxTransform({
     publicBaseUrl: PUBLIC_BASE_URL,
@@ -340,8 +422,13 @@ async function main() {
       changedIds,
       workingById,
       redirectMaps,
-      firestore
+      firestore,
+      recipes
     )
+    if (result.dynamicEntry) {
+      dynamicRedirectEntries.push(result.dynamicEntry)
+      registerRedirectEntries(redirectMaps, [result.dynamicEntry])
+    }
     if (result.written) {
       written++
       console.log(`  wrote docs/${result.docId} (id=${result.processed.id})`)
@@ -350,9 +437,36 @@ async function main() {
     }
   }
 
+  const redirectsAdded = appendRedirectsManifest(RS_REDIRECTS_PATH, dynamicRedirectEntries)
+  if (redirectsAdded > 0) {
+    console.log(`redirects manifest: added ${redirectsAdded} dynamic entries → ${RS_REDIRECTS_PATH}`)
+  }
+
   const allDocs = await loadAllDocsForProjection(firestore, workingById)
+  const collectionsMod = await import(
+    pathToFileURL(path.join(root, 'src/lib/modx/collections.ts')).href
+  )
+  const { isListedDoc } = collectionsMod
+  const listedDocs = allDocs.filter(isListedDoc)
+
   const collectionsWritten = await writeCollections(firestore, allDocs)
   const searchIndex = await buildAndUploadSearchIndex(firestore, allDocs)
+
+  const idsForRelated = isFullSync
+    ? new Set(listedDocs.map((d) => d.id).filter(Boolean))
+    : changedIds
+  const relatedUpdated = await updateRelatedCards(
+    firestore,
+    listedDocs,
+    workingById,
+    idsForRelated,
+    collectionsMod
+  )
+
+  const purgePaths = [...changedIds]
+    .map((id) => workingById.get(id)?.path)
+    .filter((p) => typeof p === 'string' && p.length > 0)
+  const purgeResult = await purgeNetlifyPaths(purgePaths)
 
   const newLastEdit = maxEditedon(changedRows, lastEdit)
   await firestore.collection('meta').doc(META_SYNC_DOC).set(
@@ -364,7 +478,7 @@ async function main() {
   )
 
   console.log(
-    `sync complete: wrote=${written}, skipped=${skipped}, collections=${collectionsWritten}, search v${searchIndex.version} (${searchIndex.articleCount} articles, ${searchIndex.recipeCount} recipes), lastEdit ${lastEdit} → ${newLastEdit}`
+    `sync complete: wrote=${written}, skipped=${skipped}, redirectsAdded=${redirectsAdded}, collections=${collectionsWritten}, relatedCards=${relatedUpdated}, search v${searchIndex.version} (${searchIndex.articleCount} articles, ${searchIndex.recipeCount} recipes), purge=${purgeResult.skipped ? 'skipped' : purgeResult.ok ? `ok(${purgeResult.status})` : 'failed'}, lastEdit ${lastEdit} → ${newLastEdit}`
   )
 }
 

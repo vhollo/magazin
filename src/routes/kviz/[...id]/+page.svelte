@@ -11,6 +11,7 @@
 </script>
 
 <script lang="ts">
+  import { untrack } from 'svelte';
   import { authUser } from '$lib/authStore';
   import { kvizScores } from '$lib/kvizStore';
   import type { PageData, PageProps } from './$types';
@@ -19,10 +20,9 @@
 
   let { data }: PageProps = $props()
   /** Local copy: mutated while answering; reset when load data changes (e.g. navigate to another quiz). */
-  // Effects do not run during SSR — initialize from load data so the first server render has kviz.
-  let kviz = $state(data.kviz) as PageData['kviz']
+  let kviz = $state(untrack(() => structuredClone(data.kviz)) as PageData['kviz'])
   $effect.pre(() => {
-    kviz = data.kviz
+    kviz = structuredClone(data.kviz)
   })
 
   let score: number = $state(0)

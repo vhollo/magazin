@@ -1,13 +1,23 @@
 <script lang="ts">
   import { afterNavigate } from '$app/navigation';
-  let { articles, recipes }: { articles: number; recipes: number } = $props()
-  let submitted = $state(false) // should be reset on navigation
-  let searchQuery = $state('')
+
+  let {
+    articles,
+    recipes,
+    /** When set (e.g. on /keres), URL `q` is the source of truth for the input. */
+    q,
+  }: { articles: number; recipes: number; q?: string } = $props();
+
+  let submitted = $state(false);
+  let searchQuery = $state('');
+
+  $effect(() => {
+    if (typeof q === 'string') searchQuery = q;
+  });
 
   afterNavigate(() => {
-    submitted = false
-  })
-
+    submitted = false;
+  });
 </script>
 
 <div id="search">

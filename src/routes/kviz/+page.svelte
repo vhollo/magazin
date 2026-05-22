@@ -25,8 +25,7 @@ onMount(() => {
 });
 
 const { data }: PageProps = $props()
-// console.log({data})
-const kvizzes = data.kvizzes
+const kvizzes = $derived(data.kvizzes)
 // console.log({kvizzes})
 // marked is configured in $lib/marked.ts, imported via +page.ts
 
