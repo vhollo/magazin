@@ -16,9 +16,6 @@
 name: Sync MODX to Firestore
 
 on:
-  schedule:
-    # Every 15 minutes (UTC). GitHub may delay scheduled runs by several minutes.
-    - cron: '*/15 * * * *'
   workflow_dispatch:
     inputs:
       full_backfill:
