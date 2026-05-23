@@ -44,15 +44,22 @@ resp="$(
     "${base}/execute/Mysql/${api_func}"
 )"
 
-status="$(echo "$resp" | jq -r '.result.status // 0')"
+# UAPI normally nests under .result; some hosts return a flat { status, data, errors, ... } object.
+status="$(echo "$resp" | jq -r '(.result.status // .status // 0)')"
+errors="$(echo "$resp" | jq -r '(.result.errors // .errors // empty) | if type == "array" then .[] else . end' 2>/dev/null || true)"
+
 if [[ "$status" != "1" ]]; then
-  echo "cPanel Mysql/${api_func} failed for host=${host}:" >&2
+  echo "cPanel Mysql/${api_func} failed for host=${host} (status=${status}):" >&2
   if command -v jq >/dev/null 2>&1; then
     echo "$resp" | jq . >&2 || echo "$resp" >&2
   else
     echo "$resp" >&2
   fi
   exit 1
+fi
+
+if [[ -n "$errors" ]]; then
+  echo "cPanel Mysql/${api_func} warning for host=${host}: ${errors}" >&2
 fi
 
 echo "cPanel Mysql/${api_func} succeeded for ${host}"
