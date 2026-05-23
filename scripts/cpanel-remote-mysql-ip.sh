@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Add or remove a host in cPanel Remote MySQL (UAPI Mysql::add_host / remove_host).
+# Add or remove a host in cPanel Remote MySQL (UAPI Mysql::add_host / delete_host).
 #
 # Usage:
 #   cpanel-remote-mysql-ip.sh add [ip]   # ip defaults to this machine's public IPv4
@@ -30,7 +30,7 @@ elif [[ "$action" == "remove" ]]; then
     echo "IP address is required for remove" >&2
     exit 1
   fi
-  api_func="remove_host"
+  api_func="delete_host"
 else
   echo "Unknown action: $action (use add or remove)" >&2
   exit 1

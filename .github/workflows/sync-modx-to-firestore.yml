@@ -104,6 +104,7 @@ jobs:
 
       - name: Revoke GitHub Actions runner IP from cPanel Remote MySQL
         if: always() && steps.cpanel_mysql.outcome == 'success'
+        continue-on-error: true
         env:
           CPANEL_URL: ${{ secrets.CPANEL_URL }}
           CPANEL_USER: ${{ secrets.CPANEL_USER }}
