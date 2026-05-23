@@ -434,7 +434,7 @@ summary h2 {
 }
 #szerzo img {
   grid-row-start: 1;
-  grid-row-end: 3;
+  grid-row-end: 4;
   /*aspect-ratio: 1;*/
 }
 #szerzo .nev {
@@ -450,7 +450,7 @@ summary h2 {
 #szerzo img ~ .cv {
   grid-column: span 1;
   grid-column-start: 2;
-  grid-row-start: 2;
+  /* grid-row-start: 2; */
 }
 
 *:has(#szerzo) > .alairas {
