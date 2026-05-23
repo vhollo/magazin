@@ -10,6 +10,16 @@ export function encodeDocPathId(pathValue) {
 }
 
 /**
+ * Canonical article path for deduping (no leading slash).
+ * @param {string} pathValue
+ */
+export function normalizeArticlePath(pathValue) {
+  const encoded = encodeDocPathId(pathValue)
+  if (!encoded) return ''
+  return encoded.replace(/~/g, '/')
+}
+
+/**
  * @param {string} docId
  */
 export function decodeDocPathId(docId) {

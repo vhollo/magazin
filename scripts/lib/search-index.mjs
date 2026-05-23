@@ -3,7 +3,7 @@ import MiniSearch from 'minisearch'
 import { pathToFileURL } from 'node:url'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { encodeDocPathId } from './doc-path-id.mjs'
+import { encodeDocPathId, normalizeArticlePath } from './doc-path-id.mjs'
 import { uploadPublicFile } from './firebase-storage.mjs'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
@@ -52,11 +52,17 @@ const RECIPE_SEARCH_FIELDS = [
 ]
 
 /** MiniSearch document id — path is unique; MODX id is not (folders vs articles). */
-function searchDocId(doc) {
-  if (typeof doc.path === 'string' && doc.path.trim()) return doc.path.trim()
+function searchDocId(doc, hints = {}) {
+  const fromDoc = typeof doc.path === 'string' ? normalizeArticlePath(doc.path) : ''
+  const fromHint = typeof hints.path === 'string' ? normalizeArticlePath(hints.path) : ''
+  const path = fromDoc || fromHint
+  if (path) return path
   if (typeof doc.id === 'string' && doc.id.trim()) return doc.id.trim()
-  if (doc.id != null) return `modx-${doc.id}`
-  return `doc-${encodeDocPathId(String(doc.path ?? 'unknown'))}`
+  if (doc.id != null && doc.id !== '') return `modx-${doc.id}`
+  if (typeof hints.firestoreId === 'string' && hints.firestoreId.trim()) {
+    return `fs-${hints.firestoreId.trim()}`
+  }
+  return null
 }
 
 function createMiniSearch() {
@@ -79,17 +85,25 @@ function createMiniSearch() {
 
 /**
  * @param {Record<string, unknown>} doc
+ * @param {{ path?: string, firestoreId?: string }} [hints]
+ * @returns {Record<string, unknown> | null}
  */
-export function articleToSearchDoc(doc) {
+export function articleToSearchDoc(doc, hints = {}) {
   const authors = doc.tv?.szerzo
   let szerzo = ''
   if (Array.isArray(authors)) {
     szerzo = authors.map((a) => a?.name || a?.val || '').filter(Boolean).join(' ')
   }
+  const canonicalPath =
+    (typeof doc.path === 'string' && normalizeArticlePath(doc.path)) ||
+    (typeof hints.path === 'string' && normalizeArticlePath(hints.path)) ||
+    ''
+  const id = searchDocId(doc, hints)
+  if (!id) return null
   return {
-    id: searchDocId(doc),
+    id,
     modxId: doc.id,
-    path: doc.path,
+    path: canonicalPath || doc.path,
     title: doc.title,
     longtitle: doc.longtitle,
     description: doc.description,
@@ -190,27 +204,53 @@ export function recipeToSearchDoc(r) {
  * @param {string[]} listedPaths unique article paths
  * @param {MiniSearch} miniSearch
  */
-async function addArticlesInBatches(firestore, listedPaths, miniSearch) {
-  const docIds = listedPaths.map((p) => encodeDocPathId(p))
+/**
+ * @param {import('firebase-admin/firestore').Firestore} firestore
+ * @param {string[]} listedPaths unique canonical article paths
+ * @param {MiniSearch} miniSearch
+ * @param {Set<string>} seenIds
+ */
+async function addArticlesInBatches(firestore, listedPaths, miniSearch, seenIds) {
   let indexed = 0
+  let skipped = 0
 
-  for (let i = 0; i < docIds.length; i += SEARCH_BATCH_SIZE) {
-    const batchIds = docIds.slice(i, i + SEARCH_BATCH_SIZE)
+  for (let i = 0; i < listedPaths.length; i += SEARCH_BATCH_SIZE) {
+    const pathBatch = listedPaths.slice(i, i + SEARCH_BATCH_SIZE)
+    const batchIds = pathBatch.map((p) => encodeDocPathId(p))
     const refs = batchIds.map((id) => firestore.collection('docs').doc(id))
     const snaps = await firestore.getAll(...refs)
 
-    for (const snap of snaps) {
+    for (let j = 0; j < snaps.length; j++) {
+      const snap = snaps[j]
       if (!snap.exists) continue
       const doc = snap.data()
       if (doc.redirect) continue
-      miniSearch.add(articleToSearchDoc(doc))
+
+      const searchDoc = articleToSearchDoc(doc, {
+        path: pathBatch[j],
+        firestoreId: snap.id,
+      })
+      if (!searchDoc) {
+        skipped++
+        continue
+      }
+      if (seenIds.has(searchDoc.id)) {
+        skipped++
+        continue
+      }
+      seenIds.add(searchDoc.id)
+      miniSearch.add(searchDoc)
       indexed++
     }
 
-    const done = Math.min(i + SEARCH_BATCH_SIZE, docIds.length)
-    if (done === docIds.length || done % 1000 === 0) {
-      console.log(`  search index: indexed ${done}/${docIds.length} articles`)
+    const done = Math.min(i + SEARCH_BATCH_SIZE, listedPaths.length)
+    if (done === listedPaths.length || done % 1000 === 0) {
+      console.log(`  search index: indexed ${done}/${listedPaths.length} article paths`)
     }
+  }
+
+  if (skipped > 0) {
+    console.log(`  search index: skipped ${skipped} articles (duplicate or missing id)`)
   }
 
   return indexed
@@ -223,7 +263,7 @@ export function listedPathsFromProjection(projectionDocs, isListedDoc) {
   const paths = new Set()
   for (const doc of projectionDocs) {
     if (!isListedDoc(doc)) continue
-    const p = typeof doc.path === 'string' ? doc.path.trim() : ''
+    const p = typeof doc.path === 'string' ? normalizeArticlePath(doc.path) : ''
     if (p) paths.add(p)
   }
   return [...paths]
@@ -243,13 +283,18 @@ export async function buildAndUploadSearchIndex(firestore, projectionDocs) {
   const listedCount = projectionDocs.filter(isListedDoc).length
 
   const miniSearch = createMiniSearch()
-  const articleCount = await addArticlesInBatches(firestore, listedPaths, miniSearch)
+  const seenIds = new Set()
+  const articleCount = await addArticlesInBatches(firestore, listedPaths, miniSearch, seenIds)
 
   const recipes = await loadRecipesForSearch(firestore)
+  let recipeCount = 0
   for (const recipe of recipes) {
-    miniSearch.add(recipeToSearchDoc(recipe))
+    const searchDoc = recipeToSearchDoc(recipe)
+    if (seenIds.has(searchDoc.id)) continue
+    seenIds.add(searchDoc.id)
+    miniSearch.add(searchDoc)
+    recipeCount++
   }
-  const recipeCount = recipes.length
 
   const version = Date.now()
   const json = JSON.stringify(miniSearch.toJSON())
