@@ -31,6 +31,7 @@ import { getFirestoreDb } from './lib/firebase-admin.mjs'
 import { encodeDocPathId } from './lib/doc-path-id.mjs'
 import { buildAndUploadSearchIndex } from './lib/search-index.mjs'
 import { updateRelatedCards } from './lib/related-cards.mjs'
+import { loadProjectionDocs } from './lib/firestore-docs.mjs'
 import { purgeNetlifyPaths } from './lib/netlify-purge.mjs'
 import {
   loadRecipesFromJson,
@@ -263,33 +264,13 @@ function maxEditedon(rows, fallback = 0) {
 }
 
 /**
- * Load every doc from Firestore `docs/*`, then overlay anything we just
- * (re)processed in this sync run so the projection sees the freshest data.
- *
- * @param {import('firebase-admin/firestore').Firestore} firestore
- * @param {Map<number, Record<string, unknown>>} workingById
- */
-async function loadAllDocsForProjection(firestore, workingById) {
-  const snapshot = await firestore.collection('docs').get()
-  const byDocId = new Map()
-  for (const snap of snapshot.docs) {
-    byDocId.set(snap.id, snap.data())
-  }
-  for (const processed of workingById.values()) {
-    if (typeof processed?.path !== 'string' || !processed.path) continue
-    byDocId.set(encodeDocPathId(processed.path), processed)
-  }
-  return [...byDocId.values()]
-}
-
-/**
  * Recompute and write `collections/{slug}` for every tag-collection query plus
  * `collections/home`. One Firestore write per collection.
  *
  * @param {import('firebase-admin/firestore').Firestore} firestore
- * @param {Record<string, unknown>[]} allDocs
+ * @param {Record<string, unknown>[]} projectionDocs slim docs (no HTML bodies)
  */
-async function writeCollections(firestore, allDocs) {
+async function writeCollections(firestore, projectionDocs) {
   const collectionsMod = await import(
     pathToFileURL(path.join(root, 'src/lib/modx/collections.ts')).href
   )
@@ -302,9 +283,9 @@ async function writeCollections(firestore, allDocs) {
     COLLECTION_LIMIT,
   } = collectionsMod
 
-  const listedDocs = allDocs.filter(isListedDoc)
+  const listedDocs = projectionDocs.filter(isListedDoc)
   console.log(
-    `collections: scanning ${listedDocs.length}/${allDocs.length} listed docs, limit=${COLLECTION_LIMIT}`
+    `collections: scanning ${listedDocs.length}/${projectionDocs.length} listed docs, limit=${COLLECTION_LIMIT}`
   )
 
   const generatedAt = new Date().toISOString()
@@ -442,15 +423,15 @@ async function main() {
     console.log(`redirects manifest: added ${redirectsAdded} dynamic entries → ${RS_REDIRECTS_PATH}`)
   }
 
-  const allDocs = await loadAllDocsForProjection(firestore, workingById)
+  const projectionDocs = await loadProjectionDocs(firestore, workingById)
   const collectionsMod = await import(
     pathToFileURL(path.join(root, 'src/lib/modx/collections.ts')).href
   )
   const { isListedDoc } = collectionsMod
-  const listedDocs = allDocs.filter(isListedDoc)
+  const listedDocs = projectionDocs.filter(isListedDoc)
 
-  const collectionsWritten = await writeCollections(firestore, allDocs)
-  const searchIndex = await buildAndUploadSearchIndex(firestore, allDocs)
+  const collectionsWritten = await writeCollections(firestore, projectionDocs)
+  const searchIndex = await buildAndUploadSearchIndex(firestore, projectionDocs)
 
   const idsForRelated = isFullSync
     ? new Set(listedDocs.map((d) => d.id).filter(Boolean))

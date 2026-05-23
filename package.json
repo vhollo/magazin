@@ -25,9 +25,9 @@
 		"recipes:dedupe:manual:create-local:safe": "node scripts/manual-receptsarok-dedupe.js --create-local --allow-missing-data",
 		"recipes:dedupe:manual:apply-local": "node scripts/manual-receptsarok-dedupe.js --apply-local",
 		"recipes:dedupe:validate": "node scripts/validate-recipe-dedupe-v2.mjs",
-		"sync:modx": "tsx scripts/sync-modx-to-firestore.mjs",
-		"sync:modx:full": "tsx scripts/sync-modx-to-firestore.mjs --full",
-		"sync:modx:finish": "tsx scripts/finish-modx-sync.mjs",
+		"sync:modx": "NODE_OPTIONS=--max-old-space-size=6144 tsx scripts/sync-modx-to-firestore.mjs",
+		"sync:modx:full": "NODE_OPTIONS=--max-old-space-size=6144 tsx scripts/sync-modx-to-firestore.mjs --full",
+		"sync:modx:finish": "NODE_OPTIONS=--max-old-space-size=6144 tsx scripts/finish-modx-sync.mjs",
 		"verify:firestore-magazine": "tsx scripts/verify-firestore-magazine.mjs"
 	},
 	"devDependencies": {

@@ -73,6 +73,7 @@ jobs:
         id: sync
         run: ${{ (github.event_name == 'workflow_dispatch' && github.event.inputs.full_backfill == 'true') && 'npm run sync:modx:full' || 'npm run sync:modx' }}
         env:
+          NODE_OPTIONS: --max-old-space-size=6144
           MODXDB_HOST: ${{ secrets.MODXDB_HOST }}
           MODXDB_PORT: ${{ secrets.MODXDB_PORT }}
           MODXDB_USER: ${{ secrets.MODXDB_USER }}

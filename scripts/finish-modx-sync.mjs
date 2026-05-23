@@ -8,27 +8,23 @@ import { fileURLToPath, pathToFileURL } from 'node:url'
 import { getFirestoreDb } from './lib/firebase-admin.mjs'
 import { buildAndUploadSearchIndex } from './lib/search-index.mjs'
 import { updateRelatedCards } from './lib/related-cards.mjs'
+import { loadProjectionDocs } from './lib/firestore-docs.mjs'
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 const META_SYNC_DOC = 'sync'
 
-async function loadAllDocs(firestore) {
-  const snap = await firestore.collection('docs').get()
-  return snap.docs.map((d) => d.data())
-}
-
 async function main() {
   const firestore = getFirestoreDb()
-  const allDocs = await loadAllDocs(firestore)
-  console.log(`loaded ${allDocs.length} docs from Firestore`)
+  const projectionDocs = await loadProjectionDocs(firestore)
+  console.log(`loaded ${projectionDocs.length} projection docs from Firestore`)
 
-  const searchIndex = await buildAndUploadSearchIndex(firestore, allDocs)
+  const searchIndex = await buildAndUploadSearchIndex(firestore, projectionDocs)
 
   const collectionsMod = await import(
     pathToFileURL(path.join(root, 'src/lib/modx/collections.ts')).href
   )
   const { isListedDoc } = collectionsMod
-  const listedDocs = allDocs.filter(isListedDoc)
+  const listedDocs = projectionDocs.filter(isListedDoc)
   const workingById = new Map(listedDocs.map((d) => [d.id, d]))
   const idsForRelated = new Set(listedDocs.map((d) => d.id).filter(Boolean))
 
@@ -40,7 +36,7 @@ async function main() {
     collectionsMod
   )
 
-  const lastEdit = allDocs.reduce(
+  const lastEdit = projectionDocs.reduce(
     (max, doc) => (Number(doc.editedon) > max ? Number(doc.editedon) : max),
     0
   )
@@ -50,7 +46,7 @@ async function main() {
   )
 
   console.log(
-    `finish complete: docs=${allDocs.length}, listed=${listedDocs.length}, relatedCards=${relatedUpdated}, search v${searchIndex.version}, lastEdit=${lastEdit}`
+    `finish complete: docs=${projectionDocs.length}, listed=${listedDocs.length}, relatedCards=${relatedUpdated}, search v${searchIndex.version}, lastEdit=${lastEdit}`
   )
 }
 
