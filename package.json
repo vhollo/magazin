@@ -62,9 +62,6 @@
 		"vite-plugin-devtools-json": "^0.2.1"
 	},
 	"type": "module",
-	"optionalDependencies": {
-		"netlify-cli": "^23.13.3"
-	},
 	"overrides": {
 		"aria-query": "5.1.3",
 		"axobject-query": "3.2.1",
