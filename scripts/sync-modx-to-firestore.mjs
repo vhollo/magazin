@@ -3,6 +3,7 @@
  *
  * 1. Read meta/sync.lastEdit
  * 2. SELECT rows with editedon > lastEdit (same filters as src/lib/modx/index.ts)
+ * 2b. SELECT magazine rows edited since lastEdit that are now unpublished/deleted → delete from Firestore
  * 3. Transform via src/lib/modx/transform.ts
  * 4. Upsert docs/{encodeDocPathId(path)}
  * 5. Recompute collections/{slug} (top 72 thin cards per tag query) and collections/home
@@ -28,7 +29,7 @@ import {
   modx_site_htmlsnippets,
 } from '../drizzle/schema.ts'
 import { getFirestoreDb } from './lib/firebase-admin.mjs'
-import { encodeDocPathId } from './lib/doc-path-id.mjs'
+import { encodeDocPathId, decodeDocPathId } from './lib/doc-path-id.mjs'
 import { buildAndUploadSearchIndex } from './lib/search-index.mjs'
 import { updateRelatedCards } from './lib/related-cards.mjs'
 import { loadProjectionDocs } from './lib/firestore-docs.mjs'
@@ -41,6 +42,7 @@ import {
   appendRedirectsManifest,
   registerRedirectEntries,
 } from './lib/receptsarok-redirects-manifest.mjs'
+import { isMagazineCandidate, shouldSyncRow } from './lib/magazine-scope.mjs'
 
 const isFullSync = process.argv.includes('--full')
 
@@ -94,6 +96,30 @@ async function queryChangedRows(modxdb, lastEdit) {
     byId.set(row.id, row)
   }
   return [...byId.values()]
+}
+
+/** Magazine rows edited since lastEdit that should no longer appear in Firestore. */
+/** @param {import('drizzle-orm/mysql2').MySql2Database} modxdb */
+async function queryRemovedRows(modxdb, lastEdit) {
+  const rows = await modxdb
+    .select()
+    .from(modx_site_content)
+    .where(
+      and(
+        gt(modx_site_content.editedon, lastEdit),
+        eq(modx_site_content.type, 'document'),
+        or(
+          eq(modx_site_content.id, 2797),
+          eq(modx_site_content.parent, 1),
+          and(
+            ne(modx_site_content.parent, 1),
+            or(eq(modx_site_content.template, 9), eq(modx_site_content.template, 13))
+          )
+        )
+      )
+    )
+
+  return rows.filter((row) => isMagazineCandidate(row) && !shouldSyncRow(row))
 }
 
 /** All published magazine rows (for --full backfill). */
@@ -250,6 +276,106 @@ async function processRow(
   return { written: true, processed, docId, dynamicEntry: resolved.dynamicEntry }
 }
 
+/**
+ * @param {ReturnType<import('../src/lib/modx/transform.ts').createModxTransform>} modxTransform
+ * @param {Record<string, unknown>} rawRow
+ * @param {Map<number, Record<string, unknown>>} workingById
+ */
+function ensureRowInWorkingById(modxTransform, rawRow, workingById) {
+  if (workingById.has(rawRow.id)) return
+  const doc = structuredClone(rawRow)
+  modxTransform.addTVs(doc)
+  modxTransform.findPath(doc)
+  if (doc.tv?.tags?.length > 0) modxTransform.extraTags(doc)
+  workingById.set(rawRow.id, modxTransform.docFields(doc))
+}
+
+/**
+ * @param {import('firebase-admin/firestore').Firestore} firestore
+ * @param {ReturnType<import('../src/lib/modx/transform.ts').createModxTransform>} modxTransform
+ * @param {typeof modx_site_content.$inferSelect[]} rowsToProcess
+ * @param {Set<number>} removedIds
+ * @param {Map<number, Record<string, unknown>>} workingById
+ */
+async function deleteRemovedDocs(firestore, modxTransform, rowsToProcess, removedIds, workingById) {
+  let deleted = 0
+  /** @type {string[]} */
+  const paths = []
+
+  for (const rawRow of rowsToProcess) {
+    if (!removedIds.has(rawRow.id)) continue
+
+    ensureRowInWorkingById(modxTransform, rawRow, workingById)
+    const cached = workingById.get(rawRow.id)
+    let pathToDelete =
+      typeof cached?.path === 'string' && cached.path.trim() ? cached.path.trim() : null
+    if (!pathToDelete) {
+      pathToDelete = await findFirestorePathByModxId(firestore, rawRow.id)
+    }
+    if (!pathToDelete) {
+      console.warn(`skip delete: id=${rawRow.id} has no resolvable path`)
+      continue
+    }
+
+    const docId = encodeDocPathId(pathToDelete)
+    const ref = firestore.collection('docs').doc(docId)
+    const existing = await ref.get()
+    if (!existing.exists) {
+      console.warn(`skip delete: docs/${docId} (id=${rawRow.id}) not in Firestore`)
+      continue
+    }
+
+    await ref.delete()
+    deleted++
+    paths.push(pathToDelete)
+    console.log(`  deleted docs/${docId} (id=${rawRow.id})`)
+  }
+
+  return { deleted, paths }
+}
+
+/**
+ * @param {import('firebase-admin/firestore').Firestore} firestore
+ * @param {number} modxId
+ */
+async function findFirestorePathByModxId(firestore, modxId) {
+  const snap = await firestore.collection('docs').where('id', '==', modxId).limit(3).get()
+  for (const docSnap of snap.docs) {
+    const pathValue = docSnap.data()?.path
+    if (typeof pathValue === 'string' && pathValue.trim()) return pathValue.trim()
+    return decodeDocPathId(docSnap.id)
+  }
+  return null
+}
+
+/**
+ * On full backfill, drop Firestore docs whose MODX id is no longer in the published set.
+ *
+ * @param {import('firebase-admin/firestore').Firestore} firestore
+ * @param {Set<number>} syncedModxIds
+ */
+async function deleteOrphanFirestoreDocs(firestore, syncedModxIds) {
+  const snap = await firestore.collection('docs').select('id', 'path').get()
+  let deleted = 0
+  /** @type {string[]} */
+  const paths = []
+
+  for (const docSnap of snap.docs) {
+    const data = docSnap.data()
+    const modxId = Number(data.id)
+    if (!Number.isFinite(modxId) || syncedModxIds.has(modxId)) continue
+
+    await docSnap.ref.delete()
+    deleted++
+    if (typeof data.path === 'string' && data.path.trim()) {
+      paths.push(data.path.trim())
+    }
+    console.log(`  deleted orphan docs/${docSnap.id} (modx id=${modxId})`)
+  }
+
+  return { deleted, paths }
+}
+
 async function readLastEdit(firestore) {
   const snap = await firestore.collection('meta').doc(META_SYNC_DOC).get()
   if (!snap.exists) return 0
@@ -349,25 +475,35 @@ async function main() {
   const modxdb = drizzle(connection)
 
   let changedRows
+  let removedRows = []
   try {
     changedRows = isFullSync
       ? await queryAllRows(modxdb)
       : await queryChangedRows(modxdb, lastEdit)
+    if (!isFullSync) {
+      removedRows = await queryRemovedRows(modxdb, lastEdit)
+    }
   } catch (error) {
     await connection.end()
     throw error
   }
 
-  console.log(`${isFullSync ? 'total' : 'changed'} MODX rows: ${changedRows.length}`)
+  console.log(
+    `${isFullSync ? 'total' : 'changed'} MODX rows: ${changedRows.length}` +
+      (isFullSync ? '' : `, removed candidates: ${removedRows.length}`)
+  )
 
-  if (changedRows.length === 0) {
+  if (changedRows.length === 0 && removedRows.length === 0) {
     await connection.end()
     console.log('nothing to sync')
     return
   }
 
   const changedIds = new Set(changedRows.map((row) => row.id))
-  const rowsToProcess = sortRowsByDepth(await expandRowsWithAncestors(modxdb, changedRows))
+  const removedIds = new Set(removedRows.map((row) => row.id))
+  const rowsToProcess = sortRowsByDepth(
+    await expandRowsWithAncestors(modxdb, [...changedRows, ...removedRows])
+  )
   console.log(`rows to process (incl. ancestors): ${rowsToProcess.length}`)
 
   const tmplvarContentvalues = await modxdb.select().from(modx_site_tmplvar_contentvalues)
@@ -396,7 +532,14 @@ async function main() {
   let written = 0
   let skipped = 0
 
+  if (removedRows.length > 0) {
+    for (const rawRow of rowsToProcess) {
+      ensureRowInWorkingById(modxTransform, rawRow, workingById)
+    }
+  }
+
   for (const rawRow of rowsToProcess) {
+    if (!changedIds.has(rawRow.id)) continue
     const result = await processRow(
       modxTransform,
       rawRow,
@@ -413,9 +556,31 @@ async function main() {
     if (result.written) {
       written++
       console.log(`  wrote docs/${result.docId} (id=${result.processed.id})`)
-    } else if (changedIds.has(rawRow.id)) {
+    } else {
       skipped++
     }
+  }
+
+  let deleted = 0
+  /** @type {string[]} */
+  let deletedPaths = []
+  if (removedRows.length > 0) {
+    const removal = await deleteRemovedDocs(
+      firestore,
+      modxTransform,
+      rowsToProcess,
+      removedIds,
+      workingById
+    )
+    deleted = removal.deleted
+    deletedPaths = removal.paths
+  }
+
+  if (isFullSync && changedRows.length > 0) {
+    const syncedModxIds = new Set(changedRows.map((row) => row.id))
+    const orphanRemoval = await deleteOrphanFirestoreDocs(firestore, syncedModxIds)
+    deleted += orphanRemoval.deleted
+    deletedPaths = [...deletedPaths, ...orphanRemoval.paths]
   }
 
   const redirectsAdded = appendRedirectsManifest(RS_REDIRECTS_PATH, dynamicRedirectEntries)
@@ -444,12 +609,15 @@ async function main() {
     collectionsMod
   )
 
-  const purgePaths = [...changedIds]
-    .map((id) => workingById.get(id)?.path)
-    .filter((p) => typeof p === 'string' && p.length > 0)
+  const purgePaths = [
+    ...[...changedIds]
+      .map((id) => workingById.get(id)?.path)
+      .filter((p) => typeof p === 'string' && p.length > 0),
+    ...deletedPaths,
+  ]
   const purgeResult = await purgeNetlifyPaths(purgePaths)
 
-  const newLastEdit = maxEditedon(changedRows, lastEdit)
+  const newLastEdit = maxEditedon([...changedRows, ...removedRows], lastEdit)
   await firestore.collection('meta').doc(META_SYNC_DOC).set(
     {
       lastEdit: newLastEdit,
@@ -459,7 +627,7 @@ async function main() {
   )
 
   console.log(
-    `sync complete: wrote=${written}, skipped=${skipped}, redirectsAdded=${redirectsAdded}, collections=${collectionsWritten}, relatedCards=${relatedUpdated}, search v${searchIndex.version} (${searchIndex.articleCount} articles, ${searchIndex.recipeCount} recipes), purge=${purgeResult.skipped ? 'skipped' : purgeResult.ok ? `ok(${purgeResult.status})` : 'failed'}, lastEdit ${lastEdit} → ${newLastEdit}`
+    `sync complete: wrote=${written}, deleted=${deleted}, skipped=${skipped}, redirectsAdded=${redirectsAdded}, collections=${collectionsWritten}, relatedCards=${relatedUpdated}, search v${searchIndex.version} (${searchIndex.articleCount} articles, ${searchIndex.recipeCount} recipes), purge=${purgeResult.skipped ? 'skipped' : purgeResult.ok ? `ok(${purgeResult.status})` : 'failed'}, lastEdit ${lastEdit} → ${newLastEdit}`
   )
 }
 

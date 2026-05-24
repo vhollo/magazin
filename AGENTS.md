@@ -604,8 +604,8 @@ Run from repo root (`magazin/`). Requires `.env` with `MODXDB_*`, `FIREBASE_ADMI
 
 | Command | Script | When to use |
 |---------|--------|-------------|
-| `npm run sync:modx` | `scripts/sync-modx-to-firestore.mjs` | **Incremental sync** — MODX rows with `editedon > meta/sync.lastEdit`. Normal production updates (MODX save plugin or manual workflow). |
-| `npm run sync:modx:full` | `… --full` | **One-time / full backfill** — all published magazine rows → Firestore `docs/`, `collections/`, search index, `relatedCards`, `meta/sync`. New environment or empty Firestore. |
+| `npm run sync:modx` | `scripts/sync-modx-to-firestore.mjs` | **Incremental sync** — upsert changed published rows; **delete** magazine rows that were unpublished/deleted since `meta/sync.lastEdit`; rebuild collections/search. |
+| `npm run sync:modx:full` | `… --full` | **One-time / full backfill** — all published magazine rows → Firestore; also removes orphan `docs/*` whose MODX id is no longer published. |
 | `npm run sync:modx:finish` | `scripts/finish-modx-sync.mjs` | **Repair pass** — `docs/` already populated but search index, `relatedCards`, or `meta/search` missing (e.g. sync failed mid-run). |
 | `npm run verify:firestore-magazine` | `scripts/verify-firestore-magazine.mjs` | **Spot-check** — counts `docs/*`, `collections/*`, `meta/search`, sample routes, index URL reachability. |
 
@@ -627,6 +627,7 @@ Run from repo root (`magazin/`). Requires `.env` with `MODXDB_*`, `FIREBASE_ADMI
 |----------------|-------------------|
 | First deploy, new Firebase project, or empty article pages / 503 on `/api/search-meta` | `npm run sync:modx:full` then `npm run verify:firestore-magazine` |
 | Edited/published MODX article but live site still stale | `npm run sync:modx` or trigger GitHub Actions **Sync MODX to Firestore** (check MODX plugin + `magazin_github_token`) |
+| Unpublished/deleted MODX article still visible on site | `npm run sync:modx` (incremental removes from Firestore) or `sync:modx:full` for orphan cleanup |
 | `/keres` shows “index not available” but articles load | `npm run sync:modx:finish` |
 | After any sync, or debugging missing/wrong article counts | `npm run verify:firestore-magazine` |
 | New MODX `recept` article should redirect to Receptsarok but doesn't | Run `npm run sync:modx` — redirect is computed at sync time; commit updated `receptsarok-redirects.json` if changed |

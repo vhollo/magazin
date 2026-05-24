@@ -14,6 +14,9 @@
  *    - magazin_github_ref     (optional, default main)
  *    - magazin_github_debounce (optional, default 120 seconds, min 30)
  *
+ * Triggers on any save of a magazine document (publish, unpublish, delete, hidemenu).
+ * Keep magazine-scope rules in sync with scripts/lib/magazine-scope.mjs.
+ *
  * Do NOT call $e->stopPropagation() — other plugins must still run.
  */
 if (!defined('MODX_BASE_PATH')) {
@@ -70,37 +73,45 @@ if (!function_exists('magazin_evoGetDocumentRow')) {
     }
 }
 
-if (!function_exists('magazin_evoShouldTriggerFirestoreSync')) {
+if (!function_exists('magazin_evoIsMagazineCandidate')) {
     /**
+     * MODX rows in the magazine sync universe (articles, hirek, id 2797).
+     * Keep in sync with scripts/lib/magazine-scope.mjs.
+     *
      * @param array $doc
      * @return bool
      */
-    function magazin_evoShouldTriggerFirestoreSync(array $doc)
+    function magazin_evoIsMagazineCandidate(array $doc)
     {
-        if (!empty($doc['deleted'])) {
-            return false;
-        }
         if (isset($doc['type']) && $doc['type'] !== 'document') {
             return false;
         }
-        if (empty($doc['published'])) {
-            return false;
-        }
-
         $id = (int) $doc['id'];
         $parent = (int) $doc['parent'];
         $template = (int) $doc['template'];
-
         if ($id === 2797) {
             return true;
         }
-        if ($parent === 1 && empty($doc['hidemenu'])) {
+        if ($parent === 1) {
             return true;
         }
         if ($parent !== 1 && in_array($template, array(9, 13), true)) {
             return true;
         }
         return false;
+    }
+}
+
+if (!function_exists('magazin_evoShouldTriggerFirestoreSync')) {
+    /**
+     * Dispatch sync on any magazine-relevant save — publish, unpublish, delete, hidemenu, etc.
+     *
+     * @param array $doc
+     * @return bool
+     */
+    function magazin_evoShouldTriggerFirestoreSync(array $doc)
+    {
+        return magazin_evoIsMagazineCandidate($doc);
     }
 }
 
