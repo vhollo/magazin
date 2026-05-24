@@ -9,9 +9,9 @@
  *    - magazin_github_token   (required) PAT with repo access to vhollo/magazin
  *      Fine-grained: Repository access + Actions Read and write.
  *      Classic: repo scope (or workflow scope).
- *    - magazin_github_repo    (optional, default vhollo/magazin)
+ *    - magazin_github_repo    (optional — omit or leave unset for vhollo/magazin; do NOT save empty)
  *    - magazin_github_workflow (optional, default .github/workflows/sync-modx-to-firestore.yml)
- *    - magazin_github_ref     (optional, default main)
+ *    - magazin_github_ref     (optional — omit or leave unset for main; do NOT save empty)
  *    - magazin_github_debounce (optional, default 120 seconds, min 30)
  *
  * Triggers on any save of a magazine document (publish, unpublish, delete, hidemenu).
@@ -23,8 +23,16 @@ if (!defined('MODX_BASE_PATH')) {
     die('What are you doing? Get out of here!');
 }
 
+if (!defined('MAGAZIN_GITHUB_REPO_DEFAULT')) {
+    define('MAGAZIN_GITHUB_REPO_DEFAULT', 'vhollo/magazin');
+    define('MAGAZIN_GITHUB_WORKFLOW_DEFAULT', '.github/workflows/sync-modx-to-firestore.yml');
+    define('MAGAZIN_GITHUB_REF_DEFAULT', 'main');
+}
+
 if (!function_exists('magazin_evoConfig')) {
     /**
+     * Read MODX system setting; blank/whitespace values fall through to $default.
+     *
      * @param DocumentParser $modx
      * @param string $key
      * @param string $default
@@ -32,13 +40,20 @@ if (!function_exists('magazin_evoConfig')) {
      */
     function magazin_evoConfig($modx, $key, $default = '')
     {
-        if (isset($modx->config[$key]) && $modx->config[$key] !== '') {
-            return trim((string) $modx->config[$key]);
+        $candidates = array();
+        if (isset($modx->config[$key])) {
+            $candidates[] = $modx->config[$key];
         }
         if (method_exists($modx, 'getConfig')) {
-            $fromGet = $modx->getConfig($key);
-            if ($fromGet !== null && $fromGet !== '') {
-                return trim((string) $fromGet);
+            $candidates[] = $modx->getConfig($key);
+        }
+        foreach ($candidates as $raw) {
+            if ($raw === null) {
+                continue;
+            }
+            $trimmed = trim((string) $raw);
+            if ($trimmed !== '') {
+                return $trimmed;
             }
         }
         return $default;
@@ -211,7 +226,11 @@ if (!function_exists('magazin_evoGithubWorkflowDispatch')) {
 }
 
 if (!function_exists('magazin_evoDispatchFirestoreSyncWorkflow')) {
-    function magazin_evoDispatchFirestoreSyncWorkflow($modx)
+    /**
+     * @param DocumentParser $modx
+     * @param int $modxDocId MODX site_content id from OnDocFormSave (passed to workflow)
+     */
+    function magazin_evoDispatchFirestoreSyncWorkflow($modx, $modxDocId = 0)
     {
         $token = magazin_evoConfig($modx, 'magazin_github_token');
         if ($token === '') {
@@ -219,13 +238,22 @@ if (!function_exists('magazin_evoDispatchFirestoreSyncWorkflow')) {
             return false;
         }
 
-        $repo = magazin_evoConfig($modx, 'magazin_github_repo', 'vhollo/magazin');
+        $repo = magazin_evoConfig($modx, 'magazin_github_repo', MAGAZIN_GITHUB_REPO_DEFAULT);
         $workflow = magazin_evoConfig(
             $modx,
             'magazin_github_workflow',
-            '.github/workflows/sync-modx-to-firestore.yml'
+            MAGAZIN_GITHUB_WORKFLOW_DEFAULT
         );
-        $ref = magazin_evoConfig($modx, 'magazin_github_ref', 'main');
+        $ref = magazin_evoConfig($modx, 'magazin_github_ref', MAGAZIN_GITHUB_REF_DEFAULT);
+        if ($repo === '') {
+            $repo = MAGAZIN_GITHUB_REPO_DEFAULT;
+        }
+        if ($ref === '') {
+            $ref = MAGAZIN_GITHUB_REF_DEFAULT;
+        }
+        if ($workflow === '') {
+            $workflow = MAGAZIN_GITHUB_WORKFLOW_DEFAULT;
+        }
         $debounce = (int) magazin_evoConfig($modx, 'magazin_github_debounce', '120');
         if ($debounce < 30) {
             $debounce = 30;
@@ -245,6 +273,7 @@ if (!function_exists('magazin_evoDispatchFirestoreSyncWorkflow')) {
             'ref' => $ref,
             'inputs' => array(
                 'full_backfill' => 'false',
+                'modx_doc_id' => $modxDocId > 0 ? (string) $modxDocId : '',
             ),
         ));
 
@@ -256,7 +285,8 @@ if (!function_exists('magazin_evoDispatchFirestoreSyncWorkflow')) {
                 magazin_evoLog(
                     $modx,
                     '[FirestoreSync] GitHub workflow dispatched (HTTP 204) workflow='
-                    . $candidate . ' ref=' . $ref,
+                    . $candidate . ' ref=' . $ref
+                    . ($modxDocId > 0 ? ' modx_doc_id=' . $modxDocId : ''),
                     1
                 );
                 return true;
@@ -311,7 +341,7 @@ switch ($e->name) {
             return;
         }
 
-        magazin_evoDispatchFirestoreSyncWorkflow($modx);
+        magazin_evoDispatchFirestoreSyncWorkflow($modx, $docId);
         break;
 
     default:

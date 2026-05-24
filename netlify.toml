@@ -7,3 +7,17 @@
 
 [build.processing.html]
   pretty_urls = true
+
+# MODX media lives on www.diabetes.hu; proxy same-origin so Netlify previews avoid ORB /
+# hotlink blocks when loading cross-origin images.
+[[redirects]]
+  from = "/assets/images/*"
+  to = "https://www.diabetes.hu/assets/images/:splat"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/assets/media/*"
+  to = "https://www.diabetes.hu/assets/media/:splat"
+  status = 200
+  force = true

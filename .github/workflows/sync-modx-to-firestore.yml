@@ -26,6 +26,11 @@ on:
         options:
           - 'false'
           - 'true'
+      modx_doc_id:
+        description: 'MODX site_content id from save trigger (forces removal check when unpublished)'
+        required: false
+        default: ''
+        type: string
 
 concurrency:
   group: modx-firestore-sync
@@ -74,6 +79,7 @@ jobs:
         run: ${{ (github.event_name == 'workflow_dispatch' && github.event.inputs.full_backfill == 'true') && 'npm run sync:modx:full' || 'npm run sync:modx' }}
         env:
           NODE_OPTIONS: --max-old-space-size=6144
+          MODX_FORCE_DOC_ID: ${{ github.event.inputs.modx_doc_id }}
           MODXDB_HOST: ${{ secrets.MODXDB_HOST }}
           MODXDB_PORT: ${{ secrets.MODXDB_PORT }}
           MODXDB_USER: ${{ secrets.MODXDB_USER }}

@@ -7,7 +7,7 @@
   import { firebaseAuth } from '$lib/firebase'
   import { hasReceptsarokAccess } from '$lib/authStore'
   import ReceptsarokLogo from '$lib/components/ReceptsarokLogo.svelte'
-  import { recipeDetailSegments, recipeHeroToCardImg, type Recipe } from '$lib/receptsarok'
+  import { recipeDetailSegments, recipeHeroToCardImg, normalizeRecipeAssetSrc, type Recipe } from '$lib/receptsarok'
   import type { PageProps } from './$types'
 
   let { data }: PageProps = $props()
@@ -44,13 +44,16 @@
       const poster =
         typeof video.poster === 'string' && video.poster.trim() ? video.poster.trim() : null
 
-      return { src, poster }
+      return {
+        src: normalizeRecipeAssetSrc(displayRecipe.year, src),
+        poster: poster ? normalizeRecipeAssetSrc(displayRecipe.year, poster) : null
+      }
     }
 
     if (typeof video === 'string') {
       const src = video.trim()
       if (!src || src.includes('<')) return null
-      return { src, poster: null }
+      return { src: normalizeRecipeAssetSrc(displayRecipe.year, src), poster: null }
     }
 
     return null

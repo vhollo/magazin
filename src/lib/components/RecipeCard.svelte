@@ -1,6 +1,6 @@
 <script lang="ts">
   import NutritionTable from '$lib/components/NutritionTable.svelte'
-  import { isRecipeFree, recipeDetailPath, recipeHeroToCardImg } from '$lib/receptsarok'
+  import { isRecipeFree, recipeDetailPath, recipeHeroToCardImg, normalizeRecipeAssetSrc } from '$lib/receptsarok'
   import type { Recipe, RecipeTeaser } from '$lib/receptsarok'
 
   export let recipe: Recipe | RecipeTeaser
@@ -26,13 +26,16 @@
           ? (video as { poster: string }).poster.trim()
           : null
 
-      return { src, poster }
+      return {
+        src: normalizeRecipeAssetSrc(recipe.year, src),
+        poster: poster ? normalizeRecipeAssetSrc(recipe.year, poster) : null
+      }
     }
 
     if (typeof video === 'string') {
       const src = video.trim()
       if (!src || src.includes('<')) return null
-      return { src, poster: null }
+      return { src: normalizeRecipeAssetSrc(recipe.year, src), poster: null }
     }
 
     return null

@@ -22,7 +22,7 @@ import path from 'node:path'
 import { fileURLToPath, pathToFileURL } from 'node:url'
 import { drizzle } from 'drizzle-orm/mysql2'
 import mysql from 'mysql2/promise'
-import { eq, ne, desc, and, or, gt, inArray } from 'drizzle-orm'
+import { eq, ne, desc, and, or, gt, gte, inArray } from 'drizzle-orm'
 import {
   modx_site_content,
   modx_site_tmplvar_contentvalues,
@@ -55,6 +55,11 @@ const PUBLIC_BASE_URL = process.env.PUBLIC_BASE_URL || 'https://www.diabetes.hu/
 const RS_REDIRECTS_PATH = path.join(root, 'src/lib/data/receptsarok-redirects.json')
 const RECIPES_JSON_PATH = path.join(root, 'src/lib/data/recipes.json')
 const META_SYNC_DOC = 'sync'
+
+const forceModxDocId = (() => {
+  const fromEnv = Number(process.env.MODX_FORCE_DOC_ID)
+  return Number.isFinite(fromEnv) && fromEnv > 0 ? fromEnv : 0
+})()
 
 /** @param {import('drizzle-orm/mysql2').MySql2Database} modxdb */
 async function queryChangedRows(modxdb, lastEdit) {
@@ -106,7 +111,8 @@ async function queryRemovedRows(modxdb, lastEdit) {
     .from(modx_site_content)
     .where(
       and(
-        gt(modx_site_content.editedon, lastEdit),
+        // gte: catch unpublish saves that reuse the same editedon as a prior publish sync
+        gte(modx_site_content.editedon, lastEdit),
         eq(modx_site_content.type, 'document'),
         or(
           eq(modx_site_content.id, 2797),
@@ -120,6 +126,55 @@ async function queryRemovedRows(modxdb, lastEdit) {
     )
 
   return rows.filter((row) => isMagazineCandidate(row) && !shouldSyncRow(row))
+}
+
+/**
+ * MODX save trigger can pass a doc id — always re-check removal even if lastEdit caught up.
+ *
+ * @param {import('drizzle-orm/mysql2').MySql2Database} modxdb
+ * @param {number} modxDocId
+ */
+async function queryForcedRemovalRow(modxdb, modxDocId) {
+  if (!Number.isFinite(modxDocId) || modxDocId <= 0) return []
+
+  const rows = await modxdb
+    .select()
+    .from(modx_site_content)
+    .where(eq(modx_site_content.id, modxDocId))
+    .limit(1)
+
+  if (!rows.length) {
+    console.warn(`forced removal: MODX id=${modxDocId} not found`)
+    return []
+  }
+
+  const row = rows[0]
+  if (!isMagazineCandidate(row)) {
+    console.log(`forced removal: id=${modxDocId} outside magazine scope — skip`)
+    return []
+  }
+  if (shouldSyncRow(row)) {
+    console.log(
+      `forced removal: id=${modxDocId} still published/syncable (published=${row.published}) — skip delete`
+    )
+    return []
+  }
+
+  console.log(
+    `forced removal: id=${modxDocId} published=${row.published} deleted=${row.deleted} editedon=${row.editedon}`
+  )
+  return [row]
+}
+
+/** @param {typeof modx_site_content.$inferSelect[]} rows */
+function mergeRowsById(...rowSets) {
+  const byId = new Map()
+  for (const rows of rowSets) {
+    for (const row of rows) {
+      byId.set(row.id, row)
+    }
+  }
+  return [...byId.values()]
 }
 
 /** All published magazine rows (for --full backfill). */
@@ -482,6 +537,10 @@ async function main() {
       : await queryChangedRows(modxdb, lastEdit)
     if (!isFullSync) {
       removedRows = await queryRemovedRows(modxdb, lastEdit)
+      if (forceModxDocId > 0) {
+        const forced = await queryForcedRemovalRow(modxdb, forceModxDocId)
+        removedRows = mergeRowsById(removedRows, forced)
+      }
     }
   } catch (error) {
     await connection.end()
@@ -490,7 +549,8 @@ async function main() {
 
   console.log(
     `${isFullSync ? 'total' : 'changed'} MODX rows: ${changedRows.length}` +
-      (isFullSync ? '' : `, removed candidates: ${removedRows.length}`)
+      (isFullSync ? '' : `, removed candidates: ${removedRows.length}`) +
+      (forceModxDocId > 0 ? `, forced doc id: ${forceModxDocId}` : '')
   )
 
   if (changedRows.length === 0 && removedRows.length === 0) {
@@ -615,6 +675,9 @@ async function main() {
       .filter((p) => typeof p === 'string' && p.length > 0),
     ...deletedPaths,
   ]
+  if (deleted > 0) {
+    purgePaths.push('/', ...Object.keys(collectionsMod.collectionQueries))
+  }
   const purgeResult = await purgeNetlifyPaths(purgePaths)
 
   const newLastEdit = maxEditedon([...changedRows, ...removedRows], lastEdit)

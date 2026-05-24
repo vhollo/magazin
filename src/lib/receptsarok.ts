@@ -39,9 +39,11 @@ export type RecipeVideo = {
   poster: string | null
 }
 
+import { resolveAssetUrl } from '$lib/assetUrl'
+
 /** Absolute URL or `/rs/...` path suitable for `<img src>`. */
 export function normalizeRecipeAssetSrc(year: number, raw: string): string {
-  if (/^https?:\/\//i.test(raw)) return raw
+  if (/^https?:\/\//i.test(raw)) return resolveAssetUrl(raw)
   if (raw.startsWith('/')) return raw
   return `/rs/${year}/${raw}`
 }
