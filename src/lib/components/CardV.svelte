@@ -13,7 +13,6 @@
     <figure class="rounded-t pb-2">
       {#if card.path}
         <a href={`/${card.path}`}>
-          <!--<img style={`object-fit: ${card.ext == 'png' ? 'contain' : 'cover'}; object-position: ${card.pos || '50% 40%'}`} src={`${PUBLIC_BASE_URL}${card.img}`} alt="" width="928" height="548"/>-->
           <img loading="lazy"
             style={`object-fit: ${card.img.ext == 'png' ? 'contain' : 'cover'}; object-position: ${card.img.pos || '50% 40%'}`} 
             src={resolveAssetUrl(card.img.src)} 

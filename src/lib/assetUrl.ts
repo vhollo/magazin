@@ -1,15 +1,19 @@
-/** diabetes.hu absolute media URL → same-origin path (proxied on Netlify / Vite dev). */
-const DIABETES_HU_ASSET_IN_HTML =
-	/https?:\/\/(?:www\.)?diabetes\.hu(\/assets\/[^"'>\s]+)/gi;
+/** diabetes.hu / old.diabetes.hu absolute media → same-origin path (proxied via MODX_ASSET_ORIGIN). */
+const MODX_ASSET_HOST = '(?:www\\.|old\\.)?diabetes\\.hu';
+const MODX_ASSET_IN_HTML = new RegExp(
+	`https?:\\/\\/${MODX_ASSET_HOST}(\\/assets\\/[^"'>\s]+)`,
+	'gi'
+);
+const MODX_ASSET_ABSOLUTE = new RegExp(`^https?:\\/\\/${MODX_ASSET_HOST}`, 'i');
 
 export function resolveAssetUrl(url: string | undefined | null): string {
 	if (!url || typeof url !== 'string') return url ?? '';
-	if (!/^https?:\/\/(?:www\.)?diabetes\.hu\//i.test(url)) return url;
-	const path = url.replace(/^https?:\/\/(?:www\.)?diabetes\.hu/i, '');
+	if (!MODX_ASSET_ABSOLUTE.test(url)) return url;
+	const path = url.replace(MODX_ASSET_ABSOLUTE, '');
 	return path.startsWith('/') ? path : `/${path}`;
 }
 
 /** Rewrite diabetes.hu `/assets/…` URLs inside HTML attribute values. */
 export function rewriteModxAssetHtml(html: string): string {
-	return html.replace(DIABETES_HU_ASSET_IN_HTML, '$1');
+	return html.replace(MODX_ASSET_IN_HTML, '$1');
 }

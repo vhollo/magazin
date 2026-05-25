@@ -20,7 +20,7 @@
         "npm:@sveltejs/adapter-static@^3.0.6",
         "npm:@sveltejs/adapter-vercel@^5.4.4",
         "npm:@sveltejs/kit@^2.16.0",
-        "npm:@sveltejs/vite-plugin-svelte@4",
+        "npm:@sveltejs/vite-plugin-svelte@^4.0.4",
         "npm:@tailwindcss/forms@~0.5.10",
         "npm:@tailwindcss/postcss@^4.1.4",
         "npm:@tailwindcss/typography@~0.5.15",
@@ -47,11 +47,19 @@
         "npm:svelte@^5.18.0",
         "npm:tailwindcss@^4.1.4",
         "npm:tslib@^2.7.0",
+        "npm:tsx@^4.22.3",
         "npm:typescript-eslint@^8.8.0",
         "npm:typescript@^5.6.2",
         "npm:vite-plugin-devtools-json@~0.2.1",
         "npm:vite@^5.4.8"
-      ]
+      ],
+      "overrides": {
+        "aria-query": "5.1.3",
+        "axobject-query": "3.2.1",
+        "@netlify/edge-bundler": {
+          "esbuild": "0.19.11"
+        }
+      }
     }
   }
 }

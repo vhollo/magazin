@@ -9,7 +9,6 @@
     <figure>
       {#if card.path}
         <a href={`/${card.path}`}>
-          <!--<img style={`object-fit: ${card.ext == 'png' ? 'contain' : 'cover'}; object-position: ${card.pos || '50% 40%'}`} src={`${PUBLIC_BASE_URL}${card.img}`} alt="" width="928" height="548"/>-->
           <img
             fetchpriority={card.fetchpriority || 'auto'}
             style={`object-fit: ${card.ext == 'png' ? 'contain' : 'cover'}; object-position: ${card.pos || '50% 40%'}`} 
@@ -30,7 +29,6 @@
     <figure>
       {#if card.path}
         <a href={`/${card.path}`}>
-          <!--<img style={`object-fit: ${card.ext == 'png' ? 'contain' : 'cover'}; object-position: ${card.pos || '50% 40%'}`} src={`${PUBLIC_BASE_URL}${card.img}`} alt="" width="928" height="548"/>-->
           <img 
             fetchpriority={card.fetchpriority || 'auto'}
             loading={card.fetchpriority == 'high' ? 'eager' : 'lazy'}

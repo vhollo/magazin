@@ -14,7 +14,7 @@
  *   node scripts/sync-modx-to-firestore.mjs          # incremental
  *   node scripts/sync-modx-to-firestore.mjs --full   # one-time backfill (lastEdit ignored)
  *
- * Env: MODXDB_*, FIREBASE_ADMIN_KEY, FIREBASE_STORAGE_BUCKET, PUBLIC_BASE_URL (optional)
+ * Env: MODXDB_*, FIREBASE_ADMIN_KEY, FIREBASE_STORAGE_BUCKET, MODX_ASSET_ORIGIN (optional)
  * Optional: NETLIFY_SITE_ID, NETLIFY_ACCESS_TOKEN (edge-cache purge)
  */
 import 'dotenv/config'
@@ -43,6 +43,7 @@ import {
   registerRedirectEntries,
 } from './lib/receptsarok-redirects-manifest.mjs'
 import { isMagazineCandidate, shouldSyncRow } from './lib/magazine-scope.mjs'
+import { getModxAssetOriginWithSlash } from './lib/modx-asset-origin.mjs'
 
 const isFullSync = process.argv.includes('--full')
 
@@ -51,7 +52,7 @@ const HOME_COLLECTION_ID = 'home'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const root = path.resolve(__dirname, '..')
-const PUBLIC_BASE_URL = process.env.PUBLIC_BASE_URL || 'https://www.diabetes.hu/'
+const MODX_ASSET_ORIGIN = getModxAssetOriginWithSlash()
 const RS_REDIRECTS_PATH = path.join(root, 'src/lib/data/receptsarok-redirects.json')
 const RECIPES_JSON_PATH = path.join(root, 'src/lib/data/recipes.json')
 const META_SYNC_DOC = 'sync'
@@ -582,7 +583,7 @@ async function main() {
   const dynamicRedirectEntries = []
 
   const modxTransform = createModxTransform({
-    publicBaseUrl: PUBLIC_BASE_URL,
+    publicBaseUrl: MODX_ASSET_ORIGIN,
     tmplvarContentvalues,
     modxSzerzok,
     getEveryDocs: () => [...workingById.values()],

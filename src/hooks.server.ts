@@ -1,15 +1,16 @@
 import type { Handle } from '@sveltejs/kit';
+import { modxAssetOriginBase } from '$lib/modxAssetOrigin';
 
 const MODX_ASSET_PREFIXES = ['/assets/images/', '/assets/media/'] as const;
 
-/** Proxy MODX media same-origin (Netlify preview / cross-domain deploys). */
+/** Proxy MODX media same-origin (app host → MODX_ASSET_ORIGIN). */
 export const handle: Handle = async ({ event, resolve }) => {
 	const { pathname } = event.url;
 	if (!MODX_ASSET_PREFIXES.some((prefix) => pathname.startsWith(prefix))) {
 		return resolve(event);
 	}
 
-	const upstreamUrl = `https://www.diabetes.hu${pathname}${event.url.search}`;
+	const upstreamUrl = `${modxAssetOriginBase()}${pathname}${event.url.search}`;
 	try {
 		const upstream = await fetch(upstreamUrl);
 		if (!upstream.ok) {
