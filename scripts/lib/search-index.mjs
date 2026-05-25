@@ -28,6 +28,7 @@ const SEARCH_STORE_FIELDS = [
 ]
 
 const RECIPE_SEARCH_FIELDS = [
+  'id',
   'year',
   'title',
   'author',
@@ -126,7 +127,9 @@ export async function loadRecipesForSearch(firestore) {
       const data = fs.readFileSync(path.join(root, 'src/lib/data/recipes.json'), 'utf8')
       const parsed = JSON.parse(data)
       return Array.isArray(parsed)
-        ? parsed.filter((r) => r.published !== false).map((r) => pickRecipeFields(r))
+        ? parsed
+            .filter((r) => r.published !== false)
+            .map((r) => ({ id: r.id, ...pickRecipeFields(r) }))
         : []
     } catch {
       return []

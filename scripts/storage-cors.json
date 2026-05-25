@@ -6,7 +6,8 @@
       "http://localhost:4173",
       "http://127.0.0.1:4173",
       "https://diabetes.hu",
-      "https://www.diabetes.hu"
+      "https://www.diabetes.hu",
+      "https://diabeteshu.netlify.app"
     ],
     "method": ["GET", "HEAD"],
     "responseHeader": ["Content-Type", "Content-Length", "Content-Encoding"],

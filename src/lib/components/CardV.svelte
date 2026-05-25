@@ -1,13 +1,13 @@
 <script>
   import CardBody from '$lib/components/CardBody.svelte'
+  import { resolveAssetUrl, rewriteModxAssetHtml } from '$lib/assetUrl'
   export let card
-  // console.log({card})
 </script>
 
 <!--<aside class:double={card.img} class:triple={card.ellipsis?.indexOf('<video') !== -1} class="card card-sm bg-base-100 shadow-xl">-->
   {#if card.video}
     <figure class="rounded-t pb-2">
-      {@html card.video}
+      {@html rewriteModxAssetHtml(card.video)}
     </figure>
   {:else if card.img}
     <figure class="rounded-t pb-2">
@@ -16,14 +16,14 @@
           <!--<img style={`object-fit: ${card.ext == 'png' ? 'contain' : 'cover'}; object-position: ${card.pos || '50% 40%'}`} src={`${PUBLIC_BASE_URL}${card.img}`} alt="" width="928" height="548"/>-->
           <img loading="lazy"
             style={`object-fit: ${card.img.ext == 'png' ? 'contain' : 'cover'}; object-position: ${card.img.pos || '50% 40%'}`} 
-            src={`${card.img.src}`} 
+            src={resolveAssetUrl(card.img.src)} 
             alt="" width="928" height="548"
           />
         </a>
       {:else}
         <img loading="lazy"
           style={`object-fit: ${card.img.ext == 'png' ? 'contain' : 'cover'}; object-position: ${card.img.pos || '50% 40%'}`} 
-          src={`${card.img.src}`} 
+          src={resolveAssetUrl(card.img.src)} 
           alt="" width="928" height="548"
         />
       {/if}

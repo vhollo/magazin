@@ -25,13 +25,14 @@ function preferSearchIndexProxy(): boolean {
 }
 
 /**
- * Load gzipped index JSON. Local dev/preview: proxy first. Production site: GCS first (bucket CORS).
- * Proxy fallback on Netlify may hit the ~6MB function limit (~11MB gzip index).
+ * Load gzipped index JSON.
+ * Production / Netlify: direct GCS fetch only (bucket CORS; index ~10 MiB exceeds Netlify function limit).
+ * Local dev / vite preview: same-origin proxy first (GCS CORS only lists localhost ports).
  */
 export async function fetchSearchIndexText(indexUrl: string): Promise<string> {
 	const urls = preferSearchIndexProxy()
 		? [SEARCH_INDEX_PROXY, indexUrl]
-		: [indexUrl, SEARCH_INDEX_PROXY];
+		: [indexUrl];
 
 	let lastError: Error | null = null;
 	for (const url of urls) {

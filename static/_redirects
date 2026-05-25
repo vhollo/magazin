@@ -1,5 +1,0 @@
-# MODX media lives on www.diabetes.hu; proxy same-origin so Netlify previews avoid ORB /
-# hotlink blocks when loading cross-origin images.
-
-/assets/images/*  https://www.diabetes.hu/assets/images/:splat  200!
-/assets/media/*  https://www.diabetes.hu/assets/media/:splat  200!

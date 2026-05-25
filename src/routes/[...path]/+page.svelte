@@ -6,6 +6,7 @@
   import BannerSide from '$lib/components/BannerSide.svelte'
   import BannerTop from '$lib/components/BannerTop.svelte'
   import ReceptsarokWidget from '$lib/components/ReceptsarokWidget.svelte'
+  import { resolveAssetUrl, rewriteModxAssetHtml } from '$lib/assetUrl'
 
   import { nav2 } from '$lib/nav2.js'
   let copycats = JSON.parse(JSON.stringify(nav2))
@@ -86,7 +87,7 @@
   <meta name="description" content={doc.ellipsis || conf.description || 'www.diabetes.hu • Az Alapítvány a Cukorbetegekért betegtájékoztató lapja. Kiadja a Tudomány Kiadó Kft.'}/>
   <meta name="keywords" content={doc.tv?.tags?.join(', ') || conf.tags.join(', ') || 'diabetes, diabétesz, cukorbetegség, vese, keton, Tudomány Kiadó Kft'}/>
   <meta name="author" content={doc.tv?.szerzo?.join(', ') || 'diabetes.hu'}/>
-  <meta name="og:image" content={doc.tv?.ogi || conf.ogi || '/icon.svg'}/>
+  <meta name="og:image" content={resolveAssetUrl(doc.tv?.ogi) || conf.ogi || '/icon.svg'}/>
   <meta name="og:title" content={doc.longtitle || doc.title || conf.sitename || 'Diabetes'}/>
   <meta name="og:description" content={doc.description || conf.description || 'www.diabetes.hu • Az Alapítvány a Cukorbetegekért betegtájékoztató lapja. Kiadja a Tudomány Kiadó Kft.'}/>
   <meta name="og:url" content={doc.url || 'https://diabetes.hu'}/>
@@ -94,7 +95,7 @@
   <meta name="og:type" content="article"/>
   <meta name="og:locale" content="hu_HU"/>
   {#if doc.img}
-    <link rel="preload" href={doc.img.src} as="image"/>
+    <link rel="preload" href={resolveAssetUrl(doc.img.src)} as="image"/>
   {/if}
 </svelte:head>
 <!-- <svelte:window bind:this={win}/> -->
@@ -138,16 +139,16 @@
       {/if}-->
       {#if doc.img}
       <figure class="pageimage text-center w-full">
-        <img class="mx-auto" style={`object-fit: contain;`} src={doc.img.src} alt="">
+        <img class="mx-auto" style={`object-fit: contain;`} src={resolveAssetUrl(doc.img.src)} alt="">
         <figcaption>{@html doc.img.caption}</figcaption>
       </figure>
       {/if}
       <!--<p class="uppercase"><small></small></p>-->
-      {@html doc.content}
+      {@html rewriteModxAssetHtml(doc.content)}
       {#if doc.tv.szerzo?.length}
         {#each doc.tv.szerzo as sze}
           {#if sze.full}
-            {@html sze.full}
+            {@html rewriteModxAssetHtml(sze.full)}
           {:else}
             <p class="alairas">{sze.name}</p>
           {/if}

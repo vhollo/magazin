@@ -28,7 +28,8 @@
 		"sync:modx": "NODE_OPTIONS=--max-old-space-size=6144 tsx scripts/sync-modx-to-firestore.mjs",
 		"sync:modx:full": "NODE_OPTIONS=--max-old-space-size=6144 tsx scripts/sync-modx-to-firestore.mjs --full",
 		"sync:modx:finish": "NODE_OPTIONS=--max-old-space-size=6144 tsx scripts/finish-modx-sync.mjs",
-		"verify:firestore-magazine": "tsx scripts/verify-firestore-magazine.mjs"
+		"verify:firestore-magazine": "tsx scripts/verify-firestore-magazine.mjs",
+		"storage:cors": "tsx scripts/set-storage-cors.mjs"
 	},
 	"devDependencies": {
 		"@sveltejs/adapter-auto": "^3.2.5",

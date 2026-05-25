@@ -1,0 +1,3 @@
+# MODX media on www.diabetes.hu — edge proxy (hooks.server.ts also proxies if this is bypassed).
+/assets/images/*  https://www.diabetes.hu/assets/images/:splat  200!
+/assets/media/*  https://www.diabetes.hu/assets/media/:splat  200!

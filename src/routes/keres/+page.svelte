@@ -101,7 +101,7 @@
       if (import.meta.env.DEV || (typeof window !== 'undefined' && /localhost|127\.0\.0\.1/.test(window.location.hostname))) {
         console.warn('search index load failed:', err)
         console.warn(
-          'Bucket CORS (production direct fetch): gsutil cors set scripts/storage-cors.json gs://diabetes-hu.firebasestorage.app'
+          'Bucket CORS (direct GCS fetch): npm run storage:cors — add this origin to scripts/storage-cors.json if missing'
         )
       }
     } finally {
