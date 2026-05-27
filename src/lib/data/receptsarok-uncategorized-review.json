@@ -1,1627 +1,188 @@
 {
-  "generatedAt": "2026-05-14T16:40:32.979Z",
+  "generatedAt": "2026-05-25T18:34:20.874Z",
   "instructions": "Set category for each entry (entry.category or entry.recipe.category), then run: npm run recipes:uncategorized:import",
   "entries": [
     {
-      "key": "2015-mandarinos-francia-palacsinta",
-      "sourcePath": "junior/2015/cikkek/receptsarok/mandarinos-francia-palacsinta",
-      "modxContentId": 4436,
+      "key": "2014-currys-repatorta-hajdinaval",
+      "sourcePath": "cikkek/diabetes/1404/currys-repatorta-hajdinaval",
+      "modxContentId": 1221,
       "reason": "below-threshold",
       "categoryDecision": {
         "resolved": false,
         "category": null,
         "categorySource": "unresolved",
-        "confidence": 0.4521212122401888,
-        "margin": 0.059670841660703966,
+        "confidence": 0.49504943851922967,
+        "margin": 0.10941246599221788,
         "matchedFeatures": [
           {
-            "feature": "folyekony",
-            "score": 1.061199
+            "feature": "curry",
+            "score": 1.457381
           },
           {
-            "feature": "folyekony_edesitoszer",
-            "score": 1.025745
+            "feature": "sargarepa",
+            "score": 1.407536
           },
-          {
-            "feature": "nehany",
-            "score": 0.615098
-          }
-        ],
-        "reason": "below-threshold"
-      },
-      "recipe": {
-        "id": "mandarinos-francia-palacsinta",
-        "year": 2015,
-        "title": "Mandarinos francia palacsinta",
-        "author": "Gyurcsáné Kondrát Ilona",
-        "servings": {
-          "amount": 8,
-          "unit": "db"
-        },
-        "energy": 190,
-        "protein": 12.6,
-        "fat": 17.2,
-        "saturatedFat": null,
-        "carbs": 22.4,
-        "fiber": null,
-        "nutritionTables": [
-          {
-            "label": "1 darab:",
-            "energy": 190,
-            "protein": 12.6,
-            "fat": 17.2,
-            "saturatedFat": null,
-            "carbs": 22.4,
-            "fiber": null
-          }
-        ],
-        "ingredientGroups": [
-          {
-            "section": "8 darabhoz:",
-            "items": [
-              {
-                "text": "18 dkg liszt",
-                "amount": 18,
-                "unit": "dkg",
-                "name": "liszt"
-              },
-              {
-                "text": "3 db tojás",
-                "amount": 3,
-                "unit": "db",
-                "name": "tojás"
-              },
-              {
-                "text": "4 dkg vaj vagy margarin",
-                "amount": 4,
-                "unit": "dkg",
-                "name": "vaj vagy margarin"
-              },
-              {
-                "text": "2 dl tej (1,5%-os)",
-                "amount": 2,
-                "unit": "dl",
-                "name": "tej (1,5%-os)"
-              },
-              {
-                "text": "szükség szerint szénsavas ásványvíz",
-                "amount": null,
-                "unit": null,
-                "name": "szükség szerint szénsavas ásványvíz"
-              },
-              {
-                "text": "folyékony édesítőszer",
-                "amount": null,
-                "unit": null,
-                "name": "folyékony édesítőszer"
-              }
-            ]
-          },
-          {
-            "section": "A töltelékhez:",
-            "items": [
-              {
-                "text": "20 dkg mandarin (megtisztított)",
-                "amount": 20,
-                "unit": "dkg",
-                "name": "mandarin (megtisztított)"
-              },
-              {
-                "text": "1 dl fruktózzal ízesített tejszínhab (spray)",
-                "amount": 1,
-                "unit": "dl",
-                "name": "fruktózzal ízesített tejszínhab (spray)"
-              },
-              {
-                "text": "1-2 dl tej folyékony édesítőszerrel ízesítve",
-                "amount": 1,
-                "unit": "dl",
-                "name": "tej folyékony édesítőszerrel ízesítve"
-              }
-            ]
-          }
-        ],
-        "ingredientNames": [
-          "liszt",
-          "tojás",
-          "vaj vagy margarin",
-          "tej (1,5%-os)",
-          "szükség szerint szénsavas ásványvíz",
-          "folyékony édesítőszer",
-          "mandarin (megtisztított)",
-          "fruktózzal ízesített tejszínhab (spray)",
-          "tej folyékony édesítőszerrel ízesítve"
-        ],
-        "searchTerms": [
-          "mandarinos",
-          "francia",
-          "palacsinta",
-          "liszt",
-          "tojas",
-          "vaj",
-          "vagy",
-          "margarin",
-          "tej",
-          "szukseg",
-          "szerint",
-          "szensavas",
-          "asvanyviz",
-          "folyekony",
-          "edesitoszer",
-          "mandarin",
-          "megtisztitott",
-          "fruktozzal",
-          "izesitett",
-          "tejszinhab",
-          "spray",
-          "edesitoszerrel",
-          "izesitve"
-        ],
-        "instructions": [
-          "A tojássárgájákat tejjel összekeverjük, hozzáadjuk a lisztet és kellő mennyiségű ásványvízzel csomómentesre keverjük. Ízesítjük pici sóval és folyékony édesítővel. A tojásfehérjéket habbá verjük, és óvatosan belekeverjük a palacsintaalapba. A tésztát kicsit pihentetjük, majd vajjal megkent palacsintasütőben kisütjük. A mandarint szükség szerint kimagozzuk, néhány cikket félreteszünk díszítésre, a többit a hártyájától megtisztítjuk. Körülbelül 5-10 percig a megédesített tejbe áztatjuk, majd lecsepegtetjük. A palacsintákon elosztjuk a mandarint, tejszínhabot teszünk rá, és háromszögletűre hajtogatjuk. Tálaláskor a félretett mandaringerezdekkel és tejszínhabbal díszítjük."
-        ],
-        "image": null,
-        "subRecipes": [],
-        "hasSubRecipes": false,
-        "createdAt": "2026-05-04T14:29:27.000Z",
-        "updatedAt": "2026-05-04T14:34:09.000Z",
-        "free": true,
-        "sourceModxId": 4436
-      }
-    },
-    {
-      "key": "2026-mogyorokremes-teljes-kiorlesu-minicsigak",
-      "sourcePath": "cikkek/diabetes/nagymamaink-receptjei-modern-kontosben/mogyorokremes-teljes-kiorlesu-minicsigak",
-      "modxContentId": 4293,
-      "reason": "below-threshold",
-      "categoryDecision": {
-        "resolved": false,
-        "category": null,
-        "categorySource": "unresolved",
-        "confidence": 0.42483822413776273,
-        "margin": 0.2918798520218984,
-        "matchedFeatures": [
-          {
-            "feature": "kiorlesu",
-            "score": 0.578739
-          },
-          {
-            "feature": "teljes_kiorlesu",
-            "score": 0.578739
-          },
-          {
-            "feature": "teljes",
-            "score": 0.568614
-          }
-        ],
-        "reason": "below-threshold"
-      },
-      "recipe": {
-        "id": "mogyorokremes-teljes-kiorlesu-minicsigak",
-        "year": 2026,
-        "title": "Mogyorókrémes teljes kiőrlésű minicsigák",
-        "author": "Szálka Brigitta",
-        "servings": {
-          "amount": 30,
-          "unit": "db"
-        },
-        "energy": 87,
-        "protein": 1,
-        "fat": 6,
-        "saturatedFat": null,
-        "carbs": 7,
-        "fiber": null,
-        "nutritionTables": [
-          {
-            "label": "1 darab energia- és tápanyagtartalma:",
-            "energy": 87,
-            "protein": 1,
-            "fat": 6,
-            "saturatedFat": null,
-            "carbs": 7,
-            "fiber": null
-          }
-        ],
-        "ingredientGroups": [
-          {
-            "section": "Hozzávalók 30 darabhoz",
-            "items": [
-              {
-                "text": "2 csomag leveles teljes kiőrlésű levelestészta,",
-                "amount": 2,
-                "unit": "csomag",
-                "name": "leveles teljes kiőrlésű levelestészta,"
-              },
-              {
-                "text": "120 g hozzáadottcukor-mentes mogyorókrém.",
-                "amount": 120,
-                "unit": "g",
-                "name": "hozzáadottcukor-mentes mogyorókrém."
-              }
-            ]
-          }
-        ],
-        "ingredientNames": [
-          "leveles teljes kiőrlésű levelestészta,",
-          "hozzáadottcukor-mentes mogyorókrém."
-        ],
-        "searchTerms": [
-          "mogyorokremes",
-          "teljes",
-          "kiorlesu",
-          "minicsigak",
-          "leveles",
-          "levelesteszta",
-          "hozzaadottcukor",
-          "mentes",
-          "mogyorokrem"
-        ],
-        "instructions": [
-          "A leveles tésztát kiterítjük, egyenletesen megkenjük a mogyorókrémmel, majd hosszában feltekerjük. Éles késsel egy rúdból 15 csigát vágunk. Sütőpapírra helyezzük a csigákat, 160 fokra előmelegített sütőben kb. 15 perc alatt aranybarnára sütjük."
-        ],
-        "image": {
-          "src": "https://www.diabetes.hu/assets/images/cikkek/dt2504/dt2504-kaja-_DSC6470.jpg",
-          "alt": "Mogyorókrémes teljes kiőrlésű minicsigák",
-          "caption": null
-        },
-        "img": {
-          "src": "https://www.diabetes.hu/assets/images/cikkek/dt2504/dt2504-kaja-_DSC6470.jpg",
-          "pos": "left",
-          "ext": "jpg",
-          "caption": ""
-        },
-        "subRecipes": [],
-        "hasSubRecipes": false,
-        "createdAt": "2025-09-26T10:21:57.000Z",
-        "updatedAt": "2025-11-04T07:16:04.000Z",
-        "free": true,
-        "sourceModxId": 4293
-      }
-    },
-    {
-      "key": "2021-karacsonyi-receptek",
-      "sourcePath": "cikkek/diabetes/2106/karacsonyi-receptek",
-      "modxContentId": 3348,
-      "reason": "below-threshold",
-      "categoryDecision": {
-        "resolved": false,
-        "category": null,
-        "categorySource": "unresolved",
-        "confidence": 0.20430809399477803,
-        "margin": 0.0058746736292428214,
-        "matchedFeatures": [],
-        "reason": "below-threshold"
-      },
-      "recipe": {
-        "id": "karacsonyi-receptek",
-        "year": 2021,
-        "title": "Karácsonyi Receptek",
-        "author": "",
-        "servings": {
-          "amount": 0,
-          "unit": ""
-        },
-        "energy": null,
-        "protein": null,
-        "fat": null,
-        "saturatedFat": null,
-        "carbs": null,
-        "fiber": null,
-        "nutritionTables": [],
-        "ingredientGroups": [],
-        "ingredientNames": [],
-        "searchTerms": [
-          "karacsonyi",
-          "receptek"
-        ],
-        "instructions": [],
-        "image": null,
-        "subRecipes": [],
-        "hasSubRecipes": false,
-        "createdAt": "2021-12-11T15:43:20.000Z",
-        "updatedAt": "2025-08-26T20:39:33.000Z",
-        "free": true,
-        "sourceModxId": 3348
-      }
-    },
-    {
-      "key": "2021-cseresznyelekvar",
-      "sourcePath": "cikkek/diabetes/2103/nyari-receptek/cseresznyelekvar",
-      "modxContentId": 3297,
-      "reason": "below-threshold",
-      "categoryDecision": {
-        "resolved": false,
-        "category": null,
-        "categorySource": "unresolved",
-        "confidence": 0.5403524796510886,
-        "margin": 0.3203639971750917,
-        "matchedFeatures": [
-          {
-            "feature": "eritrit",
-            "score": 2.829342
-          }
-        ],
-        "reason": "below-threshold"
-      },
-      "recipe": {
-        "id": "cseresznyelekvar",
-        "year": 2021,
-        "title": "Cseresznyelekvár",
-        "author": "Nyári receptek",
-        "servings": {
-          "amount": 5,
-          "unit": "db"
-        },
-        "energy": 65,
-        "protein": 1,
-        "fat": null,
-        "saturatedFat": null,
-        "carbs": 14,
-        "fiber": null,
-        "nutritionTables": [
-          {
-            "label": "2 evőkanál (kb. 40 g) tápanyagtartalma:",
-            "energy": 65,
-            "protein": 1,
-            "fat": null,
-            "saturatedFat": null,
-            "carbs": 14,
-            "fiber": null
-          }
-        ],
-        "ingredientGroups": [
-          {
-            "section": "Hozzávalók 5 db 200 ml-es üveghez",
-            "items": [
-              {
-                "text": "2700 g cseresznye (magozott),",
-                "amount": 2700,
-                "unit": "g",
-                "name": "cseresznye (magozott),"
-              },
-              {
-                "text": "270 g eritrit.",
-                "amount": 270,
-                "unit": "g",
-                "name": "eritrit."
-              }
-            ]
-          }
-        ],
-        "ingredientNames": [
-          "cseresznye (magozott),",
-          "eritrit."
-        ],
-        "searchTerms": [
-          "cseresznyelekvar",
-          "cseresznye",
-          "magozott",
-          "eritrit"
-        ],
-        "instructions": [
-          "A megtisztított, kimagozott cseresznyét nyomkodjuk szét egy nagy lábasban az eritrittel, majd hagyjuk egy éjszakát állni. Másnap reggel, közepes lángon tegyük fel főzni, míg fel nem forr. Amint megvan, vegyük le a lángot takarékra, így főzzük közepes lángon, a forralást is beleszámítva másfél órát. Amíg fő a lekvárunk, az üvegeket mossuk ki, majd vagy sütőben, vagy kifőzve fertőtlenítsük őket. Amint kifertőtlenítettük, tegyük tele a forró lekvárral, és egy vastag paplannal csomagoljuk be. Várjunk vele 24 órát, hogy kihűljön, és máris fogyasztható."
-        ],
-        "image": {
-          "src": "https://www.diabetes.hu/assets/images/_stock/pixabay-cherries-1513949-1280.jpg",
-          "alt": "Cseresznyelekvár",
-          "caption": null
-        },
-        "img": {
-          "src": "https://www.diabetes.hu/assets/images/_stock/pixabay-cherries-1513949-1280.jpg",
-          "pos": "left",
-          "ext": "jpg",
-          "caption": ""
-        },
-        "subRecipes": [],
-        "hasSubRecipes": false,
-        "createdAt": "2021-09-16T11:27:35.000Z",
-        "updatedAt": "2026-02-22T17:49:35.000Z",
-        "free": true,
-        "sourceModxId": 3297
-      }
-    },
-    {
-      "key": "2021-kakukkfuves-narancsdzsem",
-      "sourcePath": "cikkek/diabetes/2103/nyari-receptek/kakukkfuves-narancsdzsem",
-      "modxContentId": 3275,
-      "reason": "below-threshold",
-      "categoryDecision": {
-        "resolved": false,
-        "category": null,
-        "categorySource": "unresolved",
-        "confidence": 0.6194012733425205,
-        "margin": 0.49674122315155705,
-        "matchedFeatures": [
-          {
-            "feature": "cukormentes",
-            "score": 3.24691
-          }
-        ],
-        "reason": "below-threshold"
-      },
-      "recipe": {
-        "id": "kakukkfuves-narancsdzsem",
-        "year": 2021,
-        "title": "Kakukkfüves narancsdzsem",
-        "author": "Nyári receptek",
-        "servings": {
-          "amount": 8,
-          "unit": "adag"
-        },
-        "energy": 51,
-        "protein": null,
-        "fat": null,
-        "saturatedFat": null,
-        "carbs": 11,
-        "fiber": null,
-        "nutritionTables": [
-          {
-            "label": "1 adag tápanyagtartalma:",
-            "energy": 51,
-            "protein": null,
-            "fat": null,
-            "saturatedFat": null,
-            "carbs": 11,
-            "fiber": null
-          }
-        ],
-        "ingredientGroups": [
-          {
-            "section": "Hozzávalók 8 adaghoz",
-            "items": [
-              {
-                "text": "15 g narancshéj,",
-                "amount": 15,
-                "unit": "g",
-                "name": "narancshéj,"
-              },
-              {
-                "text": "1,5 kg narancs,",
-                "amount": 1.5,
-                "unit": "kg",
-                "name": "narancs,"
-              },
-              {
-                "text": "200 ml víz,",
-                "amount": 200,
-                "unit": "ml",
-                "name": "víz,"
-              },
-              {
-                "text": "3 szál kakukkfű,",
-                "amount": 3,
-                "unit": null,
-                "name": "szál kakukkfű,"
-              },
-              {
-                "text": "40 g dzsemfix (cukormentes).",
-                "amount": 40,
-                "unit": "g",
-                "name": "dzsemfix (cukormentes)."
-              }
-            ]
-          }
-        ],
-        "ingredientNames": [
-          "narancshéj,",
-          "narancs,",
-          "víz,",
-          "szál kakukkfű,",
-          "dzsemfix (cukormentes)."
-        ],
-        "searchTerms": [
-          "kakukkfuves",
-          "narancsdzsem",
-          "narancshej",
-          "narancs",
-          "viz",
-          "szal",
-          "kakukkfu",
-          "dzsemfix",
-          "cukormentes"
-        ],
-        "instructions": [
-          "A megmosott narancs héját lereszeljük, a levét kifacsarjuk. Hozzáadjuk a vizet és a kakukkfüvet, majd alacsony lángon folyamatos kevergetés mellett felforraljuk. Ha felforrt, hozzáadjuk a dzsemfixet és habverővel elkeverjük. Az üvegeket forró vízben fertőtlenítjük, majd beleöntjük a még híg dzsemet. Befőzőfóliával letakarjuk és ráhúzzuk a tetejét. Fejjel lefelé fordítva, paplanba csomagolva várjuk meg, míg kihűl."
-        ],
-        "image": {
-          "src": "https://www.diabetes.hu/assets/images/cikkek/dt2103/dt2103-kaja-kakukkf-ves-narancslekv-r.jpg",
-          "alt": "Kakukkfüves narancsdzsem",
-          "caption": null
-        },
-        "img": {
-          "src": "https://www.diabetes.hu/assets/images/cikkek/dt2103/dt2103-kaja-kakukkf-ves-narancslekv-r.jpg",
-          "pos": "50% 40%",
-          "ext": "jpg",
-          "caption": ""
-        },
-        "subRecipes": [],
-        "hasSubRecipes": false,
-        "createdAt": "2021-08-04T19:17:40.000Z",
-        "updatedAt": "2021-08-04T19:30:10.000Z",
-        "free": true,
-        "sourceModxId": 3275
-      }
-    },
-    {
-      "key": "2021-repas-lepenykenyer",
-      "sourcePath": "cikkek/diabetes/2101/receptek-husvetra/repas-lepenykenyer",
-      "modxContentId": 3184,
-      "reason": "below-threshold",
-      "categoryDecision": {
-        "resolved": false,
-        "category": null,
-        "categorySource": "unresolved",
-        "confidence": 0.5480760631170578,
-        "margin": 0.33290497621750637,
-        "matchedFeatures": [
-          {
-            "feature": "eleszto",
-            "score": 3.620182
-          }
-        ],
-        "reason": "below-threshold"
-      },
-      "recipe": {
-        "id": "repas-lepenykenyer",
-        "year": 2021,
-        "title": "Répás lepénykenyér",
-        "author": "Receptek húsvétra",
-        "servings": {
-          "amount": 10,
-          "unit": "adag"
-        },
-        "energy": 200,
-        "protein": 9,
-        "fat": 18,
-        "saturatedFat": null,
-        "carbs": 1,
-        "fiber": null,
-        "nutritionTables": [
-          {
-            "label": "1 adag tápanyagtartalma:",
-            "energy": 200,
-            "protein": 9,
-            "fat": 18,
-            "saturatedFat": null,
-            "carbs": 1,
-            "fiber": null
-          }
-        ],
-        "ingredientGroups": [
-          {
-            "section": "Hozzávalók 10 adaghoz",
-            "items": [
-              {
-                "text": "250 g búzafehérliszt,",
-                "amount": 250,
-                "unit": "g",
-                "name": "búzafehérliszt,"
-              },
-              {
-                "text": "170 ml víz,",
-                "amount": 170,
-                "unit": "ml",
-                "name": "víz,"
-              },
-              {
-                "text": "150 g sárgarépa,",
-                "amount": 150,
-                "unit": "g",
-                "name": "sárgarépa,"
-              },
-              {
-                "text": "9 g só,",
-                "amount": 9,
-                "unit": "g",
-                "name": "só,"
-              },
-              {
-                "text": "1 cs. szárított élesztő.",
-                "amount": 1,
-                "unit": "cs.",
-                "name": "szárított élesztő."
-              }
-            ]
-          }
-        ],
-        "ingredientNames": [
-          "búzafehérliszt,",
-          "víz,",
-          "sárgarépa,",
-          "só,",
-          "szárított élesztő."
-        ],
-        "searchTerms": [
-          "repas",
-          "lepenykenyer",
-          "buzafeherliszt",
-          "viz",
-          "sargarepa",
-          "szaritott",
-          "eleszto"
-        ],
-        "instructions": [
-          "A sót egy keverőtál aljába mérjük és hozzáöntjük a lisztet. Sajtreszelőn hozzáreszeljük a megtisztított sárgarépát. Beleöntjük az élesztőt, és a meglangyosított vízzel alaposan összegyúrjuk. 30 percet kelesztjük meleg helyen, majd kinyújtjuk és hajtogatjuk. Ezt megismételjük még 2-szer fél-fél óra várakozással. Végül sütőpapírral bélelt tepsire téve, 180–200 fokra előmelegített sütőben kb. 35 perc alatt készre sütjük."
-        ],
-        "image": {
-          "src": "https://www.diabetes.hu/assets/images/cikkek/dt2101/dt2101-studio-session-121-1.jpg",
-          "alt": "Répás lepénykenyér",
-          "caption": null
-        },
-        "img": {
-          "src": "https://www.diabetes.hu/assets/images/cikkek/dt2101/dt2101-studio-session-121-1.jpg",
-          "pos": "50% 40%",
-          "ext": "jpg",
-          "caption": ""
-        },
-        "subRecipes": [],
-        "hasSubRecipes": false,
-        "createdAt": "2021-03-18T17:13:23.000Z",
-        "updatedAt": "2022-04-27T15:56:25.000Z",
-        "free": true,
-        "sourceModxId": 3184
-      }
-    },
-    {
-      "key": "2002-receptsarok",
-      "sourcePath": "cikkek/diabetes/2002/receptsarok",
-      "modxContentId": 2941,
-      "reason": "below-threshold",
-      "categoryDecision": {
-        "resolved": false,
-        "category": null,
-        "categorySource": "unresolved",
-        "confidence": 0.20430809399477803,
-        "margin": 0.0058746736292428214,
-        "matchedFeatures": [],
-        "reason": "below-threshold"
-      },
-      "recipe": {
-        "id": "receptsarok",
-        "year": 2002,
-        "title": "Receptsarok",
-        "author": "Kard Éva receptjei",
-        "servings": {
-          "amount": 0,
-          "unit": ""
-        },
-        "energy": null,
-        "protein": null,
-        "fat": null,
-        "saturatedFat": null,
-        "carbs": null,
-        "fiber": null,
-        "nutritionTables": [],
-        "ingredientGroups": [],
-        "ingredientNames": [],
-        "searchTerms": [
-          "receptsarok"
-        ],
-        "instructions": [
-          "Kard Éva további receptjei megtalálhatók blogján: gizi-receptjei.blogspot.com"
-        ],
-        "image": null,
-        "subRecipes": [],
-        "hasSubRecipes": false,
-        "createdAt": "2020-05-25T19:58:43.000Z",
-        "updatedAt": "2020-10-14T10:03:39.000Z",
-        "free": true,
-        "sourceModxId": 2941
-      }
-    },
-    {
-      "key": "2026-recept",
-      "sourcePath": "cikkek/recept",
-      "modxContentId": 2429,
-      "reason": "below-threshold",
-      "categoryDecision": {
-        "resolved": false,
-        "category": null,
-        "categorySource": "unresolved",
-        "confidence": 0.20430809399477803,
-        "margin": 0.0058746736292428214,
-        "matchedFeatures": [],
-        "reason": "below-threshold"
-      },
-      "recipe": {
-        "id": "recept",
-        "year": 2026,
-        "title": "Receptek",
-        "author": "",
-        "servings": {
-          "amount": 0,
-          "unit": ""
-        },
-        "energy": null,
-        "protein": null,
-        "fat": null,
-        "saturatedFat": null,
-        "carbs": null,
-        "fiber": null,
-        "nutritionTables": [],
-        "ingredientGroups": [],
-        "ingredientNames": [],
-        "searchTerms": [
-          "receptek"
-        ],
-        "instructions": [],
-        "image": null,
-        "subRecipes": [],
-        "hasSubRecipes": false,
-        "createdAt": "2019-01-07T12:53:20.000Z",
-        "updatedAt": "2019-01-10T19:13:33.000Z",
-        "free": true,
-        "sourceModxId": 2429
-      }
-    },
-    {
-      "key": "2017-cekla-sargarepa-narancs-smoothie",
-      "sourcePath": "cikkek/diabetes/1706/cekla-sargarepa-narancs-smoothie",
-      "modxContentId": 2075,
-      "reason": "below-threshold",
-      "categoryDecision": {
-        "resolved": false,
-        "category": null,
-        "categorySource": "unresolved",
-        "confidence": 0.42488348838828993,
-        "margin": 0.0036806419125732792,
-        "matchedFeatures": [
-          {
-            "feature": "cekla",
-            "score": 1.753431
-          },
-          {
-            "feature": "narancs",
-            "score": 0.893255
-          }
-        ],
-        "reason": "below-threshold"
-      },
-      "recipe": {
-        "id": "cekla-sargarepa-narancs-smoothie",
-        "year": 2017,
-        "title": "Cékla-sárgarépa-narancs smoothie",
-        "author": "",
-        "servings": {
-          "amount": 4,
-          "unit": "adag"
-        },
-        "energy": 102,
-        "protein": 3,
-        "fat": 0,
-        "saturatedFat": null,
-        "carbs": 20,
-        "fiber": null,
-        "nutritionTables": [
-          {
-            "label": "1 adag tápanygtartalma:",
-            "energy": 102,
-            "protein": 3,
-            "fat": 0,
-            "saturatedFat": null,
-            "carbs": 20,
-            "fiber": null
-          }
-        ],
-        "ingredientGroups": [
-          {
-            "section": "Hozzávalók 4 adaghoz:",
-            "items": [
-              {
-                "text": "40 dkg cékla",
-                "amount": 40,
-                "unit": "dkg",
-                "name": "cékla"
-              },
-              {
-                "text": "40 dkg sárgarépa",
-                "amount": 40,
-                "unit": "dkg",
-                "name": "sárgarépa"
-              },
-              {
-                "text": "30 dkg narancs",
-                "amount": 30,
-                "unit": "dkg",
-                "name": "narancs"
-              },
-              {
-                "text": "1/2 kk. fahéj",
-                "amount": null,
-                "unit": null,
-                "name": "1/2 kk. fahéj"
-              }
-            ]
-          }
-        ],
-        "ingredientNames": [
-          "cékla",
-          "sárgarépa",
-          "narancs",
-          "1/2 kk. fahéj"
-        ],
-        "searchTerms": [
-          "cekla",
-          "sargarepa",
-          "narancs",
-          "smoothie",
-          "fahej"
-        ],
-        "instructions": [
-          "A céklát, sárgarépát, narancsot megpucoljuk, és kisebb darabokra vágjuk. A turmixgépbe először a feldarabolt narancsot tesszük, kevés vízzel összeturmixoljuk. Majd jöhet a sárgarépa kevés vízzel, végül a cékla. Fahéjjal ízesítjük. Mindig kevés vizet kell beletenni, és a hozzávalókat péppé turmixolni. Aki édesen szereti, kevés energiamentes édesítőszerrel édesítheti."
-        ],
-        "image": {
-          "src": "https://www.diabetes.hu/assets/images/cikkek/dt1706/pixabay-smoothie-1578253-1280.jpg",
-          "alt": "Cékla-sárgarépa-narancs smoothie",
-          "caption": null
-        },
-        "img": {
-          "src": "https://www.diabetes.hu/assets/images/cikkek/dt1706/pixabay-smoothie-1578253-1280.jpg",
-          "pos": "50% 40%",
-          "ext": "jpg",
-          "caption": ""
-        },
-        "subRecipes": [],
-        "hasSubRecipes": false,
-        "createdAt": "2018-05-16T10:09:15.000Z",
-        "updatedAt": "2018-12-20T22:43:54.000Z",
-        "free": true,
-        "sourceModxId": 2075
-      }
-    },
-    {
-      "key": "2017-almas-tojaslepeny",
-      "sourcePath": "cikkek/diabetes/1703/nagy-margit-gyumolcsos-receptjei",
-      "modxContentId": 1953,
-      "reason": "below-threshold",
-      "categoryDecision": {
-        "resolved": false,
-        "category": null,
-        "categorySource": "unresolved",
-        "confidence": 0.4244298851440877,
-        "margin": 0.21335339923835198,
-        "matchedFeatures": [
-          {
-            "feature": "durvara",
-            "score": 1.126297
-          },
-          {
-            "feature": "tojas_tej",
-            "score": 1.037879
-          },
-          {
-            "feature": "szerecsendio",
-            "score": 0.72685
-          }
-        ],
-        "reason": "below-threshold"
-      },
-      "recipe": {
-        "id": "almas-tojaslepeny",
-        "year": 2017,
-        "title": "Almás tojáslepény",
-        "author": "Nagy Margit",
-        "servings": {
-          "amount": 4,
-          "unit": "adag"
-        },
-        "energy": 171,
-        "protein": 10,
-        "fat": 11,
-        "saturatedFat": null,
-        "carbs": 7,
-        "fiber": null,
-        "nutritionTables": [
-          {
-            "label": "1 adag tápanygtartalma:",
-            "energy": 171,
-            "protein": 10,
-            "fat": 11,
-            "saturatedFat": null,
-            "carbs": 7,
-            "fiber": null
-          }
-        ],
-        "ingredientGroups": [
-          {
-            "section": "Hozzávalók 4 adaghoz:",
-            "items": [
-              {
-                "text": "6 db tojás,",
-                "amount": 6,
-                "unit": "db",
-                "name": "tojás,"
-              },
-              {
-                "text": "1,5 dl tej,",
-                "amount": 1.5,
-                "unit": "dl",
-                "name": "tej,"
-              },
-              {
-                "text": "2 dkg margarin,",
-                "amount": 2,
-                "unit": "dkg",
-                "name": "margarin,"
-              },
-              {
-                "text": "25 dkg alma,",
-                "amount": 25,
-                "unit": "dkg",
-                "name": "alma,"
-              },
-              {
-                "text": "só,",
-                "amount": null,
-                "unit": null,
-                "name": "só,"
-              },
-              {
-                "text": "szerecsendió",
-                "amount": null,
-                "unit": null,
-                "name": "szerecsendió"
-              }
-            ]
-          }
-        ],
-        "ingredientNames": [
-          "tojás,",
-          "tej,",
-          "margarin,",
-          "alma,",
-          "só,",
-          "szerecsendió"
-        ],
-        "searchTerms": [
-          "almas",
-          "tojaslepeny",
-          "tojas",
-          "tej",
-          "margarin",
-          "alma",
-          "szerecsendio"
-        ],
-        "instructions": [
-          "A tojásokat tejjel, sóval, a szerecsendióval ízesítve habverővel jól felverjük, majd hozzáadjuk a durvára reszelt almát. Teflonsütőben a margarint felmelegítjük, és adagonként úgy sütjük meg, mint a palacsintát, de nem fordítjuk meg. Ha a teteje megalvadt, kész. Tálaláskor a két oldalát egymásra hajtjuk, azonnal fogyasztjuk salátával."
-        ],
-        "image": {
-          "src": "https://www.diabetes.hu/assets/images/cikkek/dt1703/fruit-salad.jpg",
-          "alt": "Nagy Margit gyümölcsös receptjei",
-          "caption": null
-        },
-        "img": {
-          "src": "https://www.diabetes.hu/assets/images/cikkek/dt1703/fruit-salad.jpg",
-          "pos": "50% 40%",
-          "ext": "jpg",
-          "caption": ""
-        },
-        "subRecipes": [],
-        "hasSubRecipes": false,
-        "createdAt": "2017-06-28T16:42:36.000Z",
-        "updatedAt": "2026-05-11T15:31:55.000Z",
-        "free": true,
-        "sourceModxId": 1953
-      }
-    },
-    {
-      "key": "2017-ribiszkemartas",
-      "sourcePath": "cikkek/diabetes/1703/nagy-margit-gyumolcsos-receptjei",
-      "modxContentId": 1953,
-      "reason": "below-threshold",
-      "categoryDecision": {
-        "resolved": false,
-        "category": null,
-        "categorySource": "unresolved",
-        "confidence": 0.30511741124942565,
-        "margin": 0.12498313051517998,
-        "matchedFeatures": [
-          {
-            "feature": "liszt_tej",
-            "score": 1.490193
-          }
-        ],
-        "reason": "below-threshold"
-      },
-      "recipe": {
-        "id": "ribiszkemartas",
-        "year": 2017,
-        "title": "Ribiszkemártás",
-        "author": "Nagy Margit",
-        "servings": {
-          "amount": 4,
-          "unit": "adag"
-        },
-        "energy": 105,
-        "protein": 4,
-        "fat": 2,
-        "saturatedFat": null,
-        "carbs": 17,
-        "fiber": null,
-        "nutritionTables": [
-          {
-            "label": "1 adag tápanygtartalma:",
-            "energy": 105,
-            "protein": 4,
-            "fat": 2,
-            "saturatedFat": null,
-            "carbs": 17,
-            "fiber": null
-          }
-        ],
-        "ingredientGroups": [
-          {
-            "section": "Hozzávalók 4 adaghoz:",
-            "items": [
-              {
-                "text": "30 dkg ribiszke,",
-                "amount": 30,
-                "unit": "dkg",
-                "name": "ribiszke,"
-              },
-              {
-                "text": "4 dkg liszt,",
-                "amount": 4,
-                "unit": "dkg",
-                "name": "liszt,"
-              },
-              {
-                "text": "2 dl tej,",
-                "amount": 2,
-                "unit": "dl",
-                "name": "tej,"
-              },
-              {
-                "text": "só,",
-                "amount": null,
-                "unit": null,
-                "name": "só,"
-              },
-              {
-                "text": "édesítőszer,",
-                "amount": null,
-                "unit": null,
-                "name": "édesítőszer,"
-              },
-              {
-                "text": "citrom",
-                "amount": null,
-                "unit": null,
-                "name": "citrom"
-              }
-            ]
-          }
-        ],
-        "ingredientNames": [
-          "ribiszke,",
-          "liszt,",
-          "tej,",
-          "só,",
-          "édesítőszer,",
-          "citrom"
-        ],
-        "searchTerms": [
-          "ribiszkemartas",
-          "ribiszke",
-          "liszt",
-          "tej",
-          "edesitoszer",
-          "citrom"
-        ],
-        "instructions": [
-          "A ribizlit feltesszük vízben főni. Ízesítjük édesítőszerrel, citrommal és készre főzzük. Tejes habarással sűrítjük, és forrón tálaljuk. Készíthetjük úgy is, hogy az ízesített mártást készre főzzük, és a végén egy picit beleforraljuk a ribizlit."
-        ],
-        "image": {
-          "src": "https://www.diabetes.hu/assets/images/cikkek/dt1703/fruit-salad.jpg",
-          "alt": "Nagy Margit gyümölcsös receptjei",
-          "caption": null
-        },
-        "img": {
-          "src": "https://www.diabetes.hu/assets/images/cikkek/dt1703/fruit-salad.jpg",
-          "pos": "50% 40%",
-          "ext": "jpg",
-          "caption": ""
-        },
-        "subRecipes": [],
-        "hasSubRecipes": false,
-        "createdAt": "2017-06-28T16:42:36.000Z",
-        "updatedAt": "2026-05-11T15:31:55.000Z",
-        "free": true,
-        "sourceModxId": 1953
-      }
-    },
-    {
-      "key": "2017-almagomboc",
-      "sourcePath": "cikkek/diabetes/1703/nagy-margit-gyumolcsos-receptjei",
-      "modxContentId": 1953,
-      "reason": "below-threshold",
-      "categoryDecision": {
-        "resolved": false,
-        "category": null,
-        "categorySource": "unresolved",
-        "confidence": 0.4825087971613983,
-        "margin": 0.31641249401749694,
-        "matchedFeatures": [
-          {
-            "feature": "fahejas",
-            "score": 2.942758
-          }
-        ],
-        "reason": "below-threshold"
-      },
-      "recipe": {
-        "id": "almagomboc",
-        "year": 2017,
-        "title": "Almagombóc",
-        "author": "Nagy Margit",
-        "servings": {
-          "amount": 4,
-          "unit": "adag"
-        },
-        "energy": 228,
-        "protein": 9,
-        "fat": 5,
-        "saturatedFat": null,
-        "carbs": 36,
-        "fiber": null,
-        "nutritionTables": [
-          {
-            "label": "1 adag tápanygtartalma:",
-            "energy": 228,
-            "protein": 9,
-            "fat": 5,
-            "saturatedFat": null,
-            "carbs": 36,
-            "fiber": null
-          }
-        ],
-        "ingredientGroups": [
-          {
-            "section": "Hozzávalók 4 adaghoz:",
-            "items": [
-              {
-                "text": "40 dkg alma,",
-                "amount": 40,
-                "unit": "dkg",
-                "name": "alma,"
-              },
-              {
-                "text": "5 dkg liszt,",
-                "amount": 5,
-                "unit": "dkg",
-                "name": "liszt,"
-              },
-              {
-                "text": "10 dkg zsemlemorzsa,",
-                "amount": 10,
-                "unit": "dkg",
-                "name": "zsemlemorzsa,"
-              },
-              {
-                "text": "3 db tojás,",
-                "amount": 3,
-                "unit": "db",
-                "name": "tojás,"
-              },
-              {
-                "text": "1 dl tej,",
-                "amount": 1,
-                "unit": "dl",
-                "name": "tej,"
-              },
-              {
-                "text": "édesítőszer,",
-                "amount": null,
-                "unit": null,
-                "name": "édesítőszer,"
-              },
-              {
-                "text": "fahéj",
-                "amount": null,
-                "unit": null,
-                "name": "fahéj"
-              }
-            ]
-          }
-        ],
-        "ingredientNames": [
-          "alma,",
-          "liszt,",
-          "zsemlemorzsa,",
-          "tojás,",
-          "tej,",
-          "édesítőszer,",
-          "fahéj"
-        ],
-        "searchTerms": [
-          "almagomboc",
-          "alma",
-          "liszt",
-          "zsemlemorzsa",
-          "tojas",
-          "tej",
-          "edesitoszer",
-          "fahej"
-        ],
-        "instructions": [
-          "Az almát meghámozzuk, kimagozzuk és apróra vágjuk. Tálba tesszük, ráöntjük a tojásokat, hozzáadjuk a tejet, a zsemlemorzsát és a lisztet. Forró, sós vízben kifőzzűk a gombócokat, pici margarinra szedjük, és megszórjuk fahéjas édesítőszerrel.",
-          "Nagy Margit"
-        ],
-        "image": {
-          "src": "https://www.diabetes.hu/assets/images/cikkek/dt1703/fruit-salad.jpg",
-          "alt": "Nagy Margit gyümölcsös receptjei",
-          "caption": null
-        },
-        "img": {
-          "src": "https://www.diabetes.hu/assets/images/cikkek/dt1703/fruit-salad.jpg",
-          "pos": "50% 40%",
-          "ext": "jpg",
-          "caption": ""
-        },
-        "subRecipes": [],
-        "hasSubRecipes": false,
-        "createdAt": "2017-06-28T16:42:36.000Z",
-        "updatedAt": "2026-05-11T15:31:55.000Z",
-        "free": true,
-        "sourceModxId": 1953
-      }
-    },
-    {
-      "key": "2016-zablisztes-szilvakremes-gomboc",
-      "sourcePath": "cikkek/hypertonia/1601/zablisztes-szilvakremes-gomboc",
-      "modxContentId": 1691,
-      "reason": "below-threshold",
-      "categoryDecision": {
-        "resolved": false,
-        "category": null,
-        "categorySource": "unresolved",
-        "confidence": 0.48019298416776446,
-        "margin": 0.11418936812185021,
-        "matchedFeatures": [
           {
             "feature": "viz",
             "score": 1.088228
           },
           {
-            "feature": "burgonya",
-            "score": 1.036814
+            "feature": "piritott",
+            "score": 1.009524
           },
           {
-            "feature": "finomra",
-            "score": 0.828392
-          },
-          {
-            "feature": "vaj",
-            "score": 0.451837
-          },
-          {
-            "feature": "fahej",
-            "score": 0.262022
+            "feature": "szem",
+            "score": 0.496635
           },
           {
             "feature": "nagy",
             "score": 0.16266
+          },
+          {
+            "feature": "kakukkfu",
+            "score": 0.116628
           }
         ],
         "reason": "below-threshold"
       },
       "recipe": {
-        "id": "zablisztes-szilvakremes-gomboc",
-        "year": 2016,
-        "title": "Zablisztes szilvakrémes gombóc",
-        "author": "",
-        "servings": {
-          "amount": 4,
-          "unit": "adag"
-        },
-        "energy": 367,
-        "protein": 8.35,
-        "fat": 10.7,
-        "saturatedFat": null,
-        "carbs": 53,
-        "fiber": null,
-        "nutritionTables": [
-          {
-            "label": "1 adag tápanyagtartalma:",
-            "energy": 367,
-            "protein": 8.35,
-            "fat": 10.7,
-            "saturatedFat": null,
-            "carbs": 53,
-            "fiber": null
-          }
-        ],
-        "ingredientGroups": [
-          {
-            "section": "Hozzávalók 4 adaghoz:",
-            "items": [
-              {
-                "text": "50 dkg burgonya,",
-                "amount": 50,
-                "unit": "dkg",
-                "name": "burgonya,"
-              },
-              {
-                "text": "10 dkg zabliszt,",
-                "amount": 10,
-                "unit": "dkg",
-                "name": "zabliszt,"
-              },
-              {
-                "text": "2 tojás sárgája,",
-                "amount": 2,
-                "unit": null,
-                "name": "tojás sárgája,"
-              },
-              {
-                "text": "csipet só,",
-                "amount": null,
-                "unit": null,
-                "name": "csipet só,"
-              },
-              {
-                "text": "2-3 ek. dióolaj,",
-                "amount": 2,
-                "unit": "ek.",
-                "name": "dióolaj,"
-              },
-              {
-                "text": "10 dkg darált dió",
-                "amount": 10,
-                "unit": "dkg",
-                "name": "darált dió"
-              }
-            ]
-          },
-          {
-            "section": "Hozzávalók a szilvaszószhoz:",
-            "items": [
-              {
-                "text": "50 dkg friss szilva,",
-                "amount": 50,
-                "unit": "dkg",
-                "name": "friss szilva,"
-              },
-              {
-                "text": "5 dkg nyírfacukor,",
-                "amount": 5,
-                "unit": "dkg",
-                "name": "nyírfacukor,"
-              },
-              {
-                "text": "2 ek. víz,",
-                "amount": 2,
-                "unit": "ek.",
-                "name": "víz,"
-              },
-              {
-                "text": "2 dkg vaj,",
-                "amount": 2,
-                "unit": "dkg",
-                "name": "vaj,"
-              },
-              {
-                "text": "1-2 csipet fahéj",
-                "amount": 1,
-                "unit": "csipet",
-                "name": "fahéj"
-              }
-            ]
-          }
-        ],
-        "ingredientNames": [
-          "burgonya,",
-          "zabliszt,",
-          "tojás sárgája,",
-          "csipet só,",
-          "dióolaj,",
-          "darált dió",
-          "friss szilva,",
-          "nyírfacukor,",
-          "víz,",
-          "vaj,",
-          "fahéj"
-        ],
-        "searchTerms": [
-          "zablisztes",
-          "szilvakremes",
-          "gomboc",
-          "burgonya",
-          "zabliszt",
-          "tojas",
-          "sargaja",
-          "csipet",
-          "dioolaj",
-          "daralt",
-          "dio",
-          "friss",
-          "szilva",
-          "nyirfacukor",
-          "viz",
-          "vaj",
-          "fahej"
-        ],
-        "instructions": [
-          "A burgonyákat egészben, héjastól főzzük puhára sós vízben, majd tegyük őket egy tálcára, és várjuk meg, amíg kicsit kihűlnek. A kihűlt burgonyát hámozzuk meg, törjük össze finomra, majd a zabliszttel és a tojássárgával gyúrjuk ruganyos tésztává. A tésztát lisztezett felületen nyújtsuk fél cm vastagra, majd vágjuk fel 10 egyforma téglalappá, négyszöggé. Közben a szilvákat mossuk meg, felezzük, távolítsuk el a magokat, majd a cukorral, vízzel és a vajjal főzzük fel, fűszerezzük őrölt fahéjjal. Nagy lángon addig forraljuk, amíg sűrű szirupos, lekváros állagú nem lesz. Hagyjuk kihűlni, majd tegyünk egy nagy kanállal mindegyik téglalap közepére a töltelékből. Hajtsuk egymásra a tésztalapokat, és a széleiket csípjük össze, majd ezt követően a tenyerünk között formázzuk golyó alakúra őket. Forrásban lévő vízben kb. 2 perc alatt főzzük ki a gombócokat. A kifőtt, lecsepegtetett gombócokat forgassuk meg a darált dióban.",
-          "További receptek:",
-          "A receptek kiötlője: Nagy Gyuláné Tajti Éva dietetikus, a fotókat Schäffer Ádám Dávid készítette."
-        ],
-        "image": {
-          "src": "https://www.diabetes.hu/assets/images/cikkek/hyt1601/kaja-zablisztes_szilvas_gomboc-11.jpg",
-          "alt": "Zablisztes szilvakrémes gombóc",
-          "caption": null
-        },
-        "img": {
-          "src": "https://www.diabetes.hu/assets/images/cikkek/hyt1601/kaja-zablisztes_szilvas_gomboc-11.jpg",
-          "pos": "50% 40%",
-          "ext": "jpg",
-          "caption": ""
-        },
-        "subRecipes": [],
-        "hasSubRecipes": false,
-        "createdAt": "2016-06-22T18:35:54.000Z",
-        "updatedAt": "2017-12-25T19:11:51.000Z",
-        "free": true,
-        "sourceModxId": 1691
-      }
-    },
-    {
-      "key": "2014-parazslo-sutotokpure-voroscurry-martassal-es-rozmaringos-grillkolbaszkakkal",
-      "sourcePath": "cikkek/diabetes/1406/parazslo-sutotokpure-voroscurry-martassal-es-rozmaringos-grillkolbaszkakkal",
-      "modxContentId": 1288,
-      "reason": "below-threshold",
-      "categoryDecision": {
-        "resolved": false,
-        "category": null,
-        "categorySource": "unresolved",
-        "confidence": 0.54796536480567,
-        "margin": 0.09934538346727817,
-        "matchedFeatures": [
-          {
-            "feature": "evokanal",
-            "score": 2.105495
-          },
-          {
-            "feature": "bors_olivaolaj",
-            "score": 1.628707
-          },
-          {
-            "feature": "csipos",
-            "score": 1.023918
-          },
-          {
-            "feature": "szines",
-            "score": 0.948629
-          },
-          {
-            "feature": "szines_bors",
-            "score": 0.903395
-          },
-          {
-            "feature": "frissen",
-            "score": 0.865552
-          },
-          {
-            "feature": "olivaolaj",
-            "score": 0.58589
-          },
-          {
-            "feature": "bors",
-            "score": 0.475888
-          }
-        ],
-        "reason": "below-threshold"
-      },
-      "recipe": {
-        "id": "parazslo-sutotokpure-voroscurry-martassal-es-rozmaringos-grillkolbaszkakkal",
+        "id": "currys-repatorta-hajdinaval",
         "year": 2014,
-        "title": "Parázsló sütőtökpüré vöröscurry-mártással és rozmaringos grillkolbászkákkal",
+        "title": "Currys répatorta hajdinával",
         "author": "",
         "servings": {
           "amount": 10,
-          "unit": "adag"
+          "unit": "szelet"
         },
-        "energy": 96,
-        "protein": 1.5,
-        "fat": 2.6,
+        "energy": 68,
+        "protein": 3,
+        "fat": 2,
         "saturatedFat": null,
-        "carbs": 17,
+        "carbs": 9,
         "fiber": null,
         "nutritionTables": [
           {
-            "label": "1 adag tápanyagtartalma (kolbász nélkül):",
-            "energy": 96,
-            "protein": 1.5,
-            "fat": 2.6,
+            "label": "1 szelet tápanyagtartalma:",
+            "energy": 68,
+            "protein": 3,
+            "fat": 2,
             "saturatedFat": null,
-            "carbs": 17,
+            "carbs": 9,
             "fiber": null
           }
         ],
         "ingredientGroups": [
           {
-            "section": "Hozzávalók 10 adaghoz:",
+            "section": "Hozzávalók 10 szelethez (23 cm-es sütőformához):",
             "items": [
               {
-                "text": "1 kg tisztított parázstök,",
-                "amount": 1,
-                "unit": "kg",
-                "name": "tisztított parázstök,"
+                "text": "100 g pirított hajdina,",
+                "amount": 100,
+                "unit": "g",
+                "name": "pirított hajdina,"
               },
               {
-                "text": "só,",
-                "amount": null,
-                "unit": null,
-                "name": "só,"
-              },
-              {
-                "text": "frissen őrölt színes bors,",
-                "amount": null,
-                "unit": null,
-                "name": "frissen őrölt színes bors,"
-              },
-              {
-                "text": "2 ek. olívaolaj,",
-                "amount": 2,
-                "unit": "ek.",
-                "name": "olívaolaj,"
-              },
-              {
-                "text": "1 evőkanál csípős vörös currypaszta",
+                "text": "1 nagy sárgarépa,",
                 "amount": 1,
                 "unit": null,
-                "name": "evőkanál csípős vörös currypaszta"
+                "name": "nagy sárgarépa,"
+              },
+              {
+                "text": "6-7 szem koktélparadicsom,",
+                "amount": 6,
+                "unit": null,
+                "name": "szem koktélparadicsom,"
+              },
+              {
+                "text": "4 tojás,",
+                "amount": 4,
+                "unit": null,
+                "name": "tojás,"
+              },
+              {
+                "text": "1 tk. curry fűszerkeverék,",
+                "amount": 1,
+                "unit": "tk.",
+                "name": "curry fűszerkeverék,"
+              },
+              {
+                "text": "1 dl kókuszkrém (sűrített kókusztej),",
+                "amount": 1,
+                "unit": "dl",
+                "name": "kókuszkrém (sűrített kókusztej),"
+              },
+              {
+                "text": "1 púpozott ek. hajdinaliszt,",
+                "amount": 1,
+                "unit": null,
+                "name": "púpozott ek. hajdinaliszt,"
+              },
+              {
+                "text": "1 csapott kk. só,",
+                "amount": 1,
+                "unit": null,
+                "name": "csapott kk. só,"
+              },
+              {
+                "text": "½ kk. kakukkfű,",
+                "amount": null,
+                "unit": null,
+                "name": "½ kk. kakukkfű,"
+              },
+              {
+                "text": "1,5 dl víz",
+                "amount": 1.5,
+                "unit": "dl",
+                "name": "víz"
               }
             ]
           }
         ],
         "ingredientNames": [
-          "tisztított parázstök,",
-          "só,",
-          "frissen őrölt színes bors,",
-          "olívaolaj,",
-          "evőkanál csípős vörös currypaszta"
+          "pirított hajdina,",
+          "nagy sárgarépa,",
+          "szem koktélparadicsom,",
+          "tojás,",
+          "curry fűszerkeverék,",
+          "kókuszkrém (sűrített kókusztej),",
+          "púpozott ek. hajdinaliszt,",
+          "csapott kk. só,",
+          "½ kk. kakukkfű,",
+          "víz"
         ],
         "searchTerms": [
-          "parazslo",
-          "sutotokpure",
-          "voroscurry",
-          "martassal",
-          "rozmaringos",
-          "grillkolbaszkakkal",
-          "tisztitott",
-          "parazstok",
-          "frissen",
-          "orolt",
-          "szines",
-          "bors",
-          "olivaolaj",
-          "evokanal",
-          "csipos",
-          "voros",
-          "currypaszta"
+          "currys",
+          "repatorta",
+          "hajdinaval",
+          "piritott",
+          "hajdina",
+          "nagy",
+          "sargarepa",
+          "szem",
+          "koktelparadicsom",
+          "tojas",
+          "curry",
+          "fuszerkeverek",
+          "kokuszkrem",
+          "suritett",
+          "kokusztej",
+          "pupozott",
+          "hajdinaliszt",
+          "csapott",
+          "kakukkfu",
+          "viz"
         ],
         "instructions": [
-          "A tököt kimagozzuk, feldaraboljuk, és 180 fokos sütőben megsütjük, ügyelve, hogy sehol ne égjen meg. Utána leszedjük a héját, és a tök húsát villával összezúzzuk. Megsózzuk, borsozzuk, hozzáadjuk az olívaolajat, a currypasztát, és jól kikeverjük. A kolbászokat grillserpenyőben megsütjük, és frissen tálaljuk.",
+          "A pirított hajdinát leforrázzuk 1,5 dl forrásban lévő, sós vízzel, majd légmentesen lezárva az éjszakát állni hagyjuk – így magába szívja a nedvességet, és főzés nélkül megpuhul. A répát megtisztítva, karikára vágva megpároljuk, majd apró kockákra vágjuk. A tojásokat habosra verjük, majd beletesszük a hajdinalisztet, a kókuszkrémet, a sót, a curryt, a kakukkfüvet, és simára kidolgozzuk a masszát. Belekeverjük a hajdinát és a sárgarépát, és a sütőtálba simítjuk. A koktélparadicsomokkal feldíszítjük, majd az előmelegített, 180 fokos sütőben 20 perc alatt megsütjük.",
           "Bezselics Ildikó Két cica konyhája Fotó: Tóth Milán / tothmilan.hu"
         ],
-        "image": {
-          "src": "https://www.diabetes.hu/assets/images/cikkek/dt1406/dt1406-bezselics-yi5m6278.jpg",
-          "alt": "Parázsló sütőtökpüré vöröscurry-mártással és rozmaringos grillkolbászkákkal",
-          "caption": null
-        },
-        "img": {
-          "src": "https://www.diabetes.hu/assets/images/cikkek/dt1406/dt1406-bezselics-yi5m6278.jpg",
-          "pos": "50% 40%",
-          "ext": "jpg",
-          "caption": ""
-        },
+        "image": null,
         "subRecipes": [],
         "hasSubRecipes": false,
-        "createdAt": "2014-12-11T18:58:00.000Z",
-        "updatedAt": "2017-10-20T09:51:05.000Z",
+        "createdAt": "2014-11-09T09:42:00.000Z",
+        "updatedAt": "2017-10-24T07:39:50.000Z",
         "free": true,
-        "sourceModxId": 1288
+        "sourceModxId": 1221
       }
     },
     {
@@ -1835,17 +396,7 @@
           "Elkészítjük a salátaöntetet: 1 kiskanál mustárt, 2 kiskanál ecetet, 2 dl napraforgóolajat összeturmixolunk, sóval ízesítjük, majd hozzákeverünk ugyancsak turmixgéppel 1 dl hideg vizet",
           "Tálaláskor leveses mélytányérba öntünk egy keveset az öntetből, ráhalmozzuk a sárgarépa- és az uborkaszalagokat, a pácolt fetadarabokat (2 db/fő). Grissinit vagy pirítóst fogyasztunk mellé"
         ],
-        "image": {
-          "src": "https://www.diabetes.hu/assets/images/cikkek/dt1406/dt1406-papmark-_igp2136.png",
-          "alt": "Sárgarépa- és uborkasaláta korianderes fetával",
-          "caption": null
-        },
-        "img": {
-          "src": "https://www.diabetes.hu/assets/images/cikkek/dt1406/dt1406-papmark-_igp2136.png",
-          "pos": "50% 40%",
-          "ext": "png",
-          "caption": ""
-        },
+        "image": null,
         "subRecipes": [],
         "hasSubRecipes": false,
         "createdAt": "2014-12-11T18:06:00.000Z",
@@ -1855,196 +406,1678 @@
       }
     },
     {
-      "key": "2014-currys-repatorta-hajdinaval",
-      "sourcePath": "cikkek/diabetes/1404/currys-repatorta-hajdinaval",
-      "modxContentId": 1221,
+      "key": "2014-parazslo-sutotokpure-voroscurry-martassal-es-rozmaringos-grillkolbaszkakkal",
+      "sourcePath": "cikkek/diabetes/1406/parazslo-sutotokpure-voroscurry-martassal-es-rozmaringos-grillkolbaszkakkal",
+      "modxContentId": 1288,
       "reason": "below-threshold",
       "categoryDecision": {
         "resolved": false,
         "category": null,
         "categorySource": "unresolved",
-        "confidence": 0.49504943851922967,
-        "margin": 0.10941246599221788,
+        "confidence": 0.54796536480567,
+        "margin": 0.09934538346727817,
         "matchedFeatures": [
           {
-            "feature": "curry",
-            "score": 1.457381
+            "feature": "evokanal",
+            "score": 2.105495
           },
           {
-            "feature": "sargarepa",
-            "score": 1.407536
+            "feature": "bors_olivaolaj",
+            "score": 1.628707
           },
           {
-            "feature": "viz",
-            "score": 1.088228
+            "feature": "csipos",
+            "score": 1.023918
           },
           {
-            "feature": "piritott",
-            "score": 1.009524
+            "feature": "szines",
+            "score": 0.948629
           },
           {
-            "feature": "szem",
-            "score": 0.496635
+            "feature": "szines_bors",
+            "score": 0.903395
           },
           {
-            "feature": "nagy",
-            "score": 0.16266
+            "feature": "frissen",
+            "score": 0.865552
           },
           {
-            "feature": "kakukkfu",
-            "score": 0.116628
+            "feature": "olivaolaj",
+            "score": 0.58589
+          },
+          {
+            "feature": "bors",
+            "score": 0.475888
           }
         ],
         "reason": "below-threshold"
       },
       "recipe": {
-        "id": "currys-repatorta-hajdinaval",
+        "id": "parazslo-sutotokpure-voroscurry-martassal-es-rozmaringos-grillkolbaszkakkal",
         "year": 2014,
-        "title": "Currys répatorta hajdinával",
+        "title": "Parázsló sütőtökpüré vöröscurry-mártással és rozmaringos grillkolbászkákkal",
         "author": "",
         "servings": {
           "amount": 10,
-          "unit": "szelet"
+          "unit": "adag"
         },
-        "energy": 68,
-        "protein": 3,
-        "fat": 2,
+        "energy": 96,
+        "protein": 1.5,
+        "fat": 2.6,
         "saturatedFat": null,
-        "carbs": 9,
+        "carbs": 17,
         "fiber": null,
         "nutritionTables": [
           {
-            "label": "1 szelet tápanyagtartalma:",
-            "energy": 68,
-            "protein": 3,
-            "fat": 2,
+            "label": "1 adag tápanyagtartalma (kolbász nélkül):",
+            "energy": 96,
+            "protein": 1.5,
+            "fat": 2.6,
             "saturatedFat": null,
-            "carbs": 9,
+            "carbs": 17,
             "fiber": null
           }
         ],
         "ingredientGroups": [
           {
-            "section": "Hozzávalók 10 szelethez (23 cm-es sütőformához):",
+            "section": "Hozzávalók 10 adaghoz:",
             "items": [
               {
-                "text": "100 g pirított hajdina,",
-                "amount": 100,
-                "unit": "g",
-                "name": "pirított hajdina,"
-              },
-              {
-                "text": "1 nagy sárgarépa,",
+                "text": "1 kg tisztított parázstök,",
                 "amount": 1,
-                "unit": null,
-                "name": "nagy sárgarépa,"
+                "unit": "kg",
+                "name": "tisztított parázstök,"
               },
               {
-                "text": "6-7 szem koktélparadicsom,",
-                "amount": 6,
-                "unit": null,
-                "name": "szem koktélparadicsom,"
-              },
-              {
-                "text": "4 tojás,",
-                "amount": 4,
-                "unit": null,
-                "name": "tojás,"
-              },
-              {
-                "text": "1 tk. curry fűszerkeverék,",
-                "amount": 1,
-                "unit": "tk.",
-                "name": "curry fűszerkeverék,"
-              },
-              {
-                "text": "1 dl kókuszkrém (sűrített kókusztej),",
-                "amount": 1,
-                "unit": "dl",
-                "name": "kókuszkrém (sűrített kókusztej),"
-              },
-              {
-                "text": "1 púpozott ek. hajdinaliszt,",
-                "amount": 1,
-                "unit": null,
-                "name": "púpozott ek. hajdinaliszt,"
-              },
-              {
-                "text": "1 csapott kk. só,",
-                "amount": 1,
-                "unit": null,
-                "name": "csapott kk. só,"
-              },
-              {
-                "text": "½ kk. kakukkfű,",
+                "text": "só,",
                 "amount": null,
                 "unit": null,
-                "name": "½ kk. kakukkfű,"
+                "name": "só,"
               },
               {
-                "text": "1,5 dl víz",
-                "amount": 1.5,
-                "unit": "dl",
-                "name": "víz"
+                "text": "frissen őrölt színes bors,",
+                "amount": null,
+                "unit": null,
+                "name": "frissen őrölt színes bors,"
+              },
+              {
+                "text": "2 ek. olívaolaj,",
+                "amount": 2,
+                "unit": "ek.",
+                "name": "olívaolaj,"
+              },
+              {
+                "text": "1 evőkanál csípős vörös currypaszta",
+                "amount": 1,
+                "unit": null,
+                "name": "evőkanál csípős vörös currypaszta"
               }
             ]
           }
         ],
         "ingredientNames": [
-          "pirított hajdina,",
-          "nagy sárgarépa,",
-          "szem koktélparadicsom,",
-          "tojás,",
-          "curry fűszerkeverék,",
-          "kókuszkrém (sűrített kókusztej),",
-          "púpozott ek. hajdinaliszt,",
-          "csapott kk. só,",
-          "½ kk. kakukkfű,",
-          "víz"
+          "tisztított parázstök,",
+          "só,",
+          "frissen őrölt színes bors,",
+          "olívaolaj,",
+          "evőkanál csípős vörös currypaszta"
         ],
         "searchTerms": [
-          "currys",
-          "repatorta",
-          "hajdinaval",
-          "piritott",
-          "hajdina",
-          "nagy",
-          "sargarepa",
-          "szem",
-          "koktelparadicsom",
-          "tojas",
-          "curry",
-          "fuszerkeverek",
-          "kokuszkrem",
-          "suritett",
-          "kokusztej",
-          "pupozott",
-          "hajdinaliszt",
-          "csapott",
-          "kakukkfu",
-          "viz"
+          "parazslo",
+          "sutotokpure",
+          "voroscurry",
+          "martassal",
+          "rozmaringos",
+          "grillkolbaszkakkal",
+          "tisztitott",
+          "parazstok",
+          "frissen",
+          "orolt",
+          "szines",
+          "bors",
+          "olivaolaj",
+          "evokanal",
+          "csipos",
+          "voros",
+          "currypaszta"
         ],
         "instructions": [
-          "A pirított hajdinát leforrázzuk 1,5 dl forrásban lévő, sós vízzel, majd légmentesen lezárva az éjszakát állni hagyjuk – így magába szívja a nedvességet, és főzés nélkül megpuhul. A répát megtisztítva, karikára vágva megpároljuk, majd apró kockákra vágjuk. A tojásokat habosra verjük, majd beletesszük a hajdinalisztet, a kókuszkrémet, a sót, a curryt, a kakukkfüvet, és simára kidolgozzuk a masszát. Belekeverjük a hajdinát és a sárgarépát, és a sütőtálba simítjuk. A koktélparadicsomokkal feldíszítjük, majd az előmelegített, 180 fokos sütőben 20 perc alatt megsütjük.",
+          "A tököt kimagozzuk, feldaraboljuk, és 180 fokos sütőben megsütjük, ügyelve, hogy sehol ne égjen meg. Utána leszedjük a héját, és a tök húsát villával összezúzzuk. Megsózzuk, borsozzuk, hozzáadjuk az olívaolajat, a currypasztát, és jól kikeverjük. A kolbászokat grillserpenyőben megsütjük, és frissen tálaljuk.",
           "Bezselics Ildikó Két cica konyhája Fotó: Tóth Milán / tothmilan.hu"
         ],
-        "image": {
-          "src": "https://www.diabetes.hu/assets/images/cikkek/dt1404/dt1404-ketcica-2h0_5893.jpg",
-          "alt": "Currys répatorta hajdinával",
-          "caption": null
-        },
-        "img": {
-          "src": "https://www.diabetes.hu/assets/images/cikkek/dt1404/dt1404-ketcica-2h0_5893.jpg",
-          "pos": "50% 40%",
-          "ext": "jpg",
-          "caption": ""
-        },
+        "image": null,
         "subRecipes": [],
         "hasSubRecipes": false,
-        "createdAt": "2014-11-09T09:42:00.000Z",
-        "updatedAt": "2017-10-24T07:39:50.000Z",
+        "createdAt": "2014-12-11T18:58:00.000Z",
+        "updatedAt": "2017-10-20T09:51:05.000Z",
         "free": true,
-        "sourceModxId": 1221
+        "sourceModxId": 1288
+      }
+    },
+    {
+      "key": "2016-zablisztes-szilvakremes-gomboc",
+      "sourcePath": "cikkek/hypertonia/1601/zablisztes-szilvakremes-gomboc",
+      "modxContentId": 1691,
+      "reason": "below-threshold",
+      "categoryDecision": {
+        "resolved": false,
+        "category": null,
+        "categorySource": "unresolved",
+        "confidence": 0.48019298416776446,
+        "margin": 0.11418936812185021,
+        "matchedFeatures": [
+          {
+            "feature": "viz",
+            "score": 1.088228
+          },
+          {
+            "feature": "burgonya",
+            "score": 1.036814
+          },
+          {
+            "feature": "finomra",
+            "score": 0.828392
+          },
+          {
+            "feature": "vaj",
+            "score": 0.451837
+          },
+          {
+            "feature": "fahej",
+            "score": 0.262022
+          },
+          {
+            "feature": "nagy",
+            "score": 0.16266
+          }
+        ],
+        "reason": "below-threshold"
+      },
+      "recipe": {
+        "id": "zablisztes-szilvakremes-gomboc",
+        "year": 2016,
+        "title": "Zablisztes szilvakrémes gombóc",
+        "author": "",
+        "servings": {
+          "amount": 4,
+          "unit": "adag"
+        },
+        "energy": 367,
+        "protein": 8.35,
+        "fat": 10.7,
+        "saturatedFat": null,
+        "carbs": 53,
+        "fiber": null,
+        "nutritionTables": [
+          {
+            "label": "1 adag tápanyagtartalma:",
+            "energy": 367,
+            "protein": 8.35,
+            "fat": 10.7,
+            "saturatedFat": null,
+            "carbs": 53,
+            "fiber": null
+          }
+        ],
+        "ingredientGroups": [
+          {
+            "section": "Hozzávalók 4 adaghoz:",
+            "items": [
+              {
+                "text": "50 dkg burgonya,",
+                "amount": 50,
+                "unit": "dkg",
+                "name": "burgonya,"
+              },
+              {
+                "text": "10 dkg zabliszt,",
+                "amount": 10,
+                "unit": "dkg",
+                "name": "zabliszt,"
+              },
+              {
+                "text": "2 tojás sárgája,",
+                "amount": 2,
+                "unit": null,
+                "name": "tojás sárgája,"
+              },
+              {
+                "text": "csipet só,",
+                "amount": null,
+                "unit": null,
+                "name": "csipet só,"
+              },
+              {
+                "text": "2-3 ek. dióolaj,",
+                "amount": 2,
+                "unit": "ek.",
+                "name": "dióolaj,"
+              },
+              {
+                "text": "10 dkg darált dió",
+                "amount": 10,
+                "unit": "dkg",
+                "name": "darált dió"
+              }
+            ]
+          },
+          {
+            "section": "Hozzávalók a szilvaszószhoz:",
+            "items": [
+              {
+                "text": "50 dkg friss szilva,",
+                "amount": 50,
+                "unit": "dkg",
+                "name": "friss szilva,"
+              },
+              {
+                "text": "5 dkg nyírfacukor,",
+                "amount": 5,
+                "unit": "dkg",
+                "name": "nyírfacukor,"
+              },
+              {
+                "text": "2 ek. víz,",
+                "amount": 2,
+                "unit": "ek.",
+                "name": "víz,"
+              },
+              {
+                "text": "2 dkg vaj,",
+                "amount": 2,
+                "unit": "dkg",
+                "name": "vaj,"
+              },
+              {
+                "text": "1-2 csipet fahéj",
+                "amount": 1,
+                "unit": "csipet",
+                "name": "fahéj"
+              }
+            ]
+          }
+        ],
+        "ingredientNames": [
+          "burgonya,",
+          "zabliszt,",
+          "tojás sárgája,",
+          "csipet só,",
+          "dióolaj,",
+          "darált dió",
+          "friss szilva,",
+          "nyírfacukor,",
+          "víz,",
+          "vaj,",
+          "fahéj"
+        ],
+        "searchTerms": [
+          "zablisztes",
+          "szilvakremes",
+          "gomboc",
+          "burgonya",
+          "zabliszt",
+          "tojas",
+          "sargaja",
+          "csipet",
+          "dioolaj",
+          "daralt",
+          "dio",
+          "friss",
+          "szilva",
+          "nyirfacukor",
+          "viz",
+          "vaj",
+          "fahej"
+        ],
+        "instructions": [
+          "A burgonyákat egészben, héjastól főzzük puhára sós vízben, majd tegyük őket egy tálcára, és várjuk meg, amíg kicsit kihűlnek. A kihűlt burgonyát hámozzuk meg, törjük össze finomra, majd a zabliszttel és a tojássárgával gyúrjuk ruganyos tésztává. A tésztát lisztezett felületen nyújtsuk fél cm vastagra, majd vágjuk fel 10 egyforma téglalappá, négyszöggé. Közben a szilvákat mossuk meg, felezzük, távolítsuk el a magokat, majd a cukorral, vízzel és a vajjal főzzük fel, fűszerezzük őrölt fahéjjal. Nagy lángon addig forraljuk, amíg sűrű szirupos, lekváros állagú nem lesz. Hagyjuk kihűlni, majd tegyünk egy nagy kanállal mindegyik téglalap közepére a töltelékből. Hajtsuk egymásra a tésztalapokat, és a széleiket csípjük össze, majd ezt követően a tenyerünk között formázzuk golyó alakúra őket. Forrásban lévő vízben kb. 2 perc alatt főzzük ki a gombócokat. A kifőtt, lecsepegtetett gombócokat forgassuk meg a darált dióban.",
+          "További receptek:",
+          "A receptek kiötlője: Nagy Gyuláné Tajti Éva dietetikus, a fotókat Schäffer Ádám Dávid készítette."
+        ],
+        "image": null,
+        "subRecipes": [],
+        "hasSubRecipes": false,
+        "createdAt": "2016-06-22T18:35:54.000Z",
+        "updatedAt": "2017-12-25T19:11:51.000Z",
+        "free": true,
+        "sourceModxId": 1691
+      }
+    },
+    {
+      "key": "2017-almas-tojaslepeny",
+      "sourcePath": "cikkek/diabetes/1703/nagy-margit-gyumolcsos-receptjei",
+      "modxContentId": 1953,
+      "reason": "below-threshold",
+      "categoryDecision": {
+        "resolved": false,
+        "category": null,
+        "categorySource": "unresolved",
+        "confidence": 0.4244298851440877,
+        "margin": 0.21335339923835198,
+        "matchedFeatures": [
+          {
+            "feature": "durvara",
+            "score": 1.126297
+          },
+          {
+            "feature": "tojas_tej",
+            "score": 1.037879
+          },
+          {
+            "feature": "szerecsendio",
+            "score": 0.72685
+          }
+        ],
+        "reason": "below-threshold"
+      },
+      "recipe": {
+        "id": "almas-tojaslepeny",
+        "year": 2017,
+        "title": "Almás tojáslepény",
+        "author": "Nagy Margit",
+        "servings": {
+          "amount": 4,
+          "unit": "adag"
+        },
+        "energy": 171,
+        "protein": 10,
+        "fat": 11,
+        "saturatedFat": null,
+        "carbs": 7,
+        "fiber": null,
+        "nutritionTables": [
+          {
+            "label": "1 adag tápanygtartalma:",
+            "energy": 171,
+            "protein": 10,
+            "fat": 11,
+            "saturatedFat": null,
+            "carbs": 7,
+            "fiber": null
+          }
+        ],
+        "ingredientGroups": [
+          {
+            "section": "Hozzávalók 4 adaghoz:",
+            "items": [
+              {
+                "text": "6 db tojás,",
+                "amount": 6,
+                "unit": "db",
+                "name": "tojás,"
+              },
+              {
+                "text": "1,5 dl tej,",
+                "amount": 1.5,
+                "unit": "dl",
+                "name": "tej,"
+              },
+              {
+                "text": "2 dkg margarin,",
+                "amount": 2,
+                "unit": "dkg",
+                "name": "margarin,"
+              },
+              {
+                "text": "25 dkg alma,",
+                "amount": 25,
+                "unit": "dkg",
+                "name": "alma,"
+              },
+              {
+                "text": "só,",
+                "amount": null,
+                "unit": null,
+                "name": "só,"
+              },
+              {
+                "text": "szerecsendió",
+                "amount": null,
+                "unit": null,
+                "name": "szerecsendió"
+              }
+            ]
+          }
+        ],
+        "ingredientNames": [
+          "tojás,",
+          "tej,",
+          "margarin,",
+          "alma,",
+          "só,",
+          "szerecsendió"
+        ],
+        "searchTerms": [
+          "almas",
+          "tojaslepeny",
+          "tojas",
+          "tej",
+          "margarin",
+          "alma",
+          "szerecsendio"
+        ],
+        "instructions": [
+          "A tojásokat tejjel, sóval, a szerecsendióval ízesítve habverővel jól felverjük, majd hozzáadjuk a durvára reszelt almát. Teflonsütőben a margarint felmelegítjük, és adagonként úgy sütjük meg, mint a palacsintát, de nem fordítjuk meg. Ha a teteje megalvadt, kész. Tálaláskor a két oldalát egymásra hajtjuk, azonnal fogyasztjuk salátával."
+        ],
+        "image": null,
+        "subRecipes": [],
+        "hasSubRecipes": false,
+        "createdAt": "2017-06-28T16:42:36.000Z",
+        "updatedAt": "2026-05-11T15:31:55.000Z",
+        "free": true,
+        "sourceModxId": 1953
+      }
+    },
+    {
+      "key": "2017-ribiszkemartas",
+      "sourcePath": "cikkek/diabetes/1703/nagy-margit-gyumolcsos-receptjei",
+      "modxContentId": 1953,
+      "reason": "below-threshold",
+      "categoryDecision": {
+        "resolved": false,
+        "category": null,
+        "categorySource": "unresolved",
+        "confidence": 0.30511741124942565,
+        "margin": 0.12498313051517998,
+        "matchedFeatures": [
+          {
+            "feature": "liszt_tej",
+            "score": 1.490193
+          }
+        ],
+        "reason": "below-threshold"
+      },
+      "recipe": {
+        "id": "ribiszkemartas",
+        "year": 2017,
+        "title": "Ribiszkemártás",
+        "author": "Nagy Margit",
+        "servings": {
+          "amount": 4,
+          "unit": "adag"
+        },
+        "energy": 105,
+        "protein": 4,
+        "fat": 2,
+        "saturatedFat": null,
+        "carbs": 17,
+        "fiber": null,
+        "nutritionTables": [
+          {
+            "label": "1 adag tápanygtartalma:",
+            "energy": 105,
+            "protein": 4,
+            "fat": 2,
+            "saturatedFat": null,
+            "carbs": 17,
+            "fiber": null
+          }
+        ],
+        "ingredientGroups": [
+          {
+            "section": "Hozzávalók 4 adaghoz:",
+            "items": [
+              {
+                "text": "30 dkg ribiszke,",
+                "amount": 30,
+                "unit": "dkg",
+                "name": "ribiszke,"
+              },
+              {
+                "text": "4 dkg liszt,",
+                "amount": 4,
+                "unit": "dkg",
+                "name": "liszt,"
+              },
+              {
+                "text": "2 dl tej,",
+                "amount": 2,
+                "unit": "dl",
+                "name": "tej,"
+              },
+              {
+                "text": "só,",
+                "amount": null,
+                "unit": null,
+                "name": "só,"
+              },
+              {
+                "text": "édesítőszer,",
+                "amount": null,
+                "unit": null,
+                "name": "édesítőszer,"
+              },
+              {
+                "text": "citrom",
+                "amount": null,
+                "unit": null,
+                "name": "citrom"
+              }
+            ]
+          }
+        ],
+        "ingredientNames": [
+          "ribiszke,",
+          "liszt,",
+          "tej,",
+          "só,",
+          "édesítőszer,",
+          "citrom"
+        ],
+        "searchTerms": [
+          "ribiszkemartas",
+          "ribiszke",
+          "liszt",
+          "tej",
+          "edesitoszer",
+          "citrom"
+        ],
+        "instructions": [
+          "A ribizlit feltesszük vízben főni. Ízesítjük édesítőszerrel, citrommal és készre főzzük. Tejes habarással sűrítjük, és forrón tálaljuk. Készíthetjük úgy is, hogy az ízesített mártást készre főzzük, és a végén egy picit beleforraljuk a ribizlit."
+        ],
+        "image": null,
+        "subRecipes": [],
+        "hasSubRecipes": false,
+        "createdAt": "2017-06-28T16:42:36.000Z",
+        "updatedAt": "2026-05-11T15:31:55.000Z",
+        "free": true,
+        "sourceModxId": 1953
+      }
+    },
+    {
+      "key": "2017-almagomboc",
+      "sourcePath": "cikkek/diabetes/1703/nagy-margit-gyumolcsos-receptjei",
+      "modxContentId": 1953,
+      "reason": "below-threshold",
+      "categoryDecision": {
+        "resolved": false,
+        "category": null,
+        "categorySource": "unresolved",
+        "confidence": 0.4825087971613983,
+        "margin": 0.31641249401749694,
+        "matchedFeatures": [
+          {
+            "feature": "fahejas",
+            "score": 2.942758
+          }
+        ],
+        "reason": "below-threshold"
+      },
+      "recipe": {
+        "id": "almagomboc",
+        "year": 2017,
+        "title": "Almagombóc",
+        "author": "Nagy Margit",
+        "servings": {
+          "amount": 4,
+          "unit": "adag"
+        },
+        "energy": 228,
+        "protein": 9,
+        "fat": 5,
+        "saturatedFat": null,
+        "carbs": 36,
+        "fiber": null,
+        "nutritionTables": [
+          {
+            "label": "1 adag tápanygtartalma:",
+            "energy": 228,
+            "protein": 9,
+            "fat": 5,
+            "saturatedFat": null,
+            "carbs": 36,
+            "fiber": null
+          }
+        ],
+        "ingredientGroups": [
+          {
+            "section": "Hozzávalók 4 adaghoz:",
+            "items": [
+              {
+                "text": "40 dkg alma,",
+                "amount": 40,
+                "unit": "dkg",
+                "name": "alma,"
+              },
+              {
+                "text": "5 dkg liszt,",
+                "amount": 5,
+                "unit": "dkg",
+                "name": "liszt,"
+              },
+              {
+                "text": "10 dkg zsemlemorzsa,",
+                "amount": 10,
+                "unit": "dkg",
+                "name": "zsemlemorzsa,"
+              },
+              {
+                "text": "3 db tojás,",
+                "amount": 3,
+                "unit": "db",
+                "name": "tojás,"
+              },
+              {
+                "text": "1 dl tej,",
+                "amount": 1,
+                "unit": "dl",
+                "name": "tej,"
+              },
+              {
+                "text": "édesítőszer,",
+                "amount": null,
+                "unit": null,
+                "name": "édesítőszer,"
+              },
+              {
+                "text": "fahéj",
+                "amount": null,
+                "unit": null,
+                "name": "fahéj"
+              }
+            ]
+          }
+        ],
+        "ingredientNames": [
+          "alma,",
+          "liszt,",
+          "zsemlemorzsa,",
+          "tojás,",
+          "tej,",
+          "édesítőszer,",
+          "fahéj"
+        ],
+        "searchTerms": [
+          "almagomboc",
+          "alma",
+          "liszt",
+          "zsemlemorzsa",
+          "tojas",
+          "tej",
+          "edesitoszer",
+          "fahej"
+        ],
+        "instructions": [
+          "Az almát meghámozzuk, kimagozzuk és apróra vágjuk. Tálba tesszük, ráöntjük a tojásokat, hozzáadjuk a tejet, a zsemlemorzsát és a lisztet. Forró, sós vízben kifőzzűk a gombócokat, pici margarinra szedjük, és megszórjuk fahéjas édesítőszerrel.",
+          "Nagy Margit"
+        ],
+        "image": null,
+        "subRecipes": [],
+        "hasSubRecipes": false,
+        "createdAt": "2017-06-28T16:42:36.000Z",
+        "updatedAt": "2026-05-11T15:31:55.000Z",
+        "free": true,
+        "sourceModxId": 1953
+      }
+    },
+    {
+      "key": "2017-cekla-sargarepa-narancs-smoothie",
+      "sourcePath": "cikkek/diabetes/1706/cekla-sargarepa-narancs-smoothie",
+      "modxContentId": 2075,
+      "reason": "below-threshold",
+      "categoryDecision": {
+        "resolved": false,
+        "category": null,
+        "categorySource": "unresolved",
+        "confidence": 0.42488348838828993,
+        "margin": 0.0036806419125732792,
+        "matchedFeatures": [
+          {
+            "feature": "cekla",
+            "score": 1.753431
+          },
+          {
+            "feature": "narancs",
+            "score": 0.893255
+          }
+        ],
+        "reason": "below-threshold"
+      },
+      "recipe": {
+        "id": "cekla-sargarepa-narancs-smoothie",
+        "year": 2017,
+        "title": "Cékla-sárgarépa-narancs smoothie",
+        "author": "",
+        "servings": {
+          "amount": 4,
+          "unit": "adag"
+        },
+        "energy": 102,
+        "protein": 3,
+        "fat": 0,
+        "saturatedFat": null,
+        "carbs": 20,
+        "fiber": null,
+        "nutritionTables": [
+          {
+            "label": "1 adag tápanygtartalma:",
+            "energy": 102,
+            "protein": 3,
+            "fat": 0,
+            "saturatedFat": null,
+            "carbs": 20,
+            "fiber": null
+          }
+        ],
+        "ingredientGroups": [
+          {
+            "section": "Hozzávalók 4 adaghoz:",
+            "items": [
+              {
+                "text": "40 dkg cékla",
+                "amount": 40,
+                "unit": "dkg",
+                "name": "cékla"
+              },
+              {
+                "text": "40 dkg sárgarépa",
+                "amount": 40,
+                "unit": "dkg",
+                "name": "sárgarépa"
+              },
+              {
+                "text": "30 dkg narancs",
+                "amount": 30,
+                "unit": "dkg",
+                "name": "narancs"
+              },
+              {
+                "text": "1/2 kk. fahéj",
+                "amount": null,
+                "unit": null,
+                "name": "1/2 kk. fahéj"
+              }
+            ]
+          }
+        ],
+        "ingredientNames": [
+          "cékla",
+          "sárgarépa",
+          "narancs",
+          "1/2 kk. fahéj"
+        ],
+        "searchTerms": [
+          "cekla",
+          "sargarepa",
+          "narancs",
+          "smoothie",
+          "fahej"
+        ],
+        "instructions": [
+          "A céklát, sárgarépát, narancsot megpucoljuk, és kisebb darabokra vágjuk. A turmixgépbe először a feldarabolt narancsot tesszük, kevés vízzel összeturmixoljuk. Majd jöhet a sárgarépa kevés vízzel, végül a cékla. Fahéjjal ízesítjük. Mindig kevés vizet kell beletenni, és a hozzávalókat péppé turmixolni. Aki édesen szereti, kevés energiamentes édesítőszerrel édesítheti."
+        ],
+        "image": null,
+        "subRecipes": [],
+        "hasSubRecipes": false,
+        "createdAt": "2018-05-16T10:09:15.000Z",
+        "updatedAt": "2018-12-20T22:43:54.000Z",
+        "free": true,
+        "sourceModxId": 2075
+      }
+    },
+    {
+      "key": "2019-recept",
+      "sourcePath": "cikkek/recept",
+      "modxContentId": 2429,
+      "reason": "below-threshold",
+      "categoryDecision": {
+        "resolved": false,
+        "category": null,
+        "categorySource": "unresolved",
+        "confidence": 0.20430809399477803,
+        "margin": 0.0058746736292428214,
+        "matchedFeatures": [],
+        "reason": "below-threshold"
+      },
+      "recipe": {
+        "id": "recept",
+        "year": 2019,
+        "title": "Receptek",
+        "author": "",
+        "servings": {
+          "amount": 0,
+          "unit": ""
+        },
+        "energy": null,
+        "protein": null,
+        "fat": null,
+        "saturatedFat": null,
+        "carbs": null,
+        "fiber": null,
+        "nutritionTables": [],
+        "ingredientGroups": [],
+        "ingredientNames": [],
+        "searchTerms": [
+          "receptek"
+        ],
+        "instructions": [],
+        "image": null,
+        "subRecipes": [],
+        "hasSubRecipes": false,
+        "createdAt": "2019-01-07T12:53:20.000Z",
+        "updatedAt": "2019-01-10T19:13:33.000Z",
+        "free": true,
+        "sourceModxId": 2429
+      }
+    },
+    {
+      "key": "2019-finn-unnepi-etelek",
+      "sourcePath": "cikkek/diabetes/1906/finn-unnepi-etelek",
+      "modxContentId": 2827,
+      "reason": "below-threshold",
+      "categoryDecision": {
+        "resolved": false,
+        "category": null,
+        "categorySource": "unresolved",
+        "confidence": 0.20430809399477803,
+        "margin": 0.0058746736292428214,
+        "matchedFeatures": [],
+        "reason": "below-threshold"
+      },
+      "recipe": {
+        "id": "finn-unnepi-etelek",
+        "year": 2019,
+        "title": "Finn ünnepi ételek",
+        "author": "",
+        "servings": {
+          "amount": 0,
+          "unit": ""
+        },
+        "energy": null,
+        "protein": null,
+        "fat": null,
+        "saturatedFat": null,
+        "carbs": null,
+        "fiber": null,
+        "nutritionTables": [],
+        "ingredientGroups": [],
+        "ingredientNames": [],
+        "searchTerms": [
+          "finn",
+          "unnepi",
+          "etelek"
+        ],
+        "instructions": [],
+        "image": null,
+        "subRecipes": [],
+        "hasSubRecipes": false,
+        "createdAt": "2021-11-03T09:47:30.000Z",
+        "updatedAt": "2021-11-03T09:47:30.000Z",
+        "free": true,
+        "sourceModxId": 2827
+      }
+    },
+    {
+      "key": "2001-receptsarok",
+      "sourcePath": "cikkek/diabetes/2001/receptsarok",
+      "modxContentId": 2902,
+      "reason": "below-threshold",
+      "categoryDecision": {
+        "resolved": false,
+        "category": null,
+        "categorySource": "unresolved",
+        "confidence": 0.20430809399477803,
+        "margin": 0.0058746736292428214,
+        "matchedFeatures": [],
+        "reason": "below-threshold"
+      },
+      "recipe": {
+        "id": "receptsarok",
+        "year": 2001,
+        "title": "Receptsarok",
+        "author": "Henn Dóra recptjei",
+        "servings": {
+          "amount": 0,
+          "unit": ""
+        },
+        "energy": null,
+        "protein": null,
+        "fat": null,
+        "saturatedFat": null,
+        "carbs": null,
+        "fiber": null,
+        "nutritionTables": [],
+        "ingredientGroups": [],
+        "ingredientNames": [],
+        "searchTerms": [
+          "receptsarok"
+        ],
+        "instructions": [],
+        "image": null,
+        "subRecipes": [],
+        "hasSubRecipes": false,
+        "createdAt": "2020-04-23T15:18:29.000Z",
+        "updatedAt": "2020-04-23T15:18:29.000Z",
+        "free": true,
+        "sourceModxId": 2902
+      }
+    },
+    {
+      "key": "2002-receptsarok",
+      "sourcePath": "cikkek/diabetes/2002/receptsarok",
+      "modxContentId": 2941,
+      "reason": "below-threshold",
+      "categoryDecision": {
+        "resolved": false,
+        "category": null,
+        "categorySource": "unresolved",
+        "confidence": 0.20430809399477803,
+        "margin": 0.0058746736292428214,
+        "matchedFeatures": [],
+        "reason": "below-threshold"
+      },
+      "recipe": {
+        "id": "receptsarok",
+        "year": 2002,
+        "title": "Receptsarok",
+        "author": "Kard Éva receptjei",
+        "servings": {
+          "amount": 0,
+          "unit": ""
+        },
+        "energy": null,
+        "protein": null,
+        "fat": null,
+        "saturatedFat": null,
+        "carbs": null,
+        "fiber": null,
+        "nutritionTables": [],
+        "ingredientGroups": [],
+        "ingredientNames": [],
+        "searchTerms": [
+          "receptsarok"
+        ],
+        "instructions": [
+          "Kard Éva további receptjei megtalálhatók blogján: gizi-receptjei.blogspot.com"
+        ],
+        "image": null,
+        "subRecipes": [],
+        "hasSubRecipes": false,
+        "createdAt": "2020-05-25T19:58:43.000Z",
+        "updatedAt": "2020-10-14T10:03:39.000Z",
+        "free": true,
+        "sourceModxId": 2941
+      }
+    },
+    {
+      "key": "2021-receptek-husvetra",
+      "sourcePath": "cikkek/diabetes/2101/receptek-husvetra",
+      "modxContentId": 3172,
+      "reason": "below-threshold",
+      "categoryDecision": {
+        "resolved": false,
+        "category": null,
+        "categorySource": "unresolved",
+        "confidence": 0.5996208564943579,
+        "margin": 0.497569820731112,
+        "matchedFeatures": [
+          {
+            "feature": "title:*hus*",
+            "score": 1.8
+          }
+        ],
+        "reason": "below-threshold"
+      },
+      "recipe": {
+        "id": "receptek-husvetra",
+        "year": 2021,
+        "title": "Receptek húsvétra",
+        "author": "Kovács Bence receptjei",
+        "servings": {
+          "amount": 0,
+          "unit": ""
+        },
+        "energy": null,
+        "protein": null,
+        "fat": null,
+        "saturatedFat": null,
+        "carbs": null,
+        "fiber": null,
+        "nutritionTables": [],
+        "ingredientGroups": [],
+        "ingredientNames": [],
+        "searchTerms": [
+          "receptek",
+          "husvetra"
+        ],
+        "instructions": [],
+        "image": null,
+        "subRecipes": [],
+        "hasSubRecipes": false,
+        "createdAt": "2021-03-18T16:00:26.000Z",
+        "updatedAt": "2025-05-26T23:13:31.000Z",
+        "free": true,
+        "sourceModxId": 3172
+      }
+    },
+    {
+      "key": "2021-repas-lepenykenyer",
+      "sourcePath": "cikkek/diabetes/2101/receptek-husvetra/repas-lepenykenyer",
+      "modxContentId": 3184,
+      "reason": "below-threshold",
+      "categoryDecision": {
+        "resolved": false,
+        "category": null,
+        "categorySource": "unresolved",
+        "confidence": 0.5480760631170578,
+        "margin": 0.33290497621750637,
+        "matchedFeatures": [
+          {
+            "feature": "eleszto",
+            "score": 3.620182
+          }
+        ],
+        "reason": "below-threshold"
+      },
+      "recipe": {
+        "id": "repas-lepenykenyer",
+        "year": 2021,
+        "title": "Répás lepénykenyér",
+        "author": "Receptek húsvétra",
+        "servings": {
+          "amount": 10,
+          "unit": "adag"
+        },
+        "energy": 200,
+        "protein": 9,
+        "fat": 18,
+        "saturatedFat": null,
+        "carbs": 1,
+        "fiber": null,
+        "nutritionTables": [
+          {
+            "label": "1 adag tápanyagtartalma:",
+            "energy": 200,
+            "protein": 9,
+            "fat": 18,
+            "saturatedFat": null,
+            "carbs": 1,
+            "fiber": null
+          }
+        ],
+        "ingredientGroups": [
+          {
+            "section": "Hozzávalók 10 adaghoz",
+            "items": [
+              {
+                "text": "250 g búzafehérliszt,",
+                "amount": 250,
+                "unit": "g",
+                "name": "búzafehérliszt,"
+              },
+              {
+                "text": "170 ml víz,",
+                "amount": 170,
+                "unit": "ml",
+                "name": "víz,"
+              },
+              {
+                "text": "150 g sárgarépa,",
+                "amount": 150,
+                "unit": "g",
+                "name": "sárgarépa,"
+              },
+              {
+                "text": "9 g só,",
+                "amount": 9,
+                "unit": "g",
+                "name": "só,"
+              },
+              {
+                "text": "1 cs. szárított élesztő.",
+                "amount": 1,
+                "unit": "cs.",
+                "name": "szárított élesztő."
+              }
+            ]
+          }
+        ],
+        "ingredientNames": [
+          "búzafehérliszt,",
+          "víz,",
+          "sárgarépa,",
+          "só,",
+          "szárított élesztő."
+        ],
+        "searchTerms": [
+          "repas",
+          "lepenykenyer",
+          "buzafeherliszt",
+          "viz",
+          "sargarepa",
+          "szaritott",
+          "eleszto"
+        ],
+        "instructions": [
+          "Hozzávalók 10 adaghoz",
+          "250 g búzafehérliszt,",
+          "170 ml víz,",
+          "150 g sárgarépa,",
+          "9 g só,",
+          "1 cs. szárított élesztő.",
+          "A sót egy keverőtál aljába mérjük és hozzáöntjük a lisztet. Sajtreszelőn hozzáreszeljük a megtisztított sárgarépát. Beleöntjük az élesztőt, és a meglangyosított vízzel alaposan összegyúrjuk. 30 percet kelesztjük meleg helyen, majd kinyújtjuk és hajtogatjuk. Ezt megismételjük még 2-szer fél-fél óra várakozással. Végül sütőpapírral bélelt tepsire téve, 180–200 fokra előmelegített sütőben kb. 35 perc alatt készre sütjük."
+        ],
+        "image": null,
+        "subRecipes": [],
+        "hasSubRecipes": false,
+        "createdAt": "2021-03-18T17:13:23.000Z",
+        "updatedAt": "2022-04-27T15:56:25.000Z",
+        "free": true,
+        "video": {
+          "src": "assets/media/receptsarok/halkremmel-toltott-web.webm",
+          "poster": "assets/media/receptsarok/halkremmel-toltott-web.jpg"
+        },
+        "sourceModxId": 3184
+      }
+    },
+    {
+      "key": "2021-kakukkfuves-narancsdzsem",
+      "sourcePath": "cikkek/diabetes/2103/nyari-receptek/kakukkfuves-narancsdzsem",
+      "modxContentId": 3275,
+      "reason": "below-threshold",
+      "categoryDecision": {
+        "resolved": false,
+        "category": null,
+        "categorySource": "unresolved",
+        "confidence": 0.6194012733425205,
+        "margin": 0.49674122315155705,
+        "matchedFeatures": [
+          {
+            "feature": "cukormentes",
+            "score": 3.24691
+          }
+        ],
+        "reason": "below-threshold"
+      },
+      "recipe": {
+        "id": "kakukkfuves-narancsdzsem",
+        "year": 2021,
+        "title": "Kakukkfüves narancsdzsem",
+        "author": "Nyári receptek",
+        "servings": {
+          "amount": 8,
+          "unit": "adag"
+        },
+        "energy": 51,
+        "protein": null,
+        "fat": null,
+        "saturatedFat": null,
+        "carbs": 11,
+        "fiber": null,
+        "nutritionTables": [
+          {
+            "label": "1 adag tápanyagtartalma:",
+            "energy": 51,
+            "protein": null,
+            "fat": null,
+            "saturatedFat": null,
+            "carbs": 11,
+            "fiber": null
+          }
+        ],
+        "ingredientGroups": [
+          {
+            "section": "Hozzávalók 8 adaghoz",
+            "items": [
+              {
+                "text": "15 g narancshéj,",
+                "amount": 15,
+                "unit": "g",
+                "name": "narancshéj,"
+              },
+              {
+                "text": "1,5 kg narancs,",
+                "amount": 1.5,
+                "unit": "kg",
+                "name": "narancs,"
+              },
+              {
+                "text": "200 ml víz,",
+                "amount": 200,
+                "unit": "ml",
+                "name": "víz,"
+              },
+              {
+                "text": "3 szál kakukkfű,",
+                "amount": 3,
+                "unit": null,
+                "name": "szál kakukkfű,"
+              },
+              {
+                "text": "40 g dzsemfix (cukormentes).",
+                "amount": 40,
+                "unit": "g",
+                "name": "dzsemfix (cukormentes)."
+              }
+            ]
+          }
+        ],
+        "ingredientNames": [
+          "narancshéj,",
+          "narancs,",
+          "víz,",
+          "szál kakukkfű,",
+          "dzsemfix (cukormentes)."
+        ],
+        "searchTerms": [
+          "kakukkfuves",
+          "narancsdzsem",
+          "narancshej",
+          "narancs",
+          "viz",
+          "szal",
+          "kakukkfu",
+          "dzsemfix",
+          "cukormentes"
+        ],
+        "instructions": [
+          "A megmosott narancs héját lereszeljük, a levét kifacsarjuk. Hozzáadjuk a vizet és a kakukkfüvet, majd alacsony lángon folyamatos kevergetés mellett felforraljuk. Ha felforrt, hozzáadjuk a dzsemfixet és habverővel elkeverjük. Az üvegeket forró vízben fertőtlenítjük, majd beleöntjük a még híg dzsemet. Befőzőfóliával letakarjuk és ráhúzzuk a tetejét. Fejjel lefelé fordítva, paplanba csomagolva várjuk meg, míg kihűl."
+        ],
+        "image": null,
+        "subRecipes": [],
+        "hasSubRecipes": false,
+        "createdAt": "2021-08-04T19:17:40.000Z",
+        "updatedAt": "2021-08-04T19:30:10.000Z",
+        "free": true,
+        "sourceModxId": 3275
+      }
+    },
+    {
+      "key": "2021-cseresznyelekvar",
+      "sourcePath": "cikkek/diabetes/2103/nyari-receptek/cseresznyelekvar",
+      "modxContentId": 3297,
+      "reason": "below-threshold",
+      "categoryDecision": {
+        "resolved": false,
+        "category": null,
+        "categorySource": "unresolved",
+        "confidence": 0.5403524796510886,
+        "margin": 0.3203639971750917,
+        "matchedFeatures": [
+          {
+            "feature": "eritrit",
+            "score": 2.829342
+          }
+        ],
+        "reason": "below-threshold"
+      },
+      "recipe": {
+        "id": "cseresznyelekvar",
+        "year": 2021,
+        "title": "Cseresznyelekvár",
+        "author": "Nyári receptek",
+        "servings": {
+          "amount": 5,
+          "unit": "db"
+        },
+        "energy": 65,
+        "protein": 1,
+        "fat": null,
+        "saturatedFat": null,
+        "carbs": 14,
+        "fiber": null,
+        "nutritionTables": [
+          {
+            "label": "2 evőkanál (kb. 40 g) tápanyagtartalma:",
+            "energy": 65,
+            "protein": 1,
+            "fat": null,
+            "saturatedFat": null,
+            "carbs": 14,
+            "fiber": null
+          }
+        ],
+        "ingredientGroups": [
+          {
+            "section": "Hozzávalók 5 db 200 ml-es üveghez",
+            "items": [
+              {
+                "text": "2700 g cseresznye (magozott),",
+                "amount": 2700,
+                "unit": "g",
+                "name": "cseresznye (magozott),"
+              },
+              {
+                "text": "270 g eritrit.",
+                "amount": 270,
+                "unit": "g",
+                "name": "eritrit."
+              }
+            ]
+          }
+        ],
+        "ingredientNames": [
+          "cseresznye (magozott),",
+          "eritrit."
+        ],
+        "searchTerms": [
+          "cseresznyelekvar",
+          "cseresznye",
+          "magozott",
+          "eritrit"
+        ],
+        "instructions": [
+          "A megtisztított, kimagozott cseresznyét nyomkodjuk szét egy nagy lábasban az eritrittel, majd hagyjuk egy éjszakát állni. Másnap reggel, közepes lángon tegyük fel főzni, míg fel nem forr. Amint megvan, vegyük le a lángot takarékra, így főzzük közepes lángon, a forralást is beleszámítva másfél órát. Amíg fő a lekvárunk, az üvegeket mossuk ki, majd vagy sütőben, vagy kifőzve fertőtlenítsük őket. Amint kifertőtlenítettük, tegyük tele a forró lekvárral, és egy vastag paplannal csomagoljuk be. Várjunk vele 24 órát, hogy kihűljön, és máris fogyasztható."
+        ],
+        "image": null,
+        "subRecipes": [],
+        "hasSubRecipes": false,
+        "createdAt": "2021-09-16T11:27:35.000Z",
+        "updatedAt": "2026-02-22T17:49:35.000Z",
+        "free": true,
+        "sourceModxId": 3297
+      }
+    },
+    {
+      "key": "2021-karacsonyi-receptek",
+      "sourcePath": "cikkek/diabetes/2106/karacsonyi-receptek",
+      "modxContentId": 3348,
+      "reason": "below-threshold",
+      "categoryDecision": {
+        "resolved": false,
+        "category": null,
+        "categorySource": "unresolved",
+        "confidence": 0.20430809399477803,
+        "margin": 0.0058746736292428214,
+        "matchedFeatures": [],
+        "reason": "below-threshold"
+      },
+      "recipe": {
+        "id": "karacsonyi-receptek",
+        "year": 2021,
+        "title": "Karácsonyi Receptek",
+        "author": "",
+        "servings": {
+          "amount": 0,
+          "unit": ""
+        },
+        "energy": null,
+        "protein": null,
+        "fat": null,
+        "saturatedFat": null,
+        "carbs": null,
+        "fiber": null,
+        "nutritionTables": [],
+        "ingredientGroups": [],
+        "ingredientNames": [],
+        "searchTerms": [
+          "karacsonyi",
+          "receptek"
+        ],
+        "instructions": [],
+        "image": null,
+        "subRecipes": [],
+        "hasSubRecipes": false,
+        "createdAt": "2021-12-11T15:43:20.000Z",
+        "updatedAt": "2025-08-26T20:39:33.000Z",
+        "free": true,
+        "sourceModxId": 3348
+      }
+    },
+    {
+      "key": "2025-mogyorokremes-teljes-kiorlesu-minicsigak",
+      "sourcePath": "cikkek/diabetes/nagymamaink-receptjei-modern-kontosben/mogyorokremes-teljes-kiorlesu-minicsigak",
+      "modxContentId": 4293,
+      "reason": "below-threshold",
+      "categoryDecision": {
+        "resolved": false,
+        "category": null,
+        "categorySource": "unresolved",
+        "confidence": 0.42483822413776273,
+        "margin": 0.2918798520218984,
+        "matchedFeatures": [
+          {
+            "feature": "kiorlesu",
+            "score": 0.578739
+          },
+          {
+            "feature": "teljes_kiorlesu",
+            "score": 0.578739
+          },
+          {
+            "feature": "teljes",
+            "score": 0.568614
+          }
+        ],
+        "reason": "below-threshold"
+      },
+      "recipe": {
+        "id": "mogyorokremes-teljes-kiorlesu-minicsigak",
+        "year": 2025,
+        "title": "Mogyorókrémes teljes kiőrlésű minicsigák",
+        "author": "Szálka Brigitta",
+        "servings": {
+          "amount": 30,
+          "unit": "db"
+        },
+        "energy": 87,
+        "protein": 1,
+        "fat": 6,
+        "saturatedFat": null,
+        "carbs": 7,
+        "fiber": null,
+        "nutritionTables": [
+          {
+            "label": "1 darab energia- és tápanyagtartalma:",
+            "energy": 87,
+            "protein": 1,
+            "fat": 6,
+            "saturatedFat": null,
+            "carbs": 7,
+            "fiber": null
+          }
+        ],
+        "ingredientGroups": [
+          {
+            "section": "Hozzávalók 30 darabhoz",
+            "items": [
+              {
+                "text": "2 csomag leveles teljes kiőrlésű levelestészta,",
+                "amount": 2,
+                "unit": "csomag",
+                "name": "leveles teljes kiőrlésű levelestészta,"
+              },
+              {
+                "text": "120 g hozzáadottcukor-mentes mogyorókrém.",
+                "amount": 120,
+                "unit": "g",
+                "name": "hozzáadottcukor-mentes mogyorókrém."
+              }
+            ]
+          }
+        ],
+        "ingredientNames": [
+          "leveles teljes kiőrlésű levelestészta,",
+          "hozzáadottcukor-mentes mogyorókrém."
+        ],
+        "searchTerms": [
+          "mogyorokremes",
+          "teljes",
+          "kiorlesu",
+          "minicsigak",
+          "leveles",
+          "levelesteszta",
+          "hozzaadottcukor",
+          "mentes",
+          "mogyorokrem"
+        ],
+        "instructions": [
+          "A leveles tésztát kiterítjük, egyenletesen megkenjük a mogyorókrémmel, majd hosszában feltekerjük. Éles késsel egy rúdból 15 csigát vágunk. Sütőpapírra helyezzük a csigákat, 160 fokra előmelegített sütőben kb. 15 perc alatt aranybarnára sütjük."
+        ],
+        "image": null,
+        "subRecipes": [],
+        "hasSubRecipes": false,
+        "createdAt": "2025-09-26T10:21:57.000Z",
+        "updatedAt": "2025-11-04T07:16:04.000Z",
+        "free": true,
+        "sourceModxId": 4293
+      }
+    },
+    {
+      "key": "2015-mandarinos-francia-palacsinta",
+      "sourcePath": "junior/2015/cikkek/receptsarok/mandarinos-francia-palacsinta",
+      "modxContentId": 4436,
+      "reason": "below-threshold",
+      "categoryDecision": {
+        "resolved": false,
+        "category": null,
+        "categorySource": "unresolved",
+        "confidence": 0.4521212122401888,
+        "margin": 0.059670841660703966,
+        "matchedFeatures": [
+          {
+            "feature": "folyekony",
+            "score": 1.061199
+          },
+          {
+            "feature": "folyekony_edesitoszer",
+            "score": 1.025745
+          },
+          {
+            "feature": "nehany",
+            "score": 0.615098
+          }
+        ],
+        "reason": "below-threshold"
+      },
+      "recipe": {
+        "id": "mandarinos-francia-palacsinta",
+        "year": 2015,
+        "title": "Mandarinos francia palacsinta",
+        "author": "Gyurcsáné Kondrát Ilona",
+        "servings": {
+          "amount": 8,
+          "unit": "db"
+        },
+        "energy": 190,
+        "protein": 12.6,
+        "fat": 17.2,
+        "saturatedFat": null,
+        "carbs": 22.4,
+        "fiber": null,
+        "nutritionTables": [
+          {
+            "label": "1 darab:",
+            "energy": 190,
+            "protein": 12.6,
+            "fat": 17.2,
+            "saturatedFat": null,
+            "carbs": 22.4,
+            "fiber": null
+          }
+        ],
+        "ingredientGroups": [
+          {
+            "section": "8 darabhoz:",
+            "items": [
+              {
+                "text": "18 dkg liszt",
+                "amount": 18,
+                "unit": "dkg",
+                "name": "liszt"
+              },
+              {
+                "text": "3 db tojás",
+                "amount": 3,
+                "unit": "db",
+                "name": "tojás"
+              },
+              {
+                "text": "4 dkg vaj vagy margarin",
+                "amount": 4,
+                "unit": "dkg",
+                "name": "vaj vagy margarin"
+              },
+              {
+                "text": "2 dl tej (1,5%-os)",
+                "amount": 2,
+                "unit": "dl",
+                "name": "tej (1,5%-os)"
+              },
+              {
+                "text": "szükség szerint szénsavas ásványvíz",
+                "amount": null,
+                "unit": null,
+                "name": "szükség szerint szénsavas ásványvíz"
+              },
+              {
+                "text": "folyékony édesítőszer",
+                "amount": null,
+                "unit": null,
+                "name": "folyékony édesítőszer"
+              }
+            ]
+          },
+          {
+            "section": "A töltelékhez:",
+            "items": [
+              {
+                "text": "20 dkg mandarin (megtisztított)",
+                "amount": 20,
+                "unit": "dkg",
+                "name": "mandarin (megtisztított)"
+              },
+              {
+                "text": "1 dl fruktózzal ízesített tejszínhab (spray)",
+                "amount": 1,
+                "unit": "dl",
+                "name": "fruktózzal ízesített tejszínhab (spray)"
+              },
+              {
+                "text": "1-2 dl tej folyékony édesítőszerrel ízesítve",
+                "amount": 1,
+                "unit": "dl",
+                "name": "tej folyékony édesítőszerrel ízesítve"
+              }
+            ]
+          }
+        ],
+        "ingredientNames": [
+          "liszt",
+          "tojás",
+          "vaj vagy margarin",
+          "tej (1,5%-os)",
+          "szükség szerint szénsavas ásványvíz",
+          "folyékony édesítőszer",
+          "mandarin (megtisztított)",
+          "fruktózzal ízesített tejszínhab (spray)",
+          "tej folyékony édesítőszerrel ízesítve"
+        ],
+        "searchTerms": [
+          "mandarinos",
+          "francia",
+          "palacsinta",
+          "liszt",
+          "tojas",
+          "vaj",
+          "vagy",
+          "margarin",
+          "tej",
+          "szukseg",
+          "szerint",
+          "szensavas",
+          "asvanyviz",
+          "folyekony",
+          "edesitoszer",
+          "mandarin",
+          "megtisztitott",
+          "fruktozzal",
+          "izesitett",
+          "tejszinhab",
+          "spray",
+          "edesitoszerrel",
+          "izesitve"
+        ],
+        "instructions": [
+          "A tojássárgájákat tejjel összekeverjük, hozzáadjuk a lisztet és kellő mennyiségű ásványvízzel csomómentesre keverjük. Ízesítjük pici sóval és folyékony édesítővel. A tojásfehérjéket habbá verjük, és óvatosan belekeverjük a palacsintaalapba. A tésztát kicsit pihentetjük, majd vajjal megkent palacsintasütőben kisütjük. A mandarint szükség szerint kimagozzuk, néhány cikket félreteszünk díszítésre, a többit a hártyájától megtisztítjuk. Körülbelül 5-10 percig a megédesített tejbe áztatjuk, majd lecsepegtetjük. A palacsintákon elosztjuk a mandarint, tejszínhabot teszünk rá, és háromszögletűre hajtogatjuk. Tálaláskor a félretett mandaringerezdekkel és tejszínhabbal díszítjük."
+        ],
+        "image": null,
+        "subRecipes": [],
+        "hasSubRecipes": false,
+        "createdAt": "2026-05-04T14:29:27.000Z",
+        "updatedAt": "2026-05-04T14:34:09.000Z",
+        "free": true,
+        "sourceModxId": 4436
       }
     }
   ]

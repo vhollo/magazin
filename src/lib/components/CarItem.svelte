@@ -1,7 +1,7 @@
 <script>
   import CardBody from '$lib/components/CardBody.svelte'
-  import { resolveAssetUrl, rewriteModxAssetHtml } from '$lib/assetUrl'
   export let card
+
 </script>
 
 <!--<aside class:double={card.img} class:triple={card.ellipsis?.indexOf('<video') !== -1} class="card card-sm bg-base-100 shadow-xl">-->
@@ -9,10 +9,11 @@
     <figure>
       {#if card.path}
         <a href={`/${card.path}`}>
+          <!--<img style={`object-fit: ${card.ext == 'png' ? 'contain' : 'cover'}; object-position: ${card.pos || '50% 40%'}`} src={`${PUBLIC_BASE_URL}${card.img}`} alt="" width="928" height="548"/>-->
           <img
             fetchpriority={card.fetchpriority || 'auto'}
             style={`object-fit: ${card.ext == 'png' ? 'contain' : 'cover'}; object-position: ${card.pos || '50% 40%'}`} 
-            src={typeof card.img === 'string' ? resolveAssetUrl(card.img) : resolveAssetUrl(card.img?.src)} 
+            src={`${card.img}`} 
             alt="" width="928" height="548"
           />
         </a>
@@ -20,7 +21,7 @@
         <img 
         fetchpriority={card.fetchpriority || 'auto'}
         style={`object-fit: ${card.ext == 'png' ? 'contain' : 'cover'}; object-position: ${card.pos || '50% 40%'}`} 
-          src={typeof card.img === 'string' ? resolveAssetUrl(card.img) : resolveAssetUrl(card.img?.src)} 
+          src={`${card.img}`} 
           alt="" width="928" height="548"
         />
       {/if}
@@ -29,11 +30,12 @@
     <figure>
       {#if card.path}
         <a href={`/${card.path}`}>
+          <!--<img style={`object-fit: ${card.ext == 'png' ? 'contain' : 'cover'}; object-position: ${card.pos || '50% 40%'}`} src={`${PUBLIC_BASE_URL}${card.img}`} alt="" width="928" height="548"/>-->
           <img 
             fetchpriority={card.fetchpriority || 'auto'}
             loading={card.fetchpriority == 'high' ? 'eager' : 'lazy'}
             style={`object-fit: ${card.img.ext == 'png' ? 'contain' : 'cover'}; object-position: ${card.img.pos || '50% 40%'}`} 
-            src={resolveAssetUrl(card.img.src)} 
+            src={`${card.img.src}`} 
             alt="" width="928" height="548"
           />
         </a>
@@ -42,7 +44,7 @@
           fetchpriority={card.fetchpriority || 'auto'}
           loading={card.fetchpriority == 'high' ? 'eager' : 'lazy'}
           style={`object-fit: ${card.img.ext == 'png' ? 'contain' : 'cover'}; object-position: ${card.img.pos || '50% 40%'}`} 
-          src={resolveAssetUrl(card.img.src)} 
+          src={`${card.img.src}`} 
           alt="" width="928" height="548"
         />
       {/if}

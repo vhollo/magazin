@@ -88,19 +88,43 @@ function parseNullableNumber(value) {
   return Number.isFinite(num) ? num : null
 }
 
+/** Magazine issue code YYMM or asset prefix dtYYMM (e.g. 0903 → 2009, 2506 → 2025). */
+function parseIssueCodeYear(value) {
+  const raw = String(value ?? '')
+  const dtMatch = raw.match(/dt(\d{2})(0[1-9]|1[0-2])/i)
+  if (dtMatch?.[1]) {
+    const yy = Number(dtMatch[1])
+    if (Number.isFinite(yy)) return 2000 + yy
+  }
+  const segmentMatch = raw.match(/(?:^|\/)(\d{2})(0[1-9]|1[0-2])(?:\/|$)/)
+  if (segmentMatch?.[1]) {
+    const yy = Number(segmentMatch[1])
+    if (!Number.isFinite(yy)) return null
+    const fourDigit = `${segmentMatch[1]}${segmentMatch[2]}`
+    const asCalendar = Number(fourDigit)
+    // Paths like /2001/ are magazine years, not YYMM issue codes.
+    if (asCalendar >= 2000 && asCalendar <= 2008) return null
+    return 2000 + yy
+  }
+  return null
+}
+
 function parseYearFromMagazinPath(pathValue) {
   const path = String(pathValue ?? '')
+
+  const promoYear = path.match(/receptek-(20\d{2})/i)
+  if (promoYear?.[1]) {
+    const year = Number(promoYear[1])
+    if (Number.isFinite(year)) return year
+  }
+
+  const fromIssueCode = parseIssueCodeYear(path)
+  if (fromIssueCode) return fromIssueCode
+
   const explicitYear = path.match(/(?:^|[^0-9])(20\d{2})(?:[^0-9]|$)/)
   if (explicitYear?.[1]) {
     const year = Number(explicitYear[1])
     if (Number.isFinite(year)) return year
-  }
-
-  // Legacy issue code support: YYMM (e.g. 1904 -> 2019, 2301 -> 2023).
-  const issueCodeMatch = path.match(/(?:^|[^0-9])(\d{2})(0[1-9]|1[0-2])(?:[^0-9]|$)/)
-  if (issueCodeMatch?.[1]) {
-    const yy = Number(issueCodeMatch[1])
-    if (Number.isFinite(yy)) return 2000 + yy
   }
 
   return new Date().getUTCFullYear()
@@ -146,11 +170,33 @@ function parseYearFromIso(iso) {
 function deriveYear(doc, options) {
   const fromOption = parseValidYear(options?.year)
   if (fromOption) return fromOption
+
+  const fromContentIssue = parseIssueCodeYear(String(doc?.content ?? ''))
+  if (fromContentIssue) return fromContentIssue
+
+  const nowYear = new Date().getUTCFullYear()
+
+  // Seasonal MODX folders named after a future calendar year (e.g. husveti-receptek-2026 → 2025 booklet).
+  const promoMatch = String(doc?.path ?? '').match(/receptek-(20\d{2})/i)
+  if (promoMatch?.[1]) {
+    const promoYear = Number(promoMatch[1])
+    if (Number.isInteger(promoYear) && promoYear > nowYear - 1) return promoYear - 1
+  }
+
+  // MODX docs under receptsarok/{category}/ mirror the current booklet, not the calendar year.
+  if (String(doc?.path ?? '').startsWith('receptsarok/') && !parseIssueCodeYear(doc?.path)) {
+    return nowYear - 1
+  }
+
+  const fromPathParsed = parseValidYear(parseYearFromMagazinPath(doc?.path))
+  if (fromPathParsed && fromPathParsed !== nowYear) return fromPathParsed
+
   const fromCreatedIso = deriveDocCreatedAtIso(doc)
   const fromCreated = fromCreatedIso ? parseYearFromIso(fromCreatedIso) : null
   if (fromCreated) return fromCreated
-  const fromPath = parseValidYear(parseYearFromMagazinPath(doc?.path))
-  if (fromPath) return fromPath
+
+  if (fromPathParsed) return fromPathParsed
+
   const publishedRaw = Number(doc?.publishedon)
   const publishedMs = Number.isFinite(publishedRaw)
     ? publishedRaw > 9999999999
@@ -159,7 +205,7 @@ function deriveYear(doc, options) {
     : NaN
   const fromPublished = parseValidYear(new Date(publishedMs).getUTCFullYear())
   if (fromPublished) return fromPublished
-  return new Date().getUTCFullYear()
+  return nowYear
 }
 
 function splitParagraphsFromTag(content, tagName) {
@@ -1038,4 +1084,4 @@ export function buildRecipeFromModxDoc(doc, options) {
   return { recipe, categoryDecision }
 }
 
-export { parseYearFromMagazinPath, normalizeText, isDescriptionAuthorCompatible }
+export { parseYearFromMagazinPath, parseIssueCodeYear, normalizeText, isDescriptionAuthorCompatible }

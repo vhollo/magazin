@@ -1,7 +1,7 @@
 // @ts-nocheck
 import fs from 'node:fs'
 import path from 'node:path'
-import { chooseWinner } from './receptsarokDedupeShared.js'
+import { chooseWinner, pickRedirectTarget } from './receptsarokDedupeShared.js'
 import {
   buildRecipeFromModxDoc,
   buildRecipesFromModxDoc,
@@ -321,7 +321,8 @@ export async function runMagazinRecipeDedupe({ docs, applyLocal = false, createL
       .map((entry) => entry.recipe)
 
     if (matches.length > 0) {
-      const { winner, reason } = chooseWinner(matches)
+      const { winner: contentWinner, reason } = chooseWinner(matches)
+      const winner = pickRedirectTarget(matches, contentWinner)
       if (!winner) continue
 
       const { recipe: reparsedWinner } = buildRecipeFromModxDoc(doc, {
@@ -417,7 +418,6 @@ export async function runMagazinRecipeDedupe({ docs, applyLocal = false, createL
     const key = `${year}-${id}`
     if (!recipeByKey.has(key)) {
       const parsedList = buildRecipesFromModxDoc(doc, {
-        year,
         id,
         categoryByKey,
         predictCategory: predictRecipeCategory,
@@ -554,11 +554,12 @@ export async function runMagazinRecipeDedupe({ docs, applyLocal = false, createL
         }
       }
     } else {
+      const existing = recipeByKey.get(key)
       redirects.push({
         modxContentId: doc.id,
         path: doc.path,
-        year,
-        id,
+        year: existing?.year ?? year,
+        id: existing?.id ?? id,
       })
     }
     audit.push({

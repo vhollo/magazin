@@ -1,9 +1,5 @@
 import { db } from '$lib/firebase-admin';
 import { encodeDocPathId } from '$lib/magazine/docPathId';
-import {
-	rewriteCollectionDoc,
-	rewriteMagazineArticle
-} from '$lib/magazine/rewriteDocAssets';
 import type { DocLike, ThinCard } from '$lib/modx/collections';
 import { collectionQueries } from '$lib/modx/collections';
 
@@ -36,13 +32,13 @@ export function isCollectionSlug(path: string): boolean {
 export async function getMagazineArticle(path: string): Promise<MagazineArticle | null> {
 	const snap = await db.collection('docs').doc(encodeDocPathId(path)).get();
 	if (!snap.exists) return null;
-	return rewriteMagazineArticle(snap.data() as MagazineArticle);
+	return snap.data() as MagazineArticle;
 }
 
 export async function getMagazineCollection(slug: string): Promise<CollectionDoc | null> {
 	const snap = await db.collection('collections').doc(slug).get();
 	if (!snap.exists) return null;
-	return rewriteCollectionDoc(snap.data() as CollectionDoc);
+	return snap.data() as CollectionDoc;
 }
 
 export async function getSearchMeta(): Promise<SearchMeta | null> {

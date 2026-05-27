@@ -2,6 +2,7 @@ import type { Recipe, SubRecipe, NutritionValues } from '$lib/receptsarok'
 import {
   compareRecipeCandidates as compareRecipeCandidatesShared,
   chooseWinner as chooseWinnerShared,
+  pickRedirectTarget as pickRedirectTargetShared,
 } from './receptsarokDedupeShared.js'
 
 type CandidateLike = {
@@ -39,6 +40,13 @@ export function compareRecipeCandidates<T extends CandidateLike>(a: T, b: T): Co
 
 export function chooseWinner<T extends CandidateLike>(candidates: T[]): T | null {
   return chooseWinnerShared(candidates).winner as T | null
+}
+
+export function pickRedirectTarget<T extends CandidateLike>(
+  matches: T[],
+  contentWinner: T | null | undefined
+): T | null {
+  return pickRedirectTargetShared(matches, contentWinner) as T | null
 }
 
 export type { CandidateLike }

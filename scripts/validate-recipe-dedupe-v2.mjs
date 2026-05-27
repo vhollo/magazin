@@ -1,7 +1,11 @@
 import assert from 'node:assert/strict'
 import fs from 'node:fs'
 import path from 'node:path'
-import { compareRecipeCandidates } from '../src/lib/receptsarokDedupeShared.js'
+import {
+  compareRecipeCandidates,
+  chooseWinner,
+  pickRedirectTarget,
+} from '../src/lib/receptsarokDedupeShared.js'
 import {
   buildRecipeFromModxDoc,
   isDescriptionAuthorCompatible,
@@ -55,6 +59,17 @@ function testComparatorOrder() {
   assert.equal(yearResult.reason, 'year')
 }
 
+function testPickRedirectTargetPrefersRsBookletYear() {
+  const rsBooklet = { id: 'puszedli', year: 2025, sourceModxId: undefined, video: '', nutritionTables: [{ energy: 1 }] }
+  const modxClone = { id: 'puszedli', year: 2026, sourceModxId: 4346, video: '', nutritionTables: [{ energy: 1, protein: 1, fat: 1, saturatedFat: 1, carbs: 1, fiber: 1 }] }
+  const matches = [rsBooklet, modxClone]
+  const { winner: contentWinner } = chooseWinner(matches)
+  assert.equal(contentWinner?.year, 2026, 'MODX clone wins content tie-break on year')
+  const redirectTarget = pickRedirectTarget(matches, contentWinner)
+  assert.equal(redirectTarget?.year, 2025, 'Redirect should use RS booklet year')
+  assert.equal(redirectTarget?.id, 'puszedli')
+}
+
 function testAuthorGate() {
   assert.equal(isDescriptionAuthorCompatible('Gyurcsáné Kondrát Ilona receptje', 'Gyurcsáné Kondrát Ilona'), true)
   assert.equal(isDescriptionAuthorCompatible('Kovács Bence receptje', 'Szabó Anna'), false)
@@ -65,6 +80,8 @@ function testAuthorGate() {
 function testParserEntityAndYearResilience() {
   const parsedYear = parseYearFromMagazinPath('/receptsarok/2024/oszi-menu')
   assert.equal(parsedYear, 2024)
+  assert.equal(parseYearFromMagazinPath('cikkek/diabetes/2506/puszedli'), 2025)
+  assert.equal(parseYearFromMagazinPath('cikkek/diabetes/0903/recept'), 2009)
   const fallbackYear = parseYearFromMagazinPath('/receptsarok/archiv/menu')
   assert.ok(Number.isInteger(fallbackYear), 'Fallback year should remain a finite integer')
 
@@ -393,6 +410,7 @@ function testUncategorizedQueueConsistency() {
 }
 
 testComparatorOrder()
+testPickRedirectTargetPrefersRsBookletYear()
 testAuthorGate()
 testParserEntityAndYearResilience()
 testParserNutritionFallbackFromParagraphs()

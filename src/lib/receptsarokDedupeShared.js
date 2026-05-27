@@ -121,6 +121,46 @@ export function compareRecipeCandidates(a, b) {
 }
 
 /**
+ * @param {CandidateLike} recipe
+ * @returns {boolean}
+ */
+export function isModxImportRecipe(recipe) {
+  return Number.isFinite(recipe?.sourceModxId)
+}
+
+/**
+ * RS booklet recipe (not created from a MODX import).
+ * @param {CandidateLike} recipe
+ * @returns {boolean}
+ */
+export function isRsBookletRecipe(recipe) {
+  return !isModxImportRecipe(recipe)
+}
+
+/**
+ * Redirect / write target when dedupe matches overlap RS booklet and MODX imports.
+ * RS booklet `{year}-{id}` wins over MODX path year or newer MODX-import clone.
+ *
+ * @template {CandidateLike} T
+ * @param {T[]} matches
+ * @param {T | null | undefined} contentWinner from {@link chooseWinner}
+ * @returns {T | null}
+ */
+export function pickRedirectTarget(matches, contentWinner) {
+  if (!Array.isArray(matches) || matches.length === 0) return contentWinner ?? null
+
+  const rsMatches = matches.filter(isRsBookletRecipe)
+  if (rsMatches.length === 0) return contentWinner ?? matches[0] ?? null
+
+  const sameId =
+    contentWinner?.id != null
+      ? rsMatches.filter((recipe) => String(recipe.id) === String(contentWinner.id))
+      : []
+  const pool = sameId.length > 0 ? sameId : rsMatches
+  return chooseWinner(pool).winner ?? rsMatches[0] ?? contentWinner ?? null
+}
+
+/**
  * @template {CandidateLike} T
  * @param {T[]} candidates
  * @returns {{ winner: T | null; reason: 'video' | 'nutrition' | 'year' | 'id' | null }}

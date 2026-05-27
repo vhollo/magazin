@@ -10,7 +10,6 @@
 #
 # Optional secrets:
 #   MODXDB_PORT              (default 3306 in the sync script)
-#   MODX_ASSET_ORIGIN        (default https://www.diabetes.hu/)
 #   NETLIFY_SITE_ID, NETLIFY_ACCESS_TOKEN  (edge-cache purge after changes)
 
 name: Sync MODX to Firestore
@@ -87,7 +86,6 @@ jobs:
           MODXDB_PASSWORD: ${{ secrets.MODXDB_PASSWORD }}
           FIREBASE_ADMIN_KEY: ${{ secrets.FIREBASE_ADMIN_KEY }}
           FIREBASE_STORAGE_BUCKET: ${{ secrets.FIREBASE_STORAGE_BUCKET }}
-          MODX_ASSET_ORIGIN: ${{ secrets.MODX_ASSET_ORIGIN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
           NETLIFY_ACCESS_TOKEN: ${{ secrets.NETLIFY_ACCESS_TOKEN }}
 

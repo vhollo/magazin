@@ -100,9 +100,6 @@
         'A keresési index még nem érhető el. Próbálja újra később, vagy böngésszen a rovatok között.'
       if (import.meta.env.DEV || (typeof window !== 'undefined' && /localhost|127\.0\.0\.1/.test(window.location.hostname))) {
         console.warn('search index load failed:', err)
-        console.warn(
-          'Bucket CORS (direct GCS fetch): npm run storage:cors — add this origin to scripts/storage-cors.json if missing'
-        )
       }
     } finally {
       indexLoading = false

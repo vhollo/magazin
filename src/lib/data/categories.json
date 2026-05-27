@@ -1,51 +1,51 @@
 [
   {
     "id": "levesek",
-    "name": "Levesek",
-    "image": "levesek.jpg",
     "order": 1,
-    "recipeCount": 0
+    "image": "levesek.jpg",
+    "recipeCount": 0,
+    "name": "Levesek"
   },
   {
     "id": "zoldsegetelek",
-    "name": "Zöldségételek",
-    "image": "zoldsegetelek.jpg",
     "order": 2,
-    "recipeCount": 0
+    "recipeCount": 0,
+    "name": "Zöldségételek",
+    "image": "zoldsegetelek.jpg"
   },
   {
     "id": "haletelek",
-    "name": "Halételek",
-    "image": "haletelek.jpg",
     "order": 3,
-    "recipeCount": 0
+    "image": "haletelek.jpg",
+    "recipeCount": 0,
+    "name": "Halételek"
   },
   {
     "id": "husetelek",
-    "name": "Húsételek",
-    "image": "husetelek.jpg",
     "order": 4,
-    "recipeCount": 0
+    "image": "husetelek.jpg",
+    "recipeCount": 0,
+    "name": "Húsételek"
   },
   {
     "id": "egytaletelek",
-    "name": "Egytálételek",
-    "image": "egytaletelek.jpg",
     "order": 5,
-    "recipeCount": 0
+    "recipeCount": 0,
+    "name": "Egytálételek",
+    "image": "egytaletelek.jpg"
   },
   {
     "id": "koretek-italok-hidegkonyha",
-    "name": "Köretek, italok, hidegkonyha",
     "image": "koretek.jpg",
-    "order": 6,
-    "recipeCount": 0
+    "recipeCount": 0,
+    "name": "Köretek, italok, hidegkonyha",
+    "order": 6
   },
   {
     "id": "sos-edes-sutemenyek-desszertek-tesztak",
-    "name": "Sós-édes sütemények, desszertek, tészták",
     "image": "desszertek.jpg",
-    "order": 7,
-    "recipeCount": 0
+    "recipeCount": 0,
+    "name": "Sós-édes sütemények, desszertek, tészták",
+    "order": 7
   }
 ]

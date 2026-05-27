@@ -30,4 +30,5 @@ magazin.code-workspace
 # /src/routes/auth/
 
 #/src/lib/data/*
+src/lib/data/data.json
 /static/banners

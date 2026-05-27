@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-05-22T22:15:45.695Z",
-  "sourceDocs": "sync worker (dynamic match + existing manifest)",
+  "generatedAt": "2026-05-25T18:34:20.874Z",
+  "sourceDocs": "src/lib/data/data.json",
   "sourceRecipes": "src/lib/data/recipes.json",
   "entries": [
     {
@@ -198,8 +198,8 @@
     {
       "modxContentId": 1782,
       "path": "cikkek/diabetes/1606/narancsos-halveloute-szent-peter-halaval-es-szojasajttal",
-      "year": 2014,
-      "id": "sajttal"
+      "year": 2016,
+      "id": "narancsos-halveloute-szent-peter-halaval-es-szojasajttal"
     },
     {
       "modxContentId": 1857,
@@ -438,8 +438,8 @@
     {
       "modxContentId": 2072,
       "path": "cikkek/diabetes/1706/almas-ceklaleves",
-      "year": 2017,
-      "id": "almas-ceklaleves"
+      "year": 2025,
+      "id": "almas-ceklaleves-fahejas-parolt-almakockakkal"
     },
     {
       "modxContentId": 2071,
@@ -517,7 +517,7 @@
       "modxContentId": 2219,
       "path": "cikkek/diabetes/1801/parolt-spenot-friss-sajttal",
       "year": 2018,
-      "id": "parolt-spenot-friss-sajttal"
+      "id": "parolt-spenot"
     },
     {
       "modxContentId": 2222,
@@ -1236,7 +1236,7 @@
     {
       "modxContentId": 2940,
       "path": "cikkek/diabetes/2002/kortetorta-torokmezzel-es-eperrel",
-      "year": 2002,
+      "year": 2020,
       "id": "kortetorta-torokmezzel-es-eperrel"
     },
     {
@@ -1404,43 +1404,43 @@
     {
       "modxContentId": 3080,
       "path": "cikkek/diabetes/2006/karacsonyi-receptek-2020/aszalt-szilvas-gongyolt-karaj-sult-zoldsegagyon",
-      "year": 2006,
+      "year": 2020,
       "id": "aszalt-szilvas-gongyolt-karaj-sult-zoldsegagyon"
     },
     {
       "modxContentId": 3082,
       "path": "cikkek/diabetes/2006/karacsonyi-receptek-2020/halkremmel-toltott-vendegvaro-kosarka",
-      "year": 2006,
+      "year": 2020,
       "id": "halkremmel-toltott-vendegvaro-kosarka"
     },
     {
       "modxContentId": 3076,
       "path": "cikkek/diabetes/2006/karacsonyi-receptek-2020/karacsonyi-almas-mascarpones-suti",
-      "year": 2006,
+      "year": 2020,
       "id": "karacsonyi-almas-mascarpones-suti"
     },
     {
       "modxContentId": 3078,
       "path": "cikkek/diabetes/2006/karacsonyi-receptek-2020/sult-pulykacomb-rozmaringos-fenyes-gesztenyevel",
-      "year": 2006,
+      "year": 2020,
       "id": "sult-pulykacomb-rozmaringos-fenyes-gesztenyevel"
     },
     {
       "modxContentId": 3077,
       "path": "cikkek/diabetes/2006/karacsonyi-receptek-2020/szenhidratcsokkentett-sajtos-sonkas-tekercs",
-      "year": 2006,
+      "year": 2020,
       "id": "szenhidratcsokkentett-sajtos-sonkas-tekercs"
     },
     {
       "modxContentId": 3081,
       "path": "cikkek/diabetes/2006/karacsonyi-receptek-2020/zoldseges-stefania-szelet",
-      "year": 2006,
+      "year": 2020,
       "id": "zoldseges-stefania-szelet"
     },
     {
       "modxContentId": 3079,
       "path": "cikkek/diabetes/2006/karacsonyi-receptek-2020/zoldseges-tonhalsalata",
-      "year": 2006,
+      "year": 2020,
       "id": "zoldseges-tonhalsalata"
     },
     {
@@ -2376,19 +2376,19 @@
     {
       "modxContentId": 4416,
       "path": "cikkek/diabetes/husveti-receptek-2026/mimozasalata",
-      "year": 2026,
+      "year": 2025,
       "id": "mimozasalata"
     },
     {
       "modxContentId": 4418,
       "path": "cikkek/diabetes/husveti-receptek-2026/olivas-sajtkremes-toltott-tojas",
-      "year": 2026,
+      "year": 2025,
       "id": "olivas-sajtkremes-toltott-tojas"
     },
     {
       "modxContentId": 4419,
       "path": "cikkek/diabetes/husveti-receptek-2026/sutotokos-repas-almas-pite",
-      "year": 2026,
+      "year": 2025,
       "id": "sutotokos-repas-almas-pite"
     },
     {
@@ -2400,193 +2400,193 @@
     {
       "modxContentId": 4345,
       "path": "cikkek/diabetes/kozos-karacsonyi-menu/almas-ceklaleves-fahejas-parolt-almakockakkal",
-      "year": 2026,
+      "year": 2025,
       "id": "almas-ceklaleves-fahejas-parolt-almakockakkal"
     },
     {
       "modxContentId": 4353,
       "path": "cikkek/diabetes/kozos-karacsonyi-menu/karacsonyi-kaposzta",
-      "year": 2026,
+      "year": 2025,
       "id": "karacsonyi-kaposzta"
     },
     {
       "modxContentId": 4348,
       "path": "cikkek/diabetes/kozos-karacsonyi-menu/karacsonyi-makos-kifli-ujragondolva",
-      "year": 2026,
+      "year": 2025,
       "id": "karacsonyi-makos-kifli-ujragondolva"
     },
     {
       "modxContentId": 4344,
       "path": "cikkek/diabetes/kozos-karacsonyi-menu/korhely-halaszle",
-      "year": 2026,
+      "year": 2025,
       "id": "korhely-halaszle"
     },
     {
       "modxContentId": 4347,
       "path": "cikkek/diabetes/kozos-karacsonyi-menu/lazacfile-kortes-zoldsalataval",
-      "year": 2026,
+      "year": 2025,
       "id": "lazacfile-kortes-zoldsalataval"
     },
     {
       "modxContentId": 4350,
       "path": "cikkek/diabetes/kozos-karacsonyi-menu/napraforgos-bundaban-sult-csirkemell-narancssalataval",
-      "year": 2026,
+      "year": 2025,
       "id": "napraforgos-bundaban-sult-csirkemell-narancssalataval"
     },
     {
       "modxContentId": 4346,
       "path": "cikkek/diabetes/kozos-karacsonyi-menu/puszedli",
-      "year": 2026,
+      "year": 2025,
       "id": "puszedli"
     },
     {
       "modxContentId": 4351,
       "path": "cikkek/diabetes/kozos-karacsonyi-menu/sajttal-sonkaval-toltott-pulykamell",
-      "year": 2026,
+      "year": 2025,
       "id": "sajttal-sonkaval-toltott-pulykamell"
     },
     {
       "modxContentId": 4352,
       "path": "cikkek/diabetes/kozos-karacsonyi-menu/sutotokos-kremes",
-      "year": 2026,
+      "year": 2025,
       "id": "sutotokos-kremes"
     },
     {
       "modxContentId": 4349,
       "path": "cikkek/diabetes/kozos-karacsonyi-menu/voroskaposzta-kremleves",
-      "year": 2026,
+      "year": 2025,
       "id": "voroskaposzta-kremleves"
     },
     {
       "modxContentId": 4304,
       "path": "cikkek/diabetes/nagymamaink-receptjei-modern-kontosben/almas-fahejas-cukormentes-muffin",
-      "year": 2026,
+      "year": 2025,
       "id": "almas-fahejas-cukormentes-muffin"
     },
     {
       "modxContentId": 4335,
       "path": "cikkek/diabetes/nagymamaink-receptjei-modern-kontosben/almas-kokuszgolyo",
-      "year": 2026,
+      "year": 2025,
       "id": "almas-kokuszgolyo"
     },
     {
       "modxContentId": 4326,
       "path": "cikkek/diabetes/nagymamaink-receptjei-modern-kontosben/avokados-salata",
-      "year": 2026,
+      "year": 2025,
       "id": "avokados-salata"
     },
     {
       "modxContentId": 4314,
       "path": "cikkek/diabetes/nagymamaink-receptjei-modern-kontosben/csokitorta",
-      "year": 2026,
+      "year": 2025,
       "id": "csokitorta"
     },
     {
       "modxContentId": 4220,
       "path": "cikkek/diabetes/nagymamaink-receptjei-modern-kontosben/cukkinis-rakott-burgonya",
-      "year": 2026,
+      "year": 2025,
       "id": "cukkinis-rakott-burgonya"
     },
     {
       "modxContentId": 4338,
       "path": "cikkek/diabetes/nagymamaink-receptjei-modern-kontosben/gombas-kenyerlangos",
-      "year": 2026,
+      "year": 2025,
       "id": "gombas-kenyerlangos"
     },
     {
       "modxContentId": 4319,
       "path": "cikkek/diabetes/nagymamaink-receptjei-modern-kontosben/hagymas-kacsamaj-leveles-tesztaban",
-      "year": 2026,
+      "year": 2025,
       "id": "hagymas-kacsamaj-leveles-tesztaban"
     },
     {
       "modxContentId": 4331,
       "path": "cikkek/diabetes/nagymamaink-receptjei-modern-kontosben/hazi-zsemle",
-      "year": 2026,
+      "year": 2025,
       "id": "hazi-zsemle"
     },
     {
       "modxContentId": 4231,
       "path": "cikkek/diabetes/nagymamaink-receptjei-modern-kontosben/karalabefozelek-zabpelyhes-husgomboccal",
-      "year": 2026,
+      "year": 2025,
       "id": "karalabefozelek-zabpelyhes-husgomboccal"
     },
     {
       "modxContentId": 4265,
       "path": "cikkek/diabetes/nagymamaink-receptjei-modern-kontosben/kokuszos-gyumolcsrizspohar",
-      "year": 2026,
+      "year": 2025,
       "id": "kokuszos-gyumolcsrizspohar"
     },
     {
       "modxContentId": 4236,
       "path": "cikkek/diabetes/nagymamaink-receptjei-modern-kontosben/lecso-gyongybabbal",
-      "year": 2026,
+      "year": 2025,
       "id": "lecso-gyongybabbal"
     },
     {
       "modxContentId": 4214,
       "path": "cikkek/diabetes/nagymamaink-receptjei-modern-kontosben/lencses-toltott-kel",
-      "year": 2026,
+      "year": 2025,
       "id": "lencses-toltott-kel"
     },
     {
       "modxContentId": 4225,
       "path": "cikkek/diabetes/nagymamaink-receptjei-modern-kontosben/lucskos-kaposzta",
-      "year": 2026,
+      "year": 2025,
       "id": "lucskos-kaposzta"
     },
     {
       "modxContentId": 4284,
       "path": "cikkek/diabetes/nagymamaink-receptjei-modern-kontosben/meggyleves-hozzaadott-cukor-nelkul",
-      "year": 2026,
+      "year": 2025,
       "id": "meggyleves-hozzaadott-cukor-nelkul"
     },
     {
       "modxContentId": 4272,
       "path": "cikkek/diabetes/nagymamaink-receptjei-modern-kontosben/paradicsomos-cukkinikremleves",
-      "year": 2026,
+      "year": 2025,
       "id": "paradicsomos-cukkinikremleves"
     },
     {
       "modxContentId": 4258,
       "path": "cikkek/diabetes/nagymamaink-receptjei-modern-kontosben/sargarepas-voroslencsefasirt",
-      "year": 2026,
+      "year": 2025,
       "id": "sargarepas-voroslencsefasirt"
     },
     {
       "modxContentId": 4276,
       "path": "cikkek/diabetes/nagymamaink-receptjei-modern-kontosben/tok-vagy-cukkinifozelek",
-      "year": 2026,
+      "year": 2025,
       "id": "tok-vagy-cukkinifozelek"
     },
     {
       "modxContentId": 4307,
       "path": "cikkek/diabetes/nagymamaink-receptjei-modern-kontosben/toltott-paprika",
-      "year": 2026,
+      "year": 2025,
       "id": "toltott-paprika"
     },
     {
       "modxContentId": 4247,
       "path": "cikkek/diabetes/nagymamaink-receptjei-modern-kontosben/toltott-paradicsom-es-gomba-sutoben-sutve",
-      "year": 2026,
+      "year": 2025,
       "id": "toltott-paradicsom-es-gomba-sutoben-sutve"
     },
     {
       "modxContentId": 4288,
       "path": "cikkek/diabetes/nagymamaink-receptjei-modern-kontosben/villamgyors-vegan-gesztenyes-meggyes-tonkolybatyuk",
-      "year": 2026,
+      "year": 2025,
       "id": "villamgyors-vegan-gesztenyes-meggyes-tonkolybatyuk"
     },
     {
       "modxContentId": 4270,
       "path": "cikkek/diabetes/nagymamaink-receptjei-modern-kontosben/wokban-forgatott-lazacfile-friss-salataval-szarzellerrel",
-      "year": 2026,
+      "year": 2025,
       "id": "wokban-forgatott-lazacfile-friss-salataval-szarzellerrel"
     },
     {
       "modxContentId": 4241,
       "path": "cikkek/diabetes/nagymamaink-receptjei-modern-kontosben/zoldseges-puspokkenyer",
-      "year": 2026,
+      "year": 2025,
       "id": "zoldseges-puspokkenyer"
     },
     {
@@ -2922,7 +2922,7 @@
     {
       "modxContentId": 4412,
       "path": "receptsarok/desszertek/rantasos-retesvariaciok",
-      "year": 2026,
+      "year": 2025,
       "id": "rantasos-retesvariaciok"
     },
     {
@@ -2990,6 +2990,12 @@
       "path": "receptsarok/levesek/palocleves-savanyitott-zoldbabbal",
       "year": 2025,
       "id": "palocleves-savanyitott-zoldbabbal"
+    },
+    {
+      "modxContentId": 4451,
+      "path": "receptsarok/levesek/szalonnas-tojasos-fokhagymaleves",
+      "year": 2025,
+      "id": "szalonnas-tojasos-fokhagymaleves"
     }
   ]
 }

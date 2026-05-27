@@ -1,6 +1,6 @@
 import fs from 'node:fs'
 import path from 'node:path'
-import { chooseWinner } from '../../src/lib/receptsarokDedupeShared.js'
+import { chooseWinner, pickRedirectTarget } from '../../src/lib/receptsarokDedupeShared.js'
 import {
   isDescriptionAuthorCompatible,
   normalizeText,
@@ -53,14 +53,34 @@ export function matchReceptsarokRedirectTarget(doc, recipes) {
 
   if (scored.length > 0) {
     const candidates = scored.map((entry) => entry.recipe)
-    const { winner, reason } = chooseWinner(candidates)
-    if (winner?.year != null && winner?.id) {
-      return { year: Number(winner.year), id: String(winner.id), reason: reason ?? 'match' }
+    const { winner: contentWinner, reason } = chooseWinner(candidates)
+    const redirectTarget = pickRedirectTarget(candidates, contentWinner)
+    if (redirectTarget?.year != null && redirectTarget?.id) {
+      return {
+        year: Number(redirectTarget.year),
+        id: String(redirectTarget.id),
+        reason: reason ?? 'match',
+      }
+    }
+  }
+
+  const id = String(doc.alias || '').trim()
+  if (id && aliasNorm) {
+    const byAlias = published.filter((recipe) => normalizeText(recipe.id) === aliasNorm)
+    if (byAlias.length > 0) {
+      const { winner: contentWinner } = chooseWinner(byAlias)
+      const redirectTarget = pickRedirectTarget(byAlias, contentWinner)
+      if (redirectTarget) {
+        return {
+          year: Number(redirectTarget.year),
+          id: String(redirectTarget.id),
+          reason: 'alias-id',
+        }
+      }
     }
   }
 
   const year = parseYearFromMagazinPath(doc.path)
-  const id = String(doc.alias || '').trim()
   if (id && published.some((r) => Number(r.year) === year && String(r.id) === id)) {
     return { year, id, reason: 'alias-year' }
   }
