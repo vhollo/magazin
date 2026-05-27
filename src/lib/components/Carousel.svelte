@@ -1,7 +1,10 @@
 <script module>
   import { afterUpdate } from 'svelte'
   import CarItem from '$lib/components/CarItem.svelte'
-  import { PUBLIC_BASE_URL } from '$env/static/public'
+  import { env } from '$env/dynamic/public'
+
+  // MODX media host. Override on Netlify when content moves to old.diabetes.hu.
+  const PUBLIC_BASE_URL = env.PUBLIC_BASE_URL || 'https://www.diabetes.hu/'
 </script>
 
 <script lang="ts">
