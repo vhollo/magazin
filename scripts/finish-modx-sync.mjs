@@ -1,5 +1,5 @@
 /**
- * Finish backfill after docs/collections are written: search index, relatedCards, meta/sync.
+ * Finish backfill after docs/collections are written: search index, relatedCards, projection snapshot, meta/sync.
  * Usage: node scripts/finish-modx-sync.mjs
  */
 import 'dotenv/config'
@@ -8,17 +8,31 @@ import { fileURLToPath, pathToFileURL } from 'node:url'
 import { getFirestoreDb } from './lib/firebase-admin.mjs'
 import { buildAndUploadSearchIndex } from './lib/search-index.mjs'
 import { updateRelatedCards } from './lib/related-cards.mjs'
-import { loadProjectionDocs } from './lib/firestore-docs.mjs'
+import {
+  loadProjectionDocsForSync,
+  uploadProjectionSnapshot,
+} from './lib/firestore-docs.mjs'
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 const META_SYNC_DOC = 'sync'
 
 async function main() {
   const firestore = getFirestoreDb()
-  const projectionDocs = await loadProjectionDocs(firestore)
-  console.log(`loaded ${projectionDocs.length} projection docs from Firestore`)
+  const projectionResult = await loadProjectionDocsForSync(
+    firestore,
+    new Map(),
+    [],
+    { fullRebuild: true }
+  )
+  const projectionDocs = projectionResult.docs
+  console.log(`loaded ${projectionDocs.length} projection docs (full rebuild)`)
 
-  const searchIndex = await buildAndUploadSearchIndex(firestore, projectionDocs)
+  await uploadProjectionSnapshot(firestore, projectionDocs)
+
+  const searchIndex = await buildAndUploadSearchIndex(firestore, projectionDocs, {
+    fullRebuild: true,
+    preferRecipesJson: true,
+  })
 
   const collectionsMod = await import(
     pathToFileURL(path.join(root, 'src/lib/modx/collections.ts')).href

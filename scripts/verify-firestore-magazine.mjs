@@ -14,7 +14,8 @@ const KEY_ROUTES = [
   { label: 'meta/search', ref: ['meta', 'search'], expectIndexUrl: true },
   { label: 'meta/stats', ref: ['meta', 'stats'], expectStats: true },
   { label: 'rs-home (receptsarok grid)', ref: ['collections', 'rs-home'], expectRsHome: true },
-  { label: 'rs-teasers (/keres recipe enrich)', ref: ['collections', 'rs-teasers'], expectRsTeasers: true },
+  { label: 'meta/projections snapshot', ref: ['meta', 'projections'], expectProjectionUrl: true },
+  { label: 'rs-teasers-index (/keres)', ref: ['collections', 'rs-teasers-index'], expectRsTeaserYears: true },
   { label: 'patika (pharmacy list)', ref: ['collections', 'patika'], expectPatikas: true },
 ]
 
@@ -54,8 +55,14 @@ async function main() {
     } else if (check.expectRsHome && !(Array.isArray(data.categories) && data.categories.length > 0)) {
       console.log(`FAIL ${check.label}: no categories`)
       ok = false
-    } else if (check.expectRsTeasers && !(data.teasersByKey && Object.keys(data.teasersByKey).length > 0)) {
-      console.log(`FAIL ${check.label}: no teasersByKey`)
+    } else if (check.expectProjectionUrl && !data.snapshotUrl) {
+      console.log(`FAIL ${check.label}: no snapshotUrl`)
+      ok = false
+    } else if (
+      check.expectRsTeaserYears &&
+      !(Array.isArray(data.years) && data.years.length > 0)
+    ) {
+      console.log(`FAIL ${check.label}: no years`)
       ok = false
     } else if (check.expectPatikas && !(Array.isArray(data.patikas) && data.patikas.length > 0)) {
       console.log(`FAIL ${check.label}: no patikas`)
@@ -66,7 +73,8 @@ async function main() {
         check.expectIndexUrl ? ` v${data.version}` :
         check.expectStats ? ` articles=${data.articleCount}` :
         check.expectRsHome ? ` cats=${data.categories.length}, totalRecipes=${data.totalRecipes ?? '?'}, totalFree=${data.totalFree ?? '?'}` :
-        check.expectRsTeasers ? ` teasers=${Object.keys(data.teasersByKey).length}` :
+        check.expectProjectionUrl ? ` docs=${data.docCount ?? '?'}` :
+        check.expectRsTeaserYears ? ` years=${data.years?.length ?? 0}, total=${data.totalTeasers ?? '?'}` :
         check.expectPatikas ? ` patikas=${data.patikas.length}` : ''
       console.log(`OK   ${check.label}${extra}`)
     }
@@ -94,6 +102,19 @@ async function main() {
         : `FAIL sample article ${samplePath}`
     )
     if (!article?.title) ok = false
+  }
+
+  const teaserIndex = await getDoc(firestore, ['collections', 'rs-teasers-index'])
+  if (teaserIndex?.years?.length) {
+    const year = teaserIndex.years[0]
+    const shard = await getDoc(firestore, ['collections', `rs-teasers-${year}`])
+    const n = shard?.teasersByKey ? Object.keys(shard.teasersByKey).length : 0
+    console.log(
+      n > 0
+        ? `OK   rs-teasers-${year} shard → ${n} teasers`
+        : `FAIL rs-teasers-${year} shard empty`
+    )
+    if (n === 0) ok = false
   }
 
   const search = await getDoc(firestore, ['meta', 'search'])

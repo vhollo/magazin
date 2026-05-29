@@ -18,15 +18,21 @@ import {
 	isRecipeFree,
 	recipeSlug,
 	stripRecipeGatedFields,
+	toKeresTeaser,
 	toLayoutRecipe,
-	toTeaser,
 } from '$lib/receptsarok';
 import { getCategories, getPatika, getRecipes } from '$lib/siteConf';
 
 const COLLECTIONS = 'collections';
 
 export const RS_HOME_DOC = 'rs-home';
+/** @deprecated Use year shards + {@link RS_TEASERS_INDEX_DOC}. */
 export const RS_TEASERS_DOC = 'rs-teasers';
+export const RS_TEASERS_INDEX_DOC = 'rs-teasers-index';
+
+export const rsTeasersShardDocId = (year: number | string): string =>
+	`rs-teasers-${year}`;
+
 export const PATIKA_DOC = 'patika';
 
 /** `collections/rs-{categoryId}` */
@@ -155,10 +161,47 @@ export async function buildReceptsarokCategory(
  *
  * Used to enrich client-side MiniSearch hits with recipe metadata.
  */
+type ReceptsarokTeasersIndexDoc = {
+	years?: number[];
+	totalTeasers?: number;
+	generatedAt?: string;
+};
+
+type ReceptsarokTeasersShardDoc = {
+	year?: number;
+	teasersByKey?: Record<string, RecipeTeaser>;
+	count?: number;
+	generatedAt?: string;
+};
+
 export async function getReceptsarokTeasers(): Promise<ReceptsarokTeasersDoc> {
-	const stored = await readDoc<ReceptsarokTeasersDoc>(RS_TEASERS_DOC);
-	if (stored && stored.teasersByKey && Object.keys(stored.teasersByKey).length > 0) {
-		return stored;
+	const index = await readDoc<ReceptsarokTeasersIndexDoc>(RS_TEASERS_INDEX_DOC);
+	const years = Array.isArray(index?.years)
+		? index.years.filter((y) => Number.isFinite(y))
+		: [];
+
+	if (years.length > 0) {
+		const snaps = await Promise.all(
+			years.map((year) => db.collection(COLLECTIONS).doc(rsTeasersShardDocId(year)).get())
+		);
+		const teasersByKey: Record<string, RecipeTeaser> = {};
+		for (const snap of snaps) {
+			if (!snap.exists) continue;
+			const shard = snap.data() as ReceptsarokTeasersShardDoc;
+			const year = Number(shard.year);
+			const byId = shard.teasersByKey ?? {};
+			for (const [id, teaser] of Object.entries(byId)) {
+				teasersByKey[`${year}/${id}`] = teaser as RecipeTeaser;
+			}
+		}
+		if (Object.keys(teasersByKey).length > 0) {
+			return { teasersByKey, generatedAt: index?.generatedAt };
+		}
+	}
+
+	const legacy = await readDoc<ReceptsarokTeasersDoc>(RS_TEASERS_DOC);
+	if (legacy?.teasersByKey && Object.keys(legacy.teasersByKey).length > 0) {
+		return legacy;
 	}
 	return buildReceptsarokTeasers();
 }
@@ -168,7 +211,7 @@ export async function buildReceptsarokTeasers(): Promise<ReceptsarokTeasersDoc> 
 	const teasersByKey: Record<string, RecipeTeaser> = {};
 	for (const r of recipes) {
 		if (!isPublished(r)) continue;
-		teasersByKey[`${r.year}/${r.id}`] = toTeaser(r);
+		teasersByKey[`${r.year}/${r.id}`] = toKeresTeaser(r) as RecipeTeaser;
 	}
 	return { teasersByKey };
 }

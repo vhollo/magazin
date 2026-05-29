@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-05-25T18:34:20.874Z",
-  "sourceDocs": "src/lib/data/data.json",
+  "generatedAt": "2026-05-29T20:09:31.222Z",
+  "sourceDocs": "sync worker (dynamic match + existing manifest)",
   "sourceRecipes": "src/lib/data/recipes.json",
   "entries": [
     {
@@ -2936,6 +2936,12 @@
       "path": "receptsarok/husetelek/csirkemell-csicseriborsos-bulgurral-salataagyon",
       "year": 2025,
       "id": "csirkemell-csicseriborsos-bulgurral-salataagyon"
+    },
+    {
+      "modxContentId": 4428,
+      "path": "receptsarok/husetelek/lecsos-csirkemaj",
+      "year": 2025,
+      "id": "lecsos-csirkemaj"
     },
     {
       "modxContentId": 4396,

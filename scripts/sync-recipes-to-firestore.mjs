@@ -13,7 +13,10 @@ import path from 'node:path'
 import { fileURLToPath, pathToFileURL } from 'node:url'
 import { getFirestoreDb } from './lib/firebase-admin.mjs'
 import { buildAndUploadSearchIndex } from './lib/search-index.mjs'
-import { loadProjectionDocs } from './lib/firestore-docs.mjs'
+import {
+  loadProjectionDocsForSync,
+  uploadProjectionSnapshot,
+} from './lib/firestore-docs.mjs'
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 const RECIPES_PATH = path.join(root, 'src/lib/data/recipes.json')
@@ -139,8 +142,17 @@ async function main() {
   console.log(`Firestore recipes: upserted=${upserted}, deleted=${deleted}`)
 
   if (reindex) {
-    const projectionDocs = await loadProjectionDocs(firestore)
-    const searchIndex = await buildAndUploadSearchIndex(firestore, projectionDocs)
+    const { docs: projectionDocs } = await loadProjectionDocsForSync(
+      firestore,
+      new Map(),
+      [],
+      { fullRebuild: true }
+    )
+    await uploadProjectionSnapshot(firestore, projectionDocs)
+    const searchIndex = await buildAndUploadSearchIndex(firestore, projectionDocs, {
+      fullRebuild: true,
+      preferRecipesJson: true,
+    })
     console.log(
       `Search index rebuilt: v${searchIndex.version} (${searchIndex.articleCount} articles, ${searchIndex.recipeCount} recipes)`
     )

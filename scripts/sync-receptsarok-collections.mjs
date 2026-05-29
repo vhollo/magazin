@@ -3,10 +3,8 @@
  *
  *   collections/rs-home              → categories + per-category counts (≈5 KB)
  *   collections/rs-{categoryId}      → thin RecipeLayoutEntry cards per category
- *   collections/rs-teasers           → all teasers keyed by `${year}/${id}` (for /keres)
- *
- * Each SSR route in src/routes/receptsarok then does a single `.get()` per
- * request instead of reading the whole collection.
+ *   collections/rs-teasers-{year}      → slim keres teasers keyed by recipe id (per year)
+ *   collections/rs-teasers-index       → { years: number[] } for parallel SSR reads
  *
  * Usage:
  *   node scripts/sync-receptsarok-collections.mjs           # dry run
@@ -26,13 +24,42 @@ const apply = process.argv.includes('--apply')
 
 const COLLECTIONS = 'collections'
 const RS_HOME_DOC = 'rs-home'
-const RS_TEASERS_DOC = 'rs-teasers'
+const RS_TEASERS_INDEX_DOC = 'rs-teasers-index'
+/** @deprecated Monolithic doc — removed on apply when shards are written. */
+const RS_TEASERS_LEGACY_DOC = 'rs-teasers'
 
-/** Firestore doc size limit (1 MiB); we warn well before that. */
+/** Firestore doc size / index-entry soft limits. */
 const FIRESTORE_SOFT_LIMIT_BYTES = 900 * 1024
+const FIRESTORE_INDEX_ENTRY_SOFT_LIMIT = 35_000
+
+export function rsTeasersShardDocId(year) {
+  return `rs-teasers-${year}`
+}
 
 function approxDocSize(value) {
   return Buffer.byteLength(JSON.stringify(value), 'utf8')
+}
+
+/** Rough index-entry estimate: one per scalar field path in the JSON tree. */
+function estimateIndexEntries(value) {
+  let n = 0
+  const walk = (v) => {
+    if (v === null || v === undefined) return
+    if (Array.isArray(v)) {
+      for (const item of v) walk(item)
+      return
+    }
+    if (typeof v === 'object') {
+      for (const key of Object.keys(v)) {
+        n += 1
+        walk(v[key])
+      }
+      return
+    }
+    n += 1
+  }
+  walk(value)
+  return n
 }
 
 function isPublished(recipe) {
@@ -92,23 +119,27 @@ function buildRsCategoryDocs(recipes, categoryIds, helpers) {
   return out
 }
 
-function buildRsTeasers(recipes, helpers) {
-  const { toTeaser } = helpers
-  /** @type {Record<string, object>} */
-  const teasersByKey = {}
+/**
+ * @param {Record<string, unknown>[]} recipes
+ * @param {{ toKeresTeaser: (r: unknown) => object }} helpers
+ */
+function buildRsTeaserShards(recipes, helpers) {
+  const { toKeresTeaser } = helpers
+  /** @type {Record<number, Record<string, object>>} */
+  const byYear = {}
   for (const r of recipes) {
-    teasersByKey[`${r.year}/${r.id}`] = toTeaser(r)
+    const year = Number(r.year)
+    if (!Number.isFinite(year)) continue
+    if (!byYear[year]) byYear[year] = {}
+    byYear[year][String(r.id)] = toKeresTeaser(r)
   }
-  return {
-    teasersByKey,
-    generatedAt: new Date().toISOString(),
-  }
+  return byYear
 }
 
 async function main() {
   const helpersUrl = pathToFileURL(path.join(root, 'src/lib/receptsarok.ts')).href
-  const { isRecipeFree, toLayoutRecipe, toTeaser } = await import(helpersUrl)
-  const helpers = { isRecipeFree, toLayoutRecipe, toTeaser }
+  const { isRecipeFree, toLayoutRecipe, toKeresTeaser } = await import(helpersUrl)
+  const helpers = { isRecipeFree, toLayoutRecipe, toKeresTeaser }
 
   const firestore = getFirestoreDb()
 
@@ -126,7 +157,11 @@ async function main() {
 
   const rsHome = buildRsHome(recipes, categories, helpers)
   const rsCategories = buildRsCategoryDocs(recipes, categoryIds, helpers)
-  const rsTeasers = buildRsTeasers(recipes, helpers)
+  const teaserShards = buildRsTeaserShards(recipes, helpers)
+  const years = Object.keys(teaserShards)
+    .map(Number)
+    .filter(Number.isFinite)
+    .sort((a, b) => b - a)
 
   console.log(
     `\n${RS_HOME_DOC}: ${rsHome.categories.length} cats, totalRecipes=${rsHome.totalRecipes}, totalFree=${rsHome.totalFree}`
@@ -140,17 +175,30 @@ async function main() {
     if (size > FIRESTORE_SOFT_LIMIT_BYTES) oversized += 1
     console.log(`  collections/rs-${id}: ${doc.count} cards, ≈ ${size} bytes${flag}`)
   }
-  const teaserSize = approxDocSize(rsTeasers)
-  const teaserFlag = teaserSize > FIRESTORE_SOFT_LIMIT_BYTES ? ' ⚠ NEAR 1 MiB' : ''
-  if (teaserSize > FIRESTORE_SOFT_LIMIT_BYTES) oversized += 1
-  console.log(
-    `  collections/${RS_TEASERS_DOC}: ${Object.keys(rsTeasers.teasersByKey).length} teasers, ≈ ${teaserSize} bytes${teaserFlag}`
-  )
+
+  let totalTeasers = 0
+  for (const year of years) {
+    const doc = {
+      year,
+      teasersByKey: teaserShards[year],
+      count: Object.keys(teaserShards[year]).length,
+      generatedAt: new Date().toISOString(),
+    }
+    totalTeasers += doc.count
+    const size = approxDocSize(doc)
+    const entries = estimateIndexEntries(doc)
+    const flags = []
+    if (size > FIRESTORE_SOFT_LIMIT_BYTES) flags.push('NEAR 1 MiB')
+    if (entries > FIRESTORE_INDEX_ENTRY_SOFT_LIMIT) flags.push('INDEX RISK')
+    if (flags.length) oversized += 1
+    console.log(
+      `  collections/${rsTeasersShardDocId(year)}: ${doc.count} teasers, ≈ ${size} bytes, ~${entries} index entries${flags.length ? ` ⚠ ${flags.join(', ')}` : ''}`
+    )
+  }
+  console.log(`  ${RS_TEASERS_INDEX_DOC}: years=[${years.join(', ')}], totalTeasers=${totalTeasers}`)
 
   if (oversized > 0) {
-    console.warn(
-      `\n${oversized} doc(s) are within ${(FIRESTORE_SOFT_LIMIT_BYTES / 1024).toFixed(0)} KiB of the 1 MiB Firestore limit — consider chunking.`
-    )
+    console.warn(`\n${oversized} doc(s) flagged — check size or index-entry estimates.`)
   }
 
   if (!apply) {
@@ -170,9 +218,32 @@ async function main() {
     console.log(`wrote collections/rs-${id} (${doc.count} cards)`)
   }
 
-  await firestore.collection(COLLECTIONS).doc(RS_TEASERS_DOC).set(rsTeasers)
+  for (const year of years) {
+    const doc = {
+      year,
+      teasersByKey: teaserShards[year],
+      count: Object.keys(teaserShards[year]).length,
+      generatedAt: new Date().toISOString(),
+    }
+    await firestore.collection(COLLECTIONS).doc(rsTeasersShardDocId(year)).set(doc)
+    written += 1
+    console.log(`wrote collections/${rsTeasersShardDocId(year)} (${doc.count} teasers)`)
+  }
+
+  await firestore.collection(COLLECTIONS).doc(RS_TEASERS_INDEX_DOC).set({
+    years,
+    totalTeasers,
+    generatedAt: new Date().toISOString(),
+  })
   written += 1
-  console.log(`wrote collections/${RS_TEASERS_DOC}`)
+  console.log(`wrote collections/${RS_TEASERS_INDEX_DOC}`)
+
+  try {
+    await firestore.collection(COLLECTIONS).doc(RS_TEASERS_LEGACY_DOC).delete()
+    console.log(`deleted legacy collections/${RS_TEASERS_LEGACY_DOC}`)
+  } catch {
+    /* optional */
+  }
 
   console.log(`\ndone: ${written} docs written`)
 }

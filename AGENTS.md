@@ -324,10 +324,10 @@ Nav2 defines the secondary navigation menu with categorized content sections:
 
 ### Layout Server (`+layout.server.ts`)
 
-- **SSR** (not prerendered): one Firestore read of `collections/rs-teasers`
-- Returns `{ doc: { path: 'keres', title: 'Keresés' }, recipeTeasersByKey }`; recipe teasers enrich client-side MiniSearch hits with nutrition/img/free-flag metadata
+- **SSR** (not prerendered): `collections/rs-teasers-index` + one `collections/rs-teasers-{year}` per booklet year (~7–10 reads)
+- Returns `{ doc: { path: 'keres', title: 'Keresés' }, recipeTeasersByKey }`; slim teasers enrich MiniSearch hits (nutrition/img/free; meal planner uses `/api/receptsarok/recipes`)
 - **Cache-Control**: CDN-cached (`s-maxage=86400`)
-- `collections/rs-teasers` is precomputed by `npm run sync:rs-collections:apply` (see Receptsarok Routes); if missing, the helper falls back to a full `getRecipes()` aggregation so the route keeps working
+- Shards precomputed by `npm run sync:rs-collections:apply`; fallback: legacy `collections/rs-teasers`, then `getRecipes()`
 
 ### Search index (client-side)
 
@@ -564,7 +564,7 @@ Nav2 defines the secondary navigation menu with categorized content sections:
 | `/receptsarok` layout | `collections/rs-home` | `{ categories: Category[], totalRecipes, totalFree, freeCountsByCategory }` |
 | `/receptsarok/[category]` | `collections/rs-{categoryId}` | `{ cards: RecipeLayoutEntry[], count }` |
 | `/receptsarok/[year]/[id]` | `recipes/{year}-{id}` (direct doc lookup) | full `Recipe`; non-free recipes go through `stripRecipeGatedFields` before serialization |
-| `/keres` layout | `collections/rs-teasers` | `{ teasersByKey: { 'year/id': RecipeTeaser } }` |
+| `/keres` layout | `collections/rs-teasers-index` + `collections/rs-teasers-{year}` | slim teasers keyed `year/id` (merged at SSR) |
 
 Source data — Firestore `recipes/{year}-{id}` (one doc per recipe, keyed by `recipeSlug()` from `receptsarok.ts`) + `categories/{id}` collection — is **uploaded by `npm run sync:recipes:apply`** from `src/lib/data/recipes.json`. The aggregate UI docs above are then computed and written by `npm run sync:rs-collections:apply`.
 
@@ -616,10 +616,10 @@ Run from repo root (`magazin/`). Requires `.env` with `MODXDB_*`, `FIREBASE_ADMI
 
 | Command | Script | When to use |
 |---------|--------|-------------|
-| `npm run sync:modx` | `scripts/sync-modx-to-firestore.mjs` | **Incremental sync** — upsert changed published rows; **delete** magazine rows that were unpublished/deleted since `meta/sync.lastEdit`; rebuild collections/search. |
+| `npm run sync:modx` | `scripts/sync-modx-to-firestore.mjs` | **Incremental sync** — upsert changed rows; patch `meta/projections` Storage snapshot + collections/search incrementally (**~few Firestore reads**, not full `docs` scan). Optional `--with-rs-collections` after recipe `free` updates. |
 | `npm run sync:modx:full` | `… --full` | **One-time / full backfill** — all published magazine rows → Firestore; also removes orphan `docs/*` whose MODX id is no longer published. |
 | `npm run sync:modx:finish` | `scripts/finish-modx-sync.mjs` | **Repair pass** — `docs/` already populated but search index, `relatedCards`, or `meta/search` missing (e.g. sync failed mid-run). |
-| `npm run sync:rs-collections:apply` | `scripts/sync-receptsarok-collections.mjs` | **Receptsarok UI docs** — rebuild `collections/rs-home`, `collections/rs-{category}`, `collections/rs-teasers` from Firestore `recipes` + `categories`. Run after `sync:recipes:apply` whenever recipe data changes. Pass without `:apply` for a dry run with size warnings. |
+| `npm run sync:rs-collections:apply` | `scripts/sync-receptsarok-collections.mjs` | **Receptsarok UI docs** — rebuild `collections/rs-home`, `collections/rs-{category}`, `collections/rs-teasers-{year}` + `rs-teasers-index` from Firestore `recipes` + `categories`. Run after `sync:recipes:apply` or MODX `free` flag changes. Pass without `:apply` for dry run + index-entry warnings. |
 | `npm run sync:patika:apply` | `scripts/sync-patika-collection.mjs` | **Patika UI doc** — rebuild `collections/patika` from `tables/elofizetok/patika` subcollection. Pass without `:apply` for dry run. |
 | `npm run verify:firestore-magazine` | `scripts/verify-firestore-magazine.mjs` | **Spot-check** — counts `docs/*`, `collections/*`, `meta/search`, sample routes, index URL reachability. |
 
@@ -647,7 +647,7 @@ Run from repo root (`magazin/`). Requires `.env` with `MODXDB_*`, `FIREBASE_ADMI
 | `/patika` empty or pharmacy list outdated after editing `tables/elofizetok/patika` in Firestore | `npm run sync:patika:apply` |
 | After any sync, or debugging missing/wrong article counts | `npm run verify:firestore-magazine` |
 | New MODX `recept` article should redirect to Receptsarok but doesn't | Run `npm run sync:modx` — redirect + `free: true` are computed at sync time; commit updated `receptsarok-redirects.json` / `recipes.json` if changed locally |
-| MODX `recept` linked in Receptsarok but still paywalled | Run `npm run sync:modx` (sets `free: true` + rebuilds `collections/rs-*`); or `sync:recipes:apply` + `sync:rs-collections:apply` after fixing `recipes.json` |
+| MODX `recept` linked in Receptsarok but still paywalled | Run `npm run sync:modx` (sets `free: true` on `recipes.json` + Firestore); then `npm run sync:rs-collections:apply` (or `sync:modx --with-rs-collections`) |
 | Transform pipeline / collection query logic changed in code | `npm run sync:modx:full` (or incremental if only future edits matter) |
 | User asks how content gets to production without Netlify rebuild | Explain MODX save → GitHub Actions + `sync:modx`; code deploys ≠ content deploy; receptsarok / patika data come from their own `sync:rs-collections:apply` / `sync:patika:apply` steps |
 
@@ -661,7 +661,7 @@ Do **not** suggest `npm run build` to refresh article text — content updates c
 2. **Documents**: Firestore `docs/` + `collections/` via `$lib/magazine/firestore` (synced from MODX by `npm run sync:modx*`)
 3. **Quizzes**: Loaded from Firestore via `getKviz()`
 4. **Scores**: Stored in Firestore at `kviz/{quizId}/scores/{uid}` (subcollection under each quiz document, stores `name`, `email`, `score`, `date` to the actual quiz/scores table)
-5. **Recipes**: SSR routes read **one** precomputed Firestore doc per request via `$lib/receptsarokFirestore` (`collections/rs-home` for `/receptsarok`, `collections/rs-{category}` for category lists, `recipes/{year}-{id}` direct lookup for detail pages, `collections/rs-teasers` for `/keres`). The underlying `recipes/{year}-{id}` + `categories/{id}` collections are populated by `sync:recipes:apply`; the aggregate UI docs by `sync:rs-collections:apply`. Legacy `getRecipes()` / `getCategories()` JSON pipeline (`recipes.json`, `categories.json`) still exists as a fallback inside the helpers.
+5. **Recipes**: SSR via `$lib/receptsarokFirestore` (`collections/rs-home`, `collections/rs-{category}`, `recipes/{year}-{id}` detail, `collections/rs-teasers-{year}` + index for `/keres`). Populated by `sync:recipes:apply` + `sync:rs-collections:apply`. Magazine `sync:modx` maintains `meta/projections` Storage snapshot + incremental search index (not full-catalog Firestore reads each run).
 6. **Search**: Client-side MiniSearch index from Firebase Storage (`/keres`; meta via `/api/search-meta`)
 7. **Navigation**: 
    - **Nav1** (Primary): Main menu with direct links and dropdowns (`nav1.js`); includes Receptsarok link

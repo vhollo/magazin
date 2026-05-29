@@ -9,19 +9,19 @@
  * 5. Recompute collections/{slug} (top 72 thin cards per tag query) and collections/home
  * 6. Build MiniSearch index, gzip-upload to Storage, update meta/search
  * 7. For magazine rows linked to Receptsarok (redirect match): set `free: true` on
- *    matching `recipes/{year}-{id}` + `recipes.json`, then rebuild `collections/rs-*`
+ *    matching `recipes/{year}-{id}` + `recipes.json` (run `sync:rs-collections:apply` separately)
  * 8. Update meta/sync.lastEdit
  *
  * Usage:
  *   node scripts/sync-modx-to-firestore.mjs          # incremental
  *   node scripts/sync-modx-to-firestore.mjs --full   # one-time backfill (lastEdit ignored)
+ *   node scripts/sync-modx-to-firestore.mjs --with-rs-collections  # also rebuild rs-teasers shards
  *
  * Env: MODXDB_*, FIREBASE_ADMIN_KEY, FIREBASE_STORAGE_BUCKET, PUBLIC_BASE_URL (optional)
  * Optional: NETLIFY_SITE_ID, NETLIFY_ACCESS_TOKEN (edge-cache purge)
  */
 import 'dotenv/config'
 import path from 'node:path'
-import { spawnSync } from 'node:child_process'
 import { fileURLToPath, pathToFileURL } from 'node:url'
 import { drizzle } from 'drizzle-orm/mysql2'
 import mysql from 'mysql2/promise'
@@ -33,9 +33,13 @@ import {
 } from '../drizzle/schema.ts'
 import { getFirestoreDb } from './lib/firebase-admin.mjs'
 import { encodeDocPathId, decodeDocPathId } from './lib/doc-path-id.mjs'
-import { buildAndUploadSearchIndex } from './lib/search-index.mjs'
+import { buildAndUploadSearchIndex, changedListedPaths } from './lib/search-index.mjs'
 import { updateRelatedCards } from './lib/related-cards.mjs'
-import { loadProjectionDocs } from './lib/firestore-docs.mjs'
+import {
+  loadProjectionDocsForSync,
+  uploadProjectionSnapshot,
+} from './lib/firestore-docs.mjs'
+import { createReadCounter, formatReadCounts } from './lib/sync-read-counter.mjs'
 import { purgeNetlifyPaths } from './lib/netlify-purge.mjs'
 import {
   loadRecipesFromJson,
@@ -52,6 +56,7 @@ import {
 import { isMagazineCandidate, shouldSyncRow } from './lib/magazine-scope.mjs'
 
 const isFullSync = process.argv.includes('--full')
+const withRsCollections = process.argv.includes('--with-rs-collections')
 
 const COLLECTIONS_COLLECTION = 'collections'
 const HOME_COLLECTION_ID = 'home'
@@ -268,15 +273,43 @@ function sortRowsByDepth(rows) {
 }
 
 /**
+ * Batch-load existing redirects for changed rows (one read per doc).
+ *
  * @param {import('firebase-admin/firestore').Firestore} firestore
- * @param {string} docPath
+ * @param {Map<number, Record<string, unknown>>} workingById
+ * @param {Set<number>} changedIds
+ * @returns {Promise<{ map: Map<number, string>, reads: number }>}
  */
-async function getExistingRedirect(firestore, docPath) {
-  const ref = firestore.collection('docs').doc(encodeDocPathId(docPath))
-  const snap = await ref.get()
-  if (!snap.exists) return undefined
-  const redirect = snap.data()?.redirect
-  return typeof redirect === 'string' && redirect.trim() ? redirect.trim() : undefined
+async function loadExistingRedirectsForChanged(firestore, workingById, changedIds) {
+  /** @type {Map<number, string>} */
+  const byModxId = new Map()
+  /** @type {import('firebase-admin/firestore').DocumentReference[]} */
+  const refs = []
+  /** @type {number[]} */
+  const ids = []
+
+  for (const id of changedIds) {
+    const cached = workingById.get(id)
+    if (typeof cached?.redirect === 'string' && cached.redirect.trim()) {
+      byModxId.set(id, cached.redirect.trim())
+      continue
+    }
+    const pathValue = typeof cached?.path === 'string' ? cached.path.trim() : ''
+    if (!pathValue) continue
+    refs.push(firestore.collection('docs').doc(encodeDocPathId(pathValue)))
+    ids.push(id)
+  }
+
+  if (refs.length === 0) return { map: byModxId, reads: 0 }
+
+  const snaps = await firestore.getAll(...refs)
+  for (let i = 0; i < snaps.length; i++) {
+    const redirect = snaps[i].data()?.redirect
+    if (typeof redirect === 'string' && redirect.trim()) {
+      byModxId.set(ids[i], redirect.trim())
+    }
+  }
+  return { map: byModxId, reads: snaps.length }
 }
 
 /**
@@ -287,6 +320,7 @@ async function getExistingRedirect(firestore, docPath) {
  * @param {ReturnType<import('../src/lib/modx/transform.ts').loadReceptsarokRedirectMaps>} redirectMaps
  * @param {import('firebase-admin/firestore').Firestore} firestore
  * @param {Record<string, unknown>[]} recipes
+ * @param {Map<number, string>} existingRedirectsByModxId
  */
 async function processRow(
   modxTransform,
@@ -295,7 +329,8 @@ async function processRow(
   workingById,
   redirectMaps,
   firestore,
-  recipes
+  recipes,
+  existingRedirectsByModxId
 ) {
   const doc = structuredClone(rawRow)
   const cached = workingById.get(doc.id)
@@ -310,9 +345,7 @@ async function processRow(
   const fallbackRedirect =
     typeof cached?.redirect === 'string'
       ? cached.redirect
-      : doc.path
-        ? await getExistingRedirect(firestore, doc.path)
-        : undefined
+      : existingRedirectsByModxId.get(doc.id)
 
   const resolved = resolveReceptsarokRedirect(doc, redirectMaps, recipes, fallbackRedirect)
   modxTransform.setReceptsarokRedirect(doc, resolved.redirect)
@@ -446,7 +479,7 @@ async function deleteOrphanFirestoreDocs(firestore, syncedModxIds) {
     console.log(`  deleted orphan docs/${docSnap.id} (modx id=${modxId})`)
   }
 
-  return { deleted, paths }
+  return { deleted, paths, reads: snap.size }
 }
 
 async function readLastEdit(firestore) {
@@ -531,7 +564,9 @@ async function main() {
   )
 
   const firestore = getFirestoreDb()
+  const readCounts = createReadCounter()
   const lastEdit = isFullSync ? 0 : await readLastEdit(firestore)
+  readCounts.meta += 1
   console.log(
     isFullSync
       ? 'full backfill (lastEdit forced to 0)'
@@ -619,6 +654,16 @@ async function main() {
   }
 
   for (const rawRow of rowsToProcess) {
+    if (changedIds.has(rawRow.id)) {
+      ensureRowInWorkingById(modxTransform, rawRow, workingById)
+    }
+  }
+
+  const { map: existingRedirectsByModxId, reads: redirectReads } =
+    await loadExistingRedirectsForChanged(firestore, workingById, changedIds)
+  readCounts.redirects += redirectReads
+
+  for (const rawRow of rowsToProcess) {
     if (!changedIds.has(rawRow.id)) continue
     const result = await processRow(
       modxTransform,
@@ -627,7 +672,8 @@ async function main() {
       workingById,
       redirectMaps,
       firestore,
-      recipes
+      recipes,
+      existingRedirectsByModxId
     )
     if (result.dynamicEntry) {
       dynamicRedirectEntries.push(result.dynamicEntry)
@@ -662,6 +708,7 @@ async function main() {
   if (isFullSync && changedRows.length > 0) {
     const syncedModxIds = new Set(changedRows.map((row) => row.id))
     const orphanRemoval = await deleteOrphanFirestoreDocs(firestore, syncedModxIds)
+    readCounts.orphanScan = orphanRemoval.reads ?? 0
     deleted += orphanRemoval.deleted
     deletedPaths = [...deletedPaths, ...orphanRemoval.paths]
   }
@@ -682,17 +729,34 @@ async function main() {
     console.log(
       `receptsarok free: updated ${freeSync.updated} recipe(s) from MODX links → ${freeSync.keys.join(', ')}`
     )
-    const rsCollections = spawnSync('npm', ['run', 'sync:rs-collections:apply'], {
-      cwd: root,
-      stdio: 'inherit',
-      env: process.env,
-    })
-    if (rsCollections.status !== 0) {
-      throw new Error('sync:rs-collections:apply failed after MODX-linked free recipe update')
+    console.log(
+      '  → run `npm run sync:rs-collections:apply` to refresh rs-teasers shards (or pass --with-rs-collections)'
+    )
+    if (withRsCollections) {
+      const { spawnSync } = await import('node:child_process')
+      const rsCollections = spawnSync('npm', ['run', 'sync:rs-collections:apply'], {
+        cwd: root,
+        stdio: 'inherit',
+        env: process.env,
+      })
+      if (rsCollections.status !== 0) {
+        throw new Error('sync:rs-collections:apply failed after MODX-linked free recipe update')
+      }
     }
   }
 
-  const projectionDocs = await loadProjectionDocs(firestore, workingById)
+  const projectionResult = await loadProjectionDocsForSync(
+    firestore,
+    workingById,
+    deletedPaths,
+    { fullRebuild: isFullSync }
+  )
+  const projectionDocs = projectionResult.docs
+  readCounts.projection += projectionResult.reads.projection
+  readCounts.meta += projectionResult.reads.meta
+
+  await uploadProjectionSnapshot(firestore, projectionDocs)
+
   const collectionsMod = await import(
     pathToFileURL(path.join(root, 'src/lib/modx/collections.ts')).href
   )
@@ -700,7 +764,19 @@ async function main() {
   const listedDocs = projectionDocs.filter(isListedDoc)
 
   const collectionsWritten = await writeCollections(firestore, projectionDocs)
-  const searchIndex = await buildAndUploadSearchIndex(firestore, projectionDocs)
+
+  const searchChangedPaths = changedListedPaths(workingById, changedIds, isListedDoc)
+  const searchIndex = await buildAndUploadSearchIndex(firestore, projectionDocs, {
+    changedPaths: searchChangedPaths,
+    removedPaths: deletedPaths,
+    fullRebuild: isFullSync || projectionResult.fullRebuild,
+    preferRecipesJson: true,
+  })
+  if (searchIndex.reads) {
+    readCounts.searchArticles += searchIndex.reads.searchArticles ?? 0
+    readCounts.searchRecipes += searchIndex.reads.searchRecipes ?? 0
+    readCounts.searchMeta += searchIndex.reads.searchMeta ?? 0
+  }
 
   const idsForRelated = isFullSync
     ? new Set(listedDocs.map((d) => d.id).filter(Boolean))
@@ -741,7 +817,7 @@ async function main() {
   )
 
   console.log(
-    `sync complete: wrote=${written}, deleted=${deleted}, skipped=${skipped}, redirectsAdded=${redirectsAdded}, receptsarokFree=${freeSync.updated}, collections=${collectionsWritten}, relatedCards=${relatedUpdated}, search v${searchIndex.version} (${searchIndex.articleCount} articles, ${searchIndex.recipeCount} recipes), purge=${purgeResult.skipped ? 'skipped' : purgeResult.ok ? `ok(${purgeResult.status})` : 'failed'}, lastEdit ${lastEdit} → ${newLastEdit}`
+    `sync complete: wrote=${written}, deleted=${deleted}, skipped=${skipped}, redirectsAdded=${redirectsAdded}, receptsarokFree=${freeSync.updated}, collections=${collectionsWritten}, relatedCards=${relatedUpdated}, search v${searchIndex.version} (${searchIndex.articleCount} articles, ${searchIndex.recipeCount} recipes), purge=${purgeResult.skipped ? 'skipped' : purgeResult.ok ? `ok(${purgeResult.status})` : 'failed'}, lastEdit ${lastEdit} → ${newLastEdit}, ${formatReadCounts(readCounts)}`
   )
 }
 

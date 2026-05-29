@@ -203,6 +203,45 @@ export function toTeaser(recipe: Recipe): RecipeTeaser {
   return normalizeRecipeTeaser(recipe)
 }
 
+/** Minimal fields for `/keres` + `collections/rs-teasers-{year}` (low Firestore index footprint). */
+export type KeresRecipeTeaser = Pick<
+  RecipeTeaser,
+  | 'id'
+  | 'year'
+  | 'title'
+  | 'author'
+  | 'category'
+  | 'energy'
+  | 'protein'
+  | 'fat'
+  | 'carbs'
+  | 'fiber'
+  | 'img'
+  | 'free'
+>
+
+export function toKeresTeaser(recipe: Recipe | RecipeTeaser): KeresRecipeTeaser {
+  const macros = recipeMacroFields(recipe)
+  const img =
+    recipe.img ??
+    recipeHeroToCardImg(recipe.year, recipe.image, undefined) ??
+    undefined
+  return {
+    id: recipe.id,
+    year: recipe.year,
+    title: recipe.title,
+    author: recipe.author ?? '',
+    category: recipe.category ?? '',
+    energy: macros.energy,
+    protein: macros.protein,
+    fat: macros.fat,
+    carbs: macros.carbs,
+    fiber: macros.fiber,
+    img,
+    free: isRecipeFree(recipe),
+  }
+}
+
 /** Fill gaps in search-index / legacy stored teasers so RecipeCard always has required fields. */
 export function normalizeRecipeTeaser(
   raw: Partial<RecipeTeaser> & Pick<RecipeTeaser, 'year' | 'id' | 'title'>

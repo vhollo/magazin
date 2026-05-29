@@ -35,6 +35,7 @@ export function pickDocFields(doc, fields = PROJECTION_FIELDS) {
  * Load slim docs for collection ranking (no article HTML). Overlays in-memory
  * rows from the current sync run so collections see fresh data.
  *
+ * @deprecated Prefer loadProjectionDocsForSync (Storage snapshot). Kept for finish-modx one-off.
  * @param {import('firebase-admin/firestore').Firestore} firestore
  * @param {Map<number, Record<string, unknown>>} [workingById]
  */
@@ -50,3 +51,5 @@ export async function loadProjectionDocs(firestore, workingById = new Map()) {
   }
   return [...byDocId.values()]
 }
+
+export { loadProjectionDocsForSync, uploadProjectionSnapshot } from './magazine-projection-snapshot.mjs'
