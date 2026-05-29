@@ -1,7 +1,7 @@
 # Incremental MODX → Firestore sync (scripts/sync-modx-to-firestore.mjs).
 #
 # Required repository secrets:
-#   MODXDB_HOST, MODXDB_USER, MODXDB_DATABASE, MODXDB_PASSWORD
+#   MODXDB_HOST, MODXDB_PORT, MODXDB_USER, MODXDB_DATABASE, MODXDB_PASSWORD
 #   FIREBASE_ADMIN_KEY  — Firebase service account JSON (single line)
 #   FIREBASE_STORAGE_BUCKET
 #   CPANEL_URL          — cPanel HTTPS API base, e.g. https://example.com:2083
@@ -9,7 +9,6 @@
 #   CPANEL_TOKEN        — cPanel API token (e.g. GitHubActions)
 #
 # Optional secrets:
-#   MODXDB_PORT              (default 3306 in the sync script)
 #   NETLIFY_SITE_ID, NETLIFY_ACCESS_TOKEN  (edge-cache purge after changes)
 
 name: Sync MODX to Firestore

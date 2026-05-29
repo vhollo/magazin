@@ -553,7 +553,7 @@ async function writeCollections(firestore, projectionDocs) {
 }
 
 async function main() {
-  for (const key of ['MODXDB_HOST', 'MODXDB_USER', 'MODXDB_DATABASE', 'MODXDB_PASSWORD']) {
+  for (const key of ['MODXDB_HOST', 'MODXDB_PORT', 'MODXDB_USER', 'MODXDB_DATABASE', 'MODXDB_PASSWORD']) {
     if (!process.env[key]) {
       throw new Error(`${key} is required`)
     }
@@ -575,7 +575,7 @@ async function main() {
 
   const connection = await mysql.createConnection({
     host: process.env.MODXDB_HOST,
-    port: Number(process.env.MODXDB_PORT || 3306),
+    port: Number(process.env.MODXDB_PORT),
     user: process.env.MODXDB_USER,
     database: process.env.MODXDB_DATABASE,
     password: process.env.MODXDB_PASSWORD,
