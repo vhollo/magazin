@@ -8,7 +8,9 @@
  * 4. Upsert docs/{encodeDocPathId(path)}
  * 5. Recompute collections/{slug} (top 72 thin cards per tag query) and collections/home
  * 6. Build MiniSearch index, gzip-upload to Storage, update meta/search
- * 7. Update meta/sync.lastEdit
+ * 7. For magazine rows linked to Receptsarok (redirect match): set `free: true` on
+ *    matching `recipes/{year}-{id}` + `recipes.json`, then rebuild `collections/rs-*`
+ * 8. Update meta/sync.lastEdit
  *
  * Usage:
  *   node scripts/sync-modx-to-firestore.mjs          # incremental
@@ -19,6 +21,7 @@
  */
 import 'dotenv/config'
 import path from 'node:path'
+import { spawnSync } from 'node:child_process'
 import { fileURLToPath, pathToFileURL } from 'node:url'
 import { drizzle } from 'drizzle-orm/mysql2'
 import mysql from 'mysql2/promise'
@@ -38,6 +41,10 @@ import {
   loadRecipesFromJson,
   resolveReceptsarokRedirect,
 } from './lib/receptsarok-redirect-match.mjs'
+import {
+  applyModxLinkedRecipeFreeFlags,
+  parseReceptsarokRedirectPath,
+} from './lib/receptsarok-modx-free-sync.mjs'
 import {
   appendRedirectsManifest,
   registerRedirectEntries,
@@ -312,8 +319,19 @@ async function processRow(
   const processed = modxTransform.docFields(doc)
   workingById.set(doc.id, processed)
 
+  const redirectParsed = parseReceptsarokRedirectPath(resolved.redirect)
+  const freeTarget = resolved.dynamicEntry
+    ? {
+        year: resolved.dynamicEntry.year,
+        id: resolved.dynamicEntry.id,
+        modxContentId: Number(doc.id),
+      }
+    : redirectParsed
+      ? { ...redirectParsed, modxContentId: Number(doc.id) }
+      : undefined
+
   if (!changedIds.has(doc.id)) {
-    return { written: false, processed, dynamicEntry: resolved.dynamicEntry }
+    return { written: false, processed, dynamicEntry: resolved.dynamicEntry, freeTarget }
   }
 
   if (!processed.path) {
@@ -328,7 +346,7 @@ async function processRow(
       `  redirect id=${processed.id} → /receptsarok/${resolved.dynamicEntry.year}/${resolved.dynamicEntry.id} (dynamic match)`
     )
   }
-  return { written: true, processed, docId, dynamicEntry: resolved.dynamicEntry }
+  return { written: true, processed, docId, dynamicEntry: resolved.dynamicEntry, freeTarget }
 }
 
 /**
@@ -580,6 +598,8 @@ async function main() {
   const workingById = new Map()
   /** @type {object[]} */
   const dynamicRedirectEntries = []
+  /** @type {{ year: number; id: string; modxContentId?: number }[]} */
+  const modxLinkedFreeTargets = []
 
   const modxTransform = createModxTransform({
     publicBaseUrl: PUBLIC_BASE_URL,
@@ -612,6 +632,9 @@ async function main() {
     if (result.dynamicEntry) {
       dynamicRedirectEntries.push(result.dynamicEntry)
       registerRedirectEntries(redirectMaps, [result.dynamicEntry])
+    }
+    if (result.freeTarget) {
+      modxLinkedFreeTargets.push(result.freeTarget)
     }
     if (result.written) {
       written++
@@ -648,6 +671,27 @@ async function main() {
     console.log(`redirects manifest: added ${redirectsAdded} dynamic entries → ${RS_REDIRECTS_PATH}`)
   }
 
+  const freeSync = await applyModxLinkedRecipeFreeFlags({
+    recipes,
+    targets: modxLinkedFreeTargets,
+    recipesJsonPath: RECIPES_JSON_PATH,
+    firestore,
+    apply: true,
+  })
+  if (freeSync.updated > 0) {
+    console.log(
+      `receptsarok free: updated ${freeSync.updated} recipe(s) from MODX links → ${freeSync.keys.join(', ')}`
+    )
+    const rsCollections = spawnSync('npm', ['run', 'sync:rs-collections:apply'], {
+      cwd: root,
+      stdio: 'inherit',
+      env: process.env,
+    })
+    if (rsCollections.status !== 0) {
+      throw new Error('sync:rs-collections:apply failed after MODX-linked free recipe update')
+    }
+  }
+
   const projectionDocs = await loadProjectionDocs(firestore, workingById)
   const collectionsMod = await import(
     pathToFileURL(path.join(root, 'src/lib/modx/collections.ts')).href
@@ -675,6 +719,13 @@ async function main() {
       .filter((p) => typeof p === 'string' && p.length > 0),
     ...deletedPaths,
   ]
+  if (freeSync.updated > 0) {
+    purgePaths.push('/receptsarok', '/keres')
+    for (const key of freeSync.keys) {
+      const [year, id] = key.split('/')
+      if (year && id) purgePaths.push(`/receptsarok/${year}/${id}`)
+    }
+  }
   if (deleted > 0) {
     purgePaths.push('/', ...Object.keys(collectionsMod.collectionQueries))
   }
@@ -690,7 +741,7 @@ async function main() {
   )
 
   console.log(
-    `sync complete: wrote=${written}, deleted=${deleted}, skipped=${skipped}, redirectsAdded=${redirectsAdded}, collections=${collectionsWritten}, relatedCards=${relatedUpdated}, search v${searchIndex.version} (${searchIndex.articleCount} articles, ${searchIndex.recipeCount} recipes), purge=${purgeResult.skipped ? 'skipped' : purgeResult.ok ? `ok(${purgeResult.status})` : 'failed'}, lastEdit ${lastEdit} → ${newLastEdit}`
+    `sync complete: wrote=${written}, deleted=${deleted}, skipped=${skipped}, redirectsAdded=${redirectsAdded}, receptsarokFree=${freeSync.updated}, collections=${collectionsWritten}, relatedCards=${relatedUpdated}, search v${searchIndex.version} (${searchIndex.articleCount} articles, ${searchIndex.recipeCount} recipes), purge=${purgeResult.skipped ? 'skipped' : purgeResult.ok ? `ok(${purgeResult.status})` : 'failed'}, lastEdit ${lastEdit} → ${newLastEdit}`
   )
 }
 

@@ -13,6 +13,9 @@ const KEY_ROUTES = [
   { label: 'receptek collection', ref: ['collections', 'receptek'], expectCards: true },
   { label: 'meta/search', ref: ['meta', 'search'], expectIndexUrl: true },
   { label: 'meta/stats', ref: ['meta', 'stats'], expectStats: true },
+  { label: 'rs-home (receptsarok grid)', ref: ['collections', 'rs-home'], expectRsHome: true },
+  { label: 'rs-teasers (/keres recipe enrich)', ref: ['collections', 'rs-teasers'], expectRsTeasers: true },
+  { label: 'patika (pharmacy list)', ref: ['collections', 'patika'], expectPatikas: true },
 ]
 
 const SAMPLE_ARTICLE_PATHS = ['hirek', 'receptek', 's-o-s']
@@ -48,11 +51,23 @@ async function main() {
     } else if (check.expectStats && data.articleCount == null) {
       console.log(`FAIL ${check.label}: no articleCount`)
       ok = false
+    } else if (check.expectRsHome && !(Array.isArray(data.categories) && data.categories.length > 0)) {
+      console.log(`FAIL ${check.label}: no categories`)
+      ok = false
+    } else if (check.expectRsTeasers && !(data.teasersByKey && Object.keys(data.teasersByKey).length > 0)) {
+      console.log(`FAIL ${check.label}: no teasersByKey`)
+      ok = false
+    } else if (check.expectPatikas && !(Array.isArray(data.patikas) && data.patikas.length > 0)) {
+      console.log(`FAIL ${check.label}: no patikas`)
+      ok = false
     } else {
       const extra =
         check.expectCards ? ` (${data.cards?.length ?? 0} cards)` :
         check.expectIndexUrl ? ` v${data.version}` :
-        check.expectStats ? ` articles=${data.articleCount}` : ''
+        check.expectStats ? ` articles=${data.articleCount}` :
+        check.expectRsHome ? ` cats=${data.categories.length}, totalRecipes=${data.totalRecipes ?? '?'}, totalFree=${data.totalFree ?? '?'}` :
+        check.expectRsTeasers ? ` teasers=${Object.keys(data.teasersByKey).length}` :
+        check.expectPatikas ? ` patikas=${data.patikas.length}` : ''
       console.log(`OK   ${check.label}${extra}`)
     }
   }

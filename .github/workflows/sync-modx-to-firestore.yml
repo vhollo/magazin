@@ -89,19 +89,25 @@ jobs:
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
           NETLIFY_ACCESS_TOKEN: ${{ secrets.NETLIFY_ACCESS_TOKEN }}
 
-      - name: Commit redirect manifest updates
+      - name: Commit sync data updates (redirects, recipes free flags)
         if: success() && steps.sync.outcome == 'success'
         continue-on-error: true
         run: |
           set -euo pipefail
-          if git diff --quiet -- src/lib/data/receptsarok-redirects.json; then
-            echo "No redirect manifest changes"
+          CHANGED=0
+          for f in src/lib/data/receptsarok-redirects.json src/lib/data/recipes.json; do
+            if ! git diff --quiet -- "$f"; then
+              git add "$f"
+              CHANGED=1
+            fi
+          done
+          if [ "$CHANGED" -eq 0 ]; then
+            echo "No redirect manifest or recipes.json changes"
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add src/lib/data/receptsarok-redirects.json
-          git commit -m "chore(sync): update receptsarok redirect manifest from MODX sync"
+          git commit -m "chore(sync): MODX sync — receptsarok redirects and/or free flags"
           git push
 
       - name: Revoke GitHub Actions runner IP from cPanel Remote MySQL

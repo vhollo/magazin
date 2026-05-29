@@ -23,10 +23,49 @@ function titleMatchScore(doc, recipe) {
   return Math.round((overlap / docWords.length) * 50)
 }
 
-/** Same gate as receptsarokDedupePipeline: single `recept` tag only. */
+/** Legacy MODX tree: `receptsarok/{category}/{slug}` (no year in path). */
+export function isReceptsarokLegacyModxPath(doc) {
+  const pathKey = String(doc?.path ?? '')
+    .trim()
+    .replace(/^\/+/, '')
+  const parts = pathKey.split('/').filter(Boolean)
+  return parts[0] === 'receptsarok' && parts.length >= 3 && Boolean(parts[2])
+}
+
+/**
+ * Magazine `recept` row eligible for redirect + free sync.
+ * Same single-tag gate as dedupe pipeline, plus legacy Receptsarok MODX paths.
+ */
 export function isMagazineRecipeDoc(doc) {
   const tags = Array.isArray(doc?.tv?.tags) ? doc.tv.tags : []
-  return tags.length === 1 && normalizeText(tags[0]) === 'recept'
+  const norm = tags.map((t) => normalizeText(t))
+  if (norm.length === 1 && norm[0] === 'recept') return true
+  return isReceptsarokLegacyModxPath(doc)
+}
+
+/**
+ * Match by slug under `receptsarok/{category}/{id}` (year from catalogue, not URL).
+ *
+ * @param {Record<string, unknown>} doc
+ * @param {Record<string, unknown>[]} published
+ * @returns {{ year: number; id: string; reason: string } | null}
+ */
+function matchReceptsarokLegacyPathAlias(doc, published) {
+  if (!isReceptsarokLegacyModxPath(doc)) return null
+  const aliasNorm = normalizeText(doc.alias)
+  if (!aliasNorm) return null
+  const byAlias = published.filter((recipe) => normalizeText(recipe.id) === aliasNorm)
+  if (byAlias.length === 0) return null
+  const { winner: contentWinner } = chooseWinner(byAlias)
+  const redirectTarget = pickRedirectTarget(byAlias, contentWinner)
+  if (redirectTarget?.year != null && redirectTarget?.id) {
+    return {
+      year: Number(redirectTarget.year),
+      id: String(redirectTarget.id),
+      reason: 'receptsarok-path-alias',
+    }
+  }
+  return null
 }
 
 /**
@@ -40,6 +79,10 @@ export function matchReceptsarokRedirectTarget(doc, recipes) {
   if (!isMagazineRecipeDoc(doc)) return null
 
   const published = recipes.filter((r) => r.published !== false)
+
+  const legacyPathMatch = matchReceptsarokLegacyPathAlias(doc, published)
+  if (legacyPathMatch) return legacyPathMatch
+
   const aliasNorm = normalizeText(doc.alias)
 
   const scored = published

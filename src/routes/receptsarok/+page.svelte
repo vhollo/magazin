@@ -9,16 +9,9 @@
   let { data } = $props()
 
   const categories = $derived(data.categories)
-  const totalRecipes = $derived(data.recipes.length)
-  const freeCount = $derived(data.recipes.filter((r: { free?: boolean }) => r.free).length)
-  const freeCountsByCategory = $derived(
-    data.recipes.reduce((acc: Record<string, number>, recipe: { free?: boolean; category?: string }) => {
-      if (recipe.free) {
-        acc[recipe.category ?? ''] = (acc[recipe.category ?? ''] ?? 0) + 1
-      }
-      return acc
-    }, {})
-  )
+  const totalRecipes = $derived(data.totalRecipes ?? 0)
+  const freeCount = $derived(data.totalFree ?? 0)
+  const freeCountsByCategory = $derived(data.freeCountsByCategory ?? {})
 
   let showPlanner = $state(false)
 </script>
@@ -95,7 +88,7 @@
 
 {#if showPlanner}
   <div class="w-full px-[clamp(1rem,4vw,2.75rem)] py-6">
-    <MealPlanner recipes={data.recipes} categories={data.categories} />
+    <MealPlanner categories={data.categories} />
   </div>
 {/if}
 

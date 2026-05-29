@@ -8,14 +8,19 @@ import { recipeHeroToCardImg } from '$lib/receptsarok';
 import fs from 'fs';
 import path from 'path';
 async function writeData(data: object | object[], filename: string) {
-  // console.log('writeData',data)
   const outputPath = path.resolve(process.cwd(), 'src/lib/data', filename);
   const outputDir = path.dirname(outputPath);
   if (!fs.existsSync(outputDir)) {
     fs.mkdirSync(outputDir, { recursive: true });
   }
-  fs.writeFileSync(outputPath, JSON.stringify(data, null, 2));
-  // console.log(`Conf sikeresen mentve: ${outputPath}`);
+  const next = JSON.stringify(data, null, 2);
+  try {
+    const prev = fs.readFileSync(outputPath, 'utf-8');
+    if (prev === next) return;
+  } catch {
+    // file missing — write below
+  }
+  fs.writeFileSync(outputPath, next);
 }
 
 export type Banner = {
@@ -188,7 +193,6 @@ export const getPatika = async () => {
 let recipesMemo: Promise<unknown[]> | null = null
 let categoriesMemo: Promise<unknown[]> | null = null
 let recipesMemoCacheKey: string | null = null
-const RECIPES_JSON_PATH = path.resolve(process.cwd(), 'src/lib/data', 'recipes.json')
 
 function normalizeRecipeForExport(rawData: any): any | null {
   const data: any = { ...rawData }
@@ -230,12 +234,8 @@ function parseRecipesForExport(raw: string): any[] {
 }
 
 function getRecipesCacheKeyForDev(): string {
-  try {
-    const stat = fs.statSync(RECIPES_JSON_PATH)
-    return String(stat.mtimeMs)
-  } catch {
-    return 'missing'
-  }
+  // Stable for the process — do not key off mtime (writeData used to bump it every SSR load).
+  return 'dev';
 }
 
 async function loadRecipesUncached(): Promise<unknown[]> {

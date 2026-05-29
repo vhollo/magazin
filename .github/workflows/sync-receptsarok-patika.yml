@@ -1,0 +1,99 @@
+# Rebuild aggregate UI docs for Receptsarok + Patika SSR routes.
+#
+# Reads Firestore `recipes` + `categories` + `tables/elofizetok/patika` and
+# writes the precomputed `collections/rs-home`, `collections/rs-{category}`,
+# `collections/rs-teasers`, `collections/patika` docs that the SSR routes
+# load with a single `.get()` per request.
+#
+# Run after:
+#   • `npm run sync:recipes:apply`               — recipe data changed
+#   • editing `tables/elofizetok/patika` in Firestore — pharmacy list changed
+#   • bumping helper logic in `src/lib/receptsarokFirestore.ts`
+#
+# Does NOT touch MODX MySQL — no cPanel IP allowlist needed.
+#
+# Required secrets:
+#   FIREBASE_ADMIN_KEY        — Firebase service account JSON
+# Optional secrets:
+#   NETLIFY_SITE_ID, NETLIFY_ACCESS_TOKEN — purge CDN cache after the rebuild
+
+name: Sync Receptsarok + Patika UI collections
+
+on:
+  workflow_dispatch:
+    inputs:
+      target:
+        description: 'Which aggregate docs to rebuild'
+        required: true
+        default: 'both'
+        type: choice
+        options:
+          - both
+          - rs-collections
+          - patika
+      purge_cdn:
+        description: 'Purge Netlify CDN cache for /receptsarok, /patika, /keres after rebuild'
+        required: false
+        default: 'true'
+        type: choice
+        options:
+          - 'true'
+          - 'false'
+
+concurrency:
+  group: receptsarok-patika-ui-sync
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Rebuild Receptsarok UI collections
+        if: github.event.inputs.target == 'both' || github.event.inputs.target == 'rs-collections'
+        run: npm run sync:rs-collections:apply
+        env:
+          FIREBASE_ADMIN_KEY: ${{ secrets.FIREBASE_ADMIN_KEY }}
+
+      - name: Rebuild Patika UI collection
+        if: github.event.inputs.target == 'both' || github.event.inputs.target == 'patika'
+        run: npm run sync:patika:apply
+        env:
+          FIREBASE_ADMIN_KEY: ${{ secrets.FIREBASE_ADMIN_KEY }}
+
+      - name: Purge Netlify CDN cache for affected routes
+        if: success() && github.event.inputs.purge_cdn == 'true' && env.NETLIFY_SITE_ID != '' && env.NETLIFY_ACCESS_TOKEN != ''
+        env:
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+          NETLIFY_ACCESS_TOKEN: ${{ secrets.NETLIFY_ACCESS_TOKEN }}
+          TARGET: ${{ github.event.inputs.target }}
+        run: |
+          set -euo pipefail
+          PATHS='[]'
+          case "$TARGET" in
+            both) PATHS='["/receptsarok","/keres","/patika"]' ;;
+            rs-collections) PATHS='["/receptsarok","/keres"]' ;;
+            patika) PATHS='["/patika"]' ;;
+          esac
+          echo "purging: $PATHS"
+          curl -fsS -X POST \
+            -H "Authorization: Bearer ${NETLIFY_ACCESS_TOKEN}" \
+            -H "Content-Type: application/json" \
+            -d "{\"paths\":${PATHS}}" \
+            "https://api.netlify.com/api/v1/sites/${NETLIFY_SITE_ID}/purge_cache"

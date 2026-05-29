@@ -1,31 +1,17 @@
-export const prerender = true
-import { dev } from '$app/environment'
 import type { LayoutServerLoad } from './$types'
-import { getRecipes, getCategories } from '$lib/siteConf'
-import { toLayoutRecipe } from '$lib/receptsarok'
-import type { Recipe, Category } from '$lib/receptsarok'
+import { MAGAZINE_CACHE_CONTROL } from '$lib/magazine/cacheHeaders'
+import { getReceptsarokHome } from '$lib/receptsarokFirestore'
 
-type RecipePublished = Recipe & { published?: boolean }
-
-export const load: LayoutServerLoad = async () => {
-  const allRecipes: Recipe[] = (await getRecipes()).filter(
-    (r: Recipe) => (r as RecipePublished).published !== false
-  )
-  const categories: Category[] = await getCategories()
-
-  const recipeCounts: Record<string, number> = {}
-  for (const r of allRecipes) {
-    recipeCounts[r.category] = (recipeCounts[r.category] || 0) + 1
-  }
-  for (const cat of categories) {
-    cat.recipeCount = recipeCounts[cat.id] || 0
-  }
-
-  if (dev) console.log('receptsarok:', allRecipes.length, 'recipes in', categories.length, 'categories')
+export const load: LayoutServerLoad = async ({ setHeaders }) => {
+  setHeaders({ 'Cache-Control': MAGAZINE_CACHE_CONTROL })
+  const { categories, totalRecipes, totalFree, freeCountsByCategory } =
+    await getReceptsarokHome()
 
   return {
-    recipes: allRecipes.map(toLayoutRecipe),
     categories,
+    totalRecipes,
+    totalFree,
+    freeCountsByCategory,
     doc: { path: 'receptsarok', title: 'Receptsarok' },
   }
 }

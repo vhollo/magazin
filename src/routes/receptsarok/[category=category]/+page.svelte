@@ -14,7 +14,7 @@
 
   const categoryId = $derived(data.categoryId)
   const category = $derived(data.categories.find((c: any) => c.id === categoryId))
-  const allCategoryRecipes = $derived(data.recipes.filter((r: any) => r.category === categoryId))
+  const allCategoryRecipes = $derived(data.cards)
 
   let filters = $state({
     maxEnergy: 0,

@@ -1,0 +1,4312 @@
+{
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/svelte.config.js": {
+    "mtime": 1771761182.102,
+    "ast_hash": "821374fced946a60d086a24c0bfdb55b",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/tailwind.config.ts": {
+    "mtime": 1747952083.272,
+    "ast_hash": "887ed28406f3b9e64dd3ad9c65294301",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/ify_test.json": {
+    "mtime": 1722681468.159,
+    "ast_hash": "b4cb36424d38bbed7d34862cd7688b13",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/package.json": {
+    "mtime": 1779921881.6877413,
+    "ast_hash": "ce5853b76adffb38732fcfe35f525239",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/tsconfig.json": {
+    "mtime": 1719089575.186,
+    "ast_hash": "7e25b75cdb5518e1b8f64a78f0ffb033",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/eslint.config.js": {
+    "mtime": 1719089575.186,
+    "ast_hash": "158606da1909e1957803a4b02f8d7972",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/drizzle.config.ts": {
+    "mtime": 1737066223.977,
+    "ast_hash": "de32e9fc72a3aa32d36503154869f51e",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/vite.config.ts": {
+    "mtime": 1779983055.862139,
+    "ast_hash": "cbef8db7a2ad93e1b03a7b2ef05a1f09",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/postcss.config.js": {
+    "mtime": 1747952083.24,
+    "ast_hash": "75946a28ab910d4f65de3fb9aed0c091",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/search-meta.json": {
+    "mtime": 1780081037.8857214,
+    "ast_hash": "39b604a44f29d601624c787262715616",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/scripts/fix-modx-recipe-years.mjs": {
+    "mtime": 1779733000.3374774,
+    "ast_hash": "347ffd0f83c3c00b45dda614185ead5d",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/scripts/build-recipe-category-patterns.mjs": {
+    "mtime": 1777970516.9779205,
+    "ast_hash": "08281b4eb1c7d0455a6dd3adaad8e691",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/scripts/manual-receptsarok-dedupe.js": {
+    "mtime": 1778274024.4128346,
+    "ast_hash": "fd16add370137a6abfc1240cf9270b91",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/scripts/export-magazin-recipe-category-review.mjs": {
+    "mtime": 1777758685.089489,
+    "ast_hash": "a1f9ac18c1aeba488e08340082e61361",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/scripts/storage-cors.json": {
+    "mtime": 1779642927.3052948,
+    "ast_hash": "03489dcefba34957e75f8dadab1ff84c",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/scripts/sync-receptsarok-collections.mjs": {
+    "mtime": 1779921846.7842271,
+    "ast_hash": "613cfcf99838fd33882643337f8a422c",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/scripts/eval-recipe-category-patterns.mjs": {
+    "mtime": 1777970580.2683787,
+    "ast_hash": "e01f98a0dcbeb95082c04d2196684b00",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/scripts/cpanel-remote-mysql-ip.sh": {
+    "mtime": 1779553939.3090222,
+    "ast_hash": "aeafa9a82bbc7ac15d273985a6cb1c4b",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/scripts/dedupe-receptsarok-internal.mjs": {
+    "mtime": 1777991544.374258,
+    "ast_hash": "680d96c1629cae2f7d8a2d83016b159c",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/scripts/finish-modx-sync.mjs": {
+    "mtime": 1779567220.5797284,
+    "ast_hash": "2bdb8f9ce956bccda2deb0e0c3a1e48c",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/scripts/validate-recipe-dedupe-v2.mjs": {
+    "mtime": 1779733125.3957686,
+    "ast_hash": "d45afecaf507a487b96edc466d9cdce4",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/scripts/verify-firestore-magazine.mjs": {
+    "mtime": 1779924330.37267,
+    "ast_hash": "57d599cddbbe6d01b5cfadd2123ad27c",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/scripts/sync-modx-to-firestore.mjs": {
+    "mtime": 1780080954.6962922,
+    "ast_hash": "987b1a1182e6c3edd8ddc490a31431b7",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/scripts/import-receptsarok-uncategorized-review.mjs": {
+    "mtime": 1777970568.9160123,
+    "ast_hash": "16bda33a5fc4b604656a80f05e2ac25b",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/scripts/sync-recipes-to-firestore.mjs": {
+    "mtime": 1779733000.3731165,
+    "ast_hash": "2ef69453a6fcaf53acc9ca5d05eeff8c",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/scripts/import-magazin-recipe-category-review.mjs": {
+    "mtime": 1777758685.1533775,
+    "ast_hash": "f92eff9559e5d59507303f8ccad3db67",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/scripts/sync-patika-collection.mjs": {
+    "mtime": 1779921874.3771045,
+    "ast_hash": "b6cb316fbc05b431d6fe084dac5de23a",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/scripts/modx/modx-firestore-sync-plugin.php": {
+    "mtime": 1779614496.995442,
+    "ast_hash": "901abc42c96c7308c3bc850944a149c9",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/scripts/lib/receptsarok-redirect-match.mjs": {
+    "mtime": 1780080913.658173,
+    "ast_hash": "5cc818dfd2198e276839b6f66d09f990",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/scripts/lib/search-index.mjs": {
+    "mtime": 1779626037.766745,
+    "ast_hash": "7d8a6e7af21ed23f4d40ab33d47841ac",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/scripts/lib/netlify-purge.mjs": {
+    "mtime": 1779362603.3787673,
+    "ast_hash": "5bf1e77edf2734643386b38f2b5112cb",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/scripts/lib/modx-to-rs-parser.mjs": {
+    "mtime": 1779731748.9028835,
+    "ast_hash": "00554dec54e1e959921c0b2f0d80583f",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/scripts/lib/receptsarok-redirects-manifest.mjs": {
+    "mtime": 1779488100.326755,
+    "ast_hash": "1c61e8f651d2ef5cd8d8daeb1f788618",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/scripts/lib/related-cards.mjs": {
+    "mtime": 1779312324.6263154,
+    "ast_hash": "2838faef075cf5da09d82e131b15b4a1",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/scripts/lib/magazine-scope.mjs": {
+    "mtime": 1779576080.6289146,
+    "ast_hash": "b603c7beae083a170f8626a24c1af112",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/scripts/lib/firebase-storage.mjs": {
+    "mtime": 1779362004.0053003,
+    "ast_hash": "396cf20730ef0993c4380c4775675642",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/scripts/lib/firebase-admin.mjs": {
+    "mtime": 1779915200.3607213,
+    "ast_hash": "f65b1c28f8fb26addc7158d2f277f6b0",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/scripts/lib/doc-path-id.mjs": {
+    "mtime": 1779567430.7694404,
+    "ast_hash": "4f5ce5f213d2b963002396959ee1c477",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/scripts/lib/firestore-docs.mjs": {
+    "mtime": 1779567206.099478,
+    "ast_hash": "225bd3265ee9ccaf7fa1629c06d4ceb6",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/scripts/lib/receptsarok-modx-free-sync.mjs": {
+    "mtime": 1780080917.5227022,
+    "ast_hash": "fd2faf127ad59fa9deb825d5357466b8",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/scripts/lib/receptsarok-category-predictor.mjs": {
+    "mtime": 1778532634.3420515,
+    "ast_hash": "4e7c27769bb5bcbb079edbabdfe64d61",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/app.d.ts": {
+    "mtime": 1719089575.183,
+    "ast_hash": "adb5c26bc5625571adf14be294632c2a",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/params/category.ts": {
+    "mtime": 1775671671.0926032,
+    "ast_hash": "a5dcd94c0310b3ac4541b0ea06aa7a65",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/params/year.ts": {
+    "mtime": 1775671670.2742927,
+    "ast_hash": "3e8db4aab53f2489c369478000e8ef17",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/lib/receptsarokDedupePipeline.js": {
+    "mtime": 1779733115.3230867,
+    "ast_hash": "6a5a1e50d377c602d6d75aa5a3991d1a",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/lib/ads.js": {
+    "mtime": 1747952083.243,
+    "ast_hash": "214ab0fde77ce573fa833f9ba0acdbaa",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/lib/marked.ts": {
+    "mtime": 1762950071.558,
+    "ast_hash": "8e7d84e1f9d97b92702dd7101d65117f",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/lib/firebase.ts": {
+    "mtime": 1760183123.005,
+    "ast_hash": "86507c43703c769b738195f221621089",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/lib/receptsarokDedupeShared.js": {
+    "mtime": 1779733114.311975,
+    "ast_hash": "93ac17b7635ba59ab760bc7d6e8158d4",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/lib/siteConf.ts": {
+    "mtime": 1779983097.2751296,
+    "ast_hash": "a0b6a8fc65572cf3b4acd1c026d19721",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/lib/navActive.js": {
+    "mtime": 1775507420.0364897,
+    "ast_hash": "c7bf1c9b66baf8170be38b73107805a5",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/lib/nav2.js": {
+    "mtime": 1775321987.9264657,
+    "ast_hash": "fee7c201212be8f55572e786e532f22d",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/lib/authStore.ts": {
+    "mtime": 1775904068.132617,
+    "ast_hash": "70a15f8c8b19e97fb6a051d5f10cf224",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/lib/receptsarokDedupe.ts": {
+    "mtime": 1779733123.234872,
+    "ast_hash": "8756b2266c769862db6f76ed5ab20139",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/lib/receptsarok.ts": {
+    "mtime": 1779904300.151796,
+    "ast_hash": "7bdf45fa78e1792e4b06b1bc924877cf",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/lib/nav1.js": {
+    "mtime": 1775321996.0195856,
+    "ast_hash": "e5bceb2bf250b144c7294bb5af436820",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/lib/mealPlannerStore.ts": {
+    "mtime": 1775765340.7476654,
+    "ast_hash": "1759bd25e7d9fc6ae7977ad93c4d8362",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/lib/receptsarokCategoryPredictor.js": {
+    "mtime": 1778532638.773272,
+    "ast_hash": "4e7c27769bb5bcbb079edbabdfe64d61",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/lib/receptsarokAccess.ts": {
+    "mtime": 1775329251.811591,
+    "ast_hash": "368028b33554d5a2f138618a227962d2",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/lib/receptsarokFirestore.ts": {
+    "mtime": 1779921793.3647559,
+    "ast_hash": "db08829ecbbdafad79a3b16e23d80590",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/lib/recipeReceptsarokListCard.ts": {
+    "mtime": 1778522034.9933293,
+    "ast_hash": "30e1655571f2de200be082679d193481",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/lib/modxToRsParser.js": {
+    "mtime": 1779731748.0411136,
+    "ast_hash": "e23a8914956ff1e100c8fd0e280b63ec",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/lib/firebase-admin.ts": {
+    "mtime": 1779915196.7958531,
+    "ast_hash": "577881ffbbf9971d43f19a57112b5b26",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/lib/kvizStore.ts": {
+    "mtime": 1760204232.283,
+    "ast_hash": "3fd8aee532f5778481cb12e9e3b3d8d3",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/lib/auth.ts": {
+    "mtime": 1774431331.5184503,
+    "ast_hash": "b8749c6fccc6096d2c161a72c01948e4",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/lib/modx/transform.ts": {
+    "mtime": 1779225604.7909489,
+    "ast_hash": "986bf53f33af6c6c9d0328ebfa7e96fe",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/lib/modx/collections.ts": {
+    "mtime": 1779227015.5883877,
+    "ast_hash": "f41e57296b258cda50478db7506c0af7",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/lib/modx/index.ts": {
+    "mtime": 1779312312.9439337,
+    "ast_hash": "af332163c6be594c518a7c3cc0a38b06",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/lib/server/receptsarokSubscriber.ts": {
+    "mtime": 1775904068.1325657,
+    "ast_hash": "2ca03f0f35b53b4d94699ee979e945a3",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/lib/utils/index.ts": {
+    "mtime": 1777799263.46667,
+    "ast_hash": "58bf2ac7058f09d2f8abe4fe6d4e2e68",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/lib/components/ReceptsarokLogo.svelte": {
+    "mtime": 1775981145.750396,
+    "ast_hash": "b6efce4ab0acd1a45c63648115f41c83",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/lib/components/NutritionTable.svelte": {
+    "mtime": 1778780168.6126764,
+    "ast_hash": "f7e25f5f2bc1ce2b444e8a1bf23f68c4",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/lib/components/CardH.svelte": {
+    "mtime": 1779904300.486455,
+    "ast_hash": "24839ae3eb944889b54983a2b61db1ea",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/lib/components/Nav2.svelte": {
+    "mtime": 1779442578.6384676,
+    "ast_hash": "3d1bbcb268f6bf757101cd8b8cf5bdd9",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/lib/components/ReceptsarokWidget.svelte": {
+    "mtime": 1778528670.4995875,
+    "ast_hash": "8be4cbf66d901681951f32217033091f",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/lib/components/PaywallCTA.svelte": {
+    "mtime": 1777673198.5485542,
+    "ast_hash": "ac26c4c9b2dc0a14bd5011c92104585d",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/lib/components/Nagyito.svelte": {
+    "mtime": 1750249465.148,
+    "ast_hash": "dbd90e4530c485d93c376f276c94aa32",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/lib/components/MealPlanner.svelte": {
+    "mtime": 1778524561.979204,
+    "ast_hash": "49134b3ed8743ef7aa2f3e09d47a8ae4",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/lib/components/CarItem.svelte": {
+    "mtime": 1779904418.20707,
+    "ast_hash": "607eac9f885f2c95ae9d8e9e06712038",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/lib/components/CardV.svelte": {
+    "mtime": 1779904300.5980058,
+    "ast_hash": "ccfa4407b5df5d362e945b5cb5ef8259",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/lib/components/RecipeCard.svelte": {
+    "mtime": 1779904300.7013702,
+    "ast_hash": "8ce2c98f34d42ed367b024e1b471eab6",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/lib/components/Cards.svelte": {
+    "mtime": 1778780376.0062544,
+    "ast_hash": "9c9dc32af585a0b6d01186396c9f9bdb",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/lib/components/RecipeFilters.svelte": {
+    "mtime": 1777673198.5513022,
+    "ast_hash": "e25c0d2dd6d320924b1efa9a8aac3c5c",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/lib/components/Footer.svelte": {
+    "mtime": 1775728181.4832861,
+    "ast_hash": "8bfea6896524c340c015a606e4c64f7f",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/lib/components/TV.svelte": {
+    "mtime": 1779442578.6384637,
+    "ast_hash": "498cd3acb29bc8a4c67c8c62c0432687",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/lib/components/Visit.svelte": {
+    "mtime": 1727558251.386,
+    "ast_hash": "5b6a8d960af04381f570eb72c67d8127",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/lib/components/Carousel.svelte": {
+    "mtime": 1779916191.9889927,
+    "ast_hash": "ce7a42e677fedbcdb9c8375f644da943",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/lib/components/Search.svelte": {
+    "mtime": 1779466422.7916012,
+    "ast_hash": "42751baad0ccfab7ea9ed12d3aca665a",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/lib/components/CardBody.svelte": {
+    "mtime": 1778779992.9432557,
+    "ast_hash": "d78db6028685738975b9001fdbcc6013",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/lib/components/Nav.svelte": {
+    "mtime": 1779442578.6384635,
+    "ast_hash": "32bb95c7034d92096cbe68ef6f0fedc3",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/lib/components/BannerSide.svelte": {
+    "mtime": 1777673198.5278883,
+    "ast_hash": "218ff062e3b1d898f229087a2cb9753f",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/lib/components/BannerTop.svelte": {
+    "mtime": 1779442578.6669366,
+    "ast_hash": "f5e98f9822fa79097e727d3184f13c10",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/lib/magazine/firestore.ts": {
+    "mtime": 1779904300.0185688,
+    "ast_hash": "7acacbe6f45f0d88657af6bba1d5d5dc",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/lib/magazine/cacheHeaders.ts": {
+    "mtime": 1779227620.6948586,
+    "ast_hash": "9b2ea9ae4f77ee7508ac4c3b73df29a2",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/lib/magazine/loadSearchIndex.ts": {
+    "mtime": 1779642927.9340582,
+    "ast_hash": "c74ef844463675177fb0eba26a1f9546",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/lib/magazine/docPathId.ts": {
+    "mtime": 1779227620.1027994,
+    "ast_hash": "62fc629d9918188290e2f17e180a394d",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/lib/magazine/searchIndexUrl.ts": {
+    "mtime": 1779363516.9652963,
+    "ast_hash": "a771d86c8c75d66099cf23b68cf9ea3c",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/lib/magazine/searchIndexCache.ts": {
+    "mtime": 1779466422.796546,
+    "ast_hash": "7e8b26a97f518f753c43294111ea020b",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/lib/data/categories.json": {
+    "mtime": 1779978476.8377392,
+    "ast_hash": "1b31720215f6cff7f40e03b12dd72a71",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/lib/data/recipes.json": {
+    "mtime": 1780080936.2852564,
+    "ast_hash": "00bb892391667a6913615258f5bf3440",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/lib/data/conf.json": {
+    "mtime": 1779978476.705502,
+    "ast_hash": "94a28aceabb3ddedf30475773488a974",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/lib/data/receptsarok-create-review.json": {
+    "mtime": 1779734060.8917012,
+    "ast_hash": "89059412c0a149f155ba1cfcc1160259",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/lib/data/receptsarok-uncategorized-review.json": {
+    "mtime": 1779734060.8933048,
+    "ast_hash": "6c0e4aed4c349cc4ec5d56f111b7f250",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/lib/data/kviz.json": {
+    "mtime": 1779978113.642922,
+    "ast_hash": "7011c0c6c8637885ef39cfef0734d868",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/lib/data/.import-magazin-recipes-state.json": {
+    "mtime": 1779731681.630589,
+    "ast_hash": "dedd9146db496986ed628b9e0a92f51b",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/lib/data/recipes orig.json": {
+    "mtime": 1778010341.141,
+    "ast_hash": "9ce3277f4301d556a23c765013471dce",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/lib/data/recipes orig_dedupe.json": {
+    "mtime": 1778010283.7352905,
+    "ast_hash": "447f975fb11cd9a0943a333c43fae899",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/lib/data/receptsarok-category-patterns.json": {
+    "mtime": 1777970649.0400617,
+    "ast_hash": "4fabc666f56ed0b4507e2e32bfe9b776",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/lib/data/receptsarok-redirects.json": {
+    "mtime": 1779734060.88759,
+    "ast_hash": "152c5d8879042c002f9bfc64ae2fa691",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/lib/data/patika.json": {
+    "mtime": 1779913717.369414,
+    "ast_hash": "5797524c80a95991dd1c8013baf7d748",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/lib/data/receptsarok-dedupe-audit.json": {
+    "mtime": 1779734060.8891292,
+    "ast_hash": "a1f179c2a33a9e6c39d453d3ebb36371",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/routes/+page.server.ts": {
+    "mtime": 1779308940.3115947,
+    "ast_hash": "5b4b2fa7749b2c52abd2e340cf79ded7",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/routes/+page.svelte": {
+    "mtime": 1779442578.6162105,
+    "ast_hash": "c33e570ea8f9cefe4d38cb4ea7ad1d75",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/routes/+layout.server.ts": {
+    "mtime": 1779921992.3330853,
+    "ast_hash": "5b81a5918fcb30b35b8566b4fc7f87d6",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/routes/+layout.svelte": {
+    "mtime": 1760183095.73,
+    "ast_hash": "dea23df13f3f27a56f5c24684bc9eac6",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/routes/receptsarok/+page.svelte": {
+    "mtime": 1779921926.0960839,
+    "ast_hash": "a6fe74e0193b788e038434009608bd22",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/routes/receptsarok/+layout.server.ts": {
+    "mtime": 1779921913.5052638,
+    "ast_hash": "f30ac0667df3ab8aab8ee41b7a2351e0",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/routes/receptsarok/[category=category]/+page.server.ts": {
+    "mtime": 1779995987.5842757,
+    "ast_hash": "a611877bf9a773671df3b4a027abfabd",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/routes/receptsarok/[category=category]/+page.svelte": {
+    "mtime": 1779921950.4665082,
+    "ast_hash": "5f4471132409cb2d6893370b6b4b6f55",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/routes/receptsarok/[year=year]/[id]/+page.server.ts": {
+    "mtime": 1779995987.377309,
+    "ast_hash": "268d9500a91727027911d8f0caa878e6",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/routes/receptsarok/[year=year]/[id]/+page.svelte": {
+    "mtime": 1779904300.8246355,
+    "ast_hash": "9375b66f246c37d18897f48c680959eb",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/routes/patika/+page.svelte": {
+    "mtime": 1779384503.247027,
+    "ast_hash": "723355fe99318998f3f865d02ce23056",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/routes/patika/+layout.server.ts": {
+    "mtime": 1779921899.1965005,
+    "ast_hash": "f1bc9a2c6b7fa1680e56a4094c754a4e",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/routes/keres/+page.svelte": {
+    "mtime": 1779904312.4599683,
+    "ast_hash": "ec22de07cdce9cec364bc86f0b87f489",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/routes/keres/+layout.server.ts": {
+    "mtime": 1779921904.3871171,
+    "ast_hash": "0247946f672466d866473555273c8e9a",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/routes/[...path]/+page.server.ts": {
+    "mtime": 1779307812.3530486,
+    "ast_hash": "a2f4dedb93c6ea19b4f36f5f9cae1ce2",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/routes/[...path]/+page.svelte": {
+    "mtime": 1779904300.9429772,
+    "ast_hash": "2a0530dc1defd3d72fe18b577f710e38",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/routes/[...path]/+layout.server.ts": {
+    "mtime": 1779312315.3185444,
+    "ast_hash": "079b731f1a78ce7f5fbda5842b79d6a4",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/routes/api/search-index/+server.ts": {
+    "mtime": 1779363789.176554,
+    "ast_hash": "77637a189ec21708b63d7a7c844d5c1d",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/routes/api/receptsarok/recipe/[year]/[id]/+server.ts": {
+    "mtime": 1777673199.2162712,
+    "ast_hash": "37b7ff200c4f0e82bd5f08a280c9a93f",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/routes/api/receptsarok/recipes/+server.ts": {
+    "mtime": 1777841274.7648284,
+    "ast_hash": "1eae38690b061fb4c5127a6c68501c64",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/routes/api/search-meta/+server.ts": {
+    "mtime": 1779351892.0423374,
+    "ast_hash": "98a9a9edc18ace3cd008ff97d2055fe0",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/routes/elofizetes/+page.svelte": {
+    "mtime": 1778256396.5699437,
+    "ast_hash": "dbbee7758d3f1257f12f63adb0043ca2",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/routes/kviz/+page.svelte": {
+    "mtime": 1779384504.7986908,
+    "ast_hash": "bed3544bde6df7c47a7103d177987f7d",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/routes/kviz/+page.ts": {
+    "mtime": 1762950073.807,
+    "ast_hash": "21bf7bcd74e3542f81d83b36ec07ac66",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/routes/kviz/+layout.server.ts": {
+    "mtime": 1763164493.816,
+    "ast_hash": "1e24302decaa699a8efdc74a25a407c9",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/routes/kviz/form/+page.server.ts": {
+    "mtime": 1757236660.555,
+    "ast_hash": "0f64157225dfdf1ec5d045169e9aaf74",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/routes/kviz/form/+page.svelte": {
+    "mtime": 1771704812.18,
+    "ast_hash": "b075e3a9c0ba06e3e7dbc1ac01f21fb2",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/routes/kviz/[...id]/+page.server.ts": {
+    "mtime": 1775503541.3199432,
+    "ast_hash": "9bb79113905e738588083bd868840f22",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/routes/kviz/[...id]/+page.svelte": {
+    "mtime": 1779384504.7557993,
+    "ast_hash": "32cec82e45b87861435b8ba289d9f1e3",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/routes/kviz/tabella/+page.server.ts": {
+    "mtime": 1772563227.708,
+    "ast_hash": "4c8d99b6dc89ef544d50ce89695aa055",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/routes/kviz/tabella/+page.svelte": {
+    "mtime": 1779442811.3875186,
+    "ast_hash": "1d05446cfd6f8ab8484c624c5c185df2",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/drizzle/schema.ts": {
+    "mtime": 1748266998.965,
+    "ast_hash": "a98225d77b6716841dd9d6e525bd326b",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/drizzle/0000_chemical_tenebrous.sql": {
+    "mtime": 1727599294.377,
+    "ast_hash": "90a5474c5152f293370e540b3696f4bb",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/drizzle/relations.ts": {
+    "mtime": 1727599294.36,
+    "ast_hash": "a65c35cd16d6b5ccc56e05bef5ece682",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/drizzle/meta/0000_snapshot.json": {
+    "mtime": 1727599294.376,
+    "ast_hash": "e6db9e479f458bf29aff0352789b85b3",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/drizzle/meta/_journal.json": {
+    "mtime": 1727599294.377,
+    "ast_hash": "aea8d1f9a7e75624ce0dd22810c40d60",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/HUMANS.md": {
+    "mtime": 1771704811.948,
+    "ast_hash": "0820e1210bbe53b448abef9e9249c95f",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/README.md": {
+    "mtime": 1722505502.796,
+    "ast_hash": "8a55810c20270b4d9b919383af11bd5a",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/AGENTS.md": {
+    "mtime": 1780080965.8387399,
+    "ast_hash": "5ab105f98739f0846a4d7d99a38a073e",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/.github/workflows/sync-receptsarok-patika.yml": {
+    "mtime": 1779978170.570535,
+    "ast_hash": "4f39162954c3afe8c3da30053632cc1f",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/.github/workflows/sync-modx-to-firestore.yml": {
+    "mtime": 1780080927.2338955,
+    "ast_hash": "bcb77fa8c24c6cc744b2375890475a1d",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/app.html": {
+    "mtime": 1752588661.746,
+    "ast_hash": "76eaf02c488e8dea37ee3c44d768549b",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/icon.png": {
+    "mtime": 1752588614.523,
+    "ast_hash": "c4d41b84f585db010b3fdfe453ff01ba",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/receptsarok-logo.svg": {
+    "mtime": 1779904301.048554,
+    "ast_hash": "64c90ae007a36dda9446c7c6c43fbe64",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/apple-touch-icon.png": {
+    "mtime": 1752587290.385,
+    "ast_hash": "5f55735633fad42a6a6733584b8f063c",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/icon.svg": {
+    "mtime": 1777673199.2339957,
+    "ast_hash": "63f2bc18e700834401e13ceae060640c",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/koretek.jpg": {
+    "mtime": 1775498674.463939,
+    "ast_hash": "da20b010d3356abc73a7d4f550d68131",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/zoldsegetelek.jpg": {
+    "mtime": 1775498674.040524,
+    "ast_hash": "52900172c89cd804965187ce9e0e58c0",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/egytaletelek.jpg": {
+    "mtime": 1775498674.358773,
+    "ast_hash": "42df3f40e527669b95028b3fabbf4ceb",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/husetelek.jpg": {
+    "mtime": 1775498674.229658,
+    "ast_hash": "acdb0d070a39c23049c05ca54549c934",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/haletelek.jpg": {
+    "mtime": 1775498629.704311,
+    "ast_hash": "ccfbbc5d7df5317399427028374808e3",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/levesek.jpg": {
+    "mtime": 1775498673.933667,
+    "ast_hash": "92998edf4c4c2a37a6b9a8fe778be4a5",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/desszertek.jpg": {
+    "mtime": 1775498674.603787,
+    "ast_hash": "c72bc3f1fd2cfafce6521b31e51069d0",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2013/kaja-egyszeruminestrone.jpg": {
+    "mtime": 1774110281.679334,
+    "ast_hash": "0ee8cffec3db3e2d0c0fb2151d9e20d5",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2013/kaja-turos_mandulatorta.jpg": {
+    "mtime": 1774110306.45358,
+    "ast_hash": "a8ca54ab9dd08ee7647bfd0804b41a6e",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2013/kaja1-zoldpaprikasajttal.jpg": {
+    "mtime": 1774110297.595548,
+    "ast_hash": "af3629bce87fdbf6a21d526953aadafb",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2013/kaja-sajtos_karajkockak.jpg": {
+    "mtime": 1774110294.943801,
+    "ast_hash": "b71dfce38b2b6404dcecf04d12ccf139",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2013/kaja-sajtos_szivarvanysalata.jpg": {
+    "mtime": 1774110303.407952,
+    "ast_hash": "3b35c5deead0a4a47ad3215e54017fb7",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2013/kaja2sargarepavaltoltottcsirke.jpg": {
+    "mtime": 1774110295.353896,
+    "ast_hash": "01d26b213baa3d12baf637848fdf03fc",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2013/kaja-rozsaszin_salata.jpg": {
+    "mtime": 1774110303.087635,
+    "ast_hash": "f5187c70cd070040475775f55dcaf865",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2013/kaja-tarkonyos_husgombocleves.jpg": {
+    "mtime": 1774110283.055659,
+    "ast_hash": "345463c6e71eb399cb1fbba72219134e",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2013/kaja-foto2-1_szalka_brigitta_Lasagne.jpg": {
+    "mtime": 1774110300.13496,
+    "ast_hash": "ee051b774f64ec79644da7d9a2aeeeb6",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2013/kaja-grillezett_csirkemell_hagymas_cukkinivel.jpg": {
+    "mtime": 1774110292.92538,
+    "ast_hash": "af2fedf67d8f7f2e40caad4bdcb83f43",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2013/kaja-szines_rakott_zoldsegek.jpg": {
+    "mtime": 1774110288.823223,
+    "ast_hash": "248f1fdd72c80022f00d9a81a686d9c9",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2013/naranccsaltoltottcsirkemell.jpg": {
+    "mtime": 1774110293.535654,
+    "ast_hash": "39a2031bad076c5801c44988a31a0e41",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2013/kaja-savanyu_kaposztas_husgomboc.jpg": {
+    "mtime": 1774110300.694602,
+    "ast_hash": "f201d106fdca122beb9998eb3c2afe6a",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2013/kaja-kefireszoldsegmakaronival.jpg": {
+    "mtime": 1774110286.835057,
+    "ast_hash": "0ebe25ce407fcd129a6473ad748ba99e",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2013/kaja-vagdaltpogacsa.jpg": {
+    "mtime": 1774110295.034678,
+    "ast_hash": "aaed04757b696ddd335bbde3218bb1c9",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2013/kaja-olaszos_csirkemell.jpg": {
+    "mtime": 1774110294.227529,
+    "ast_hash": "a8ffd2132ced777b3550081416131753",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2013/kaja-toltott_gomba.jpg": {
+    "mtime": 1774110289.057148,
+    "ast_hash": "1f723318674a79bb988ecf44bf2b2306",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2013/kaja-konnyu_padlizsankrem.jpg": {
+    "mtime": 1774110296.862602,
+    "ast_hash": "4d878b67c94a439f0f31f215249a58be",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2013/kaja-almas_pasztinakkremleves.jpg": {
+    "mtime": 1774110280.573729,
+    "ast_hash": "da7f77afc09fcf8fccfdae6764b195fe",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2013/0204-kaja-daralthusosragu.jpg": {
+    "mtime": 1774110292.212443,
+    "ast_hash": "40d10ab725b668f1ba7ac96bd008f37a",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2013/0204-kaja-karfiolosgombascsirke.jpg": {
+    "mtime": 1774110299.598176,
+    "ast_hash": "ac4ca1d3895c0433f9b61f5263ebf0d4",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2013/kaja-tonhalsalata.jpg": {
+    "mtime": 1774110291.163148,
+    "ast_hash": "71e1234f06a0fc0588bc579531a8b48d",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2013/kaja-rantott_fogasfile.jpg": {
+    "mtime": 1774110290.687865,
+    "ast_hash": "7c387cd096497f7ef4f42f056c0452c4",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2013/kaja-parajos_zoldsalata_mozzarellaval.jpg": {
+    "mtime": 1774110302.39622,
+    "ast_hash": "918ee0bd828d7d32273ed260809130df",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2013/kaja-petrezselymes_csirkemell_salataval.jpg": {
+    "mtime": 1774110293.918865,
+    "ast_hash": "c4012e1429e8e2865d19f8aed796c61e",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2013/kaja-csoben_sult_karfiol_csirkemellel.jpg": {
+    "mtime": 1774110299.002207,
+    "ast_hash": "48165fb3f95d39f3572e3686d49430de",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2013/kaja-Hagymaval_es_repaval_toltott_kosarkak.jpg": {
+    "mtime": 1774110286.368843,
+    "ast_hash": "992254f4b6b5d5b92657e5954d5943b6",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2013/kaja-oszibarackleves.jpg": {
+    "mtime": 1774110282.685409,
+    "ast_hash": "c06fa7775354ea08bb651ef3885114d4",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2013/kaja-ratatouille.jpg": {
+    "mtime": 1774110287.71193,
+    "ast_hash": "a4f8718879b82b78f4aada54d0805f24",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2013/kaja-brassoi_pulykamell.jpg": {
+    "mtime": 1774110298.620874,
+    "ast_hash": "4a243980aeb09ae8b36b19dc437b1236",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2013/kaja-citromos_maktorta.jpg": {
+    "mtime": 1774110304.583425,
+    "ast_hash": "8de8b6a39a172eb7e6d16d2659b88673",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2013/kaja-Gombas_patisszonporkolt.jpg": {
+    "mtime": 1774110285.121247,
+    "ast_hash": "a87f0887b2ea4da69c43f8e4f15aeff7",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2013/kaja-piritott_csirkemaj_pikans_padlizsannal.jpg": {
+    "mtime": 1774110294.584918,
+    "ast_hash": "860d41c7d4446dd8789b769e6572c1a6",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2013/kaja-bajai_halaszle.jpg": {
+    "mtime": 1774110281.183253,
+    "ast_hash": "a21ad332b6be56650f46a02b06fbe263",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2013/kaja-zoldseges_muffin.jpg": {
+    "mtime": 1774110289.318117,
+    "ast_hash": "0df403f2a6289ffc153779c956865a3f",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2013/kaja-paradicsomos_mozarella.jpg": {
+    "mtime": 1774110297.256716,
+    "ast_hash": "5ea6f4d73325459399c85088d56edb78",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2013/kaja-afonyas_muffin.jpg": {
+    "mtime": 1774110304.179732,
+    "ast_hash": "57c7c44942882d1b111eb30f0623aafc",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2013/21-3-cukkinihajdinakasavaltoltve.jpg": {
+    "mtime": 1774110284.31616,
+    "ast_hash": "849c3b7226138f091c8cb940e9b9f193",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2013/kaja-makos_guba.jpg": {
+    "mtime": 1774110305.414143,
+    "ast_hash": "c062a27b093f5a410062baa4f14516a9",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2013/kaja-2-toltotttok.jpg": {
+    "mtime": 1774110300.341203,
+    "ast_hash": "9d2c68fe7265d53e44e8eacad14dfd8a",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2013/kaja-foto1-1_gyuricza_akos_hagymas_sargarepa_salata.jpg": {
+    "mtime": 1774110301.771541,
+    "ast_hash": "8070a35d4a770a853ac139da795b828e",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2013/kaja-juhturoval_gongyolt_csirkemell.jpg": {
+    "mtime": 1774110293.204275,
+    "ast_hash": "4ec5dfd65664a05dff364b3fe1885cbd",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2013/receptsarok4-b1pic-opaque.jpg": {
+    "mtime": 1774110279.635915,
+    "ast_hash": "5798eb3715448a5907f006d7bacd6bc9",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2013/kaja-mascarpones_turotorta_durumliszttel.jpg": {
+    "mtime": 1774110305.952056,
+    "ast_hash": "8e2f69760ca3937f7fffb0c68f1c75a7",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2013/kaja-edesfokhagymas_padlizsan.jpg": {
+    "mtime": 1774110284.674885,
+    "ast_hash": "62ace84e0adc11c31af49220d4996b54",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2013/kaja-foto1-1_szalka_brigitta_Kakukkfuves_paradicsomleves.jpg": {
+    "mtime": 1774110282.332897,
+    "ast_hash": "51fd379cce28f34ddba0f97a42e65d93",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2013/kaja-lecsos_padlizsancsonak.jpg": {
+    "mtime": 1774110287.260671,
+    "ast_hash": "3a893acf7b018fe8d465860685c5fd2b",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2013/sargarepakorpaval.jpg": {
+    "mtime": 1774110288.196428,
+    "ast_hash": "55233b0a101aeb87bd04abd2c5ba6837",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2013/kaja-2-csirkesalata.jpg": {
+    "mtime": 1774110301.357327,
+    "ast_hash": "cf1e052224f9019672ebdebcd64939f8",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2013/kaja-spenotos_palacsinta.jpg": {
+    "mtime": 1774110288.354355,
+    "ast_hash": "ebc8fa243e9ee4097a1c0055007200d7",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2013/kaja-joghurtos_pogacsa.jpg": {
+    "mtime": 1774110304.846306,
+    "ast_hash": "ecaa3ac61324c4fb54f41eadaa2720d6",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2013/kaja-sult_hal_mediterran_fuszerekkel.jpg": {
+    "mtime": 1774110291.417903,
+    "ast_hash": "1f267e0df3df833f44732c9f9558bb66",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2013/zoldtal.jpg": {
+    "mtime": 1774110289.695764,
+    "ast_hash": "95cb42b3eb2a6bea83c32bcbc5e5ab7f",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2013/kaja-fuszeres_husgolyok_mediterran_zoldsegmartassal.jpg": {
+    "mtime": 1774110292.617202,
+    "ast_hash": "fcddcd98a5b46ec1ac2e2f8b8c7a2545",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2013/kaja-pulykamellcsikok_gazdag_zoldsegkorettel.jpg": {
+    "mtime": 1774110294.853795,
+    "ast_hash": "f8292632c564dc24afeeac232bd1f238",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2013/kaja-grillezett_csirkemellcsikok_sajtos_brokkolival.jpg": {
+    "mtime": 1774110299.368277,
+    "ast_hash": "cd48f2cdaa7d45ff4cfc0c7bd27c2ec2",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2014/kaja-halaszle.jpg": {
+    "mtime": 1774098757.091353,
+    "ast_hash": "732de0ffaf8837e31b677a6d2d5d9f9a",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2014/kaja-sult_pisztrang_vajon_parolt_zoldsegekkel.jpg": {
+    "mtime": 1774098765.812125,
+    "ast_hash": "8d8b4a732f9cbb10b8bfdbbd4b234916",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2014/kaja-tavaszi_capelli_salata.jpg": {
+    "mtime": 1774098790.846127,
+    "ast_hash": "8def9c22089550a6bdcde6f6b3c38bd4",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2014/kaja-rakott_hus-2.jpg": {
+    "mtime": 1774098772.522448,
+    "ast_hash": "9f8d64c7948748428d6996e0c9c73661",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2014/kaja-medvehagymas_fetaval_toltott_pulykamell_tejszines_gombamartassal.jpg": {
+    "mtime": 1774098776.839062,
+    "ast_hash": "323560696267ad381931d6376028d9ab",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2014/kaja-szojacsirasalata_uborkaval-schon.jpg": {
+    "mtime": 1774098792.266533,
+    "ast_hash": "50a51156522dbc998cd9a08ed1d30ea5",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2014/kaja-lazacfile_hollandi_martassal.jpg": {
+    "mtime": 1774098765.406,
+    "ast_hash": "6b00159fcb1ca8b9fd6dc57943753712",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2014/kaja-sajttal.jpg": {
+    "mtime": 1774098784.052578,
+    "ast_hash": "5ce505e794976a2c131000612a521e90",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2014/kaja-olivasalata.jpg": {
+    "mtime": 1774098790.15528,
+    "ast_hash": "7440130f3e881268183df95d947ca777",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2014/kaja-jav-zoldseges_teszta_fokhagymamartassal.jpg": {
+    "mtime": 1774098760.668316,
+    "ast_hash": "53c421328f780b0812a560363d7b117e",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2014/kaja-Citromos_afrikai_harcsa_zoldseges_rizzsel-wieder-1.jpg": {
+    "mtime": 1774098767.205193,
+    "ast_hash": "9c7d0c33d9ce0bb7b262c6a883753a38",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2014/madartej-w-1.jpg": {
+    "mtime": 1774098801.943544,
+    "ast_hash": "8553d6d26bec84eeb6401bba1626ae9a",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2014/kaja-Sajttal_kapros_ontettel-schon.jpg": {
+    "mtime": 1774098782.213904,
+    "ast_hash": "fce0208bc6ec4371791d22ddb281494d",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2014/kaja-jav-kukoricas_virslisalata_hamis_majonezzel.jpg": {
+    "mtime": 1774098789.52961,
+    "ast_hash": "1d9eeca7c51c303565ee493736f10664",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2014/kaja-vajas_tesztaban_sult_zoldsegek.jpg": {
+    "mtime": 1774098761.119878,
+    "ast_hash": "a1fe4de2d3dabf6c161a7016435ade57",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2014/kaja-tejszines_gombapaprikas_tetek_fele_fodros_kockatesztaval.jpg": {
+    "mtime": 1774098760.45038,
+    "ast_hash": "9d40536eec48d0692f444e8d6ab6c76e",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2014/kaja-Piritott_csirkemell_fetasajtos_korettel.jpg": {
+    "mtime": 1774098778.264663,
+    "ast_hash": "55f2fd31cb08ecee9d750d1497004a6c",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2014/kaja-gyumolcssalata.jpg": {
+    "mtime": 1774098793.925349,
+    "ast_hash": "6b479067f63d8031be6ad81bc0365f44",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2014/kaja-gesztenyevel_toltott_pulyka.jpg": {
+    "mtime": 1774098774.963423,
+    "ast_hash": "0b9c80a5bb265524495a63570774e2bf",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2014/kaja-borjuhusos_padlizsan.jpg": {
+    "mtime": 1774098775.595773,
+    "ast_hash": "3dd13e681c26f971bca9243e8cb7ed5b",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2014/kaja-jav-toltott_burgonya.jpg": {
+    "mtime": 1774098761.48468,
+    "ast_hash": "4682e4f16a534a2889e811db5ac48f84",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2014/kaja-Pulykamell_pogacsak_teli_vitaminsalataval.jpg": {
+    "mtime": 1774098771.852737,
+    "ast_hash": "49157f316b9a10e95197c2da223de768",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2014/kaja-sajtgolyok.jpg": {
+    "mtime": 1774098781.291407,
+    "ast_hash": "d1c1283035aab10bc1109d2211637d4e",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2014/kaja-jav-bananos_epres_gyumolcsegyveleg-2.jpg": {
+    "mtime": 1774098797.186356,
+    "ast_hash": "060f87d763446d0456942bc76aeced74",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2014/kaja-zabpelyhes_alm_s_suti.jpg": {
+    "mtime": 1774098797.649135,
+    "ast_hash": "56e1907b74ef6860c3646587bac241d3",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2014/kaja-raksalata-95x143.jpg": {
+    "mtime": 1774098781.949496,
+    "ast_hash": "dd7ed0a0aae288bd34f6c497f47381d6",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2014/kaja-tokaji_szolotorta.jpg": {
+    "mtime": 1774098798.703239,
+    "ast_hash": "1d44d4479c69a2963825c4b1087c788f",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2014/kaja-jav-laskagombas_pulykaragu_rizzsel-2.jpg": {
+    "mtime": 1774098772.246633,
+    "ast_hash": "97b5e3e9e51d8ec8293dc33556bc74db",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2014/kaja-padlizsankrem.jpg": {
+    "mtime": 1774098780.687662,
+    "ast_hash": "e4ed9c5ed27de7f39bc968e3038b141d",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2014/kaja-Hagymas_babsalata-s.jpg": {
+    "mtime": 1774098795.357794,
+    "ast_hash": "0cf19483956a14f3bcfd4ec61aacfc73",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2014/kaja_fuszeres_tea.jpg": {
+    "mtime": 1774098783.276865,
+    "ast_hash": "839a0c639bd44f4eccabba34422e9438",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2014/mozarell_s_csirkemell-sch_n.jpg": {
+    "mtime": 1774098772.811771,
+    "ast_hash": "4115047b64a4129a78993c2755a026bf",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2014/grillezett_kecskesajt-wieder-1.jpg": {
+    "mtime": 1774098783.615742,
+    "ast_hash": "3f0bc2053aedff7c104403d8abac9977",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2014/kaja-kukorica_kremleves-2.jpg": {
+    "mtime": 1774098756.647478,
+    "ast_hash": "8feea0ea1e5871caa37cd5c64d92ac68",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2014/kaja-jav-rakott_barna_teszta.jpg": {
+    "mtime": 1774098787.712477,
+    "ast_hash": "7aaaf44639b6e417453f93d8db07379b",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2014/kaja-serteskaraj_vadrizzsel_zoldsegekkel-1.jpg": {
+    "mtime": 1774098774.563574,
+    "ast_hash": "6f06a114f2277b674e9efb4f795d9700",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2014/kaja-szardinia_salata-85x50.jpg": {
+    "mtime": 1774098794.381429,
+    "ast_hash": "5c615c5c526208fcbf216f07718211a7",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2014/kaja-Balatoni_sullo-95x143.jpg": {
+    "mtime": 1774098767.922195,
+    "ast_hash": "03d2af409df43a969c7c05f3be9f5197",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2014/kaja-Hagymas_piritott_csirkemell_zsazsacsiraval-s.jpg": {
+    "mtime": 1774098776.283414,
+    "ast_hash": "4fb92be4ccfef52daa275103af28515e",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2014/kaja-mezesmakos_guba.jpg": {
+    "mtime": 1774098799.58759,
+    "ast_hash": "03164062d3539a850e68e2328519701b",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2014/kaja-tejszines_pulykacsikok_mazsolas_rizzsel-2.jpg": {
+    "mtime": 1774098773.920631,
+    "ast_hash": "dc7a680f9f8f2d196b7cb43092fe8571",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2014/kaja-fokhagymas_lepenyhal_garnelarakkal.jpg": {
+    "mtime": 1774098769.911,
+    "ast_hash": "c0ee8b28166cad7218d318d1c6625df8",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2014/kaja-juhturos_fustolt_lazacszeletek.jpg": {
+    "mtime": 1774098768.277084,
+    "ast_hash": "7b21196d4d0c6ad59f61798d3b775855",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2014/kaja-Lecsos_kolbaszos_bulgur.jpg": {
+    "mtime": 1774098787.398872,
+    "ast_hash": "89fcff512cf73bba1860e02a8c3653a6",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2014/kaja-Grillezett_csirkemell_parolt_zoldsegekkel-wieder-1.jpg": {
+    "mtime": 1774098775.701064,
+    "ast_hash": "98dde815c0ae4ebf125e991e70bbacbf",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2014/kaja-csirke_cserepben_zoldsegekkel.jpg": {
+    "mtime": 1774098773.730247,
+    "ast_hash": "7e2aacd9d2f11b6b09ca9fc68c988a2f",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2014/kaja-jav-sargarepas_gombas_sertesragu.jpg": {
+    "mtime": 1774098777.040425,
+    "ast_hash": "03b2104729ee03218c8fc24de6278259",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2014/kaja-tokehal_szolomartassal-85x50.jpg": {
+    "mtime": 1774098768.631194,
+    "ast_hash": "385ca4dbbfb0f9a33e4854603a303f25",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2014/kaja-lecsos_padlizsan.jpg": {
+    "mtime": 1774098762.139227,
+    "ast_hash": "23ef49b9eae6fe95b49214af13bb89a6",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2014/kaja-turoval_toltott_paprika-wieder-1.jpg": {
+    "mtime": 1774098780.777314,
+    "ast_hash": "ce56e3a0288e43741ade5c07109a31c9",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2014/kaja-jav-toltott_karalabe-x.jpg": {
+    "mtime": 1774098772.052553,
+    "ast_hash": "f17c39b4290a754b2220f6cf3b4862de",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2014/kaja-zoldborsos_sajtos_csirkemellsalata-schon.jpg": {
+    "mtime": 1774098791.251695,
+    "ast_hash": "20ca6862882c4c91a81d5dbc23c37b68",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2014/kaja-avokados_rak1.jpg": {
+    "mtime": 1774098767.086,
+    "ast_hash": "d759de6a6fe291174f97aca4cd063420",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2014/kaja-jav-Roston_sult_tonhal_zoldseges_rizottoval.jpg": {
+    "mtime": 1774098764.121168,
+    "ast_hash": "a99058ff6237b6ee085eb8c639833369",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2014/kaja-husos_toltott_karalabe_2.jpg": {
+    "mtime": 1774098776.416532,
+    "ast_hash": "9b161b03ea9e0e5f995a4ba51e5ffd21",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2014/kaja-joghurtos_almas_sarrgarepasalata-schon.jpg": {
+    "mtime": 1774098791.940088,
+    "ast_hash": "14f383654448bc7b2290d0ed426bd318",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2014/kaja-thai_tenger_gyumolcsei_szojaolajos_zoldsegekkel-wieder-3.jpg": {
+    "mtime": 1774098765.505301,
+    "ast_hash": "1621728cab1a4d358e376bd93e5b6c68",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2014/kaja-Negysajtos_fustos_spagetti.jpg": {
+    "mtime": 1774098788.074843,
+    "ast_hash": "9e86e69001d7ee6e19e5f10b17ef26df",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2014/kaja-Grillezett_afrikai_harcsa_cukkinivel.jpg": {
+    "mtime": 1774098763.924139,
+    "ast_hash": "f2c40dea2cb858cf83246df89430715b",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2014/mandul_s_lazac_fil_-wieder-1.jpg": {
+    "mtime": 1774098770.365189,
+    "ast_hash": "e4e797f486f7f2ebb7efb48ed3e1729b",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2014/kaja-tejszines_porehagymaleves.jpg": {
+    "mtime": 1774098757.415503,
+    "ast_hash": "7c170e2bb0ebd6b57ff75a36649b7a9e",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2014/kaja-joghurtos_sargadinnye.jpg": {
+    "mtime": 1774098799.98531,
+    "ast_hash": "6eaf0fea94522eab7aa0117bdcc81522",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2014/kaja-Narancsos_sajttorta.jpg": {
+    "mtime": 1774098801.578227,
+    "ast_hash": "fb4784e6d2849c56ecec19ce22130eab",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2014/kaja-Friss_zoldsegek_sajtmartassal.jpg": {
+    "mtime": 1774098762.44868,
+    "ast_hash": "ff7d716cf87041e317f4cf219f4f4ee0",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2014/kaja-csipos_tojasleves_tofuval_es_fafulgombaval-schon.jpg": {
+    "mtime": 1774098757.630481,
+    "ast_hash": "fcbcdbfee31a048f77aa4e06c6a67d31",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2014/kaja-Tenger_gyumolcsei_sonkas-joghurtos_masni_tesztaval-schon.jpg": {
+    "mtime": 1774098767.460562,
+    "ast_hash": "875d3792f393e108515cba97bb0537e9",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2014/kaja-husos_zoldbabfozelek.jpg": {
+    "mtime": 1774098787.04089,
+    "ast_hash": "807f39a1cd02034a7d6788107b4ae92f",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2022/rs2022-Sajttal_t_lt_tt_gombafejek.jpg": {
+    "mtime": 1777756627.575781,
+    "ast_hash": "a431402c779db127ecdf3718383516e3",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2022/rs2022-Narancsos_pulykaleves-_IMG2598-1.jpg": {
+    "mtime": 1777756625.819471,
+    "ast_hash": "a167e3e4db0cf65cc724ba942b9a02de",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2022/rs2022-S_lt_karaj_borsm_rt_sban-_IMG5173.jpg": {
+    "mtime": 1777756628.825209,
+    "ast_hash": "7dbd5a1a5024062b707c4bbf139277bd",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2022/rs2022-Rakott_ceruzabab_k_lessel-IMG_4965.jpg": {
+    "mtime": 1777756626.498712,
+    "ast_hash": "48bf82665db5ab3f45aaaae1f9e55b07",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2022/rs2022-Csirkemellcs_kok_szilv_s,_ciber_s_t_rt_krumplival-_IMG7226.jpg": {
+    "mtime": 1777756631.009748,
+    "ast_hash": "3b9bfda0e1d1908fcc15a66ada4c2a93",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2022/rs2022-Paradicsomos_halleves_rizst_szt_val-paradicsomos_halleves..jpg": {
+    "mtime": 1777756628.01868,
+    "ast_hash": "5a57442e216072f3fdef57241d8bf4b4",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2022/rs2022-Teljes_ki_rl_s__sajtos_r_d-teljes_ki_rl_s__sajtos_r_d_(1).jpg": {
+    "mtime": 1777756650.761489,
+    "ast_hash": "5c5956be9fe0e6b58dc182aec4d83945",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2022/rs2022-Szilv_s-karajos_teljes_ki_rl_s__pite-_IMG2739-1.jpg": {
+    "mtime": 1777756637.511865,
+    "ast_hash": "ecbe8c5742e256c17dd3e6252d2c0789",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2022/rs2022-Borleves_mandul_s_habgalusk_val-_IMG2642.jpg": {
+    "mtime": 1777756625.613354,
+    "ast_hash": "3de4f095ba3df54ce49bae7fcbd6fb7c",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2022/rs2022-Halfas_rt_s_t_ben_s_tve-halfas_rt.jpg": {
+    "mtime": 1777756627.647454,
+    "ast_hash": "fb7153dee42a2604a2ce07ef753cbdfb",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2022/rs2022-Magyaros,_s_lt_pontyszelet-_IMG5217.jpg": {
+    "mtime": 1777756627.943612,
+    "ast_hash": "5aa2da2a50e7db558d63d2a13e0c120a",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2022/rs2022-K_poszt_s_vagdalt_paradicsomm_rt_ssal-20220602_104931-1.jpg": {
+    "mtime": 1777756634.556672,
+    "ast_hash": "ace9d8f93f725ff6d0e4d6bed6226abc",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2022/rs2022-Erd_lyi_tordai_gomb_s_toj_s-630775f2815b9.jpg": {
+    "mtime": 1777756634.626048,
+    "ast_hash": "26af368aa424cc3c0b721d4fe60f18a9",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2022/rs2022-S_lt_csirkecomb_k_poszt_s_raguval-s_lt_csirkecomb_k_poszt_s_raguval-1.jpg": {
+    "mtime": 1777756629.271663,
+    "ast_hash": "f6a7dbeed4f41ceb026be5b1ec2f81e4",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2022/rs2022-Marhap_rk_lt_bulgurral-marhap_rk_lt_bulgurral-1.jpg": {
+    "mtime": 1777756629.898744,
+    "ast_hash": "07a40204c04cc889830799b10d0265b0",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2022/rs2022-T_lt_tt_csirkemell_hercegn_burgony_val,_almam_rt_ssal-t_lt_tt_csirkemell.jpg": {
+    "mtime": 1777756632.565428,
+    "ast_hash": "c4fb69fccfa8ecdddc278ce2d5e5201f",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2022/rs2022-Ny_ls_lt_p_rg_s_bulgurral-_IMG6935.jpg": {
+    "mtime": 1777756630.499407,
+    "ast_hash": "eb099f33890bce3ad78e9a4cd19b1a22",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2022/rs2022-Kapros,_t_r_s_csirkemelltekercs-_IMG7272.jpg": {
+    "mtime": 1777756632.457919,
+    "ast_hash": "a0d1916d8054d2d40ea56221929c1058",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2022/dt2201-kaja-_IMG3203.jpg": {
+    "mtime": 1777756626.32818,
+    "ast_hash": "cf4a83c3d8004779dd97f2ac7e3bd144",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2022/rs2022-Gomb_s_bulgurral_t_lt_tt_kelk_poszta-_IMG7136.jpg": {
+    "mtime": 1777756627.390714,
+    "ast_hash": "ce294bb85e3e9774375da312d58442e0",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2022/rs2022-Cig_ny_lecs___des_k_poszt_val__s_csirk_vel-_IMG7148.jpg": {
+    "mtime": 1777756639.802626,
+    "ast_hash": "33e44b2d5a6e48899f90683ed9192f81",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2022/rs2022-Lecs_s_csirkecombfalatok_s_lt_hagymakarik_kkal,_k_poszt_spalacsinta-bogly_val-_IMG7307.jpg": {
+    "mtime": 1777756629.630806,
+    "ast_hash": "450ac93340359bee640bc34d4bc95cbc",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2022/rs2022-Citrusos_joghurt_ropog_s_zabpehellyel-_IMG5196.jpg": {
+    "mtime": 1777756644.391659,
+    "ast_hash": "aefc3a107cd160e18f92aba9e8334389",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2022/rs2022-T_r_nudli_v_r_sboros_szilvaraguval-_IMG6909.jpg": {
+    "mtime": 1777756645.87712,
+    "ast_hash": "39e6170aa7273da0908fcca4025f5176",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2022/rs2022-Babos_lecs_-Babos-Lecso-DSC_0063.jpg": {
+    "mtime": 1777756627.186065,
+    "ast_hash": "204dace0a79ff031529980f03d1106ec",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2022/rs2022-Toj_ssal_t_lt_tt_csirkemell_gombapaszt_val,_baconk_nt_sben-20220122_141623_(3)-1.jpg": {
+    "mtime": 1777756629.094823,
+    "ast_hash": "31a49139379eff2e7b3528e3ed756d8a",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2022/rs2022-Di_s_kal_cs-di_s_kal_cs.jpg": {
+    "mtime": 1777756646.500562,
+    "ast_hash": "ce0466d62024fbc9e033d6786e285911",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2022/rs2022-Serpeny_s_c_kla_kukoricadar_s_pisztr_ngfil_vel-_IMG2442-1.jpg": {
+    "mtime": 1777756628.166011,
+    "ast_hash": "1c6a9163aee0ef2f2cf0917106bd698a",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2022/rs2022-Citromos-meggyes_poh_rkr_m-citromos-meggyes_poh_rkr_m_(1).jpg": {
+    "mtime": 1777756648.503508,
+    "ast_hash": "cf7d955cb984235be9fbf18e2103fca4",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2022/rs2022-Batyus_csirkecomb-batyus_csirkecomb-3.jpg": {
+    "mtime": 1777756628.521507,
+    "ast_hash": "a2ffa32b974e2bca550f3bb04f7c2b83",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2022/rs2022-Pek_ndi_s_apr_s_ti-_IMG2588.jpg": {
+    "mtime": 1777756650.249809,
+    "ast_hash": "95d30b158fbd648e840761a286a8cfbd",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2022/rs2022-Z_ldbors_leves_teljes_ki_rl_s__galusk_val-_IMG5128.jpg": {
+    "mtime": 1777756625.385,
+    "ast_hash": "4d0e578f9a832daaed88f391670502d6",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2022/rs2022-Sonk_s,_sajtos_rakott_karfiol-20210320_160751_(1)-1.jpg": {
+    "mtime": 1777756638.02698,
+    "ast_hash": "ef4cd61fd9cb9769e3054a68972b63bf",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2022/rs2022-Paradicsomos_h_sgomb_c-Paradicsomos_h_sgomb_c-1.jpg": {
+    "mtime": 1777756641.104802,
+    "ast_hash": "551945adc7f539896af2d01c7beabcdd",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2022/rs2022-Sz_nhidr_tcs_kkentett_kar_csonyi_palacsinta-_IMG2678.jpg": {
+    "mtime": 1777756648.082473,
+    "ast_hash": "ba7249f221b2988bd7229b59b1aafa50",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2022/rs2022-Cukkinis,_hagym_s_csirkem_j-_IMG7033.jpg": {
+    "mtime": 1777756629.847933,
+    "ast_hash": "b1569ba43a6cace37777b1968e60d80a",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2022/rs2022-Cser_pt_lban_k_sz_lt_hamis_ludask_sa_gazdagon-cser_pt_lban_k_sz_lt_ludask_sa.jpg": {
+    "mtime": 1777756636.431327,
+    "ast_hash": "ab0a6322e8e16892f87afdb0091a525f",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2022/rs2022-Lecs_s_h_s_puliszk_val-_IMG7341.jpg": {
+    "mtime": 1777756634.36328,
+    "ast_hash": "b4230727d3ec36e291c31e5bf4ddf8aa",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2022/rs2022-Brokkolis_rakott_burgonya-20210214_150117-3.jpg": {
+    "mtime": 1777756636.946629,
+    "ast_hash": "da4ca5bbfbf3e78a49559e08644160b9",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2022/rs2022-R_bamenti_k_poszt_s_harcsa-_IMG7194.jpg": {
+    "mtime": 1777756628.404855,
+    "ast_hash": "b183f75ea2dfa86b1991f036ce305f47",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2022/_IMG3281.jpg": {
+    "mtime": 1777756642.758314,
+    "ast_hash": "31689ac6f1131e0ba4e7e03f0d9f779d",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2022/rs2022-K_poszta_gyon_s_lt_csirkecomb-K_poszta__gyon_s_lt_csirkecomb_1-1.jpg": {
+    "mtime": 1777756630.142331,
+    "ast_hash": "3cb9d72db3714d5d7e7c37b01bb254b3",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2022/rs2022-Cukormentes_pisk_tanyal_ka-_IMG2658.jpg": {
+    "mtime": 1777756652.78,
+    "ast_hash": "6b6fec4e255cce3e7e1481397c685639",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2022/rs2022-Karfiolgomb_c-_IMG6967.jpg": {
+    "mtime": 1777756626.943465,
+    "ast_hash": "cf4d06b94034d6058b711a10b12bf9b3",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2022/rs2022-Csibefas_rt_steakbrokkolival__s_ajv_rral-62eb6fd3dd3e8-1.jpg": {
+    "mtime": 1777756630.714323,
+    "ast_hash": "3e2f0e1527bea5625b51df70663d6686",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2022/rs2022-T_r_s_pite-t_r_s_pite.jpg": {
+    "mtime": 1777756651.028944,
+    "ast_hash": "66110489d58ecdd3267d3696872a7eae",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2022/rs2022-H_sgomb_c_kaporm_rt_sban-s_lt_h_sgomb_c_kaporm_rt_sban.jpg": {
+    "mtime": 1777756635.223844,
+    "ast_hash": "496e718b94b27eb31f50b8493f20552e",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2022/rs2022-Lencsefas_rt-_IMG6994.jpg": {
+    "mtime": 1777756626.718933,
+    "ast_hash": "e1772ed96764881f75be4605f8e0a8ce",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2025/kaja-rs25-burgonyapureleves_krumplis_galuskaval-facbbdb4-1c45-4f03-aef3-fc6242b9c533-1_all_158182-1.jpg": {
+    "mtime": 1769690241.037,
+    "ast_hash": "9efd1e2f3224fe1ed4ec7ecd0a4a6e26",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2025/kaja-rs25-kard-csicseribors_s_t_szta.jpg": {
+    "mtime": 1769690247.425,
+    "ast_hash": "29ddcd4a96a5f11f3d652ec9fd0c1932",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2025/kaja-rs25-bodnar-resztelt_m_j,_pasztern_k_p_r_vel-1.jpg": {
+    "mtime": 1769690254.622,
+    "ast_hash": "147421a65ed1fe8b20e1d17b59045b9b",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2025/kaja-rs25-gyumolcsleves-IMG_3406-1.jpg": {
+    "mtime": 1769690240.285,
+    "ast_hash": "2b399fe0e8474009a1655d23eb4adb1e",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2025/kaja-rs25-sargarepas_stefaniavagdalt-689de6711e05f-1.jpg": {
+    "mtime": 1769690255.473,
+    "ast_hash": "b6903b5e6dd0cab85be53d48630438cf",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2025/kaja-rs25-sutotokos_feketelencse-1000000366-3.jpg": {
+    "mtime": 1769690260.32,
+    "ast_hash": "8dd3437e5b5522b7bc6e01cb6cda172e",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2025/kaja-rs25-parajfeszek_gerslikorettel-1000000314.jpg": {
+    "mtime": 1769690248.332,
+    "ast_hash": "decbd209e83b0fa4d096a18ed03e8c3f",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2025/kaja-rs25-rantasos_retes-689df20bdc29f.jpg": {
+    "mtime": 1769690268.099,
+    "ast_hash": "9785470bb1be8365669c6cb917e4aad7",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2025/kaja-rs25-madartej-689df0735bb2c-3.jpg": {
+    "mtime": 1769690272.587,
+    "ast_hash": "9029a45b9fe2519eb055ee2c2d56cff6",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2025/kaja-rs25-datolyas_kokuszgolyo-DSC09345.jpg": {
+    "mtime": 1769690269.663,
+    "ast_hash": "e484990350b06b73757666ba2ca78ed5",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2025/kaja-rs25-kard-r_p_s-gomb_s_pulykamell-1.jpg": {
+    "mtime": 1769690256.513,
+    "ast_hash": "e51139fa4cc124e15af4e15d006dbb52",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2025/kaja-rs25-spargas_zoldbabos_brokkoli-1000000306-4.jpg": {
+    "mtime": 1769690246.924,
+    "ast_hash": "3c5c4d05bc37f35340d5b1d1d8151f64",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2025/kaja-rs25-narancsos_kuglof-IMG_3864.jpg": {
+    "mtime": 1769690270.849,
+    "ast_hash": "060f61c021751c220c1ac1e9f42081d9",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2025/kaja-rs25-csoben_sult_padlizsan-DSC09435.jpg": {
+    "mtime": 1769690260.088,
+    "ast_hash": "d3a31c445bfadc06a5bb4de54b3c5e32",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2025/kaja-rs25-kaposztas_pogacsa-DSC09395.jpg": {
+    "mtime": 1769690270.479,
+    "ast_hash": "1b1815f97dec0acb7aff899a25952bbb",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2025/kaja-rs25-csirkemell_csicseriborsos_bulgurral-DSC09244.jpg": {
+    "mtime": 1769690255.14,
+    "ast_hash": "2908a82ede8a79004f4c9b3d4713db10",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2025/kaja-rs25-kard-lecs_s-csirkem_j..jpg": {
+    "mtime": 1769690256.608,
+    "ast_hash": "b66138f078ff3579c48442adacf9aaa2",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2025/kaja-rs25-paradicsomos_cukkiniporkolt-DSC09369.jpg": {
+    "mtime": 1769690244.765,
+    "ast_hash": "ed7e8210c1b340131ecf34af13bf43d6",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2025/kaja-rs25-haromsajtos_toltott_sutotok-1000000156-1.jpg": {
+    "mtime": 1769690243.657,
+    "ast_hash": "709f5611e1be81bdb56403bf2dfc6fc3",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2025/kaja-rs25-almakremleves_kolessel-repaired-68c3e1019a130-1.jpg": {
+    "mtime": 1769690239.869,
+    "ast_hash": "212e16b03bb3823098b719c8384899de",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2025/kaja-rs25-kinaikelfozelek_voroslencsefasirttal-689dff8b0867c-1.jpg": {
+    "mtime": 1769690243.383,
+    "ast_hash": "811e430ac0d1a9aea9ba58aa06c69563",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2025/kaja-rs25-szilvas_tejfolos_piskota-DSC09332.jpg": {
+    "mtime": 1769690272.24,
+    "ast_hash": "696191cc268c1d8438f9055ce6bde509",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2025/kaja-rs25-teljeskiorlesu_palacsinta-DSC09300.jpg": {
+    "mtime": 1769690271.765,
+    "ast_hash": "21044121f73d1d517ed8db2edc4415e7",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2025/kaja-rs25-karfiolkrem-689dedc8b97dd.jpg": {
+    "mtime": 1769690264.304,
+    "ast_hash": "739c4ff149e62a7375708dc6923f608f",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2025/kaja-rs25-grillezett_lazacfile_salataval_es_furjtojassal-1000000398.jpg": {
+    "mtime": 1769690252.454,
+    "ast_hash": "43ed314aa021ccef5c5b82ed0cb4c324",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2025/kaja-rs25-tarkonyos_karalabefozelek_voroslencsefasirttal-DSC09406.jpg": {
+    "mtime": 1769690245.718,
+    "ast_hash": "57a737c5fa208cc8555f648a829f0468",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2025/kaja-rs25-hentestokany-689ded78efdee-1.jpg": {
+    "mtime": 1769690256.312,
+    "ast_hash": "0e09fac83e5d25c11bf9aad91ffbb7a4",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2025/kaja-rs25-kard-toj_sos_fokhagymaleves.jpg": {
+    "mtime": 1769690240.713,
+    "ast_hash": "b598657d96ca7227a39f0691880d1505",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2025/kaja-rs25-palocleves_savanyitott_zoldbabbal-20201106_135658-1.jpg": {
+    "mtime": 1769690239.765,
+    "ast_hash": "51ec17ec998995b458e9a577f8a50b1e",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2025/kaja-rs25-bodnar-z_lds_ges_harcsap_st_tom_sal_talevelekre_t_lalt_vegyes_k_rettel-1.jpg": {
+    "mtime": 1769690252.845,
+    "ast_hash": "ee8ee88feee52d1c11e7784965370ad9",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2025/kaja-rs25-Sajttal_t_lt_tt_karal_b__r_ntva_2-1.jpg": {
+    "mtime": 1769690245.958,
+    "ast_hash": "71233644e36fa464f6308d82340f71ab",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2025/kaja-rs25-rantasos_retes-689df20bdfa1e-3.jpg": {
+    "mtime": 1769690269.299,
+    "ast_hash": "218f880ec31bbf9d819773ab826bbb16",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2025/kaja-rs25-tojasos_cukkinis_lecso-689de7fb07b7b-1.jpg": {
+    "mtime": 1769690262.126,
+    "ast_hash": "66936d1f5677e2161f2b248b8335c5fc",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2025/kaja-rs25-hazi-pulykaszalami-DSC09268.jpg": {
+    "mtime": 1769690265.204,
+    "ast_hash": "ab5e43f2891e094ae6fa4c89597f0b3f",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2025/kaja-rs25-ropogos_sult_csirkecomb-20240911_120427-1.jpg": {
+    "mtime": 1769690256.981,
+    "ast_hash": "440819226a7549a1e7ab610e8c95d14d",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2025/kaja-rs25-tojasos_karfiol-689df3c4509e3.jpg": {
+    "mtime": 1769690249.347,
+    "ast_hash": "8e8f3664bfa69755becb894ee2470a31",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2025/kaja-rs25-zoldseges_rizses_hus-DSC09356.jpg": {
+    "mtime": 1769690261.393,
+    "ast_hash": "f2fa401dac6bd9e1766bbf95b86d4a94",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2025/kaja-rs25-kapros_joghurtos_tokleves-20210702_130534-1.jpg": {
+    "mtime": 1769690238.404,
+    "ast_hash": "4fbf08fb2a9a4819f7290c5a11737141",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2025/kaja-rs25-kard-gomb_s_pulykamell..jpg": {
+    "mtime": 1769690257.37,
+    "ast_hash": "0a78df5c324795552a322992ef1d38f0",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2025/kaja-rs25-sult_csirkecomb_kaposztas_raguval-DSC09229.jpg": {
+    "mtime": 1769690255.968,
+    "ast_hash": "e8a6aedd96c8743280e4159e02892474",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2025/kaja-rs25-nagyi_hires_csorbaja-DSC09179.jpg": {
+    "mtime": 1769690239.486,
+    "ast_hash": "4733591d9ad7030a988f28306f7d5544",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2025/kaja-rs25-egresszosz_tukortojassal-20240916_132612.jpg": {
+    "mtime": 1769690261.723,
+    "ast_hash": "de6d79dd6288d1b8a2e4b964e22c05b7",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2024/kaja-Sz_v_alak__sajttorta_s_t_s_n_lk_l-IMG_5996.jpg": {
+    "mtime": 1777758008.112157,
+    "ast_hash": "ab3ef904672902a9fcd2bbc9cf1e1d82",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2024/kaja-Cukkinis_k_rt_skal_cs-66bc5b2f45a5d-1.jpg": {
+    "mtime": 1777758008.069613,
+    "ast_hash": "299c9439bd7eda31ec02c69909ea20c0",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2024/kaja-T_r_s_galuska-IMG_6348-1.jpg": {
+    "mtime": 1777758015.802015,
+    "ast_hash": "1368c4ddfd05eb8ae3e08d1ea8421a48",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2024/kaja-M_kos,_s_rgabarackos_kevert_pite-20210726_155510-1.jpg": {
+    "mtime": 1777758016.220754,
+    "ast_hash": "2d9011b01b4989776f6fc09498815765",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2024/kaja-Meggyes-m_kos_pisk_ta-66abc71cb0955-1.jpg": {
+    "mtime": 1777758009.901989,
+    "ast_hash": "7f6915ef0b561441778d9775818d7a88",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2024/kaja-Gumiszelet-66d1ee28e86a3-1.jpg": {
+    "mtime": 1777758012.028191,
+    "ast_hash": "c15138e0388be53b8b0d7e04fdfd6384",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2024/kaja-Smoothie_bowl-66d1f89c670cd-1.jpg": {
+    "mtime": 1777758016.997475,
+    "ast_hash": "110ade987a8f488233e4427539faf123",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2024/kaja-_desburgony_s_krumplifut_r-66bc5dc148fa7-1.jpg": {
+    "mtime": 1777758011.334636,
+    "ast_hash": "f0af00bed88b7a707809f19d37365369",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2024/kaja-Joghurttorta-joghurttorta.jpg": {
+    "mtime": 1777758019.642822,
+    "ast_hash": "42cb1c67ebb3a02b01eab6102735f866",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2024/kaja-Reszelt_epres_szelet-epres_su\u0308ti_.jpg": {
+    "mtime": 1777758014.879437,
+    "ast_hash": "d3f2c423b83350947aa6819ae5ca67ab",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2024/kaja-M_ln_s_joghurttorta-66ba01e573055-1.jpg": {
+    "mtime": 1777758020.956548,
+    "ast_hash": "408c225a818616d4391d2bd5d5edaa7e",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2024/kaja-Kefirtorta-Recept_007-1.jpg": {
+    "mtime": 1777758012.579091,
+    "ast_hash": "c4229e6f13cd2928d8b36ab9c5f6b0de",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2024/kaja-Alm_s-r_p_s_vitamingoly_-66ba03e627eff.jpg": {
+    "mtime": 1777758009.032439,
+    "ast_hash": "85ea14ce67e969a3420dcc17614da6ef",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2024/kaja-Zserb_goly_-IMG_6993-1.jpg": {
+    "mtime": 1777758014.171414,
+    "ast_hash": "281935ce5bd07b05302d073da72e8c50",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2024/kaja-_desburgony_s-m_kos_bejgli-_IMG6535.jpg": {
+    "mtime": 1777758009.532687,
+    "ast_hash": "00de8d30f3e11d5f75ea1da5a85a5f4e",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2024/kaja-Epres-bodz_s_torta-20210602_093219_(1)-1.jpg": {
+    "mtime": 1777758015.463345,
+    "ast_hash": "4a38646690bc000d4a74813e156caa66",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2024/kaja-Smoothie_bowl-66d1f89c683c1-1.jpg": {
+    "mtime": 1777758017.166772,
+    "ast_hash": "adde628aff3a1315e73def6259a05157",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2024/kaja-Lusta_r_tes_glut_nmentesen-IMG_5622-1.jpg": {
+    "mtime": 1777758013.261301,
+    "ast_hash": "6297b4fd9e8639e6405f92533f7993f5",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2024/kaja-K_poszt_s-hagym_s_pog_csa-66ba0389c7a0a-1.jpg": {
+    "mtime": 1777758010.08317,
+    "ast_hash": "c4f5ff873e7bcb1b413fec573e207305",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2024/kaja-F_gesajt-66ba04bad0cf1.jpg": {
+    "mtime": 1777758016.707386,
+    "ast_hash": "31842672d40f33cd6a618412281e5776",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2024/kaja-Szedres_j_gkr_m-66bc5ef8850eb.jpg": {
+    "mtime": 1777758008.545156,
+    "ast_hash": "5c74356172a69d55c689f66cbba556e4",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2024/kaja-T_p_rty_s_pog_csa-t_p_rty_s_pog_csa-1.jpg": {
+    "mtime": 1777758010.3363,
+    "ast_hash": "8199af16c6f5108540c644a424a1ae7d",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2024/kaja-Hamis_k_kuszgoly_-66ba01627de1a-1.jpg": {
+    "mtime": 1777758015.989014,
+    "ast_hash": "6988336d006632988bcfc883488a5c2d",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2024/kaja-H_feh_rke-H_feh_rke.jpg": {
+    "mtime": 1777758008.343766,
+    "ast_hash": "91a2ebfd674644379643abafa69fac04",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2024/kaja-Karfiolfagyi-66d1fee3954f7-1.jpg": {
+    "mtime": 1777758015.09198,
+    "ast_hash": "9068bd97022b6dd5106142280b097d21",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2024/kaja-Szez_mos_c_klakr_m-_IMG9491.jpg": {
+    "mtime": 1777758011.576663,
+    "ast_hash": "860eea534ba34175e30c96dc8bd6cadf",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2024/dt2404-kaja-kovacsbence-_IMG1046.jpg": {
+    "mtime": 1777758012.940223,
+    "ast_hash": "eda013f3675beb981d8c6add8f0aae91",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2024/kaja-S_rga_cukkinis_t_r_s_palacsinta-SargaCukkinisTurosPalacsinta-DSC_0252-1.jpg": {
+    "mtime": 1777758013.869461,
+    "ast_hash": "77b44d2e871eab7117995c505b190289",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2024/kaja-Zserb_-66bc5b99eb873-1.jpg": {
+    "mtime": 1777758013.130252,
+    "ast_hash": "a61136fb21815bb3d4a27db74c6ba071",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2024/kaja-Citromos_t_r_torta_s_t_s_n_lk_l-image0_(1).jpg": {
+    "mtime": 1777758016.870507,
+    "ast_hash": "9980ad50c9c75bce9ead2d975d7f7d15",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2024/kaja-Any_k_napi_torta_\u2013_gy_m_lcstorta__jragondolva-IMG_6357.jpg": {
+    "mtime": 1777758013.181632,
+    "ast_hash": "5614817f58a4f72d4c63c0a18d18d49d",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2024/kaja-Hamis_Kinder-tejszelet-66ba04772b561-3.jpg": {
+    "mtime": 1777758012.436629,
+    "ast_hash": "a1a86c288d7bba14f89e3b3d95b81c15",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2024/kaja-Epres-csokol_d_s_szelet-epres-csikos_szelet.jpg": {
+    "mtime": 1777758011.066675,
+    "ast_hash": "c48d15b0d06cbffd3bdf5ca30fe8e11e",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2024/kaja-M_ln_s-feh_r_csokis_muffin-IMG_6137.jpg": {
+    "mtime": 1777758015.893479,
+    "ast_hash": "233b31fa9192e9692671237f731c5d5d",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2024/kaja-K_leses_t_r_felf_jt-_IMG6388.jpg": {
+    "mtime": 1777758011.837915,
+    "ast_hash": "5562eff2602551f8f5ae111a7b43f6db",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2024/kaja-Pudingos-alma\u0301s_su\u0308teme\u0301ny-pudingos_alma\u0301s.jpg": {
+    "mtime": 1777758017.451944,
+    "ast_hash": "d47c7afbd36a68697768be7e2a8be002",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2024/kaja-T_r_gomb_c_zabpehellyel-453511329_1490412181865958_1349699686224452123_n-1.jpg": {
+    "mtime": 1777758012.160112,
+    "ast_hash": "504de364779ccb206fb9d56b8859df88",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2024/kaja-Alm_s_pite-AlmasPite-IMG_E3060-1.jpg": {
+    "mtime": 1777758013.51334,
+    "ast_hash": "b3370ddfdbd42750688a74849a01e08d",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2024/kaja-Levendul_s-k_rt_s_pite-_MG_8834.jpg": {
+    "mtime": 1777758007.845569,
+    "ast_hash": "19db0136eac54c47f76fe4e055753fa2",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2024/kaja-M_kos,_meggyes_pisk_takocka-20240427_161556-1.jpg": {
+    "mtime": 1777758008.783942,
+    "ast_hash": "366c9ab145f90664deeb2ad5a288f14d",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2024/kaja-Retr__gy_m_lcstorta-66bcb4835aebe-1.jpg": {
+    "mtime": 1777758020.193121,
+    "ast_hash": "7da569a93cc7623b408d7cbc1763a3b2",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2024/kaja-Fantaszelet_ege\u0301szse\u0301gesen-66bc5af4018cc.jpg": {
+    "mtime": 1777758019.096756,
+    "ast_hash": "779ef69579ef920ba33451c3e51139cf",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2024/kaja-Alma\u0301spite-poha\u0301rkre\u0301m-_IMG9433-1.jpg": {
+    "mtime": 1777758014.585613,
+    "ast_hash": "dc4dd72ab25960b49c5cf693f9bf5e80",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2023/kaja-rs23-Sajtos_cukkinifas_rt-IMG_2679-2.jpg": {
+    "mtime": 1777757217.264307,
+    "ast_hash": "d2e695357c0e328d33f66434c47b3edc",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2023/kaja-rs23-F_szeres_lazac_sp_rg_val__s_feh_rborm_rt_ssal-lazac-sp_rga-hagyma..jpg": {
+    "mtime": 1777757221.292837,
+    "ast_hash": "f3b37716fd84c2c5f59dbdab95226b9d",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2023/kaja-rs23-Avok_d_s_karal_b_f_zel_k-petrezselymes_karal_b__f_zel_k_csibe_fas_rttal-1.jpg": {
+    "mtime": 1777757219.3761,
+    "ast_hash": "3271e9e612cd443359a3ab2c926c6b9f",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2023/kaja-rs23-Z_lds_ges-kapros_lazacleves-z_lds_ges_lazacleves...jpg": {
+    "mtime": 1777757213.938236,
+    "ast_hash": "11675dff80bc4cfe3e971dd01d30db14",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2023/kaja-rs23-Magyaros_cukkinigomb_c-leves-64db48d1d8f50-1.jpg": {
+    "mtime": 1777757216.160424,
+    "ast_hash": "883be8e4637ad3489b33f538621d94c4",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2023/kaja-rs23-Tonhalas_sal_ta_f_tt_toj_ssal-gyors_reggeli-1.jpg": {
+    "mtime": 1777757230.19753,
+    "ast_hash": "7e990c759987ebfdfcb0d00f63f62d2d",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2023/kaja-rs23-Z_lds_ges_quiche-101593010_923687731377758_6210998081291288576_n-1024x683-1.jpg": {
+    "mtime": 1777757219.918783,
+    "ast_hash": "c44386e2a72f65f63db9d8f1fb275c72",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2023/kaja-rs23-Z_ld_f_szeres_cukkini_falatok_grillkolb_sszal2.jpg": {
+    "mtime": 1777757220.491236,
+    "ast_hash": "b3159b0f1d5d2a7cb2b4ae407d4c2b99",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2023/kaja-rs23-Vill_mgyors_c_kla_ment_s-feta_sajtos_m_rtogat_ssal.jpg": {
+    "mtime": 1777757229.419005,
+    "ast_hash": "eb699db7e4ae30cb3859422336ca696c",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2023/kaja-rs23-Lencsefas_rt-IMG_5892-1.jpg": {
+    "mtime": 1777757217.896328,
+    "ast_hash": "230e29d1cb76daaff27ef275778c3a0f",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2023/kaja-rs23-t_lt_tt_karal_b_.jpg": {
+    "mtime": 1777757222.076481,
+    "ast_hash": "62697e157a2b09b951f023a76bb24f27",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2023/kaja-rs23-sp_rg_s-z_ldbors_s_pite....jpg": {
+    "mtime": 1777757231.949916,
+    "ast_hash": "06b6ca08fa6957efbb9374682f40aa12",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2023/kaja-rs23-Ment_s-kaka_s_cukkinipuding-64db1f2500de4-1.jpg": {
+    "mtime": 1777757232.780438,
+    "ast_hash": "5c9161ec55e1feb2ac686e76203babec",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2023/kaja-V_r_sborban_f_rd__kakascomb-6495d0d2df9be-1.jpg": {
+    "mtime": 1777757225.657592,
+    "ast_hash": "e461306f48d22aef3ae6b7c7176588a6",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2023/kaja-rs23-_zgerincben_s_lt_z_lds_ges_csirkemell-1.jpg": {
+    "mtime": 1777757222.470569,
+    "ast_hash": "5f86768f0c977469ff00dea0ee584e7a",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2023/kaja-rs23-Z_lds_ggratin-IMG_4589_(1)-1.jpg": {
+    "mtime": 1777757228.232428,
+    "ast_hash": "7626135bd21d4ce2ddd4154cd5dea0f8",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2023/kaja-rs23-Gomb_s_csirkem_j_pasztern_kp_r_vel__s_p_rolt_z_lds_gekkel-gomb_s-z_lds_ges_csirkem_j..jpg": {
+    "mtime": 1777757226.519449,
+    "ast_hash": "bcbfbec2416a317b5fd74a900fca613f",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2023/kaja-rs23-sp_rg_s-szalonn_s_t_szta...jpg": {
+    "mtime": 1777757227.515396,
+    "ast_hash": "354ac525a436891d963ffaf7be26e879",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2023/kaja-rs23-Cukkinis_lecs__bulgurral-IMG_4933.jpg": {
+    "mtime": 1777757228.309254,
+    "ast_hash": "e2cbf3b93d015a1b967739bfa8a75e89",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2023/kaja-rs23-alm_s_p_rolt_k_poszta_pir_tott_csirkem_jjal-1.jpg": {
+    "mtime": 1777757228.789285,
+    "ast_hash": "b3ca8d03e341faec40a6fe6f4295d126",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2023/kaja-rs23-k_lessal_ta.jpg": {
+    "mtime": 1777757230.901335,
+    "ast_hash": "7ba1ca8f87fa8210036a3d97bef22d6d",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2023/kaja-rs23-S_lt_h_sos_gofriszendvics-64db3de7984d0.jpg": {
+    "mtime": 1777757224.191122,
+    "ast_hash": "ce4a2a78e42dd4a676e69fd958ac1315",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2023/kaja-rs23-Nyers_brokkolisal_ta-received_616234897344418-1.jpg": {
+    "mtime": 1777757230.388047,
+    "ast_hash": "c7867af4b31084ee5f0442d8620ccff9",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2023/kaja-rs23-Cukkinitekercs-20230909_133457_1-1.jpg": {
+    "mtime": 1777757222.306041,
+    "ast_hash": "3760b8ed75c1d5eb2a01f97180d24b0d",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2023/kaja-rs23-_desburgonya-tekercs-IMG_6045.jpg": {
+    "mtime": 1777757219.65148,
+    "ast_hash": "23fa46817dc81c48983dc0c788f0c5d5",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2023/kaja-rs23-Fogasfil__sz_nes_k_rettel-1.jpg": {
+    "mtime": 1777757221.647092,
+    "ast_hash": "c662acf6e5ab17b81af2a2b21896b793",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2023/kaja-rs23-Csicseribors_-sal_ta-IMG_5905-1.jpg": {
+    "mtime": 1777757230.480517,
+    "ast_hash": "c2fb6dda29a49d84dfee851a3bb66228",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2023/kaja-rs23-Tejf_l_s-must_ros_brokkolikr_mleves-tejf_l_s-must_ros_brokkolikr_mleves..jpg": {
+    "mtime": 1777757216.970845,
+    "ast_hash": "ee906626b23b73734fc84903e56237bd",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2023/kaja-rs23-V_r_slencsefas_rt_spen_ttal__s__desburgony_val-_IMG6376.jpg": {
+    "mtime": 1777757219.861887,
+    "ast_hash": "139b7a8b212941a568c026af9dc7e768",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2023/kaja-_desburgony_s_pite-64d61778dbd17.jpg": {
+    "mtime": 1777757233.867712,
+    "ast_hash": "1b0bf999af53449f1e879bf407fb8a85",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2023/kaja-rs23-c_kl_s_vitaminsal_ta..jpg": {
+    "mtime": 1777757229.985409,
+    "ast_hash": "e4207c84f9db11b6fb050bc5d3b1a630",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2023/kaja-rs23-lecsoskarfiol-_IMG6430-1.jpg": {
+    "mtime": 1777757219.588564,
+    "ast_hash": "9884ea86fef49357390276f0918ce9e4",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2023/kaja-rs23-Z_lds_gsz_szos_spagetti_s_lt_z_lds_gekb_l-IMG_5789-1.jpg": {
+    "mtime": 1777757219.317631,
+    "ast_hash": "7af20164bf0911a22cff4fc77afdb57f",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2023/kaja-rs23-Padlizs_nkos_r-received_671506101258076-1.jpg": {
+    "mtime": 1777757224.974143,
+    "ast_hash": "459b48b1b79c80ea098b03c3974493ac",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2023/kaja-rs23-Cukkinis_nudli-64d4e10be3c77-1.jpg": {
+    "mtime": 1777757231.605325,
+    "ast_hash": "5c2d41394d2fd6849a0e3c9d4d6c640c",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2023/kaja-rs23-Cukkinis_quiche-64d5f332c02eb-1.jpg": {
+    "mtime": 1777757219.193154,
+    "ast_hash": "f45e7036e4d7e68b22c5bca68ce50bf1",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2023/kaja-rs23-Csicseribors_s_csirkem_j-csicseribors_-csirkem_j-1.jpg": {
+    "mtime": 1777757221.787344,
+    "ast_hash": "ec2b0ca892cf2f5d553e8e09f6e07053",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2023/kaja-rs23-Olaszos_z_lds_gleves-1.jpg": {
+    "mtime": 1777757216.622124,
+    "ast_hash": "41e43324fc7a1642247183586e9cd5ba",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2023/kaja-rs23-Kov_szosuborka-kr_mleves-64d4dd80b4398-1.jpg": {
+    "mtime": 1777757214.707726,
+    "ast_hash": "5a840e5c8f9e3107feecd5a36de612df",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2023/kaja-Cukkinis_h_skeny_r-64d5f603b797a-1.jpg": {
+    "mtime": 1777757225.255932,
+    "ast_hash": "d7b79c6f1d1fa08d88c5191bb3e98a41",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2023/kaja-rs23-Kapros_t_r_val_t_lt_tt_gomba-IMG_5815.jpg": {
+    "mtime": 1777757217.743576,
+    "ast_hash": "e3267462465ad90e8b9ead50b5dedd95",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2023/kaja-rs23-avok_d_-uborka_turmix-1.jpg": {
+    "mtime": 1777757229.645473,
+    "ast_hash": "e07f1a7382fae874e038fce17285df20",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2023/kaja-rs23-S_sk_s-joghurtos_poh_rkr_m-64db1d2f7044e-1.jpg": {
+    "mtime": 1777757231.276377,
+    "ast_hash": "17afc545d7e97057cd9a3afe0b0b730c",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2023/kaja-rs23-Cukkinis_szilv_sgomb_c-64d4df176734a-1.jpg": {
+    "mtime": 1777757232.26,
+    "ast_hash": "f564caf0c121eb5354b4bb260bfd771b",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2023/kaja-rs23-Paradicsomos_pog_csa-Ludanyi-ParadicsomosP-1.jpg": {
+    "mtime": 1777757217.652942,
+    "ast_hash": "0389be2ea642fea80448dcbfd8b89790",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2023/kaja-rs23-Csorba_ny_lh_ssal2-1.jpg": {
+    "mtime": 1777757215.355703,
+    "ast_hash": "e70c0267d58e729553ca870634be203f",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2023/kaja-rs23-Gyorsan_elk_sz_thet__pontypatk_-DSC_0230.jpg": {
+    "mtime": 1777757220.859645,
+    "ast_hash": "86cf288dfbf86528f2c291a0c1b5fbc1",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2023/kaja-Citrusos-gr_n_talm_s_kacsamellsal_ta-kacsamell_sal_ta-1.jpg": {
+    "mtime": 1777757230.590455,
+    "ast_hash": "7eb57b786e2e895373d34846f93b3daa",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2015/kaja-currys_harcsafile.jpg": {
+    "mtime": 1774104395.141153,
+    "ast_hash": "64ec8f381e841faeb767714b5603b822",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2015/kaja-mandulas_gyumolcssalata.jpg": {
+    "mtime": 1774104416.14728,
+    "ast_hash": "46721268f314a0500ea89054bd003c13",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2015/kaja-medvehagymakremleves.jpg": {
+    "mtime": 1774104387.509503,
+    "ast_hash": "902d67c642aa3f67e534315a23c30563",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2015/kaja-sargarepas_csemegegolyok.jpg": {
+    "mtime": 1774104390.689128,
+    "ast_hash": "609ebd92a227a3aa8784408e9a3f559b",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2015/kaja-cukkinis_pulykatekercs.jpg": {
+    "mtime": 1774104399.504597,
+    "ast_hash": "2e20b3188b3636eb090aea220dc535b6",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2015/kaja-sult_zoldseg_szines_tesztaval.jpg": {
+    "mtime": 1774104405.967673,
+    "ast_hash": "ee9cf57392a5235439224e53ab1e752a",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2015/kaja-sargarepakremleves.jpg": {
+    "mtime": 1774104386.277622,
+    "ast_hash": "65db5a833b7d52aba2acf8d8433b6bf3",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2015/kaja-tejben_sult_sargarepa.jpg": {
+    "mtime": 1774104403.107321,
+    "ast_hash": "05808ef387038769370c04874a2da1bd",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2015/kaja-besameles_pulykamell.jpg": {
+    "mtime": 1774104400.284168,
+    "ast_hash": "0ee3a837d669818f8155bc903c055b78",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2015/kaja-afonyas_zabkeksz.jpg": {
+    "mtime": 1774104415.14865,
+    "ast_hash": "f91e515affb868007a1be2373927a4dd",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2015/kaja-egyszeru_kinai_kel_leves.jpg": {
+    "mtime": 1774104388.735971,
+    "ast_hash": "26484165d76b91305bc1114dafeb7924",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2015/kaja-medvehagymas_uborkasalata.jpg": {
+    "mtime": 1774104409.734831,
+    "ast_hash": "4c7147fa162a4a4cfce4cd02781d776a",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2015/kaja-dietas_tiramisu2.jpg": {
+    "mtime": 1774104415.511944,
+    "ast_hash": "9d34c9212a4eaadf6e20c9800ce685fc",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2015/kaja-turos_afonyas_palacsinta.jpg": {
+    "mtime": 1774104415.406205,
+    "ast_hash": "c3310340a1ea4197fe816030026dc166",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2015/kaja-zoldseges_teszta5.jpg": {
+    "mtime": 1774104405.759688,
+    "ast_hash": "6d0e309e030bd53e863ff561853914cc",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2015/kaja-gombas_vadrizses_rizs.jpg": {
+    "mtime": 1774104403.226199,
+    "ast_hash": "29074e7760d3abeac26ab9c8e65f51ba",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2015/kaja-brokkolis_vagdalt.jpg": {
+    "mtime": 1774104400.107932,
+    "ast_hash": "2173d2cc14d80cde9e1ee851cdb4a6b3",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2015/kaja-wokban_sult_zoldseges_csirkes_spagetti.jpg": {
+    "mtime": 1774104405.508076,
+    "ast_hash": "b34d8a3dcf2055dec984ffc78e7524a7",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2015/kaja-sutotokkrem2.jpg": {
+    "mtime": 1774104403.430322,
+    "ast_hash": "aeca89d7c57d4e2aa3731cbfef58c99f",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2015/kaja-lazac_narancsmartassal3.jpg": {
+    "mtime": 1774104394.956499,
+    "ast_hash": "949773660659ccf2b5a00ed6d423c2c7",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2015/kaja-zabpelyhes_palacsinta_mezes_karamellizalt_almaval2.jpg": {
+    "mtime": 1774104413.579988,
+    "ast_hash": "8829f6f6c5dfefab99b6ce82c49c9c16",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2015/kaja-kefires_almas_zoldbabsalata.jpg": {
+    "mtime": 1774104411.200376,
+    "ast_hash": "eef9daeae5f2d391ef9f6b82b4558870",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2015/kaja-almas_brokkolisalata.jpg": {
+    "mtime": 1774104409.521748,
+    "ast_hash": "cf6cfb7740e64db401e0433a47a03d77",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2015/kaja-gyumolcsos_puding.jpg": {
+    "mtime": 1774104415.708344,
+    "ast_hash": "0f43a8c47b8d86ccdf272864cd0b45c4",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2015/kaja-csorba_egy_kicsit_maskeppen.jpg": {
+    "mtime": 1774104386.363225,
+    "ast_hash": "20906a65a9979ca89d7262bbc4b1e3d6",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2015/kaja-rukkolas_salata.jpg": {
+    "mtime": 1774104409.394019,
+    "ast_hash": "46742cf4cb444aebf74ce831cf4e845d",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2015/kaja-mozzarellaba_bujtatott_tepsis_csirke.jpg": {
+    "mtime": 1774104398.194204,
+    "ast_hash": "0a4195473c1ee8091cb73a63c74241e2",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2015/kaja-tepsis_csirke1.jpg": {
+    "mtime": 1774104398.243623,
+    "ast_hash": "cd7f7838d4a9abff9b3b1193a3808d16",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2015/kaja-kolesfasirt_paszternakkal.jpg": {
+    "mtime": 1774104391.84805,
+    "ast_hash": "56a488a3a08ba77e472f245af571f3a4",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2015/kaja-tavaszi_keltekercs.jpg": {
+    "mtime": 1774104398.45852,
+    "ast_hash": "0f94c9a608a3fd3c45494aab00700d8c",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2015/kaja-petrezselymes_bulgursalata.jpg": {
+    "mtime": 1774104410.988479,
+    "ast_hash": "dfd0bcb44695600d755133208cf63d29",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2015/kaja-paradicsomos_mozzarellas_francia_pite_parolt_lilahagyma_\u200breteggel.jpg": {
+    "mtime": 1774104406.04664,
+    "ast_hash": "be6b8a1011d718936cdb3969920eb64e",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2015/kaja-kokuszos_cookie.jpg": {
+    "mtime": 1774104415.005929,
+    "ast_hash": "644a365230903092896da3596608cea9",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2015/kaja-parajkremes_gombas_teszta.jpg": {
+    "mtime": 1774104406.666122,
+    "ast_hash": "b61d018918ebe37effedb3253db95731",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2015/kaja-sertesszuz_mediterran_modra3.jpg": {
+    "mtime": 1774104398.353183,
+    "ast_hash": "6b4744a8d3fe63d9a75662c0f3ee75b8",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2015/kaja-brokkolifozelek-2.jpg": {
+    "mtime": 1774104405.283547,
+    "ast_hash": "debae65d327f84ef6947d215a061ee1a",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2015/kaja-raguleves_tarkonyos_galuskaval.jpg": {
+    "mtime": 1774104388.81606,
+    "ast_hash": "9ddee287f01b883170d5313887262b19",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2015/kaja-pisztrang_zoldsegagyon.jpg": {
+    "mtime": 1774104395.353952,
+    "ast_hash": "bbb82da9a1125b4e3dc4417e32b93553",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2015/kaja-parmezanos_cukkinirudak.jpg": {
+    "mtime": 1774104391.792784,
+    "ast_hash": "b2fc6201ec05c44c46de43fbac6f6cf2",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2015/kaja-zoldseges_pulykaragus_enchilada.jpg": {
+    "mtime": 1774104407.134955,
+    "ast_hash": "274ee12c35ddaf46d5574fd1fc47af32",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2012/pannacotta1.jpg": {
+    "mtime": 1777759129.783074,
+    "ast_hash": "70835605e0aadda01e868f7e98c63883",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2012/rebarbaraspite.jpg": {
+    "mtime": 1777759130.484176,
+    "ast_hash": "6d9cb661cc201d3271dd330576ace851",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2012/kaja-Afrikaiharcsasultzoldseggel.jpg": {
+    "mtime": 1777759108.911264,
+    "ast_hash": "f408573f7c980fd66760a9d96215970f",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2012/kaja-zoldsegescsirke.jpg": {
+    "mtime": 1777759114.715031,
+    "ast_hash": "6d26b9190334c84014aff843866aa2db",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2012/hidegeperkremleves2.jpg": {
+    "mtime": 1777759108.380989,
+    "ast_hash": "3666fefd1a2016341b816c78cc2e99fc",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2012/csokiskeksz1.jpg": {
+    "mtime": 1777759128.911415,
+    "ast_hash": "27c257c3e331739b360b1b56d05349de",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2012/zabkeksz.jpg": {
+    "mtime": 1777759131.454903,
+    "ast_hash": "8761878e2d59becc0fce677d4be963fd",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2012/kaja-spargasepersalatacsirkenyarssal2.jpg": {
+    "mtime": 1777759113.459904,
+    "ast_hash": "3d06a9e0f7965a0760686274638935b6",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2012/toltottgombafejek.jpg": {
+    "mtime": 1777759121.174232,
+    "ast_hash": "fffdaba1071470df04f0ffccba5554e3",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2012/kaja-Kolesgolyok.jpg": {
+    "mtime": 1777759129.025493,
+    "ast_hash": "b25785df780a764fdb780b98df1c2229",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2012/dreamstime_m_25865969.jpg": {
+    "mtime": 1777759108.772756,
+    "ast_hash": "cb958775206d9950c1cb9f89f959dfec",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2012/kaja-sargadinnyescsirkenyars2.jpg": {
+    "mtime": 1777759111.748872,
+    "ast_hash": "a471590efb1f6df4030b9e975075f896",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2012/kaja-pulykakebab2.jpg": {
+    "mtime": 1777759110.316422,
+    "ast_hash": "f7ea0c7fdcd086fa99ef0f4992eb5707",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2012/dreamstime_m_10179645.jpg": {
+    "mtime": 1777759115.478565,
+    "ast_hash": "4c313061beb7e8e64b9d70dc3238f3f8",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2012/kaja-kaposztasalata.jpg": {
+    "mtime": 1777759125.842743,
+    "ast_hash": "6cabb4cd48e1d1a52d90d97a67f41b1b",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2012/fetasbulgursalata2.jpg": {
+    "mtime": 1777759125.211588,
+    "ast_hash": "dafb7c2bf933f9375c64ade9a6d235e2",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2012/kelkaposztaslencsesalata1.jpg": {
+    "mtime": 1777759126.999705,
+    "ast_hash": "77707960a1c5c140f50c05fe1ed2fc2c",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2012/kaja-szegenyekkrumplijagazdagon2.jpg": {
+    "mtime": 1777759120.041122,
+    "ast_hash": "0164667c0b448bc7138f07239544888f",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2012/sargadinnyescsirkesalata1.jpg": {
+    "mtime": 1777759128.235709,
+    "ast_hash": "c1aecd5310956074e3e442e7f375ae4a",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2012/kaja-Spenotos_sult_zeller.jpg": {
+    "mtime": 1777759108.839536,
+    "ast_hash": "e58221fb9353d1efe6cf6d0df2e1d236",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2012/toltottpaprikamaskepp.jpg": {
+    "mtime": 1777759123.683146,
+    "ast_hash": "38e82873b5ac84e577ab1e6dc7551f6a",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2012/toltottkaralabekapormartassalbulgurral2.jpg.jpg": {
+    "mtime": 1777759122.407527,
+    "ast_hash": "c6c3e34addcdf3c9316e654b261cd715",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2012/popeyereggelije3.jpg": {
+    "mtime": 1777759118.60847,
+    "ast_hash": "997894ac74c1b408d1a5f0a7689f7539",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2012/turossajtoskence.jpg": {
+    "mtime": 1777759116.948239,
+    "ast_hash": "822d928f34693ed61ce508741e42c45e",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2009/ks2009-petrezselymes_harcsa.jpg": {
+    "mtime": 1777760357.755642,
+    "ast_hash": "c9cac312d89d51f0a9064031f7ae459a",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2009/ks2009-zoldseggel_turoval_toltott_uborka.jpg": {
+    "mtime": 1777760356.47837,
+    "ast_hash": "892b214ceff923671c37c48d018931e5",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2009/ks2009-karacsonyi_jegsalata.jpg": {
+    "mtime": 1777760366.786736,
+    "ast_hash": "503d1b74d5c781fd6c156435722d4cb0",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2009/ks2009-rakott_hus.jpg": {
+    "mtime": 1777760363.554694,
+    "ast_hash": "0117e9983ab931be8d3a353eea00b495",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2009/ks2009-sargarepas_hal.jpg": {
+    "mtime": 1777760358.429314,
+    "ast_hash": "1fabfe74c1eb127fe048c58c6acb05ae",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2009/ks2009-toltott_csirkemell.jpg": {
+    "mtime": 1777760359.691916,
+    "ast_hash": "1451cc349fef7d23d461c0281cd2ee91",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2009/ks2009-gongyolt_csirkecomb.jpg": {
+    "mtime": 1777760360.207085,
+    "ast_hash": "f6fbc9a333e7cf8d5232e259b81f50c7",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2009/ks2009-kelgomboc.jpg": {
+    "mtime": 1777760364.311385,
+    "ast_hash": "3f32958873eb377e819982688134ea73",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2009/ks2009-oszibarackos_joghurtpuding.jpg": {
+    "mtime": 1777760368.889814,
+    "ast_hash": "bb673a02fee91095abe30a218cb9e9be",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2009/ks2009-mustaros_serteskaraj.jpg": {
+    "mtime": 1777760360.34821,
+    "ast_hash": "b1274d332790cfa36d9bb7b0faa04ab3",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2009/ks2009-tesztasalata.jpg": {
+    "mtime": 1777760365.370702,
+    "ast_hash": "7b794d994f80804363b3b7d62536a18a",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2009/ks2009-bubos_hus.jpg": {
+    "mtime": 1777760361.075521,
+    "ast_hash": "d57eaf3c26943933cb285d1a21b2feaf",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2009/ks2009-burgonyasalata_gazdagon.jpg": {
+    "mtime": 1777760365.941699,
+    "ast_hash": "f8f689f6ecc6298b21dd3f5347c16b97",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2009/ks2009-narancsos_tonhalsalata.jpg": {
+    "mtime": 1777760367.926067,
+    "ast_hash": "44a58ac0fd30067167b17c4808ab1ce1",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2009/ks2009-zoldseges_masniteszta.jpg": {
+    "mtime": 1777760357.142823,
+    "ast_hash": "04d55a50b32a53ef8b792d4652020267",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2009/ks2009-Karacsonyi_citromleves.jpg": {
+    "mtime": 1777760356.203331,
+    "ast_hash": "48f66de8c4fe7f2403cf4e6060c3a0ec",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2009/ks2009-kulonleges_koret_halhoz.jpg": {
+    "mtime": 1777760362.366012,
+    "ast_hash": "f03cbccf8d7ee2eff5a6aa87e8c5f430",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2009/ks2009-cukkinis_pulykahus.jpg": {
+    "mtime": 1777760364.713592,
+    "ast_hash": "b9b0375abf5a741853061b463d53522e",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2009/ks2009-ponty_rizsagyon.jpg": {
+    "mtime": 1777760359.110108,
+    "ast_hash": "c02a7c83cf47a3a8ec23dabfebbf1421",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2009/ks2009-fahejas_alma.jpg": {
+    "mtime": 1777760368.325741,
+    "ast_hash": "0064802934dd2d5f6bd54f8bcd5c4897",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2009/ks2009-toltott_kelkaposzta.jpg": {
+    "mtime": 1777760362.933316,
+    "ast_hash": "6a8ca926b4d3e9d008e5097245587041",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2009/ks2009-burgonyapurevel_toltott_alma_\u2013_karacsonyi_koret.jpg": {
+    "mtime": 1777760361.758722,
+    "ast_hash": "512893b1c31c58a2a973f1b707d63712",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2017/kaja-Patisszonfozelek2_KardEva.jpg": {
+    "mtime": 1777752994.274912,
+    "ast_hash": "8c5b2632f86d791c110bf159539d1efa",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2017/kaja-lecso_ujragondolva.jpg": {
+    "mtime": 1777752999.305417,
+    "ast_hash": "fed5011d7d547c8b7a3da408d2e12ec6",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2017/kaja-quinoa_bruschetta.jpg": {
+    "mtime": 1777752998.794264,
+    "ast_hash": "96bfb19e4c1fa3dd3d78a5e61e32cad7",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2017/kaja-afonyas_sajttorta.jpg": {
+    "mtime": 1777753000.771454,
+    "ast_hash": "fab301428f3454562eaf22aa52369b47",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2017/kaja-SzuzermeSultZoldsegekkel-Gyurcsane.jpg": {
+    "mtime": 1777752997.388836,
+    "ast_hash": "6a326fde24253198bd6a29eda51b3d5c",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2017/kaja-kelbimbosalata.jpg": {
+    "mtime": 1777752999.79571,
+    "ast_hash": "31ef1b211981bfc885a79e65c0748fcc",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2017/kaja-hazi_gyumolcsfagyi_(2).jpg": {
+    "mtime": 1777753002.192848,
+    "ast_hash": "b22bcbe06368e494c1350d90f0924ef8",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2017/kaja-mang_s_ricott_s_amerikai_palacsinta_(1).jpg": {
+    "mtime": 1777753002.822805,
+    "ast_hash": "d030bd4382eaa37751604432f8e0cff6",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2017/kaja-salmorejo_avagy_andal_z_paradicsommartogatos_(2).jpg": {
+    "mtime": 1777752998.19706,
+    "ast_hash": "f336dad1ed77c0da0ad0f9f98200b8c1",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2017/kaja-bazsalikomos_citromos_sutemeny.jpg": {
+    "mtime": 1777753001.157958,
+    "ast_hash": "9eff598db025e60be2f90aa78aee8642",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2017/kaja-Cukkinileves2_KardEva.jpg": {
+    "mtime": 1777752993.569838,
+    "ast_hash": "ebc02c714108f3adf8b10a475d845823",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2017/kaja-MakrelaSzendvicskrem_KardEva.jpg": {
+    "mtime": 1777752995.573628,
+    "ast_hash": "e86a99a33963f29bc07c473e0ede4ab4",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2017/kaja-epres_pohardesszert_(1).jpg": {
+    "mtime": 1777753000.309642,
+    "ast_hash": "fe13dc7697e20b3d8187fbfc38000d0c",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2017/kaja-TepsisSuger_(4).jpg": {
+    "mtime": 1777752995.410194,
+    "ast_hash": "b1b9f0c6d377ec83a47429fd967dd03b",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2017/kaja-SutotokKremleves1_KardEva.jpg": {
+    "mtime": 1777752993.293757,
+    "ast_hash": "62e83abce563a6d51f487501956c6dea",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2017/kaja-ZoldbabTokany_(3).jpg": {
+    "mtime": 1777752993.902533,
+    "ast_hash": "1cd995fd211605505cfc02cfdf2aace4",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2017/kaja-Hagymaropogos1_KardEva.jpg": {
+    "mtime": 1777752994.3234,
+    "ast_hash": "245599a59546d1ff87e66d123ab91240",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2017/kaja-Turogomboc2-Gyurcsane.jpg": {
+    "mtime": 1777753002.397117,
+    "ast_hash": "d930636bd942e91a88d92b93fe2ae103",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2017/kaja-cukkinis_raguleves.jpg": {
+    "mtime": 1777752993.499482,
+    "ast_hash": "7bf2a0955752cc6b75908f676c127410",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2017/kaja-TejfolosCsirkemell1_KardEva.jpg": {
+    "mtime": 1777752997.437702,
+    "ast_hash": "c41d39fea04c402c82c34ca46ae6c501",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2017/kaja-GrillezettTarja_(3).jpg": {
+    "mtime": 1777752996.454322,
+    "ast_hash": "6e3ea0f4dbe2ca28d51f33e77df87548",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2017/kaja-MediterranCsirkefalatok.jpg": {
+    "mtime": 1777752997.805755,
+    "ast_hash": "c734ef1f3fdc51cf9f4869d95c6986ad",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2017/kaja-Tojasfasirt2_KardEva.jpg": {
+    "mtime": 1777752994.612147,
+    "ast_hash": "8b8c488bc77a1c273f11fd349b28afa7",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2017/kaja-bazsalkimos_zoldborsofozelek_(2).jpg": {
+    "mtime": 1777752995.127048,
+    "ast_hash": "563b1871bcc7aa1c7a4382a22ab98b05",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2017/kaja-avokadokremes_karfiolcsoda.jpg": {
+    "mtime": 1777752994.180214,
+    "ast_hash": "410f76d078694b5148df3b2ed6172bd8",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2017/kaja-Csirkeraguleves2_KardEva.jpg": {
+    "mtime": 1777752993.536225,
+    "ast_hash": "7e44ec938aeab60e28fecd71ca959a9c",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2017/kaja-erdeigy_m_lcs_s_s_tem_ny.jpg": {
+    "mtime": 1777753001.68016,
+    "ast_hash": "d815bb14c4d3941e2925bee64082d5e8",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2017/kaja-szegedi_hal_szl__fot_.jpg": {
+    "mtime": 1777752995.609755,
+    "ast_hash": "0b1149971c9846a524143b974f795af0",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2017/kaja-szezammagos_csirkemell_brokkolipurevel.jpg": {
+    "mtime": 1777752996.842042,
+    "ast_hash": "6d8fac50ba7988e06b54cecbd4b66c4b",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2017/kaja-karolyi_salata.jpg": {
+    "mtime": 1777752999.617317,
+    "ast_hash": "d8be2e37d26882f98a257eced3547acd",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2017/kaja-SbarackosSuti.jpg": {
+    "mtime": 1777753003.341663,
+    "ast_hash": "bed3ed28445abada5fd1619efee0b313",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2017/kaja-CsobenSultZ_ldbab2.jpg": {
+    "mtime": 1777752994.367171,
+    "ast_hash": "128e300a440261304aeb7aa37736f41e",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2017/kaja-KokuszosBulgur2_KardEva.jpg": {
+    "mtime": 1777753002.863291,
+    "ast_hash": "be13a4c5caee67d6e92238784a389c07",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2017/kaja-CsirkemellParoltKortevel_(2).jpg": {
+    "mtime": 1777752997.561411,
+    "ast_hash": "aac1f7a62ac81bc393d989fef10bd715",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2017/kaja-granatalmas_pohardesszert_(2).jpg": {
+    "mtime": 1777753001.943452,
+    "ast_hash": "ee61c232bccf6b2d18d01cb3aa0d8059",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2017/kaja-ZabpelyhesLepeny2_KardEva.jpg": {
+    "mtime": 1777753000.358469,
+    "ast_hash": "6b6272938907325a1c5e09144c42c485",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2017/kaja-TurosCukkiniRolad1_KardEva.jpg": {
+    "mtime": 1777752997.49404,
+    "ast_hash": "7091f9ef785e62fc4b23e94003cf52d3",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2017/kaja-SerpenyosTojas2_KardEva.jpg": {
+    "mtime": 1777752998.955542,
+    "ast_hash": "b34b609e84281732c1abf862f9f62d99",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2017/kaja-ParadicsomosCukkiniragu.jpg": {
+    "mtime": 1777752994.548352,
+    "ast_hash": "22b0806d91cbf70c4e5bce212da61fb2",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2017/kaja-Husgombocleves_(2).jpg": {
+    "mtime": 1777752993.703974,
+    "ast_hash": "629f3b0db2f306b98d86b82851b3b882",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2017/kaja-TojasosTonhal1_NagyPolett.jpg": {
+    "mtime": 1777752995.488871,
+    "ast_hash": "092c7a785b4c95f18cd4dc79a2d198ca",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2017/kaja-JoghurtosSargaborso_KardEva.jpg": {
+    "mtime": 1777752994.22972,
+    "ast_hash": "e8b4536b6110661bce7bb50d30d59bd6",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2017/kaja-m_ln_val_k_sz_lt_tejberizs.jpg": {
+    "mtime": 1777753002.557304,
+    "ast_hash": "6ab2a12ff3f95803f6dfd8978d873505",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2017/kaja-mogyoros_zoldborsokrem_(2).jpg": {
+    "mtime": 1777752998.538897,
+    "ast_hash": "35c46075060ce7cd8db2473a8a4c73ac",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2017/kaja-CurrysCsirkefalatok.jpg": {
+    "mtime": 1777752997.141207,
+    "ast_hash": "85d57be0f89085f52228e5a932d91ada",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2019/kaja2019-gomb_s-z_lds_ges_pizza-KardE.jpg": {
+    "mtime": 1777754238.332289,
+    "ast_hash": "31449e655ec6908dd176337449943cc4",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2019/kaja2019-Grab_and_Go_zabpelyhes_muffin-1.jpg": {
+    "mtime": 1777754252.124405,
+    "ast_hash": "441d2e31c8b93cc58e66e5f4287eb1dc",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2019/kaja2019-s_r_s_dobozon_s_lt_csirke-KardE.jpg": {
+    "mtime": 1777754244.670747,
+    "ast_hash": "59d588142ede110c6cf4d247f05e73f4",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2019/kaja2019-Savanyu_kaposztas_halleves_BiroS-3.jpg": {
+    "mtime": 1777754239.680495,
+    "ast_hash": "14ab53a2a94698643953394976760eb7",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2019/kaja2019-Arag_niai_sert_sbecsin_lt_(1)-gyurcsane-1.jpg": {
+    "mtime": 1777754240.889993,
+    "ast_hash": "ce36ddedc8aefca4311d9b0cd319b3bd",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2019/kaja2019-Bazsalikomos_cukkinikremleves2_BiroS-1.jpg": {
+    "mtime": 1777754237.276528,
+    "ast_hash": "7db2f16b4835b70db907ce59dae2164f",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2019/kaja2019-z_lds_ges_r_tes-KardE.jpg": {
+    "mtime": 1777754238.88406,
+    "ast_hash": "9ed4815e6d92903dea4f05ed45f5adf3",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2019/kaja2019-glut_nmentes_kr_ker-KardE.jpg": {
+    "mtime": 1777754253.668824,
+    "ast_hash": "6384b8a5024791681444f72bdb527bc4",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2019/kaja2019-Szez_mmagos_csirkemell_brokkolip_r_vel-tranzit085.jpg": {
+    "mtime": 1777754244.145071,
+    "ast_hash": "7a47d716e092acfbf5234472baf23773",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2019/kaja2019-Minestrone-cukorbetegkonyha-1.jpg": {
+    "mtime": 1777754237.815306,
+    "ast_hash": "ae83a91816547989d4c311ca8a649620",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2019/kaja2019-bazsalikomos_h_sgomb_c_paradicsomsz_sszal_spagettivel-cukorbetegkonyha-1.jpg": {
+    "mtime": 1777754244.245245,
+    "ast_hash": "ae5d5e11b3d5dbb92286769e0e4c0708",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2019/kaja2019-gomb_s-lazac-KardE.jpg": {
+    "mtime": 1777754238.757497,
+    "ast_hash": "1700fa1ff71b93d6ac2c4b13a82a5a78",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2019/kaja2019-Lecsos_toltott_kel_BiroS.jpg": {
+    "mtime": 1777754248.021269,
+    "ast_hash": "56efed71e8bb5ab5671f9413948d447d",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2019/kaja2019-Krumplis_cukkinifozelek_BiroS.jpg": {
+    "mtime": 1777754247.441641,
+    "ast_hash": "48ef810898a560eced733b0be90195d4",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2019/kaja2019-Serpeny_s_kacsam_j-tranzit032.jpg": {
+    "mtime": 1777754240.170217,
+    "ast_hash": "f4f7dd549b34777ba8249ac8cdfae500",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2019/kaja2019-Foltos_kugl_f_2-GezsiAne.jpg": {
+    "mtime": 1777754253.48252,
+    "ast_hash": "42dc4123ee477a962f71668daa9c7b59",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2019/kaja2019-Lazacos_gr_n_talm_s_sal_ta_(2)-gyurcsane-1.jpg": {
+    "mtime": 1777754250.112609,
+    "ast_hash": "f3d37022eca7d54118df0e5f8f65bb7b",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2019/kaja2019-Artics_k_s_rizs_sal_ta_(5)-gyurcsane.jpg": {
+    "mtime": 1777754249.156058,
+    "ast_hash": "cb5e849891e9691ebc117008067f86fb",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2019/kaja2019-brokkolis_lencsesal_ta_(1)-gyurcsane-1.jpg": {
+    "mtime": 1777754249.544872,
+    "ast_hash": "6604f3d35bf8406069de0dc2da0cde67",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2019/kaja2019-Csirkejava_sz_nes_k_rettel-tranzit119.jpg": {
+    "mtime": 1777754242.407728,
+    "ast_hash": "7a9f35b0d5da78b18dc13ff05f4b62dc",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2019/kaja2019-z_ldbors_s__kelk_poszta2-KardE.jpg": {
+    "mtime": 1777754244.94936,
+    "ast_hash": "9232b0457d514bb2535743c53023de2f",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2019/kaja2019-rizslisztes_sajtos_r_d-KardE.jpg": {
+    "mtime": 1777754252.310027,
+    "ast_hash": "9e1330e3e68cfa8bfd1a1c1d2c400ecb",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2019/kaja2019-Kar_csonyi_zabkeksz-tranzit157.jpg": {
+    "mtime": 1777754251.743972,
+    "ast_hash": "cb0e0b65365d48fd6d3633e03c326107",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2019/kaja2019-Szilv_s_csemege_(1)-gyurcsane-1.jpg": {
+    "mtime": 1777754254.791326,
+    "ast_hash": "918cb5230310b97f5998a0a73d8f6201",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2019/kaja2019-sp_rgaleves_halgomb_ccal-KardE-1.jpg": {
+    "mtime": 1777754238.108845,
+    "ast_hash": "76058f7a1f40d0f10bfbd53817b3df8a",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2019/kaja2019-coqauvin-cukorbetegkonyha-1.jpg": {
+    "mtime": 1777754245.237524,
+    "ast_hash": "e1a94871b89793bb5bae858e8b5121eb",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2019/kaja2019-patiszon_s_tve-KardE.jpg": {
+    "mtime": 1777754238.487543,
+    "ast_hash": "01b5ad1f927896350afea72f152eb9d9",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2019/kaja2019-szalonn_s-babos_tarja-KardE.jpg": {
+    "mtime": 1777754245.15027,
+    "ast_hash": "0cc8c658958e69a65d22442725efc59e",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2019/kaja2019-Brokkolis_vagdalt-cukorbetegkonyha-1.jpg": {
+    "mtime": 1777754240.422936,
+    "ast_hash": "0384eb68d314d13fdaccd9ae6a7b1e54",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2019/kaja2019-citromhabos_falatok-cukorbetegkonyha-1.jpg": {
+    "mtime": 1777754255.432353,
+    "ast_hash": "74e05a235522079522bb55a3fee34850",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2019/kaja2019-Tejf_l_s_medvehagymaleves-tranzit016.jpg": {
+    "mtime": 1777754236.23079,
+    "ast_hash": "7fe2514ffb3062d153b1ad9d5904a91a",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2019/kaja2019-Tonhalas_brokkolis_t_szta-tranzit054.jpg": {
+    "mtime": 1777754239.081997,
+    "ast_hash": "6b769ab89b3ca71f2f404130b13c90e6",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2019/kaja2019-Paradicsomos_kel_fasirtgolyoval_BiroS.jpg": {
+    "mtime": 1777754248.646372,
+    "ast_hash": "4e671370a0c0093e30617afc19475768",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2019/kaja2019-Z_lds_ges_ragu_bulgurral2-KardE.jpg": {
+    "mtime": 1777754238.593887,
+    "ast_hash": "a2253bb55dd3ad6deae4c3f0927e79b8",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2019/kaja2019-marin_lt_cukkini-KardE-1.jpg": {
+    "mtime": 1777754248.752236,
+    "ast_hash": "33ad7f3e38a0e0767df5dfafc647d2b7",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2019/kaja2019-csirkem_j-zellerp_r_2-KardE-1.jpg": {
+    "mtime": 1777754244.428023,
+    "ast_hash": "33ae437fbbe5aef7574d0aa6c2dedeef",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2019/kaja2019-rizslisztes_pisk_ta-KardE.jpg": {
+    "mtime": 1777754255.047942,
+    "ast_hash": "b4b945cb30890cdf0ed74ca10e84a79f",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2019/kaja2019-Gomb_s_csirkemell-tranzit095.jpg": {
+    "mtime": 1777754246.700148,
+    "ast_hash": "02a5de0fee7786b6151692988a4ea70f",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2019/kaja2019-Alm_s_kr_mes-tranzit165.jpg": {
+    "mtime": 1777754251.929731,
+    "ast_hash": "5472b91bbf8eaf1cfea2b21199fb0747",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2019/kaja2019-glut_nmentes_k_poszt_s_pog_csa2-KardE.jpg": {
+    "mtime": 1777754253.831898,
+    "ast_hash": "4391fc6b659d2515966b43cf0462c6e5",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2019/kaja2019-_r_ban_p_colt_csirkemell_z_lds_gekkel_s_tve-cukorbetegkonyha.jpg": {
+    "mtime": 1777754244.803599,
+    "ast_hash": "b9e457f7813c43bf3a821f5f682d014b",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2019/kaja2019-Gomb_s_sert_s_sz_z_rme-tranzit147.jpg": {
+    "mtime": 1777754243.8857,
+    "ast_hash": "4130ecfdc4d8a98779e9aaa400a50fcc",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2019/kaja2019-kagyl_sal_ta-KardE-1.jpg": {
+    "mtime": 1777754249.732244,
+    "ast_hash": "cc945fe7ffe4eedf87d95eea5a91409b",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2019/kaja2019-patisszon_f_zel_k-KardE.jpg": {
+    "mtime": 1777754247.537867,
+    "ast_hash": "4ad766360dad680859c8b91642e3ae9b",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2019/kaja2019-kacsam_j2-KardE.jpg": {
+    "mtime": 1777754239.831398,
+    "ast_hash": "96455466fa38a159d60293e4c92c02d0",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2019/kaja2019-brokkolis-virslis-KardE.jpg": {
+    "mtime": 1777754245.333477,
+    "ast_hash": "dcc17f676557741203d82f27476ceab5",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2019/kaja2019-S_rgar_p_s_z_ldbabsal_ta-1.jpg": {
+    "mtime": 1777754251.528773,
+    "ast_hash": "9fd76935d33c56ce79e18fe3df0ba7a9",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2019/kaja2019-sp_rga_sal_ta-KardE.jpg": {
+    "mtime": 1777754238.173732,
+    "ast_hash": "bc190856806acac1ed9bd213eea8ab4f",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2019/kaja2019-epres_kokuszos-cukorbetegkonyha-1.jpg": {
+    "mtime": 1777754254.353094,
+    "ast_hash": "f2ca35a9e387857ec66f3857cdf7be29",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2019/kaja2019-glut_nmentes_sajtos_csiga2-KardE.jpg": {
+    "mtime": 1777754255.271506,
+    "ast_hash": "77b465583013c98577894f371570683f",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2019/kaja2019-baconos-cukkinis_toj_s-KardE.jpg": {
+    "mtime": 1777754248.148449,
+    "ast_hash": "895db6b84546d8801026d99539cc95e0",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2019/kaja2019-kapros-z_ldbabos2-KardE.jpg": {
+    "mtime": 1777754237.98581,
+    "ast_hash": "60412c625fd508db9d44d8ded25a1b37",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2019/kaja2019-S_lt_r_pa-tranzit070.jpg": {
+    "mtime": 1777754246.883688,
+    "ast_hash": "fcff178cf39991d10149ef0edebb6982",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2021/kaja-rs2021-ol_v_s_t_lt_tt_toj_s.jpg": {
+    "mtime": 1777755908.593007,
+    "ast_hash": "6db5f2d0556404e39b238d1ce05533fe",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2021/kaja-rs2021-_IMG2045.jpg": {
+    "mtime": 1777755914.297152,
+    "ast_hash": "c75cbef98f39381734aec627f91feb78",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2021/kaja-rs2021-_IMG2257.jpg": {
+    "mtime": 1777755920.229507,
+    "ast_hash": "f1157562a98985b5447b550a93355175",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2021/kaja-rs2021-_IMG1978.jpg": {
+    "mtime": 1777755914.049627,
+    "ast_hash": "f019531c02133c8cd9fdd7cfca2ff4d3",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2021/kaja-rs2021-_IMG2240.jpg": {
+    "mtime": 1777755912.581307,
+    "ast_hash": "8e41484fbc0dacd0caee2c5d9aa8ecde",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2021/kaja-rs2021-_IMG2081.jpg": {
+    "mtime": 1777755918.849315,
+    "ast_hash": "817d303eaee5ed13202a6bca0c8c12fb",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2021/kaja-rs2021-kapros_z_ldbors_p_r__f_rjtoj_ssal..jpg": {
+    "mtime": 1777755908.930365,
+    "ast_hash": "bd404da3647d2d8cab782fc78e130a2d",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2021/kaja-rs2021-IMG_8788.jpg": {
+    "mtime": 1777755902.80586,
+    "ast_hash": "d5eccd474ae1a4eee9275c2597379b01",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2021/kaja-rs2021-94386733_3302125273346990_1166485513838788608_n_(1).jpg": {
+    "mtime": 1777755901.749265,
+    "ast_hash": "c122da736a0be4e12f95817237eac8c5",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2021/kaja-rs2021-avok_d_s-toj_ssal_ta.jpg": {
+    "mtime": 1777755909.205,
+    "ast_hash": "3df34afe87d7789f0d44c380757d8e1b",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2021/kaja-rs2021-_IMG1935.jpg": {
+    "mtime": 1777755908.1808,
+    "ast_hash": "b6a06842b16dc4a9ea5d8fc04a6b61c3",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2021/kaja-rs2021-_IMG2179.jpg": {
+    "mtime": 1777755917.358789,
+    "ast_hash": "8ae97db372ff71dbd6472bd3f1fe88c9",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2021/kaja-rs2021-csirkecomb,_k_poszta.jpg": {
+    "mtime": 1777755905.305983,
+    "ast_hash": "e9b9243a5ef56bf2f342c27aad381924",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2021/kaja-rs2021-_IMG1881.jpg": {
+    "mtime": 1777755906.578374,
+    "ast_hash": "0d69ab5420e533491b814d65e604bed5",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2021/kaja-rs2021-_IMG2220.jpg": {
+    "mtime": 1777755909.361709,
+    "ast_hash": "8a8b572c7d4131ae783bb05031a52f94",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2021/kaja-obwarzanek.jpg": {
+    "mtime": 1777755915.406746,
+    "ast_hash": "7bddc8ad0aca031be8ebde852597bc0b",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2021/kaja-cukormentes_bociszelet.jpg": {
+    "mtime": 1777755914.791767,
+    "ast_hash": "5530214793c42a16dac598c43b22f096",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2021/kaja-rs2021-Cukkini_felf_jt.jpg": {
+    "mtime": 1777755904.771405,
+    "ast_hash": "0c8ebb5770a7ba48fb8911626968bff7",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2021/kaja-rs2021-_IMG2038.jpg": {
+    "mtime": 1777755904.540114,
+    "ast_hash": "dfe76e83791a94d5d54523caca56c5fd",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2021/kaja-rs2021-gomb_s-z_lds_ges_lazac.jpg": {
+    "mtime": 1777755904.62869,
+    "ast_hash": "422888f28e2cdcee525a9bf0789ed95b",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2021/kaja-rs2021-toj_ssal_t_lt_tt_csirkemell.jpg": {
+    "mtime": 1777755904.979352,
+    "ast_hash": "8fd3b5abac8b11436b7764b3f1fc7b1b",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2021/kaja-rs2021-cukormentes_meggyes.jpg": {
+    "mtime": 1777755920.557854,
+    "ast_hash": "4b70ccb78ee5fbda46234bb8779bb1f0",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2021/kaja-rs2021-_IMG2211.jpg": {
+    "mtime": 1777755912.35515,
+    "ast_hash": "2c57125d426c316b134e7ed78bd83ba0",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2021/kaja-rs2021-image3.jpg": {
+    "mtime": 1777755906.662608,
+    "ast_hash": "1ae1fef8fc722e96da6030eb30fbb517",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2021/kaja-rs2021-lazacos-sajtkr_mes_rol_d.jpg": {
+    "mtime": 1777755904.727662,
+    "ast_hash": "702d210410a106520ce782790ac2fa1a",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2021/kaja-dietas_turogomboc.jpg": {
+    "mtime": 1777755915.041727,
+    "ast_hash": "4c3828ac44791b347364c7d5399dfc05",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2021/kaja-rs2021-_IMG2189.jpg": {
+    "mtime": 1777755910.853798,
+    "ast_hash": "7c98f6779e6cc1a4bfc884615be02cfa",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2021/kaja-rs2021-image2.jpg": {
+    "mtime": 1777755908.274223,
+    "ast_hash": "21c634c875cf4291f3b0748ec57dc556",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2021/kaja-rs2021-image12.jpg": {
+    "mtime": 1777755909.398757,
+    "ast_hash": "07672c96525b007347faa0921a36a178",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2021/kaja-rs2021-bazsalikomos_csirkemell_bat_t_val__s_ropog_s_z_lds_gekkel.jpg": {
+    "mtime": 1777755904.951954,
+    "ast_hash": "6afe4f9e3c5e820ac9cf2a2db15f51cc",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2021/kaja-rs2021-smoothie.jpg": {
+    "mtime": 1777755902.012546,
+    "ast_hash": "837db3861ae4d2e26d0c6ddbb06825f3",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2021/kaja-rs2021-halgomb_c_leves..jpg": {
+    "mtime": 1777755901.153746,
+    "ast_hash": "ac698fb4372abdbd9d7fc7a12e7d500e",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2021/kaja-rs2021-DSC_0838_(Large).jpg": {
+    "mtime": 1777755915.01138,
+    "ast_hash": "855b82d8c1b095ab13edd7ef9bb99b8f",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2021/kaja-rs2021-citromos-cukkinileves..jpg": {
+    "mtime": 1777755901.721,
+    "ast_hash": "5702c002a6155114411dd7abfa98bb4b",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2021/kaja-rs2021-IMG_3944-Lencse.jpg": {
+    "mtime": 1777755901.53803,
+    "ast_hash": "6988b2648c784d4aae7a63164576fa85",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2021/kaja-Rakott_cukkini_bulgurral.jpg": {
+    "mtime": 1777755904.879243,
+    "ast_hash": "4d75957de140abed9e9b3f46670838e0",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2021/kaja-rs2021-DSC_0878.jpg": {
+    "mtime": 1777755902.384201,
+    "ast_hash": "d5f07b0212445fed66a6aa875e3e0649",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2020/rs2020-kelbimb_-toj_s-bacon.jpg": {
+    "mtime": 1777755398.27069,
+    "ast_hash": "b0777ce47cab3e24c83ae570205d6c9e",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2020/rs2020-119473330_647758846177620_6487981827926288962_n.jpg": {
+    "mtime": 1777755389.046691,
+    "ast_hash": "1e486006f48afb5de17c17d39091d94d",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2020/rs2020-patiszon_t_ltve2.jpg": {
+    "mtime": 1777755389.106602,
+    "ast_hash": "1de3f573348a4a26d2d27680bdc8eb32",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2020/rs2020-H_sgomb_c_leves--1.jpg": {
+    "mtime": 1777755388.484987,
+    "ast_hash": "05af1b45ce8e18815fffb54893afc103",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2020/rs2020-Paradicsomos_sult_teszta.jpg": {
+    "mtime": 1777755399.50145,
+    "ast_hash": "f0a03f5cbbeb7397d677fbc9432f2713",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2020/rs2020-gomb_s-sonk_s__pecsenye.jpg": {
+    "mtime": 1777755393.58256,
+    "ast_hash": "ef6c346686bc7b0d2bb14005fd1a1131",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2020/rs2020-CEOSZ_Napt_r-027-1.jpg": {
+    "mtime": 1777755398.784193,
+    "ast_hash": "0ba1b24c0003278cf9269da54fd32719",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2020/rs2020-medvehagym_s-vajkr_m2.jpg": {
+    "mtime": 1777755396.690668,
+    "ast_hash": "caad942b07cf5cd44c41f1b330172600",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2020/rs2020-Sertesszuz_burgonayval.jpg": {
+    "mtime": 1777755393.29142,
+    "ast_hash": "a5625cc2ed8829665aac77c982b4a329",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2020/rs2020-Receptsarok-015-3.jpg": {
+    "mtime": 1777755395.769985,
+    "ast_hash": "0bd63afc5fe0732b8c987b179ee24983",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2020/rs2020-s_lt_c_klasal_ta.jpg": {
+    "mtime": 1777755400.413923,
+    "ast_hash": "8e74fcf88f12722c65c8cec9de59a170",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2020/rs2020-krumplis_h_sgoly__f_rjtoj_ssal.jpg": {
+    "mtime": 1777755392.975098,
+    "ast_hash": "55f2eae6c23572b51e6fe910ab512085",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2020/rs2020-C_kl_s_humusz.jpg": {
+    "mtime": 1777755399.950122,
+    "ast_hash": "7e27ae542677a63e642b66f5fef9c552",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2020/rs2020-Receptsarok-210-1.jpg": {
+    "mtime": 1777755401.055114,
+    "ast_hash": "5c559ae49e1330e3de22ebe8aecb4f31",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2020/rs2020-lazac_c_klasal_ta2.jpg": {
+    "mtime": 1777755391.048774,
+    "ast_hash": "5eccb8543bbbff1b788ef3a9b58dc319",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2020/rs2020-lilahagym_s_paradicsom_chutney2.jpg": {
+    "mtime": 1777755396.486193,
+    "ast_hash": "723879ce745cacc4505b9d37b0ae58c8",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2020/rs2020-s_lt_t_lt_tt_toj_s2.jpg": {
+    "mtime": 1777755397.242173,
+    "ast_hash": "6b9e8b0e70803b982e4622db589beee2",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2020/rs2020-Hamis_tonhaltatar.jpg": {
+    "mtime": 1777755390.604442,
+    "ast_hash": "a9a4e41fa83ecdfc4fe3a0f1bb639bc2",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2020/rs2020-h_sgomb_c-kelbimb_.jpg": {
+    "mtime": 1777755396.264956,
+    "ast_hash": "8ee4b8675e160fdf7c9c879a10af37c0",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2020/rs2020-Receptsarok-148-1.jpg": {
+    "mtime": 1777755396.068035,
+    "ast_hash": "642459208de790a5b3095837354095da",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2020/rs2020-CEOSZ_Napt_r-360-1.jpg": {
+    "mtime": 1777755392.387934,
+    "ast_hash": "36a871db3bdb7c4a28ddf3486edd63f2",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2020/rs2020-DSC_0545.jpg": {
+    "mtime": 1777755391.481742,
+    "ast_hash": "edc01c123241114523fccf7c7cd25ddb",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2020/rs2020-IMG_20200612_135115-3.jpg": {
+    "mtime": 1777755395.094239,
+    "ast_hash": "af5491e3ba298dd5e2fbbaf77fcd7c81",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2020/rs2020-avok_d_kr_m..jpg": {
+    "mtime": 1777755397.418962,
+    "ast_hash": "420b3c0a725d6bf0668bc6e125e224bc",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2020/rs2020-Receptsarok-091-1.jpg": {
+    "mtime": 1777755401.649598,
+    "ast_hash": "d6014605c3aacac045ab19d847111d70",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2020/rs2020-DSC_0144.jpg": {
+    "mtime": 1777755388.760484,
+    "ast_hash": "e32fa1e5e970ae95135505020aa6d8e7",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2020/rs2020-CEOSZ_Napt_r-225-3.jpg": {
+    "mtime": 1777755390.34798,
+    "ast_hash": "71b5bf1510e05c105e972979b02624b4",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2020/rs2020-kaproscukkini-3.jpg": {
+    "mtime": 1777755389.999753,
+    "ast_hash": "69a3c5ccbbb7f3519a0793db9041a889",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2020/rs2020-CEOSZ_Napt_r-072-1.jpg": {
+    "mtime": 1777755397.99269,
+    "ast_hash": "6f1780815c847f4c234c630554c47966",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2020/rs2020-022-1.jpg": {
+    "mtime": 1777755389.3619,
+    "ast_hash": "2466523f6c43a7c8df48cab7fa14c01f",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2020/rs2020-s_lt_alma-1.jpg": {
+    "mtime": 1777755400.796426,
+    "ast_hash": "50f1e9fee2c0fd6cd846fb7f46edc2a2",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2020/rs2020-CEOSZ_Napt_r-190-1.jpg": {
+    "mtime": 1777755389.84999,
+    "ast_hash": "08d2c092e9781412b4945160b661aff7",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2020/rs2020-Receptsarok-219-1.jpg": {
+    "mtime": 1777755390.90752,
+    "ast_hash": "2ca57e01b9572bcbd5c48e7a383e51ba",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2020/rs2020-CEOSZ_Napt_r-465-1.jpg": {
+    "mtime": 1777755392.670856,
+    "ast_hash": "18f8ee86d151e33cd7d97e3e65aad40e",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2020/rs2020-Receptsarok-261-1.jpg": {
+    "mtime": 1777755400.23936,
+    "ast_hash": "d62b60b96991705091b94a2878cd6133",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2020/rs2020-Receptsarok-064-1.jpg": {
+    "mtime": 1777755400.744076,
+    "ast_hash": "c72282b6125112224ddf64d9463b4186",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2020/rs2020-Receptsarok-287-1.jpg": {
+    "mtime": 1777755393.968035,
+    "ast_hash": "ffb4428dee294227fe9ea57ac6a2d15a",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2020/rs2020-s_s_k_r_z_tt_torta.jpg": {
+    "mtime": 1777755401.793195,
+    "ast_hash": "a687ea5e812b593c181c7b0437bc39f9",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2020/rs2020-z_lds_ges_libaleves2.jpg": {
+    "mtime": 1777755388.287282,
+    "ast_hash": "b1c4dc0ec1b1d3a13e55cf09eaff53e3",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2020/rs2020-paradicsom_kr_mleves2.jpg": {
+    "mtime": 1777755388.188301,
+    "ast_hash": "0a571c6ae2ebf12fca48ac3cd18c4a81",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2020/rs2020-CEOSZ_Napt_r-311-1.jpg": {
+    "mtime": 1777755399.852498,
+    "ast_hash": "9f3dcfbd7ba7f341efe51732d824816b",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2020/rs2020-DSC_0744-1024x775.jpg": {
+    "mtime": 1777755396.735665,
+    "ast_hash": "d8d709380c0d4481057a583d58629a82",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2020/rs2020-petrezselyem_leves.jpg": {
+    "mtime": 1777755388.857391,
+    "ast_hash": "025df9ca221b7200b54f4a6f4d0e78eb",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2020/rs2020-cukkinisal_ta-toj_s-sonka2.jpg": {
+    "mtime": 1777755400.313151,
+    "ast_hash": "6a08326f453ae18a6615c4b44f8097a3",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2020/rs2020-zeller_s_tve.jpg": {
+    "mtime": 1777755397.290307,
+    "ast_hash": "f82c75a90cf27ca66323e3a472e76284",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2020/rs2020-CEOSZ_Napt_r-421-1.jpg": {
+    "mtime": 1777755391.956389,
+    "ast_hash": "ada119fca40224225b14aa549ebc3117",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2020/rs2020-DSC_0058.jpg": {
+    "mtime": 1777755395.375852,
+    "ast_hash": "f1b01899915a8f401d1aee76d5540b64",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2020/kaja-Citromos,_kakukkf_ves,_kapros_pisztr_ng_z_ldbabsal_t_val-CEOSZ_Napt_r-261-1.jpg": {
+    "mtime": 1777755392.185921,
+    "ast_hash": "90f1fc7445ff20d168b675e075bacdcc",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2020/rs2020-CEOSZ_Napt_r-350-1.jpg": {
+    "mtime": 1777755399.31336,
+    "ast_hash": "94f55463bb03830563aaa61097f675b6",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2020/rs2020-CEOSZ_Napt_r-171-1.jpg": {
+    "mtime": 1777755393.209609,
+    "ast_hash": "bb7f76a098bf30f09ac66f51351aedf9",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2020/rs2020-CEOSZ_Napt_r-134-1.jpg": {
+    "mtime": 1777755397.169508,
+    "ast_hash": "0de4a5e65223e6117c19ff23773712df",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2018/kaja-Csokis_mogyoros_keksz-3.jpg": {
+    "mtime": 1777753397.412679,
+    "ast_hash": "f325ec62cb118036b3e7f28bebc7ca79",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2018/kaja-Csokoladetorta_cukormentesen.jpg": {
+    "mtime": 1777753397.970456,
+    "ast_hash": "dfd042f178097f52f30b437277c4327f",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2018/kaja-Borban_parolt_nyulcomb_gyomberes_szoloraguval.jpg": {
+    "mtime": 1777753378.155062,
+    "ast_hash": "dc8bc2777b79e46dee0ea9f204d032fd",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2018/kaja-Feherboros_csirkemaj_zellerpurevel.jpg": {
+    "mtime": 1777753374.767883,
+    "ast_hash": "8e2008fed3b687521b316e24fecfe5e3",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2018/kaja-currys_csicseriborso_bulgurral.jpg": {
+    "mtime": 1777753372.26634,
+    "ast_hash": "6165afe927a9521b89fdf1038ea843dd",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2018/kaja-Zold_leves_sajtgomboccal.jpg": {
+    "mtime": 1777753371.13993,
+    "ast_hash": "daa4cd34d074c51b79cb2840c21f21db",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2018/kaja-Lila_kaposztas-boros_csirkecomb.jpg": {
+    "mtime": 1777753378.2308,
+    "ast_hash": "a2a3a487db1467ddc96dd56a88281c29",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2018/kaja-Dios_repatorta_liszt_nelkul.jpg": {
+    "mtime": 1777753387.333633,
+    "ast_hash": "c9997dc9c71607359503cb6d39cb828e",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2018/kaja-Gluten_es_cukormentes_almas_pite.jpg": {
+    "mtime": 1777753392.666014,
+    "ast_hash": "2f93e5d7f64426ebe7b1c2ded2b742aa",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2018/kaja-Almas_kiflipuding_vanilias_szosszal.jpg": {
+    "mtime": 1777753398.05297,
+    "ast_hash": "946a3ff0f0af18bd64ce2d49f8ffdc01",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2018/kaja-Mango-avokado_salsa.jpg": {
+    "mtime": 1777753380.176915,
+    "ast_hash": "e2fad65bfba56b1300c554f567cf7c95",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2018/kaja-Avokadokrem_zoldsegekkel.jpg": {
+    "mtime": 1777753382.44384,
+    "ast_hash": "e5c67526fc1927e4c4da0bd719bdf4f2",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2018/kaja-Cukkinis_palacsinta.jpg": {
+    "mtime": 1777753388.905165,
+    "ast_hash": "2de8738326ac7b65c830747fb098ce97",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2018/kaja-Gombas_omlett.jpg": {
+    "mtime": 1777753372.182145,
+    "ast_hash": "38c19c4eca2761210c5261774c335719",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2018/kaja-Repatortas_zabkasa.jpg": {
+    "mtime": 1777753392.473116,
+    "ast_hash": "89ac183431210b5e5da7915428334587",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2018/kaja-kremsajtos-hagymas_debreceni.jpg": {
+    "mtime": 1777753377.626153,
+    "ast_hash": "d4b483ae02dd8993dc821392eec4ce1e",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2018/kaja-Zoldseges_kuszkusz_csirkemellel.jpg": {
+    "mtime": 1777753377.058937,
+    "ast_hash": "5ffc7c2a9004a14d655c029c5e1b5494",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2018/kaja-Nyulpecsenye.jpg": {
+    "mtime": 1777753377.564382,
+    "ast_hash": "ead19334091869d70b08f8bd9cca2823",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2018/kaja-Meggyes_pite.jpg": {
+    "mtime": 1777753397.712339,
+    "ast_hash": "09a95d8b931f6f871666085430e971bb",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2018/kaja-Tejszines_cukkinikremleves.jpg": {
+    "mtime": 1777753371.041433,
+    "ast_hash": "42c03f3b1e794deac88dea5a055bc637",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2018/kaja-Csirketaco_edesburgonyaba_rejtve-1.jpg": {
+    "mtime": 1777753383.922066,
+    "ast_hash": "c8df7e540afb64c07431919213bf63e6",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2018/kaja-Cukkinis_toltott_paprika.jpg": {
+    "mtime": 1777753372.843591,
+    "ast_hash": "58aa4fc20329684ab2a81307bc1a29ac",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2018/kaja-Sajtos_karfiolfasirt.jpg": {
+    "mtime": 1777753372.91451,
+    "ast_hash": "49dd43fb6c0bd9f94fb8fa01b02bdf26",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2018/kaja-Serpenyos_reggeli.jpg": {
+    "mtime": 1777753383.776165,
+    "ast_hash": "8a43987e59b7837a29bc003509fc1609",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2018/kaja-Paradicsomos-sajtos_teszta.jpg": {
+    "mtime": 1777753383.469479,
+    "ast_hash": "edf44ca91772e3cfd8eb2f268a859b16",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2018/kaja-Tejfolos-majonezes_tojassalata.jpg": {
+    "mtime": 1777753384.03388,
+    "ast_hash": "e382c95a9006eeff06a65f43ec77afd2",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2018/kaja-Husgombocos_kel.jpg": {
+    "mtime": 1777753383.714965,
+    "ast_hash": "4e0a00f759e13edf6d4a4b9fa8a65999",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2018/kaja-Toltott_szololevel_hidegen.jpg": {
+    "mtime": 1777753382.127883,
+    "ast_hash": "d33ab6df4c21348eb82751c00e932a3d",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2018/kaja-Reform_kakaoscsiga.jpg": {
+    "mtime": 1777753397.823157,
+    "ast_hash": "bf1e1fa37938a9b9fc73c3d5d785f723",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2018/kaja-hagymaropogos.jpg": {
+    "mtime": 1777753372.221141,
+    "ast_hash": "dccba8850cce6d0c90e23b61c7265c8a",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2018/kaja-Gluten_es_cukormentes_linzer.jpg": {
+    "mtime": 1777753392.573729,
+    "ast_hash": "e9604389a9e725ab5aa803ab8dada235",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2018/kaja-Rostonsult_csirkemell_csipos_sargarepasalataval_es_spagettivel.jpg": {
+    "mtime": 1777753376.436647,
+    "ast_hash": "78def02215b4acb4d8aba28a5a5750e8",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2018/kaja-gyomberes_narancsos_sutotokleves.jpg": {
+    "mtime": 1777753370.75384,
+    "ast_hash": "d3134bd69a326eb670537d20568be4b7",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2018/kaja-Ropogos_zoldseggolyok.jpg": {
+    "mtime": 1777753373.653375,
+    "ast_hash": "aa31b3d47216328ae06d3c8835659d73",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2018/kaja-Forditott_narancstorta.jpg": {
+    "mtime": 1777753397.503593,
+    "ast_hash": "4089a2c2a93813f305ad3a98fd224b74",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2018/kaja-Lenmagos_burgonyapelyhes_bundaban_sult_halszelet_olivabogyos_feta_sajtos_zoldsalataval.jpg": {
+    "mtime": 1777753374.610932,
+    "ast_hash": "187b3f12fcd4c1072cbc2d21a89fc9fb",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2018/kaja-csicseriborsos_cukkini_fozelek.jpg": {
+    "mtime": 1777753372.987612,
+    "ast_hash": "410637a09bb5083e317a326f6361e481",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2018/kaja-Turoval_toltott_csirkemellszelet_kaporontettel_zoldseges_barna_rizzsel.jpg": {
+    "mtime": 1777753378.07054,
+    "ast_hash": "0d0780de39b1bdd9a08432912b0e4696",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2018/kaja-tormas_almas_husgombocleves.jpg": {
+    "mtime": 1777753371.088817,
+    "ast_hash": "ac52358b29065b355faa42cf68ce1a59",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2018/kaja-Kokuszos_chiamagos_keksz.jpg": {
+    "mtime": 1777753388.994559,
+    "ast_hash": "278877847b804ed5859129a2314b2055",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2018/kaja-Karfiolos_sultpaprika-kremleves_mozzarellaval.jpg": {
+    "mtime": 1777753371.187461,
+    "ast_hash": "e60cc6abcfceb708daef4963f53fe047",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2018/kaja-Zoldseges-tonhalas_retes.jpg": {
+    "mtime": 1777753395.148406,
+    "ast_hash": "4c2fd15f632a01fcd3eefaeca950666b",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2018/kaja-Zsalyas_edesburgonya.jpg": {
+    "mtime": 1777753382.846544,
+    "ast_hash": "fbeb79b906da9a1b0442de9417f6dd78",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2018/kaja-Cukkinis_teszta.jpg": {
+    "mtime": 1777753371.417802,
+    "ast_hash": "35e4a1a941875c14c92cc35ece5af78f",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2018/kaja-Kolbaszos_ragu_bulgurral.jpg": {
+    "mtime": 1777753383.356402,
+    "ast_hash": "a18a20eee651dcf7a50e43a8b768cee0",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2018/kaja-Szezammagos_kelbimbo.jpg": {
+    "mtime": 1777753374.187045,
+    "ast_hash": "8e6870c4c909fe9297484f5b3b5dc4c7",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2018/kaja-Fuszeres-kremsajtos_csirkemell.jpg": {
+    "mtime": 1777753378.321395,
+    "ast_hash": "0e2c21658063adc1d7b15552b37cfbf2",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2018/kaja-brokkolikrokett_ketfele_tunkitunkival-1.jpg": {
+    "mtime": 1777753372.357163,
+    "ast_hash": "6c0c8cf03883d4d07e2708a606e9fb27",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2018/kaja-Sajtos_csirkemell_kapros_zoldbabpurevel.jpg": {
+    "mtime": 1777753374.705073,
+    "ast_hash": "2a501c382c50a133ac4ef2175c4aab16",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2018/kaja-Gluten_es_tejmentes_szilvas-kokuszos_szelet.jpg": {
+    "mtime": 1777753397.879574,
+    "ast_hash": "3b5a6f8a57bcd7ce42267c3bbb4c2c6e",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2018/kaja-Turofelfujt_mandarinnal-2.jpg": {
+    "mtime": 1777753391.084097,
+    "ast_hash": "d7d721065cda3d4853e03dadc6a9b096",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2018/kaja-Kuszkuszsalata_sajttal-sonkaval.jpg": {
+    "mtime": 1777753385.508003,
+    "ast_hash": "78a3795d4a8b54f277e4d2170d9d2ac2",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2018/kaja-Epres_sajttorta.jpg": {
+    "mtime": 1777753395.075165,
+    "ast_hash": "4d063514d1afa038dd53163ddc7e29e0",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2011/kaja-csirkecomb_zoldborsoval.jpg": {
+    "mtime": 1777759828.562797,
+    "ast_hash": "8b245104dc2cc2b2e99995295ac12d04",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2011/kaja-zoldbabos_sertestokany.jpg": {
+    "mtime": 1777759832.645086,
+    "ast_hash": "b51098b69f18657abe6cff3ae868cefc",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2011/kaja-paradicsomban_sult_tojas.jpg": {
+    "mtime": 1777759833.417423,
+    "ast_hash": "7551577d89937b723c13e1fc42100050",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2011/kaja-toltott_padlizsan.jpg": {
+    "mtime": 1777759824.143157,
+    "ast_hash": "e1b315e762712b9f9d474e384449a8a6",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2011/kaja-kulunleges_sertesszelet.jpg": {
+    "mtime": 1777759828.100703,
+    "ast_hash": "599b9423885099e3b2c8671aaeb92d4c",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2011/kaja-gombas_szelet.jpg": {
+    "mtime": 1777759829.03641,
+    "ast_hash": "b67ea73aeefbe2724b37ae1306916bb7",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2011/kaja-cukkinis_juhsajt.jpg": {
+    "mtime": 1777759824.689624,
+    "ast_hash": "f84315777c3da469710aef53990dc7bb",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2011/kaja-sonkas_dios_penne.jpg": {
+    "mtime": 1777759832.01923,
+    "ast_hash": "aea6ee3f37f1a8cca291a7d93525ac05",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2011/kaja-karfiolsalata.jpg": {
+    "mtime": 1777759834.187022,
+    "ast_hash": "bd90212b0c581f65f9bd069572d041f1",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2011/kaja-almas_tormas_csirkemell.jpg": {
+    "mtime": 1777759827.242404,
+    "ast_hash": "4d9507e99f60117a5c941a7a42b75f3b",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2011/kaja-burgonya_sajtmartassal.jpg": {
+    "mtime": 1777759830.70763,
+    "ast_hash": "72e2db2c892ff5754d760d0c0997b9a0",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2011/kaja-parajkremleves.jpg": {
+    "mtime": 1777759823.199403,
+    "ast_hash": "9493c24bf1bc9a96a6f81f74c8a907cd",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2011/kaja-avokadokremmel_toltott_paradicsom.jpg": {
+    "mtime": 1777759825.374008,
+    "ast_hash": "f64393a96cd86aab07a77994665c49e3",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2011/kaja-sajtleves.jpg": {
+    "mtime": 1777759822.645133,
+    "ast_hash": "a597dead7c1f122e5f8f8f54c2f7f9a4",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2011/kaja-fokhagymas_csirkecomb.jpg": {
+    "mtime": 1777759829.526206,
+    "ast_hash": "40aad2315fc18da57bb559daf9ca5cec",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2011/kaja-virslileves.jpg": {
+    "mtime": 1777759822.221001,
+    "ast_hash": "8232312f4b52a2523f71348c66fb9f58",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2011/kaja-parajpalacsinta.jpg": {
+    "mtime": 1777759825.997467,
+    "ast_hash": "d1547c745c433fdda32d68188bba54fb",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2011/kaja-eperkoktel.jpg": {
+    "mtime": 1777759835.936956,
+    "ast_hash": "9fded04f24cf88222274e933fd5e56a2",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2011/kaja-gombas_kaposztasalata.jpg": {
+    "mtime": 1777759834.677827,
+    "ast_hash": "544fe176e06d8921bbc47763d05636fa",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2011/kaja-zoldborsoleves.jpg": {
+    "mtime": 1777759821.443584,
+    "ast_hash": "cf69c13a7b2a3cf51f94dcd1edf0d24b",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2011/kaja-grapefruitos_salata.jpg": {
+    "mtime": 1777759835.408779,
+    "ast_hash": "800c30f40ad483be044c3abd7368b4b4",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2011/kaja-toltott_uborka.jpg": {
+    "mtime": 1777759823.610194,
+    "ast_hash": "7432afe23dd974e8485fa050342fe10b",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2011/kaja-tokehalfile_zoldsegekkel.jpg": {
+    "mtime": 1777759826.456187,
+    "ast_hash": "9e9a7d7aeeeb43283d26cffdaf5c7081",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2011/kaja-kuszkusz_paprikaval_paradicsommal.jpg": {
+    "mtime": 1777759825.670901,
+    "ast_hash": "20a65d05979dfb4ff02382c277295287",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2011/kaja-csirkemell_almaval.jpg": {
+    "mtime": 1777759830.077206,
+    "ast_hash": "0e35099d743ca7126d039987027e72b5",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2011/kaja-husgolyo.jpg": {
+    "mtime": 1777759827.593202,
+    "ast_hash": "c0c96d47dd95eeb0b008aa09898d7ee9",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2011/kaja-paradicsomleves.jpg": {
+    "mtime": 1777759821.802721,
+    "ast_hash": "bb3c8e81d9159ac1576e6d3cfdc19f1d",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2011/kaja-tesztasalata_csirkemellsulttel.jpg": {
+    "mtime": 1777759831.403067,
+    "ast_hash": "59a0b058244507ab3da64282028aa6de",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2011/kaja-halszeletek_narancsleben.jpg": {
+    "mtime": 1777759826.874727,
+    "ast_hash": "9e2811c1b2bac46a6e5df760ef6aa308",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2011/kaja-toltott_alma.jpg": {
+    "mtime": 1777759835.656122,
+    "ast_hash": "dd841fbe2d0e3f7b1deee59e45f180ac",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2016/kaja-kokuszos_chiapuding-rf2016.jpg": {
+    "mtime": 1774114854.360278,
+    "ast_hash": "be38ce93d95dfb50b84a3e070115e7c7",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2016/kaja-szivvirsli-rf2016.jpg": {
+    "mtime": 1774114840.355532,
+    "ast_hash": "0c2037537c534157f5335afe8e98898b",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2016/kaja-birsalmaskokuszgolyo-RG8_6993.jpg": {
+    "mtime": 1774114853.040027,
+    "ast_hash": "8e3bc89f72306ccd240b2831c9c27cbb",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2016/kaja-barackos_csirkesalata-rf2016.jpg": {
+    "mtime": 1774114849.10914,
+    "ast_hash": "68a2a32a2e8b7986b666353754c3b01a",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2016/kaja-Csicseriborsokrem_mindenmentes-rf2016.jpg": {
+    "mtime": 1774114843.189778,
+    "ast_hash": "de8a0d4d963e7509bed1a1b9d898b732",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2016/kaja-karfiolpizza-RG8_7106.jpg": {
+    "mtime": 1774114846.325412,
+    "ast_hash": "c54e416c544ee9c3ce12abeff8278045",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2016/kaja-spenottekercs-1-rf2016.jpg": {
+    "mtime": 1774114832.196553,
+    "ast_hash": "1c1d315e11236b13a57bdcb9e7a6990a",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2016/kaja-Habos_turos_alagut-rf2016.jpg": {
+    "mtime": 1774114854.331337,
+    "ast_hash": "e32c81b059c3b82762d017a3e9f0f03d",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2016/kaja-Turos_mandulatorta_21_g_sz_nhidratbol-rf2016.jpg": {
+    "mtime": 1774114854.605915,
+    "ast_hash": "6ab8d49f738b345c4564fe6fd24303a7",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2016/kaja-karfiolmuffin-2-rf2016.jpg": {
+    "mtime": 1774114832.066871,
+    "ast_hash": "815d3c1d648cb620e7adb24b917022d2",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2016/kaja-sulthalzoldseggel-RG8_7074.jpg": {
+    "mtime": 1774114836.610964,
+    "ast_hash": "0af92b2cfc2d95c8e39faff60b050d69",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2016/kaja-telisalata2-rf2016.jpg": {
+    "mtime": 1774114849.575456,
+    "ast_hash": "c8be45087b4412b227883d4bc7abc142",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2016/kaja-baconbensultharcsa-RG8_7060.jpg": {
+    "mtime": 1774114837.732746,
+    "ast_hash": "088723efb90a77636479881b93745359",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2016/kaja-Almas_karaj-rf2016.jpg": {
+    "mtime": 1774114840.408076,
+    "ast_hash": "b39e4cc616ce8719dc11c21faf4e6706",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2016/kaja-csokiszabgolyo-RG8_7020.jpg": {
+    "mtime": 1774114854.2772,
+    "ast_hash": "ce339324ad5d0513f689a47d468a1af5",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2016/kaja-brokkolifasirt-rf2016.jpg": {
+    "mtime": 1774114831.941419,
+    "ast_hash": "519cee785fdc74992c576b6236da21ef",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2016/kaja-tojaslepeny_2-rf2016.jpg": {
+    "mtime": 1774114843.253715,
+    "ast_hash": "8eaf4cc8be2337b01be3fa5e3b88c12a",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2016/kaja-Vegyes_zoldsegleves-rf2016.jpg": {
+    "mtime": 1774114831.519683,
+    "ast_hash": "a43bb3661749b02bcae429fb1f16fdba",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2016/kaja-kokuszos_rolad-rf2016.jpg": {
+    "mtime": 1774114853.087934,
+    "ast_hash": "f62641309494daf88050e0634939e2b0",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2016/kaja-repassavanyukaposzta-1-rf2016.jpg": {
+    "mtime": 1774114846.522909,
+    "ast_hash": "915fffefa4379f2febef7d5d52f03477",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2016/kaja-Kellevel_gombaval_toltve-rf2016.jpg": {
+    "mtime": 1774114832.119607,
+    "ast_hash": "9ba296c6424a9480a4ebfc8d9b18077f",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2016/kaja-csirkehajo-rf2016.jpg": {
+    "mtime": 1774114841.025726,
+    "ast_hash": "1ed35d5b825bd3e7a20e3ac9e70fa743",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2016/kaja-toltott_gombcukkini_2-rf2016.jpg": {
+    "mtime": 1774114845.075549,
+    "ast_hash": "bf424b984cfff4b04151dac7b0c37699",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2016/kaja-szinestelisalata-rf2016.jpg": {
+    "mtime": 1774114848.451248,
+    "ast_hash": "b9535078e4b65a3947cacc8ca8eb9a9d",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2016/kaja-pulykamell_zoldsegekkel-1-rf2016.jpg": {
+    "mtime": 1774114841.109442,
+    "ast_hash": "686494e4f10991640134fe1e3bf53e8f",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2016/kaja-Szuzerme_sult_zoldseggel-rf2016.jpg": {
+    "mtime": 1774114840.455657,
+    "ast_hash": "6ddadc9cfbb79f7416dca9b3b3ed22cb",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2016/kaja-Gazpacho-rf2016.jpg": {
+    "mtime": 1774114831.46245,
+    "ast_hash": "164cda58bf245888da35a969a9600e4f",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2016/kaja-Avokado_puding-rf2016.jpg": {
+    "mtime": 1774114851.786281,
+    "ast_hash": "5d4de0172297c540290b886acfda0eed",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2016/kaja-Paradicsomos_csirkemell-rf2016.jpg": {
+    "mtime": 1774114840.871509,
+    "ast_hash": "6b66a8dc2d8d43d1e7edb1827784f958",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2016/kaja-Teljes_kiorl_su_kenyer-rf2016.jpg": {
+    "mtime": 1774114854.988873,
+    "ast_hash": "8952596dc2fb12c6acdeb3827f964736",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2016/kaja-cukkinisburgonyagratin-2-rf2016.jpg": {
+    "mtime": 1774114846.468436,
+    "ast_hash": "b6022455bcb6930ceac6015095486ccf",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2016/kaja-Fetas_paradicsomos_salata_bulgurral-rf2016.jpg": {
+    "mtime": 1774114849.445565,
+    "ast_hash": "3c0ef8ac6172fa01034bb9d4cb196309",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/rs/2016/kaja-Sargaborsofozelek_rantas_nelkul-rf2016.jpg": {
+    "mtime": 1774114832.482165,
+    "ast_hash": "1c422822fc464be0b8df7f4bdbf4258c",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/assets/dj1701-p1-optim.jpg": {
+    "mtime": 1747952083.266,
+    "ast_hash": "062dfb6b0461a58a02afdf40af9ccae5",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/assets/logo-diabetes2.svg": {
+    "mtime": 1747952083.268,
+    "ast_hash": "b28c486e232014637b2a69ca343d297b",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/assets/pixabay-question-2709670-1280.jpg": {
+    "mtime": 1748716341.226,
+    "ast_hash": "4bdad8e37a64d1694cbbf81b009323a5",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/assets/logo-uj-diabetes.svg": {
+    "mtime": 1777673199.232974,
+    "ast_hash": "5a158b06b955149f5e9bc10b458e80e3",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/assets/gdm.jpg": {
+    "mtime": 1732811774.128,
+    "ast_hash": "b04cc401127e76e73a6d7e417421b172",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/assets/logo-diabetes2-1.svg": {
+    "mtime": 1749729419.227,
+    "ast_hash": "c757055975e96a19849d9552c6c8891e",
+    "semantic_hash": ""
+  }
+}

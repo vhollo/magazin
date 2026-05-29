@@ -1,19 +1,12 @@
-import { getRecipes } from '$lib/siteConf'
-import { toTeaser, type Recipe, type RecipeTeaser } from '$lib/receptsarok'
+import type { LayoutServerLoad } from './$types';
+import { MAGAZINE_CACHE_CONTROL } from '$lib/magazine/cacheHeaders';
+import { getReceptsarokTeasers } from '$lib/receptsarokFirestore';
 
-export const prerender = true
-
-export async function load() {
-  const recipes = (await getRecipes()) as Recipe[]
-  const recipeTeasersByKey: Record<string, RecipeTeaser> = {}
-
-  for (const recipe of recipes) {
-    if (recipe.published === false) continue
-    recipeTeasersByKey[`${recipe.year}/${recipe.id}`] = toTeaser(recipe)
-  }
-
-  return {
-    doc: { path: 'keres', title: 'Keresés' },
-    recipeTeasersByKey,
-  }
-}
+export const load: LayoutServerLoad = async ({ setHeaders }) => {
+	setHeaders({ 'Cache-Control': MAGAZINE_CACHE_CONTROL });
+	const { teasersByKey } = await getReceptsarokTeasers();
+	return {
+		doc: { path: 'keres', title: 'Keresés' },
+		recipeTeasersByKey: teasersByKey,
+	};
+};
