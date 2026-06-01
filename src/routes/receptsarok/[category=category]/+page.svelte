@@ -77,7 +77,7 @@
 </svelte:head>
 
 <article class="prose mt-8 mb-4 mx-auto w-full px-4">
-  <nav class="breadcrumbs text-sm not-prose" aria-label="Elérési út">
+  <nav class="breadcrumbs text-sm not-prose mb-6" aria-label="Elérési út">
     <ul>
       <li><a href="/receptsarok" class="opacity-70 hover:opacity-100"><ReceptsarokLogo class="text-sm" /></a></li>
       <li>{category?.name || categoryId}</li>

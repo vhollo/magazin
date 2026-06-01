@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-05-29T20:09:31.222Z",
-  "sourceDocs": "sync worker (dynamic match + existing manifest)",
+  "generatedAt": "2026-05-31T22:01:52.964Z",
+  "sourceDocs": "src/lib/data/data.json",
   "sourceRecipes": "src/lib/data/recipes.json",
   "entries": [
     {
@@ -92,6 +92,18 @@
       "path": "cikkek/diabetes/1406/paradicsom-consomme-rakkal-zoldbabbal",
       "year": 2014,
       "id": "paradicsom-consomme-rakkal-zoldbabbal"
+    },
+    {
+      "modxContentId": 1288,
+      "path": "cikkek/diabetes/1406/parazslo-sutotokpure-voroscurry-martassal-es-rozmaringos-grillkolbaszkakkal",
+      "year": 2014,
+      "id": "parazslo-sutotokpure-voroscurry-martassal-es-rozmaringos-grillkolbaszkakkal"
+    },
+    {
+      "modxContentId": 1284,
+      "path": "cikkek/diabetes/1406/sargarepa-es-uborkasalata-korianderes-fetaval",
+      "year": 2014,
+      "id": "sargarepa-es-uborkasalata-korianderes-fetaval"
     },
     {
       "modxContentId": 1289,
@@ -2606,6 +2618,12 @@
       "path": "cikkek/hypertonia/1601/vanilias-meggyleves",
       "year": 2013,
       "id": "meggyleves"
+    },
+    {
+      "modxContentId": 1691,
+      "path": "cikkek/hypertonia/1601/zablisztes-szilvakremes-gomboc",
+      "year": 2016,
+      "id": "zablisztes-szilvakremes-gomboc"
     },
     {
       "modxContentId": 2114,

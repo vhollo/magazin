@@ -55,6 +55,39 @@ export function countNutritionValues(recipe) {
 }
 
 /**
+ * Parsed magazine recipe has at least one nutrition table row.
+ * @param {CandidateLike} recipe
+ * @returns {boolean}
+ */
+export function hasRecipeNutrition(recipe) {
+  const nutritionTables = Array.isArray(recipe?.nutritionTables) ? recipe.nutritionTables : []
+  return nutritionTables.length > 0
+}
+
+/**
+ * Parsed magazine recipe has at least one ingredient line.
+ * @param {CandidateLike} recipe
+ * @returns {boolean}
+ */
+export function hasRecipeIngredients(recipe) {
+  const ingredientGroups = Array.isArray(recipe?.ingredientGroups) ? recipe.ingredientGroups : []
+  return ingredientGroups.some(
+    (group) =>
+      Array.isArray(group?.items) &&
+      group.items.some((item) => String(item?.name ?? item?.text ?? '').trim().length > 0)
+  )
+}
+
+/**
+ * Minimum body for a magazine `recept` dedupe candidate (nutrition + ingredients).
+ * @param {CandidateLike} recipe
+ * @returns {boolean}
+ */
+export function hasNutritionAndIngredients(recipe) {
+  return hasRecipeNutrition(recipe) && hasRecipeIngredients(recipe)
+}
+
+/**
  * @param {CandidateLike} recipe
  * @returns {boolean}
  */

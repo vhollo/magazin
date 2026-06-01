@@ -7437,13 +7437,6 @@
         "purity": 1
       },
       {
-        "feature": "megfelelo",
-        "score": 4.385208,
-        "docFreq": 13,
-        "globalDocFreq": 13,
-        "purity": 1
-      },
-      {
         "feature": "etcsokolade",
         "score": 4.30617,
         "docFreq": 12,

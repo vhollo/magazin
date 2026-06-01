@@ -1,7 +1,11 @@
 // @ts-nocheck
 import fs from 'node:fs'
 import path from 'node:path'
-import { chooseWinner, pickRedirectTarget } from './receptsarokDedupeShared.js'
+import {
+  chooseWinner,
+  hasNutritionAndIngredients,
+  pickRedirectTarget,
+} from './receptsarokDedupeShared.js'
 import {
   buildRecipeFromModxDoc,
   buildRecipesFromModxDoc,
@@ -96,14 +100,18 @@ function hasReceptTag(doc, normalizeText) {
 }
 
 function hasRequiredRecipeBody(recipe) {
-  const ingredientGroups = Array.isArray(recipe?.ingredientGroups) ? recipe.ingredientGroups : []
   const instructions = Array.isArray(recipe?.instructions) ? recipe.instructions : []
-  const nutritionTables = Array.isArray(recipe?.nutritionTables) ? recipe.nutritionTables : []
-  return (
-    ingredientGroups.length > 0 &&
-    instructions.length > 0 &&
-    nutritionTables.length > 0
-  )
+  return hasNutritionAndIngredients(recipe) && instructions.length > 0
+}
+
+function auditSkipNoRecipeBody(audit, { modxContentId, modxPath, title, target }) {
+  audit.push({
+    type: 'skip-no-recipe-body',
+    modxContentId,
+    modxPath,
+    title,
+    target,
+  })
 }
 
 function slugFromTitle(title) {
@@ -429,6 +437,68 @@ export async function runMagazinRecipeDedupe({ docs, applyLocal = false, createL
       for (const { recipe: parsedRecipe, categoryDecision } of parsedList) {
         const recipeKey = `${parsedRecipe.year}-${parsedRecipe.id}`
 
+        if (!hasNutritionAndIngredients(parsedRecipe)) {
+          const subRecipeParsedList = convertSubRecipesToParsedList({
+            doc,
+            parentRecipe: parsedRecipe,
+            parentCategoryDecision: categoryDecision,
+            categoryByKey,
+            predictCategory: predictRecipeCategory,
+            recipeByKey,
+            plannedKeys: plannedCreateKeys,
+          })
+          if (subRecipeParsedList.length > 0) {
+            let extractedCount = 0
+            for (const { recipe: subRecipe, categoryDecision: subCategoryDecision } of subRecipeParsedList) {
+              const subRecipeKey = `${subRecipe.year}-${subRecipe.id}`
+              if (!subCategoryDecision.resolved || !subCategoryDecision.category) {
+                const reviewRecipe = { ...subRecipe }
+                delete reviewRecipe.category
+                uncategorizedRecipes.push({
+                  key: subRecipeKey,
+                  sourcePath: doc.path,
+                  modxContentId: doc.id,
+                  reason: subCategoryDecision.reason || 'subrecipe-category-unresolved',
+                  categoryDecision: subCategoryDecision,
+                  recipe: reviewRecipe,
+                })
+                audit.push({
+                  type: 'new-rs-subrecipe-category-unresolved',
+                  modxContentId: doc.id,
+                  modxPath: doc.path,
+                  target: subRecipeKey,
+                  categoryDecision: subCategoryDecision,
+                })
+                continue
+              }
+              createRecipes.push({
+                key: subRecipeKey,
+                sourcePath: doc.path,
+                recipe: subRecipe,
+                categoryDecision: subCategoryDecision,
+              })
+              extractedCount += 1
+            }
+            audit.push({
+              type: 'new-rs-subrecipes-extracted',
+              modxContentId: doc.id,
+              modxPath: doc.path,
+              source: recipeKey,
+              extractedTargets: subRecipeParsedList.map((entry) => `${entry.recipe.year}-${entry.recipe.id}`),
+              extractedCount,
+              note: 'parent-remains-magazine',
+            })
+            continue
+          }
+          auditSkipNoRecipeBody(audit, {
+            modxContentId: doc.id,
+            modxPath: doc.path,
+            title: docTitle,
+            target: recipeKey,
+          })
+          continue
+        }
+
         if (!categoryDecision.resolved || !categoryDecision.category) {
           const reviewRecipe = { ...parsedRecipe }
           delete reviewRecipe.category
@@ -449,6 +519,7 @@ export async function runMagazinRecipeDedupe({ docs, applyLocal = false, createL
           })
           continue
         }
+
         if (!hasRequiredRecipeBody(parsedRecipe)) {
           const subRecipeParsedList = convertSubRecipesToParsedList({
             doc,
@@ -502,26 +573,11 @@ export async function runMagazinRecipeDedupe({ docs, applyLocal = false, createL
             })
             continue
           }
-          uncategorizedRecipes.push({
-            key: recipeKey,
-            sourcePath: doc.path,
-            modxContentId: doc.id,
-            reason: 'parse-incomplete',
-            categoryDecision: {
-              ...categoryDecision,
-              reason: 'parse-incomplete',
-            },
-            recipe: parsedRecipe,
-          })
-          audit.push({
-            type: 'new-rs-parse-incomplete',
+          auditSkipNoRecipeBody(audit, {
             modxContentId: doc.id,
             modxPath: doc.path,
+            title: docTitle,
             target: recipeKey,
-            categoryDecision: {
-              ...categoryDecision,
-              reason: 'parse-incomplete',
-            },
           })
           continue
         }
@@ -641,7 +697,7 @@ export async function runMagazinRecipeDedupe({ docs, applyLocal = false, createL
   const uncategorizedReviewPayload = {
     generatedAt,
     instructions:
-      'Set category for each entry (entry.category or entry.recipe.category), then run: npm run recipes:uncategorized:import',
+      'Only parsed magazine recipes with nutrition tables and ingredients appear here. Set entry.category (or entry.recipe.category), then run: npm run recipes:uncategorized:import',
     entries: uncategorizedRecipes.map((entry) => ({
       key: entry.key,
       sourcePath: entry.sourcePath,

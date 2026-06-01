@@ -4,6 +4,7 @@ import path from 'node:path'
 import {
   compareRecipeCandidates,
   chooseWinner,
+  hasNutritionAndIngredients,
   pickRedirectTarget,
 } from '../src/lib/receptsarokDedupeShared.js'
 import {
@@ -406,6 +407,13 @@ function testUncategorizedQueueConsistency() {
     conflictingRecipes.length,
     0,
     `Uncategorized entries unexpectedly present in recipes.json: ${conflictingRecipes.length}`
+  )
+
+  const missingBody = entries.filter((entry) => !hasNutritionAndIngredients(entry?.recipe ?? {}))
+  assert.equal(
+    missingBody.length,
+    0,
+    `Uncategorized entries must have nutrition and ingredients: ${missingBody.map((e) => e.key).join(', ')}`
   )
 }
 

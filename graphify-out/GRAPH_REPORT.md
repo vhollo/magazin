@@ -1,16 +1,16 @@
-# Graph Report - magazin  (2026-05-29)
+# Graph Report - magazin  (2026-06-01)
 
 ## Corpus Check
-- 150 files · ~4,898,148 words
+- 153 files · ~4,899,920 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 1582 nodes · 2416 edges · 124 communities (121 shown, 3 thin omitted)
-- Extraction: 100% EXTRACTED · 0% INFERRED · 0% AMBIGUOUS · INFERRED: 10 edges (avg confidence: 0.8)
+- 1624 nodes · 2549 edges · 123 communities (119 shown, 4 thin omitted)
+- Extraction: 100% EXTRACTED · 0% INFERRED · 0% AMBIGUOUS · INFERRED: 12 edges (avg confidence: 0.8)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `688752c4`
+- Built from commit: `9ac3e746`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -107,7 +107,6 @@
 - [[_COMMUNITY_Community 89|Community 89]]
 - [[_COMMUNITY_Community 90|Community 90]]
 - [[_COMMUNITY_Community 91|Community 91]]
-- [[_COMMUNITY_Community 92|Community 92]]
 - [[_COMMUNITY_Community 93|Community 93]]
 - [[_COMMUNITY_Community 94|Community 94]]
 - [[_COMMUNITY_Community 95|Community 95]]
@@ -115,7 +114,6 @@
 - [[_COMMUNITY_Community 97|Community 97]]
 - [[_COMMUNITY_Community 98|Community 98]]
 - [[_COMMUNITY_Community 99|Community 99]]
-- [[_COMMUNITY_Community 100|Community 100]]
 - [[_COMMUNITY_Community 101|Community 101]]
 - [[_COMMUNITY_Community 102|Community 102]]
 - [[_COMMUNITY_Community 103|Community 103]]
@@ -125,40 +123,41 @@
 - [[_COMMUNITY_Community 107|Community 107]]
 - [[_COMMUNITY_Community 108|Community 108]]
 - [[_COMMUNITY_Community 109|Community 109]]
+- [[_COMMUNITY_Community 124|Community 124]]
 
 ## God Nodes (most connected - your core abstractions)
 1. `ify` - 89 edges
 2. `scripts` - 35 edges
-3. `main()` - 26 edges
+3. `main()` - 32 edges
 4. `$lib/components/Nav.svelte` - 25 edges
 5. `buildRecipeFromModxDoc()` - 22 edges
 6. `customer` - 20 edges
-7. `buildRecipeFromModxDoc()` - 19 edges
-8. `default_address` - 18 edges
-9. `normalizeText()` - 17 edges
-10. `billing_address` - 16 edges
+7. `buildAndUploadSearchIndex()` - 19 edges
+8. `buildRecipeFromModxDoc()` - 19 edges
+9. `default_address` - 18 edges
+10. `normalizeText()` - 17 edges
 
 ## Surprising Connections (you probably didn't know these)
 - `buildRsHome()` --calls--> `isRecipeFree()`  [INFERRED]
   scripts/sync-receptsarok-collections.mjs → src/lib/receptsarok.ts
-- `buildRsTeasers()` --calls--> `toTeaser()`  [INFERRED]
+- `buildRsTeaserShards()` --calls--> `toKeresTeaser()`  [INFERRED]
   scripts/sync-receptsarok-collections.mjs → src/lib/receptsarok.ts
 - `main()` --calls--> `createModxTransform()`  [INFERRED]
   scripts/sync-modx-to-firestore.mjs → src/lib/modx/transform.ts
 - `main()` --calls--> `loadReceptsarokRedirectMaps()`  [INFERRED]
   scripts/sync-modx-to-firestore.mjs → src/lib/modx/transform.ts
-- `listedPathsFromProjection()` --calls--> `isListedDoc()`  [INFERRED]
-  scripts/lib/search-index.mjs → src/lib/modx/collections.ts
+- `buildRsTeasers()` --calls--> `toTeaser()`  [INFERRED]
+  scripts/sync-receptsarok-collections.mjs → src/lib/receptsarok.ts
 
-## Communities (124 total, 3 thin omitted)
+## Communities (123 total, 4 thin omitted)
 
 ### Community 0 - "Community 0"
 Cohesion: 0.03
 Nodes (75): ify, admin_graphql_api_id, app_id, browser_ip, buyer_accepts_marketing, cancel_reason, cancelled_at, cart_token (+67 more)
 
 ### Community 1 - "Community 1"
-Cohesion: 0.05
-Nodes (52): loadSubscription(), updateRelatedCards(), encodeDocPathId(), COLLECTION_SLUGS, CollectionDoc, getMagazineArticle(), getMagazineCollection(), getMagazineStats() (+44 more)
+Cohesion: 0.06
+Nodes (47): getReceptsarokHome(), updateRelatedCards(), encodeDocPathId(), COLLECTION_SLUGS, CollectionDoc, getMagazineArticle(), getMagazineCollection(), getMagazineStats() (+39 more)
 
 ### Community 2 - "Community 2"
 Cohesion: 0.03
@@ -173,8 +172,8 @@ Cohesion: 0.04
 Nodes (44): categories, categoryStats, egytaletelek, haletelek, husetelek, koretek-italok-hidegkonyha, levesek, sos-edes-sutemenyek-desszertek-tesztak (+36 more)
 
 ### Community 5 - "Community 5"
-Cohesion: 0.04
-Nodes (44): name, esbuild, overrides, aria-query, axobject-query, @netlify/edge-bundler, private, scripts (+36 more)
+Cohesion: 0.06
+Nodes (35): scripts, build, check, check:watch, db:generate, db:introspect, db:migrate, db:push (+27 more)
 
 ### Community 6 - "Community 6"
 Cohesion: 0.05
@@ -185,80 +184,80 @@ Cohesion: 0.05
 Nodes (36): Adatvédelem, Ajánlat, Bejelentkezés, Bejelentkezési Módok, Cikk Megjelenítése, Cikkek és Kategóriák, Diabetes.hu Magazin - Felhasználói Útmutató, Előfizetés (+28 more)
 
 ### Community 8 - "Community 8"
-Cohesion: 0.11
-Nodes (30): modx_site_content, modx_site_htmlsnippets, modx_site_tmplvar_contentvalues, isMagazineCandidate(), shouldSyncRow(), purgeNetlifyPaths(), appendRedirectsManifest(), loadRedirectsManifest() (+22 more)
+Cohesion: 0.09
+Nodes (38): modx_site_content, modx_site_htmlsnippets, modx_site_tmplvar_contentvalues, decodeDocPathId(), isMagazineCandidate(), shouldSyncRow(), purgeNetlifyPaths(), applyModxLinkedRecipeFreeFlags() (+30 more)
 
 ### Community 9 - "Community 9"
-Cohesion: 0.12
-Nodes (31): normalizeText(), titleMatchScore(), tokenize(), AUDIT_PATH, CATEGORY_REVIEW_PATH, convertSubRecipesToParsedList(), CREATE_REVIEW_PATH, DATA_PATH (+23 more)
+Cohesion: 0.24
+Nodes (12): compareRecipeCandidates(), countNutritionValues(), countNutritionValuesFromTables(), hasNutritionAndIngredients(), hasRecipeIngredients(), hasRecipeNutrition(), hasVideo(), isModxImportRecipe() (+4 more)
 
 ### Community 10 - "Community 10"
 Cohesion: 0.11
 Nodes (32): CATEGORY_IDS, CATEGORY_KEYWORDS, categoryFeaturesFromRecipe(), collectText(), DEFAULT_PATTERNS_PATH, DEFAULT_STOPWORDS, featuresFromTokens(), firstKeywordMatch() (+24 more)
 
 ### Community 11 - "Community 11"
-Cohesion: 0.16
-Nodes (29): buildRecipeFromModxDoc(), buildRecipesFromModxDoc(), deriveAuthor(), deriveCategoryDecision(), deriveDocCreatedAtIso(), deriveImage(), deriveInstructions(), deriveInstructionsHtml() (+21 more)
+Cohesion: 0.20
+Nodes (6): NutritionValues, SubRecipe, CandidateLike, CompareRecipeResult, CompareRecipeScores, RecipeDedupeCandidate
 
 ### Community 12 - "Community 12"
-Cohesion: 0.10
-Nodes (23): load(), load(), toLayoutRecipe(), toTeaser(), buildReceptsarokCategory(), buildReceptsarokTeasers(), getPatikaCollection(), getReceptsarokCategory() (+15 more)
+Cohesion: 0.11
+Nodes (20): load(), load(), Category, RecipeTeaser, buildReceptsarokCategory(), buildReceptsarokTeasers(), getReceptsarokCategory(), getReceptsarokTeasers() (+12 more)
 
 ### Community 13 - "Community 13"
-Cohesion: 0.07
-Nodes (29): devDependencies, daisyui, drizzle-kit, eslint, eslint-config-prettier, eslint-plugin-svelte, globals, postcss (+21 more)
+Cohesion: 0.05
+Nodes (38): devDependencies, daisyui, drizzle-kit, eslint, eslint-config-prettier, eslint-plugin-svelte, globals, postcss (+30 more)
 
 ### Community 14 - "Community 14"
-Cohesion: 0.12
-Nodes (15): firebase/auth, $app/forms, authReady, authUser, AuthUserType, email, uid, apps (+7 more)
+Cohesion: 0.17
+Nodes (21): AUDIT_PATH, auditSkipNoRecipeBody(), CATEGORY_REVIEW_PATH, convertSubRecipesToParsedList(), CREATE_REVIEW_PATH, DATA_PATH, enforceFreeForMagazinOrigin(), hasRequiredRecipeBody() (+13 more)
 
 ### Community 15 - "Community 15"
-Cohesion: 0.17
-Nodes (25): countNutritionValues(), decodeHtmlEntities(), deriveInstructions(), deriveInstructionsHtml(), deriveServings(), emptyNutritionTable(), htmlToTextLines(), mergeSplitDecimalIngredientLines() (+17 more)
+Cohesion: 0.07
+Nodes (64): buildRecipeFromModxDoc(), buildRecipesFromModxDoc(), countNutritionValues(), decodeHtmlEntities(), deriveAuthor(), deriveCategoryDecision(), deriveDocCreatedAtIso(), deriveImage() (+56 more)
 
 ### Community 16 - "Community 16"
-Cohesion: 0.11
-Nodes (23): allCategoryRecipes, category, categoryId, { data }, double, filtered, filters, categories (+15 more)
+Cohesion: 0.21
+Nodes (14): categories, freeCount, freeCountsByCategory, totalRecipes, $lib/components/MealPlanner.svelte, $lib/components/NutritionTable.svelte, $lib/components/PaywallCTA.svelte, $lib/components/ReceptsarokLogo.svelte (+6 more)
 
 ### Community 17 - "Community 17"
 Cohesion: 0.10
 Nodes (23): dependencies, dotenv, drizzle-orm, firebase, firebase-admin, jquery, marked, minisearch (+15 more)
 
 ### Community 18 - "Community 18"
-Cohesion: 0.09
-Nodes (21): recipeTeaserFromHit(), Category, IngredientGroup, IngredientItem, isReceptsarokRecipePath(), normalizeRecipeAssetSrc(), normalizeRecipeTeaser(), NutritionValues (+13 more)
+Cohesion: 0.18
+Nodes (16): recipeTeaserFromHit(), IngredientGroup, IngredientItem, isReceptsarokRecipePath(), isRecipeFree(), KeresRecipeTeaser, normalizeRecipeAssetSrc(), normalizeRecipeTeaser() (+8 more)
 
 ### Community 19 - "Community 19"
 Cohesion: 0.13
 Nodes (22): presentment_money, presentment_money, presentment_money, presentment_money, current_subtotal_price_set, current_total_discounts_set, current_total_price_set, current_total_tax_set (+14 more)
 
 ### Community 20 - "Community 20"
-Cohesion: 0.20
-Nodes (15): [], snapshot, ads, hasReceptsarokAccess, nav2, $app/navigation, $lib/ads.js, $lib/components/BannerSide.svelte (+7 more)
+Cohesion: 0.18
+Nodes (16): [], snapshot, ads, hasReceptsarokAccess, nav2, $app/navigation, $lib/ads.js, $lib/components/BannerSide.svelte (+8 more)
 
 ### Community 21 - "Community 21"
-Cohesion: 0.18
-Nodes (16): normalizeArticlePath(), addArticlesInBatches(), articleToSearchDoc(), buildAndUploadSearchIndex(), createMiniSearch(), __dirname, listedPathsFromProjection(), loadRecipesForSearch() (+8 more)
+Cohesion: 0.14
+Nodes (26): normalizeArticlePath(), loadRecipesFromJson(), addArticlesInBatches(), articleToSearchDoc(), buildAndUploadSearchIndex(), buildKeresRecipeTeaser(), changedListedPaths(), createMiniSearch() (+18 more)
 
 ### Community 22 - "Community 22"
-Cohesion: 0.18
-Nodes (10): actions, GET(), @sveltejs/kit, db, hasReceptsarokAccessFromSubscription(), getRecipes(), getRecipesCacheKeyForDev(), GET() (+2 more)
+Cohesion: 0.29
+Nodes (7): GET(), @sveltejs/kit, hasReceptsarokAccessFromSubscription(), getRecipes(), getRecipesCacheKeyForDev(), GET(), requireReceptsarokSubscriber()
 
 ### Community 23 - "Community 23"
-Cohesion: 0.18
-Nodes (15): Banner, getCategories(), getKviz(), getPatika(), getScores(), getSiteConf(), loadCategoriesUncached(), loadRecipesUncached() (+7 more)
+Cohesion: 0.15
+Nodes (17): buildReceptsarokHome(), Banner, getCategories(), getKviz(), getPatika(), getScores(), getSiteConf(), loadCategoriesUncached() (+9 more)
 
 ### Community 24 - "Community 24"
-Cohesion: 0.11
-Nodes (14): apply, AUDIT_PATH, DATA_PATH, docById, docs, EXTRA_JSON_PATHS, recipeByKey, recipes (+6 more)
+Cohesion: 0.18
+Nodes (7): $app/forms, kvizScores, svelte, svelte/store, $lib/kvizStore, $lib/marked, ./$types
 
 ### Community 25 - "Community 25"
-Cohesion: 0.12
-Nodes (9): actionCodeSettings, google_login(), handleCollapseClick(), handleCollapseKeydown(), provider, signInWithGoogle(), nav1, $lib/components/Nav.svelte (+1 more)
+Cohesion: 0.10
+Nodes (10): actionCodeSettings, google_login(), handleCollapseClick(), handleCollapseKeydown(), provider, signInWithGoogle(), nav1, $lib/components/Nav.svelte (+2 more)
 
 ### Community 26 - "Community 26"
-Cohesion: 0.15
-Nodes (16): isDescriptionAuthorCompatible(), createReviewPath, patternsPath, readJson(), recipesPath, redirectsPath, root, testAuthorGate() (+8 more)
+Cohesion: 0.31
+Nodes (9): isDescriptionAuthorCompatible(), normalizeText(), titleMatchScore(), tokenize(), deriveSearchTerms(), hasReceptTag(), titleMatchScore(), tokenize() (+1 more)
 
 ### Community 27 - "Community 27"
 Cohesion: 0.12
@@ -269,44 +268,40 @@ Cohesion: 0.12
 Nodes (16): shipping_address, address1, address2, city, company, country, country_code, first_name (+8 more)
 
 ### Community 29 - "Community 29"
-Cohesion: 0.20
-Nodes (14): loadProjectionDocs(), pickDocFields(), PROJECTION_FIELDS, apply, CATEGORIES_PATH, deleteOrphanRecipes(), main(), readJson() (+6 more)
+Cohesion: 0.24
+Nodes (14): loadProjectionDocs(), pickDocFields(), PROJECTION_FIELDS, __dirname, loadFullProjectionFromFirestore(), loadProjectionDocsForSync(), mergeProjectionSnapshot(), readMetaProjections() (+6 more)
 
 ### Community 30 - "Community 30"
-Cohesion: 0.20
-Nodes (12): isRecipeFree(), recipeDetailPath(), recipeDetailSegments(), buildReceptsarokHome(), escapeHtmlAttribute(), RECIPE_CATEGORY_NAMES, recipeCategoryBadgeLabel(), RecipeListExtra (+4 more)
+Cohesion: 0.21
+Nodes (11): recipeDetailPath(), recipeDetailSegments(), RecipeLayoutEntry, escapeHtmlAttribute(), RECIPE_CATEGORY_NAMES, recipeCategoryBadgeLabel(), RecipeListExtra, recipeNutritionEllipsisHtml() (+3 more)
 
 ### Community 31 - "Community 31"
 Cohesion: 0.22
 Nodes (11): emptyPlan(), MEAL_PLANNER_DAYS, MealPlanByDay, mealPlanClearAll(), MealPlannerDay, MealPlanRef, mealPlanRefs, normalizePlan() (+3 more)
 
 ### Community 32 - "Community 32"
-Cohesion: 0.14
-Nodes (10): svelte, $env/dynamic/public, $lib/components/CardH.svelte, $lib/components/CardV.svelte, $lib/components/CarItem.svelte, $lib/components/Carousel.svelte, $lib/components/Footer.svelte, $app/stores (+2 more)
-
-### Community 33 - "Community 33"
-Cohesion: 0.29
-Nodes (13): buildRecipeFromModxDoc(), buildRecipesFromModxDoc(), deriveAuthor(), deriveCategoryDecision(), deriveDocCreatedAtIso(), deriveImage(), deriveSearchTerms(), deriveVideo() (+5 more)
+Cohesion: 0.12
+Nodes (14): allCategoryRecipes, category, categoryId, { data }, double, filtered, filters, $env/dynamic/public (+6 more)
 
 ### Community 34 - "Community 34"
 Cohesion: 0.15
 Nodes (13): player, columns, compositePrimaryKeys, foreignKeys, indexes, name, uniqueConstraints, autoincrement (+5 more)
 
 ### Community 35 - "Community 35"
-Cohesion: 0.15
-Nodes (13): count, autoincrement, name, notNull, primaryKey, type, columns, compositePrimaryKeys (+5 more)
+Cohesion: 0.29
+Nodes (7): columns, compositePrimaryKeys, foreignKeys, indexes, name, uniqueConstraints, modx_diaeuro2015
 
 ### Community 36 - "Community 36"
-Cohesion: 0.26
-Nodes (9): ensureFirebaseApp(), getFirestoreDb(), getFirebaseStorage(), resolveBucketName(), uploadPublicFile(), apply, approxDocSize(), main() (+1 more)
+Cohesion: 0.33
+Nodes (3): actions, db, ./$types
 
 ### Community 37 - "Community 37"
-Cohesion: 0.29
-Nodes (12): countNutritionValues(), decodeHtmlEntities(), emptyNutritionTable(), normalizeReadableText(), normalizeServingUnit(), nutritionFieldPatterns(), parseNullableNumber(), parseNutritionFromRows() (+4 more)
+Cohesion: 0.07
+Nodes (61): buildRecipeFromModxDoc(), buildRecipesFromModxDoc(), countNutritionValues(), decodeHtmlEntities(), deriveAuthor(), deriveCategoryDecision(), deriveDocCreatedAtIso(), deriveImage() (+53 more)
 
 ### Community 38 - "Community 38"
-Cohesion: 0.32
-Nodes (11): isDescriptionAuthorCompatible(), isMagazineRecipeDoc(), isReceptsarokLegacyModxPath(), loadRecipesFromJson(), matchReceptsarokLegacyPathAlias(), matchReceptsarokRedirectTarget(), redirectPathForTarget(), resolveReceptsarokRedirect() (+3 more)
+Cohesion: 0.26
+Nodes (11): apply, CATEGORIES_PATH, deleteOrphanRecipes(), main(), readJson(), recipeDocId(), RECIPES_PATH, reindex (+3 more)
 
 ### Community 39 - "Community 39"
 Cohesion: 0.30
@@ -317,16 +312,16 @@ Cohesion: 0.17
 Nodes (11): compilerOptions, allowJs, checkJs, esModuleInterop, forceConsistentCasingInFileNames, moduleResolution, resolveJsonModule, skipLibCheck (+3 more)
 
 ### Community 41 - "Community 41"
-Cohesion: 0.26
-Nodes (10): apply, approxDocSize(), buildRsCategoryDocs(), buildRsHome(), buildRsTeasers(), __dirname, loadCategories(), loadRecipes() (+2 more)
+Cohesion: 0.12
+Nodes (22): ensureFirebaseApp(), getFirestoreDb(), getFirebaseStorage(), resolveBucketName(), uploadPublicFile(), apply, approxDocSize(), main() (+14 more)
 
 ### Community 42 - "Community 42"
 Cohesion: 0.18
 Nodes (10): entries, generatedAt, summary, applyLocal, createDrafts, createLocal, magazineCandidates, redirects (+2 more)
 
 ### Community 43 - "Community 43"
-Cohesion: 0.18
-Nodes (8): applyLocal, AUDIT_PATH, clusters, duplicateClusters, entries, losersToUnpublish, recipes, RECIPES_PATH
+Cohesion: 0.33
+Nodes (6): count, autoincrement, name, notNull, primaryKey, type
 
 ### Community 44 - "Community 44"
 Cohesion: 0.18
@@ -341,12 +336,12 @@ Cohesion: 0.31
 Nodes (9): magazin_evoConfig(), magazin_evoDispatchFirestoreSyncWorkflow(), magazin_evoGithubWorkflowDispatch(), magazin_evoIsDebounced(), magazin_evoIsMagazineCandidate(), magazin_evoLog(), magazin_evoMarkDispatched(), magazin_evoShouldTriggerFirestoreSync() (+1 more)
 
 ### Community 47 - "Community 47"
-Cohesion: 0.18
-Nodes (6): miniSearch, PageProps, patikas, query, $lib/components/Nav2.svelte, $lib/navActive.js
+Cohesion: 0.40
+Nodes (5): columns, name, uniqueConstraints, uniqueConstraints, id
 
 ### Community 48 - "Community 48"
-Cohesion: 0.31
-Nodes (9): compareRecipeCandidates(), countNutritionValues(), countNutritionValuesFromTables(), hasVideo(), isModxImportRecipe(), isRsBookletRecipe(), NUTRITION_KEYS, scoresFor() (+1 more)
+Cohesion: 0.20
+Nodes (12): RecipePublished, Recipe, recipeSlug(), similarRecipesForTitle(), stripRecipeGatedFields(), getReceptsarokRecipe(), load(), RecipePublished (+4 more)
 
 ### Community 49 - "Community 49"
 Cohesion: 0.20
@@ -357,12 +352,12 @@ Cohesion: 0.20
 Nodes (10): tipp, columns, compositePrimaryKeys, name, modx_diaeuro2018_toto, autoincrement, name, notNull (+2 more)
 
 ### Community 51 - "Community 51"
-Cohesion: 0.20
-Nodes (10): id, autoincrement, columns, name, notNull, primaryKey, type, uniqueConstraints (+2 more)
+Cohesion: 0.40
+Nodes (5): id, autoincrement, notNull, primaryKey, type
 
 ### Community 52 - "Community 52"
-Cohesion: 0.27
-Nodes (7): decodeDocPathId(), encodeDocPathId(), applyModxLinkedRecipeFreeFlags(), parseReceptsarokRedirectPath(), targetKey(), getExistingRedirect(), processRow()
+Cohesion: 0.42
+Nodes (9): isMagazineRecipeDoc(), isReceptsarokLegacyModxPath(), matchReceptsarokLegacyPathAlias(), matchReceptsarokRedirectTarget(), redirectPathForTarget(), resolveReceptsarokRedirect(), chooseWinner(), pickRedirectTarget() (+1 more)
 
 ### Community 53 - "Community 53"
 Cohesion: 0.20
@@ -373,8 +368,8 @@ Cohesion: 0.25
 Nodes (7): entries, isMagazinImportedRecipe(), recipes, RECIPES_PATH, recipeTags(), review, REVIEW_PATH
 
 ### Community 55 - "Community 55"
-Cohesion: 0.22
-Nodes (5): recipeByKey, recipes, RECIPES_PATH, review, REVIEW_PATH
+Cohesion: 0.20
+Nodes (6): recipeByKey, recipes, RECIPES_PATH, resolvedKeys, review, REVIEW_PATH
 
 ### Community 56 - "Community 56"
 Cohesion: 0.25
@@ -441,16 +436,16 @@ Cohesion: 0.29
 Nodes (7): columns, compositePrimaryKeys, foreignKeys, indexes, name, uniqueConstraints, modx_diaeuro2015_player
 
 ### Community 72 - "Community 72"
-Cohesion: 0.29
-Nodes (7): autoincrement, default, name, notNull, primaryKey, type, category
+Cohesion: 0.10
+Nodes (21): autoincrement, default, name, notNull, primaryKey, type, category, rank (+13 more)
 
 ### Community 73 - "Community 73"
-Cohesion: 0.29
-Nodes (7): rank, autoincrement, default, name, notNull, primaryKey, type
+Cohesion: 0.22
+Nodes (10): loadSubscription(), encodeDocPathId(), collectionQueries, getExistingRedirect(), loadExistingRedirectsForChanged(), processRow(), getDoc(), KEY_ROUTES (+2 more)
 
 ### Community 74 - "Community 74"
-Cohesion: 0.29
-Nodes (7): columns, compositePrimaryKeys, foreignKeys, indexes, name, uniqueConstraints, modx_categories
+Cohesion: 0.18
+Nodes (8): applyLocal, AUDIT_PATH, clusters, duplicateClusters, entries, losersToUnpublish, recipes, RECIPES_PATH
 
 ### Community 75 - "Community 75"
 Cohesion: 0.29
@@ -461,16 +456,16 @@ Cohesion: 0.29
 Nodes (5): desiredByKey, recipes, RECIPES_PATH, review, REVIEW_PATH
 
 ### Community 77 - "Community 77"
-Cohesion: 0.33
-Nodes (6): Recipe, RecipeLayoutEntry, load(), RecipePublished, WidgetDoc, widgetMatchesForDoc()
+Cohesion: 0.40
+Nodes (4): $lib/components/Footer.svelte, $app/stores, ../app.css, $lib/auth
 
 ### Community 78 - "Community 78"
-Cohesion: 0.47
-Nodes (6): deriveYear(), parseIssueCodeYear(), parseValidYear(), parseYearFromIso(), parseYearFromMagazinPath(), expectedModxImportYear()
+Cohesion: 0.67
+Nodes (3): getPatikaCollection(), load(), ./$types
 
 ### Community 79 - "Community 79"
-Cohesion: 0.47
-Nodes (6): deriveYear(), parseIssueCodeYear(), parseValidYear(), parseYearFromIso(), parseYearFromMagazinPath(), testParserEntityAndYearResilience()
+Cohesion: 0.50
+Nodes (3): allowMissingData, applyLocal, createLocal
 
 ### Community 80 - "Community 80"
 Cohesion: 0.33
@@ -520,13 +515,9 @@ Nodes (6): columns, compositePrimaryKeys, foreignKeys, indexes, name, modx_diabp
 Cohesion: 0.33
 Nodes (6): user, autoincrement, name, notNull, primaryKey, type
 
-### Community 92 - "Community 92"
-Cohesion: 0.40
-Nodes (5): recipeSlug(), stripRecipeGatedFields(), getReceptsarokRecipe(), load(), ./$types
-
 ### Community 93 - "Community 93"
-Cohesion: 0.33
-Nodes (3): PageProps, $app/environment, ./$types
+Cohesion: 0.20
+Nodes (11): firebase/auth, $app/environment, authReady, authUser, AuthUserType, email, uid, apps (+3 more)
 
 ### Community 94 - "Community 94"
 Cohesion: 0.40
@@ -552,10 +543,6 @@ Nodes (4): articleCount, indexUrl, recipeCount, version
 Cohesion: 0.50
 Nodes (3): entries, generatedAt, instructions
 
-### Community 100 - "Community 100"
-Cohesion: 0.67
-Nodes (4): deriveSubRecipes(), hasExplicitInstructionHeading(), hasMainStyleHozzavalokH2(), isOnlyStandaloneRecipeCollection()
-
 ### Community 101 - "Community 101"
 Cohesion: 0.50
 Nodes (4): Navigation System, Navigation Usage in Routes, Primary Navigation (Nav1), Secondary Navigation (Nav2)
@@ -580,25 +567,29 @@ Nodes (3): Client-Side Logic (`+page.svelte`), Home Route (`/`), Server-Side Log
 Cohesion: 0.67
 Nodes (3): Layout Server (`+layout.server.ts`), Page Component (`+page.svelte`), Pharmacy Route (`/patika`)
 
+### Community 124 - "Community 124"
+Cohesion: 0.40
+Nodes (4): miniSearch, PageProps, patikas, query
+
 ## Knowledge Gaps
-- **813 isolated node(s):** `config`, `id`, `name`, `note`, `tags` (+808 more)
+- **821 isolated node(s):** `config`, `id`, `name`, `note`, `tags` (+816 more)
   These have ≤1 connection - possible missing edges or undocumented components.
-- **3 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **4 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `chooseWinner()` connect `Community 38` to `Community 9`, `Community 43`, `Community 48`, `Community 18`, `Community 26`?**
-  _High betweenness centrality (0.039) - this node is a cross-community bridge._
-- **Why does `pickRedirectTarget()` connect `Community 38` to `Community 48`, `Community 9`, `Community 26`, `Community 18`?**
+- **Why does `chooseWinner()` connect `Community 52` to `Community 9`, `Community 74`, `Community 11`, `Community 14`, `Community 15`?**
+  _High betweenness centrality (0.038) - this node is a cross-community bridge._
+- **Why does `scripts` connect `Community 5` to `Community 13`?**
+  _High betweenness centrality (0.033) - this node is a cross-community bridge._
+- **Why does `dependencies` connect `Community 17` to `Community 13`?**
   _High betweenness centrality (0.032) - this node is a cross-community bridge._
 - **Are the 2 inferred relationships involving `main()` (e.g. with `createModxTransform()` and `loadReceptsarokRedirectMaps()`) actually correct?**
   _`main()` has 2 INFERRED edges - model-reasoned connections that need verification._
 - **What connects `config`, `id`, `name` to the rest of the system?**
-  _813 weakly-connected nodes found - possible documentation gaps or missing edges._
+  _821 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `Community 0` be split into smaller, more focused modules?**
   _Cohesion score 0.02631578947368421 - nodes in this community are weakly interconnected._
 - **Should `Community 1` be split into smaller, more focused modules?**
-  _Cohesion score 0.05093167701863354 - nodes in this community are weakly interconnected._
-- **Should `Community 2` be split into smaller, more focused modules?**
-  _Cohesion score 0.029850746268656716 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.05501165501165501 - nodes in this community are weakly interconnected._

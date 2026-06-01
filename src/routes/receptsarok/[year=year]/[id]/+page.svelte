@@ -7,6 +7,7 @@
   import { firebaseAuth } from '$lib/firebase'
   import { hasReceptsarokAccess } from '$lib/authStore'
   import ReceptsarokLogo from '$lib/components/ReceptsarokLogo.svelte'
+  import ReceptsarokWidget from '$lib/components/ReceptsarokWidget.svelte'
   import { recipeDetailSegments, recipeHeroToCardImg, type Recipe } from '$lib/receptsarok'
   import type { PageProps } from './$types'
 
@@ -112,7 +113,7 @@
 </svelte:head>
 
 <article class="prose mt-8 mb-4 mx-auto w-full px-4">
-  <nav class="breadcrumbs text-sm not-prose" aria-label="Elérési út">
+  <nav class="breadcrumbs text-sm not-prose mb-6" aria-label="Elérési út">
     <ul>
       <li><a href="/receptsarok" class="opacity-70 hover:opacity-100"><ReceptsarokLogo class="text-sm" /></a></li>
       <li>
@@ -238,6 +239,8 @@
     <PaywallCTA context="recipe" />
   {/if}
 </article>
+
+<ReceptsarokWidget recipes={data.similarRecipes ?? []} title={recipe.title} />
 
 <Search articles={data.articleCount} recipes={data.recipeCount} />
 <Nav2 actual="/receptsarok" />

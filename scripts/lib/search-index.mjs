@@ -70,11 +70,13 @@ function searchDocId(doc, hints = {}) {
   return null
 }
 
-function createMiniSearch() {
-  return new MiniSearch({
-    fields: SEARCH_FIELDS,
-    storeFields: SEARCH_STORE_FIELDS,
-    extractField: (document, fieldName) => {
+const MINISEARCH_OPTIONS = {
+  fields: SEARCH_FIELDS,
+  storeFields: SEARCH_STORE_FIELDS,
+  // Incremental sync uses remove() not discard(); keep auto-vacuum off so batched
+  // vacuum never races with bulk updates (performVacuuming undefined .size crash).
+  autoVacuum: false,
+  extractField: (document, fieldName) => {
       if (fieldName === 'szerzo') {
         if (typeof document.szerzo === 'string') return document.szerzo
         const authors = document.tv?.szerzo
@@ -84,8 +86,11 @@ function createMiniSearch() {
         return null
       }
       return document[fieldName]
-    },
-  })
+  },
+}
+
+function createMiniSearch() {
+  return new MiniSearch(MINISEARCH_OPTIONS)
 }
 
 /**
@@ -242,7 +247,7 @@ async function addArticlesInBatches(firestore, listedPaths, miniSearch, seenIds)
         continue
       }
       if (miniSearch.has(searchDoc.id)) {
-        miniSearch.discard(searchDoc.id)
+        removeSearchDocument(miniSearch, searchDoc.id)
       } else if (seenIds.has(searchDoc.id)) {
         skipped++
         continue
@@ -265,39 +270,57 @@ async function addArticlesInBatches(firestore, listedPaths, miniSearch, seenIds)
   return { indexed, reads }
 }
 
-const MINISEARCH_LOAD_OPTIONS = {
-  fields: SEARCH_FIELDS,
-  storeFields: SEARCH_STORE_FIELDS,
-  extractField: (document, fieldName) => {
-    if (fieldName === 'szerzo') {
-      if (typeof document.szerzo === 'string') return document.szerzo
-      const authors = document.tv?.szerzo
-      if (Array.isArray(authors)) {
-        return authors.map((a) => a?.name).filter(Boolean).join(' ')
-      }
-      return null
-    }
-    return document[fieldName]
-  },
-}
+const MINISEARCH_LOAD_OPTIONS = MINISEARCH_OPTIONS
 
 /**
  * @param {MiniSearch} miniSearch
  */
-function discardRecipeSearchDocs(miniSearch) {
+function recipeSearchDocIds(miniSearch) {
   const stored = miniSearch.toJSON()
-  const ids = Object.keys(stored.documentStore ?? {})
-  let count = 0
-  for (const id of ids) {
-    if (!String(id).startsWith('rs-')) continue
+  return Object.values(stored.documentIds ?? {}).filter((id) => String(id).startsWith('rs-'))
+}
+
+/**
+ * Reconstruct a document suitable for {@link MiniSearch#remove} from stored fields.
+ * @param {MiniSearch} miniSearch
+ * @param {string} id
+ */
+function storedSearchDocument(miniSearch, id) {
+  const fields = miniSearch.getStoredFields(id)
+  if (!fields) return null
+  return { ...fields, id }
+}
+
+/**
+ * Drop a document without leaving discard dirt (avoids {@link MiniSearch#vacuum} on large indexes).
+ * @param {MiniSearch} miniSearch
+ * @param {string} id
+ */
+function removeSearchDocument(miniSearch, id) {
+  const doc = storedSearchDocument(miniSearch, id)
+  if (doc) {
     try {
-      miniSearch.discard(id)
-      count++
+      miniSearch.remove(doc)
+      return true
     } catch {
-      /* already gone */
+      /* fall through to discard */
     }
   }
-  return count
+  try {
+    miniSearch.discard(id)
+    return true
+  } catch {
+    return false
+  }
+}
+
+function removeRecipeSearchDocs(miniSearch) {
+  const ids = recipeSearchDocIds(miniSearch)
+  let removed = 0
+  for (const id of ids) {
+    if (removeSearchDocument(miniSearch, id)) removed++
+  }
+  return removed
 }
 
 /**
@@ -393,11 +416,7 @@ export async function buildAndUploadSearchIndex(firestore, projectionDocs, optio
     for (const p of removedPaths) {
       const norm = normalizeArticlePath(p)
       if (!norm) continue
-      try {
-        miniSearch.discard(norm)
-      } catch {
-        /* not in index */
-      }
+      removeSearchDocument(miniSearch, norm)
     }
 
     const pathsToFetch = changedPaths.map((p) => normalizeArticlePath(p)).filter(Boolean)
@@ -412,7 +431,7 @@ export async function buildAndUploadSearchIndex(firestore, projectionDocs, optio
       console.log(`  search index: patched ${indexed} article(s), ${pathsToFetch.length} path(s)`)
     }
 
-    discardRecipeSearchDocs(miniSearch)
+    removeRecipeSearchDocs(miniSearch)
   } else {
     miniSearch = createMiniSearch()
     console.log(
@@ -443,9 +462,16 @@ export async function buildAndUploadSearchIndex(firestore, projectionDocs, optio
   let recipeCount = 0
   for (const recipe of recipes) {
     const searchDoc = recipeToSearchDoc(recipe)
-    if (miniSearch.has(searchDoc.id)) miniSearch.discard(searchDoc.id)
     miniSearch.add(searchDoc)
     recipeCount++
+  }
+
+  // Avoid MiniSearch#vacuum after bulk discard — performVacuuming can crash when
+  // _index.get(term) is undefined during batched async cleanup (incremental sync).
+  if (miniSearch.dirtCount > 0) {
+    console.warn(
+      `search index: ${miniSearch.dirtCount} discarded doc ref(s) left in index (vacuum skipped)`
+    )
   }
 
   const version = Date.now()

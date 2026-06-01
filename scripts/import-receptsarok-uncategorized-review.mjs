@@ -27,6 +27,9 @@ const recipeByKey = new Map(recipes.map((recipe) => [`${recipe.year}-${recipe.id
 let inserted = 0
 let updated = 0
 let skipped = 0
+let removedFromReview = 0
+/** @type {Set<string>} */
+const resolvedKeys = new Set()
 
 for (const entry of review.entries) {
   const recipe = entry?.recipe && typeof entry.recipe === 'object' ? { ...entry.recipe } : null
@@ -43,6 +46,7 @@ for (const entry of review.entries) {
 
   recipe.category = category
   const key = `${recipe.year}-${recipe.id}`
+  const reviewKey = String(entry?.key ?? key)
   if (!key || !recipe.id || !Number.isFinite(Number(recipe.year))) {
     skipped += 1
     continue
@@ -53,16 +57,32 @@ for (const entry of review.entries) {
     recipes.push(recipe)
     recipeByKey.set(key, recipe)
     inserted += 1
+    resolvedKeys.add(reviewKey)
     continue
   }
 
   if (normalizeCategory(existing.category) !== category) {
     existing.category = category
     updated += 1
+    resolvedKeys.add(reviewKey)
   } else {
     skipped += 1
+    resolvedKeys.add(reviewKey)
   }
 }
 
+const beforeCount = review.entries.length
+review.entries = review.entries.filter((entry) => {
+  const recipe = entry?.recipe
+  const key = String(
+    entry?.key ?? (recipe?.year != null && recipe?.id ? `${recipe.year}-${recipe.id}` : '')
+  )
+  return key && !resolvedKeys.has(key)
+})
+removedFromReview = beforeCount - review.entries.length
+
 writeJson(RECIPES_PATH, recipes)
-console.log(`Imported uncategorized review: inserted=${inserted}, updated=${updated}, skipped=${skipped}`)
+writeJson(REVIEW_PATH, review)
+console.log(
+  `Imported uncategorized review: inserted=${inserted}, updated=${updated}, skipped=${skipped}, removedFromReview=${removedFromReview}, remaining=${review.entries.length}`
+)

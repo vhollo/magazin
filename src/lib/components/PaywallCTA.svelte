@@ -1,6 +1,10 @@
 <script lang="ts">
+  import { page } from '$app/state'
   import { authUser } from '$lib/authStore'
-  export let context: 'recipe' | 'filter' | 'planner' = 'recipe'
+
+  let { context = 'recipe' }: { context?: 'recipe' | 'filter' | 'planner' } = $props()
+
+  const freeCount = $derived(page.data.freeCount ?? page.data.totalFree ?? 0)
 
   const messages = {
     recipe: {
@@ -20,7 +24,7 @@
     }
   }
 
-  $: msg = messages[context]
+  const msg = $derived(messages[context])
 </script>
 
 <div class="card bg-base-300 shadow-md">
@@ -34,6 +38,6 @@
       <p class="text-sm opacity-60">Először jelentkezzen be, majd fizessen elő.</p>
     {/if}
     <a href="/elofizetes" class="btn btn-primary">{msg.cta}</a>
-    <p class="text-xs opacity-50">A Receptsarok 2025 receptjei ingyenesen elérhetők.</p>
+    <p class="text-xs opacity-50">A Diabetes és Hypertonia lapokban megjelent {freeCount} recept ingyenesen elérhető.</p>
   </div>
 </div>

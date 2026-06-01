@@ -4,21 +4,9 @@ import {
   recipeDetailSegments,
   recipeHeroToCardImg,
 } from '$lib/receptsarok'
-import categoriesJson from '$lib/data/categories.json'
-
 type RecipeListExtra = (Recipe | RecipeLayoutEntry) & {
   ellipsis?: string
   video?: Recipe['video']
-}
-
-const RECIPE_CATEGORY_NAMES = new Map(
-  (categoriesJson as Array<{ id: string; name: string }>).map((c) => [c.id, c.name])
-)
-
-function recipeCategoryBadgeLabel(categoryId: string | undefined): string {
-  const id = String(categoryId ?? '').trim()
-  if (!id) return ''
-  return RECIPE_CATEGORY_NAMES.get(id) ?? id
 }
 
 function recipePreviewTags(r: Recipe | RecipeLayoutEntry): string[] {
@@ -26,8 +14,6 @@ function recipePreviewTags(r: Recipe | RecipeLayoutEntry): string[] {
   if (Number.isFinite(r.year) && r.year >= 2000 && r.year <= 2099) {
     tags.push(String(r.year))
   }
-  const cat = recipeCategoryBadgeLabel(r.category)
-  if (cat) tags.push(cat)
   return tags
 }
 
