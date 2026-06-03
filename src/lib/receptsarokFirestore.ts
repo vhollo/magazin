@@ -1,11 +1,11 @@
 /**
- * SSR readers for Receptsarok + Patika UI collections.
+ * SSR readers for Receptsarok UI collections.
  *
  * Pattern mirrors $lib/magazine/firestore: every route reads ONE precomputed
  * Firestore doc that the sync worker writes (one `.get()` per request).
  * If the doc is missing (sync not run yet), each helper falls back to the
- * existing `getRecipes()` / `getPatika()` JSON pipeline so the site keeps
- * working during the transition.
+ * existing `getRecipes()` JSON pipeline so the site keeps working during
+ * the transition.
  */
 import { db } from '$lib/firebase-admin';
 import type {
@@ -21,7 +21,7 @@ import {
 	toKeresTeaser,
 	toLayoutRecipe,
 } from '$lib/receptsarok';
-import { getCategories, getPatika, getRecipes } from '$lib/siteConf';
+import { getCategories, getRecipes } from '$lib/siteConf';
 
 const COLLECTIONS = 'collections';
 
@@ -32,8 +32,6 @@ export const RS_TEASERS_INDEX_DOC = 'rs-teasers-index';
 
 export const rsTeasersShardDocId = (year: number | string): string =>
 	`rs-teasers-${year}`;
-
-export const PATIKA_DOC = 'patika';
 
 /** `collections/rs-{categoryId}` */
 export const rsCategoryDocId = (categoryId: string): string =>
@@ -56,21 +54,6 @@ export type ReceptsarokCategoryDoc = {
 
 export type ReceptsarokTeasersDoc = {
 	teasersByKey: Record<string, RecipeTeaser>;
-	generatedAt?: string;
-};
-
-export type Patika = {
-	patika: string;
-	irsz?: string;
-	varos?: string;
-	cim?: string;
-	email?: string;
-	cegnev?: string;
-};
-
-export type PatikaDoc = {
-	patikas: Patika[];
-	count: number;
 	generatedAt?: string;
 };
 
@@ -253,16 +236,4 @@ export async function getReceptsarokRecipe(
 	const withFree: Recipe = { ...raw, free: isFree };
 	const recipe = isFree ? withFree : stripRecipeGatedFields(withFree);
 	return { ok: true, recipe, isFree };
-}
-
-/**
- * `/patika` list: aggregated single doc with every pharmacy entry.
- *
- * Falls back to `getPatika()` JSON when `collections/patika` is missing.
- */
-export async function getPatikaCollection(): Promise<PatikaDoc> {
-	const stored = await readDoc<PatikaDoc>(PATIKA_DOC);
-	if (stored && Array.isArray(stored.patikas)) return stored;
-	const patikas = (await getPatika()) as Patika[];
-	return { patikas, count: patikas.length };
 }

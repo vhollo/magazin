@@ -1,6 +1,6 @@
 import type { LayoutServerLoad } from './$types';
 import { MAGAZINE_CACHE_CONTROL } from '$lib/magazine/cacheHeaders';
-import { getPatikaCollection } from '$lib/receptsarokFirestore';
+import { getPatikaCollection } from '$lib/patikaFirestore';
 
 export const load: LayoutServerLoad = async ({ setHeaders }) => {
 	setHeaders({ 'Cache-Control': MAGAZINE_CACHE_CONTROL });
