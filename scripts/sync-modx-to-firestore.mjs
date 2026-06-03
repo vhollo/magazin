@@ -3,6 +3,8 @@
  *
  * 1. Read meta/sync.lastEdit
  * 2. SELECT rows with editedon > lastEdit (same filters as src/lib/modx/index.ts)
+ * 2a. If MODX_FORCE_DOC_ID is set (save trigger), force-reprocess that doc even when
+ *     editedon did not advance past lastEdit (so a single save always re-derives its tags)
  * 2b. SELECT magazine rows edited since lastEdit that are now unpublished/deleted → delete from Firestore
  * 3. Transform via src/lib/modx/transform.ts
  * 4. Upsert docs/{encodeDocPathId(path)}
@@ -141,13 +143,18 @@ async function queryRemovedRows(modxdb, lastEdit) {
 }
 
 /**
- * MODX save trigger can pass a doc id — always re-check removal even if lastEdit caught up.
+ * MODX save trigger passes a doc id. Re-evaluate that exact doc on every save so a
+ * single save always reprocesses it (re-running the full transform, incl. the
+ * path-based junior tagging) regardless of whether `editedon` advanced past
+ * `lastEdit` — or classifies it for removal when it is no longer syncable.
  *
  * @param {import('drizzle-orm/mysql2').MySql2Database} modxdb
  * @param {number} modxDocId
+ * @returns {Promise<{ reprocess: typeof modx_site_content.$inferSelect[], remove: typeof modx_site_content.$inferSelect[] }>}
  */
-async function queryForcedRemovalRow(modxdb, modxDocId) {
-  if (!Number.isFinite(modxDocId) || modxDocId <= 0) return []
+async function queryForcedRow(modxdb, modxDocId) {
+  const empty = { reprocess: [], remove: [] }
+  if (!Number.isFinite(modxDocId) || modxDocId <= 0) return empty
 
   const rows = await modxdb
     .select()
@@ -156,26 +163,27 @@ async function queryForcedRemovalRow(modxdb, modxDocId) {
     .limit(1)
 
   if (!rows.length) {
-    console.warn(`forced removal: MODX id=${modxDocId} not found`)
-    return []
+    console.warn(`forced sync: MODX id=${modxDocId} not found`)
+    return empty
   }
 
   const row = rows[0]
   if (!isMagazineCandidate(row)) {
-    console.log(`forced removal: id=${modxDocId} outside magazine scope — skip`)
-    return []
+    console.log(`forced sync: id=${modxDocId} outside magazine scope — skip`)
+    return empty
   }
+
   if (shouldSyncRow(row)) {
     console.log(
-      `forced removal: id=${modxDocId} still published/syncable (published=${row.published}) — skip delete`
+      `forced reprocess: id=${modxDocId} published=${row.published} editedon=${row.editedon}`
     )
-    return []
+    return { reprocess: [row], remove: [] }
   }
 
   console.log(
     `forced removal: id=${modxDocId} published=${row.published} deleted=${row.deleted} editedon=${row.editedon}`
   )
-  return [row]
+  return { reprocess: [], remove: [row] }
 }
 
 /** @param {typeof modx_site_content.$inferSelect[]} rows */
@@ -591,8 +599,13 @@ async function main() {
     if (!isFullSync) {
       removedRows = await queryRemovedRows(modxdb, lastEdit)
       if (forceModxDocId > 0) {
-        const forced = await queryForcedRemovalRow(modxdb, forceModxDocId)
-        removedRows = mergeRowsById(removedRows, forced)
+        const forced = await queryForcedRow(modxdb, forceModxDocId)
+        if (forced.reprocess.length > 0) {
+          changedRows = mergeRowsById(changedRows, forced.reprocess)
+        }
+        if (forced.remove.length > 0) {
+          removedRows = mergeRowsById(removedRows, forced.remove)
+        }
       }
     }
   } catch (error) {

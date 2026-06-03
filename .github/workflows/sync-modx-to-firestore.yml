@@ -25,7 +25,7 @@ on:
           - 'false'
           - 'true'
       modx_doc_id:
-        description: 'MODX site_content id from save trigger (forces removal check when unpublished)'
+        description: 'MODX site_content id from save trigger (force-reprocess that doc, or removal check when unpublished)'
         required: false
         default: ''
         type: string
