@@ -37,12 +37,44 @@ else
 fi
 
 base="${CPANEL_URL%/}"
-resp="$(
-  curl -fsS -G \
-    -H "Authorization: cpanel ${CPANEL_USER}:${CPANEL_TOKEN}" \
-    --data-urlencode "host=${host}" \
-    "${base}/execute/Mysql/${api_func}"
-)"
+url="${base}/execute/Mysql/${api_func}"
+
+# The cPanel endpoint occasionally returns transient HTTP errors (e.g. 415 from a
+# WAF/proxy in front of it), so retry with backoff instead of failing on the first hit.
+attempts=5
+delay=3
+resp=""
+http_code=""
+for ((i = 1; i <= attempts; i++)); do
+  body_file="$(mktemp)"
+  http_code="$(
+    curl -sS -G \
+      -o "$body_file" \
+      -w '%{http_code}' \
+      -H "Authorization: cpanel ${CPANEL_USER}:${CPANEL_TOKEN}" \
+      -H "Accept: application/json" \
+      --data-urlencode "host=${host}" \
+      "$url"
+  )" || http_code="000"
+  resp="$(cat "$body_file")"
+  rm -f "$body_file"
+
+  if [[ "$http_code" == "200" ]]; then
+    break
+  fi
+
+  echo "Attempt ${i}/${attempts}: cPanel Mysql/${api_func} returned HTTP ${http_code} for host=${host}" >&2
+  if [[ "$i" -lt "$attempts" ]]; then
+    sleep "$delay"
+    delay=$(( delay * 2 ))
+  fi
+done
+
+if [[ "$http_code" != "200" ]]; then
+  echo "cPanel Mysql/${api_func} failed with HTTP ${http_code} after ${attempts} attempts for host=${host}:" >&2
+  echo "$resp" >&2
+  exit 1
+fi
 
 # UAPI normally nests under .result; some hosts return a flat { status, data, errors, ... } object.
 status="$(echo "$resp" | jq -r '(.result.status // .status // 0)')"
