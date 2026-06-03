@@ -203,11 +203,12 @@ export function createModxTransform(deps: ModxTransformDeps): ModxTransform {
 					parent.tv.tags.push('folder');
 				}
 				doc.path = [parent.path || '', doc.alias].filter((x) => x).join('/');
+				const contentTags = (doc.tv?.tags ?? []).filter((t: string) => t !== 'folder');
 				if (
 					typeof doc.path === 'string' &&
 					doc.path.includes('junior') &&
-					doc.tv?.tags &&
-					!doc.tv.tags.includes('recept')
+					contentTags.length > 0 &&
+					!doc.tv?.tags?.includes('recept')
 				) {
 					doc.tv = doc.tv || {};
 					doc.tv.tags = doc.tv.tags || [];
