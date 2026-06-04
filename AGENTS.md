@@ -614,10 +614,13 @@ Magazine articles are **not** bundled in the Netlify build. MODX MySQL is read o
 
 Run from repo root (`magazin/`). Requires `.env` with `MODXDB_*`, `FIREBASE_ADMIN_KEY`; Storage uploads also need `FIREBASE_STORAGE_BUCKET` (or project id in service account → `{project}.firebasestorage.app`).
 
+**Save-triggered path (MySQL-free)**: The MODX plugin now dispatches a `repository_dispatch` event (`modx-doc-save`) instead of a `workflow_dispatch`. The payload carries the full article row + ancestors + filtered TVs (ids 3,4,18,23,25,28,29,30,31) + matched author chunks, gzip+base64-encoded. The workflow runs `sync:modx:payload` which needs **no MySQL or cPanel**. `meta/sync.lastEdit` is **not** advanced on payload runs; the periodic manual incremental sync acts as backstop. The PAT (`magazin_github_token`) requires **Contents: write** in addition to Actions read/write.
+
 | Command | Script | When to use |
 |---------|--------|-------------|
 | `npm run sync:modx` | `scripts/sync-modx-to-firestore.mjs` | **Incremental sync** — upsert changed rows; patch `meta/projections` Storage snapshot + collections/search incrementally (**~few Firestore reads**, not full `docs` scan). Optional `--with-rs-collections` after recipe `free` updates. |
-| `npm run sync:modx:full` | `… --full` | **One-time / full backfill** — all published magazine rows → Firestore; also removes orphan `docs/*` whose MODX id is no longer published. |
+| `npm run sync:modx:full` | `… --full` | **One-time / full backfill** — all published magazine rows → Firestore; also removes orphan `docs/*` whose MODX id is no longer published. Also backfills `doc.tv.egyesulet` (TV 31) onto all existing docs. |
+| `npm run sync:modx:payload` | `… --from-payload` | **MySQL-free save path** — reads rows from `MODX_SYNC_PAYLOAD` env var (gzip+base64 JSON); used by the `repository_dispatch` GitHub Actions trigger. Does not advance `meta/sync.lastEdit`. |
 | `npm run sync:modx:finish` | `scripts/finish-modx-sync.mjs` | **Repair pass** — `docs/` already populated but search index, `relatedCards`, or `meta/search` missing (e.g. sync failed mid-run). |
 | `npm run sync:rs-collections:apply` | `scripts/sync-receptsarok-collections.mjs` | **Receptsarok UI docs** — rebuild `collections/rs-home`, `collections/rs-{category}`, `collections/rs-teasers-{year}` + `rs-teasers-index` from Firestore `recipes` + `categories`. Run after `sync:recipes:apply` or MODX `free` flag changes. Pass without `:apply` for dry run + index-entry warnings. |
 | `npm run sync:patika:apply` | `scripts/sync-patika-collection.mjs` | **Patika UI doc** — rebuild `collections/patika` from `tables/elofizetok/patika` subcollection. Pass without `:apply` for dry run. |
@@ -649,7 +652,9 @@ Run from repo root (`magazin/`). Requires `.env` with `MODXDB_*`, `FIREBASE_ADMI
 | New MODX `recept` article should redirect to Receptsarok but doesn't | Run `npm run sync:modx` — redirect + `free: true` are computed at sync time; commit updated `receptsarok-redirects.json` / `recipes.json` if changed locally |
 | MODX `recept` linked in Receptsarok but still paywalled | Run `npm run sync:modx` (sets `free: true` on `recipes.json` + Firestore); then `npm run sync:rs-collections:apply` (or `sync:modx --with-rs-collections`) |
 | Transform pipeline / collection query logic changed in code | `npm run sync:modx:full` (or incremental if only future edits matter) |
-| User asks how content gets to production without Netlify rebuild | Explain MODX save → GitHub Actions + `sync:modx`; code deploys ≠ content deploy; receptsarok / patika data come from their own `sync:rs-collections:apply` / `sync:patika:apply` steps |
+| User asks how content gets to production without Netlify rebuild | Explain MODX save → GitHub Actions `repository_dispatch` (modx-doc-save) → `sync:modx:payload` (MySQL-free); code deploys ≠ content deploy; receptsarok / patika data come from their own sync steps |
+| MODX plugin dispatches but GitHub Action fails immediately (no MySQL errors) | Check PAT has Contents: write; check `MODX_SYNC_PAYLOAD` env is non-empty in the run |
+| `doc.tv.egyesulet` missing on old articles after enabling TV 31 | Run `npm run sync:modx:full` to backfill all existing docs |
 
 Do **not** suggest `npm run build` to refresh article text — content updates come from the sync worker, not the SvelteKit build.
 

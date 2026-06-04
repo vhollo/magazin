@@ -289,6 +289,8 @@ export function createModxTransform(deps: ModxTransformDeps): ModxTransform {
 		const ogi = tvs.find((tv) => tv.tmplvarid == 25)?.value;
 		doc.tv.ogi = ogi ? publicBaseUrl + ogi : '';
 
+		doc.tv.egyesulet = tvs.find((tv) => tv.tmplvarid == 31)?.value || '';
+
 		if (doc.parent == 1 && !doc.tv.tags.includes('hírek')) {
 			doc.tv.tags.push('hírek');
 		}

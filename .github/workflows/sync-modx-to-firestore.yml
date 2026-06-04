@@ -10,6 +10,12 @@
 #
 # Optional secrets:
 #   NETLIFY_SITE_ID, NETLIFY_ACCESS_TOKEN  (edge-cache purge after changes)
+#
+# Triggers:
+#   - workflow_dispatch: manual full or incremental backfill (uses MySQL + cPanel)
+#   - repository_dispatch (modx-doc-save): fired by MODX plugin on article save
+#     (MySQL-free; payload carries rows + TVs + author chunks as gzip+base64)
+#     PAT (magazin_github_token) requires Contents: write + Actions: read/write.
 
 name: Sync MODX to Firestore
 
@@ -29,10 +35,14 @@ on:
         required: false
         default: ''
         type: string
+  repository_dispatch:
+    types: [modx-doc-save]
 
+# workflow_dispatch: do not cancel — backfills must run to completion.
+# repository_dispatch: cancel-in-progress so rapid saves coalesce into one run.
 concurrency:
-  group: modx-firestore-sync
-  cancel-in-progress: false
+  group: ${{ github.event_name == 'repository_dispatch' && 'modx-firestore-sync-save' || 'modx-firestore-sync' }}
+  cancel-in-progress: ${{ github.event_name == 'repository_dispatch' }}
 
 permissions:
   contents: write
@@ -57,8 +67,17 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      # ── repository_dispatch (save-triggered) path ───────────────────────────
+      # Wait 120 s so a newer save can cancel this run before the sync starts.
+      # This implements the trailing-debounce: the last save within 2 min wins.
+      - name: Wait for save debounce (payload path only)
+        if: github.event_name == 'repository_dispatch'
+        run: sleep 120
+
+      # ── workflow_dispatch (manual) path ─────────────────────────────────────
       - name: Allow GitHub Actions runner IP in cPanel Remote MySQL
         id: cpanel_mysql
+        if: github.event_name == 'workflow_dispatch'
         env:
           CPANEL_URL: ${{ secrets.CPANEL_URL }}
           CPANEL_USER: ${{ secrets.CPANEL_USER }}
@@ -70,13 +89,25 @@ jobs:
           bash scripts/cpanel-remote-mysql-ip.sh add "${RUNNER_IP}"
 
       - name: Wait for Remote MySQL ACL propagation
+        if: github.event_name == 'workflow_dispatch'
         run: sleep 5
 
+      # ── Sync step (both paths) ───────────────────────────────────────────────
       - name: Run MODX → Firestore sync
         id: sync
-        run: ${{ (github.event_name == 'workflow_dispatch' && github.event.inputs.full_backfill == 'true') && 'npm run sync:modx:full' || 'npm run sync:modx' }}
+        run: |
+          if [ "${{ github.event_name }}" = "repository_dispatch" ]; then
+            npm run sync:modx:payload
+          elif [ "${{ github.event.inputs.full_backfill }}" = "true" ]; then
+            npm run sync:modx:full
+          else
+            npm run sync:modx
+          fi
         env:
           NODE_OPTIONS: --max-old-space-size=6144
+          # Payload path: carry the gzip+base64 doc data from the dispatch event
+          MODX_SYNC_PAYLOAD: ${{ github.event.client_payload.data }}
+          # MySQL path (workflow_dispatch only — harmless if empty on payload path)
           MODX_FORCE_DOC_ID: ${{ github.event.inputs.modx_doc_id }}
           MODXDB_HOST: ${{ secrets.MODXDB_HOST }}
           MODXDB_PORT: ${{ secrets.MODXDB_PORT }}
@@ -110,7 +141,7 @@ jobs:
           git push
 
       - name: Revoke GitHub Actions runner IP from cPanel Remote MySQL
-        if: always() && steps.cpanel_mysql.outcome == 'success'
+        if: always() && github.event_name == 'workflow_dispatch' && steps.cpanel_mysql.outcome == 'success'
         continue-on-error: true
         env:
           CPANEL_URL: ${{ secrets.CPANEL_URL }}

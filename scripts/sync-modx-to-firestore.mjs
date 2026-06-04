@@ -56,9 +56,11 @@ import {
   registerRedirectEntries,
 } from './lib/receptsarok-redirects-manifest.mjs'
 import { isMagazineCandidate, shouldSyncRow } from './lib/magazine-scope.mjs'
+import { parseModxSavePayload, classifyPayload } from './lib/modx-save-payload.mjs'
 
 const isFullSync = process.argv.includes('--full')
 const withRsCollections = process.argv.includes('--with-rs-collections')
+const isFromPayload = process.argv.includes('--from-payload') || !!process.env.MODX_SYNC_PAYLOAD
 
 const COLLECTIONS_COLLECTION = 'collections'
 const HOME_COLLECTION_ID = 'home'
@@ -561,9 +563,11 @@ async function writeCollections(firestore, projectionDocs) {
 }
 
 async function main() {
-  for (const key of ['MODXDB_HOST', 'MODXDB_PORT', 'MODXDB_USER', 'MODXDB_DATABASE', 'MODXDB_PASSWORD']) {
-    if (!process.env[key]) {
-      throw new Error(`${key} is required`)
+  if (!isFromPayload) {
+    for (const key of ['MODXDB_HOST', 'MODXDB_PORT', 'MODXDB_USER', 'MODXDB_DATABASE', 'MODXDB_PASSWORD']) {
+      if (!process.env[key]) {
+        throw new Error(`${key} is required`)
+      }
     }
   }
 
@@ -573,72 +577,100 @@ async function main() {
 
   const firestore = getFirestoreDb()
   const readCounts = createReadCounter()
-  const lastEdit = isFullSync ? 0 : await readLastEdit(firestore)
-  readCounts.meta += 1
-  console.log(
-    isFullSync
-      ? 'full backfill (lastEdit forced to 0)'
-      : `meta/${META_SYNC_DOC}.lastEdit = ${lastEdit}`
-  )
-
-  const connection = await mysql.createConnection({
-    host: process.env.MODXDB_HOST,
-    port: Number(process.env.MODXDB_PORT),
-    user: process.env.MODXDB_USER,
-    database: process.env.MODXDB_DATABASE,
-    password: process.env.MODXDB_PASSWORD,
-  })
-  const modxdb = drizzle(connection)
 
   let changedRows
   let removedRows = []
-  try {
-    changedRows = isFullSync
-      ? await queryAllRows(modxdb)
-      : await queryChangedRows(modxdb, lastEdit)
-    if (!isFullSync) {
-      removedRows = await queryRemovedRows(modxdb, lastEdit)
-      if (forceModxDocId > 0) {
-        const forced = await queryForcedRow(modxdb, forceModxDocId)
-        if (forced.reprocess.length > 0) {
-          changedRows = mergeRowsById(changedRows, forced.reprocess)
-        }
-        if (forced.remove.length > 0) {
-          removedRows = mergeRowsById(removedRows, forced.remove)
+  let rowsToProcess
+  let tmplvarContentvalues
+  let modxSzerzok
+
+  if (isFromPayload) {
+    // ── Payload path (no MySQL / cPanel needed) ──────────────────────────────
+    const rawPayload = process.env.MODX_SYNC_PAYLOAD
+    if (!rawPayload) {
+      throw new Error('--from-payload requires MODX_SYNC_PAYLOAD env var (gzip+base64 JSON)')
+    }
+    console.log('payload mode: loading rows from MODX_SYNC_PAYLOAD (no MySQL)')
+    const payload = await parseModxSavePayload(rawPayload)
+    const classified = classifyPayload(payload)
+    changedRows = classified.changedRows
+    removedRows = classified.removedRows
+    rowsToProcess = sortRowsByDepth(classified.rowsToProcess)
+    tmplvarContentvalues = classified.tmplvarContentvalues
+    modxSzerzok = classified.modxSzerzok
+    console.log(
+      `payload rows: changed=${changedRows.length}, removed=${removedRows.length}, total=${rowsToProcess.length}`
+    )
+  } else {
+    // ── MySQL path (manual workflow_dispatch full / incremental) ─────────────
+    const lastEdit = isFullSync ? 0 : await readLastEdit(firestore)
+    readCounts.meta += 1
+    console.log(
+      isFullSync
+        ? 'full backfill (lastEdit forced to 0)'
+        : `meta/${META_SYNC_DOC}.lastEdit = ${lastEdit}`
+    )
+
+    const connection = await mysql.createConnection({
+      host: process.env.MODXDB_HOST,
+      port: Number(process.env.MODXDB_PORT),
+      user: process.env.MODXDB_USER,
+      database: process.env.MODXDB_DATABASE,
+      password: process.env.MODXDB_PASSWORD,
+    })
+    const modxdb = drizzle(connection)
+
+    try {
+      changedRows = isFullSync
+        ? await queryAllRows(modxdb)
+        : await queryChangedRows(modxdb, lastEdit)
+      if (!isFullSync) {
+        removedRows = await queryRemovedRows(modxdb, lastEdit)
+        if (forceModxDocId > 0) {
+          const forced = await queryForcedRow(modxdb, forceModxDocId)
+          if (forced.reprocess.length > 0) {
+            changedRows = mergeRowsById(changedRows, forced.reprocess)
+          }
+          if (forced.remove.length > 0) {
+            removedRows = mergeRowsById(removedRows, forced.remove)
+          }
         }
       }
+    } catch (error) {
+      await connection.end()
+      throw error
     }
-  } catch (error) {
+
+    console.log(
+      `${isFullSync ? 'total' : 'changed'} MODX rows: ${changedRows.length}` +
+        (isFullSync ? '' : `, removed candidates: ${removedRows.length}`) +
+        (forceModxDocId > 0 ? `, forced doc id: ${forceModxDocId}` : '')
+    )
+
+    if (changedRows.length === 0 && removedRows.length === 0) {
+      await connection.end()
+      console.log('nothing to sync')
+      return
+    }
+
+    rowsToProcess = sortRowsByDepth(
+      await expandRowsWithAncestors(modxdb, [...changedRows, ...removedRows])
+    )
+    console.log(`rows to process (incl. ancestors): ${rowsToProcess.length}`)
+
+    tmplvarContentvalues = await modxdb.select().from(modx_site_tmplvar_contentvalues)
+    modxSzerzok = await modxdb
+      .select()
+      .from(modx_site_htmlsnippets)
+      .where(eq(modx_site_htmlsnippets.category, 24))
+
     await connection.end()
-    throw error
   }
 
-  console.log(
-    `${isFullSync ? 'total' : 'changed'} MODX rows: ${changedRows.length}` +
-      (isFullSync ? '' : `, removed candidates: ${removedRows.length}`) +
-      (forceModxDocId > 0 ? `, forced doc id: ${forceModxDocId}` : '')
-  )
-
   if (changedRows.length === 0 && removedRows.length === 0) {
-    await connection.end()
     console.log('nothing to sync')
     return
   }
-
-  const changedIds = new Set(changedRows.map((row) => row.id))
-  const removedIds = new Set(removedRows.map((row) => row.id))
-  const rowsToProcess = sortRowsByDepth(
-    await expandRowsWithAncestors(modxdb, [...changedRows, ...removedRows])
-  )
-  console.log(`rows to process (incl. ancestors): ${rowsToProcess.length}`)
-
-  const tmplvarContentvalues = await modxdb.select().from(modx_site_tmplvar_contentvalues)
-  const modxSzerzok = await modxdb
-    .select()
-    .from(modx_site_htmlsnippets)
-    .where(eq(modx_site_htmlsnippets.category, 24))
-
-  await connection.end()
 
   const redirectMaps = loadReceptsarokRedirectMaps(RS_REDIRECTS_PATH)
   const recipes = loadRecipesFromJson(RECIPES_JSON_PATH)
@@ -820,17 +852,21 @@ async function main() {
   }
   const purgeResult = await purgeNetlifyPaths(purgePaths)
 
-  const newLastEdit = maxEditedon([...changedRows, ...removedRows], lastEdit)
-  await firestore.collection('meta').doc(META_SYNC_DOC).set(
-    {
-      lastEdit: newLastEdit,
-      syncedAt: new Date().toISOString(),
-    },
-    { merge: true }
-  )
+  let lastEditSummary = 'n/a (payload mode)'
+  if (!isFromPayload) {
+    const newLastEdit = maxEditedon([...changedRows, ...removedRows], lastEdit)
+    await firestore.collection('meta').doc(META_SYNC_DOC).set(
+      {
+        lastEdit: newLastEdit,
+        syncedAt: new Date().toISOString(),
+      },
+      { merge: true }
+    )
+    lastEditSummary = `${lastEdit} → ${newLastEdit}`
+  }
 
   console.log(
-    `sync complete: wrote=${written}, deleted=${deleted}, skipped=${skipped}, redirectsAdded=${redirectsAdded}, receptsarokFree=${freeSync.updated}, collections=${collectionsWritten}, relatedCards=${relatedUpdated}, search v${searchIndex.version} (${searchIndex.articleCount} articles, ${searchIndex.recipeCount} recipes), purge=${purgeResult.skipped ? 'skipped' : purgeResult.ok ? `ok(${purgeResult.status})` : 'failed'}, lastEdit ${lastEdit} → ${newLastEdit}, ${formatReadCounts(readCounts)}`
+    `sync complete: wrote=${written}, deleted=${deleted}, skipped=${skipped}, redirectsAdded=${redirectsAdded}, receptsarokFree=${freeSync.updated}, collections=${collectionsWritten}, relatedCards=${relatedUpdated}, search v${searchIndex.version} (${searchIndex.articleCount} articles, ${searchIndex.recipeCount} recipes), purge=${purgeResult.skipped ? 'skipped' : purgeResult.ok ? `ok(${purgeResult.status})` : 'failed'}, lastEdit ${lastEditSummary}, ${formatReadCounts(readCounts)}`
   )
 }
 
