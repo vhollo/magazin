@@ -7,28 +7,19 @@
  * 1. Elements → Plugins → New → paste this code.
  * 2. System Events: check **OnDocFormSave** only.
  * 3. Manager → Configuration — add:
- *    - magazin_github_token   (required) PAT with repo + Contents write + Actions read/write.
+ *    - magazin_github_token   (required) PAT with Contents: write + Actions: read/write.
  *      Fine-grained: Repository access (Contents: write, Actions: read/write).
- *      Classic: repo scope (or workflow scope).
+ *      Classic: repo scope.
  *    - magazin_github_repo    (optional — omit or leave unset for vhollo/magazin; do NOT save empty)
- *    - magazin_github_ref     (optional, default main — used only for legacy workflow_dispatch; repository_dispatch always runs from default branch)
- *    - magazin_queue_ttl      (optional, default 900 seconds = 15 min; entries older than this are pruned from queue)
  *
  * How it works:
- *   On each magazine document save the plugin:
- *   1. Loads the full site_content row + all ancestor rows.
- *   2. Loads filtered TVs (tmplvarid IN 3,4,18,23,25,28,29,30,31) for those rows.
- *   3. Loads matched author chunks (category 24) by name.
- *   4. Upserts the saved doc into a cumulative queue file
- *      (assets/cache/magazin_firestore_sync_queue.json), pruning entries older
- *      than magazin_queue_ttl seconds.
- *   5. Dispatches ALL queued docs as a single gzip+base64 repository_dispatch
- *      event (modx-doc-save) to GitHub.
+ *   On each magazine document save the plugin dispatches a single repository_dispatch
+ *   event (modx-doc-save) carrying only the saved doc (+ ancestors + filtered TVs +
+ *   matched author chunks) as a gzip+base64 payload.
  *
- *   The GitHub Actions workflow uses cancel-in-progress + sleep 120 so only the
- *   last save within a 2-minute window triggers an actual sync (trailing debounce).
- *   Each dispatch carries the full cumulative queue so no data is lost if an
- *   earlier run is cancelled before it starts.
+ *   Each dispatch triggers its own GitHub Actions run. Runs are serialised by the
+ *   concurrency group (cancel-in-progress: false) so rapid saves queue up and each
+ *   one is processed in order. No debounce, no queue file, no cumulation.
  *
  * Do NOT call $e->stopPropagation() — other plugins must still run.
  */
@@ -38,12 +29,8 @@ if (!defined('MODX_BASE_PATH')) {
 
 if (!defined('MAGAZIN_GITHUB_REPO_DEFAULT')) {
     define('MAGAZIN_GITHUB_REPO_DEFAULT', 'vhollo/magazin');
-    define('MAGAZIN_GITHUB_REF_DEFAULT', 'main');
     define('MAGAZIN_TV_IDS', '3,4,18,23,25,28,29,30,31');
     define('MAGAZIN_AUTHOR_CHUNK_CATEGORY', 24);
-    define('MAGAZIN_QUEUE_FILE', MODX_BASE_PATH . 'assets/cache/magazin_firestore_sync_queue.json');
-    define('MAGAZIN_QUEUE_TTL_DEFAULT', 900);
-    define('MAGAZIN_PAYLOAD_LIMIT_BYTES', 60000); // ~60 KB compressed budget
 }
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
@@ -111,12 +98,12 @@ if (!function_exists('magazin_evoIsMagazineCandidate')) {
 
 if (!function_exists('magazin_evoGetDocumentRow')) {
     /**
-     * Load the full site_content row for the given id.
-     * Uses db->select only — do NOT call getDocument() with a field list.
+     * Load a site_content row. Uses db->select only — do NOT call getDocument()
+     * with a field list; Evolution 1.2+ changed that API and breaks SQL.
      *
      * @param DocumentParser $modx
-     * @param int $id
-     * @param string $fields  Comma-separated column list
+     * @param int            $id
+     * @param string         $fields  Comma-separated column list
      * @return array|null
      */
     function magazin_evoGetDocumentRow($modx, $id, $fields = '*')
@@ -137,20 +124,19 @@ if (!function_exists('magazin_evoGetDocumentRow')) {
 
 if (!function_exists('magazin_evoGetAncestors')) {
     /**
-     * Walk parent chain and return all ancestor site_content rows (root first).
-     * Stops at parent = 0 or on cycles.
+     * Walk the parent chain and return all ancestor site_content rows.
+     * Returns an array keyed by id containing the saved doc + all ancestors.
      *
      * @param DocumentParser $modx
      * @param array          $seedRow  The saved document row (already loaded)
-     * @return array  Associative array keyed by id, containing all rows
-     *                (seedRow + ancestors), ordered from root to leaf.
+     * @return array  Keyed by id
      */
     function magazin_evoGetAncestors($modx, array $seedRow)
     {
         $byId = array();
         $byId[(int) $seedRow['id']] = $seedRow;
         $queue = array((int) $seedRow['parent']);
-        $seen = array((int) $seedRow['id'] => true);
+        $seen  = array((int) $seedRow['id'] => true);
 
         while (!empty($queue)) {
             $parentId = array_shift($queue);
@@ -180,16 +166,16 @@ if (!function_exists('magazin_evoGetTVs')) {
      *
      * @param DocumentParser $modx
      * @param int[]          $contentIds
-     * @return array[]  Rows with keys: tmplvarid, contentid, value
+     * @return array[]  Each row: { tmplvarid, contentid, value }
      */
     function magazin_evoGetTVs($modx, array $contentIds)
     {
         if (empty($contentIds)) {
             return array();
         }
-        $table = $modx->getFullTableName('site_tmplvar_contentvalues');
+        $table  = $modx->getFullTableName('site_tmplvar_contentvalues');
         $idList = implode(',', array_map('intval', $contentIds));
-        $where = 'contentid IN (' . $idList . ') AND tmplvarid IN (' . MAGAZIN_TV_IDS . ')';
+        $where  = 'contentid IN (' . $idList . ') AND tmplvarid IN (' . MAGAZIN_TV_IDS . ')';
         $rs = $modx->db->select('tmplvarid, contentid, value', $table, $where);
         if (!$rs) {
             return array();
@@ -213,7 +199,7 @@ if (!function_exists('magazin_evoGetAuthorChunks')) {
      *
      * @param DocumentParser $modx
      * @param string         $authorTvValue  Space-separated author token string
-     * @return array[]  Rows with keys: name, snippet
+     * @return array[]  Each row: { name, snippet }
      */
     function magazin_evoGetAuthorChunks($modx, $authorTvValue)
     {
@@ -221,7 +207,7 @@ if (!function_exists('magazin_evoGetAuthorChunks')) {
         if (empty($tokens)) {
             return array();
         }
-        $table = $modx->getFullTableName('site_htmlsnippets');
+        $table   = $modx->getFullTableName('site_htmlsnippets');
         $escaped = array();
         foreach ($tokens as $t) {
             $escaped[] = "'" . $modx->db->escape($t) . "'";
@@ -252,10 +238,14 @@ if (!function_exists('magazin_evoNormaliseRow')) {
      */
     function magazin_evoNormaliseRow(array $row)
     {
-        static $intFields = array('id', 'parent', 'template', 'published', 'deleted',
-            'hidemenu', 'isfolder', 'publishedon', 'editedon');
-        static $strFields = array('type', 'alias', 'pagetitle', 'longtitle',
-            'description', 'introtext', 'content');
+        static $intFields = array(
+            'id', 'parent', 'template', 'published', 'deleted',
+            'hidemenu', 'isfolder', 'publishedon', 'editedon',
+        );
+        static $strFields = array(
+            'type', 'alias', 'pagetitle', 'longtitle',
+            'description', 'introtext', 'content',
+        );
         $out = array();
         foreach ($row as $k => $v) {
             if (in_array($k, $intFields, true)) {
@@ -267,106 +257,6 @@ if (!function_exists('magazin_evoNormaliseRow')) {
             }
         }
         return $out;
-    }
-}
-
-if (!function_exists('magazin_evoLoadQueue')) {
-    /**
-     * Load the persistent queue from disk.
-     * Returns an array keyed by doc id, each value being a queue entry:
-     * { savedAt: int, row: array, tvs: array, szerzok: array }
-     *
-     * @return array
-     */
-    function magazin_evoLoadQueue()
-    {
-        $file = MAGAZIN_QUEUE_FILE;
-        if (!is_readable($file)) {
-            return array();
-        }
-        $raw = file_get_contents($file);
-        if ($raw === false) {
-            return array();
-        }
-        $parsed = json_decode($raw, true);
-        return is_array($parsed) ? $parsed : array();
-    }
-}
-
-if (!function_exists('magazin_evoSaveQueue')) {
-    /**
-     * Persist the queue to disk.
-     *
-     * @param array $queue
-     */
-    function magazin_evoSaveQueue(array $queue)
-    {
-        $dir = dirname(MAGAZIN_QUEUE_FILE);
-        if (!is_dir($dir)) {
-            return;
-        }
-        @file_put_contents(MAGAZIN_QUEUE_FILE, json_encode($queue));
-    }
-}
-
-if (!function_exists('magazin_evoBuildPayload')) {
-    /**
-     * Build the gzip+base64 payload from the current queue.
-     *
-     * Assembles rows, tvs, szerzok arrays from all queue entries and returns a
-     * base64-encoded gzipped JSON string. Deduplicates TV rows by (tmplvarid,
-     * contentid) and author chunks by name.
-     *
-     * If the compressed result exceeds MAGAZIN_PAYLOAD_LIMIT_BYTES, the oldest
-     * entries are dropped one by one until it fits (they remain in the queue
-     * file for the next dispatch).
-     *
-     * @param array $queue  Keyed by doc id
-     * @return string|false  base64 string, or false on failure
-     */
-    function magazin_evoBuildPayload(array $queue)
-    {
-        $entries = array_values($queue);
-        // Newest first so we always keep the most recent when trimming
-        usort($entries, function ($a, $b) {
-            return (int) $b['savedAt'] - (int) $a['savedAt'];
-        });
-
-        while (!empty($entries)) {
-            $rows    = array();
-            $tvsMap  = array();
-            $szMap   = array();
-            foreach ($entries as $entry) {
-                foreach ($entry['rows'] as $row) {
-                    $rows[(int) $row['id']] = $row;
-                }
-                foreach ($entry['tvs'] as $tv) {
-                    $key = $tv['tmplvarid'] . ':' . $tv['contentid'];
-                    $tvsMap[$key] = $tv;
-                }
-                foreach ($entry['szerzok'] as $sz) {
-                    $szMap[$sz['name']] = $sz;
-                }
-            }
-            $json = json_encode(array(
-                'rows'    => array_values($rows),
-                'tvs'     => array_values($tvsMap),
-                'szerzok' => array_values($szMap),
-            ));
-            if ($json === false) {
-                return false;
-            }
-            $gz = gzencode($json, 6);
-            if ($gz === false) {
-                return false;
-            }
-            if (strlen($gz) <= MAGAZIN_PAYLOAD_LIMIT_BYTES) {
-                return base64_encode($gz);
-            }
-            // Too large: drop oldest entry and retry
-            array_pop($entries);
-        }
-        return false;
     }
 }
 
@@ -382,7 +272,7 @@ if (!function_exists('magazin_evoGithubRepositoryDispatch')) {
      */
     function magazin_evoGithubRepositoryDispatch($repo, $token, $eventType, array $clientPayload)
     {
-        $url = 'https://api.github.com/repos/' . $repo . '/dispatches';
+        $url  = 'https://api.github.com/repos/' . $repo . '/dispatches';
         $body = json_encode(array(
             'event_type'     => $eventType,
             'client_payload' => $clientPayload,
@@ -417,7 +307,7 @@ if (!function_exists('magazin_evoGithubRepositoryDispatch')) {
 
 if (!function_exists('magazin_evoDispatchSavePayload')) {
     /**
-     * Assemble the cumulative queue, build the gzip payload, and dispatch via
+     * Build the gzip+base64 payload for a single saved doc and dispatch via
      * repository_dispatch (modx-doc-save).
      *
      * @param DocumentParser $modx
@@ -440,11 +330,6 @@ if (!function_exists('magazin_evoDispatchSavePayload')) {
         $repo = magazin_evoConfig($modx, 'magazin_github_repo', MAGAZIN_GITHUB_REPO_DEFAULT);
         if ($repo === '') {
             $repo = MAGAZIN_GITHUB_REPO_DEFAULT;
-        }
-
-        $ttl = (int) magazin_evoConfig($modx, 'magazin_queue_ttl', (string) MAGAZIN_QUEUE_TTL_DEFAULT);
-        if ($ttl < 60) {
-            $ttl = 60;
         }
 
         // ── 1. Load the saved doc row + ancestors ─────────────────────────────
@@ -475,33 +360,24 @@ if (!function_exists('magazin_evoDispatchSavePayload')) {
         }
         $szerzok = magazin_evoGetAuthorChunks($modx, $authorTvValue);
 
-        // ── 4. Upsert into cumulative queue ───────────────────────────────────
-        $queue = magazin_evoLoadQueue();
-        $now = time();
-
-        // Prune stale entries
-        foreach (array_keys($queue) as $qid) {
-            if (($now - (int) $queue[$qid]['savedAt']) > $ttl) {
-                unset($queue[$qid]);
-            }
-        }
-
-        $queue[(string) $docId] = array(
-            'savedAt' => $now,
+        // ── 4. Build gzip+base64 payload ──────────────────────────────────────
+        $json = json_encode(array(
             'rows'    => $rows,
             'tvs'     => $tvs,
             'szerzok' => $szerzok,
-        );
-        magazin_evoSaveQueue($queue);
-
-        // ── 5. Build gzip+base64 payload from full queue ──────────────────────
-        $payloadData = magazin_evoBuildPayload($queue);
-        if ($payloadData === false) {
-            magazin_evoLog($modx, '[FirestoreSync] could not build payload (json/gzip failure)', 3);
+        ));
+        if ($json === false) {
+            magazin_evoLog($modx, '[FirestoreSync] json_encode failed for id=' . $docId, 3);
             return false;
         }
+        $gz = gzencode($json, 6);
+        if ($gz === false) {
+            magazin_evoLog($modx, '[FirestoreSync] gzencode failed for id=' . $docId, 3);
+            return false;
+        }
+        $payloadData = base64_encode($gz);
 
-        // ── 6. Dispatch repository_dispatch ───────────────────────────────────
+        // ── 5. Dispatch repository_dispatch ───────────────────────────────────
         $result = magazin_evoGithubRepositoryDispatch(
             $repo,
             $token,
@@ -513,8 +389,7 @@ if (!function_exists('magazin_evoDispatchSavePayload')) {
             magazin_evoLog(
                 $modx,
                 '[FirestoreSync] repository_dispatch modx-doc-save dispatched (HTTP 204)'
-                . ' repo=' . $repo . ' id=' . $docId
-                . ' queue_size=' . count($queue),
+                . ' repo=' . $repo . ' id=' . $docId,
                 1
             );
             return true;
@@ -525,6 +400,8 @@ if (!function_exists('magazin_evoDispatchSavePayload')) {
             $hint = ' HTTP 404 — check repo name + PAT Contents:write permission.';
         } elseif ($result['http'] === 422) {
             $hint = ' HTTP 422 — event_type or client_payload may be invalid.';
+        } elseif ($result['http'] === 403) {
+            $hint = ' HTTP 403 — PAT missing Contents:write permission (fine-grained) or repo scope (classic).';
         }
 
         magazin_evoLog(
@@ -558,7 +435,7 @@ switch ($e->name) {
             return;
         }
 
-        // Quick scope check with a lightweight row (avoid loading full content twice)
+        // Quick scope check with a lightweight row (avoids loading full content twice)
         $scopeRow = magazin_evoGetDocumentRow(
             $modx,
             $docId,

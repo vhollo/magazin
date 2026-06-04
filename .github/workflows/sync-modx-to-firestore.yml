@@ -38,11 +38,11 @@ on:
   repository_dispatch:
     types: [modx-doc-save]
 
-# workflow_dispatch: do not cancel — backfills must run to completion.
-# repository_dispatch: cancel-in-progress so rapid saves coalesce into one run.
+# All runs serialised within their group — never cancel. Each save gets its own
+# run; rapid saves queue up and are processed in order.
 concurrency:
   group: ${{ github.event_name == 'repository_dispatch' && 'modx-firestore-sync-save' || 'modx-firestore-sync' }}
-  cancel-in-progress: ${{ github.event_name == 'repository_dispatch' }}
+  cancel-in-progress: false
 
 permissions:
   contents: write
@@ -66,13 +66,6 @@ jobs:
 
       - name: Install dependencies
         run: npm ci
-
-      # ── repository_dispatch (save-triggered) path ───────────────────────────
-      # Wait 120 s so a newer save can cancel this run before the sync starts.
-      # This implements the trailing-debounce: the last save within 2 min wins.
-      - name: Wait for save debounce (payload path only)
-        if: github.event_name == 'repository_dispatch'
-        run: sleep 120
 
       # ── workflow_dispatch (manual) path ─────────────────────────────────────
       - name: Allow GitHub Actions runner IP in cPanel Remote MySQL

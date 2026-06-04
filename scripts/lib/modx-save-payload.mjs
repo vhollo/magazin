@@ -2,11 +2,12 @@
  * Parse and validate a gzip+base64 MODX save payload produced by the
  * MODX plugin (modx-firestore-sync-plugin.php).
  *
+ * Each repository_dispatch carries exactly one saved doc (+ ancestors).
  * Payload shape (after gunzip + JSON.parse):
  * {
- *   rows: ModxSiteContentRow[]           // saved doc + all ancestors
- *   tvs:  { tmplvarid, contentid, value }[]  // filtered TV rows
- *   szerzok: { name, snippet }[]         // matched author chunks
+ *   rows:    ModxSiteContentRow[]              // saved doc + all ancestors
+ *   tvs:     { tmplvarid, contentid, value }[] // filtered TV rows (ids 3,4,18,23,25,28,29,30,31)
+ *   szerzok: { name, snippet }[]               // matched author chunks (category 24)
  * }
  */
 
