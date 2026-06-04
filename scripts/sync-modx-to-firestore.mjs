@@ -672,6 +672,9 @@ async function main() {
     return
   }
 
+  const changedIds = new Set(changedRows.map((row) => row.id))
+  const removedIds = new Set(removedRows.map((row) => row.id))
+
   const redirectMaps = loadReceptsarokRedirectMaps(RS_REDIRECTS_PATH)
   const recipes = loadRecipesFromJson(RECIPES_JSON_PATH)
   /** @type {Map<number, Record<string, unknown>>} */
