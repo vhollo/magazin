@@ -436,15 +436,14 @@ async function deleteRemovedDocs(firestore, modxTransform, rowsToProcess, remove
     const docId = encodeDocPathId(pathToDelete)
     const ref = firestore.collection('docs').doc(docId)
     const existing = await ref.get()
-    if (!existing.exists) {
-      console.warn(`skip delete: docs/${docId} (id=${rawRow.id}) not in Firestore`)
-      continue
+    if (existing.exists) {
+      await ref.delete()
+      deleted++
+      console.log(`  deleted docs/${docId} (id=${rawRow.id})`)
+    } else {
+      console.log(`  drop projection/docs path (no Firestore doc): ${pathToDelete} (id=${rawRow.id})`)
     }
-
-    await ref.delete()
-    deleted++
     paths.push(pathToDelete)
-    console.log(`  deleted docs/${docId} (id=${rawRow.id})`)
   }
 
   return { deleted, paths }
@@ -695,8 +694,10 @@ async function main() {
   let written = 0
   let skipped = 0
 
+  // Ancestors only: path resolution for changed/removed rows; never overlay unpublished rows.
   if (removedRows.length > 0) {
     for (const rawRow of rowsToProcess) {
+      if (changedIds.has(rawRow.id) || removedIds.has(rawRow.id)) continue
       ensureRowInWorkingById(modxTransform, rawRow, workingById)
     }
   }
@@ -751,6 +752,9 @@ async function main() {
     )
     deleted = removal.deleted
     deletedPaths = removal.paths
+    for (const id of removedIds) {
+      workingById.delete(id)
+    }
   }
 
   if (isFullSync && changedRows.length > 0) {
@@ -797,7 +801,11 @@ async function main() {
     firestore,
     workingById,
     deletedPaths,
-    { fullRebuild: isFullSync }
+    {
+      fullRebuild: isFullSync,
+      removedModxIds: removedIds,
+      overlayIds: changedIds,
+    }
   )
   const projectionDocs = projectionResult.docs
   readCounts.projection += projectionResult.reads.projection
