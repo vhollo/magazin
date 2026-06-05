@@ -232066,7 +232066,7 @@
       "ext": "jpg"
     },
     "fat": 12,
-    "free": false,
+    "free": true,
     "instructions": [
       "A fekete lencsét előzőleg legalább 3 órára vagy egy éjszakán át vízbe áztatjuk. A póréhagymát apróra vágjuk, és kevés olívaolajon megpároljuk. A fürjtojásokat megfőzzük és megpucoljuk. A sütőtököt meghámozzuk, kimagozzuk és felkockázzuk. A párolt hagymához hozzáadjuk a zúzott fokhagymát, a chilit, a kurkumát és a koriandert, majd egy percig együtt pirítjuk. Hozzáadjuk a sűrített paradicsomot is, elkeverjük, belekeverjük a sütőtököt, és kevergetve pár percig főzzük. Közben a lencsét fazékba tesszük, felöntjük annyi vízzel, hogy ellepje, és forrástól számítva 25-30 perc alatt, alacsony lángon puhára főzzük. A sütőtökből és a lencséből egy merőkanálnyit félreteszünk, botmixerrel pürésítjük, majd visszakeverjük a többihez. Hozzáadjuk a joghurtot, és pár perc alatt sűrű főzelékké főzzük. A beáztatott zsemlét kinyomkodjuk. A csirkemellet, póréhagymát, fokhagymát és a zsemlét ledaráljuk vagy aprítógépben pépesítjük. Hozzáadjuk az aprított petrezselymet, koriandert, a tojást, fűszerezzük sóval, borssal, füstölt paprikával és kurkumával. Megszórjuk amarántliszttel, és az egészet alaposan összegyúrjuk. Vizes kézzel golyókat formázunk. Egy tepsit sütőpapírral kibélelünk, a fasírtokat egyenként olívaolajsprével befújjuk, majd 190 fokra előmelegített, légkeveréses sütőben vagy airfryerben 35–40 perc alatt aranybarnára sütjük. Félidőnél megfordítjuk őket. A lencsefőzeléket tányérra szedjük, mellé tesszük a fasírtgolyókat és a főtt fürjtojást. Petrezselyemmel és friss korianderzölddel díszítjük."
     ],
@@ -232127,7 +232127,8 @@
     ],
     "saturatedFat": 3,
     "createdAt": "2025-01-01T00:00:00.000Z",
-    "id": "sutotokos-beluga-lencse-fozelek-petrezselymes-fasirttal"
+    "id": "sutotokos-beluga-lencse-fozelek-petrezselymes-fasirttal",
+    "sourceModxId": 4467
   },
   {
     "instructions": [
