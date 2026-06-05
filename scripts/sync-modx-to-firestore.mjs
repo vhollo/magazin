@@ -11,13 +11,14 @@
  * 5. Recompute collections/{slug} (top 72 thin cards per tag query) and collections/home
  * 6. Build MiniSearch index, gzip-upload to Storage, update meta/search
  * 7. For magazine rows linked to Receptsarok (redirect match): set `free: true` on
- *    matching `recipes/{year}-{id}` + `recipes.json` (run `sync:rs-collections:apply` separately)
+ *    matching `recipes/{year}-{id}` + `recipes.json`; rebuild `collections/rs-home`
+ *    (totalFree, freeCountsByCategory) via `sync:rs-collections:apply`
  * 8. Update meta/sync.lastEdit
  *
  * Usage:
  *   node scripts/sync-modx-to-firestore.mjs          # incremental
  *   node scripts/sync-modx-to-firestore.mjs --full   # one-time backfill (lastEdit ignored)
- *   node scripts/sync-modx-to-firestore.mjs --with-rs-collections  # also rebuild rs-teasers shards
+ *   node scripts/sync-modx-to-firestore.mjs --skip-rs-collections  # skip rs-home rebuild after free-flag updates
  *
  * Env: MODXDB_*, FIREBASE_ADMIN_KEY, FIREBASE_STORAGE_BUCKET, PUBLIC_BASE_URL (optional)
  * Optional: NETLIFY_SITE_ID, NETLIFY_ACCESS_TOKEN (edge-cache purge)
@@ -59,7 +60,7 @@ import { isMagazineCandidate, shouldSyncRow } from './lib/magazine-scope.mjs'
 import { parseModxSavePayload, classifyPayload } from './lib/modx-save-payload.mjs'
 
 const isFullSync = process.argv.includes('--full')
-const withRsCollections = process.argv.includes('--with-rs-collections')
+const skipRsCollections = process.argv.includes('--skip-rs-collections')
 const isFromPayload = process.argv.includes('--from-payload') || !!process.env.MODX_SYNC_PAYLOAD
 
 const COLLECTIONS_COLLECTION = 'collections'
@@ -781,10 +782,8 @@ async function main() {
     console.log(
       `receptsarok free: updated ${freeSync.updated} recipe(s) from MODX links → ${freeSync.keys.join(', ')}`
     )
-    console.log(
-      '  → run `npm run sync:rs-collections:apply` to refresh rs-teasers shards (or pass --with-rs-collections)'
-    )
-    if (withRsCollections) {
+    if (!skipRsCollections) {
+      console.log('  → rebuilding collections/rs-home (freeCountsByCategory, totalFree)…')
       const { spawnSync } = await import('node:child_process')
       const rsCollections = spawnSync('npm', ['run', 'sync:rs-collections:apply'], {
         cwd: root,
@@ -794,6 +793,10 @@ async function main() {
       if (rsCollections.status !== 0) {
         throw new Error('sync:rs-collections:apply failed after MODX-linked free recipe update')
       }
+    } else {
+      console.log(
+        '  → skipped rs-collections rebuild (--skip-rs-collections); run `npm run sync:rs-collections:apply` manually'
+      )
     }
   }
 
