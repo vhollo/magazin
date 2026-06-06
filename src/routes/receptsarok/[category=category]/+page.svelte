@@ -1,5 +1,5 @@
 <script lang="ts" module>
-  import CardV from '$lib/components/CardV.svelte'
+  import Cards from '$lib/components/Cards.svelte'
   import RecipeFilters from '$lib/components/RecipeFilters.svelte'
   import Search from '$lib/components/Search.svelte'
   import Nav2 from '$lib/components/Nav2.svelte'
@@ -69,6 +69,16 @@
   const isFiltering = $derived(
     filters.maxEnergy > 0 || filters.maxCarbs > 0 || filters.minProtein > 0 || filters.ingredient.trim() !== ''
   )
+
+  // Map filtered recipes to Cards.svelte's CardV card shape (same rendering as
+  // before; the dense masonry, dynamic spans, pagination and SSR-safe layout now
+  // come from Cards instead of this page's own grid).
+  const cards = $derived(
+    filtered.map((recipe) => ({
+      ...recipeToReceptsarokListCard(recipe),
+      locked: !isRecipeFree(recipe) && !$hasReceptsarokAccess,
+    }))
+  )
 </script>
 
 <svelte:head>
@@ -95,22 +105,7 @@
   </p>
 {/if}
 
-<section class="grid gap-x-6 gap-y-0 px-4 py-6">
-  {#each filtered as recipe (recipe.year + '-' + recipe.id)}
-    {@const base = recipeToReceptsarokListCard(recipe)}
-    {@const card = {
-      ...base,
-      locked: !isRecipeFree(recipe) && !$hasReceptsarokAccess,
-    }}
-    <aside
-      class="card card-sm rounded-sm bg-base-200"
-      class:double={card.img}
-      class:triple={card.description && card.img}
-    >
-      <CardV {card} />
-    </aside>
-  {/each}
-</section>
+<Cards {cards} />
 
 {#if filtered.length === 0}
   <p class="text-center py-12 opacity-50">Nincs a szűrési feltételeknek megfelelő recept.</p>
@@ -118,23 +113,3 @@
 
 <Search articles={data.articleCount} recipes={data.recipeCount} />
 <Nav2 actual="/receptsarok" />
-
-<style>
-  section {
-    grid-template-columns: repeat(auto-fill, minmax(24ch, 1fr));
-    grid-auto-flow: dense;
-    grid-auto-rows: auto;
-  }
-  aside {
-    position: unset;
-    min-height: 20ch;
-    max-height: fit-content;
-    margin-bottom: 3rem;
-  }
-  aside.double {
-    grid-row-end: span 2;
-  }
-  aside.triple {
-    grid-row-end: span 2;
-  }
-</style>

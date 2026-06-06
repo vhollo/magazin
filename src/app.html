@@ -10,6 +10,19 @@
 	</head>
 	<body data-sveltekit-preload-data="hover">
 		<div style="display: contents">%sveltekit.body%</div>
+		<!-- Pre-hydration scroll restore: jump to the saved position as soon as HTML+CSS
+		     parse, before the SvelteKit bundle hydrates. Reuses SvelteKit's own saved
+		     scroll (sessionStorage 'sveltekit:scroll', keyed by history.state index). The
+		     page then finishes the job once content has expanded/settled. -->
+		<script>
+			try {
+				history.scrollRestoration = 'manual';
+				var i = history.state && history.state['sveltekit:history'];
+				var m = JSON.parse(sessionStorage['sveltekit:scroll'] || '{}');
+				var p = i != null ? m[i] : null;
+				if (p && p.y) window.scrollTo({ top: p.y, left: p.x || 0, behavior: 'instant' });
+			} catch (e) {}
+		</script>
     <script defer src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script defer src="https://code.jquery.com/ui/1.14.1/jquery-ui.min.js"></script>
 	</body>

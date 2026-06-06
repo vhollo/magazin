@@ -23,8 +23,8 @@
 
 <script>
 // @ts-nocheck
-  // import { afterNavigate, replaceState } from '$app/navigation';
-  // import { page, navigating } from '$app/state';
+  import { afterNavigate } from '$app/navigation'
+  import { tick } from 'svelte'
   export let data
 
   import { ads } from '$lib/ads.js'
@@ -49,6 +49,53 @@
 
   $: docstitle = doc.title || matchingSubcat
   // $: console.log(doc.title, matchingSubcat)
+
+  // ── Scroll restoration ─────────────────────────────────────────────────────
+  // app.html restores scroll before hydration; here we finish once the masonry
+  // packs and any deeper page (#2, #5…) expands — retrying until we reach the
+  // saved Y so it can "scroll further when ready". behavior:'instant' avoids the
+  // global scroll-behavior:smooth animating each retry. (browser comes from the
+  // module script above.) Mirrors [...path]/+page.svelte.
+  let pendingScrollY = null
+
+  async function restoreScrollWhenReady() {
+    if (pendingScrollY == null || !browser) return
+    const y = pendingScrollY
+    await tick()
+    await tick()
+    let attempts = 0
+    const tryScroll = () => {
+      window.scrollTo({ top: y, left: 0, behavior: 'instant' })
+      attempts++
+      if (window.scrollY >= y - 2 || attempts >= 12) {
+        pendingScrollY = null
+        return
+      }
+      setTimeout(tryScroll, 50)
+    }
+    requestAnimationFrame(() => requestAnimationFrame(tryScroll))
+  }
+
+  export const snapshot = {
+    capture: () => ({ scrollY: browser ? window.scrollY : 0 }),
+    restore: (value) => {
+      if (browser && typeof value?.scrollY === 'number') pendingScrollY = value.scrollY
+    },
+  }
+
+  afterNavigate((navigation) => {
+    if (!browser) return
+    if (navigation.type !== 'enter' && navigation.type !== 'popstate') return
+    if (pendingScrollY == null) {
+      try {
+        const idx = history.state?.['sveltekit:history']
+        const map = JSON.parse(sessionStorage['sveltekit:scroll'] || '{}')
+        const pos = idx != null ? map[idx] : null
+        if (pos && typeof pos.y === 'number') pendingScrollY = pos.y
+      } catch (e) { /* ignore */ }
+    }
+    if (pendingScrollY != null) restoreScrollWhenReady()
+  })
 </script>
 
 <svelte:head>

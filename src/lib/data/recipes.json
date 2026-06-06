@@ -94141,6 +94141,104 @@
     "updatedAt": "2026-05-11T15:31:55.000Z"
   },
   {
+    "createdAt": "2017-06-28T16:42:36.000Z",
+    "sourceModxId": 1953,
+    "updatedAt": "2026-05-11T15:31:55.000Z",
+    "carbs": 7,
+    "title": "Almás tojáslepény",
+    "image": null,
+    "fiber": null,
+    "year": 2017,
+    "ingredientNames": [
+      "tojás,",
+      "tej,",
+      "margarin,",
+      "alma,",
+      "só,",
+      "szerecsendió"
+    ],
+    "servings": {
+      "unit": "adag",
+      "amount": 4
+    },
+    "nutritionTables": [
+      {
+        "fat": 11,
+        "label": "1 adag tápanygtartalma:",
+        "carbs": 7,
+        "protein": 10,
+        "fiber": null,
+        "saturatedFat": null,
+        "energy": 171
+      }
+    ],
+    "id": "almas-tojaslepeny",
+    "free": true,
+    "instructions": [
+      "A tojásokat tejjel, sóval, a szerecsendióval ízesítve habverővel jól felverjük, majd hozzáadjuk a durvára reszelt almát. Teflonsütőben a margarint felmelegítjük, és adagonként úgy sütjük meg, mint a palacsintát, de nem fordítjuk meg. Ha a teteje megalvadt, kész. Tálaláskor a két oldalát egymásra hajtjuk, azonnal fogyasztjuk salátával."
+    ],
+    "protein": 10,
+    "hasSubRecipes": false,
+    "category": "sos-edes-sutemenyek-desszertek-tesztak",
+    "fat": 11,
+    "ingredientGroups": [
+      {
+        "items": [
+          {
+            "name": "tojás,",
+            "text": "6 db tojás,",
+            "amount": 6,
+            "unit": "db"
+          },
+          {
+            "amount": 1.5,
+            "name": "tej,",
+            "text": "1,5 dl tej,",
+            "unit": "dl"
+          },
+          {
+            "unit": "dkg",
+            "amount": 2,
+            "name": "margarin,",
+            "text": "2 dkg margarin,"
+          },
+          {
+            "unit": "dkg",
+            "amount": 25,
+            "name": "alma,",
+            "text": "25 dkg alma,"
+          },
+          {
+            "unit": null,
+            "amount": null,
+            "name": "só,",
+            "text": "só,"
+          },
+          {
+            "unit": null,
+            "name": "szerecsendió",
+            "text": "szerecsendió",
+            "amount": null
+          }
+        ],
+        "section": "Hozzávalók 4 adaghoz:"
+      }
+    ],
+    "subRecipes": [],
+    "searchTerms": [
+      "almas",
+      "tojaslepeny",
+      "tojas",
+      "tej",
+      "margarin",
+      "alma",
+      "szerecsendio"
+    ],
+    "author": "Nagy Margit",
+    "energy": 171,
+    "saturatedFat": null
+  },
+  {
     "servings": {
       "unit": "adag",
       "amount": 4
@@ -232066,7 +232164,6 @@
       "ext": "jpg"
     },
     "fat": 12,
-    "free": false,
     "instructions": [
       "A fekete lencsét előzőleg legalább 3 órára vagy egy éjszakán át vízbe áztatjuk. A póréhagymát apróra vágjuk, és kevés olívaolajon megpároljuk. A fürjtojásokat megfőzzük és megpucoljuk. A sütőtököt meghámozzuk, kimagozzuk és felkockázzuk. A párolt hagymához hozzáadjuk a zúzott fokhagymát, a chilit, a kurkumát és a koriandert, majd egy percig együtt pirítjuk. Hozzáadjuk a sűrített paradicsomot is, elkeverjük, belekeverjük a sütőtököt, és kevergetve pár percig főzzük. Közben a lencsét fazékba tesszük, felöntjük annyi vízzel, hogy ellepje, és forrástól számítva 25-30 perc alatt, alacsony lángon puhára főzzük. A sütőtökből és a lencséből egy merőkanálnyit félreteszünk, botmixerrel pürésítjük, majd visszakeverjük a többihez. Hozzáadjuk a joghurtot, és pár perc alatt sűrű főzelékké főzzük. A beáztatott zsemlét kinyomkodjuk. A csirkemellet, póréhagymát, fokhagymát és a zsemlét ledaráljuk vagy aprítógépben pépesítjük. Hozzáadjuk az aprított petrezselymet, koriandert, a tojást, fűszerezzük sóval, borssal, füstölt paprikával és kurkumával. Megszórjuk amarántliszttel, és az egészet alaposan összegyúrjuk. Vizes kézzel golyókat formázunk. Egy tepsit sütőpapírral kibélelünk, a fasírtokat egyenként olívaolajsprével befújjuk, majd 190 fokra előmelegített, légkeveréses sütőben vagy airfryerben 35–40 perc alatt aranybarnára sütjük. Félidőnél megfordítjuk őket. A lencsefőzeléket tányérra szedjük, mellé tesszük a fasírtgolyókat és a főtt fürjtojást. Petrezselyemmel és friss korianderzölddel díszítjük."
     ],
@@ -232127,7 +232224,9 @@
     ],
     "saturatedFat": 3,
     "createdAt": "2025-01-01T00:00:00.000Z",
-    "id": "sutotokos-beluga-lencse-fozelek-petrezselymes-fasirttal"
+    "id": "sutotokos-beluga-lencse-fozelek-petrezselymes-fasirttal",
+    "sourceModxId": 4467,
+    "free": true
   },
   {
     "instructions": [
@@ -236339,103 +236438,5 @@
       "rizseshus"
     ],
     "saturatedFat": 2
-  },
-  {
-    "id": "almas-tojaslepeny",
-    "year": 2017,
-    "title": "Almás tojáslepény",
-    "author": "Nagy Margit",
-    "servings": {
-      "amount": 4,
-      "unit": "adag"
-    },
-    "energy": 171,
-    "protein": 10,
-    "fat": 11,
-    "saturatedFat": null,
-    "carbs": 7,
-    "fiber": null,
-    "nutritionTables": [
-      {
-        "label": "1 adag tápanygtartalma:",
-        "energy": 171,
-        "protein": 10,
-        "fat": 11,
-        "saturatedFat": null,
-        "carbs": 7,
-        "fiber": null
-      }
-    ],
-    "ingredientGroups": [
-      {
-        "section": "Hozzávalók 4 adaghoz:",
-        "items": [
-          {
-            "text": "6 db tojás,",
-            "amount": 6,
-            "unit": "db",
-            "name": "tojás,"
-          },
-          {
-            "text": "1,5 dl tej,",
-            "amount": 1.5,
-            "unit": "dl",
-            "name": "tej,"
-          },
-          {
-            "text": "2 dkg margarin,",
-            "amount": 2,
-            "unit": "dkg",
-            "name": "margarin,"
-          },
-          {
-            "text": "25 dkg alma,",
-            "amount": 25,
-            "unit": "dkg",
-            "name": "alma,"
-          },
-          {
-            "text": "só,",
-            "amount": null,
-            "unit": null,
-            "name": "só,"
-          },
-          {
-            "text": "szerecsendió",
-            "amount": null,
-            "unit": null,
-            "name": "szerecsendió"
-          }
-        ]
-      }
-    ],
-    "ingredientNames": [
-      "tojás,",
-      "tej,",
-      "margarin,",
-      "alma,",
-      "só,",
-      "szerecsendió"
-    ],
-    "searchTerms": [
-      "almas",
-      "tojaslepeny",
-      "tojas",
-      "tej",
-      "margarin",
-      "alma",
-      "szerecsendio"
-    ],
-    "instructions": [
-      "A tojásokat tejjel, sóval, a szerecsendióval ízesítve habverővel jól felverjük, majd hozzáadjuk a durvára reszelt almát. Teflonsütőben a margarint felmelegítjük, és adagonként úgy sütjük meg, mint a palacsintát, de nem fordítjuk meg. Ha a teteje megalvadt, kész. Tálaláskor a két oldalát egymásra hajtjuk, azonnal fogyasztjuk salátával."
-    ],
-    "image": null,
-    "subRecipes": [],
-    "hasSubRecipes": false,
-    "createdAt": "2017-06-28T16:42:36.000Z",
-    "updatedAt": "2026-05-11T15:31:55.000Z",
-    "free": true,
-    "sourceModxId": 1953,
-    "category": "sos-edes-sutemenyek-desszertek-tesztak"
   }
 ]

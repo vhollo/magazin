@@ -39,7 +39,7 @@
   })()
 </script>
 
-<a {href} class="card card-sm bg-base-200 rounded-sm hover:shadow-lg transition-shadow max-h-fit" class:double={cardImg || cardVideo}>
+<a {href} class="card card-sm bg-base-200 rounded-sm hover:shadow-lg transition-shadow max-h-fit">
   {#if cardVideo}
     <figure class="rounded-t">
       <!-- svelte-ignore a11y_media_has_caption -->
@@ -113,9 +113,3 @@
     </div>
   </div>
 </a>
-
-<style>
-  .double {
-    grid-row-end: span 2;
-  }
-</style>

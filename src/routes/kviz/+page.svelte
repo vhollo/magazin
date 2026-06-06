@@ -6,10 +6,11 @@
 
 </script>
 <script lang="ts">
-import { onMount } from 'svelte';
+import { onMount, tick } from 'svelte';
+import { browser } from '$app/environment';
 import { uid } from '$lib/authStore';
 import { get } from 'svelte/store';
-import { invalidateAll } from '$app/navigation';
+import { afterNavigate, invalidateAll } from '$app/navigation';
 import { kvizScores } from '$lib/kvizStore';
 
 onMount(() => {
@@ -28,6 +29,53 @@ const { data }: PageProps = $props()
 const kvizzes = $derived(data.kvizzes)
 // console.log({kvizzes})
 // marked is configured in $lib/marked.ts, imported via +page.ts
+
+// ── Scroll restoration ───────────────────────────────────────────────────────
+// This page is ssr:false, so the pre-hydration restore in app.html can't help
+// (no server HTML). Instead we restore once the client has rendered the list,
+// retrying until we reach the saved Y — this also returns you to your place in
+// the list on back/forward from a quiz. behavior:'instant' avoids the global
+// scroll-behavior:smooth animating each retry.
+let pendingScrollY: number | null = null
+
+async function restoreScrollWhenReady() {
+  if (pendingScrollY == null || !browser) return
+  const y = pendingScrollY
+  await tick()
+  await tick()
+  let attempts = 0
+  const tryScroll = () => {
+    window.scrollTo({ top: y, left: 0, behavior: 'instant' })
+    attempts++
+    if (window.scrollY >= y - 2 || attempts >= 12) {
+      pendingScrollY = null
+      return
+    }
+    setTimeout(tryScroll, 50)
+  }
+  requestAnimationFrame(() => requestAnimationFrame(tryScroll))
+}
+
+export const snapshot: import('./$types').Snapshot<{ scrollY: number }> = {
+  capture: () => ({ scrollY: browser ? window.scrollY : 0 }),
+  restore: (value) => {
+    if (browser && typeof value?.scrollY === 'number') pendingScrollY = value.scrollY
+  },
+}
+
+afterNavigate((navigation) => {
+  if (!browser) return
+  if (navigation.type !== 'enter' && navigation.type !== 'popstate') return
+  if (pendingScrollY == null) {
+    try {
+      const idx = history.state?.['sveltekit:history']
+      const map = JSON.parse(sessionStorage['sveltekit:scroll'] || '{}')
+      const pos = idx != null ? map[idx] : null
+      if (pos && typeof pos.y === 'number') pendingScrollY = pos.y
+    } catch (e) { /* ignore */ }
+  }
+  if (pendingScrollY != null) restoreScrollWhenReady()
+})
 
 </script>
 
