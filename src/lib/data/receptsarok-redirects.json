@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-05-31T22:01:52.964Z",
-  "sourceDocs": "src/lib/data/data.json",
+  "generatedAt": "2026-06-05T11:45:20.673Z",
+  "sourceDocs": "sync worker (dynamic match + existing manifest)",
   "sourceRecipes": "src/lib/data/recipes.json",
   "entries": [
     {
@@ -2948,6 +2948,12 @@
       "path": "receptsarok/egytaletelek/csoben-sult-padlizsan-batataval",
       "year": 2025,
       "id": "csoben-sult-padlizsan-batataval"
+    },
+    {
+      "modxContentId": 4467,
+      "path": "receptsarok/egytaletelek/sutotokos-beluga-lencse-fozelek-petrezselymes-fasirttal",
+      "year": 2025,
+      "id": "sutotokos-beluga-lencse-fozelek-petrezselymes-fasirttal"
     },
     {
       "modxContentId": 4422,
