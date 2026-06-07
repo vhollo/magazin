@@ -64326,8 +64326,7 @@
   },
   {
     "instructions": [
-      "Mossuk meg a gyümölcsöket. A cseresznyét és a meggyet szárazzuk le és magozzuk ki. A rebarbarát vágjuk 1-2 centis darabokra. Pucolni nem kell! Tegyük egy nagy fazékba a fahéjrudakkal együtt, facsarjuk rá a jól megmosott citrom levét és szórjuk meg a nyírfacukorral. Egy tiszta fakanállal keverjük össze, és várjunk amíg levet enged. Ha ez megtörtént, forraljuk fel. Főzzük addig, amíg a gyümölcs megpuhul és kicsit szétesik. Keverjük el benne a dzsemfixet, és zubogva hagyjuk forrni még 3-5 percig. Kóstoljuk meg, mert lehet, hogy tovább kell még édesíteni. (Ez attól függ, hogy a gyümölcsök mennyire voltak édesek vagy savanykásak, amiket beletettünk. Ehhez használhatunk folyékony édesítőt vagy még egy kis nyírfacukrot). Töltsük előkészített üvegekbe, zárjuk le, és 24 órára tegyük őket száraz dunsztba.",
-      "Tonhalas krumpligolyók csilis-citromos joghurttal"
+      "Mossuk meg a gyümölcsöket. A cseresznyét és a meggyet szárazzuk le és magozzuk ki. A rebarbarát vágjuk 1-2 centis darabokra. Pucolni nem kell! Tegyük egy nagy fazékba a fahéjrudakkal együtt, facsarjuk rá a jól megmosott citrom levét és szórjuk meg a nyírfacukorral. Egy tiszta fakanállal keverjük össze, és várjunk amíg levet enged. Ha ez megtörtént, forraljuk fel. Főzzük addig, amíg a gyümölcs megpuhul és kicsit szétesik. Keverjük el benne a dzsemfixet, és zubogva hagyjuk forrni még 3-5 percig. Kóstoljuk meg, mert lehet, hogy tovább kell még édesíteni. (Ez attól függ, hogy a gyümölcsök mennyire voltak édesek vagy savanykásak, amiket beletettünk. Ehhez használhatunk folyékony édesítőt vagy még egy kis nyírfacukrot). Töltsük előkészített üvegekbe, zárjuk le, és 24 órára tegyük őket száraz dunsztba."
     ],
     "ingredientGroups": [
       {
@@ -64378,11 +64377,6 @@
         "section": "Hozzávalók:"
       }
     ],
-    "img": {
-      "src": "https://www.diabetes.hu/assets/images/cikkek/dt1503/kaja-csalafinta_joghurtos_citromfagyi.jpg",
-      "pos": "50% 40%",
-      "ext": "jpg"
-    },
     "fat": 0,
     "title": "Cseresznyés rebarbaradzsem fahéjas meggyel",
     "ingredientNames": [
@@ -64441,11 +64435,7 @@
       }
     ],
     "free": true,
-    "image": {
-      "src": "https://www.diabetes.hu/assets/images/cikkek/dt1503/kaja-csalafinta_joghurtos_citromfagyi.jpg",
-      "alt": "Recept-sarok",
-      "caption": null
-    }
+    "image": null
   },
   {
     "year": 2015,
@@ -64827,11 +64817,7 @@
     "hasSubRecipes": false
   },
   {
-    "image": {
-      "caption": null,
-      "alt": "Csupa csoki",
-      "src": "https://www.diabetes.hu/assets/images/dj1501/kaja-csokolades_taller.png"
-    },
+    "image": null,
     "free": true,
     "fiber": null,
     "nutritionTables": [
@@ -64927,11 +64913,6 @@
         ]
       }
     ],
-    "img": {
-      "src": "https://www.diabetes.hu/assets/images/dj1501/kaja-csokolades_taller.png",
-      "pos": "50% 40%",
-      "ext": "png"
-    },
     "instructions": [
       "A darabokra tört csokit vajjal gőz felett megolvasztjuk. Az egész tojásokat a xilittel habosra kikeverjük. A csokoládés masszát a tojáshabba keverjük, majd beleszitáljuk a lisztet és addig keverjük, amíg teljesen egynemű masszát kapunk. ízlés szerint kevés folyékony mesterséges édesítőszerrel édesítjük. 6 db muffinformát kivajazunk, 3/4-ig töltjük, majd hűtőszekrénybe tesszük, míg meg nem dermed. Előmelegített sütőben, 200 C&deg;-on kb. 8 percig sütjük, amíg kéreg képződik a süteményeken. Fontos, hogy ne süssük túl! Langyosan tálaljuk. Ha nem sütöttük túl, a csoki belül folyós marad."
     ]
@@ -64968,11 +64949,6 @@
       "A csokoládét vízgőz felett felolvasztjuk. A tejet felforraljuk, és beleöntjük a felolvasztott csokit. A vajat a tojássárgájával összekeverjük, beleszórjuk a kakaót és édesítőszerrel ízesítjük. Amikor a tejes-csokis massza kissé kihűlt, a tojásos masszát belekeverjük. Visszatesszük a tűzhelyre, és éppen csak felforraljuk. Tálaláskor a megtöltött túrós palacsintára teszünk keveset ebből a finom csokis mártásból. Természetesen a csokiöntet tápanyagtartalmához hozzá kell adni a palacsintákét is.",
       "Kicsák Marian"
     ],
-    "img": {
-      "src": "https://www.diabetes.hu/assets/images/dj1501/kaja-csokolades_taller.png",
-      "pos": "50% 40%",
-      "ext": "png"
-    },
     "ingredientGroups": [
       {
         "items": [
@@ -65019,11 +64995,7 @@
     "fat": 18,
     "title": "Csokiöntet (túrós palacsintához)",
     "free": true,
-    "image": {
-      "caption": null,
-      "alt": "Csupa csoki",
-      "src": "https://www.diabetes.hu/assets/images/dj1501/kaja-csokolades_taller.png"
-    },
+    "image": null,
     "subRecipes": [],
     "year": 2015,
     "fiber": null,
@@ -65052,9 +65024,9 @@
   {
     "free": true,
     "image": {
-      "alt": "Csupa csoki",
-      "caption": null,
-      "src": "https://www.diabetes.hu/assets/images/dj1501/kaja-csokolades_taller.png"
+      "src": "https://www.diabetes.hu/assets/images/dj1501/kaja-csokis_kuglof.png",
+      "alt": "Csokis kugl&oacute;f",
+      "caption": null
     },
     "year": 2015,
     "subRecipes": [],
@@ -65118,10 +65090,10 @@
     ],
     "author": "Kicsák Marian",
     "instructions": [
-      "A csokoládéból késsel csokiforgácsokat vágunk. A tojásokat szétválasztjuk. A margarint a xilittel és a tojások sárgájával jó alaposan kikeverjük. Ebbe a masszába keverjük apránként a lisztet, a kakaót, a csokiforgácsot, majd belekeverjük a sütőport és a fahéjat. Közben kis adagokban adjuk hozzá a tejet. A tojásfehérjét kemény habbá verjük, és végül azt is a tészta masszájába keverjük. Egy kuglófformát margarinnal kikenünk, liszttel meghintjük, majd ebbe öntjük a tésztamasszát. Előmelegített sütőben 180&deg;C-on 35-40 percig sütjük."
+      "A csokoládéból késsel csokiforgácsokat vágunk. A tojásokat szétválasztjuk. A margarint a xilittel és a tojások sárgájával jó alaposan kikeverjük. Ebbe a masszába keverjük apránként a lisztet, a kakaót, a csokiforgácsot, majd belekeverjük a sütőport és a fahéjat. Közben kis adagokban adjuk hozzá a tejet. A tojásfehérjét kemény habbá verjük, és végül azt is a tészta masszájába keverjük. Egy kuglófformát margarinnal kikenünk, liszttel meghintjük, majd ebbe öntjük a tésztamasszát. Előmelegített sütőben 180 C&deg;-on 35-40 percig sütjük."
     ],
     "img": {
-      "src": "https://www.diabetes.hu/assets/images/dj1501/kaja-csokolades_taller.png",
+      "src": "https://www.diabetes.hu/assets/images/dj1501/kaja-csokis_kuglof.png",
       "pos": "50% 40%",
       "ext": "png"
     },
@@ -72388,7 +72360,7 @@
       }
     ],
     "img": {
-      "src": "https://www.diabetes.hu/assets/images/cikkek/dt1503/kaja-csalafinta_joghurtos_citromfagyi.jpg",
+      "src": "https://www.diabetes.hu/assets/images/cikkek/dt1503/kaja-pilotakeksz_hazilag_cukor_nelkul.jpg",
       "pos": "50% 40%",
       "ext": "jpg"
     },
@@ -72463,8 +72435,8 @@
     "year": 2015,
     "subRecipes": [],
     "image": {
-      "src": "https://www.diabetes.hu/assets/images/cikkek/dt1503/kaja-csalafinta_joghurtos_citromfagyi.jpg",
-      "alt": "Recept-sarok",
+      "src": "https://www.diabetes.hu/assets/images/cikkek/dt1503/kaja-pilotakeksz_hazilag_cukor_nelkul.jpg",
+      "alt": "Pilótakeksz házilag, cukor nélkül",
       "caption": null
     },
     "free": true
@@ -73659,16 +73631,10 @@
     ],
     "author": "",
     "instructions": [
-      "Mossuk meg a szedret, és kevés vízzel, valamint az áfonyalekvárral tegyük fel főni. Időnként keverjük meg, és rotyogtassuk addig, míg a gyümölcs megpuhul, kicsit szétfő. Ha szükséges, kevés vizet adhatunk hozzá. Amikor elkészült, kóstoljuk meg, hogy kell-e még édesíteni. A tojást egy csipet sóval és frissen őrölt szerecsendióval verjük fel. Mártsuk bele a sajtokat úgy, hogy mindenhol érje a tojás, majd forgassuk meg a darált dióban. (Igen, a lisztet szándékosan kihagytam. a camembert sajtot liszt nélkül is jól be tudja vonni a tojás, akkor hát spóroljunk a szénhidráton!) Forró olajban süssük mindkét oldalát addig, amíg megpirul rajta a dió. (Óvatosan, két lapáttal fordítsuk meg!) Tálaljuk a szedermártással.",
-      "Pilótakeksz házilag, cukor nélkül"
+      "Mossuk meg a szedret, és kevés vízzel, valamint az áfonyalekvárral tegyük fel főni. Időnként keverjük meg, és rotyogtassuk addig, míg a gyümölcs megpuhul, kicsit szétfő. Ha szükséges, kevés vizet adhatunk hozzá. Amikor elkészült, kóstoljuk meg, hogy kell-e még édesíteni. A tojást egy csipet sóval és frissen őrölt szerecsendióval verjük fel. Mártsuk bele a sajtokat úgy, hogy mindenhol érje a tojás, majd forgassuk meg a darált dióban. (Igen, a lisztet szándékosan kihagytam. a camembert sajtot liszt nélkül is jól be tudja vonni a tojás, akkor hát spóroljunk a szénhidráton!) Forró olajban süssük mindkét oldalát addig, amíg megpirul rajta a dió. (Óvatosan, két lapáttal fordítsuk meg!) Tálaljuk a szedermártással."
     ],
     "fat": 55,
     "title": "Rántott camembert dióbundában áfonyás szedermártással",
-    "img": {
-      "src": "https://www.diabetes.hu/assets/images/cikkek/dt1503/kaja-csalafinta_joghurtos_citromfagyi.jpg",
-      "pos": "50% 40%",
-      "ext": "jpg"
-    },
     "ingredientGroups": [
       {
         "items": [
@@ -73724,11 +73690,7 @@
         "section": "Hozzávalók 4 adaghoz:"
       }
     ],
-    "image": {
-      "src": "https://www.diabetes.hu/assets/images/cikkek/dt1503/kaja-csalafinta_joghurtos_citromfagyi.jpg",
-      "caption": null,
-      "alt": "Recept-sarok"
-    },
+    "image": null,
     "free": true,
     "subRecipes": [],
     "year": 2015,
@@ -77009,9 +76971,9 @@
     "id": "tonhalas-krumpligolyok-csilis-citromos-joghurttal",
     "protein": 16,
     "image": {
-      "src": "https://www.diabetes.hu/assets/images/cikkek/dt1503/kaja-csalafinta_joghurtos_citromfagyi.jpg",
-      "caption": null,
-      "alt": "Recept-sarok"
+      "src": "https://www.diabetes.hu/assets/images/cikkek/dt1503/kaja-tonhalas_krumpligolyok_csilis-citromos_joghurttal.jpg",
+      "alt": "Tonhalas krumpligolyók csilis-citromos joghurttal",
+      "caption": null
     },
     "free": true,
     "fiber": null,
@@ -77123,7 +77085,7 @@
       }
     ],
     "img": {
-      "src": "https://www.diabetes.hu/assets/images/cikkek/dt1503/kaja-csalafinta_joghurtos_citromfagyi.jpg",
+      "src": "https://www.diabetes.hu/assets/images/cikkek/dt1503/kaja-tonhalas_krumpligolyok_csilis-citromos_joghurttal.jpg",
       "pos": "50% 40%",
       "ext": "jpg"
     },
@@ -93741,19 +93703,10 @@
   {
     "id": "almas-burgonyasalata",
     "fiber": null,
-    "image": {
-      "src": "https://www.diabetes.hu/assets/images/cikkek/dt1703/fruit-salad.jpg",
-      "alt": "Nagy Margit gyümölcsös receptjei",
-      "caption": null
-    },
+    "image": null,
     "year": 2017,
     "sourceModxId": 1953,
     "updatedAt": "2026-05-11T15:31:55.000Z",
-    "img": {
-      "src": "https://www.diabetes.hu/assets/images/cikkek/dt1703/fruit-salad.jpg",
-      "pos": "50% 40%",
-      "ext": "jpg"
-    },
     "createdAt": "2017-06-28T16:42:36.000Z",
     "saturatedFat": null,
     "searchTerms": [
@@ -94124,18 +94077,9 @@
     ],
     "hasSubRecipes": false,
     "id": "almas-szelet",
-    "image": {
-      "src": "https://www.diabetes.hu/assets/images/cikkek/dt1703/fruit-salad.jpg",
-      "caption": null,
-      "alt": "Nagy Margit gyümölcsös receptjei"
-    },
+    "image": null,
     "fiber": null,
     "year": 2017,
-    "img": {
-      "src": "https://www.diabetes.hu/assets/images/cikkek/dt1703/fruit-salad.jpg",
-      "pos": "50% 40%",
-      "ext": "jpg"
-    },
     "createdAt": "2017-06-28T16:42:36.000Z",
     "sourceModxId": 1953,
     "updatedAt": "2026-05-11T15:31:55.000Z"
@@ -94351,16 +94295,7 @@
     "sourceModxId": 1953,
     "updatedAt": "2026-05-11T15:31:55.000Z",
     "createdAt": "2017-06-28T16:42:36.000Z",
-    "img": {
-      "src": "https://www.diabetes.hu/assets/images/cikkek/dt1703/fruit-salad.jpg",
-      "pos": "50% 40%",
-      "ext": "jpg"
-    },
-    "image": {
-      "src": "https://www.diabetes.hu/assets/images/cikkek/dt1703/fruit-salad.jpg",
-      "alt": "Nagy Margit gyümölcsös receptjei",
-      "caption": null
-    },
+    "image": null,
     "fiber": null,
     "year": 2017,
     "saturatedFat": null,
@@ -94407,19 +94342,10 @@
     ],
     "id": "almaval-toltott-csirkemell",
     "createdAt": "2017-06-28T16:42:36.000Z",
-    "img": {
-      "src": "https://www.diabetes.hu/assets/images/cikkek/dt1703/fruit-salad.jpg",
-      "pos": "50% 40%",
-      "ext": "jpg"
-    },
     "sourceModxId": 1953,
     "updatedAt": "2026-05-11T15:31:55.000Z",
     "fiber": null,
-    "image": {
-      "caption": null,
-      "alt": "Nagy Margit gyümölcsös receptjei",
-      "src": "https://www.diabetes.hu/assets/images/cikkek/dt1703/fruit-salad.jpg"
-    },
+    "image": null,
     "year": 2017,
     "author": "Nagy Margit",
     "energy": 182,
@@ -94578,18 +94504,9 @@
     "hasSubRecipes": false,
     "id": "alufoliaban-sult-hustekercs",
     "year": 2017,
-    "image": {
-      "src": "https://www.diabetes.hu/assets/images/cikkek/dt1703/fruit-salad.jpg",
-      "alt": "Nagy Margit gyümölcsös receptjei",
-      "caption": null
-    },
+    "image": null,
     "fiber": null,
     "createdAt": "2017-06-28T16:42:36.000Z",
-    "img": {
-      "src": "https://www.diabetes.hu/assets/images/cikkek/dt1703/fruit-salad.jpg",
-      "pos": "50% 40%",
-      "ext": "jpg"
-    },
     "updatedAt": "2026-05-11T15:31:55.000Z",
     "sourceModxId": 1953
   },
@@ -96461,38 +96378,20 @@
       "A kimagozott, feldarabolt almákat lassú tűzön főzzük annyi vízben, amennyi ellepi, s közben csipet sóval, citromlével, fahéjjal, szegfűszeggel, édesítőszerrel ízesítjük. Amikor félig megpuhult, tejfölös habarással besűrítjük és összeforraljuk. A mellszeleteket sóval, borssal megszórjuk, és pici olajjal megkent alufóliába csomagolva a szeleteket sütőben megsütjük. Tálaláskor a csirkeszeletet a tányérra rakjuk és az almamártással leöntjük."
     ],
     "id": "csirke-almamartassal",
-    "image": {
-      "src": "https://www.diabetes.hu/assets/images/cikkek/dt1703/fruit-salad.jpg",
-      "alt": "Nagy Margit gyümölcsös receptjei",
-      "caption": null
-    },
+    "image": null,
     "fiber": null,
     "year": 2017,
     "sourceModxId": 1953,
     "updatedAt": "2026-05-11T15:31:55.000Z",
-    "img": {
-      "src": "https://www.diabetes.hu/assets/images/cikkek/dt1703/fruit-salad.jpg",
-      "pos": "50% 40%",
-      "ext": "jpg"
-    },
     "createdAt": "2017-06-28T16:42:36.000Z"
   },
   {
     "createdAt": "2017-06-28T16:42:36.000Z",
-    "img": {
-      "src": "https://www.diabetes.hu/assets/images/cikkek/dt1703/fruit-salad.jpg",
-      "pos": "50% 40%",
-      "ext": "jpg"
-    },
     "updatedAt": "2026-05-11T15:31:55.000Z",
     "sourceModxId": 1953,
     "year": 2017,
     "fiber": null,
-    "image": {
-      "caption": null,
-      "alt": "Nagy Margit gyümölcsös receptjei",
-      "src": "https://www.diabetes.hu/assets/images/cikkek/dt1703/fruit-salad.jpg"
-    },
+    "image": null,
     "id": "csirkecomb-birsalmaval",
     "instructions": [
       "A csirkecombot besózzuk, majoránnával bedörzsöljük. A bőrt fellazítjuk, és a vékony szeletekre vágott birsalmával megtöltjük. Kiolajozott tűzálló tálba tesszük, és alufóliával lefedve megsütjük. Zöldségkörettel javaslom fogyasztani."
@@ -97968,17 +97867,8 @@
     "hasSubRecipes": false,
     "saturatedFat": null,
     "fiber": null,
-    "image": {
-      "src": "https://www.diabetes.hu/assets/images/cikkek/dt1703/fruit-salad.jpg",
-      "caption": null,
-      "alt": "Nagy Margit gyümölcsös receptjei"
-    },
+    "image": null,
     "year": 2017,
-    "img": {
-      "src": "https://www.diabetes.hu/assets/images/cikkek/dt1703/fruit-salad.jpg",
-      "pos": "50% 40%",
-      "ext": "jpg"
-    },
     "createdAt": "2017-06-28T16:42:36.000Z",
     "sourceModxId": 1953,
     "updatedAt": "2026-05-11T15:31:55.000Z",
@@ -102330,17 +102220,8 @@
     "sourceModxId": 1953,
     "updatedAt": "2026-05-11T15:31:55.000Z",
     "createdAt": "2017-06-28T16:42:36.000Z",
-    "img": {
-      "src": "https://www.diabetes.hu/assets/images/cikkek/dt1703/fruit-salad.jpg",
-      "pos": "50% 40%",
-      "ext": "jpg"
-    },
     "fiber": null,
-    "image": {
-      "src": "https://www.diabetes.hu/assets/images/cikkek/dt1703/fruit-salad.jpg",
-      "caption": null,
-      "alt": "Nagy Margit gyümölcsös receptjei"
-    },
+    "image": null,
     "year": 2017,
     "saturatedFat": null,
     "hasSubRecipes": false,
@@ -102539,18 +102420,9 @@
     "hasSubRecipes": false,
     "saturatedFat": null,
     "fiber": null,
-    "image": {
-      "alt": "Nagy Margit gyümölcsös receptjei",
-      "caption": null,
-      "src": "https://www.diabetes.hu/assets/images/cikkek/dt1703/fruit-salad.jpg"
-    },
+    "image": null,
     "year": 2017,
     "createdAt": "2017-06-28T16:42:36.000Z",
-    "img": {
-      "src": "https://www.diabetes.hu/assets/images/cikkek/dt1703/fruit-salad.jpg",
-      "pos": "50% 40%",
-      "ext": "jpg"
-    },
     "sourceModxId": 1953,
     "updatedAt": "2026-05-11T15:31:55.000Z",
     "id": "kortes-sertesmaj"
@@ -102826,17 +102698,8 @@
     "id": "kulonleges-csirkecomb",
     "year": 2017,
     "fiber": null,
-    "image": {
-      "src": "https://www.diabetes.hu/assets/images/cikkek/dt1703/fruit-salad.jpg",
-      "caption": null,
-      "alt": "Nagy Margit gyümölcsös receptjei"
-    },
+    "image": null,
     "createdAt": "2017-06-28T16:42:36.000Z",
-    "img": {
-      "src": "https://www.diabetes.hu/assets/images/cikkek/dt1703/fruit-salad.jpg",
-      "pos": "50% 40%",
-      "ext": "jpg"
-    },
     "updatedAt": "2026-05-11T15:31:55.000Z",
     "sourceModxId": 1953,
     "saturatedFat": null,
@@ -104702,16 +104565,7 @@
     "saturatedFat": null,
     "year": 2017,
     "fiber": null,
-    "image": {
-      "src": "https://www.diabetes.hu/assets/images/cikkek/dt1703/fruit-salad.jpg",
-      "alt": "Nagy Margit gyümölcsös receptjei",
-      "caption": null
-    },
-    "img": {
-      "src": "https://www.diabetes.hu/assets/images/cikkek/dt1703/fruit-salad.jpg",
-      "pos": "50% 40%",
-      "ext": "jpg"
-    },
+    "image": null,
     "createdAt": "2017-06-28T16:42:36.000Z",
     "updatedAt": "2026-05-11T15:31:55.000Z",
     "sourceModxId": 1953,
@@ -105165,19 +105019,10 @@
   },
   {
     "fiber": null,
-    "image": {
-      "src": "https://www.diabetes.hu/assets/images/cikkek/dt1703/fruit-salad.jpg",
-      "alt": "Nagy Margit gyümölcsös receptjei",
-      "caption": null
-    },
+    "image": null,
     "year": 2017,
     "sourceModxId": 1953,
     "updatedAt": "2026-05-11T15:31:55.000Z",
-    "img": {
-      "src": "https://www.diabetes.hu/assets/images/cikkek/dt1703/fruit-salad.jpg",
-      "pos": "50% 40%",
-      "ext": "jpg"
-    },
     "createdAt": "2017-06-28T16:42:36.000Z",
     "id": "narancsos-savanyu-kaposzta",
     "searchTerms": [
@@ -105472,18 +105317,9 @@
   {
     "id": "oszibarackos-csirkemell",
     "year": 2017,
-    "image": {
-      "src": "https://www.diabetes.hu/assets/images/cikkek/dt1703/fruit-salad.jpg",
-      "alt": "Nagy Margit gyümölcsös receptjei",
-      "caption": null
-    },
+    "image": null,
     "fiber": null,
     "createdAt": "2017-06-28T16:42:36.000Z",
-    "img": {
-      "src": "https://www.diabetes.hu/assets/images/cikkek/dt1703/fruit-salad.jpg",
-      "pos": "50% 40%",
-      "ext": "jpg"
-    },
     "updatedAt": "2026-05-11T15:31:55.000Z",
     "sourceModxId": 1953,
     "saturatedFat": null,
@@ -106546,19 +106382,10 @@
     ],
     "subRecipes": [],
     "saturatedFat": null,
-    "img": {
-      "src": "https://www.diabetes.hu/assets/images/cikkek/dt1703/fruit-salad.jpg",
-      "pos": "50% 40%",
-      "ext": "jpg"
-    },
     "createdAt": "2017-06-28T16:42:36.000Z",
     "sourceModxId": 1953,
     "updatedAt": "2026-05-11T15:31:55.000Z",
-    "image": {
-      "alt": "Nagy Margit gyümölcsös receptjei",
-      "caption": null,
-      "src": "https://www.diabetes.hu/assets/images/cikkek/dt1703/fruit-salad.jpg"
-    },
+    "image": null,
     "fiber": null,
     "year": 2017,
     "id": "pulyka-oszibarackkal",
@@ -106743,18 +106570,9 @@
     "saturatedFat": null,
     "updatedAt": "2026-05-11T15:31:55.000Z",
     "sourceModxId": 1953,
-    "img": {
-      "src": "https://www.diabetes.hu/assets/images/cikkek/dt1703/fruit-salad.jpg",
-      "pos": "50% 40%",
-      "ext": "jpg"
-    },
     "createdAt": "2017-06-28T16:42:36.000Z",
     "year": 2017,
-    "image": {
-      "src": "https://www.diabetes.hu/assets/images/cikkek/dt1703/fruit-salad.jpg",
-      "caption": null,
-      "alt": "Nagy Margit gyümölcsös receptjei"
-    },
+    "image": null,
     "fiber": null,
     "id": "pulykamell-almaval"
   },
@@ -107025,17 +106843,8 @@
     "hasSubRecipes": false,
     "saturatedFat": null,
     "fiber": null,
-    "image": {
-      "src": "https://www.diabetes.hu/assets/images/cikkek/dt1703/fruit-salad.jpg",
-      "caption": null,
-      "alt": "Nagy Margit gyümölcsös receptjei"
-    },
+    "image": null,
     "year": 2017,
-    "img": {
-      "src": "https://www.diabetes.hu/assets/images/cikkek/dt1703/fruit-salad.jpg",
-      "pos": "50% 40%",
-      "ext": "jpg"
-    },
     "createdAt": "2017-06-28T16:42:36.000Z",
     "sourceModxId": 1953,
     "updatedAt": "2026-05-11T15:31:55.000Z",
@@ -107208,17 +107017,8 @@
     "fat": 5,
     "id": "sargabarackos-turokrem",
     "fiber": null,
-    "image": {
-      "src": "https://www.diabetes.hu/assets/images/cikkek/dt1703/fruit-salad.jpg",
-      "caption": null,
-      "alt": "Nagy Margit gyümölcsös receptjei"
-    },
+    "image": null,
     "year": 2017,
-    "img": {
-      "src": "https://www.diabetes.hu/assets/images/cikkek/dt1703/fruit-salad.jpg",
-      "pos": "50% 40%",
-      "ext": "jpg"
-    },
     "createdAt": "2017-06-28T16:42:36.000Z",
     "sourceModxId": 1953,
     "updatedAt": "2026-05-11T15:31:55.000Z",
@@ -108098,20 +107898,11 @@
     ],
     "id": "szederleves",
     "createdAt": "2017-06-28T16:42:36.000Z",
-    "img": {
-      "src": "https://www.diabetes.hu/assets/images/cikkek/dt1703/fruit-salad.jpg",
-      "pos": "50% 40%",
-      "ext": "jpg"
-    },
     "updatedAt": "2026-05-11T15:31:55.000Z",
     "sourceModxId": 1953,
     "year": 2017,
     "fiber": null,
-    "image": {
-      "src": "https://www.diabetes.hu/assets/images/cikkek/dt1703/fruit-salad.jpg",
-      "alt": "Nagy Margit gyümölcsös receptjei",
-      "caption": null
-    }
+    "image": null
   },
   {
     "saturatedFat": null,

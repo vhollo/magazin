@@ -1,45 +1,6 @@
+import { decodeHtmlEntities } from './htmlEntities.js'
+
 const DEFAULT_NUTRITION_LABEL = '1 adag energia- es tapanyagtartalma:'
-
-const NAMED_HTML_ENTITIES = {
-  nbsp: ' ',
-  amp: '&',
-  quot: '"',
-  apos: "'",
-  lt: '<',
-  gt: '>',
-  aacute: 'á',
-  eacute: 'é',
-  iacute: 'í',
-  oacute: 'ó',
-  uacute: 'ú',
-  ouml: 'ö',
-  uuml: 'ü',
-  odblac: 'ő',
-  udblac: 'ű',
-  Aacute: 'Á',
-  Eacute: 'É',
-  Iacute: 'Í',
-  Oacute: 'Ó',
-  Uacute: 'Ú',
-  Ouml: 'Ö',
-  Uuml: 'Ü',
-  Odblac: 'Ő',
-  Udblac: 'Ű',
-}
-
-function decodeHtmlEntities(value) {
-  if (!value) return ''
-  return String(value)
-    .replace(/&#x([0-9a-f]+);/gi, (_, code) => {
-      const parsed = Number.parseInt(code, 16)
-      return Number.isFinite(parsed) ? String.fromCodePoint(parsed) : ''
-    })
-    .replace(/&#(\d+);/g, (_, code) => {
-      const parsed = Number(code)
-      return Number.isFinite(parsed) ? String.fromCodePoint(parsed) : ''
-    })
-    .replace(/&([a-z][a-z0-9]+);/gi, (match, name) => NAMED_HTML_ENTITIES[name.toLowerCase()] ?? match)
-}
 
 function normalizeReadableText(value) {
   return decodeHtmlEntities(String(value ?? ''))
@@ -591,13 +552,16 @@ function uniqueByNormalized(values) {
 }
 
 function deriveInstructions(content) {
-  const instructionHtml = deriveInstructionsHtml(content)
+  // Drop image markup (e.g. the next dish's lead-in `<figure><figcaption>`) so its
+  // caption/title text never leaks into this recipe's instructions.
+  const cleaned = String(content ?? '').replace(/<figure\b[\s\S]*?<\/figure>/gi, ' ')
+  const instructionHtml = deriveInstructionsHtml(cleaned)
   if (instructionHtml) {
     // Preserve full imported MODX instruction flow (including heading/list text).
     const lines = htmlToTextLines(instructionHtml).filter((text) => text.length > 1)
     return uniqueByNormalized(lines)
   }
-  const source = instructionHtml || content
+  const source = instructionHtml || cleaned
   const paragraphs = splitParagraphsFromTag(source, 'p')
   const orderedListItems = []
   const orderedListRegex = /<ol\b[^>]*>([\s\S]*?)<\/ol>/gi
@@ -673,11 +637,33 @@ function deriveImage(doc) {
   if (doc?.img && typeof doc.img === 'object' && typeof doc.img.src === 'string') {
     return {
       src: doc.img.src,
-      alt: doc.longtitle || doc.title || '',
-      caption: typeof doc.img.caption === 'string' && doc.img.caption.trim() ? doc.img.caption : null,
+      alt: decodeHtmlEntities(doc.longtitle || doc.title || ''),
+      caption:
+        typeof doc.img.caption === 'string' && doc.img.caption.trim()
+          ? decodeHtmlEntities(doc.img.caption)
+          : null,
     }
   }
   return null
+}
+
+/**
+ * Last `<img>` in an HTML fragment → `{ src, alt }` (or null).
+ * Used to attach a recipe's lead-in image, which sits just before its heading
+ * (the MODX `[[nagyito]]` snippets are rendered to `<img>` before parsing).
+ * @param {string} html
+ * @returns {{ src: string, alt: string } | null}
+ */
+function lastImageInHtml(html) {
+  const re = /<img\b[^>]*>/gi
+  let m
+  let last = null
+  while ((m = re.exec(String(html ?? '')))) last = m[0]
+  if (!last) return null
+  const src = (last.match(/\bsrc\s*=\s*["']([^"']+)["']/i) || [])[1]
+  if (!src) return null
+  const alt = (last.match(/\balt\s*=\s*["']([^"']*)["']/i) || [])[1] || ''
+  return { src, alt: decodeHtmlEntities(alt) }
 }
 
 function deriveSearchTerms({ title, ingredientNames }) {
@@ -780,7 +766,7 @@ function deriveSubRecipes(content) {
   const headingRegex = useH2OnlySubrecipeHeadings
     ? /<h2\b[^>]*>([\s\S]*?)<\/h2>([\s\S]*?)(?=<h2\b[^>]*>|$)/gi
     : /<h([2-5])[^>]*>([\s\S]*?)<\/h\1>([\s\S]*?)(?=<h[2-5][^>]*>|$)/gi
-  const parseSubRecipeBlock = (title, blockHtml) => {
+  const parseSubRecipeBlock = (title, blockHtml, image = /** @type {{ src: string, alt: string } | null} */ (null)) => {
     const titleKey = normalizeText(title)
     if (!titleKey || /hozzavalok|elkeszites/.test(titleKey)) return null
     if (/tovabbi\s+recept|kapcsolodo|ajanlott/.test(titleKey)) return null
@@ -808,13 +794,13 @@ function deriveSubRecipes(content) {
         nutritionTables,
         ingredientGroups,
         instructions,
-        image: null,
+        image: image ? { src: image.src, alt: image.alt || title, caption: null } : null,
       },
     }
   }
 
-  const appendParsedBlock = (title, blockHtml) => {
-    const parsed = parseSubRecipeBlock(title, blockHtml)
+  const appendParsedBlock = (title, blockHtml, image = /** @type {{ src: string, alt: string } | null} */ (null)) => {
+    const parsed = parseSubRecipeBlock(title, blockHtml, image)
     if (!parsed) return
     if (parsed.subRecipe) {
       subRecipes.push(parsed.subRecipe)
@@ -826,11 +812,19 @@ function deriveSubRecipes(content) {
     }
   }
 
+  // A recipe's image sits just before its heading (image between two titles
+  // belongs to the recipe whose heading follows it). Carry the image seen before
+  // each heading and attach it to that recipe.
+  let pendingImage = null
+  const firstHeadingIdx = preInstruction.search(useH2OnlySubrecipeHeadings ? /<h2\b/i : /<h[2-5]\b/i)
+  if (firstHeadingIdx > 0) pendingImage = lastImageInHtml(preInstruction.slice(0, firstHeadingIdx))
   let match
   while ((match = headingRegex.exec(preInstruction))) {
     const title = stripHtml(useH2OnlySubrecipeHeadings ? match[1] : match[2])
     const blockHtml = useH2OnlySubrecipeHeadings ? match[2] : match[3]
-    appendParsedBlock(title, blockHtml)
+    const imageForThisRecipe = pendingImage
+    pendingImage = lastImageInHtml(blockHtml)
+    appendParsedBlock(title, blockHtml, imageForThisRecipe)
   }
 
   // General inline multi-recipe format: repeated <h3> dish blocks where each
@@ -838,10 +832,15 @@ function deriveSubRecipes(content) {
   if (subRecipes.length === 0) {
     const h3BlockRegex = /<h3\b[^>]*>([\s\S]*?)<\/h3>([\s\S]*?)(?=<h3\b[^>]*>|$)/gi
     const h3ParsedSubRecipes = []
+    let h3PendingImage = null
+    const firstH3Idx = source.search(/<h3\b/i)
+    if (firstH3Idx > 0) h3PendingImage = lastImageInHtml(source.slice(0, firstH3Idx))
     while ((match = h3BlockRegex.exec(source))) {
       const title = stripHtml(match[1])
       const blockHtml = match[2]
-      const parsed = parseSubRecipeBlock(title, blockHtml)
+      const imageForThisRecipe = h3PendingImage
+      h3PendingImage = lastImageInHtml(blockHtml)
+      const parsed = parseSubRecipeBlock(title, blockHtml, imageForThisRecipe)
       if (parsed?.subRecipe) {
         h3ParsedSubRecipes.push(parsed.subRecipe)
       }
@@ -959,8 +958,14 @@ export function buildRecipesFromModxDoc(doc, options) {
       ingredientNames,
       searchTerms: deriveSearchTerms({ title: subTitle, ingredientNames }),
       instructions: sub.instructions,
-      image: deriveImage(doc),
-      img: doc?.img && typeof doc.img === 'object' ? doc.img : undefined,
+      // Each split recipe keeps its own lead-in image; only the first recipe
+      // falls back to the document's main (page) image.
+      image: sub.image || (out.length === 0 ? deriveImage(doc) : null),
+      img: sub.image
+        ? { src: sub.image.src }
+        : out.length === 0 && doc?.img && typeof doc.img === 'object'
+          ? doc.img
+          : undefined,
       subRecipes: [],
       hasSubRecipes: false,
       createdAt,

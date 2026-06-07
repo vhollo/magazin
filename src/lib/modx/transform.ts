@@ -1,5 +1,6 @@
 import fs from 'node:fs';
 import { fromHtmlEntities } from '../utils/index';
+import { decodeHtmlEntities } from '../htmlEntities.js';
 
 export interface TemplateVariable {
 	tmplvarid: number;
@@ -424,8 +425,10 @@ export function createModxTransform(deps: ModxTransformDeps): ModxTransform {
 		path: doc.path,
 		alias: doc.alias,
 		parent: doc.parent,
-		title: doc.pagetitle,
-		longtitle: doc.longtitle,
+		// Decode named HTML entities in the plain-text title fields (used in <title>,
+		// cards, search). `content` keeps its entities — they're valid in the HTML body.
+		title: decodeHtmlEntities(doc.pagetitle),
+		longtitle: decodeHtmlEntities(doc.longtitle),
 		description: doc.description,
 		content: doc.content,
 		introtext: doc.introtext,

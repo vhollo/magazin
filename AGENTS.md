@@ -572,6 +572,17 @@ Fallbacks: if any aggregate doc is missing, the helpers fall back to `getRecipes
 
 Types and constants defined in `src/lib/receptsarok.ts`.
 
+### Recipe data pipeline (`recipes.json`) — create-only
+
+`src/lib/data/recipes.json` is the source of truth for Receptsarok recipes (uploaded to Firestore by `sync:recipes:apply`). It is built by the dedupe pipeline (`npm run recipes:dedupe:manual*` → `src/lib/receptsarokDedupePipeline.js`), which reads MODX docs and calls `buildRecipesFromModxDoc()` (`src/lib/modxToRsParser.js`). That splitter turns a single multi-recipe **collection** article (several `<h2>` dishes) into one recipe per dish, attaching the image that sits just before each dish's heading — MODX `[[nagyito]]` snippets are rendered to `<img>` by `modx/transform.ts` _before_ parsing, the dish whose heading follows an image gets it, and the first dish inherits the doc's page image.
+
+**Create-only caveat (important):** the pipeline parses a doc **only if its `{year}-{id}` key is not already in `recipes.json`** (`if (!recipeByKey.has(key))`) — existing recipes are kept verbatim and never re-parsed. The MODX→Firestore sync (`sync:modx`) also does **not** rebuild recipe content; it only updates `free` flags + redirects and reads `recipes.json` read-only. **So re-saving a MODX recipe doc, or changing the parser, does not update recipes that already exist** — they need a one-time backfill.
+
+| Command | Script | When to use |
+|---|---|---|
+| `npm run recipes:backfill-content` | `scripts/backfill-collection-recipe-content.mjs` | **Dry run** — re-derive `image`/`img` + `instructions` for every recipe whose source doc was split into multiple recipes, from live MODX + the same `nagyito` transform the sync uses. Prints what would change. |
+| `npm run recipes:backfill-content:apply` | `… --apply` | Write changes to `recipes.json`; then run `npm run sync:recipes:apply` to push to Firestore. Curated fields (id, year, category, free) and single-recipe / dedupe-variant docs are left untouched. |
+
 ### Paywall / Freemium Model
 
 - **Free recipes**: Firestore `recipes` documents with **`free: true`** are free (full content visible); the app uses `isRecipeFree()` in `src/lib/receptsarok.ts` (`recipe.free === true` only). Sample-year recipes must set this flag in data (e.g. all 2025 booklet recipes ship with `free: true` in `recipes.json` / Firestore).
@@ -655,6 +666,7 @@ Run from repo root (`magazin/`). Requires `.env` with `MODXDB_*`, `FIREBASE_ADMI
 | User asks how content gets to production without Netlify rebuild | Explain MODX save → GitHub Actions `repository_dispatch` (modx-doc-save) → `sync:modx:payload` (MySQL-free); code deploys ≠ content deploy; receptsarok / patika data come from their own sync steps |
 | MODX plugin dispatches but GitHub Action fails immediately (no MySQL errors) | Check PAT has Contents: write; check `MODX_SYNC_PAYLOAD` env is non-empty in the run |
 | `doc.tv.egyesulet` missing on old articles after enabling TV 31 | Run `npm run sync:modx:full` to backfill all existing docs |
+| Re-saved a MODX **recipe collection** (or fixed the recipe parser) but recipe content / per-recipe images didn't change | Pipeline is create-only and `sync:modx` doesn't rebuild recipes. New docs → `npm run recipes:dedupe:manual`; existing recipes after a parser fix → `npm run recipes:backfill-content:apply` then `npm run sync:recipes:apply` |
 
 Do **not** suggest `npm run build` to refresh article text — content updates come from the sync worker, not the SvelteKit build.
 

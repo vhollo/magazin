@@ -257,7 +257,9 @@ article figure {
 .ellipsis .nicebox h2 {
   display: none;
 }
-
+.introtext ~ .j_lead {
+  display: none;
+}
 
 .prose :where(p):not(:where([class~="not-prose"],[class~="not-prose"] *)) {
   margin-top: .75em;
