@@ -64914,7 +64914,7 @@
       }
     ],
     "instructions": [
-      "A darabokra tört csokit vajjal gőz felett megolvasztjuk. Az egész tojásokat a xilittel habosra kikeverjük. A csokoládés masszát a tojáshabba keverjük, majd beleszitáljuk a lisztet és addig keverjük, amíg teljesen egynemű masszát kapunk. Ízlés szerint kevés folyékony mesterséges édesítőszerrel édesítjük. 6 db muffinformát kivajazunk, 3/4-ig töltjük, majd hűtőszekrénybe tesszük, míg meg nem dermed. Előmelegített sütőben, 200 C°-on kb. 8 percig sütjük, amíg kéreg képződik a süteményeken. Fontos, hogy ne süssük túl! Langyosan tálaljuk. Ha nem sütöttük túl, a csoki belül folyós marad."
+      "A darabokra tört csokit vajjal gőz felett megolvasztjuk. Az egész tojásokat a xilittel habosra kikeverjük. A csokoládés masszát a tojáshabba keverjük, majd beleszitáljuk a lisztet és addig keverjük, amíg teljesen egynemű masszát kapunk. ízlés szerint kevés folyékony mesterséges édesítőszerrel édesítjük. 6 db muffinformát kivajazunk, 3/4-ig töltjük, majd hűtőszekrénybe tesszük, míg meg nem dermed. Előmelegített sütőben, 200 C&deg;-on kb. 8 percig sütjük, amíg kéreg képződik a süteményeken. Fontos, hogy ne süssük túl! Langyosan tálaljuk. Ha nem sütöttük túl, a csoki belül folyós marad."
     ]
   },
   {
@@ -65025,7 +65025,7 @@
     "free": true,
     "image": {
       "src": "https://www.diabetes.hu/assets/images/dj1501/kaja-csokis_kuglof.png",
-      "alt": "Csokis kuglóf",
+      "alt": "Csokis kugl&oacute;f",
       "caption": null
     },
     "year": 2015,
@@ -65090,10 +65090,12 @@
     ],
     "author": "Kicsák Marian",
     "instructions": [
-      "A csokoládéból késsel csokiforgácsokat vágunk. A tojásokat szétválasztjuk. A margarint a xilittel és a tojások sárgájával jó alaposan kikeverjük. Ebbe a masszába keverjük apránként a lisztet, a kakaót, a csokiforgácsot, majd belekeverjük a sütőport és a fahéjat. Közben kis adagokban adjuk hozzá a tejet. A tojásfehérjét kemény habbá verjük, és végül azt is a tészta masszájába keverjük. Egy kuglófformát margarinnal kikenünk, liszttel meghintjük, majd ebbe öntjük a tésztamasszát. Előmelegített sütőben 180 C°-on 35-40 percig sütjük."
+      "A csokoládéból késsel csokiforgácsokat vágunk. A tojásokat szétválasztjuk. A margarint a xilittel és a tojások sárgájával jó alaposan kikeverjük. Ebbe a masszába keverjük apránként a lisztet, a kakaót, a csokiforgácsot, majd belekeverjük a sütőport és a fahéjat. Közben kis adagokban adjuk hozzá a tejet. A tojásfehérjét kemény habbá verjük, és végül azt is a tészta masszájába keverjük. Egy kuglófformát margarinnal kikenünk, liszttel meghintjük, majd ebbe öntjük a tésztamasszát. Előmelegített sütőben 180&deg;C-on 35-40 percig sütjük."
     ],
     "img": {
-      "src": "https://www.diabetes.hu/assets/images/dj1501/kaja-csokis_kuglof.png"
+      "src": "https://www.diabetes.hu/assets/images/dj1501/kaja-csokis_kuglof.png",
+      "pos": "50% 40%",
+      "ext": "png"
     },
     "ingredientGroups": [
       {
@@ -65194,7 +65196,7 @@
     "createdAt": "2015-02-21T11:43:33.000Z",
     "energy": 124,
     "instructions": [
-      "A csokit késsel apró csokiforgácsokra vágjuk. A lisztet és a kakaót egy tálba átszitáljuk. Ebbe tesszük a csokiforgácsot, a Canderel port, a szódabikarbónát és a fahéjat is. A puha vajat a xilittel és tojással kikeverjük. A vajas masszába belekeverjük a lisztes keveréket. Sűrű masszát kapunk. Sütőpapírral kibélelt tepsibe két kanál segítségével kanálnyi halmokat teszünk. Vizes kézzel még kicsit formázzuk. 20 db kis halom (keksz) lesz. 190-200 C°-on 8-10 percig sütjük."
+      "A csokit késsel apró csokiforgácsokra vágjuk. A lisztet és a kakaót egy tálba átszitáljuk. Ebbe tesszük a csokiforgácsot, a Canderel port, a szódabikarbónát és a fahéjat is. A puha vajat a xilittel és tojással kikeverjük. A vajas masszába belekeverjük a lisztes keveréket. Sűrű masszát kapunk. Sütőpapírral kibélelt tepsibe két kanál segítségével kanálnyi halmokat teszünk. Vizes kézzel még kicsit formázzuk. 20 db kis halom (keksz) lesz. 190-200 C&deg;-on 8-10 percig sütjük."
     ],
     "title": "Csokoládés tallér",
     "fat": 8,
@@ -230216,95 +230218,73 @@
     "sourceModxId": 4346
   },
   {
-    "nutritionTables": [
-      {
-        "label": "1 szelet kész rétes energia- és tápanyagtartalma:",
-        "carbs": 21,
-        "fat": 9,
-        "energy": 203,
-        "protein": 5,
-        "saturatedFat": 1,
-        "fiber": 4
-      },
-      {
-        "label": "1 szelet kész rétes energia- és tápanyagtartalma:",
-        "carbs": 19,
-        "protein": 5,
-        "saturatedFat": 1,
-        "fat": 9,
-        "energy": 197,
-        "fiber": 4
-      },
-      {
-        "energy": 190,
-        "fat": 9,
-        "protein": 4,
-        "saturatedFat": 1,
-        "fiber": 4,
-        "label": "1 szelet kész rétes energia- és tápanyagtartalma:",
-        "carbs": 18
-      },
-      {
-        "fat": 10,
-        "energy": 201,
-        "protein": 6,
-        "saturatedFat": 1,
-        "fiber": 4,
-        "label": "1 szelet kész rétes energia- és tápanyagtartalma:",
-        "carbs": 17
-      }
-    ],
+    "id": "rantasos-retesvariaciok",
+    "year": 2025,
+    "title": "Rántásos rétesvariációk",
+    "author": "Mohácsi Bernadett",
+    "category": "sos-edes-sutemenyek-desszertek-tesztak",
+    "servings": {
+      "amount": 15,
+      "unit": "szelet (3 rúd)"
+    },
+    "energy": 203,
+    "protein": 5,
+    "fat": 9,
+    "saturatedFat": 1,
+    "carbs": 21,
+    "fiber": 4,
+    "nutritionTables": [],
     "ingredientGroups": [
       {
-        "section": "Hozzávalók 15 szelethez (3 rúdhoz)",
+        "section": "15 szelethez (3 rúdhoz)",
         "items": [
           {
-            "name": "tejföl (20%-os),",
-            "text": "200 ml tejföl (20%-os),",
+            "text": "200 ml tejföl (20%-os)",
             "amount": 200,
-            "unit": "ml"
+            "unit": "ml",
+            "name": "tejföl (20%-os)"
           },
           {
-            "name": "teljes kiőrlésű búzaliszt,",
-            "text": "150 g teljes kiőrlésű búzaliszt,",
+            "text": "150 g teljes kiőrlésű búzaliszt",
             "amount": 150,
-            "unit": "g"
-          },
-          {
             "unit": "g",
-            "name": "teljes kiőrlésű tönkölybúzaliszt,",
-            "text": "100 g teljes kiőrlésű tönkölybúzaliszt,",
-            "amount": 100
+            "name": "teljes kiőrlésű búzaliszt"
           },
           {
+            "text": "100 g teljes kiőrlésű tönkölybúzaliszt",
+            "amount": 100,
             "unit": "g",
-            "text": "50 g rizsliszt vagy finomliszt,",
-            "name": "rizsliszt vagy finomliszt,",
-            "amount": 50
+            "name": "teljes kiőrlésű tönkölybúzaliszt"
           },
           {
-            "unit": "tk.",
+            "text": "50 g rizsliszt vagy finomliszt",
+            "amount": 50,
+            "unit": "g",
+            "name": "rizsliszt vagy finomliszt"
+          },
+          {
+            "text": "2 tk. útifűmaghéj",
             "amount": 2,
-            "text": "2 tk. útifűmaghéj,",
-            "name": "útifűmaghéj,"
+            "unit": "tk.",
+            "name": "útifűmaghéj"
           },
           {
+            "text": "1 db tojás",
             "amount": 1,
-            "name": "tojás,",
-            "text": "1 db tojás,",
-            "unit": "db"
+            "unit": "db",
+            "name": "tojás"
           },
           {
-            "name": "darált zabpehely a tészta leszórásához,",
-            "text": "20 g darált zabpehely a tészta leszórásához,",
+            "text": "20 g darált zabpehely a tészta leszórásához",
             "amount": 20,
-            "unit": "g"
+            "unit": "g",
+            "name": "darált zabpehely a tészta leszórásához"
           },
           {
-            "text": "20 ml olívaolaj a tészta lekenéséhez.",
-            "name": "olívaolaj a tészta lekenéséhez.",
+            "text": "20 ml olívaolaj a tészta lekenéséhez",
             "amount": 20,
-            "unit": "ml"
+            "unit": "ml",
+            "name": "olívaolaj a tészta lekenéséhez"
           }
         ]
       },
@@ -230312,35 +230292,54 @@
         "section": "A rántáshoz:",
         "items": [
           {
-            "name": "teljes kiőrlésű búzaliszt,",
-            "text": "70 g teljes kiőrlésű búzaliszt,",
+            "text": "70 g teljes kiőrlésű búzaliszt",
             "amount": 70,
-            "unit": "g"
+            "unit": "g",
+            "name": "teljes kiőrlésű búzaliszt"
           },
           {
+            "text": "70 ml olívaolaj",
             "amount": 70,
-            "name": "olívaolaj.",
-            "text": "70 ml olívaolaj.",
-            "unit": "ml"
+            "unit": "ml",
+            "name": "olívaolaj"
           }
         ]
       }
     ],
-    "id": "rantasos-retesvariaciok",
-    "category": "sos-edes-sutemenyek-desszertek-tesztak",
-    "servings": {
-      "amount": 15,
-      "unit": "szelet"
-    },
-    "image": {
-      "caption": "Rántásos almás-édesburgonyás rétes",
-      "src": "https://www.diabetes.hu/assets/images/receptsarok/kaja-rs25-rantasos_retes-689df20bdc29f.jpg",
-      "alt": "Rántásos rétesvariációk"
-    },
-    "createdAt": "2026-03-19T16:15:59.000Z",
+    "ingredientNames": [
+      "tejföl (20%-os)",
+      "teljes kiőrlésű búzaliszt",
+      "teljes kiőrlésű tönkölybúzaliszt",
+      "rizsliszt vagy finomliszt",
+      "útifűmaghéj",
+      "tojás",
+      "darált zabpehely a tészta leszórásához",
+      "olívaolaj a tészta lekenéséhez",
+      "olívaolaj",
+      "idared alma",
+      "édesburgonya",
+      "fahéj",
+      "magozott meggy",
+      "rebarbara",
+      "vaníliás pudingpor",
+      "őrölt fahéj",
+      "őrölt szegfűszeg",
+      "energiamentes édesítőszer",
+      "savanykás alma",
+      "kezeletlen vagy bionarancs héja",
+      "káposzta",
+      "só",
+      "bors"
+    ],
     "searchTerms": [
       "rantasos",
       "retesvariaciok",
+      "almas",
+      "edesburgonyas",
+      "toltelek",
+      "meggyes",
+      "rebarbaras",
+      "kaposztas",
       "tejfol",
       "teljes",
       "kiorlesu",
@@ -230356,89 +230355,264 @@
       "teszta",
       "leszorasahoz",
       "olivaolaj",
-      "lekenesehez"
+      "lekenesehez",
+      "idared",
+      "alma",
+      "edesburgonya",
+      "fahej",
+      "magozott",
+      "meggy",
+      "rebarbara",
+      "vanilias",
+      "pudingpor",
+      "orolt",
+      "szegfuszeg",
+      "energiamentes",
+      "edesitoszer",
+      "savanykas",
+      "kezeletlen",
+      "bionarancs",
+      "heja",
+      "kaposzta",
+      "bors"
     ],
-    "hasSubRecipes": false,
-    "carbs": 21,
-    "energy": 203,
+    "instructions": [
+      "A rántáshoz a meleg olívaolajba beleszórjuk a lisztet, és pár perc alatt, folyamatosan kevergetve készítünk belőle világos rántást. Kihűtjük. Arra vigyázzunk, hogy teljesen ne hűljön ki, mert akkor nem kenhető. Akkor se ijedjünk meg, ha megtörténik, mert egy kis idő alatt meleg helyen megolvad annyira, hogy kenhető legyen. Az útifűmaghéjat kávédarálón ledaráljuk, majd a tészta hozzávalóit összegyúrjuk annyi liszttel, amivel kissé lágy, de nem ragacsos tésztát kapunk. Legalább 30 percig pihentetjük a tésztát a konyhapulton. A pihentetést követően a tésztát lisztezett deszkán kinyújtjuk késfok vastagságúra (pár milliméter), majd rákenjük a kihűlt rántást és feltekerjük jó szorosan, mint a bejglit, és 3 egyenlő részre vágjuk. Legalább fél órára betesszük hűtőbe pihenni, de akár egész éjszakára is maradhat folpackban. A sütés előtt a tésztákat egyenként kinyújtjuk amilyen vékonyra csak tudjuk (nem baj, ha a deszka alatta átlátszik), darált zabpelyhet szórunk rá. Rátesszük a tölteléket, elkenjük (ha nagyon leves, újra megszórjuk darált zabpehellyel), amennyire szorosan lehet, feltekerjük. A kész réteseket tepsire sorakoztatjuk, egymástól kicsit távolabb, majd a tetejüket olívaolajjal lekenjük. 200 fokra előmelegített sütőben 25–30 perc alatt szép pirosra sütjük. (Néha azért nézzünk rá, mert minden sütő más.) A kész réteseket kihűtjük, majd felszeleteljük és meghintjük darált xilittel/eritrittel/eritviával."
+    ],
+    "image": {
+      "caption": "Rántásos almás-édesburgonyás rétes",
+      "src": "https://www.diabetes.hu/assets/images/receptsarok/kaja-rs25-rantasos_retes-689df20bdc29f.jpg",
+      "alt": "Rántásos rétesvariációk"
+    },
     "img": {
       "src": "https://www.diabetes.hu/assets/images/receptsarok/kaja-rs25-rantasos_retes-689df20bdc29f.jpg",
       "pos": "50% 40%",
       "ext": "jpg"
     },
-    "year": 2025,
-    "fat": 9,
-    "fiber": 4,
-    "subRecipes": [],
-    "saturatedFat": 1,
-    "sourceModxId": 4412,
-    "title": "Rántásos rétesvariációk",
+    "subRecipes": [
+      {
+        "title": "Almás-édesburgonyás töltelék",
+        "servings": {
+          "amount": 3,
+          "unit": "rud"
+        },
+        "nutritionTables": [
+          {
+            "label": "1 szelet kész rétes energia- és tápanyagtartalma:",
+            "energy": 203,
+            "protein": 5,
+            "fat": 9,
+            "saturatedFat": 1,
+            "carbs": 21,
+            "fiber": 4
+          }
+        ],
+        "ingredientGroups": [
+          {
+            "section": "3 rúdhoz",
+            "items": [
+              {
+                "text": "500 g idared alma",
+                "amount": 500,
+                "unit": "g",
+                "name": "idared alma"
+              },
+              {
+                "text": "300 g édesburgonya",
+                "amount": 300,
+                "unit": "g",
+                "name": "édesburgonya"
+              },
+              {
+                "text": "1 tk. fahéj",
+                "amount": 1,
+                "unit": "tk.",
+                "name": "fahéj"
+              }
+            ]
+          }
+        ],
+        "instructions": [
+          "Az almákat és az édesburgonyát meghámozzuk és lereszeljük. Egy edényben addig pároljuk, amíg a levét elfövi, közben, ha szükséges adjunk hozzá vizet, fahéjat (ízlés szerint energiamentes édesítőszert). Ha elpárolgott a leve, akkor hűtsük ki."
+        ],
+        "image": null
+      },
+      {
+        "title": "Meggyes-rebarbarás töltelék",
+        "servings": {
+          "amount": 3,
+          "unit": "rud"
+        },
+        "nutritionTables": [
+          {
+            "label": "1 szelet kész rétes energia- és tápanyagtartalma:",
+            "energy": 197,
+            "protein": 5,
+            "fat": 9,
+            "saturatedFat": 1,
+            "carbs": 19,
+            "fiber": 4
+          }
+        ],
+        "ingredientGroups": [
+          {
+            "section": "3 rúdhoz",
+            "items": [
+              {
+                "text": "600 g magozott meggy",
+                "amount": 600,
+                "unit": "g",
+                "name": "magozott meggy"
+              },
+              {
+                "text": "200 g rebarbara",
+                "amount": 200,
+                "unit": "g",
+                "name": "rebarbara"
+              },
+              {
+                "text": "30 g vaníliás pudingpor",
+                "amount": 30,
+                "unit": "g",
+                "name": "vaníliás pudingpor"
+              },
+              {
+                "text": "1 kk. őrölt fahéj",
+                "amount": 1,
+                "unit": "kk.",
+                "name": "őrölt fahéj"
+              },
+              {
+                "text": "1 kk. őrölt szegfűszeg",
+                "amount": 1,
+                "unit": "kk.",
+                "name": "őrölt szegfűszeg"
+              },
+              {
+                "text": "energiamentes édesítőszer",
+                "amount": null,
+                "unit": null,
+                "name": "energiamentes édesítőszer"
+              }
+            ]
+          }
+        ],
+        "instructions": [
+          "A kockára vágott rebarbarát 3-4 percre forrásba lévő vízbe tesszük, majd szűrőkanál segítségével kiszedjük, folyó hideg vízben lehűtjük. A meggyet a rebarbarával egy lábasba tesszük. Nem kell lecsepegtetni. Hozzáadunk ízlés szerint édesítőt és kevés őrölt fahéjat vagy őrölt szegfűszeget, majd alaposan összeforgatjuk, főzünk rajta egy kicsit. Végül a vaníliás pudingport egy kis vízben feloldjuk és a szószhoz adjuk. Folyamatosan kavarjuk, 1-2 perc alatt készre főzzük, kihűtjük."
+        ],
+        "image": {
+          "src": "https://www.diabetes.hu/assets/images/receptsarok/kaja-rs25-rantasos_retes-689df20bdfa1e-3.jpg",
+          "alt": "Rántásos meggyes-rebarbarás rétes",
+          "caption": null
+        }
+      },
+      {
+        "title": "Almás töltelék",
+        "servings": {
+          "amount": 3,
+          "unit": "rud"
+        },
+        "nutritionTables": [
+          {
+            "label": "1 szelet kész rétes energia- és tápanyagtartalma:",
+            "energy": 190,
+            "protein": 4,
+            "fat": 9,
+            "saturatedFat": 1,
+            "carbs": 18,
+            "fiber": 4
+          }
+        ],
+        "ingredientGroups": [
+          {
+            "section": "3 rúdhoz",
+            "items": [
+              {
+                "text": "800 g savanykás alma",
+                "amount": 800,
+                "unit": "g",
+                "name": "savanykás alma"
+              },
+              {
+                "text": "1 kk. kezeletlen vagy bionarancs héja",
+                "amount": 1,
+                "unit": "kk.",
+                "name": "kezeletlen vagy bionarancs héja"
+              },
+              {
+                "text": "őrölt fahéj",
+                "amount": null,
+                "unit": null,
+                "name": "őrölt fahéj"
+              }
+            ]
+          }
+        ],
+        "instructions": [
+          "Az almákat meghámozzuk és nagy lyukú reszelőn lereszeljük, a narancshéjjal és fahéjjal fűszerezzük. Hagyjuk pihenni egy kicsit. Mielőtt a tésztára tesszük, kinyomkodjuk a lét belőle. Nem kell teljesen szárazra, pici nedvesség maradjon benne."
+        ],
+        "image": null
+      },
+      {
+        "title": "Káposztás töltelék",
+        "servings": {
+          "amount": 3,
+          "unit": "rud"
+        },
+        "nutritionTables": [
+          {
+            "label": "1 szelet kész rétes energia- és tápanyagtartalma:",
+            "energy": 201,
+            "protein": 6,
+            "fat": 10,
+            "saturatedFat": 1,
+            "carbs": 17,
+            "fiber": 4
+          }
+        ],
+        "ingredientGroups": [
+          {
+            "section": "3 rúdhoz",
+            "items": [
+              {
+                "text": "800 g káposzta",
+                "amount": 800,
+                "unit": "g",
+                "name": "káposzta"
+              },
+              {
+                "text": "20 ml olívaolaj",
+                "amount": 20,
+                "unit": "ml",
+                "name": "olívaolaj"
+              },
+              {
+                "text": "1 tk. só",
+                "amount": 1,
+                "unit": "tk.",
+                "name": "só"
+              },
+              {
+                "text": "1 kk. bors",
+                "amount": 1,
+                "unit": "kk.",
+                "name": "bors"
+              }
+            ]
+          }
+        ],
+        "instructions": [
+          "A káposztát külső leveleitől megtisztítjuk, átmossuk és lereszeljük a nagy lyukú reszelőn. Olajon, szükség szerint néhány evőkanálnyi víz hozzáadásával, megpároljuk. Folyamatosan figyeljük, időnként kavarjuk, ha kész, akkor ízlés szerint sózzuk, borsozzuk, kihűtjük. (Édesen is elkészíthetjük, ekkor édesítőt használunk ízesítésre.)",
+          "{{receptsarok_shop}}"
+        ],
+        "image": null
+      }
+    ],
+    "hasSubRecipes": true,
+    "createdAt": "2026-03-19T16:15:59.000Z",
     "updatedAt": "2026-04-17T12:22:17.000Z",
-    "instructions": [
-      "A rántáshoz a meleg olívaolajba beleszórjuk a lisztet, és pár perc alatt, folyamatosan kevergetve készítünk belőle világos rántást. Kihűtjük. Arra vigyázzunk, hogy teljesen ne hűljön ki, mert akkor nem kenhető. Akkor se ijedjünk meg, ha megtörténik, mert egy kis idő alatt meleg helyen megolvad annyira, hogy kenhető legyen. Az útifűmaghéjat kávédarálón ledaráljuk, majd a tészta hozzávalóit összegyúrjuk annyi liszttel, amivel kissé lágy, de nem ragacsos tésztát kapunk. Legalább 30 percig pihentetjük a tésztát a konyhapulton. A pihentetést követően a tésztát lisztezett deszkán kinyújtjuk késfok vastagságúra (pár milliméter), majd rákenjük a kihűlt rántást és feltekerjük jó szorosan, mint a bejglit, és 3 egyenlő részre vágjuk. Legalább fél órára betesszük hűtőbe pihenni, de akár egész éjszakára is maradhat folpackban. A sütés előtt a tésztákat egyenként kinyújtjuk amilyen vékonyra csak tudjuk (nem baj, ha a deszka alatta átlátszik), darált zabpelyhet szórunk rá. Rátesszük a tölteléket, elkenjük (ha nagyon leves, újra megszórjuk darált zabpehellyel), amennyire szorosan lehet, feltekerjük. A kész réteseket tepsire sorakoztatjuk, egymástól kicsit távolabb, majd a tetejüket olívaolajjal lekenjük. 200 fokra előmelegített sütőben 25–30 perc alatt szép pirosra sütjük. (Néha azért nézzünk rá, mert minden sütő más.) A kész réteseket kihűtjük, majd felszeleteljük és meghintjük darált xilittel/eritrittel/eritviával.",
-      "Almás-édesburgonyás töltelék",
-      "1 szelet kész rétes energia- és tápanyagtartalma:",
-      "Energia",
-      "Fehérje",
-      "Zsír",
-      "Telített zsír",
-      "Szénhidrát",
-      "Rost",
-      "203 kcal",
-      "5 g",
-      "9 g",
-      "1 g",
-      "21 g",
-      "4 g",
-      "Hozzávalók 3 rúdhoz",
-      "500 g idared alma,",
-      "300 g édesburgonya,",
-      "1 tk. fahéj.",
-      "A recept elkészítése",
-      "Az almákat és az édesburgonyát meghámozzuk és lereszeljük. Egy edényben addig pároljuk, amíg a levét elfövi, közben, ha szükséges adjunk hozzá vizet, fahéjat (ízlés szerint energiamentes édesítőszert). Ha elpárolgott a leve, akkor hűtsük ki.",
-      "Meggyes-rebarbarás töltelék",
-      "197 kcal",
-      "19 g",
-      "Rántásos meggyes-rebarbarás rétes",
-      "600 g magozott meggy,",
-      "200 g rebarbara,",
-      "30 g vaníliás pudingpor,",
-      "1 kk. őrölt fahéj,",
-      "1 kk. őrölt szegfűszeg,",
-      "energiamentes édesítőszer.",
-      "A kockára vágott rebarbarát 3-4 percre forrásba lévő vízbe tesszük, majd szűrőkanál segítségével kiszedjük, folyó hideg vízben lehűtjük. A meggyet a rebarbarával egy lábasba tesszük. Nem kell lecsepegtetni. Hozzáadunk ízlés szerint édesítőt és kevés őrölt fahéjat vagy őrölt szegfűszeget, majd alaposan összeforgatjuk, főzünk rajta egy kicsit. Végül a vaníliás pudingport egy kis vízben feloldjuk és a szószhoz adjuk. Folyamatosan kavarjuk, 1-2 perc alatt készre főzzük, kihűtjük.",
-      "Almás töltelék",
-      "190 kcal",
-      "18 g",
-      "800 g savanykás alma,",
-      "1 kk. kezeletlen vagy bionarancs héja,",
-      "őrölt fahéj.",
-      "Az almákat meghámozzuk és nagy lyukú reszelőn lereszeljük, a narancshéjjal és fahéjjal fűszerezzük. Hagyjuk pihenni egy kicsit. Mielőtt a tésztára tesszük, kinyomkodjuk a lét belőle. Nem kell teljesen szárazra, pici nedvesség maradjon benne.",
-      "Káposztás töltelék",
-      "201 kcal",
-      "6 g",
-      "10 g",
-      "17 g",
-      "800 g káposzta,",
-      "20 ml olívaolaj,",
-      "1 tk. só,",
-      "1 kk. bors.",
-      "A káposztát külső leveleitől megtisztítjuk, átmossuk és lereszeljük a nagy lyukú reszelőn. Olajon, szükség szerint néhány evőkanálnyi víz hozzáadásával, megpároljuk. Folyamatosan figyeljük, időnként kavarjuk, ha kész, akkor ízlés szerint sózzuk, borsozzuk, kihűtjük. (Édesen is elkészíthetjük, ekkor édesítőt használunk ízesítésre.)"
-    ],
-    "ingredientNames": [
-      "tejföl (20%-os),",
-      "teljes kiőrlésű búzaliszt,",
-      "teljes kiőrlésű tönkölybúzaliszt,",
-      "rizsliszt vagy finomliszt,",
-      "útifűmaghéj,",
-      "tojás,",
-      "darált zabpehely a tészta leszórásához,",
-      "olívaolaj a tészta lekenéséhez.",
-      "olívaolaj."
-    ],
-    "protein": 5,
-    "author": "Mohácsi Bernadett",
-    "free": true
+    "free": true,
+    "sourceModxId": 4412
   },
   {
     "servings": {

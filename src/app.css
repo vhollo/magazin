@@ -91,7 +91,7 @@ body {
 }
 
 
-@media (width < 48rem)  {
+@media (max-width: 47.999rem) {
   body:has(#mobile-nav:checked) > *:not(nav), nav:has(/* nav >  */#mobile-nav:checked) ~ */* , footer ~ * */ {
     display: none;
   }
@@ -103,7 +103,7 @@ body {
   } */
 }
 
-@media (width >= 48rem) {
+@media (min-width: 48rem) {
   .drop-col {
     @apply dropdown;
   }
@@ -304,7 +304,7 @@ ul.nicebox {
 }
 
 p.nicebox, p.boxleft, p.boxright {
-  @apply !p-2;
+  @apply p-2!;
 }
 
 .nicebox:has(table) {
@@ -333,7 +333,7 @@ table.nicebox {
 }
 
 article table:not(.nicebox) {
-  @apply table table-xs w-full min-w-[min(100%,32rem)] w-full rounded-lg border border-base-300 bg-base-200/4;
+  @apply table table-xs w-full min-w-[min(100%,32rem)] rounded-lg border border-base-300 bg-base-200/4;
 }
 /* article table:not(.nicebox) thead th {
   @apply bg-base-200 font-normal;

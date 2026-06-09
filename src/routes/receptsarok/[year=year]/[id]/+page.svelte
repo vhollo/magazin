@@ -8,7 +8,12 @@
   import { hasReceptsarokAccess } from '$lib/authStore'
   import ReceptsarokLogo from '$lib/components/ReceptsarokLogo.svelte'
   import ReceptsarokWidget from '$lib/components/ReceptsarokWidget.svelte'
-  import { recipeDetailSegments, recipeHeroToCardImg, type Recipe } from '$lib/receptsarok'
+  import {
+    normalizeRecipeAssetSrc,
+    recipeDetailSegments,
+    recipeHeroToCardImg,
+    type Recipe,
+  } from '$lib/receptsarok'
   import type { PageProps } from './$types'
 
   let { data }: PageProps = $props()
@@ -226,7 +231,11 @@
 
           {#if sub.image}
             <figure class="text-center not-prose">
-              <img src="/rs/{recipe.year}/{sub.image.src}" alt={sub.image.alt} class="mx-auto" />
+              <img
+                src={normalizeRecipeAssetSrc(recipe.year, sub.image.src)}
+                alt={sub.image.alt}
+                class="mx-auto"
+              />
               {#if sub.image.caption}
                 <figcaption class="mt-2 text-sm text-base-content/70">{sub.image.caption}</figcaption>
               {/if}

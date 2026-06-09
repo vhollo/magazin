@@ -699,6 +699,139 @@ Do **not** suggest `npm run build` to refresh article text — content updates c
 
 ---
 
+## MCP Servers & AI Assistant Integration
+
+This project is configured with three MCP (Model Context Protocol) servers available to Claude and Cursor agents. These servers provide real-time documentation, validation, and analysis tools for key libraries and services.
+
+### Available MCP Servers
+
+#### 1. Svelte MCP Server (`svelte`)
+
+**Configuration:**
+```json
+{
+  "command": "npx",
+  "args": ["-y", "@sveltejs/mcp"]
+}
+```
+
+**Purpose**: Provides Svelte 5 documentation, component validation, and code analysis.
+
+**Tools & Resources**:
+- `svelte-docs`: Look up Svelte 5 API documentation and best practices
+- `analyze-svelte`: Validate and analyze `.svelte` component files
+- Access to official Svelte documentation and examples
+
+**When to Use**:
+- Creating or editing `.svelte` components (e.g., `Nav.svelte`, `+page.svelte` routes)
+- Creating or editing `.svelte.ts` / `.svelte.js` modules
+- Looking up Svelte 5 API features (runes, bindings, event handling, lifecycle)
+- Validating component structure and reactivity
+- Understanding Svelte best practices for performance and maintainability
+
+**Example Use Cases**:
+- "How do I use the new Svelte 5 runes for state management?"
+- "Validate this component's reactivity patterns"
+- "What's the best way to handle form bindings in Svelte?"
+
+---
+
+#### 2. Firebase MCP Server (`firebase`)
+
+**Configuration:**
+```json
+{
+  "command": "npx",
+  "args": ["-y", "firebase-tools@latest", "mcp"]
+}
+```
+
+**Purpose**: Provides Firebase documentation, CLI commands, and deployment guidance.
+
+**Tools & Resources**:
+- `firebase-docs`: Firebase SDK and services documentation
+- `firebase-cli`: Firebase CLI command reference and usage
+- Authentication, Firestore, Realtime Database, Functions, Hosting, Storage guidance
+
+**When to Use**:
+- Working with Firebase Authentication (Google Sign-In, Email Link Auth)
+- Querying or managing Firestore database (`docs/`, `collections/`, `kviz/`, `recipes/`)
+- Firebase Storage operations (image uploads, search index hosting)
+- Understanding Firestore security rules and data structure
+- Debugging Firebase-related issues (auth state, data loading, permissions)
+
+**Example Use Cases**:
+- "How do I query Firestore with specific filters?"
+- "What's the best way to structure a Firestore subcollection for quiz scores?"
+- "How can I implement a listener for real-time updates from Firestore?"
+- "How do I upload files to Firebase Storage?"
+
+---
+
+#### 3. Daisy UI MCP Server (`daisyui`)
+
+**Configuration:**
+```json
+{
+  "command": "npx",
+  "args": ["-y", "mcp-remote", "https://gitmcp.io/saadeghi/daisyui"]
+}
+```
+
+**Purpose**: Provides Daisy UI component documentation, Tailwind configuration, and design system reference.
+
+**Tools & Resources**:
+- `daisyui-components`: Complete Daisy UI component library documentation
+- `tailwind-config`: Tailwind CSS configuration and utilities
+- HTML/CSS examples for all Daisy UI components
+- Theming and customization options
+
+**When to Use**:
+- Building or styling UI components (buttons, cards, modals, forms, dropdowns)
+- Implementing responsive layouts and grids
+- Creating navigation menus and dropdowns
+- Styling quiz components, recipe cards, and article layouts
+- Applying Daisy UI themes and color schemes
+- Understanding available Tailwind classes and responsive breakpoints
+
+**Example Use Cases**:
+- "How do I create a dropdown menu with Daisy UI?"
+- "Show me the Daisy UI card component structure"
+- "What's the best Daisy UI component for a search input?"
+- "How do I customize button styles with Daisy UI?"
+- "How can I create a responsive grid layout for recipe cards?"
+
+---
+
+### How Agents Use These MCP Servers
+
+When an agent (Claude or Cursor) works on this project, it can automatically access these MCP servers to:
+
+1. **Validate Code**: Check Svelte component syntax and patterns
+2. **Lookup Documentation**: Get real-time API docs for Svelte 5, Firebase, and Daisy UI
+3. **Provide Examples**: Retrieve working code examples from official docs
+4. **Offer Best Practices**: Reference recommended patterns for each technology
+5. **Troubleshoot Issues**: Get guidance on common problems and solutions
+
+### Project-Specific MCP Usage Guidelines
+
+**For Svelte Components**:
+- Always use the Svelte MCP server when creating/editing `.svelte` files
+- Validate component reactivity and event handling patterns
+- Check for performance best practices (memoization, deduplication)
+
+**For Firebase Operations**:
+- Use the Firebase MCP server when implementing authentication flows
+- Reference Firestore schema design and subcollection patterns
+- Look up security rules and data validation strategies
+
+**For UI Development**:
+- Use Daisy UI MCP for styling magazine articles, cards, and navigation
+- Reference component patterns for recipe cards, quiz forms, and pharmacy listings
+- Ensure consistent theming across responsive breakpoints
+
+---
+
 ## Route Priority
 
 Routes are matched in this order:

@@ -1,0 +1,16 @@
+{
+  "mcpServers": {
+    "svelte": {
+      "command": "npx",
+      "args": ["-y", "@sveltejs/mcp"]
+    },
+    "firebase": {
+      "command": "npx",
+      "args": ["-y", "firebase-tools@latest", "mcp"]
+    },
+    "daisyui": {
+      "command": "npx",
+      "args": ["-y", "mcp-remote", "https://gitmcp.io/saadeghi/daisyui"]
+    }
+  }
+}
