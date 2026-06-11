@@ -58,6 +58,34 @@ function testComparatorOrder() {
   const yearResult = compareRecipeCandidates(yearA, yearB)
   assert.equal(yearResult.winner.id, 'f')
   assert.equal(yearResult.reason, 'year')
+
+  // Real author beats the generic "Receptsarok" placeholder, ahead of video/nutrition/year.
+  // Regression: 2020-bulgursalata-tabule-salata (MODX, author "Receptsarok") vs the 2021
+  // booklet copy (author "Henn Dóra") — the booklet copy must win.
+  const placeholderAuthor = {
+    id: 'bulgursalata-tabule-salata',
+    year: 2020,
+    author: 'Receptsarok',
+    video: 'https://example.com',
+    nutritionTables: [{ energy: 1, protein: 1, fat: 1, saturatedFat: 1, carbs: 1, fiber: 1 }],
+  }
+  const realAuthor = {
+    id: 'bulgursalata-tabule-salata',
+    year: 2021,
+    author: 'Henn Dóra',
+    video: '',
+    nutritionTables: [{ energy: 1 }],
+  }
+  const authorResult = compareRecipeCandidates(placeholderAuthor, realAuthor)
+  assert.equal(authorResult.winner.year, 2021)
+  assert.equal(authorResult.reason, 'author')
+  assert.equal(chooseWinner([placeholderAuthor, realAuthor]).winner?.year, 2021)
+  // Both generic (or both real): author rule stays out of the way.
+  const bothGeneric = compareRecipeCandidates(
+    { ...yearA, author: 'Receptsarok' },
+    { ...yearB, author: '' }
+  )
+  assert.equal(bothGeneric.reason, 'year')
 }
 
 function testPickRedirectTargetPrefersRsBookletYear() {
@@ -83,6 +111,8 @@ function testParserEntityAndYearResilience() {
   assert.equal(parsedYear, 2024)
   assert.equal(parseYearFromMagazinPath('cikkek/diabetes/2506/puszedli'), 2025)
   assert.equal(parseYearFromMagazinPath('cikkek/diabetes/0903/recept'), 2009)
+  // MODX paths never hold four-digit calendar years: 2001 = issue code 20/01.
+  assert.equal(parseYearFromMagazinPath('cikkek/diabetes/2001/receptsarok/bulgursalata-tabule-salata'), 2020)
   const fallbackYear = parseYearFromMagazinPath('/receptsarok/archiv/menu')
   assert.ok(Number.isInteger(fallbackYear), 'Fallback year should remain a finite integer')
 

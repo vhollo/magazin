@@ -1,10 +1,36 @@
 <script lang="ts">
   import { page } from '$app/state'
   import { authUser } from '$lib/authStore'
+  import { isReceptsarokTrialActive } from '$lib/receptsarokAccess'
 
   let { context = 'recipe' }: { context?: 'recipe' | 'filter' | 'planner' } = $props()
 
+  const trial = isReceptsarokTrialActive()
+
   const freeCount = $derived(page.data.freeCount ?? page.data.totalFree ?? 0)
+
+  const trialMessages = {
+    recipe: {
+      title: 'Ingyenes próbaidőszak',
+      body: 'A próbaidőszak alatt minden recept teljes tartalma elérhető — csak bejelentkezés szükséges.',
+      cta: 'Bejelentkezés'
+    },
+    filter: {
+      title: 'Ingyenes próbaidőszak',
+      body: 'A tápanyag-szűrés és az összetevő-keresés a próbaidőszak alatt bejelentkezés után elérhető.',
+      cta: 'Bejelentkezés'
+    },
+    planner: {
+      title: 'Ingyenes próbaidőszak',
+      body: 'A heti étlaptervező és a bevásárlólista a próbaidőszak alatt bejelentkezés után elérhető.',
+      cta: 'Bejelentkezés'
+    }
+  }
+
+  function openLogin() {
+    const dialog = document.getElementById('mod_login') as HTMLDialogElement | null
+    dialog?.showModal()
+  }
 
   const messages = {
     recipe: {
@@ -24,7 +50,7 @@
     }
   }
 
-  const msg = $derived(messages[context])
+  const msg = $derived(trial ? trialMessages[context] : messages[context])
 </script>
 
 <div class="card bg-base-300 shadow-md">
@@ -34,10 +60,15 @@
     </svg>
     <h3 class="text-lg font-semibold">{msg.title}</h3>
     <p class="max-w-sm">{msg.body}</p>
-    {#if !$authUser}
-      <p class="text-sm opacity-60">Először jelentkezzen be, majd fizessen elő.</p>
+    {#if trial}
+      <button class="btn btn-primary" onclick={openLogin}>{msg.cta}</button>
+      <p class="text-xs opacity-50">A próbaidőszak végén a teljes hozzáféréshez előfizetés lesz szükséges.</p>
+    {:else}
+      {#if !$authUser}
+        <p class="text-sm opacity-60">Először jelentkezzen be, majd fizessen elő.</p>
+      {/if}
+      <a href="/elofizetes" class="btn btn-primary">{msg.cta}</a>
+      <p class="text-xs opacity-50">A Diabetes és Hypertonia lapokban megjelent {freeCount} recept ingyenesen elérhető.</p>
     {/if}
-    <a href="/elofizetes" class="btn btn-primary">{msg.cta}</a>
-    <p class="text-xs opacity-50">A Diabetes és Hypertonia lapokban megjelent {freeCount} recept ingyenesen elérhető.</p>
   </div>
 </div>

@@ -57,14 +57,12 @@ function parseIssueCodeYear(value) {
     const yy = Number(dtMatch[1])
     if (Number.isFinite(yy)) return 2000 + yy
   }
+  // MODX paths never contain four-digit calendar years: a segment like /2001/
+  // is always issue code YYMM (year 2020, issue 01).
   const segmentMatch = raw.match(/(?:^|\/)(\d{2})(0[1-9]|1[0-2])(?:\/|$)/)
   if (segmentMatch?.[1]) {
     const yy = Number(segmentMatch[1])
     if (!Number.isFinite(yy)) return null
-    const fourDigit = `${segmentMatch[1]}${segmentMatch[2]}`
-    const asCalendar = Number(fourDigit)
-    // Paths like /2001/ are magazine years, not YYMM issue codes.
-    if (asCalendar >= 2000 && asCalendar <= 2008) return null
     return 2000 + yy
   }
   return null
@@ -695,11 +693,11 @@ function normalizeServingUnit(unitValue) {
     ['db', 'db'],
     ['darab', 'db'],
     ['szelet', 'szelet'],
-    ['fo', 'fo'],
-    ['pohar', 'pohar'],
+    ['fo', 'fő'],
+    ['pohar', 'pohár'],
     ['tepsi', 'tepsi'],
     ['tortaforma', 'tortaforma'],
-    ['rud', 'rud'],
+    ['rud', 'rúd'],
   ])
   return unitMap.get(key) || key || 'adag'
 }

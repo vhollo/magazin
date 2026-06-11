@@ -2,6 +2,7 @@
   {
     "updatedAt": "2020-09-08T20:04:37.000Z",
     "sourceModxId": 2905,
+    "published": false,
     "carbs": 33,
     "image": {
       "src": "https://www.diabetes.hu/assets/images/_stock/pixabay-food-5203382-1280.jpg",
@@ -16432,7 +16433,8 @@
     ],
     "energy": 76,
     "updatedAt": "2011-01-01T00:00:00.000Z",
-    "category": "koretek-italok-hidegkonyha"
+    "category": "koretek-italok-hidegkonyha",
+    "published": false
   },
   {
     "hasSubRecipes": false,
@@ -45532,7 +45534,7 @@
     "free": true,
     "protein": 14.2,
     "servings": {
-      "unit": "rud",
+      "unit": "rúd",
       "amount": 1
     },
     "id": "makos-es-dios-bejgli",
@@ -51543,7 +51545,7 @@
     "author": "Nagy Gyuláné Tajti Éva",
     "protein": 0,
     "servings": {
-      "unit": "pohar",
+      "unit": "pohár",
       "amount": 4
     },
     "saturatedFat": null,
@@ -52264,7 +52266,7 @@
     "title": "Epres jegestea",
     "protein": 0,
     "servings": {
-      "unit": "pohar",
+      "unit": "pohár",
       "amount": 4
     },
     "hasSubRecipes": false
@@ -52800,7 +52802,7 @@
   {
     "protein": 0,
     "servings": {
-      "unit": "pohar",
+      "unit": "pohár",
       "amount": 4
     },
     "saturatedFat": null,
@@ -53844,7 +53846,8 @@
         "section": "4 adaghoz"
       }
     ],
-    "author": "Nagy Gyuláné Tajti Éva"
+    "author": "Nagy Gyuláné Tajti Éva",
+    "published": false
   },
   {
     "category": "koretek-italok-hidegkonyha",
@@ -60723,7 +60726,7 @@
     "title": "Teakoktél",
     "protein": 0,
     "servings": {
-      "unit": "pohar",
+      "unit": "pohár",
       "amount": 4
     },
     "hasSubRecipes": false,
@@ -68803,7 +68806,8 @@
     "updatedAt": "2026-05-10T19:00:54.000Z",
     "carbs": 10,
     "createdAt": "2015-12-17T17:52:23.000Z",
-    "energy": 192
+    "energy": 192,
+    "published": false
   },
   {
     "year": 2015,
@@ -83979,7 +83983,8 @@
       "gazpacho"
     ],
     "updatedAt": "2016-01-01T00:00:00.000Z",
-    "category": "levesek"
+    "category": "levesek",
+    "published": false
   },
   {
     "searchTerms": [
@@ -86498,7 +86503,7 @@
       "A kókusztejhez adjuk hozzá a kókuszreszeléket és a vaníliaaromát, kevergetve melegítsük forráspontig. Ezután vegyük le a tűzről, és hűtsük langyosra. Adjuk hozzá a chiamagot, ízlés szerint édesítőszert, reszeljük hozzá a citromhéjat, keverjük alaposan össze. A poharakba tegyünk ízlés szerint apróra vágott mogyorót, kanalazzuk rá a pudingot. Ezután tegyük be pár órára a hűtőbe, hogy kellően megdermedjen, és az ízek jól összeérjenek. Tálalás előtt vegyük ki a pohárkrémet a hűtőből, ízlés szerint szórjuk meg ribizliszemekkel."
     ],
     "servings": {
-      "unit": "pohar",
+      "unit": "pohár",
       "amount": 4
     },
     "ingredientGroups": [
@@ -94954,7 +94959,8 @@
       "avokadokremes",
       "karfiolcsoda"
     ],
-    "sourceModxId": 2036
+    "sourceModxId": 2036,
+    "published": false
   },
   {
     "category": "koretek-italok-hidegkonyha",
@@ -95402,7 +95408,8 @@
       "bazsalikom",
       "oregano"
     ],
-    "subRecipes": []
+    "subRecipes": [],
+    "published": false
   },
   {
     "searchTerms": [
@@ -95836,7 +95843,8 @@
       "konyhasó,",
       "grill fűszerkeverék"
     ],
-    "title": "Brokkolis vagdalt édesburgonyával"
+    "title": "Brokkolis vagdalt édesburgonyával",
+    "published": false
   },
   {
     "author": "Sárga Diána",
@@ -96252,7 +96260,8 @@
         "saturatedFat": null,
         "fiber": null
       }
-    ]
+    ],
+    "published": false
   },
   {
     "energy": 273,
@@ -97184,7 +97193,7 @@
     "year": 2017,
     "author": "Lajosházi Péter",
     "hasSubRecipes": false,
-    "free": false
+    "free": true
   },
   {
     "saturatedFat": null,
@@ -98085,7 +98094,8 @@
         "carbs": 14.1,
         "protein": 3.6
       }
-    ]
+    ],
+    "published": false
   },
   {
     "img": {
@@ -99562,7 +99572,8 @@
       "só,",
       "bors"
     ],
-    "carbs": 3.8
+    "carbs": 3.8,
+    "published": false
   },
   {
     "fiber": null,
@@ -99965,7 +99976,8 @@
       "A bulgurt sózzuk, borsozzuk, forrásban lévő vízzel leöntjük kb. egyujjnyi magasságban. Lefedve 20 percig állni hagyjuk. A zöldségeket egy kevés vízben pár perc alatt megfőzzük, ízlés szerinti keménységűre. Az előző nap íróba pácolt csirkét kissé megtöröljük, sózzuk, borsozzuk, kiolajozott tepsibe fektetjük. Erre rétegezzük a zöldséget, megszórjuk a reszelt sajttal, letakarva, előmelegített 200 fokos sütőben 20 percig, majd fólia nélkül még kb. 10 percig sütjük, míg szép barna lesz a sajt a tetején. A kész zöldséges húst a bulgurral tálaljuk."
     ],
     "hasSubRecipes": false,
-    "saturatedFat": null
+    "saturatedFat": null,
+    "published": false
   },
   {
     "author": "Buzás Sándorné",
@@ -101431,7 +101443,8 @@
       "bors"
     ],
     "fat": 20.3,
-    "image": null
+    "image": null,
+    "published": false
   },
   {
     "searchTerms": [
@@ -102056,7 +102069,8 @@
     "servings": {
       "unit": "adag",
       "amount": 4
-    }
+    },
+    "published": false
   },
   {
     "img": {
@@ -102069,7 +102083,7 @@
       "Egy serpenyőbe tegyük bele a bulgurt, a kókuszreszeléket, az édesítőszert, a kikapart vaníliát, öntsük hozzá a hideg tejet. Ezután keverjük össze, és kisebb lángon, néha megkeverve, főzzük puhára, majd fedjük le a serpenyőt, és hagyjuk egy fél órát állni. Ezután vegyük le a fedőt, keverjük össze, hűtsük ki teljesen. A körtét hámozzuk meg, távolítsuk el a magházat. Ízlés szerint daraboljuk fel, facsarjuk rá a citromlevet, hogy ne barnuljon meg. Öntsük fel a borral, adjuk hozzá a vaníliát és a szegfűszeget, szórjuk meg az őrölt fahéjjal, reszeljük rá a citromhéjat, majd kisebb lángon főzzük pár percig (arra figyeljünk, nehogy túlfőzzük). Amikor a körte puhára főtt, vegyünk ki belőle pár darabot a díszítéshez, a többit turmixoljuk össze, majd hűtsük ki egészen. A mascarponéhoz adjuk hozzá az édesítőszert, egy kevés kikapart vaníliát, és keverjük simára. Ezután adjuk hozzá a leturmixolt körtét, majd szintén keverjük simára. A Hulalát (v. habtejszínt) verjük fel kemény habbá, apránként adjuk hozzá a körtés mascarponekrémhez (annyi tejszínhabot adjunk hozzá, hogy könnyű, de nem túl lágy, krémet kapjunk). A teljesen kihűlt kókuszos bulgurt a körtekrémmel felváltva rétegezzük a poharakba, majd ízlés szerint helyezzük rá a félretett körtedarabokat. Az elkészült desszertet tálalhatjuk rögtön, de betehetjük a hűtőbe, hogy jól lehűljön, majd úgy kínáljuk."
     ],
     "servings": {
-      "unit": "pohar",
+      "unit": "pohár",
       "amount": 4
     },
     "fat": 14,
@@ -102692,7 +102706,8 @@
       }
     ],
     "author": "Receptsarok",
-    "energy": 676.5
+    "energy": 676.5,
+    "published": false
   },
   {
     "id": "kulonleges-csirkecomb",
@@ -103266,7 +103281,8 @@
       "ext": "jpg"
     },
     "updatedAt": "2026-05-11T15:31:55.000Z",
-    "sourceModxId": 1953
+    "sourceModxId": 1953,
+    "published": false
   },
   {
     "img": {
@@ -104724,7 +104740,8 @@
     ],
     "fat": 11,
     "category": "sos-edes-sutemenyek-desszertek-tesztak",
-    "free": true
+    "free": true,
+    "published": false
   },
   {
     "author": "Receptsarok",
@@ -104891,7 +104908,8 @@
       "caption": null,
       "alt": "Minestrone leves"
     },
-    "fiber": null
+    "fiber": null,
+    "published": false
   },
   {
     "img": {
@@ -105207,7 +105225,8 @@
     "saturatedFat": null,
     "author": "Lajosházi Péter",
     "hasSubRecipes": false,
-    "free": false
+    "free": false,
+    "published": false
   },
   {
     "energy": 132,
@@ -105598,7 +105617,8 @@
     "subRecipes": [],
     "carbs": 20,
     "year": 2017,
-    "saturatedFat": null
+    "saturatedFat": null,
+    "published": false
   },
   {
     "energy": 90,
@@ -105995,7 +106015,8 @@
       "spenot"
     ],
     "updatedAt": "2017-01-01T00:00:00.000Z",
-    "category": "zoldsegetelek"
+    "category": "zoldsegetelek",
+    "published": false
   },
   {
     "createdAt": "2017-01-01T00:00:00.000Z",
@@ -109929,7 +109950,8 @@
       "só",
       "pucolt és durvára őrölt mandulabél"
     ],
-    "fiber": null
+    "fiber": null,
+    "published": false
   },
   {
     "ingredientGroups": [
@@ -110528,7 +110550,8 @@
     ],
     "protein": 4.2,
     "category": "koretek-italok-hidegkonyha",
-    "title": "Tzatziki"
+    "title": "Tzatziki",
+    "published": false
   },
   {
     "updatedAt": "2017-01-01T00:00:00.000Z",
@@ -110676,7 +110699,8 @@
     "servings": {
       "unit": "adag",
       "amount": 3
-    }
+    },
+    "published": false
   },
   {
     "saturatedFat": null,
@@ -111524,7 +111548,8 @@
     "searchTerms": [
       "zoldborsos",
       "kaposzta"
-    ]
+    ],
+    "published": false
   },
   {
     "energy": 336,
@@ -116624,7 +116649,8 @@
     ],
     "free": true,
     "subRecipes": [],
-    "hasSubRecipes": false
+    "hasSubRecipes": false,
+    "published": false
   },
   {
     "ingredientNames": [
@@ -124781,7 +124807,7 @@
     "carbs": 11,
     "year": 2018,
     "saturatedFat": null,
-    "free": false,
+    "free": true,
     "hasSubRecipes": false,
     "energy": 222,
     "ingredientGroups": [
@@ -134964,7 +134990,8 @@
     "title": "Almás hússzelet sajttal",
     "instructions": [
       "A karajszeleteket húsverő kalapáccsal kiverjük. Mindkét oldalát meghintjük sóval, frissen őrölt színes borssal, őrölt szerecsendióval és egy leheletnyi fahéjjal. Kevés olajban, lehetőleg teflonserpenyőben hirtelen mindkét felét megsütjük. A megsütött hússzeleteket lapos tűzálló tálba helyezzük, s mindegyiknek a tetejére almaszeleteket teszünk. A lereszelt sajtot a gyümölcsre szórjuk, majd az egészet forró sütőben rövid ideig pirítjuk. Köretként friss vegyes salátát kínáljunk hozzá."
-    ]
+    ],
+    "published": false
   },
   {
     "fiber": null,
@@ -135562,7 +135589,7 @@
     "carbs": 36,
     "year": 2019,
     "saturatedFat": null,
-    "free": false,
+    "free": true,
     "hasSubRecipes": false,
     "energy": 605,
     "ingredientGroups": [
@@ -136208,7 +136235,7 @@
   },
   {
     "hasSubRecipes": false,
-    "free": false,
+    "free": true,
     "saturatedFat": null,
     "subRecipes": [],
     "carbs": 45,
@@ -136677,7 +136704,7 @@
         "section": "4 adaghoz"
       }
     ],
-    "free": false,
+    "free": true,
     "hasSubRecipes": false,
     "author": "Gyurcsáné Kondrát Ilona",
     "subRecipes": [],
@@ -138067,7 +138094,7 @@
     "year": 2019,
     "author": "Gyurcsáné Kondrát Ilona",
     "hasSubRecipes": false,
-    "free": false,
+    "free": true,
     "ingredientNames": [
       "eper",
       "vaj",
@@ -141556,7 +141583,7 @@
       "só",
       "bors"
     ],
-    "free": false,
+    "free": true,
     "hasSubRecipes": false,
     "author": "Gyurcsáné Kondrát Ilona",
     "subRecipes": [],
@@ -141734,7 +141761,7 @@
     "subRecipes": [],
     "carbs": 33,
     "year": 2019,
-    "free": false,
+    "free": true,
     "hasSubRecipes": false
   },
   {
@@ -143061,7 +143088,7 @@
     "year": 2019,
     "author": "Gyurcsáné Kondrát Ilona",
     "hasSubRecipes": false,
-    "free": false,
+    "free": true,
     "ingredientGroups": [
       {
         "items": [
@@ -143458,7 +143485,7 @@
       }
     ],
     "hasSubRecipes": false,
-    "free": false,
+    "free": true,
     "subRecipes": [],
     "carbs": 46,
     "year": 2019,
@@ -145221,7 +145248,7 @@
       }
     ],
     "hasSubRecipes": false,
-    "free": false,
+    "free": true,
     "subRecipes": [],
     "carbs": 4,
     "year": 2019,
@@ -145325,7 +145352,7 @@
   },
   {
     "hasSubRecipes": false,
-    "free": false,
+    "free": true,
     "saturatedFat": null,
     "subRecipes": [],
     "carbs": 20,
@@ -149939,7 +149966,8 @@
       }
     ],
     "id": "toltott-pulykatekercs",
-    "protein": 34
+    "protein": 34,
+    "published": false
   },
   {
     "ingredientNames": [
@@ -150498,7 +150526,7 @@
     ],
     "energy": 139,
     "hasSubRecipes": false,
-    "free": false,
+    "free": true,
     "saturatedFat": null,
     "subRecipes": [],
     "carbs": 6,
@@ -151806,7 +151834,8 @@
     "title": "Zöldséggel töltött csirkecomb",
     "instructions": [
       "A csirkecombokat megmossuk, szárazra töröljük, sózzuk, és alaposan bedörzsöljük a szárazfűszerekkel. A zöldségeket megtisztítjuk, megmossuk, apró kockára vágjuk, és sós vízben néhány percig főzzük, majd leszűrjük, a főzővizet félretesszük. A főzővízben megáztatjuk a barnakenyeret. Kicsavarjuk, és összekeverjük a zöldségekkel és a tojással. Az így kapott masszát ízesítjük a finomra vágott petrezselyemzölddel, őrölt borssal, bazsalikommal, szerecsendióval (a bátrabbak curryt is tehetnek bele). Ezt a tölteléket a csirkecombok bőre alá töltjük, és a húst sütőzacskóban 170 fokra előmelegített sütőben 40 perc alatt pirosra sütjük. Köretként nagy adag friss salátát kínáljunk mellé."
-    ]
+    ],
+    "published": false
   },
   {
     "category": "zoldsegetelek",
@@ -162550,7 +162579,7 @@
     "createdAt": "2020-12-16T10:31:34.000Z",
     "servings": {
       "amount": 2,
-      "unit": "rud"
+      "unit": "rúd"
     },
     "updatedAt": "2021-03-18T16:40:07.000Z",
     "image": {
@@ -165776,7 +165805,7 @@
     "fat": 15,
     "updatedAt": "2021-01-01T00:00:00.000Z",
     "hasSubRecipes": false,
-    "free": false,
+    "free": true,
     "instructions": [
       "A karajszeleteket húsverő kalapáccsal kiverjük. Mindkét oldalát meghintjük sóval, frissen őrölt színes borssal, őrölt szerecsendióval és egy leheletnyi fahéjjal. Kevés olajban, lehetőleg teflonserpenyőben hirtelen mindkét felét megsütjük. A megsütött hússzeleteket lapos tűzálló tálba helyezzük, s mindegyiknek a tetejére almaszeleteket teszünk. A lereszelt sajtot a gyümölcsre szórjuk, majd az egészet forró sütőben rövid ideig pirítjuk. Köretként friss vegyes salátát kínáljunk hozzá."
     ],
@@ -166725,7 +166754,7 @@
     "protein": 7,
     "updatedAt": "2021-01-01T00:00:00.000Z",
     "hasSubRecipes": false,
-    "free": false,
+    "free": true,
     "instructions": [
       "A bulgurt kétszeres mennyiségű sós, borsos vízben főzzük meg, vagy forrázzuk le, és hagyjuk állni 15–20 percig. A zöldségeket vágjuk apróra és keverjük össze. Adjuk hozzá a puha bulgurt és az olajat. Ízesítsük citromlével, sóval, borssal, végül az apróra vágott petrezselyemmel és mentával keverjük el."
     ],
@@ -178502,7 +178531,7 @@
     ],
     "updatedAt": "2021-01-01T00:00:00.000Z",
     "hasSubRecipes": false,
-    "free": false,
+    "free": true,
     "instructions": [
       "A munkalapra, ahol dolgozunk, egy nagyobb darab fóliát terítünk. A pulykamellszeleteket egymás mellé fektetjük, és kissé kiverjük őket. Egy egybefüggő téglalapot kell formálniuk. Meghintjük sóval, fehérborssal, natúr vegetával, apróra vágott petrezselyemmel. Ráterítjük a sonkaszeleteket, ráreszeljük az almát és a sajtot, meghintjük egy icipici fahéjjal. A fólia segítségével szorosan feltekerjük, mint a bejglit. A baconszeleteket egymás mellé tesszük, és a húshengert átgördítve rajtuk, körbetekerjük. Ezután duplán tekerjük körbe a fóliával. Két végét megtekerjük és a hús alá hajtjuk. 80 fokra előmelegített sütőbe toljuk, és egy órán keresztül sütjük. Utána leszedjük a fóliát, és 220 fokra emelve a hőmérsékletet 10-12 perc alatt pirosra sütjük. Kicsit hagyjuk hűlni, majd szép egyenletes szeletekre vágjuk. Gyönyörű metszéslapja lesz. Nagy adag friss salátával, zöldséges rizzsel, párolt zöldséggel kínáljuk. Az alacsony hőmérsékleten sütés miatt puha, porhanyós, omlós húst kapunk."
     ],
@@ -180315,7 +180344,7 @@
     ],
     "updatedAt": "2021-01-01T00:00:00.000Z",
     "hasSubRecipes": false,
-    "free": false,
+    "free": true,
     "instructions": [
       "A csirkecombokat megmossuk, szárazra töröljük, sózzuk, és alaposan bedörzsöljük a szárazfűszerekkel. A zöldségeket megtisztítjuk, megmossuk, apró kockára vágjuk, és sós vízben néhány percig főzzük, majd leszűrjük, a főzővizet félretesszük. A főzővízben megáztatjuk a barna kenyeret. Kicsavarjuk, és összekeverjük a zöldségekkel és a tojással. Az így kapott masszát ízesítjük a finomra vágott petrezselyemzölddel, őrölt borssal, bazsalikommal, szerecsendióval (a bátrabbak curryt is tehetnek bele). Ezt a tölteléket a csirkecombok bőre alá töltjük, és a húst sütőzacskóban, 170 fokra előmelegített sütőben 40 perc alatt pirosra sütjük. Köretként nagy adag friss salátát kínáljunk mellé."
     ],
@@ -181466,7 +181495,7 @@
     "saturatedFat": null,
     "author": "Kard Éva",
     "servings": {
-      "unit": "pohar",
+      "unit": "pohár",
       "amount": 4
     },
     "sourceModxId": 3625
@@ -207390,7 +207419,7 @@
     "year": 2024,
     "subRecipes": [],
     "servings": {
-      "unit": "pohar",
+      "unit": "pohár",
       "amount": 8
     },
     "author": "Szűcs Zsuzsanna",
@@ -207721,7 +207750,7 @@
   {
     "servings": {
       "amount": 4,
-      "unit": "rud"
+      "unit": "rúd"
     },
     "category": "sos-edes-sutemenyek-desszertek-tesztak",
     "createdAt": "2024-12-11T09:50:49.000Z",
@@ -208332,7 +208361,7 @@
     ],
     "saturatedFat": null,
     "servings": {
-      "unit": "rud",
+      "unit": "rúd",
       "amount": 4
     },
     "ingredientNames": [
@@ -217586,7 +217615,7 @@
     },
     "servings": {
       "amount": 2,
-      "unit": "rud"
+      "unit": "rúd"
     },
     "category": "sos-edes-sutemenyek-desszertek-tesztak",
     "energy": 75,
@@ -230394,7 +230423,7 @@
         "title": "Almás-édesburgonyás töltelék",
         "servings": {
           "amount": 3,
-          "unit": "rud"
+          "unit": "rúd"
         },
         "nutritionTables": [
           {
@@ -230441,7 +230470,7 @@
         "title": "Meggyes-rebarbarás töltelék",
         "servings": {
           "amount": 3,
-          "unit": "rud"
+          "unit": "rúd"
         },
         "nutritionTables": [
           {
@@ -230510,7 +230539,7 @@
         "title": "Almás töltelék",
         "servings": {
           "amount": 3,
-          "unit": "rud"
+          "unit": "rúd"
         },
         "nutritionTables": [
           {
@@ -230557,7 +230586,7 @@
         "title": "Káposztás töltelék",
         "servings": {
           "amount": 3,
-          "unit": "rud"
+          "unit": "rúd"
         },
         "nutritionTables": [
           {
@@ -232427,7 +232456,7 @@
     "createdAt": "2026-03-26T12:27:35.000Z",
     "category": "zoldsegetelek",
     "servings": {
-      "unit": "fo",
+      "unit": "fő",
       "amount": 180
     },
     "sourceModxId": 4419,
@@ -234733,7 +234762,7 @@
     },
     "servings": {
       "amount": 160,
-      "unit": "fo"
+      "unit": "fő"
     },
     "category": "sos-edes-sutemenyek-desszertek-tesztak",
     "id": "villamgyors-vegan-gesztenyes-meggyes-tonkolybatyuk",

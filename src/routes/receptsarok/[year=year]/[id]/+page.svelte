@@ -124,7 +124,7 @@
       <li>
         <a href="/receptsarok/{recipe.category}" class="opacity-70 hover:opacity-100">{category?.name || recipe.category}</a>
       </li>
-      <li class="max-w-[min(100%,40ch)] truncate" title={recipe.title}>{recipe.title}</li>
+      <!-- <li class="max-w-[min(100%,40ch)] truncate" title={recipe.title}>{recipe.title}</li> -->
     </ul>
   </nav>
   <h1 class="text-center">{recipe.title}</h1>

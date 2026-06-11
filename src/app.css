@@ -345,6 +345,10 @@ article th + th, article td + td {
 article figure img {
   max-height: 75vh;
 }
+.nicebox img {
+  padding: 1rem;
+}
+
 .prose {
   container-type: inline-size;
 }

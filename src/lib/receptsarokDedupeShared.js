@@ -2,6 +2,7 @@
  * @typedef {object} CandidateLike
  * @property {string} id
  * @property {number} year
+ * @property {string | null | undefined} [author]
  * @property {string | { src?: string | null } | null | undefined} [video]
  * @property {Array<{
  *   energy?: number | null
@@ -102,23 +103,40 @@ export function hasVideo(recipe) {
 }
 
 /**
+ * Recipe credited to a real person, not the generic "Receptsarok" placeholder
+ * (MODX imports carry author "Receptsarok"; RS booklet copies name the actual author).
  * @param {CandidateLike} recipe
- * @returns {{ nutritionScore: number; hasVideo: boolean; year: number }}
+ * @returns {boolean}
+ */
+export function hasRealAuthor(recipe) {
+  const author = String(recipe?.author ?? '')
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .trim()
+  return author.length > 0 && author !== 'receptsarok'
+}
+
+/**
+ * @param {CandidateLike} recipe
+ * @returns {{ nutritionScore: number; hasVideo: boolean; year: number; realAuthor: boolean }}
  */
 export function scoresFor(recipe) {
   return {
     nutritionScore: countNutritionValues(recipe),
     hasVideo: hasVideo(recipe),
     year: Number.isFinite(recipe?.year) ? recipe.year : 0,
+    realAuthor: hasRealAuthor(recipe),
   }
 }
 
 /**
  * Tie-break order:
- * 1) Has video
- * 2) More nutrition values
- * 3) More recent year
- * 4) Deterministic lexical fallback (`{year}-{id}`)
+ * 1) Real author (author ≠ "Receptsarok" placeholder)
+ * 2) Has video
+ * 3) More nutrition values
+ * 4) More recent year
+ * 5) Deterministic lexical fallback (`{year}-{id}`)
  *
  * @template {CandidateLike} T
  * @param {T} a
@@ -127,6 +145,12 @@ export function scoresFor(recipe) {
 export function compareRecipeCandidates(a, b) {
   const aScores = scoresFor(a)
   const bScores = scoresFor(b)
+
+  if (aScores.realAuthor !== bScores.realAuthor) {
+    return aScores.realAuthor
+      ? { winner: a, loser: b, reason: 'author', winnerScores: aScores, loserScores: bScores }
+      : { winner: b, loser: a, reason: 'author', winnerScores: bScores, loserScores: aScores }
+  }
 
   if (aScores.hasVideo !== bScores.hasVideo) {
     return aScores.hasVideo
@@ -196,14 +220,14 @@ export function pickRedirectTarget(matches, contentWinner) {
 /**
  * @template {CandidateLike} T
  * @param {T[]} candidates
- * @returns {{ winner: T | null; reason: 'video' | 'nutrition' | 'year' | 'id' | null }}
+ * @returns {{ winner: T | null; reason: 'author' | 'video' | 'nutrition' | 'year' | 'id' | null }}
  */
 export function chooseWinner(candidates) {
   if (!Array.isArray(candidates) || candidates.length === 0) {
     return { winner: null, reason: null }
   }
   let winner = candidates[0]
-  /** @type {'video' | 'nutrition' | 'year' | 'id'} */
+  /** @type {'author' | 'video' | 'nutrition' | 'year' | 'id'} */
   let reason = 'id'
   for (let i = 1; i < candidates.length; i += 1) {
     const result = compareRecipeCandidates(winner, candidates[i])

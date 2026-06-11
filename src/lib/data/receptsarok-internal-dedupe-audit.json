@@ -1,0 +1,12 @@
+{
+  "generatedAt": "2026-06-10T12:20:36.795Z",
+  "sourceRecipes": "src/lib/data/recipes.json",
+  "summary": {
+    "applyLocal": false,
+    "publishedRecipes": 1764,
+    "duplicateClusters": 0,
+    "losersUnpublished": 0,
+    "winnersFreed": 0
+  },
+  "entries": []
+}

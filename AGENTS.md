@@ -12,7 +12,8 @@ This document describes the logic and behavior of all routes in the Diabetes.hu 
 6. [Subscription Route (`/elofizetes`)](#subscription-route-elofizetes)
 7. [Dynamic Content Routes (`/[...path]`)](#dynamic-content-routes-path)
 8. [Authentication Logic](#authentication-logic)
-9. [Magazine Content Sync (MODX → Firestore)](#magazine-content-sync-modx--firestore)
+9. [Receptsarok Routes (`/receptsarok`)](#receptsarok-routes-receptsarok) — includes [Magazine → Receptsarok redirects](#magazine--receptsarok-redirects-storage--processing)
+10. [Magazine Content Sync (MODX → Firestore)](#magazine-content-sync-modx--firestore)
 
 ---
 
@@ -469,8 +470,10 @@ Nav2 defines the secondary navigation menu with categorized content sections:
 #### Individual document routes
 
 - Loads `docs/{encodeDocPathId(path)}` from Firestore
-- If not found: redirects to `/keres?q=…`
-- If found: returns document; similar articles from `doc.relatedCards` (precomputed at sync) or collection fallback
+- If not found: `redirect(307, '/keres?q=…')` (`+layout.server.ts`)
+- If found and `doc.redirect` is set: `redirect(308, doc.redirect)` — magazine recipe articles point at `/receptsarok/{year}/{id}` (see [Magazine → Receptsarok redirects](#magazine--receptsarok-redirects-storage--processing))
+- Otherwise: returns document; similar articles from `doc.relatedCards` (precomputed at sync) or collection fallback
+- Redirected docs are excluded from collection card lists (`isListedDoc`) and the MiniSearch article index
 
 #### Related articles
 
@@ -578,10 +581,94 @@ Types and constants defined in `src/lib/receptsarok.ts`.
 
 **Create-only caveat (important):** the pipeline parses a doc **only if its `{year}-{id}` key is not already in `recipes.json`** (`if (!recipeByKey.has(key))`) — existing recipes are kept verbatim and never re-parsed. The MODX→Firestore sync (`sync:modx`) also does **not** rebuild recipe content; it only updates `free` flags + redirects and reads `recipes.json` read-only. **So re-saving a MODX recipe doc, or changing the parser, does not update recipes that already exist** — they need a one-time backfill.
 
+**Dedupe winner tie-break** (`chooseWinner`/`compareRecipeCandidates` in `src/lib/receptsarokDedupeShared.js`; used by the pipeline, `scripts/dedupe-receptsarok-internal.mjs`, and sync redirect matching): 1) **real author** — author ≠ the generic "Receptsarok" placeholder (`hasRealAuthor()`; RS booklet copies name the actual author, MODX imports don't) → 2) has video → 3) more nutrition values → 4) more recent year → 5) lexical `{year}-{id}`. `dedupe-receptsarok-internal.mjs --apply-local` unpublishes losers and sets `free: true` on the winner when it unpublishes a free loser, so dedupe never paywalls a previously free recipe. Related year rule: MODX paths never contain four-digit calendar years — a segment like `/2001/` is issue code YYMM (year 2020, issue 1; `parseIssueCodeYear` in both parser copies).
+
 | Command | Script | When to use |
 |---|---|---|
+| `npm run recipes:dedupe:manual*` | `scripts/manual-receptsarok-dedupe.js` | Build/extend `recipes.json` from MODX docs (create-only; `--create-local` / `--apply-local` variants). |
+| `npm run recipes:dedupe:internal` | `scripts/dedupe-receptsarok-internal.mjs` | **Dry run** — cluster published recipes by normalized title, pick a winner per cluster (`chooseWinner`), write audit to `src/lib/data/receptsarok-internal-dedupe-audit.json`. |
+| `npm run recipes:dedupe:internal:apply-local` | `… --apply-local` | Set `published: false` on losers in `recipes.json`; winner inherits `free: true` when a free loser is unpublished. Then `sync:recipes:apply` + `sync:rs-collections:apply`. |
+| `npm run recipes:dedupe:validate` | `scripts/validate-recipe-dedupe-v2.mjs` | Regression asserts for tie-break order (author/video/nutrition/year), YYMM path-year parsing, parser entity handling. Run after touching parser or dedupe logic. |
 | `npm run recipes:backfill-content` | `scripts/backfill-collection-recipe-content.mjs` | **Dry run** — re-derive `image`/`img` + `instructions` for every recipe whose source doc was split into multiple recipes, from live MODX + the same `nagyito` transform the sync uses. Prints what would change. |
 | `npm run recipes:backfill-content:apply` | `… --apply` | Write changes to `recipes.json`; then run `npm run sync:recipes:apply` to push to Firestore. Curated fields (id, year, category, free) and single-recipe / dedupe-variant docs are left untouched. |
+
+### Dedupe & sync process (recipes)
+
+The end-to-end order when recipe data changes (parser fix, new MODX docs, manual edits):
+
+1. **Edit/regenerate `recipes.json`** — `recipes:dedupe:manual*` for new docs, `recipes:backfill-content:apply` after parser fixes, or targeted manual edits. `recipes.json` is canonical; never edit Firestore `recipes/*` directly.
+2. **`recipes:dedupe:internal` (dry run), then `:apply-local`** if duplicates appeared — unpublishes same-title losers, propagates `free` to winners. Losers stay in `recipes.json`/Firestore with `published: false` (doc ids are stable; nothing is deleted), they just drop out of the UI and search index.
+3. **`npm run sync:recipes:apply`** — upserts all of `recipes.json` to Firestore `recipes/{year}-{id}`, **deletes orphan docs** whose `{year}-{id}` key vanished (e.g. after a year fix), rebuilds the projection snapshot + search index.
+4. **`npm run sync:rs-collections:apply`** — rebuilds `collections/rs-home` (`totalFree`, `freeCountsByCategory`), `rs-{category}`, `rs-teasers-*`. Required after any `free`/`published`/category change.
+5. **Restart the dev server** — `getRecipes()` is memoized per process with a stable cache key; a running dev server keeps serving the pre-change recipe list indefinitely.
+
+### Magazine → Receptsarok redirects (storage & processing)
+
+Old magazine recipe articles (`recept` tag, or legacy MODX paths `receptsarok/{category}/{slug}`) redirect to canonical Receptsarok recipe pages instead of rendering duplicate magazine content.
+
+#### Where redirects are stored
+
+| Layer | Location | Role |
+|---|---|---|
+| **Manifest (git)** | `src/lib/data/receptsarok-redirects.json` | Version-controlled source of truth for static mappings. Shape: `{ generatedAt, sourceDocs, sourceRecipes, entries: [{ modxContentId, path, year, id }] }`. Each entry resolves to `/receptsarok/{year}/{id}`. |
+| **Firestore (runtime)** | `docs/{encodeDocPathId(path)}` → field `redirect` | What the live site reads — full path string, e.g. `/receptsarok/2013/makos-es-dios-bejgli`. Written by `npm run sync:modx*`. |
+| **In-memory (sync only)** | `ReceptsarokRedirectMaps` in `src/lib/modx/transform.ts` | `byContentId` + `byPath` maps built from the manifest at the start of each sync run; dynamic matches are registered in-memory and appended to the manifest before the run ends. |
+
+There is no Netlify `_redirects` file or `netlify.toml` rule for these — SvelteKit SSR performs the redirect.
+
+**Firestore `docs` gotcha**: the site reads `docs/{encodedPath}` (`~`-separated path). Some legacy docs also exist keyed by numeric MODX id — updating those does nothing for the live site.
+
+#### Sync-time processing
+
+**Files:**
+- `scripts/sync-modx-to-firestore.mjs` — orchestration
+- `scripts/lib/receptsarok-redirects-manifest.mjs` — `loadRedirectsManifest`, `mergeRedirectEntries`, `appendRedirectsManifest`, `registerRedirectEntries`
+- `scripts/lib/receptsarok-redirect-match.mjs` — `matchReceptsarokRedirectTarget`, `resolveReceptsarokRedirect`
+- `src/lib/modx/transform.ts` — `loadReceptsarokRedirectMaps`, `setReceptsarokRedirect`
+
+**Per changed MODX row** (during `sync:modx` / `sync:modx:payload` / `sync:modx:full`):
+
+1. Load manifest → `redirectMaps` (`byContentId`, `byPath`).
+2. Batch-read existing `doc.redirect` from Firestore for changed rows that lack a cached redirect (`loadExistingRedirectsForChanged`).
+3. **`resolveReceptsarokRedirect`** picks the target in this order (first hit wins):
+   - Static manifest entry by `modxContentId`
+   - Static manifest entry by normalized article `path`
+   - Existing Firestore / in-run cached redirect (fallback)
+   - **Dynamic match** against published recipes in `recipes.json` — only when none of the above apply
+4. **`setReceptsarokRedirect`** sets or clears `doc.redirect` on the processed document.
+5. Upsert processed doc to `docs/{encodeDocPathId(path)}`.
+6. New dynamic matches → **`appendRedirectsManifest`** (merged by `modxContentId`; GitHub Actions may commit the updated file).
+7. Any resolved redirect (static or dynamic) → target recipe **`free: true`** in `recipes.json` + Firestore (`applyModxLinkedRecipeFreeFlags`); when any recipe updated, **`sync:rs-collections:apply`** runs (unless `--skip-rs-collections`).
+
+#### Dynamic matching
+
+Eligible docs (`isMagazineRecipeDoc` in `receptsarok-redirect-match.mjs`):
+
+- Exactly one tag: `recept`, **or**
+- Legacy MODX path `receptsarok/{category}/{slug}` (no year segment)
+
+**Match order** (`matchReceptsarokRedirectTarget` — same rules as `recipes:dedupe:manual`):
+
+1. Legacy path alias — slug under `receptsarok/…` matched to recipe `id` (`chooseWinner` / `pickRedirectTarget`)
+2. Title scoring (min 60) + author compatibility + alias-id bonus; winner picked with dedupe tie-break
+3. Alias-only match on recipe `id`
+4. Exact `{year from path YYMM}/{alias}` key in catalogue
+
+**Dedupe tie-break** (shared with recipe dedupe): real author → video → nutrition count → more recent year → lexical `{year}-{id}`.
+
+#### Runtime request handling
+
+- **`src/routes/[...path]/+layout.server.ts`**: `doc.redirect` → HTTP 308 to Receptsarok URL; missing doc → 307 to `/keres?q=…`
+- **`src/routes/[...path]/+page.server.ts`**: skips `ReceptsarokWidget` when `doc.redirect` is set
+- **Excluded from listings**: `isListedDoc()` (`src/lib/modx/collections.ts`) and article MiniSearch indexing (`scripts/lib/search-index.mjs`) skip docs with `redirect`
+
+#### Pitfalls & maintenance
+
+- Manifest `year` differing from the article path's YYMM issue year is **normal** — the redirect targets the canonical/booklet copy.
+- **Broken redirect**: manifest `{year}-{id}` missing from `recipes.json` → user lands on a 404; fix the manifest entry or restore the recipe, then re-sync.
+- **After changing a recipe's `year`**: update `recipes.json`, check `receptsarok-redirects.json`, re-run `sync:recipes:apply`, then `sync:modx` so `doc.redirect` on the path-encoded Firestore doc is refreshed.
+- **Static manifest entries always win** over dynamic re-matching — edit the manifest to override a bad automatic match.
+- **`scripts/fix-modx-recipe-years.mjs`** can batch-update manifest `year` fields when issue-code years were misinterpreted.
 
 ### Paywall / Freemium Model
 
@@ -590,6 +677,7 @@ Types and constants defined in `src/lib/receptsarok.ts`.
 - **Subscription status**: Stored in Firestore `users/{uid}.subscription.receptsarok`
 - **Client-side gating**: `hasReceptsarokAccess` derived store in `authStore.ts`
 - **Dev mode** (`vite dev`): any signed-in user is treated as a subscriber for UI and for `requireReceptsarokSubscriber` (after valid ID token); production behavior unchanged
+- **Free trial period**: when the env var **`PUBLIC_RECEPTSAROK_TRIAL`** is `'true'`/`'1'` (set in Netlify), any signed-in user gets full access in production too — same code path as dev mode. Helper: `isReceptsarokTrialActive()` in `src/lib/receptsarokAccess.ts`, honored by `hasReceptsarokAccess` (client) and `requireReceptsarokSubscriber` (server). `PaywallCTA.svelte` then shows "Ingyenes próbaidőszak" messaging with a login button (opens `#mod_login`) instead of the `/elofizetes` subscription CTA. Unset/false ⇒ normal paywall. Note: SSR still strips gated fields (`stripRecipeGatedFields`); trial users load full recipes client-side via `/api/receptsarok/recipe/...` like subscribers.
 - Free magazine recipes (`recept`-tagged articles in MODX) remain free, unaffected
 
 ### Route Structure
@@ -619,7 +707,7 @@ Magazine articles are **not** bundled in the Netlify build. MODX MySQL is read o
 
 **GitHub Actions sync**: Workflow `.github/workflows/sync-modx-to-firestore.yml` — **manual** (`workflow_dispatch`) or triggered from MODX on save (`scripts/modx/modx-firestore-sync-plugin.php`). Supports **full backfill** via workflow input.
 
-**Receptsarok redirects + free flags**: Static entries in `src/lib/data/receptsarok-redirects.json` are loaded at sync time. For new magazine `recept` docs (including legacy MODX paths `receptsarok/{category}/{slug}`), the sync worker **matches against `recipes.json`** (title/author/alias, same rules as `recipes:dedupe:manual`), sets `doc.redirect` → `/receptsarok/{year}/{id}`, sets matching recipes to **`free: true`** in Firestore + `recipes.json`, and runs **`sync:rs-collections:apply`** when any recipe was updated. New redirect matches are appended to `receptsarok-redirects.json` during sync (GitHub Actions commits manifest + `recipes.json` when changed).
+**Receptsarok redirects + free flags**: See [Magazine → Receptsarok redirects](#magazine--receptsarok-redirects-storage--processing). Summary: `sync:modx*` loads `receptsarok-redirects.json`, resolves `doc.redirect`, appends new dynamic matches to the manifest, sets linked recipes `free: true`, and may run `sync:rs-collections:apply`. GitHub Actions commits manifest + `recipes.json` when changed.
 
 ### Commands
 
@@ -667,6 +755,10 @@ Run from repo root (`magazin/`). Requires `.env` with `MODXDB_*`, `FIREBASE_ADMI
 | MODX plugin dispatches but GitHub Action fails immediately (no MySQL errors) | Check PAT has Contents: write; check `MODX_SYNC_PAYLOAD` env is non-empty in the run |
 | `doc.tv.egyesulet` missing on old articles after enabling TV 31 | Run `npm run sync:modx:full` to backfill all existing docs |
 | Re-saved a MODX **recipe collection** (or fixed the recipe parser) but recipe content / per-recipe images didn't change | Pipeline is create-only and `sync:modx` doesn't rebuild recipes. New docs → `npm run recipes:dedupe:manual`; existing recipes after a parser fix → `npm run recipes:backfill-content:apply` then `npm run sync:recipes:apply` |
+| Same recipe shows up twice under different years (title duplicate) | `npm run recipes:dedupe:internal` (review audit) → `:apply-local` → `sync:recipes:apply` → `sync:rs-collections:apply`; winner = real author > video > nutrition > year |
+| Recipe year looks wrong (e.g. 2001) | MODX paths carry YYMM issue codes, never four-digit years — fix the recipe's `year` in `recipes.json`, re-sync (old `{year}-{id}` doc is deleted as orphan), then check `receptsarok-redirects.json` + the article's `doc.redirect` in Firestore for the stale year |
+| Recipe data changed but dev server still shows old recipes / deleted recipe still renders | Restart the dev server — `getRecipes()` is memoized per process |
+| Article's recipe redirect points at a 404 | Manifest entry's `{year}-{id}` no longer exists in `recipes.json` — fix the entry, and update `doc.redirect` on `docs/{encodedPath}` (not the legacy numeric-id doc) |
 
 Do **not** suggest `npm run build` to refresh article text — content updates come from the sync worker, not the SvelteKit build.
 
@@ -675,7 +767,7 @@ Do **not** suggest `npm run build` to refresh article text — content updates c
 ## Data Flow Summary
 
 1. **Site Configuration**: Loaded in layout servers, available to all routes
-2. **Documents**: Firestore `docs/` + `collections/` via `$lib/magazine/firestore` (synced from MODX by `npm run sync:modx*`)
+2. **Documents**: Firestore `docs/` + `collections/` via `$lib/magazine/firestore` (synced from MODX by `npm run sync:modx*`). Magazine recipe redirects: manifest `src/lib/data/receptsarok-redirects.json` + sync → `doc.redirect` on path-encoded docs → SSR 308 (see [Magazine → Receptsarok redirects](#magazine--receptsarok-redirects-storage--processing)).
 3. **Quizzes**: Loaded from Firestore via `getKviz()`
 4. **Scores**: Stored in Firestore at `kviz/{quizId}/scores/{uid}` (subcollection under each quiz document, stores `name`, `email`, `score`, `date` to the actual quiz/scores table)
 5. **Recipes**: SSR via `$lib/receptsarokFirestore` (`collections/rs-home`, `collections/rs-{category}`, `recipes/{year}-{id}` detail, `collections/rs-teasers-{year}` + index for `/keres`). Populated by `sync:recipes:apply` + `sync:rs-collections:apply`. Magazine `sync:modx` maintains `meta/projections` Storage snapshot + incremental search index (not full-catalog Firestore reads each run).
