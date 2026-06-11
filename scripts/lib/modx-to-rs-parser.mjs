@@ -649,16 +649,30 @@ function deriveVideo(doc, content) {
   return parseVideoObject(match[0])
 }
 
-function deriveImage(doc) {
+/** Canonical `img` shape: card fields (`src`, `pos`, `ext`) + optional `alt`/`caption`. */
+function cardImgFromSrc(src, { pos, ext, alt, caption } = {}) {
+  if (!src || typeof src !== 'string') return null
+  const img = {
+    src,
+    pos: (typeof pos === 'string' && pos) || '50% 40%',
+    ext: (typeof ext === 'string' && ext) || src.split('.').pop()?.split('?')[0] || 'jpg',
+  }
+  // `alt` falls back to the recipe title at render time — only store a real override.
+  if (alt) img.alt = alt
+  if (caption) img.caption = caption
+  return img
+}
+
+function deriveImg(doc) {
   if (doc?.img && typeof doc.img === 'object' && typeof doc.img.src === 'string') {
-    return {
-      src: doc.img.src,
-      alt: decodeHtmlEntities(doc.longtitle || doc.title || ''),
+    return cardImgFromSrc(doc.img.src, {
+      pos: doc.img.pos,
+      ext: doc.img.ext,
       caption:
         typeof doc.img.caption === 'string' && doc.img.caption.trim()
           ? decodeHtmlEntities(doc.img.caption)
-          : null,
-    }
+          : undefined,
+    })
   }
   return null
 }
@@ -837,7 +851,11 @@ function deriveSubRecipes(content) {
         nutritionTables,
         ingredientGroups,
         instructions,
-        image: image ? { src: image.src, alt: image.alt || title, caption: null } : null,
+        img: image
+          ? cardImgFromSrc(image.src, {
+              alt: image.alt && image.alt !== title ? image.alt : undefined,
+            })
+          : null,
       },
     }
   }
@@ -1058,12 +1076,7 @@ export function buildRecipesFromModxDoc(doc, options) {
       instructions: sub.instructions,
       // Each split recipe keeps its own lead-in image; only the first recipe
       // falls back to the document's main (page) image.
-      image: sub.image || (out.length === 0 ? deriveImage(doc) : null),
-      img: sub.image
-        ? { src: sub.image.src }
-        : out.length === 0 && doc?.img && typeof doc.img === 'object'
-          ? doc.img
-          : undefined,
+      img: sub.img ?? (out.length === 0 ? deriveImg(doc) ?? undefined : undefined),
       subRecipes: [],
       hasSubRecipes: false,
       createdAt,
@@ -1184,8 +1197,7 @@ export function buildRecipeFromModxDoc(doc, options) {
       subRecipeTitles: subRecipes.map((sub) => sub.title),
     }),
     instructions,
-    image: deriveImage(doc),
-    img: doc?.img && typeof doc.img === 'object' ? doc.img : undefined,
+    img: deriveImg(doc) ?? undefined,
     subRecipes,
     hasSubRecipes: subRecipes.length > 0,
     createdAt,

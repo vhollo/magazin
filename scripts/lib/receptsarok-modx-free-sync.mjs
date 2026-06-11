@@ -1,4 +1,5 @@
 import fs from 'node:fs'
+import { stringifyRecipesJson } from '../../src/lib/recipesJsonFormat.js'
 
 /**
  * @param {string} redirect
@@ -97,7 +98,7 @@ export async function applyModxLinkedRecipeFreeFlags({
   if (apply && batchCount % 400 !== 0) await batch.commit()
 
   if (apply && changedKeys.length > 0) {
-    fs.writeFileSync(recipesJsonPath, `${JSON.stringify(recipes, null, 2)}\n`)
+    fs.writeFileSync(recipesJsonPath, stringifyRecipesJson(recipes))
   }
 
   const updated = changedKeys.length

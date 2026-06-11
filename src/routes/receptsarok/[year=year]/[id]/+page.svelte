@@ -9,9 +9,8 @@
   import ReceptsarokLogo from '$lib/components/ReceptsarokLogo.svelte'
   import ReceptsarokWidget from '$lib/components/ReceptsarokWidget.svelte'
   import {
-    normalizeRecipeAssetSrc,
+    recipeCardImg,
     recipeDetailSegments,
-    recipeHeroToCardImg,
     type Recipe,
   } from '$lib/receptsarok'
   import type { PageProps } from './$types'
@@ -37,9 +36,7 @@
 
   let displayRecipe = $derived((fullRecipe ?? recipe) as Recipe)
 
-  let heroCardImg = $derived(
-    recipeHeroToCardImg(displayRecipe.year, displayRecipe.image, displayRecipe.img)
-  )
+  let heroCardImg = $derived(recipeCardImg(displayRecipe))
   let recipeVideo = $derived.by(() => {
     const video = displayRecipe.video
 
@@ -146,9 +143,9 @@
     </figure>
   {:else if heroCardImg}
     <figure class="text-center not-prose">
-      <img src={heroCardImg.src} alt={displayRecipe.image?.alt ?? displayRecipe.title} class="mx-auto" />
-      {#if displayRecipe.image?.caption}
-        <figcaption class="mt-2 text-sm text-base-content/70">{displayRecipe.image.caption}</figcaption>
+      <img src={heroCardImg.src} alt={heroCardImg.alt ?? displayRecipe.title} class="mx-auto" />
+      {#if heroCardImg.caption}
+        <figcaption class="mt-2 text-sm text-base-content/70">{heroCardImg.caption}</figcaption>
       {/if}
     </figure>
   {/if}
@@ -229,15 +226,15 @@
             <p>{paragraph}</p>
           {/each}
 
-          {#if sub.image}
+          {#if sub.img}
             <figure class="text-center not-prose">
               <img
-                src={normalizeRecipeAssetSrc(recipe.year, sub.image.src)}
-                alt={sub.image.alt}
+                src={sub.img.src}
+                alt={sub.img.alt ?? sub.title}
                 class="mx-auto"
               />
-              {#if sub.image.caption}
-                <figcaption class="mt-2 text-sm text-base-content/70">{sub.image.caption}</figcaption>
+              {#if sub.img.caption}
+                <figcaption class="mt-2 text-sm text-base-content/70">{sub.img.caption}</figcaption>
               {/if}
             </figure>
           {/if}

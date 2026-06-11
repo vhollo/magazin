@@ -1,8 +1,9 @@
 import fs from 'node:fs'
 import path from 'node:path'
+import { stringifyRecipesJson } from '../src/lib/recipesJsonFormat.js'
 
 const RECIPES_PATH = path.resolve(process.cwd(), 'src/lib/data/recipes.json')
-const REVIEW_PATH = path.resolve(process.cwd(), 'src/lib/data/magazin-recipe-category-review.json')
+const REVIEW_PATH = path.resolve(process.cwd(), 'scripts/data/magazin-recipe-category-review.json')
 
 function normalizeCategory(value) {
   return String(value ?? '').trim()
@@ -49,7 +50,7 @@ const unmatched = [...desiredByKey.keys()].filter(
   (key) => !recipes.some((recipe) => `${recipe.year}/${recipe.id}` === key)
 ).length
 
-fs.writeFileSync(RECIPES_PATH, `${JSON.stringify(recipes, null, 2)}\n`)
+fs.writeFileSync(RECIPES_PATH, stringifyRecipesJson(recipes))
 
 console.log(
   `Imported category review: updated=${updated}, unchanged=${unchanged}, unmatched=${unmatched}`

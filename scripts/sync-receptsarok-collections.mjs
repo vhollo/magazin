@@ -1,32 +1,50 @@
 /**
- * Build Receptsarok UI collections from Firestore `recipes` + `categories`:
+ * Build Receptsarok UI collections from src/lib/data/recipes.json + categories.json
+ * (canonical; pass --from-firestore to read the Firestore `recipes` + `categories`
+ * collections instead — costs ~1 read per recipe):
  *
  *   collections/rs-home              → categories + per-category counts (≈5 KB)
  *   collections/rs-{categoryId}      → thin RecipeLayoutEntry cards per category
- *   collections/rs-teasers-{year}      → slim keres teasers keyed by recipe id (per year)
- *   collections/rs-teasers-index       → { years: number[] } for parallel SSR reads
+ *   collections/rs-teasers-{year}    → slim keres teasers keyed by recipe id (per year)
+ *   collections/rs-teasers-index     → { years: number[] } for parallel SSR reads
+ *   meta/stats                       → { recipeCount, freeCount } merged (root layout reads this)
+ *   Storage receptsarok/catalog.json.gz → private slim catalog for the meal planner API
+ *
+ * Unchanged docs are skipped: content hashes live in meta/rsCollections (one read),
+ * so a no-op run costs 1 read + 0 writes.
  *
  * Usage:
  *   node scripts/sync-receptsarok-collections.mjs           # dry run
  *   node scripts/sync-receptsarok-collections.mjs --apply   # write
  *
- * Env: FIREBASE_ADMIN_KEY
+ * Env: FIREBASE_ADMIN_KEY (+ FIREBASE_STORAGE_BUCKET for the catalog upload)
  */
 import 'dotenv/config'
+import fs from 'node:fs'
 import path from 'node:path'
+import { createHash } from 'node:crypto'
+import { gzipSync } from 'node:zlib'
 import { fileURLToPath, pathToFileURL } from 'node:url'
 import { getFirestoreDb } from './lib/firebase-admin.mjs'
+import { uploadPrivateFile } from './lib/firebase-storage.mjs'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const root = path.resolve(__dirname, '..')
 
+const RECIPES_PATH = path.join(root, 'src/lib/data/recipes.json')
+const CATEGORIES_PATH = path.join(root, 'src/lib/data/categories.json')
+
 const apply = process.argv.includes('--apply')
+const fromFirestore = process.argv.includes('--from-firestore')
 
 const COLLECTIONS = 'collections'
 const RS_HOME_DOC = 'rs-home'
 const RS_TEASERS_INDEX_DOC = 'rs-teasers-index'
 /** @deprecated Monolithic doc — removed on apply when shards are written. */
 const RS_TEASERS_LEGACY_DOC = 'rs-teasers'
+/** Content hashes of all rs-* docs — read first so unchanged docs are skipped. */
+const RS_HASHES_DOC = 'rsCollections'
+export const RS_CATALOG_OBJECT_PATH = 'receptsarok/catalog.json.gz'
 
 /** Firestore doc size / index-entry soft limits. */
 const FIRESTORE_SOFT_LIMIT_BYTES = 900 * 1024
@@ -62,16 +80,38 @@ function estimateIndexEntries(value) {
   return n
 }
 
+/** Deterministic stringify (sorted keys) so content hashes are stable. */
+function stableStringify(value) {
+  if (Array.isArray(value)) return `[${value.map(stableStringify).join(',')}]`
+  if (value && typeof value === 'object') {
+    return `{${Object.keys(value)
+      .sort()
+      .map((k) => `${JSON.stringify(k)}:${stableStringify(value[k])}`)
+      .join(',')}}`
+  }
+  return JSON.stringify(value)
+}
+
+/** Hash of a doc's payload, ignoring the volatile generatedAt stamp. */
+function contentHash(doc) {
+  const { generatedAt: _ignored, ...rest } = doc
+  return createHash('sha1').update(stableStringify(rest)).digest('hex')
+}
+
 function isPublished(recipe) {
   return recipe?.published !== false
 }
 
-async function loadRecipes(firestore) {
+function readJson(filePath) {
+  return JSON.parse(fs.readFileSync(filePath, 'utf8'))
+}
+
+async function loadRecipesFromFirestore(firestore) {
   const snap = await firestore.collection('recipes').get()
   return snap.docs.map((d) => d.data())
 }
 
-async function loadCategories(firestore) {
+async function loadCategoriesFromFirestore(firestore) {
   const snap = await firestore.collection('categories').get()
   return snap.docs
     .map((d) => ({ id: d.id, ...d.data() }))
@@ -143,11 +183,19 @@ async function main() {
 
   const firestore = getFirestoreDb()
 
-  console.log('loading recipes + categories from Firestore…')
-  const [allRecipes, categories] = await Promise.all([
-    loadRecipes(firestore),
-    loadCategories(firestore),
-  ])
+  let allRecipes
+  let categories
+  if (fromFirestore) {
+    console.log('loading recipes + categories from Firestore…')
+    ;[allRecipes, categories] = await Promise.all([
+      loadRecipesFromFirestore(firestore),
+      loadCategoriesFromFirestore(firestore),
+    ])
+  } else {
+    console.log('loading recipes + categories from src/lib/data (pass --from-firestore to override)…')
+    allRecipes = readJson(RECIPES_PATH)
+    categories = readJson(CATEGORIES_PATH).sort((a, b) => (a.order ?? 0) - (b.order ?? 0))
+  }
   console.log(
     `  recipes: ${allRecipes.length} (${allRecipes.filter(isPublished).length} published), categories: ${categories.length}`
   )
@@ -163,43 +211,78 @@ async function main() {
     .filter(Number.isFinite)
     .sort((a, b) => b - a)
 
+  /** Every Firestore doc this sync owns: id → payload. */
+  const docs = new Map()
+  docs.set(RS_HOME_DOC, rsHome)
+  for (const [id, doc] of Object.entries(rsCategories)) docs.set(`rs-${id}`, doc)
+  let totalTeasers = 0
+  for (const year of years) {
+    const shard = {
+      year,
+      teasersByKey: teaserShards[year],
+      count: Object.keys(teaserShards[year]).length,
+      generatedAt: new Date().toISOString(),
+    }
+    totalTeasers += shard.count
+    docs.set(rsTeasersShardDocId(year), shard)
+  }
+  docs.set(RS_TEASERS_INDEX_DOC, {
+    years,
+    totalTeasers,
+    generatedAt: new Date().toISOString(),
+  })
+
+  // Slim meal-planner catalog (layout entries only — no instructions/subRecipes).
+  const catalogEntries = recipes.map(toLayoutRecipe)
+  const catalogJson = JSON.stringify({ recipes: catalogEntries })
+  const catalogGz = gzipSync(Buffer.from(catalogJson, 'utf8'))
+  const catalogHash = createHash('sha1').update(catalogJson).digest('hex')
+
   console.log(
     `\n${RS_HOME_DOC}: ${rsHome.categories.length} cats, totalRecipes=${rsHome.totalRecipes}, totalFree=${rsHome.totalFree}`
   )
   console.log(`  size ≈ ${approxDocSize(rsHome)} bytes`)
 
   let oversized = 0
-  for (const [id, doc] of Object.entries(rsCategories)) {
-    const size = approxDocSize(doc)
-    const flag = size > FIRESTORE_SOFT_LIMIT_BYTES ? ' ⚠ NEAR 1 MiB' : ''
-    if (size > FIRESTORE_SOFT_LIMIT_BYTES) oversized += 1
-    console.log(`  collections/rs-${id}: ${doc.count} cards, ≈ ${size} bytes${flag}`)
-  }
-
-  let totalTeasers = 0
-  for (const year of years) {
-    const doc = {
-      year,
-      teasersByKey: teaserShards[year],
-      count: Object.keys(teaserShards[year]).length,
-      generatedAt: new Date().toISOString(),
-    }
-    totalTeasers += doc.count
+  for (const [id, doc] of docs) {
+    if (id === RS_HOME_DOC || id === RS_TEASERS_INDEX_DOC) continue
     const size = approxDocSize(doc)
     const entries = estimateIndexEntries(doc)
     const flags = []
     if (size > FIRESTORE_SOFT_LIMIT_BYTES) flags.push('NEAR 1 MiB')
-    if (entries > FIRESTORE_INDEX_ENTRY_SOFT_LIMIT) flags.push('INDEX RISK')
+    if (id.startsWith('rs-teasers-') && entries > FIRESTORE_INDEX_ENTRY_SOFT_LIMIT)
+      flags.push('INDEX RISK')
     if (flags.length) oversized += 1
+    const count = doc.count ?? ''
     console.log(
-      `  collections/${rsTeasersShardDocId(year)}: ${doc.count} teasers, ≈ ${size} bytes, ~${entries} index entries${flags.length ? ` ⚠ ${flags.join(', ')}` : ''}`
+      `  collections/${id}: ${count} item(s), ≈ ${size} bytes${flags.length ? ` ⚠ ${flags.join(', ')}` : ''}`
     )
   }
   console.log(`  ${RS_TEASERS_INDEX_DOC}: years=[${years.join(', ')}], totalTeasers=${totalTeasers}`)
+  console.log(
+    `  catalog: ${catalogEntries.length} entries, ${catalogJson.length} bytes raw, ${catalogGz.length} bytes gz`
+  )
 
   if (oversized > 0) {
     console.warn(`\n${oversized} doc(s) flagged — check size or index-entry estimates.`)
   }
+
+  // Previous content hashes → skip unchanged docs (1 read for the whole run).
+  const hashesSnap = await firestore.collection('meta').doc(RS_HASHES_DOC).get()
+  const prevHashes = (hashesSnap.exists && hashesSnap.data()?.hashes) || {}
+  const nextHashes = {}
+  const changed = []
+  for (const [id, doc] of docs) {
+    const hash = contentHash(doc)
+    nextHashes[id] = hash
+    if (prevHashes[id] !== hash) changed.push(id)
+  }
+  const catalogChanged = prevHashes.catalog !== catalogHash
+  nextHashes.catalog = catalogHash
+
+  console.log(
+    `\nchanged: ${changed.length}/${docs.size} doc(s)${changed.length ? ` → ${changed.join(', ')}` : ''}; catalog ${catalogChanged ? 'changed' : 'unchanged'}`
+  )
 
   if (!apply) {
     console.log('\nDry run — pass --apply to write.')
@@ -207,45 +290,48 @@ async function main() {
   }
 
   let written = 0
-
-  await firestore.collection(COLLECTIONS).doc(RS_HOME_DOC).set(rsHome)
-  written += 1
-  console.log(`wrote collections/${RS_HOME_DOC}`)
-
-  for (const [id, doc] of Object.entries(rsCategories)) {
-    await firestore.collection(COLLECTIONS).doc(`rs-${id}`).set(doc)
+  for (const id of changed) {
+    await firestore.collection(COLLECTIONS).doc(id).set(docs.get(id))
     written += 1
-    console.log(`wrote collections/rs-${id} (${doc.count} cards)`)
+    console.log(`wrote collections/${id}`)
   }
 
-  for (const year of years) {
-    const doc = {
-      year,
-      teasersByKey: teaserShards[year],
-      count: Object.keys(teaserShards[year]).length,
-      generatedAt: new Date().toISOString(),
+  if (catalogChanged) {
+    try {
+      await uploadPrivateFile(RS_CATALOG_OBJECT_PATH, catalogGz, 'application/gzip', {
+        recipeCount: String(catalogEntries.length),
+        contentHash: catalogHash,
+      })
+      console.log(`uploaded ${RS_CATALOG_OBJECT_PATH} (${catalogGz.length} bytes)`)
+    } catch (error) {
+      console.warn(`catalog upload skipped: ${error.message}`)
+      delete nextHashes.catalog // retry next run
     }
-    await firestore.collection(COLLECTIONS).doc(rsTeasersShardDocId(year)).set(doc)
-    written += 1
-    console.log(`wrote collections/${rsTeasersShardDocId(year)} (${doc.count} teasers)`)
   }
 
-  await firestore.collection(COLLECTIONS).doc(RS_TEASERS_INDEX_DOC).set({
-    years,
-    totalTeasers,
+  // Counts for the root layout — merged so sync:modx's articleCount survives.
+  await firestore.collection('meta').doc('stats').set(
+    {
+      recipeCount: rsHome.totalRecipes,
+      freeCount: rsHome.totalFree,
+      rsGeneratedAt: new Date().toISOString(),
+    },
+    { merge: true }
+  )
+  console.log('merged meta/stats { recipeCount, freeCount }')
+
+  await firestore.collection('meta').doc(RS_HASHES_DOC).set({
+    hashes: nextHashes,
     generatedAt: new Date().toISOString(),
   })
-  written += 1
-  console.log(`wrote collections/${RS_TEASERS_INDEX_DOC}`)
 
   try {
     await firestore.collection(COLLECTIONS).doc(RS_TEASERS_LEGACY_DOC).delete()
-    console.log(`deleted legacy collections/${RS_TEASERS_LEGACY_DOC}`)
   } catch {
     /* optional */
   }
 
-  console.log(`\ndone: ${written} docs written`)
+  console.log(`\ndone: ${written} collection doc(s) written, ${docs.size - written} unchanged`)
 }
 
 main().catch((error) => {

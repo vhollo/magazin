@@ -14,19 +14,20 @@ import {
   normalizeText,
 } from './modxToRsParser.js'
 import { predictRecipeCategory } from './receptsarokCategoryPredictor.js'
+import { stringifyRecipesJson } from './recipesJsonFormat.js'
 
-const DATA_PATH = path.resolve(process.cwd(), 'src/lib/data/data.json')
+const DATA_PATH = path.resolve(process.cwd(), 'scripts/data/data.json')
 const RECIPES_PATH = path.resolve(process.cwd(), 'src/lib/data/recipes.json')
 const REDIRECTS_PATH = path.resolve(process.cwd(), 'src/lib/data/receptsarok-redirects.json')
-const AUDIT_PATH = path.resolve(process.cwd(), 'src/lib/data/receptsarok-dedupe-audit.json')
-const CREATE_REVIEW_PATH = path.resolve(process.cwd(), 'src/lib/data/receptsarok-create-review.json')
+const AUDIT_PATH = path.resolve(process.cwd(), 'scripts/data/receptsarok-dedupe-audit.json')
+const CREATE_REVIEW_PATH = path.resolve(process.cwd(), 'scripts/data/receptsarok-create-review.json')
 const UNCATEGORIZED_REVIEW_PATH = path.resolve(
   process.cwd(),
-  'src/lib/data/receptsarok-uncategorized-review.json'
+  'scripts/data/receptsarok-uncategorized-review.json'
 )
 const CATEGORY_REVIEW_PATH = path.resolve(
   process.cwd(),
-  'src/lib/data/magazin-recipe-category-review.json'
+  'scripts/data/magazin-recipe-category-review.json'
 )
 
 function tokenize(value, normalizeText) {
@@ -257,8 +258,7 @@ function convertSubRecipesToParsedList({ doc, parentRecipe, parentCategoryDecisi
       ingredientNames,
       searchTerms: deriveSearchTerms(title, ingredientNames),
       instructions,
-      image: parentRecipe?.image ?? null,
-      img: parentRecipe?.img && typeof parentRecipe.img === 'object' ? parentRecipe.img : undefined,
+      img: sub.img ?? (parentRecipe?.img && typeof parentRecipe.img === 'object' ? parentRecipe.img : undefined),
       subRecipes: [],
       hasSubRecipes: false,
       createdAt: parentRecipe?.createdAt || new Date().toISOString(),
@@ -651,7 +651,7 @@ export async function runMagazinRecipeDedupe({ docs, applyLocal = false, createL
   const generatedAt = new Date().toISOString()
   const redirectsPayload = {
     generatedAt,
-    sourceDocs: 'src/lib/data/data.json',
+    sourceDocs: 'scripts/data/data.json',
     sourceRecipes: 'src/lib/data/recipes.json',
     entries: redirects
       .sort((a, b) => String(a.path).localeCompare(String(b.path)))
@@ -714,7 +714,7 @@ export async function runMagazinRecipeDedupe({ docs, applyLocal = false, createL
   writeJson(UNCATEGORIZED_REVIEW_PATH, uncategorizedReviewPayload)
 
   if (applyLocal || createLocal) {
-    writeJson(RECIPES_PATH, recipes)
+    fs.writeFileSync(RECIPES_PATH, stringifyRecipesJson(recipes))
   }
 
   return {

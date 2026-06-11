@@ -15,10 +15,10 @@ import {
 import { predictRecipeCategory, loadCategoryPatterns } from './lib/receptsarok-category-predictor.mjs'
 
 const root = process.cwd()
-const createReviewPath = path.resolve(root, 'src/lib/data/receptsarok-create-review.json')
+const createReviewPath = path.resolve(root, 'scripts/data/receptsarok-create-review.json')
 const redirectsPath = path.resolve(root, 'src/lib/data/receptsarok-redirects.json')
-const patternsPath = path.resolve(root, 'src/lib/data/receptsarok-category-patterns.json')
-const uncategorizedPath = path.resolve(root, 'src/lib/data/receptsarok-uncategorized-review.json')
+const patternsPath = path.resolve(root, 'scripts/data/receptsarok-category-patterns.json')
+const uncategorizedPath = path.resolve(root, 'scripts/data/receptsarok-uncategorized-review.json')
 const recipesPath = path.resolve(root, 'src/lib/data/recipes.json')
 
 function readJson(filePath) {

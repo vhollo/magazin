@@ -25,6 +25,7 @@ import path from 'node:path'
 import { fileURLToPath, pathToFileURL } from 'node:url'
 import mysql from 'mysql2/promise'
 import { buildRecipesFromModxDoc } from '../src/lib/modxToRsParser.js'
+import { stringifyRecipesJson } from '../src/lib/recipesJsonFormat.js'
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 const RECIPES_PATH = path.join(root, 'src/lib/data/recipes.json')
@@ -129,22 +130,21 @@ for (const sid of collectionDocIds) {
     }
     const changes = []
 
-    // image / img — compare the full image (src + alt + caption) so entity/alt fixes are
+    // img — compare the full image (src + alt + caption) so entity/alt fixes are
     // caught, not just src changes.
-    const newImgSrc = p.img?.src ?? null
-    const imageChanged =
-      (stored.image?.src ?? null) !== (p.image?.src ?? null) ||
-      (stored.image?.alt ?? null) !== (p.image?.alt ?? null) ||
-      (stored.image?.caption ?? null) !== (p.image?.caption ?? null)
-    if (imageChanged || (stored.img?.src ?? null) !== newImgSrc) {
-      if (p.image) {
-        stored.image = p.image
-        stored.img = { src: p.img?.src ?? p.image.src }
+    const imgChanged =
+      (stored.img?.src ?? null) !== (p.img?.src ?? null) ||
+      (stored.img?.alt ?? null) !== (p.img?.alt ?? null) ||
+      (stored.img?.caption ?? null) !== (p.img?.caption ?? null) ||
+      stored.image !== undefined // legacy hero field still present → rewrite to img-only
+    if (imgChanged) {
+      if (p.img) {
+        stored.img = p.img
       } else {
-        stored.image = null
         delete stored.img
       }
-      changes.push(`image → ${p.image?.src ?? '(none)'}`)
+      delete stored.image
+      changes.push(`img → ${p.img?.src ?? '(none)'}`)
     }
 
     // instructions (figcaption / lead-in image text no longer leaks into steps)
@@ -171,7 +171,7 @@ console.log(
     `Skipped ${missingDocs} missing doc(s), ${unmatched} unmatched recipe(s) (single-recipe / dedupe variants left as-is).`
 )
 if (changed > 0 && apply) {
-  fs.writeFileSync(RECIPES_PATH, `${JSON.stringify(recipes, null, 2)}\n`)
+  fs.writeFileSync(RECIPES_PATH, stringifyRecipesJson(recipes))
   console.log(`Wrote ${path.relative(root, RECIPES_PATH)} — next: npm run sync:recipes:apply`)
 } else if (changed > 0) {
   console.log('Dry run — re-run with --apply (npm run recipes:backfill-content:apply) to write.')

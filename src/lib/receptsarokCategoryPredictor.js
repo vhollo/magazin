@@ -3,7 +3,7 @@ import path from 'node:path'
 
 const DEFAULT_PATTERNS_PATH = path.resolve(
   process.cwd(),
-  'src/lib/data/receptsarok-category-patterns.json'
+  'scripts/data/receptsarok-category-patterns.json'
 )
 
 const CATEGORY_IDS = [

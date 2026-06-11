@@ -1,8 +1,8 @@
 import type { Recipe, RecipeLayoutEntry } from '$lib/receptsarok'
 import {
   isRecipeFree,
+  recipeCardImg,
   recipeDetailSegments,
-  recipeHeroToCardImg,
 } from '$lib/receptsarok'
 type RecipeListExtra = (Recipe | RecipeLayoutEntry) & {
   ellipsis?: string
@@ -97,11 +97,7 @@ export function recipeToReceptsarokListCard(r: Recipe | RecipeLayoutEntry) {
     typeof rr.ellipsis === 'string' && rr.ellipsis.trim()
       ? rr.ellipsis
       : recipeNutritionEllipsisHtml(r)
-  const sloppyImg =
-    'img' in r && r.img && typeof r.img === 'object' && 'src' in r.img
-      ? (r.img as { src: string; pos?: string; ext?: string })
-      : undefined
-  const img = recipeHeroToCardImg(r.year, r.image, sloppyImg)
+  const img = recipeCardImg(r)
 
   return {
     path,

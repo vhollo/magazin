@@ -3,7 +3,7 @@ import path from 'node:path'
 import { categoryFeaturesFromRecipe } from './lib/receptsarok-category-predictor.mjs'
 
 const RECIPES_PATH = path.resolve(process.cwd(), 'src/lib/data/recipes.json')
-const OUTPUT_PATH = path.resolve(process.cwd(), 'src/lib/data/receptsarok-category-patterns.json')
+const OUTPUT_PATH = path.resolve(process.cwd(), 'scripts/data/receptsarok-category-patterns.json')
 
 const MIN_DOC_FREQ = 3
 const MAX_FEATURES_PER_CATEGORY = 220

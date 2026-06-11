@@ -14,8 +14,11 @@
     mealPlanRemoveRecipeRef,
     syncMealPlanStorage,
   } from '$lib/mealPlannerStore'
-  import { recipeDetailPath, type Category, type Recipe, type RecipeLayoutEntry } from '$lib/receptsarok'
+  import { recipeDetailPath, type Category, type NutritionValues, type Recipe, type RecipeLayoutEntry } from '$lib/receptsarok'
   import { get } from 'svelte/store'
+
+  /** Slim catalogue entry from /api/receptsarok/recipes — no ingredientGroups/instructions. */
+  type CatalogEntry = RecipeLayoutEntry & { nutritionTables?: NutritionValues[] }
 
   let {
     recipes: _layoutRecipes = [],
@@ -24,9 +27,13 @@
 
   const days = MEAL_PLANNER_DAYS
 
-  let fullCatalog = $state<Recipe[] | null>(null)
+  let activeDay = $state<MealPlannerDay>(days[0])
+
+  let fullCatalog = $state<CatalogEntry[] | null>(null)
   let catalogLoading = $state(false)
   let catalogError = $state(false)
+  /** Full recipes (ingredientGroups) fetched per planned recipe for the shopping list. */
+  let detailCache = $state<Record<string, Recipe>>({})
 
   let planRefs = $state<MealPlanByDay>(get(mealPlanRefs))
   $effect(() => {
@@ -45,14 +52,14 @@
   })
 
   const plan = $derived.by(() => {
-    const empty: Record<string, Recipe[]> = Object.fromEntries(days.map((d) => [d, [] as Recipe[]]))
+    const empty: Record<string, CatalogEntry[]> = Object.fromEntries(days.map((d) => [d, [] as CatalogEntry[]]))
     if (!fullCatalog) return empty
     const byKey = new Map(fullCatalog.map((r) => [`${r.year}:${r.id}`, r]))
     for (const day of days) {
       const refs = planRefs?.[day] ?? []
       empty[day] = refs
         .map((ref) => byKey.get(`${ref.year}:${ref.id}`))
-        .filter((r): r is Recipe => !!r)
+        .filter((r): r is CatalogEntry => !!r)
     }
     return empty
   })
@@ -92,7 +99,7 @@
         if (cancelled) return
         if (res.ok) {
           const j = await res.json()
-          fullCatalog = j.recipes as Recipe[]
+          fullCatalog = j.recipes as CatalogEntry[]
         } else {
           catalogError = true
         }
@@ -107,11 +114,11 @@
     }
   })
 
-  function addToDay(day: string, recipe: Recipe) {
+  function addToDay(day: string, recipe: CatalogEntry) {
     mealPlanAddRecipe(day, { year: recipe.year, id: recipe.id })
   }
 
-  function removeFromDay(day: string, recipe: Recipe) {
+  function removeFromDay(day: string, recipe: CatalogEntry) {
     mealPlanRemoveRecipeRef(day, { year: recipe.year, id: recipe.id })
   }
 
@@ -132,11 +139,12 @@
 
   const usedDays = $derived(days.filter(d => plan[d].length > 0).length)
 
-  /** Bevásárlólista csak a kiválasztott napra (`activeDay`). */
+  /** Bevásárlólista csak a kiválasztott napra (`activeDay`); hozzávalók a recept-részletekből. */
   const shoppingList = $derived.by(() => {
     const ingredients: Record<string, { amount: number; unit: string }> = {}
-    for (const recipe of plan[activeDay]) {
-      for (const group of recipe.ingredientGroups || []) {
+    for (const entry of plan[activeDay]) {
+      const detail = detailCache[`${entry.year}:${entry.id}`]
+      for (const group of detail?.ingredientGroups || []) {
         for (const item of group.items) {
           const key = item.name.toLowerCase()
           if (!ingredients[key]) {
@@ -156,6 +164,11 @@
       }))
   })
 
+  /** True while planned recipes of the active day are still being fetched. */
+  const shoppingListPending = $derived(
+    plan[activeDay].some((entry) => !detailCache[`${entry.year}:${entry.id}`])
+  )
+
   function normalizePlannerSearchInput(raw: string): string {
     return raw.trim().toLowerCase().replace(/\s+/g, ' ')
   }
@@ -165,7 +178,7 @@
     return s.normalize('NFD').replace(/\p{M}/gu, '').toLowerCase()
   }
 
-  function recipeMatchesPlannerCategory(r: Recipe, qFold: string, cats: Category[]): boolean {
+  function recipeMatchesPlannerCategory(r: CatalogEntry, qFold: string, cats: Category[]): boolean {
     const idFold = foldHungarian(r.category)
     if (idFold.includes(qFold) || qFold.includes(idFold)) return true
     const cat = cats.find((c) => c.id === r.category)
@@ -301,7 +314,7 @@
     return textRest.split(/\s+/).filter((t) => t.length >= 2)
   }
 
-  function plannerTextTokenMatchesRecipe(r: Recipe, tokFold: string, cats: Category[]): boolean {
+  function plannerTextTokenMatchesRecipe(r: CatalogEntry, tokFold: string, cats: Category[]): boolean {
     return (
       foldHungarian(r.title).includes(tokFold) ||
       r.searchTerms?.some((t) => foldHungarian(t).includes(tokFold)) ||
@@ -317,7 +330,7 @@
     return false
   }
 
-  function recipeMatchesPlannerEnergyTarget(r: Recipe, num: number): boolean {
+  function recipeMatchesPlannerEnergyTarget(r: CatalogEntry, num: number): boolean {
     if (typeof r.energy === 'number' && plannerNutritionValuesEqual(r.energy, num)) return true
     for (const tbl of r.nutritionTables ?? []) {
       if (typeof tbl.energy === 'number' && plannerNutritionValuesEqual(tbl.energy, num)) return true
@@ -325,7 +338,7 @@
     return false
   }
 
-  function recipeMatchesPlannerCarbsTarget(r: Recipe, num: number): boolean {
+  function recipeMatchesPlannerCarbsTarget(r: CatalogEntry, num: number): boolean {
     if (typeof r.carbs === 'number' && plannerNutritionValuesEqual(r.carbs, num)) return true
     for (const tbl of r.nutritionTables ?? []) {
       if (typeof tbl.carbs === 'number' && plannerNutritionValuesEqual(tbl.carbs, num)) return true
@@ -333,7 +346,7 @@
     return false
   }
 
-  function recipePlannerEnergyInRange(r: Recipe, min: number, max: number): boolean {
+  function recipePlannerEnergyInRange(r: CatalogEntry, min: number, max: number): boolean {
     const ok = (v: number) => v >= min && v <= max
     if (typeof r.energy === 'number' && ok(r.energy)) return true
     for (const tbl of r.nutritionTables ?? []) {
@@ -342,7 +355,7 @@
     return false
   }
 
-  function recipePlannerCarbsInRange(r: Recipe, min: number, max: number): boolean {
+  function recipePlannerCarbsInRange(r: CatalogEntry, min: number, max: number): boolean {
     const ok = (v: number) => v >= min && v <= max
     if (typeof r.carbs === 'number' && ok(r.carbs)) return true
     for (const tbl of r.nutritionTables ?? []) {
@@ -351,19 +364,19 @@
     return false
   }
 
-  function recipeMatchesPlannerEnergyFilter(r: Recipe, f: PlannerNutritionFilter | null): boolean {
+  function recipeMatchesPlannerEnergyFilter(r: CatalogEntry, f: PlannerNutritionFilter | null): boolean {
     if (f === null) return true
     if (f.kind === 'exact') return recipeMatchesPlannerEnergyTarget(r, f.value)
     return recipePlannerEnergyInRange(r, f.min, f.max)
   }
 
-  function recipeMatchesPlannerCarbsFilter(r: Recipe, f: PlannerNutritionFilter | null): boolean {
+  function recipeMatchesPlannerCarbsFilter(r: CatalogEntry, f: PlannerNutritionFilter | null): boolean {
     if (f === null) return true
     if (f.kind === 'exact') return recipeMatchesPlannerCarbsTarget(r, f.value)
     return recipePlannerCarbsInRange(r, f.min, f.max)
   }
 
-  function plannerRecipeMatchesSearch(r: Recipe, raw: string, cats: Category[]): boolean {
+  function plannerRecipeMatchesSearch(r: CatalogEntry, raw: string, cats: Category[]): boolean {
     const normalized = normalizePlannerSearchInput(raw)
     if (normalized.length === 0) return false
 
@@ -389,7 +402,37 @@
       : fullCatalog.filter((r) => plannerRecipeMatchesSearch(r, searchQuery, categories))
   )
 
-  let activeDay = $state<MealPlannerDay>(days[0])
+  // Shopping-list details: fetch each planned recipe of the active day once.
+  $effect(() => {
+    if (!browser || !$hasReceptsarokAccess || !$uid) return
+    const refs = planRefs?.[activeDay] ?? []
+    const missing = refs.filter((ref) => !detailCache[`${ref.year}:${ref.id}`])
+    if (missing.length === 0) return
+    let cancelled = false
+    ;(async () => {
+      const user = firebaseAuth.currentUser
+      if (!user) return
+      const token = await user.getIdToken()
+      await Promise.all(
+        missing.map(async (ref) => {
+          try {
+            const res = await fetch(
+              `/api/receptsarok/recipe/${ref.year}/${encodeURIComponent(ref.id)}`,
+              { headers: { Authorization: `Bearer ${token}` } }
+            )
+            if (!res.ok || cancelled) return
+            const j = await res.json()
+            if (!cancelled && j?.recipe) detailCache[`${ref.year}:${ref.id}`] = j.recipe as Recipe
+          } catch {
+            // recipe stays out of the shopping list; totals still work from the entry
+          }
+        })
+      )
+    })()
+    return () => {
+      cancelled = true
+    }
+  })
 </script>
 
 {#if !$hasReceptsarokAccess}
@@ -499,6 +542,8 @@
                 {/each}
               </ul>
             </div>
+          {:else if shoppingListPending && plan[activeDay].length > 0}
+            <p class="text-sm opacity-50">Bevásárlólista összeállítása…</p>
           {/if}
         {:else}
           <div class="text-center py-8 opacity-40">

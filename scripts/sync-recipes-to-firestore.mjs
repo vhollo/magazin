@@ -2,14 +2,22 @@
  * Upload src/lib/data/recipes.json to Firestore `recipes/{year}-{id}`.
  * Removes Firestore recipe docs that are no longer present in recipes.json (e.g. after year re-keys).
  *
+ * Diff-based: per-recipe content hashes live in meta/recipesUpload, so only
+ * new/changed recipes are written and orphans are derived from the hash map
+ * without scanning the collection. A no-change run costs 1 read + 0 writes.
+ * Pass --force to rewrite every doc and re-scan the collection for orphans
+ * (use after manual Firestore edits, which the hash map cannot see).
+ *
  * Usage:
  *   node scripts/sync-recipes-to-firestore.mjs           # dry run
  *   node scripts/sync-recipes-to-firestore.mjs --apply   # write + optional search rebuild
  *   node scripts/sync-recipes-to-firestore.mjs --apply --reindex
+ *   node scripts/sync-recipes-to-firestore.mjs --apply --force
  */
 import 'dotenv/config'
 import fs from 'node:fs'
 import path from 'node:path'
+import { createHash } from 'node:crypto'
 import { fileURLToPath, pathToFileURL } from 'node:url'
 import { getFirestoreDb } from './lib/firebase-admin.mjs'
 import { buildAndUploadSearchIndex } from './lib/search-index.mjs'
@@ -24,6 +32,10 @@ const CATEGORIES_PATH = path.join(root, 'src/lib/data/categories.json')
 
 const apply = process.argv.includes('--apply')
 const reindex = process.argv.includes('--reindex')
+const force = process.argv.includes('--force')
+
+/** Per-recipe upload hashes + catalogue revision (read by the dev server too). */
+const RECIPES_UPLOAD_DOC = 'recipesUpload'
 
 function readJson(filePath) {
   return JSON.parse(fs.readFileSync(filePath, 'utf8'))
@@ -31,6 +43,22 @@ function readJson(filePath) {
 
 function recipeDocId(recipe) {
   return `${recipe.year}-${recipe.id}`
+}
+
+/** Deterministic stringify (sorted keys) so content hashes are stable. */
+function stableStringify(value) {
+  if (Array.isArray(value)) return `[${value.map(stableStringify).join(',')}]`
+  if (value && typeof value === 'object') {
+    return `{${Object.keys(value)
+      .sort()
+      .map((k) => `${JSON.stringify(k)}:${stableStringify(value[k])}`)
+      .join(',')}}`
+  }
+  return JSON.stringify(value)
+}
+
+function recipeHash(recipe) {
+  return createHash('sha1').update(stableStringify(recipe)).digest('hex')
 }
 
 async function seedCategoriesIfEmpty(firestore) {
@@ -67,12 +95,11 @@ async function seedCategoriesIfEmpty(firestore) {
   return count
 }
 
-async function upsertRecipes(firestore, recipes) {
+async function upsertRecipesById(firestore, recipesById, ids) {
   let batch = firestore.batch()
   let count = 0
-  for (const recipe of recipes) {
-    const docId = recipeDocId(recipe)
-    batch.set(firestore.collection('recipes').doc(docId), recipe)
+  for (const docId of ids) {
+    batch.set(firestore.collection('recipes').doc(docId), recipesById.get(docId))
     count += 1
     if (count % 400 === 0) {
       await batch.commit()
@@ -83,15 +110,12 @@ async function upsertRecipes(firestore, recipes) {
   return count
 }
 
-async function deleteOrphanRecipes(firestore, keepIds) {
-  const snap = await firestore.collection('recipes').select().get()
-  const orphans = snap.docs.filter((doc) => !keepIds.has(doc.id))
-  if (orphans.length === 0) return 0
-
+async function deleteRecipeDocs(firestore, ids) {
+  if (ids.length === 0) return 0
   let batch = firestore.batch()
   let count = 0
-  for (const doc of orphans) {
-    batch.delete(doc.ref)
+  for (const docId of ids) {
+    batch.delete(firestore.collection('recipes').doc(docId))
     count += 1
     if (count % 400 === 0) {
       await batch.commit()
@@ -110,20 +134,45 @@ async function main() {
   const recipes = readJson(RECIPES_PATH)
   if (!Array.isArray(recipes)) throw new Error('recipes.json must be an array')
 
-  const keepIds = new Set(
+  /** docId → recipe (valid ids only) */
+  const recipesById = new Map(
     recipes
       .filter((r) => r?.id && Number.isFinite(Number(r?.year)))
-      .map((r) => recipeDocId(r))
+      .map((r) => [recipeDocId(r), r])
   )
 
-  console.log(`recipes.json: ${recipes.length} recipes, ${keepIds.size} valid doc ids`)
+  console.log(`recipes.json: ${recipes.length} recipes, ${recipesById.size} valid doc ids`)
 
   const firestore = getFirestoreDb()
-  const existingSnap = await firestore.collection('recipes').select().get()
-  const orphanIds = existingSnap.docs.filter((doc) => !keepIds.has(doc.id)).map((doc) => doc.id)
 
-  console.log(`Firestore recipes now: ${existingSnap.size}`)
-  console.log(`Would upsert: ${keepIds.size}`)
+  // Previous upload hashes — the diff baseline. Missing doc (first run) ⇒ full upload.
+  const uploadSnap = await firestore.collection('meta').doc(RECIPES_UPLOAD_DOC).get()
+  const prevHashes = (!force && uploadSnap.exists && uploadSnap.data()?.hashes) || {}
+  const haveBaseline = !force && uploadSnap.exists && Object.keys(prevHashes).length > 0
+
+  const nextHashes = {}
+  const changedIds = []
+  for (const [docId, recipe] of recipesById) {
+    const hash = recipeHash(recipe)
+    nextHashes[docId] = hash
+    if (prevHashes[docId] !== hash) changedIds.push(docId)
+  }
+
+  // Orphans: from the hash map when we have a baseline, else from a collection scan.
+  let orphanIds
+  if (haveBaseline) {
+    orphanIds = Object.keys(prevHashes).filter((id) => !recipesById.has(id))
+  } else {
+    const existingSnap = await firestore.collection('recipes').select().get()
+    orphanIds = existingSnap.docs.filter((doc) => !recipesById.has(doc.id)).map((doc) => doc.id)
+    console.log(`Firestore recipes now: ${existingSnap.size}`)
+  }
+
+  console.log(
+    haveBaseline
+      ? `Diff vs meta/${RECIPES_UPLOAD_DOC}: would upsert ${changedIds.length} changed/new`
+      : `No upload baseline${force ? ' (--force)' : ''}: would upsert all ${recipesById.size}`
+  )
   console.log(`Would delete orphans: ${orphanIds.length}`)
   if (orphanIds.length > 0 && orphanIds.length <= 20) {
     console.log('  orphans:', orphanIds.join(', '))
@@ -137,9 +186,20 @@ async function main() {
   }
 
   await seedCategoriesIfEmpty(firestore)
-  const upserted = await upsertRecipes(firestore, recipes)
-  const deleted = await deleteOrphanRecipes(firestore, keepIds)
+  const upsertIds = haveBaseline ? changedIds : [...recipesById.keys()]
+  const upserted = await upsertRecipesById(firestore, recipesById, upsertIds)
+  const deleted = await deleteRecipeDocs(firestore, orphanIds)
   console.log(`Firestore recipes: upserted=${upserted}, deleted=${deleted}`)
+
+  // Revision lets the dev server skip its full collection scan when nothing changed.
+  const revision = createHash('sha1').update(stableStringify(nextHashes)).digest('hex')
+  await firestore.collection('meta').doc(RECIPES_UPLOAD_DOC).set({
+    hashes: nextHashes,
+    revision,
+    count: recipesById.size,
+    generatedAt: new Date().toISOString(),
+  })
+  console.log(`wrote meta/${RECIPES_UPLOAD_DOC} (revision ${revision.slice(0, 12)}…)`)
 
   if (reindex) {
     const { docs: projectionDocs } = await loadProjectionDocsForSync(

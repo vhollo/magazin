@@ -50,3 +50,30 @@ export async function uploadPublicFile(objectPath, buffer, contentType, metadata
   await file.makePublic()
   return `https://storage.googleapis.com/${bucket.name}/${encodeURIComponent(objectPath).replace(/%2F/g, '/')}`
 }
+
+/**
+ * Upload a buffer to Firebase Storage WITHOUT making it public — for
+ * subscriber-gated artifacts the API serves after auth (e.g. the slim
+ * Receptsarok catalog). Overwritten in place at a fixed path each sync.
+ * @param {string} objectPath
+ * @param {Buffer} buffer
+ * @param {string} contentType
+ * @param {Record<string, string>} [metadata]
+ */
+export async function uploadPrivateFile(objectPath, buffer, contentType, metadata = {}) {
+  const bucketName = resolveBucketName()
+  if (!bucketName) {
+    throw new Error('FIREBASE_STORAGE_BUCKET is required for Storage uploads')
+  }
+  const bucket = getFirebaseStorage().bucket(bucketName)
+  const file = bucket.file(objectPath)
+  await file.save(buffer, {
+    metadata: {
+      contentType,
+      cacheControl: 'private, max-age=0, no-store',
+      metadata,
+    },
+    gzip: false,
+  })
+  return `gs://${bucket.name}/${objectPath}`
+}

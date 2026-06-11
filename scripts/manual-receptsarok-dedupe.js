@@ -11,7 +11,7 @@ const result = await runMagazinRecipeDedupeFromDataFile({
 })
 
 if (!result) {
-  console.warn('dedupe skipped: missing input file src/lib/data/data.json (allowed with --allow-missing-data)')
+  console.warn('dedupe skipped: missing input file scripts/data/data.json (allowed with --allow-missing-data)')
   process.exit(0)
 }
 

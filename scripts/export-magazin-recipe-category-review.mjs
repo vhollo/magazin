@@ -2,7 +2,7 @@ import fs from 'node:fs'
 import path from 'node:path'
 
 const RECIPES_PATH = path.resolve(process.cwd(), 'src/lib/data/recipes.json')
-const REVIEW_PATH = path.resolve(process.cwd(), 'src/lib/data/magazin-recipe-category-review.json')
+const REVIEW_PATH = path.resolve(process.cwd(), 'scripts/data/magazin-recipe-category-review.json')
 
 function normalizeTag(value) {
   return String(value ?? '').trim().toLowerCase()

@@ -5,15 +5,20 @@ import type { QueryDocumentSnapshot } from 'firebase-admin/firestore';
 
 import { /* browser,  */building , dev/*, version */ } from '$app/environment';
 import { recipeHeroToCardImg } from '$lib/receptsarok';
+import { stringifyRecipesJson } from '$lib/recipesJsonFormat.js';
 import fs from 'fs';
 import path from 'path';
-async function writeData(data: object | object[], filename: string) {
+async function writeData(
+  data: object | object[],
+  filename: string,
+  serialize: (data: object | object[]) => string = (d) => JSON.stringify(d, null, 2)
+) {
   const outputPath = path.resolve(process.cwd(), 'src/lib/data', filename);
   const outputDir = path.dirname(outputPath);
   if (!fs.existsSync(outputDir)) {
     fs.mkdirSync(outputDir, { recursive: true });
   }
-  const next = JSON.stringify(data, null, 2);
+  const next = serialize(data);
   try {
     const prev = fs.readFileSync(outputPath, 'utf-8');
     if (prev === next) return;
@@ -194,6 +199,28 @@ let recipesMemo: Promise<unknown[]> | null = null
 let categoriesMemo: Promise<unknown[]> | null = null
 let recipesMemoCacheKey: string | null = null
 
+/** Fold the legacy `image` hero field into canonical `img` and drop it (recipe + subRecipes). */
+function consolidateRecipeImg(data: any): any {
+  const cardImg = recipeHeroToCardImg(data.year, data.image, data.img)
+  if (cardImg) {
+    data.img = cardImg
+  } else {
+    delete data.img
+  }
+  delete data.image
+  if (Array.isArray(data.subRecipes)) {
+    data.subRecipes = data.subRecipes.map((sub: any) => {
+      if (!sub || typeof sub !== 'object') return sub
+      const { image, ...rest } = sub
+      const subImg = recipeHeroToCardImg(data.year, image, sub.img)
+      if (subImg) rest.img = subImg
+      else delete rest.img
+      return rest
+    })
+  }
+  return data
+}
+
 function normalizeRecipeForExport(rawData: any): any | null {
   const data: any = { ...rawData }
   data.createdAt = data.createdAt?.toDate?.()?.toISOString() ?? data.createdAt
@@ -202,21 +229,11 @@ function normalizeRecipeForExport(rawData: any): any | null {
     data.free === true ||
     (typeof data.free === 'string' && data.free.trim().toLowerCase() === 'true')
 
-  const cardImg = recipeHeroToCardImg(data.year, data.image, data.img)
-  if (cardImg) {
-    data.img = cardImg
-  } else {
-    delete data.img
-  }
-
-  return data
+  return consolidateRecipeImg(data)
 }
 
 function toRuntimeRecipe(data: any): any {
-  const cardImg = recipeHeroToCardImg(data.year, data.image, data.img)
-  if (cardImg) return { ...data, img: cardImg }
-  const { img: _drop, ...rest } = data
-  return rest
+  return consolidateRecipeImg({ ...data })
 }
 
 function parseRecipesJson(raw: string): any[] {
@@ -238,9 +255,33 @@ function getRecipesCacheKeyForDev(): string {
   return 'dev';
 }
 
+/** Sidecar marker so dev/build skip the full `recipes` collection scan when nothing changed. */
+const RECIPES_REV_SIDECAR = '.recipes-rev.json'
+
+function readLocalRecipesRevision(): string | null {
+  try {
+    const raw = fs.readFileSync(path.resolve(process.cwd(), 'src/lib/data', RECIPES_REV_SIDECAR), 'utf-8');
+    const revision = JSON.parse(raw)?.revision
+    return typeof revision === 'string' && revision ? revision : null
+  } catch {
+    return null
+  }
+}
+
 async function loadRecipesUncached(): Promise<unknown[]> {
   if (building || dev) {
     try {
+      // sync:recipes:apply stamps a revision into meta/recipesUpload; when it
+      // matches our sidecar the local JSON is current — 1 read instead of one
+      // per recipe, and local recipes.json edits survive dev restarts.
+      const uploadSnap = await db.collection('meta').doc('recipesUpload').get();
+      const revision = uploadSnap.exists ? (uploadSnap.data()?.revision as string | undefined) : undefined;
+      if (revision && revision === readLocalRecipesRevision()) {
+        if (dev) console.log('recipes unchanged (meta/recipesUpload revision match) — using local JSON');
+        const data = fs.readFileSync(path.resolve(process.cwd(), 'src/lib/data', 'recipes.json'), 'utf-8');
+        return parseRecipesForExport(data).map(toRuntimeRecipe)
+      }
+
       const recipesRef = db.collection('recipes');
       const recipesSnap = await recipesRef.get();
       if (recipesSnap.empty) {
@@ -252,7 +293,8 @@ async function loadRecipesUncached(): Promise<unknown[]> {
       const recipesDataForExport = recipesSnap.docs
         .map((doc: QueryDocumentSnapshot) => normalizeRecipeForExport(doc.data()))
         .filter(Boolean)
-      writeData(recipesDataForExport, 'recipes.json')
+      writeData(recipesDataForExport, 'recipes.json', stringifyRecipesJson)
+      if (revision) writeData({ revision }, RECIPES_REV_SIDECAR)
       return recipesDataForExport.map(toRuntimeRecipe)
     } catch (error) {
       console.error("Error getting recipes:", error);

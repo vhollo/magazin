@@ -1,6 +1,6 @@
 <script lang="ts">
   import NutritionTable from '$lib/components/NutritionTable.svelte'
-  import { isRecipeFree, recipeDetailPath, recipeHeroToCardImg } from '$lib/receptsarok'
+  import { isRecipeFree, recipeDetailPath, recipeCardImg } from '$lib/receptsarok'
   import type { Recipe, RecipeTeaser } from '$lib/receptsarok'
 
   export let recipe: Recipe | RecipeTeaser
@@ -8,11 +8,7 @@
 
   $: free = isRecipeFree(recipe)
   $: href = recipeDetailPath(recipe as Recipe)
-  $: cardImg = recipeHeroToCardImg(
-    recipe.year,
-    recipe.image,
-    (recipe as Recipe & { img?: { src: string; pos?: string; ext?: string } }).img
-  )
+  $: cardImg = recipeCardImg(recipe)
   $: cardVideo = (() => {
     const video = (recipe as Recipe & { video?: unknown }).video
 
@@ -52,9 +48,9 @@
         class="w-full object-cover"
         style="aspect-ratio: var(--imgratio);"
       ></video>
-      {#if recipe.image?.caption}
+      {#if cardImg?.caption}
         <figcaption class="px-2 pt-1 pb-0.5 text-xs leading-snug text-base-content/60 line-clamp-2">
-          {recipe.image.caption}
+          {cardImg.caption}
         </figcaption>
       {/if}
     </figure>
@@ -63,13 +59,13 @@
       <img
         loading="lazy"
         src={cardImg.src}
-        alt={recipe.image?.alt ?? recipe.title}
+        alt={cardImg.alt ?? recipe.title}
         class="w-full object-cover"
         style="aspect-ratio: var(--imgratio);"
       />
-      {#if recipe.image?.caption}
+      {#if cardImg.caption}
         <figcaption class="px-2 pt-1 pb-0.5 text-xs leading-snug text-base-content/60 line-clamp-2">
-          {recipe.image.caption}
+          {cardImg.caption}
         </figcaption>
       {/if}
     </figure>

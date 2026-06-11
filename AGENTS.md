@@ -325,10 +325,10 @@ Nav2 defines the secondary navigation menu with categorized content sections:
 
 ### Layout Server (`+layout.server.ts`)
 
-- **SSR** (not prerendered): `collections/rs-teasers-index` + one `collections/rs-teasers-{year}` per booklet year (~7–10 reads)
-- Returns `{ doc: { path: 'keres', title: 'Keresés' }, recipeTeasersByKey }`; slim teasers enrich MiniSearch hits (nutrition/img/free; meal planner uses `/api/receptsarok/recipes`)
+- **SSR** (not prerendered): **zero Firestore reads** — recipe hits are enriched from the `recipeTeaser` stored on every recipe doc inside the MiniSearch index the client downloads (identical fields to the old SSR teasers)
+- Returns `{ doc: { path: 'keres', title: 'Keresés' } }`
 - **Cache-Control**: CDN-cached (`s-maxage=86400`)
-- Shards precomputed by `npm run sync:rs-collections:apply`; fallback: legacy `collections/rs-teasers`, then `getRecipes()`
+- `collections/rs-teasers-{year}` + `rs-teasers-index` are still written by `sync:rs-collections` purely as a rollback path; `getReceptsarokTeasers()` in `receptsarokFirestore.ts` is deprecated and unused at runtime
 
 ### Search index (client-side)
 
@@ -564,16 +564,27 @@ Nav2 defines the secondary navigation menu with categorized content sections:
 
 | Route | Firestore doc | Shape |
 |---|---|---|
+| root layout (all pages) | `meta/stats` (1 read) | `{ articleCount, recipeCount, freeCount }` — `articleCount` merged by the search-index builder, `recipeCount`/`freeCount` merged by `sync:rs-collections`; falls back to `collections/rs-home` while the recipe fields are missing |
 | `/receptsarok` layout | `collections/rs-home` | `{ categories: Category[], totalRecipes, totalFree, freeCountsByCategory }` |
 | `/receptsarok/[category]` | `collections/rs-{categoryId}` | `{ cards: RecipeLayoutEntry[], count }` |
 | `/receptsarok/[year]/[id]` | `recipes/{year}-{id}` (direct doc lookup) | full `Recipe`; non-free recipes go through `stripRecipeGatedFields` before serialization |
-| `/keres` layout | `collections/rs-teasers-index` + `collections/rs-teasers-{year}` | slim teasers keyed `year/id` (merged at SSR) |
+| `/keres` layout | — | zero reads; teasers come from the search index `recipeTeaser` stored field (deprecated `rs-teasers-*` shards still written as rollback) |
+| `/api/receptsarok/recipe/[year]/[id]` | `recipes/{year}-{id}` (1 read, subscriber-auth) | full recipe — fresh after every sync without redeploy; bundled `recipes.json` only as fallback |
+| `/api/receptsarok/recipes` | Storage `receptsarok/catalog.json.gz` (subscriber-auth) | slim `RecipeLayoutEntry[]` catalog (~190 KB gz vs the old ~4 MB full dump); built by `sync:rs-collections`; bundled-JSON slim fallback |
 
 Source data — Firestore `recipes/{year}-{id}` (one doc per recipe, keyed by `recipeSlug()` from `receptsarok.ts`) + `categories/{id}` collection — is **uploaded by `npm run sync:recipes:apply`** from `src/lib/data/recipes.json`. The aggregate UI docs above are then computed and written by `npm run sync:rs-collections:apply`.
 
 Fallbacks: if any aggregate doc is missing, the helpers fall back to `getRecipes()` / `getPatika()` (which themselves read JSON in production, Firestore in dev/build) so the site keeps working during transition.
 
 Types and constants defined in `src/lib/receptsarok.ts`.
+
+**Image schema (consolidated 2026-06)**: recipes carry ONE image field — `img: { src, pos, ext, alt?, caption? }` — the same card shape as MODX article `doc.img`, extended with optional hero metadata (`alt` only when it differs from the title; `caption` from booklet „Fotó: …” lines). The legacy `image` hero field is gone from `recipes.json`, Firestore, teasers, and `SubRecipe` (sub-recipes use `img` too). `recipeCardImg()` in `receptsarok.ts` is the canonical accessor (still folds legacy `image` from un-migrated data); the one-time migration lives in `scripts/migrate-recipe-image-to-img.mjs`.
+
+**recipes.json format**: written by `stringifyRecipesJson()` (`src/lib/recipesJsonFormat.js`) — one minified recipe per line (~35% smaller than pretty-printed, still line-diffable). Every script that writes `recipes.json` must use this helper.
+
+**Dev startup reads**: `getRecipes()` in dev/build first checks `meta/recipesUpload.revision` against the local `src/lib/data/.recipes-rev.json` sidecar (gitignored) — when they match, the local JSON is used (1 read instead of ~1 per recipe) and local `recipes.json` edits survive dev restarts. The full collection scan only happens when the revision changed.
+
+**Pipeline artifacts** (dedupe audits, category patterns, review files, MODX dump `data.json`) live in `scripts/data/` — NOT `src/lib/data/`, which is bundled into the SSR lambda and holds runtime data only (`recipes.json`, `categories.json`, `conf.json`, `kviz.json`, `patika.json`, `receptsarok-redirects.json`).
 
 ### Recipe data pipeline (`recipes.json`) — create-only
 
@@ -586,7 +597,7 @@ Types and constants defined in `src/lib/receptsarok.ts`.
 | Command | Script | When to use |
 |---|---|---|
 | `npm run recipes:dedupe:manual*` | `scripts/manual-receptsarok-dedupe.js` | Build/extend `recipes.json` from MODX docs (create-only; `--create-local` / `--apply-local` variants). |
-| `npm run recipes:dedupe:internal` | `scripts/dedupe-receptsarok-internal.mjs` | **Dry run** — cluster published recipes by normalized title, pick a winner per cluster (`chooseWinner`), write audit to `src/lib/data/receptsarok-internal-dedupe-audit.json`. |
+| `npm run recipes:dedupe:internal` | `scripts/dedupe-receptsarok-internal.mjs` | **Dry run** — cluster published recipes by normalized title, pick a winner per cluster (`chooseWinner`), write audit to `scripts/data/receptsarok-internal-dedupe-audit.json`. |
 | `npm run recipes:dedupe:internal:apply-local` | `… --apply-local` | Set `published: false` on losers in `recipes.json`; winner inherits `free: true` when a free loser is unpublished. Then `sync:recipes:apply` + `sync:rs-collections:apply`. |
 | `npm run recipes:dedupe:validate` | `scripts/validate-recipe-dedupe-v2.mjs` | Regression asserts for tie-break order (author/video/nutrition/year), YYMM path-year parsing, parser entity handling. Run after touching parser or dedupe logic. |
 | `npm run recipes:backfill-content` | `scripts/backfill-collection-recipe-content.mjs` | **Dry run** — re-derive `image`/`img` + `instructions` for every recipe whose source doc was split into multiple recipes, from live MODX + the same `nagyito` transform the sync uses. Prints what would change. |
@@ -598,8 +609,8 @@ The end-to-end order when recipe data changes (parser fix, new MODX docs, manual
 
 1. **Edit/regenerate `recipes.json`** — `recipes:dedupe:manual*` for new docs, `recipes:backfill-content:apply` after parser fixes, or targeted manual edits. `recipes.json` is canonical; never edit Firestore `recipes/*` directly.
 2. **`recipes:dedupe:internal` (dry run), then `:apply-local`** if duplicates appeared — unpublishes same-title losers, propagates `free` to winners. Losers stay in `recipes.json`/Firestore with `published: false` (doc ids are stable; nothing is deleted), they just drop out of the UI and search index.
-3. **`npm run sync:recipes:apply`** — upserts all of `recipes.json` to Firestore `recipes/{year}-{id}`, **deletes orphan docs** whose `{year}-{id}` key vanished (e.g. after a year fix), rebuilds the projection snapshot + search index.
-4. **`npm run sync:rs-collections:apply`** — rebuilds `collections/rs-home` (`totalFree`, `freeCountsByCategory`), `rs-{category}`, `rs-teasers-*`. Required after any `free`/`published`/category change.
+3. **`npm run sync:recipes:apply`** — **diff-based**: compares per-recipe content hashes against `meta/recipesUpload` and writes only new/changed docs; orphans (vanished `{year}-{id}` keys) are derived from the hash map without a collection scan. A no-change run costs 1 read + 0 writes. Stamps a `revision` the dev server uses to skip its startup scan. Rebuilds the projection snapshot + search index (`--reindex` is in the npm script). **`--force`** rewrites everything and re-scans for orphans — needed after manual Firestore `recipes/*` edits, which the hash map cannot see.
+4. **`npm run sync:rs-collections:apply`** — reads `recipes.json` + `categories.json` **locally** (pass `--from-firestore` to read the collections instead), rebuilds `collections/rs-home`, `rs-{category}`, `rs-teasers-*`, merges `{ recipeCount, freeCount }` into `meta/stats` (root layout counts), and uploads the slim meal-planner catalog to Storage `receptsarok/catalog.json.gz`. Unchanged docs are skipped via hashes in `meta/rsCollections` (no-op run = 1 read). Required after any `free`/`published`/category change.
 5. **Restart the dev server** — `getRecipes()` is memoized per process with a stable cache key; a running dev server keeps serving the pre-change recipe list indefinitely.
 
 ### Magazine → Receptsarok redirects (storage & processing)
@@ -693,7 +704,7 @@ Eligible docs (`isMagazineRecipeDoc` in `receptsarok-redirect-match.mjs`):
 - `RecipeFilters.svelte` — Nutrition range filters + ingredient search + sort (premium-gated)
 - `PaywallCTA.svelte` — Subscription prompt with context-specific messaging
 - `ReceptsarokWidget.svelte` — Cross-link widget for magazine recipe articles ("Hasonló receptek a Receptsarokban")
-- `MealPlanner.svelte` — Weekly meal planner with per-day recipe list, aggregated nutrition, and shopping list (premium-gated)
+- `MealPlanner.svelte` — Weekly meal planner with per-day recipe list, aggregated nutrition, and shopping list (premium-gated). Loads the **slim catalog** from `/api/receptsarok/recipes` (layout entries, no ingredients/instructions); the shopping list fetches each planned recipe's `ingredientGroups` individually via `/api/receptsarok/recipe/[year]/[id]` and caches them client-side
 
 ### Cross-linking with Magazine
 
@@ -721,7 +732,7 @@ Run from repo root (`magazin/`). Requires `.env` with `MODXDB_*`, `FIREBASE_ADMI
 | `npm run sync:modx:full` | `… --full` | **One-time / full backfill** — all published magazine rows → Firestore; also removes orphan `docs/*` whose MODX id is no longer published. Also backfills `doc.tv.egyesulet` (TV 31) onto all existing docs. |
 | `npm run sync:modx:payload` | `… --from-payload` | **MySQL-free save path** — reads rows from `MODX_SYNC_PAYLOAD` env var (gzip+base64 JSON); used by the `repository_dispatch` GitHub Actions trigger. Does not advance `meta/sync.lastEdit`. |
 | `npm run sync:modx:finish` | `scripts/finish-modx-sync.mjs` | **Repair pass** — `docs/` already populated but search index, `relatedCards`, or `meta/search` missing (e.g. sync failed mid-run). |
-| `npm run sync:rs-collections:apply` | `scripts/sync-receptsarok-collections.mjs` | **Receptsarok UI docs** — rebuild `collections/rs-home`, `collections/rs-{category}`, `collections/rs-teasers-{year}` + `rs-teasers-index` from Firestore `recipes` + `categories`. Run after `sync:recipes:apply` or MODX `free` flag changes. Pass without `:apply` for dry run + index-entry warnings. |
+| `npm run sync:rs-collections:apply` | `scripts/sync-receptsarok-collections.mjs` | **Receptsarok UI docs** — rebuild `collections/rs-home`, `rs-{category}`, `rs-teasers-*` from local `recipes.json` + `categories.json` (`--from-firestore` to override); merges counts into `meta/stats`; uploads the slim planner catalog to Storage; skips unchanged docs via `meta/rsCollections` hashes. Run after `sync:recipes:apply` or MODX `free` flag changes. Pass without `:apply` for dry run + index-entry warnings. |
 | `npm run sync:patika:apply` | `scripts/sync-patika-collection.mjs` | **Patika UI doc** — rebuild `collections/patika` from `tables/elofizetok/patika` subcollection. Pass without `:apply` for dry run. |
 | `npm run verify:firestore-magazine` | `scripts/verify-firestore-magazine.mjs` | **Spot-check** — counts `docs/*`, `collections/*`, `meta/search`, sample routes, index URL reachability. |
 
@@ -757,7 +768,9 @@ Run from repo root (`magazin/`). Requires `.env` with `MODXDB_*`, `FIREBASE_ADMI
 | Re-saved a MODX **recipe collection** (or fixed the recipe parser) but recipe content / per-recipe images didn't change | Pipeline is create-only and `sync:modx` doesn't rebuild recipes. New docs → `npm run recipes:dedupe:manual`; existing recipes after a parser fix → `npm run recipes:backfill-content:apply` then `npm run sync:recipes:apply` |
 | Same recipe shows up twice under different years (title duplicate) | `npm run recipes:dedupe:internal` (review audit) → `:apply-local` → `sync:recipes:apply` → `sync:rs-collections:apply`; winner = real author > video > nutrition > year |
 | Recipe year looks wrong (e.g. 2001) | MODX paths carry YYMM issue codes, never four-digit years — fix the recipe's `year` in `recipes.json`, re-sync (old `{year}-{id}` doc is deleted as orphan), then check `receptsarok-redirects.json` + the article's `doc.redirect` in Firestore for the stale year |
-| Recipe data changed but dev server still shows old recipes / deleted recipe still renders | Restart the dev server — `getRecipes()` is memoized per process |
+| Recipe data changed but dev server still shows old recipes / deleted recipe still renders | Restart the dev server — `getRecipes()` is memoized per process. On restart the dev server re-scans Firestore only when `meta/recipesUpload.revision` differs from the local `.recipes-rev.json` sidecar |
+| Manually edited a `recipes/*` doc in the Firestore console and `sync:recipes:apply` says "0 changed" | The diff baseline (`meta/recipesUpload`) can't see console edits — run `npm run sync:recipes -- --apply --force` (full rewrite + orphan re-scan) |
+| Meal planner shows stale recipes / wrong free flags after a sync | `sync:rs-collections:apply` re-uploads the slim catalog (`receptsarok/catalog.json.gz`); clients cache it for 1h (`Cache-Control: private, max-age=3600`) |
 | Article's recipe redirect points at a 404 | Manifest entry's `{year}-{id}` no longer exists in `recipes.json` — fix the entry, and update `doc.redirect` on `docs/{encodedPath}` (not the legacy numeric-id doc) |
 
 Do **not** suggest `npm run build` to refresh article text — content updates come from the sync worker, not the SvelteKit build.
@@ -770,7 +783,7 @@ Do **not** suggest `npm run build` to refresh article text — content updates c
 2. **Documents**: Firestore `docs/` + `collections/` via `$lib/magazine/firestore` (synced from MODX by `npm run sync:modx*`). Magazine recipe redirects: manifest `src/lib/data/receptsarok-redirects.json` + sync → `doc.redirect` on path-encoded docs → SSR 308 (see [Magazine → Receptsarok redirects](#magazine--receptsarok-redirects-storage--processing)).
 3. **Quizzes**: Loaded from Firestore via `getKviz()`
 4. **Scores**: Stored in Firestore at `kviz/{quizId}/scores/{uid}` (subcollection under each quiz document, stores `name`, `email`, `score`, `date` to the actual quiz/scores table)
-5. **Recipes**: SSR via `$lib/receptsarokFirestore` (`collections/rs-home`, `collections/rs-{category}`, `recipes/{year}-{id}` detail, `collections/rs-teasers-{year}` + index for `/keres`). Populated by `sync:recipes:apply` + `sync:rs-collections:apply`. Magazine `sync:modx` maintains `meta/projections` Storage snapshot + incremental search index (not full-catalog Firestore reads each run).
+5. **Recipes**: SSR via `$lib/receptsarokFirestore` (`collections/rs-home`, `collections/rs-{category}`, `recipes/{year}-{id}` detail). `/keres` recipe teasers come from the search index itself (zero reads). Root-layout counts come from one `meta/stats` read. Populated by `sync:recipes:apply` (diff-based via `meta/recipesUpload`) + `sync:rs-collections:apply` (hash-skip via `meta/rsCollections`, slim catalog → Storage). Magazine `sync:modx` maintains `meta/projections` Storage snapshot + incremental search index (not full-catalog Firestore reads each run).
 6. **Search**: Client-side MiniSearch index from Firebase Storage (`/keres`; meta via `/api/search-meta`)
 7. **Navigation**: 
    - **Nav1** (Primary): Main menu with direct links and dropdowns (`nav1.js`); includes Receptsarok link

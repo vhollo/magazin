@@ -9,19 +9,20 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import { buildRecipeFromModxDoc, parseIssueCodeYear } from '../src/lib/modxToRsParser.js'
+import { stringifyRecipesJson } from '../src/lib/recipesJsonFormat.js'
 
 const root = process.cwd()
 const apply = process.argv.includes('--apply')
 
-const DATA_PATH = path.resolve(root, 'src/lib/data/data.json')
+const DATA_PATH = path.resolve(root, 'scripts/data/data.json')
 const RECIPES_PATH = path.resolve(root, 'src/lib/data/recipes.json')
 const REDIRECTS_PATH = path.resolve(root, 'src/lib/data/receptsarok-redirects.json')
-const AUDIT_PATH = path.resolve(root, 'src/lib/data/receptsarok-dedupe-audit.json')
+const AUDIT_PATH = path.resolve(root, 'scripts/data/receptsarok-dedupe-audit.json')
 
 const EXTRA_JSON_PATHS = [
-  'src/lib/data/receptsarok-create-review.json',
-  'src/lib/data/receptsarok-uncategorized-review.json',
-  'src/lib/data/.import-magazin-recipes-state.json',
+  'scripts/data/receptsarok-create-review.json',
+  'scripts/data/receptsarok-uncategorized-review.json',
+  'scripts/data/.import-magazin-recipes-state.json',
 ]
 
 function readJson(filePath) {
@@ -142,7 +143,7 @@ for (const [oldKey, change] of yearChanges.entries()) {
   recipeByKey.set(newKey, recipe)
 }
 
-writeJson(RECIPES_PATH, recipes)
+fs.writeFileSync(RECIPES_PATH, stringifyRecipesJson(recipes))
 
 for (const entry of redirects.entries ?? []) {
   const change = [...yearChanges.values()].find(

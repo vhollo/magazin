@@ -1,10 +1,11 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import { chooseWinner } from '../src/lib/receptsarokDedupeShared.js'
+import { stringifyRecipesJson } from '../src/lib/recipesJsonFormat.js'
 import { normalizeText } from './lib/modx-to-rs-parser.mjs'
 
 const RECIPES_PATH = path.resolve(process.cwd(), 'src/lib/data/recipes.json')
-const AUDIT_PATH = path.resolve(process.cwd(), 'src/lib/data/receptsarok-internal-dedupe-audit.json')
+const AUDIT_PATH = path.resolve(process.cwd(), 'scripts/data/receptsarok-internal-dedupe-audit.json')
 
 const applyLocal = process.argv.includes('--apply-local')
 
@@ -64,7 +65,7 @@ if (applyLocal) {
     if (losersToUnpublish.has(key)) recipe.published = false
     if (winnersToFree.has(key)) recipe.free = true
   }
-  writeJson(RECIPES_PATH, recipes)
+  fs.writeFileSync(RECIPES_PATH, stringifyRecipesJson(recipes))
 }
 
 writeJson(AUDIT_PATH, {
