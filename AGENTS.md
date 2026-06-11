@@ -708,7 +708,7 @@ Eligible docs (`isMagazineRecipeDoc` in `receptsarok-redirect-match.mjs`):
 
 ### Cross-linking with Magazine
 
-When a magazine article has the `recept` tag, the `[...path]/+page.svelte` shows a `ReceptsarokWidget` with matching Receptsarok recipes (matched by title keywords against `searchTerms`/`ingredientNames`). Matches are computed in `[...path]/+page.server.ts` as slim `RecipeLayoutEntry[]` (`rsWidgetRecipes`) via memoized `getRecipes()` + `toLayoutRecipe`; the root layout does not ship full recipes.
+When a magazine article has the `recept` tag, the `[...path]/+page.svelte` shows a `ReceptsarokWidget` with matching Receptsarok recipes. Matches come from **`similarRecipesFor()` in `src/lib/server/similarRecipes.ts`** — a recipes-only MiniSearch index (title/searchTerms/ingredientNames; same fuzzy+prefix options as `/keres`) built in-process and memoized against the `getRecipes()` result (~100 ms once per lambda instance, sub-ms per query). The recipe detail page uses the same module; when a title matches nothing (compound words like „Csicsókaleves”), it retries with the recipe's rarest own terms by corpus document frequency, so every published recipe gets similar-recipe links. Returned as slim `RecipeLayoutEntry[]`; the root layout does not ship full recipes.
 
 ---
 

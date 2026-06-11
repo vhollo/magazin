@@ -286,21 +286,5 @@ export function toLayoutRecipe(recipe: Recipe): RecipeLayoutEntry {
   }
 }
 
-/** Title-keyword matches for the Receptsarok cross-link widget (magazine + recipe detail). */
-export function similarRecipesForTitle(
-  title: string,
-  entries: RecipeLayoutEntry[],
-  exclude?: Pick<Recipe, 'year' | 'id'>,
-  limit = 4
-): RecipeLayoutEntry[] {
-  const titleWords = (title || '').toLowerCase().split(/\s+/)
-  return entries
-    .filter((r) => {
-      if (exclude && r.year === exclude.year && r.id === exclude.id) return false
-      return (
-        r.searchTerms?.some((t) => titleWords.some((w) => w.length > 3 && t.includes(w))) ||
-        r.ingredientNames?.some((n) => titleWords.some((w) => w.length > 3 && n.includes(w)))
-      )
-    })
-    .slice(0, limit)
-}
+// Similar-recipe matching lives in $lib/server/similarRecipes (recipes-only
+// MiniSearch index, same fuzzy/prefix behavior as /keres).
