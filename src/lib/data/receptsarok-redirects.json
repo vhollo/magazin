@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-05T11:45:20.673Z",
+  "generatedAt": "2026-06-12T08:09:57.368Z",
   "sourceDocs": "sync worker (dynamic match + existing manifest)",
   "sourceRecipes": "src/lib/data/recipes.json",
   "entries": [
@@ -2936,6 +2936,12 @@
       "path": "receptsarok/desszertek/madartej",
       "year": 2025,
       "id": "madartej"
+    },
+    {
+      "modxContentId": 4471,
+      "path": "receptsarok/desszertek/nincs-jobb-nalam-sutemeny",
+      "year": 2025,
+      "id": "nincs-jobb-nalam-sutemeny"
     },
     {
       "modxContentId": 4412,
