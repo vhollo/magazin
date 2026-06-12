@@ -1,4 +1,5 @@
 import { decodeHtmlEntities } from '../../src/lib/htmlEntities.js'
+import { extractLinkedModxIds, stripLinkedRecipeBlocks } from '../../src/lib/modxLinkedRecipes.js'
 
 const DEFAULT_NUTRITION_LABEL = '1 adag energia- es tapanyagtartalma:'
 
@@ -570,7 +571,10 @@ function uniqueByNormalized(values) {
 function deriveInstructions(content) {
   // Drop image markup (e.g. the next dish's lead-in `<figure><figcaption>`) so its
   // caption/title text never leaks into this recipe's instructions.
-  const cleaned = String(content ?? '').replace(/<figure\b[\s\S]*?<\/figure>/gi, ' ')
+  const cleaned = stripLinkedRecipeBlocks(String(content ?? '')).replace(
+    /<figure\b[\s\S]*?<\/figure>/gi,
+    ' '
+  )
   const instructionHtml = deriveInstructionsHtml(cleaned)
   if (instructionHtml) {
     // Preserve full imported MODX instruction flow (including heading/list text).
@@ -1088,6 +1092,8 @@ export function buildRecipesFromModxDoc(doc, options) {
     if (Number.isFinite(sourceModxId)) {
       recipe.sourceModxId = sourceModxId
     }
+    const linkedModxIds = extractLinkedModxIds(content).filter((id) => id !== Number(doc?.id))
+    if (linkedModxIds.length) recipe.linkedModxIds = linkedModxIds
     out.push({ recipe, categoryDecision })
   }
 
@@ -1209,6 +1215,8 @@ export function buildRecipeFromModxDoc(doc, options) {
   if (Number.isFinite(sourceModxId)) {
     recipe.sourceModxId = sourceModxId
   }
+  const linkedModxIds = extractLinkedModxIds(content).filter((id) => id !== Number(doc?.id))
+  if (linkedModxIds.length) recipe.linkedModxIds = linkedModxIds
   return { recipe, categoryDecision }
 }
 

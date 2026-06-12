@@ -25,6 +25,7 @@ import path from 'node:path'
 import { fileURLToPath, pathToFileURL } from 'node:url'
 import mysql from 'mysql2/promise'
 import { buildRecipesFromModxDoc } from '../src/lib/modxToRsParser.js'
+import { extractLinkedModxIds } from '../src/lib/modxLinkedRecipes.js'
 import { stringifyRecipesJson } from '../src/lib/recipesJsonFormat.js'
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
@@ -166,8 +167,57 @@ for (const sid of collectionDocIds) {
   if (docChanged) touchedDocs++
 }
 
+// ── Pass 2: curated "További receptek" links (all source docs, any group size) ──
+// Sets `linkedModxIds` from each source article's trailing link list, and trims
+// instruction lines leaked from those blocks (everything from the leaked heading
+// line on — the list is always at the very end of the article).
+const LEAK_LINE_RE = /^(tov[áa]bbi|kapcsol[óo]d[óo]|aj[áa]nlott)[^.!?]*recept/i
+let linkedChanged = 0
+{
+  const allDocIds = [...byDoc.keys()]
+  const conn2 = await mysql.createConnection(process.env.MODXDB_URL)
+  const [linkRows] = await conn2.query(
+    `SELECT id, content FROM modx_site_content WHERE id IN (?) AND content LIKE '%recept%'`,
+    [allDocIds]
+  )
+  await conn2.end()
+  const linkedByDoc = new Map()
+  for (const row of linkRows) {
+    const ids = extractLinkedModxIds(String(row.content || '')).filter((id) => id !== row.id)
+    if (ids.length) linkedByDoc.set(row.id, ids)
+  }
+  console.log(`\nlinked-recipe lists found in ${linkedByDoc.size} source doc(s)`)
+
+  for (const [sid, recipesOfDoc] of byDoc) {
+    const ids = linkedByDoc.get(sid) ?? null
+    for (const stored of recipesOfDoc) {
+      const changes = []
+      const storedIds = Array.isArray(stored.linkedModxIds) ? stored.linkedModxIds : null
+      if (JSON.stringify(storedIds) !== JSON.stringify(ids)) {
+        if (ids) stored.linkedModxIds = ids
+        else delete stored.linkedModxIds
+        changes.push(`linkedModxIds → ${ids ? ids.join(',') : '(none)'}`)
+      }
+      if (Array.isArray(stored.instructions)) {
+        const leakAt = stored.instructions.findIndex((line) => LEAK_LINE_RE.test(String(line)))
+        if (leakAt !== -1) {
+          const dropped = stored.instructions.length - leakAt
+          stored.instructions = stored.instructions.slice(0, leakAt)
+          changes.push(`instructions: dropped ${dropped} leaked line(s)`)
+        }
+      }
+      if (changes.length) {
+        linkedChanged++
+        changed++
+        console.log(`  ${stored.year}/${stored.id}: ${changes.join('; ')}`)
+      }
+    }
+  }
+}
+
 console.log(
-  `\n${apply ? 'Updated' : 'Would update'} ${changed} recipe(s) across ${touchedDocs} doc(s). ` +
+  `\n${apply ? 'Updated' : 'Would update'} ${changed} recipe(s) across ${touchedDocs} doc(s) ` +
+    `(${linkedChanged} via linked-recipe pass). ` +
     `Skipped ${missingDocs} missing doc(s), ${unmatched} unmatched recipe(s) (single-recipe / dedupe variants left as-is).`
 )
 if (changed > 0 && apply) {

@@ -1,6 +1,7 @@
 import fs from 'node:fs';
 import { fromHtmlEntities } from '../utils/index';
 import { decodeHtmlEntities } from '../htmlEntities.js';
+import { extractLinkedModxIds } from '../modxLinkedRecipes.js';
 
 export interface TemplateVariable {
 	tmplvarid: number;
@@ -36,6 +37,8 @@ export interface ProcessedDocFields {
 	publishedon: number;
 	editedon: number;
 	isfolder: boolean;
+	/** MODX doc ids from the article's "További receptek" list (curated related recipes). */
+	linkedModxIds?: number[];
 }
 
 export type ReceptsarokRedirectMaps = {
@@ -329,6 +332,12 @@ export function createModxTransform(deps: ModxTransformDeps): ModxTransform {
 	};
 
 	const alapjav = (doc: ModxDoc) => {
+		// Curated "További receptek" links — must be read before the [~id~] → path
+		// rewriting below destroys the MODX ids.
+		const linkedModxIds = extractLinkedModxIds(doc.content).filter((id) => id !== Number(doc.id));
+		if (linkedModxIds.length) doc.linkedModxIds = linkedModxIds;
+		else delete doc.linkedModxIds;
+
 		const comments = /<!--.*?-->/gs;
 		doc.content = doc.content
 			.replaceAll(comments, '')
@@ -441,7 +450,10 @@ export function createModxTransform(deps: ModxTransformDeps): ModxTransform {
 		redirect: doc.redirect,
 		publishedon: doc.publishedon,
 		editedon: doc.editedon,
-		isfolder: doc.isfolder
+		isfolder: doc.isfolder,
+		...(Array.isArray(doc.linkedModxIds) && doc.linkedModxIds.length
+			? { linkedModxIds: doc.linkedModxIds }
+			: {})
 	});
 
 	const setReceptsarokRedirect = (doc: ModxDoc, fallbackRedirect?: string) => {

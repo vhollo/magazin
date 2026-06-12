@@ -189,10 +189,12 @@
     return false
   }
 
-  /** Pontos egyezés vagy [min,max] zárt tartomány (tápanyag szűrő). */
+  /** Pontos egyezés, [min,max] zárt tartomány vagy szigorú < / > összehasonlítás (tápanyag szűrő). */
   type PlannerNutritionFilter =
     | { kind: 'exact'; value: number }
     | { kind: 'range'; min: number; max: number }
+    | { kind: 'lt'; value: number }
+    | { kind: 'gt'; value: number }
 
   const PLANNER_DASH = '[-\u2013]'
 
@@ -220,6 +222,15 @@
     /kaloria\s*(\d+[.,]?\d*)\b/,
   ] as const
 
+  const PLANNER_KCAL_COMPARE_REGEXES = [
+    /([<>])\s*(\d+[.,]?\d*)\s*kcal\b/,
+    /([<>])\s*(\d+[.,]?\d*)\s*kal[óo]r(?:ia)?\b/,
+    /([<>])\s*(\d+[.,]?\d*)\s*kaloria\b/,
+    /kcal\s*([<>])\s*(\d+[.,]?\d*)\b/,
+    /kal[óo]r(?:ia)?\s*([<>])\s*(\d+[.,]?\d*)\b/,
+    /kaloria\s*([<>])\s*(\d+[.,]?\d*)\b/,
+  ] as const
+
   const PLANNER_GRAM_RANGE_REGEXES = [
     new RegExp(`(\\d+[.,]?\\d*)\\s*${PLANNER_DASH}\\s*(\\d+[.,]?\\d*)\\s*gramm\\b`),
     new RegExp(`(\\d+[.,]?\\d*)\\s*${PLANNER_DASH}\\s*(\\d+[.,]?\\d*)gramm\\b`),
@@ -236,6 +247,12 @@
     /(\d+[.,]?\d*)gr\b/,
     /(\d+[.,]?\d*)\s*g\b/,
     /(\d+[.,]?\d*)g\b/,
+  ] as const
+
+  const PLANNER_GRAM_COMPARE_REGEXES = [
+    /([<>])\s*(\d+[.,]?\d*)\s*gramm\b/,
+    /([<>])\s*(\d+[.,]?\d*)\s*gr\b/,
+    /([<>])\s*(\d+[.,]?\d*)\s*g\b/,
   ] as const
 
   function plannerParseNum(fragment: string): number {
@@ -265,6 +282,23 @@
     return null
   }
 
+  function stripPlannerCompareMatch(
+    s: string,
+    regexes: readonly RegExp[]
+  ): { filter: PlannerNutritionFilter; rest: string } | null {
+    for (const re of regexes) {
+      const m = s.match(re)
+      if (m?.[0] && m[1] !== undefined && m[2] !== undefined && m.index !== undefined) {
+        const num = plannerParseNum(m[2])
+        if (!Number.isNaN(num)) {
+          const rest = (s.slice(0, m.index) + ' ' + s.slice(m.index + m[0].length)).replace(/\s+/g, ' ').trim()
+          return { filter: { kind: m[1] === '<' ? 'lt' : 'gt', value: num }, rest }
+        }
+      }
+    }
+    return null
+  }
+
   function stripFirstPlannerExactMatch(
     s: string,
     regexes: readonly RegExp[]
@@ -283,6 +317,8 @@
   }
 
   function stripFirstPlannerKcal(s: string): { filter: PlannerNutritionFilter | null; rest: string } {
+    const compared = stripPlannerCompareMatch(s, PLANNER_KCAL_COMPARE_REGEXES)
+    if (compared) return { filter: compared.filter, rest: compared.rest }
     const ranged = stripPlannerRangeMatch(s, PLANNER_KCAL_RANGE_REGEXES)
     if (ranged) return { filter: ranged.filter, rest: ranged.rest }
     const { value, rest } = stripFirstPlannerExactMatch(s, PLANNER_KCAL_REGEXES)
@@ -291,6 +327,8 @@
   }
 
   function stripFirstPlannerGrams(s: string): { filter: PlannerNutritionFilter | null; rest: string } {
+    const compared = stripPlannerCompareMatch(s, PLANNER_GRAM_COMPARE_REGEXES)
+    if (compared) return { filter: compared.filter, rest: compared.rest }
     const ranged = stripPlannerRangeMatch(s, PLANNER_GRAM_RANGE_REGEXES)
     if (ranged) return { filter: ranged.filter, rest: ranged.rest }
     const { value, rest } = stripFirstPlannerExactMatch(s, PLANNER_GRAM_REGEXES)
@@ -346,8 +384,7 @@
     return false
   }
 
-  function recipePlannerEnergyInRange(r: CatalogEntry, min: number, max: number): boolean {
-    const ok = (v: number) => v >= min && v <= max
+  function recipePlannerEnergySatisfies(r: CatalogEntry, ok: (v: number) => boolean): boolean {
     if (typeof r.energy === 'number' && ok(r.energy)) return true
     for (const tbl of r.nutritionTables ?? []) {
       if (typeof tbl.energy === 'number' && ok(tbl.energy)) return true
@@ -355,8 +392,7 @@
     return false
   }
 
-  function recipePlannerCarbsInRange(r: CatalogEntry, min: number, max: number): boolean {
-    const ok = (v: number) => v >= min && v <= max
+  function recipePlannerCarbsSatisfies(r: CatalogEntry, ok: (v: number) => boolean): boolean {
     if (typeof r.carbs === 'number' && ok(r.carbs)) return true
     for (const tbl of r.nutritionTables ?? []) {
       if (typeof tbl.carbs === 'number' && ok(tbl.carbs)) return true
@@ -367,13 +403,17 @@
   function recipeMatchesPlannerEnergyFilter(r: CatalogEntry, f: PlannerNutritionFilter | null): boolean {
     if (f === null) return true
     if (f.kind === 'exact') return recipeMatchesPlannerEnergyTarget(r, f.value)
-    return recipePlannerEnergyInRange(r, f.min, f.max)
+    if (f.kind === 'lt') return recipePlannerEnergySatisfies(r, (v) => v < f.value)
+    if (f.kind === 'gt') return recipePlannerEnergySatisfies(r, (v) => v > f.value)
+    return recipePlannerEnergySatisfies(r, (v) => v >= f.min && v <= f.max)
   }
 
   function recipeMatchesPlannerCarbsFilter(r: CatalogEntry, f: PlannerNutritionFilter | null): boolean {
     if (f === null) return true
     if (f.kind === 'exact') return recipeMatchesPlannerCarbsTarget(r, f.value)
-    return recipePlannerCarbsInRange(r, f.min, f.max)
+    if (f.kind === 'lt') return recipePlannerCarbsSatisfies(r, (v) => v < f.value)
+    if (f.kind === 'gt') return recipePlannerCarbsSatisfies(r, (v) => v > f.value)
+    return recipePlannerCarbsSatisfies(r, (v) => v >= f.min && v <= f.max)
   }
 
   function plannerRecipeMatchesSearch(r: CatalogEntry, raw: string, cats: Category[]): boolean {
@@ -455,7 +495,7 @@
     <div class="mb-4">
       <input
         type="text"
-        placeholder="Szóköz = ÉS. Pl. 100-200 kcal · 20-50 g · hal 350 kcal"
+        placeholder="Szóköz = ÉS. Pl. 100-200 kcal · <350 kcal · >20 g · hal"
         bind:value={searchQuery}
         class="input input-bordered w-full"
       />

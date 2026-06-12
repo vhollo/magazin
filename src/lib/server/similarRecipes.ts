@@ -15,8 +15,18 @@ import {
   type Recipe,
   type RecipeLayoutEntry,
 } from '$lib/receptsarok'
+import redirectManifest from '$lib/data/receptsarok-redirects.json'
 
 type RecipePublished = Recipe & { published?: boolean }
+
+type RedirectManifestEntry = { modxContentId?: number; year?: number; id?: string }
+
+function redirectManifestEntries(): RedirectManifestEntry[] {
+  const raw = redirectManifest as unknown
+  if (Array.isArray(raw)) return raw as RedirectManifestEntry[]
+  const entries = (raw as { entries?: unknown })?.entries
+  return Array.isArray(entries) ? (entries as RedirectManifestEntry[]) : []
+}
 
 const SEARCH_OPTIONS = { fuzzy: 0.2, prefix: true, boost: { title: 2 } }
 
@@ -26,6 +36,8 @@ let memo: {
   entries: Map<string, RecipeLayoutEntry>
   /** Term → number of recipes using it (for rarity-ranked fallback queries). */
   df: Map<string, number>
+  /** MODX doc id → recipe slug, for resolving curated "További receptek" links. */
+  byModxId: Map<number, string>
 } | null = null
 
 function ownTermsOf(entry: RecipeLayoutEntry | undefined): string[] {
@@ -61,9 +73,54 @@ async function getRecipeSearchIndex() {
     for (const term of ownTermsOf(entry)) df.set(term, (df.get(term) ?? 0) + 1)
   }
 
+  // MODX doc id → recipe slug. Recipes' own sourceModxId first (first match wins,
+  // deterministic), then the redirect manifest overrides — it maps article ids to
+  // the recipe the live site actually redirects to (covers dedupe-variant docs
+  // whose sourceModxId differs from their article id).
+  const byModxId = new Map<number, string>()
+  for (const r of published) {
+    const src = (r as Recipe).sourceModxId
+    if (Number.isFinite(src) && !byModxId.has(src as number)) {
+      byModxId.set(src as number, recipeSlug(r))
+    }
+  }
+  for (const e of redirectManifestEntries()) {
+    const modxId = Number(e?.modxContentId)
+    const year = Number(e?.year)
+    const id = typeof e?.id === 'string' ? e.id : ''
+    if (!Number.isFinite(modxId) || !Number.isFinite(year) || !id) continue
+    const slug = recipeSlug({ year, id })
+    if (entries.has(slug)) byModxId.set(modxId, slug)
+  }
+
   memoSource = recipes
-  memo = { index, entries, df }
+  memo = { index, entries, df, byModxId }
   return memo
+}
+
+/**
+ * Resolve a curated "További receptek" link list (MODX doc ids) to recipes —
+ * all of them, in list order, deduplicated, excluding the recipe being viewed.
+ * Ids that don't resolve to a published recipe (plain articles, hubs) drop out.
+ */
+export async function linkedRecipesFor(
+  linkedModxIds: number[],
+  exclude?: Pick<Recipe, 'year' | 'id'>
+): Promise<RecipeLayoutEntry[]> {
+  if (!Array.isArray(linkedModxIds) || linkedModxIds.length === 0) return []
+  const { entries, byModxId } = await getRecipeSearchIndex()
+  const excludeId = exclude ? recipeSlug(exclude) : null
+  const seen = new Set<string>()
+  const out: RecipeLayoutEntry[] = []
+  for (const modxId of linkedModxIds) {
+    const slug = byModxId.get(Number(modxId))
+    if (!slug || slug === excludeId || seen.has(slug)) continue
+    const entry = entries.get(slug)
+    if (!entry) continue
+    seen.add(slug)
+    out.push(entry)
+  }
+  return out
 }
 
 /**

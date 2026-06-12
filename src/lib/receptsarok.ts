@@ -116,6 +116,8 @@ export interface Recipe {
   free?: boolean
   video?: RecipeVideo | string
   sourceModxId?: number
+  /** MODX doc ids from the source article's "További receptek" list (curated related recipes). */
+  linkedModxIds?: number[]
 }
 
 export interface RecipeTeaser {

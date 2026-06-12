@@ -45156,6 +45156,17 @@
       "confidence_score": 1.0,
       "source": "modx_modx_firestore_sync_plugin_magazin_evodispatchfirestoresyncworkflow",
       "target": "modx_modx_firestore_sync_plugin_magazin_evogithubworkflowdispatch"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/routes/receptsarok/+page.svelte",
+      "source_location": "L9",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_routes_receptsarok_page_svelte",
+      "target": "lib_receptsarokaccess_isreceptsaroktrialactive"
     }
   ],
   "hyperedges": [],

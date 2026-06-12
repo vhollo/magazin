@@ -57,6 +57,15 @@
 body {
   @apply flex flex-col min-h-screen;
 }
+
+/* iOS Safari auto-zooms when a focused control's font-size is < 16px,
+   and the zoom persists after navigation. 16px disables the zoom.
+   -webkit-touch-callout is only supported on iOS WebKit. */
+@supports (-webkit-touch-callout: none) {
+  input, select, textarea {
+    font-size: 16px;
+  }
+}
 @media (prefers-color-scheme: light) {
   :root {
     /* --fallback-bc: oklch(var(--bc) / 1); */

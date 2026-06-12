@@ -6,8 +6,11 @@
 </script>
 
 <script lang="ts">
+  import { isReceptsarokTrialActive } from '$lib/receptsarokAccess'
+
   let { data } = $props()
 
+  const trial = isReceptsarokTrialActive()
   const categories = $derived(data.categories)
   const totalRecipes = $derived(data.totalRecipes ?? 0)
   const freeCount = $derived(data.totalFree ?? 0)
@@ -25,14 +28,18 @@
   <h1><ReceptsarokLogo class="text-3xl sm:text-4xl" /></h1>
   <p>
     {totalRecipes} diabétesz-barát recept, tápanyagtáblázattal.</p>
-  <p class="text-success font-medium">A Diabetes és Hypertonia lapokban megjelent {freeCount} recept ingyenesen elérhető.</p>
+  {#if trial}
+    <p class="text-success font-medium">Ingyenes próbaidőszak: bejelentkezés után minden recept teljes tartalma elérhető.</p>
+  {:else}
+    <p class="text-success font-medium">A Diabetes és Hypertonia lapokban megjelent {freeCount} recept ingyenesen elérhető.</p>
+  {/if}
   
 </article>
 
 <section
   class="grid grid-cols-1 gap-[clamp(1rem,2.5vw,1.75rem)] w-full px-[clamp(1rem,4vw,2.75rem)] py-6 md:grid-cols-4 2xl:grid-cols-6"
 >
-  {#each categories as cat}
+  {#each categories as cat (cat.id)}
     <a
       href="/receptsarok/{cat.id}"
       class="group grid min-h-[clamp(6.5rem,22vw,10rem)] w-full overflow-hidden rounded-2xl bg-base-300 shadow-md ring-1 ring-black/20 transition-shadow hover:shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-primary {cat.image ? 'grid-cols-2' : 'grid-cols-1'} md:col-span-2 md:last:col-start-2 2xl:last:col-start-3"
@@ -57,7 +64,9 @@
             {cat.name}
           </h2>
           <p class="mt-1 text-sm text-[#9CA3AF]">{cat.recipeCount} recept</p>
-          <p class="mt-0.5 text-xs text-success/90">{freeCountsByCategory[cat.id] ?? 0} ingyenes recept</p>
+          {#if !trial}
+            <p class="mt-0.5 text-xs text-success/90">{freeCountsByCategory[cat.id] ?? 0} ingyenes recept</p>
+          {/if}
         </div>
         <div class="flex shrink-0 items-center self-stretch pr-0.5">
           <svg

@@ -246,7 +246,11 @@
   {/if}
 </article>
 
-<ReceptsarokWidget recipes={data.similarRecipes ?? []} title={recipe.title} />
+<ReceptsarokWidget
+  recipes={data.similarRecipes ?? []}
+  title={data.similarIsLinked ? '' : recipe.title}
+  heading={data.similarIsLinked ? 'További receptek a Receptsarokban' : undefined}
+/>
 
 <Search articles={data.articleCount} recipes={data.recipeCount} />
 <Nav2 actual="/receptsarok" />

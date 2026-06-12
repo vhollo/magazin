@@ -230,7 +230,11 @@
   {/if}
 
   {#if isRecipeArticle && rsMatches.length}
-    <ReceptsarokWidget recipes={rsMatches} title={doc.title || ''} />
+    <ReceptsarokWidget
+      recipes={rsMatches}
+      title={data.rsWidgetLinked ? '' : doc.title || ''}
+      heading={data.rsWidgetLinked ? 'További receptek a Receptsarokban' : undefined}
+    />
   {/if}
 
 {/if}
