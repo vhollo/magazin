@@ -385,12 +385,34 @@ async function processRow(
 
   const docId = encodeDocPathId(processed.path)
   await firestore.collection('docs').doc(docId).set(processed)
+
+  // The doc-id is derived from the article path, so changing the alias writes a
+  // new doc and orphans the old one — leaving two articles in the listings.
+  // Drop any prior doc for this MODX id that now lives at a different path.
+  // (Full sync handles the same case in deleteOrphanFirestoreDocs.)
+  /** @type {string[]} */
+  let stalePaths = []
+  let staleReads = 0
+  if (!isFullSync) {
+    const stale = await deleteStaleDocsForId(firestore, doc.id, docId)
+    stalePaths = stale.paths
+    staleReads = stale.reads
+  }
+
   if (resolved.dynamicEntry) {
     console.log(
       `  redirect id=${processed.id} → /receptsarok/${resolved.dynamicEntry.year}/${resolved.dynamicEntry.id} (dynamic match)`
     )
   }
-  return { written: true, processed, docId, dynamicEntry: resolved.dynamicEntry, freeTarget }
+  return {
+    written: true,
+    processed,
+    docId,
+    stalePaths,
+    staleReads,
+    dynamicEntry: resolved.dynamicEntry,
+    freeTarget,
+  }
 }
 
 /**
@@ -465,12 +487,45 @@ async function findFirestorePathByModxId(firestore, modxId) {
 }
 
 /**
- * On full backfill, drop Firestore docs whose MODX id is no longer in the published set.
+ * Delete any Firestore doc that maps to `modxId` but lives at a different
+ * doc-id than `keepDocId` — the stale copy left behind when an article's alias
+ * (and therefore its path / doc-id) changes. Returns the removed paths so the
+ * caller can drop them from the projection, search index, and CDN cache.
+ *
+ * @param {import('firebase-admin/firestore').Firestore} firestore
+ * @param {number} modxId
+ * @param {string} keepDocId doc-id of the freshly-written canonical doc
+ * @returns {Promise<{ paths: string[], reads: number }>}
+ */
+async function deleteStaleDocsForId(firestore, modxId, keepDocId) {
+  const snap = await firestore.collection('docs').where('id', '==', modxId).get()
+  /** @type {string[]} */
+  const paths = []
+  for (const docSnap of snap.docs) {
+    if (docSnap.id === keepDocId) continue
+    const pathValue = docSnap.data()?.path
+    const stalePath =
+      typeof pathValue === 'string' && pathValue.trim()
+        ? pathValue.trim()
+        : decodeDocPathId(docSnap.id)
+    await docSnap.ref.delete()
+    if (stalePath) paths.push(stalePath)
+    console.log(`  deleted stale docs/${docSnap.id} (id=${modxId}, alias changed → docs/${keepDocId})`)
+  }
+  return { paths, reads: snap.size }
+}
+
+/**
+ * On full backfill, drop Firestore docs whose MODX id is no longer in the
+ * published set (orphans), plus stale copies left behind when an article's
+ * alias changed (id still published, but the doc-id no longer matches the
+ * freshly-synced path).
  *
  * @param {import('firebase-admin/firestore').Firestore} firestore
  * @param {Set<number>} syncedModxIds
+ * @param {Map<number, Record<string, unknown>>} workingById
  */
-async function deleteOrphanFirestoreDocs(firestore, syncedModxIds) {
+async function deleteOrphanFirestoreDocs(firestore, syncedModxIds, workingById) {
   const snap = await firestore.collection('docs').select('id', 'path').get()
   let deleted = 0
   /** @type {string[]} */
@@ -479,14 +534,29 @@ async function deleteOrphanFirestoreDocs(firestore, syncedModxIds) {
   for (const docSnap of snap.docs) {
     const data = docSnap.data()
     const modxId = Number(data.id)
-    if (!Number.isFinite(modxId) || syncedModxIds.has(modxId)) continue
+    if (!Number.isFinite(modxId)) continue
+
+    let reason = ''
+    if (!syncedModxIds.has(modxId)) {
+      reason = 'orphan'
+    } else {
+      const canonicalPath = workingById?.get(modxId)?.path
+      if (
+        typeof canonicalPath === 'string' &&
+        canonicalPath.trim() &&
+        encodeDocPathId(canonicalPath) !== docSnap.id
+      ) {
+        reason = 'alias changed'
+      }
+    }
+    if (!reason) continue
 
     await docSnap.ref.delete()
     deleted++
     if (typeof data.path === 'string' && data.path.trim()) {
       paths.push(data.path.trim())
     }
-    console.log(`  deleted orphan docs/${docSnap.id} (modx id=${modxId})`)
+    console.log(`  deleted ${reason} docs/${docSnap.id} (modx id=${modxId})`)
   }
 
   return { deleted, paths, reads: snap.size }
@@ -583,6 +653,7 @@ async function main() {
   let rowsToProcess
   let tmplvarContentvalues
   let modxSzerzok
+  let lastEdit = 0
 
   if (isFromPayload) {
     // ── Payload path (no MySQL / cPanel needed) ──────────────────────────────
@@ -603,7 +674,7 @@ async function main() {
     )
   } else {
     // ── MySQL path (manual workflow_dispatch full / incremental) ─────────────
-    const lastEdit = isFullSync ? 0 : await readLastEdit(firestore)
+    lastEdit = isFullSync ? 0 : await readLastEdit(firestore)
     readCounts.meta += 1
     console.log(
       isFullSync
@@ -694,6 +765,9 @@ async function main() {
 
   let written = 0
   let skipped = 0
+  let staleDeleted = 0
+  /** @type {string[]} stale paths left behind by alias changes (incremental) */
+  const renamedPaths = []
 
   // Ancestors only: path resolution for changed/removed rows; never overlay unpublished rows.
   if (removedRows.length > 0) {
@@ -732,6 +806,11 @@ async function main() {
     if (result.freeTarget) {
       modxLinkedFreeTargets.push(result.freeTarget)
     }
+    if (result.staleReads) readCounts.staleScan += result.staleReads
+    if (result.stalePaths?.length) {
+      renamedPaths.push(...result.stalePaths)
+      staleDeleted += result.stalePaths.length
+    }
     if (result.written) {
       written++
       console.log(`  wrote docs/${result.docId} (id=${result.processed.id})`)
@@ -740,9 +819,9 @@ async function main() {
     }
   }
 
-  let deleted = 0
+  let deleted = staleDeleted
   /** @type {string[]} */
-  let deletedPaths = []
+  let deletedPaths = [...renamedPaths]
   if (removedRows.length > 0) {
     const removal = await deleteRemovedDocs(
       firestore,
@@ -751,8 +830,8 @@ async function main() {
       removedIds,
       workingById
     )
-    deleted = removal.deleted
-    deletedPaths = removal.paths
+    deleted += removal.deleted
+    deletedPaths = [...deletedPaths, ...removal.paths]
     for (const id of removedIds) {
       workingById.delete(id)
     }
@@ -760,7 +839,7 @@ async function main() {
 
   if (isFullSync && changedRows.length > 0) {
     const syncedModxIds = new Set(changedRows.map((row) => row.id))
-    const orphanRemoval = await deleteOrphanFirestoreDocs(firestore, syncedModxIds)
+    const orphanRemoval = await deleteOrphanFirestoreDocs(firestore, syncedModxIds, workingById)
     readCounts.orphanScan = orphanRemoval.reads ?? 0
     deleted += orphanRemoval.deleted
     deletedPaths = [...deletedPaths, ...orphanRemoval.paths]
