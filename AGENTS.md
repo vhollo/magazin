@@ -619,7 +619,7 @@ Run from repo root (`magazin/`). Requires `.env` with `MODXDB_*`, `FIREBASE_ADMI
 | Command | Script | When to use |
 |---------|--------|-------------|
 | `npm run sync:modx` | `scripts/sync-modx-to-firestore.mjs` | **Incremental sync** — upsert changed rows; patch `meta/projections` Storage snapshot + collections/search incrementally (**~few Firestore reads**, not full `docs` scan). Optional `--with-rs-collections` after recipe `free` updates. |
-| `npm run sync:modx:full` | `… --full` | **One-time / full backfill** — all published magazine rows → Firestore; also removes orphan `docs/*` whose MODX id is no longer published. Also backfills `doc.tv.egyesulet` (TV 31) onto all existing docs. |
+| `npm run sync:modx:full` | `… --full` | **One-time / full backfill** — all published magazine rows → Firestore; also removes orphan `docs/*` whose MODX id is no longer published **and stale `docs/*` left by alias changes** (id still published but doc-id no longer matches the synced path). Also backfills `doc.tv.egyesulet` (TV 31) onto all existing docs. |
 | `npm run sync:modx:payload` | `… --from-payload` | **MySQL-free save path** — reads rows from `MODX_SYNC_PAYLOAD` env var (gzip+base64 JSON); used by the `repository_dispatch` GitHub Actions trigger. Does not advance `meta/sync.lastEdit`. |
 | `npm run sync:modx:finish` | `scripts/finish-modx-sync.mjs` | **Repair pass** — `docs/` already populated but search index, `relatedCards`, or `meta/search` missing (e.g. sync failed mid-run). |
 | `npm run sync:rs-collections:apply` | `scripts/sync-receptsarok-collections.mjs` | **Receptsarok UI docs** — rebuild `collections/rs-home`, `collections/rs-{category}`, `collections/rs-teasers-{year}` + `rs-teasers-index` from Firestore `recipes` + `categories`. Run after `sync:recipes:apply` or MODX `free` flag changes. Pass without `:apply` for dry run + index-entry warnings. |
@@ -630,7 +630,7 @@ Run from repo root (`magazin/`). Requires `.env` with `MODXDB_*`, `FIREBASE_ADMI
 
 **What gets written**
 
-- `docs/{encodedPath}` — full article payload
+- `docs/{encodedPath}` — full article payload. The doc-id is derived from the article path (`encodeDocPathId`), so **changing an article's alias changes its doc-id**. On every changed row the incremental/payload sync deletes any prior `docs/*` for the same MODX id that now sits at a different doc-id, and drops the old path from the projection, search index, and CDN purge — so a rename leaves exactly one article (full sync does the same in its orphan scan).
 - `collections/{slug}` + `collections/home` — top 72 thin cards per tag collection
 - `meta/search` — `{ indexUrl, version, articleCount, recipeCount }`
 - `meta/stats`, `meta/sync.lastEdit`
@@ -645,6 +645,7 @@ Run from repo root (`magazin/`). Requires `.env` with `MODXDB_*`, `FIREBASE_ADMI
 | First deploy, new Firebase project, or empty article pages / 503 on `/api/search-meta` | `npm run sync:modx:full` then `npm run sync:rs-collections:apply` then `npm run sync:patika:apply` then `npm run verify:firestore-magazine` |
 | Edited/published MODX article but live site still stale | `npm run sync:modx` or trigger GitHub Actions **Sync MODX to Firestore** (check MODX plugin + `magazin_github_token`) |
 | Unpublished/deleted MODX article still visible on site | `npm run sync:modx` (incremental removes from Firestore) or `sync:modx:full` for orphan cleanup |
+| Changed an article's alias (URL slug) → **two articles** now show (old + new URL) | Already auto-handled: next `sync:modx`/payload save deletes the stale old-path `docs/*`. If a leftover predates this fix, `npm run sync:modx:full` clears it. |
 | `/keres` shows “index not available” but articles load | `npm run sync:modx:finish` |
 | `/receptsarok` shows wrong category counts, `/keres` recipe hits missing nutrition/img, or category listing stale after `sync:recipes:apply` | `npm run sync:rs-collections:apply` (rebuilds `collections/rs-home`, `rs-{cat}`, `rs-teasers`) |
 | `/patika` empty or pharmacy list outdated after editing `tables/elofizetok/patika` in Firestore | `npm run sync:patika:apply` |
