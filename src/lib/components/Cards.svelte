@@ -16,52 +16,11 @@
   import CardH from '$lib/components/CardH.svelte'
   import RecipeCard from '$lib/components/RecipeCard.svelte'
   import BannerSide from '$lib/components/BannerSide.svelte'
+  import { masonryItem } from '$lib/masonry.js'
   export let ads_distance = 4
   // import { ads } from '$lib/ads.js'
   export let cards: any[], full = true
 
-  // Dense masonry: derive grid-row span from each item's actual content height.
-  // Reads grid-auto-rows + row-gap from the parent so CSS stays the source of truth.
-  function masonryItem(node: HTMLElement) {
-    let ROW = 4, GAP = 0
-    const parent = node.parentElement
-    if (parent) {
-      const cs = getComputedStyle(parent)
-      ROW = parseFloat(cs.gridAutoRows) || ROW
-      GAP = parseFloat(cs.rowGap) || GAP
-    }
-    let lastSpan = 0
-    let raf = 0
-    const measure = () => {
-      raf = 0
-      const h = node.getBoundingClientRect().height
-      if (!h) return
-      const span = Math.max(1, Math.ceil((h + GAP) / (ROW + GAP)))
-      if (span !== lastSpan) {
-        lastSpan = span
-        node.style.gridRowEnd = `span ${span}`
-      }
-    }
-    // Coalesce bursts (many images resolving at once) into one write per frame.
-    const setSpan = () => {
-      if (!raf) raf = requestAnimationFrame(measure)
-    }
-    measure() // initial span synchronously, before first paint
-    const ro = new ResizeObserver(setSpan)
-    ro.observe(node)
-    const imgs = Array.from(node.querySelectorAll('img'))
-    imgs.forEach((img) => {
-      if (!img.complete) img.addEventListener('load', setSpan)
-    })
-    return {
-      destroy() {
-        if (raf) cancelAnimationFrame(raf)
-        ro.disconnect()
-        imgs.forEach((img) => img.removeEventListener('load', setSpan))
-      }
-    }
-  }
-  
   // Masonry spans are JS-only; switch to the fine-grained grid once mounted so the
   // SSR/pre-hydration paint uses content-sized rows and never overlaps before JS loads.
   let ready = false

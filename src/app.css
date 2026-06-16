@@ -337,6 +337,10 @@ table.nicebox {
 .nicebox tr {
   width: 100%;
 }
+.prose :where(tbody th,tfoot th):not(:where([class~=not-prose],[class~=not-prose] *)) {
+  padding-top: .571429em;
+  padding-bottom: .571429em;
+}
 .nicebox th + th, .nicebox td + td {
   padding-left: 1rem;
 }

@@ -270,7 +270,7 @@
   
 </script>
 
-<nav class="sticky top-0 z-40 hover:z-50 bg-base-300 text-base-content navbar max-md-block max-md:flex-col justify-top py-0 min-h-12 h-12 max-md:overflow-y-auto">
+<nav class="sticky top-0 z-40 hover:z-50 bg-base-300 text-base-content navbar border-b border-base-content/10 max-md-block max-md:flex-col justify-top py-0 min-h-12 h-12 max-md:overflow-y-auto">
   <!-- <label for="mobile-nav" aria-label="open sidebar" class="top-0 left-0 bg-base-300 z-50 btn btn-lg btn-square btn-ghost md:hidden text-base-content">
     <svg
       xmlns="http://www.w3.org/2000/svg"
