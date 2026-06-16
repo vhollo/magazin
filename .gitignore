@@ -18,6 +18,7 @@ Thumbs.db
 
 # Vite
 vite.config.js.timestamp-*
+vite.config.ts.timestamp-*
 
 # Local Netlify folder
 .netlify
@@ -30,5 +31,6 @@ magazin.code-workspace
 # /src/routes/auth/
 
 #/src/lib/data/*
-src/lib/data/data.json
+scripts/data/data.json
+src/lib/data/.recipes-rev.json
 /static/banners

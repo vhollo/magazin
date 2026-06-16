@@ -1,10 +1,7 @@
 import type { PageServerLoad } from './$types'
 import { error } from '@sveltejs/kit'
 import { getReceptsarokRecipe } from '$lib/receptsarokFirestore'
-import { getRecipes } from '$lib/siteConf'
-import { similarRecipesForTitle, toLayoutRecipe, type Recipe } from '$lib/receptsarok'
-
-type RecipePublished = Recipe & { published?: boolean }
+import { linkedRecipesFor, similarRecipesFor } from '$lib/server/similarRecipes'
 
 export const load: PageServerLoad = async ({ params }) => {
   const year = Number(params.year)
@@ -18,19 +15,21 @@ export const load: PageServerLoad = async ({ params }) => {
     error(404, { message: `Recept nem található: ${params.year}/${params.id}` })
   }
 
-  const full = (await getRecipes()) as Recipe[]
-  const entries = full
-    .filter((r: RecipePublished) => r.published !== false)
-    .map(toLayoutRecipe)
-  const similarRecipes = similarRecipesForTitle(result.recipe.title, entries, {
-    year: result.recipe.year,
-    id: result.recipe.id,
-  })
+  // Curated "További receptek" links from the source article win over the
+  // title-similarity search — and all of them are shown, not just 4.
+  const self = { year: result.recipe.year, id: result.recipe.id }
+  const linked = result.recipe.linkedModxIds?.length
+    ? await linkedRecipesFor(result.recipe.linkedModxIds, self)
+    : []
+  const similarRecipes = linked.length
+    ? linked
+    : await similarRecipesFor(result.recipe.title, self)
 
   return {
     recipe: result.recipe,
     isFree: result.isFree,
     categoryId: result.recipe.category,
     similarRecipes,
+    similarIsLinked: linked.length > 0,
   }
 }

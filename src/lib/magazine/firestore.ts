@@ -63,3 +63,25 @@ export async function getMagazineStats(): Promise<{ articleCount: number; listed
 	const listedCount = home?.count ?? home?.cards?.length ?? 0;
 	return { articleCount: listedCount, listedCount };
 }
+
+export type SiteStats = {
+	articleCount: number;
+	/** NaN until sync:rs-collections has merged the recipe counts into meta/stats. */
+	recipeCount: number;
+	freeCount: number;
+};
+
+/**
+ * One read for every count the root layout needs. `recipeCount`/`freeCount`
+ * are merged into meta/stats by sync:rs-collections; callers fall back to
+ * `collections/rs-home` while they are missing.
+ */
+export async function getSiteStats(): Promise<SiteStats> {
+	const snap = await db.collection('meta').doc('stats').get();
+	const data = snap.exists ? snap.data() : undefined;
+	return {
+		articleCount: Number(data?.articleCount ?? 0),
+		recipeCount: Number(data?.recipeCount),
+		freeCount: Number(data?.freeCount),
+	};
+}

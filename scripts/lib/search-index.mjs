@@ -206,7 +206,7 @@ export function recipeToSearchDoc(r) {
     ellipsis: r.description ?? '',
     szerzo: r.author ?? '',
     content: `${terms} ${ing} ${r.title} ${r.author ?? ''}`.trim(),
-    img: r.image,
+    img: r.img ?? null,
     tv: { tags: ['recept'] },
     free: r.free === true,
     recipeTeaser: buildKeresRecipeTeaser(r),
@@ -492,12 +492,16 @@ export async function buildAndUploadSearchIndex(firestore, projectionDocs, optio
     recipeCount,
   })
 
-  await firestore.collection('meta').doc('stats').set({
-    articleCount,
-    listedCount,
-    recipeCount,
-    updatedAt: new Date().toISOString(),
-  })
+  // merge: sync:rs-collections owns { recipeCount, freeCount } on the same doc
+  await firestore.collection('meta').doc('stats').set(
+    {
+      articleCount,
+      listedCount,
+      recipeCount,
+      updatedAt: new Date().toISOString(),
+    },
+    { merge: true }
+  )
 
   const staticMetaPath = path.join(root, 'static', 'search-meta.json')
   fs.mkdirSync(path.dirname(staticMetaPath), { recursive: true })

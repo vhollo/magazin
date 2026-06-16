@@ -1,8 +1,9 @@
 import fs from 'node:fs'
 import path from 'node:path'
+import { stringifyRecipesJson } from '../src/lib/recipesJsonFormat.js'
 
 const RECIPES_PATH = path.resolve(process.cwd(), 'src/lib/data/recipes.json')
-const REVIEW_PATH = path.resolve(process.cwd(), 'src/lib/data/receptsarok-uncategorized-review.json')
+const REVIEW_PATH = path.resolve(process.cwd(), 'scripts/data/receptsarok-uncategorized-review.json')
 
 function readJson(filePath) {
   return JSON.parse(fs.readFileSync(filePath, 'utf8'))
@@ -81,7 +82,7 @@ review.entries = review.entries.filter((entry) => {
 })
 removedFromReview = beforeCount - review.entries.length
 
-writeJson(RECIPES_PATH, recipes)
+fs.writeFileSync(RECIPES_PATH, stringifyRecipesJson(recipes))
 writeJson(REVIEW_PATH, review)
 console.log(
   `Imported uncategorized review: inserted=${inserted}, updated=${updated}, skipped=${skipped}, removedFromReview=${removedFromReview}, remaining=${review.entries.length}`

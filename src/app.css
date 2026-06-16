@@ -57,6 +57,15 @@
 body {
   @apply flex flex-col min-h-screen;
 }
+
+/* iOS Safari auto-zooms when a focused control's font-size is < 16px,
+   and the zoom persists after navigation. 16px disables the zoom.
+   -webkit-touch-callout is only supported on iOS WebKit. */
+@supports (-webkit-touch-callout: none) {
+  input, select, textarea {
+    font-size: 16px;
+  }
+}
 @media (prefers-color-scheme: light) {
   :root {
     /* --fallback-bc: oklch(var(--bc) / 1); */
@@ -91,7 +100,7 @@ body {
 }
 
 
-@media (width < 48rem)  {
+@media (max-width: 47.999rem) {
   body:has(#mobile-nav:checked) > *:not(nav), nav:has(/* nav >  */#mobile-nav:checked) ~ */* , footer ~ * */ {
     display: none;
   }
@@ -103,7 +112,7 @@ body {
   } */
 }
 
-@media (width >= 48rem) {
+@media (min-width: 48rem) {
   .drop-col {
     @apply dropdown;
   }
@@ -257,7 +266,9 @@ article figure {
 .ellipsis .nicebox h2 {
   display: none;
 }
-
+.introtext ~ .j_lead {
+  display: none;
+}
 
 .prose :where(p):not(:where([class~="not-prose"],[class~="not-prose"] *)) {
   margin-top: .75em;
@@ -302,7 +313,7 @@ ul.nicebox {
 }
 
 p.nicebox, p.boxleft, p.boxright {
-  @apply !p-2;
+  @apply p-2!;
 }
 
 .nicebox:has(table) {
@@ -331,7 +342,7 @@ table.nicebox {
 }
 
 article table:not(.nicebox) {
-  @apply table table-xs w-full min-w-[min(100%,32rem)] w-full rounded-lg border border-base-300 bg-base-200/4;
+  @apply table table-xs w-full min-w-[min(100%,32rem)] rounded-lg border border-base-300 bg-base-200/4;
 }
 /* article table:not(.nicebox) thead th {
   @apply bg-base-200 font-normal;
@@ -343,6 +354,10 @@ article th + th, article td + td {
 article figure img {
   max-height: 75vh;
 }
+.nicebox img {
+  padding: 1rem;
+}
+
 .prose {
   container-type: inline-size;
 }

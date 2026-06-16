@@ -39,14 +39,34 @@ async function loadFullProjectionFromFirestore(firestore) {
  * @param {Record<string, unknown>[]} baseDocs
  * @param {Map<number, Record<string, unknown>>} workingById
  * @param {Set<string>} removedPaths normalized paths to drop
+ * @param {Set<number>} [removedModxIds] drop every snapshot row with these MODX ids (any path)
+ * @param {Set<number>|null} [overlayIds] only overlay workingById rows in this set; null = all
  */
-function mergeProjectionSnapshot(baseDocs, workingById, removedPaths) {
+function mergeProjectionSnapshot(
+  baseDocs,
+  workingById,
+  removedPaths,
+  removedModxIds = new Set(),
+  overlayIds = null
+) {
   const byDocId = new Map()
   for (const doc of baseDocs) {
     if (typeof doc?.path !== 'string' || !doc.path.trim()) continue
     byDocId.set(encodeDocPathId(doc.path), pickDocFields(doc))
   }
+  if (removedModxIds.size > 0) {
+    for (const [encoded, doc] of byDocId) {
+      const modxId = Number(doc.id)
+      if (Number.isFinite(modxId) && removedModxIds.has(modxId)) {
+        byDocId.delete(encoded)
+      }
+    }
+  }
   for (const processed of workingById.values()) {
+    const modxId = Number(processed?.id)
+    if (overlayIds != null) {
+      if (!Number.isFinite(modxId) || !overlayIds.has(modxId)) continue
+    }
     if (typeof processed?.path !== 'string' || !processed.path.trim()) continue
     byDocId.set(encodeDocPathId(processed.path), pickDocFields(processed))
   }
@@ -60,14 +80,14 @@ function mergeProjectionSnapshot(baseDocs, workingById, removedPaths) {
  * @param {import('firebase-admin/firestore').Firestore} firestore
  * @param {Map<number, Record<string, unknown>>} workingById
  * @param {string[]} removedPaths
- * @param {{ fullRebuild: boolean }} options
+ * @param {{ fullRebuild?: boolean, removedModxIds?: Set<number>, overlayIds?: Set<number>|null }} [options]
  * @returns {Promise<ProjectionLoadResult>}
  */
 export async function loadProjectionDocsForSync(
   firestore,
   workingById,
   removedPaths,
-  { fullRebuild = false } = {}
+  { fullRebuild = false, removedModxIds = new Set(), overlayIds = null } = {}
 ) {
   /** @type {{ projection: number, meta: number }} */
   const reads = { projection: 0, meta: 0 }
@@ -83,7 +103,13 @@ export async function loadProjectionDocsForSync(
     reads.projection = n
     const { reads: metaReads } = await readMetaProjections(firestore)
     reads.meta = metaReads
-    const merged = mergeProjectionSnapshot(docs, workingById, normalizedRemoved)
+    const merged = mergeProjectionSnapshot(
+      docs,
+      workingById,
+      normalizedRemoved,
+      removedModxIds,
+      overlayIds
+    )
     return { docs: merged, reads, fullRebuild: true }
   }
 
@@ -95,7 +121,13 @@ export async function loadProjectionDocsForSync(
     console.warn('projection snapshot: missing meta/projections.snapshotUrl — full Firestore scan')
     const { docs, reads: n } = await loadFullProjectionFromFirestore(firestore)
     reads.projection = n
-    const merged = mergeProjectionSnapshot(docs, workingById, normalizedRemoved)
+    const merged = mergeProjectionSnapshot(
+      docs,
+      workingById,
+      normalizedRemoved,
+      removedModxIds,
+      overlayIds
+    )
     return { docs: merged, reads, fullRebuild: true }
   }
 
@@ -103,13 +135,25 @@ export async function loadProjectionDocsForSync(
     const parsed = await downloadGzipJson(snapshotUrl)
     const baseDocs = Array.isArray(parsed) ? parsed : []
     console.log(`projection snapshot: loaded ${baseDocs.length} docs from Storage`)
-    const merged = mergeProjectionSnapshot(baseDocs, workingById, normalizedRemoved)
+    const merged = mergeProjectionSnapshot(
+      baseDocs,
+      workingById,
+      normalizedRemoved,
+      removedModxIds,
+      overlayIds
+    )
     return { docs: merged, reads, fullRebuild: false }
   } catch (err) {
     console.warn(`projection snapshot: download failed (${err.message}) — full Firestore scan`)
     const { docs, reads: n } = await loadFullProjectionFromFirestore(firestore)
     reads.projection = n
-    const merged = mergeProjectionSnapshot(docs, workingById, normalizedRemoved)
+    const merged = mergeProjectionSnapshot(
+      docs,
+      workingById,
+      normalizedRemoved,
+      removedModxIds,
+      overlayIds
+    )
     return { docs: merged, reads, fullRebuild: true }
   }
 }

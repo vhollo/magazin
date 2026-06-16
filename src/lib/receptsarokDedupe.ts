@@ -8,6 +8,7 @@ import {
 type CandidateLike = {
   id: string
   year: number
+  author?: string | null
   video?: string | { src?: string | null } | null
   nutritionTables?: NutritionValues[] | null
   subRecipes?: SubRecipe[] | null
@@ -17,22 +18,24 @@ export type CompareRecipeScores = {
   nutritionScore: number
   hasVideo: boolean
   year: number
+  realAuthor: boolean
 }
 
 export type CompareRecipeResult<T extends CandidateLike> = {
   winner: T
   loser: T
-  reason: 'video' | 'nutrition' | 'year' | 'id'
+  reason: 'author' | 'video' | 'nutrition' | 'year' | 'id'
   winnerScores: CompareRecipeScores
   loserScores: CompareRecipeScores
 }
 
 /**
  * Tie-break order:
- * 1) Has video
- * 2) More nutrition values (main + sub-recipes)
- * 3) More recent year
- * 4) Deterministic lexical fallback (`{year}-{id}`)
+ * 1) Real author (author ≠ "Receptsarok" placeholder)
+ * 2) Has video
+ * 3) More nutrition values (main + sub-recipes)
+ * 4) More recent year
+ * 5) Deterministic lexical fallback (`{year}-{id}`)
  */
 export function compareRecipeCandidates<T extends CandidateLike>(a: T, b: T): CompareRecipeResult<T> {
   return compareRecipeCandidatesShared(a, b) as CompareRecipeResult<T>

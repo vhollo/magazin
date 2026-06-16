@@ -6,14 +6,14 @@
 
   export let recipes: (RecipeTeaser | RecipeLayoutEntry)[] = []
   export let title = ''
-
-  $: shown = recipes.slice(0, 4)
+  /** Section heading — overridden for curated "További receptek" lists. */
+  export let heading = 'Hasonló receptek a Receptsarokban'
 </script>
 
-{#if shown.length > 0}
+{#if recipes.length > 0}
   <section class="mt-16 mb-8 px-4">
     <article class="prose mx-auto w-full">
-      <h2 class="text-center">Hasonló receptek a Receptsarokban</h2>
+      <h2 class="text-center">{heading}</h2>
       {#if title}
         <p class="text-center text-sm opacity-60">
           Keresés: „{title}" — {recipes.length} találat
@@ -22,7 +22,7 @@
     </article>
 
     <div class="grid gap-4 mt-6 max-w-5xl mx-auto">
-      {#each shown as recipe}
+      {#each recipes as recipe}
         <RecipeCard {recipe} locked={!isRecipeFree(recipe) && !$hasReceptsarokAccess} />
       {/each}
     </div>

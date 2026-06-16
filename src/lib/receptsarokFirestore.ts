@@ -142,7 +142,10 @@ export async function buildReceptsarokCategory(
 /**
  * `/keres` shell: every published recipe's teaser keyed by `${year}/${id}`.
  *
- * Used to enrich client-side MiniSearch hits with recipe metadata.
+ * @deprecated The /keres page now reads the `recipeTeaser` stored in the
+ * MiniSearch index instead (same fields, zero Firestore reads). Kept as a
+ * rollback path; the rs-teasers-{year} shards are still written by
+ * sync:rs-collections.
  */
 type ReceptsarokTeasersIndexDoc = {
 	years?: number[];

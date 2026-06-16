@@ -22,8 +22,9 @@
 
 <script>
 // @ts-nocheck
-  // import { afterNavigate, replaceState } from '$app/navigation';
-  // import { page, navigating } from '$app/state';
+  import { afterNavigate } from '$app/navigation'
+  import { browser } from '$app/environment'
+  import { tick } from 'svelte'
   export let data
 
   import { ads } from '$lib/ads.js'
@@ -79,6 +80,56 @@
 
   $: isRecipeArticle = doc.tv?.tags?.includes('recept')
   $: rsMatches = data.rsWidgetRecipes ?? []
+
+  // ── Scroll restoration ─────────────────────────────────────────────────────
+  // The inline script in app.html jumps to the saved position before hydration,
+  // collapsing the wait to "HTML + CSS parse". Here we finish the job once the
+  // masonry has packed and any deeper page (#2, #5…) has expanded — re-applying
+  // the scroll and retrying until we actually reach it, so it can "scroll further
+  // when ready". behavior:'instant' (vs /keres' 'auto') because the global
+  // scroll-behavior:smooth would otherwise animate each retry and defeat the poll.
+  let pendingScrollY = null
+
+  async function restoreScrollWhenReady() {
+    if (pendingScrollY == null || !browser) return
+    const y = pendingScrollY
+    await tick()
+    await tick()
+    let attempts = 0
+    const tryScroll = () => {
+      window.scrollTo({ top: y, left: 0, behavior: 'instant' })
+      attempts++
+      if (window.scrollY >= y - 2 || attempts >= 12) {
+        pendingScrollY = null
+        return
+      }
+      setTimeout(tryScroll, 50)
+    }
+    requestAnimationFrame(() => requestAnimationFrame(tryScroll))
+  }
+
+  // /keres-style snapshot: instant restore on back/forward (popstate).
+  export const snapshot = {
+    capture: () => ({ scrollY: browser ? window.scrollY : 0 }),
+    restore: (value) => {
+      if (browser && typeof value?.scrollY === 'number') pendingScrollY = value.scrollY
+    },
+  }
+
+  afterNavigate((navigation) => {
+    if (!browser) return
+    if (navigation.type !== 'enter' && navigation.type !== 'popstate') return
+    if (pendingScrollY == null) {
+      // Reload / initial load: reuse SvelteKit's own saved scroll for this entry.
+      try {
+        const idx = history.state?.['sveltekit:history']
+        const map = JSON.parse(sessionStorage['sveltekit:scroll'] || '{}')
+        const pos = idx != null ? map[idx] : null
+        if (pos && typeof pos.y === 'number') pendingScrollY = pos.y
+      } catch (e) { /* ignore */ }
+    }
+    if (pendingScrollY != null) restoreScrollWhenReady()
+  })
 </script>
 
 <svelte:head>
@@ -179,7 +230,11 @@
   {/if}
 
   {#if isRecipeArticle && rsMatches.length}
-    <ReceptsarokWidget recipes={rsMatches} title={doc.title || ''} />
+    <ReceptsarokWidget
+      recipes={rsMatches}
+      title={data.rsWidgetLinked ? '' : doc.title || ''}
+      heading={data.rsWidgetLinked ? 'További receptek a Receptsarokban' : undefined}
+    />
   {/if}
 
 {/if}

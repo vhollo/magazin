@@ -1,10 +1,11 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import { chooseWinner } from '../src/lib/receptsarokDedupeShared.js'
+import { stringifyRecipesJson } from '../src/lib/recipesJsonFormat.js'
 import { normalizeText } from './lib/modx-to-rs-parser.mjs'
 
 const RECIPES_PATH = path.resolve(process.cwd(), 'src/lib/data/recipes.json')
-const AUDIT_PATH = path.resolve(process.cwd(), 'src/lib/data/receptsarok-internal-dedupe-audit.json')
+const AUDIT_PATH = path.resolve(process.cwd(), 'scripts/data/receptsarok-internal-dedupe-audit.json')
 
 const applyLocal = process.argv.includes('--apply-local')
 
@@ -32,21 +33,29 @@ const duplicateClusters = [...clusters.values()].filter((cluster) => cluster.len
 const losersToUnpublish = new Set()
 const entries = []
 
+const winnersToFree = new Set()
+
 for (const cluster of duplicateClusters) {
   const { winner, reason } = chooseWinner(cluster)
   if (!winner) continue
   const winnerKey = `${winner.year}-${winner.id}`
+  let loserIsFree = false
   for (const candidate of cluster) {
     const key = `${candidate.year}-${candidate.id}`
     if (key === winnerKey) continue
     losersToUnpublish.add(key)
+    if (candidate.free === true) loserIsFree = true
   }
+  // Unpublishing a free loser must not paywall the recipe: the winner inherits free.
+  const freeWinner = loserIsFree && winner.free !== true
+  if (freeWinner) winnersToFree.add(winnerKey)
   entries.push({
     title: winner.title,
     winner: winnerKey,
     reason,
     clusterSize: cluster.length,
     matched: cluster.map((candidate) => `${candidate.year}-${candidate.id}`),
+    ...(freeWinner ? { freeWinner: true } : {}),
   })
 }
 
@@ -54,8 +63,9 @@ if (applyLocal) {
   for (const recipe of recipes) {
     const key = `${recipe.year}-${recipe.id}`
     if (losersToUnpublish.has(key)) recipe.published = false
+    if (winnersToFree.has(key)) recipe.free = true
   }
-  writeJson(RECIPES_PATH, recipes)
+  fs.writeFileSync(RECIPES_PATH, stringifyRecipesJson(recipes))
 }
 
 writeJson(AUDIT_PATH, {
@@ -66,10 +76,11 @@ writeJson(AUDIT_PATH, {
     publishedRecipes: recipes.filter((recipe) => recipe?.published !== false).length,
     duplicateClusters: duplicateClusters.length,
     losersUnpublished: losersToUnpublish.size,
+    winnersFreed: winnersToFree.size,
   },
   entries: entries.sort((a, b) => a.title.localeCompare(b.title, 'hu')),
 })
 
 console.log(
-  `internal dedupe: duplicateClusters=${duplicateClusters.length}, losers=${losersToUnpublish.size}, applyLocal=${applyLocal}`
+  `internal dedupe: duplicateClusters=${duplicateClusters.length}, losers=${losersToUnpublish.size}, winnersFreed=${winnersToFree.size}, applyLocal=${applyLocal}`
 )

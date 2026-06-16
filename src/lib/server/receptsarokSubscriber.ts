@@ -2,7 +2,7 @@ import { dev } from '$app/environment'
 import { json } from '@sveltejs/kit'
 import { getAuth } from 'firebase-admin/auth'
 import { db } from '$lib/firebase-admin'
-import { hasReceptsarokAccessFromSubscription } from '$lib/receptsarokAccess'
+import { hasReceptsarokAccessFromSubscription, isReceptsarokTrialActive } from '$lib/receptsarokAccess'
 
 export async function requireReceptsarokSubscriber(request: Request) {
   const authHeader = request.headers.get('Authorization')
@@ -18,7 +18,8 @@ export async function requireReceptsarokSubscriber(request: Request) {
     return { ok: false as const, response: json({ error: 'Invalid token' }, { status: 401 }) }
   }
 
-  if (dev) {
+  // Dev: any signed-in user. Free trial (PUBLIC_RECEPTSAROK_TRIAL): same in production.
+  if (dev || isReceptsarokTrialActive()) {
     return { ok: true as const, uid }
   }
 

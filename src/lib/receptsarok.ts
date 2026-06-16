@@ -20,19 +20,21 @@ export interface IngredientGroup {
   items: IngredientItem[]
 }
 
-/** Hero / step image; optional `caption` from booklet line „Fotó: …”. */
-export type RecipeImage = {
-  src: string
-  alt: string
-  caption?: string | null
-}
-
-/** Magazine-style card image (same shape as MODX `doc.img` for `CardV`). */
+/**
+ * Canonical recipe image — magazine card shape (same as MODX `doc.img` for
+ * `CardV`) plus optional hero metadata for the detail page: `alt` only when it
+ * differs from the recipe title, `caption` from booklet line „Fotó: …”.
+ */
 export type RecipeCardImage = {
   src: string
   pos: string
   ext: string
+  alt?: string
+  caption?: string | null
 }
+
+/** Pre-consolidation hero field (`image`); still folded in by {@link recipeCardImg}. */
+type LegacyHeroImage = { src: string; alt?: string; caption?: string | null }
 
 export type RecipeVideo = {
   src: string
@@ -51,11 +53,13 @@ export function normalizeRecipeAssetSrc(year: number, raw: string): string {
  */
 export function recipeHeroToCardImg(
   year: number,
-  hero: { src: string; alt?: string; caption?: string | null } | null | undefined,
-  sloppyImg?: { src?: string; pos?: string; ext?: string } | null
+  hero: LegacyHeroImage | null | undefined,
+  sloppyImg?: Partial<RecipeCardImage> | null
 ): RecipeCardImage | null {
   const raw = sloppyImg?.src ?? hero?.src
   if (!raw) return null
+  const alt = sloppyImg?.alt ?? hero?.alt
+  const caption = sloppyImg?.caption ?? hero?.caption
   return {
     src: normalizeRecipeAssetSrc(year, raw),
     pos: sloppyImg?.pos || '50% 40%',
@@ -63,7 +67,16 @@ export function recipeHeroToCardImg(
       (typeof sloppyImg?.ext === 'string' && sloppyImg.ext) ||
       raw.split('.').pop()?.split('?')[0] ||
       'jpg',
+    ...(alt ? { alt } : {}),
+    ...(caption ? { caption } : {}),
   }
+}
+
+/** Canonical image accessor; folds the legacy `image` hero field from un-migrated data. */
+export function recipeCardImg(
+  recipe: Pick<Recipe, 'year'> & { img?: RecipeCardImage | null; image?: LegacyHeroImage | null }
+): RecipeCardImage | null {
+  return recipe.img ?? recipeHeroToCardImg(recipe.year, recipe.image, undefined)
 }
 
 export interface SubRecipe {
@@ -72,7 +85,7 @@ export interface SubRecipe {
   nutritionTables: NutritionValues[]
   ingredientGroups: IngredientGroup[]
   instructions: string[]
-  image: RecipeImage | null
+  img: RecipeCardImage | null
 }
 
 export interface Recipe {
@@ -93,8 +106,7 @@ export interface Recipe {
   ingredientNames: string[]
   searchTerms: string[]
   instructions: string[]
-  image: RecipeImage | null
-  /** CardV / search: normalized `{ src, pos, ext }`; derived from `image` when missing. */
+  /** Canonical card/hero image (CardV shape + optional `alt`/`caption`). */
   img?: RecipeCardImage | null
   subRecipes: SubRecipe[]
   hasSubRecipes: boolean
@@ -104,6 +116,8 @@ export interface Recipe {
   free?: boolean
   video?: RecipeVideo | string
   sourceModxId?: number
+  /** MODX doc ids from the source article's "További receptek" list (curated related recipes). */
+  linkedModxIds?: number[]
 }
 
 export interface RecipeTeaser {
@@ -118,7 +132,6 @@ export interface RecipeTeaser {
   saturatedFat: number | null
   carbs: number | null
   fiber: number | null
-  image: RecipeImage | null
   img?: RecipeCardImage | null
   video?: RecipeVideo | string
   servings: { amount: number; unit: string }
@@ -222,10 +235,7 @@ export type KeresRecipeTeaser = Pick<
 
 export function toKeresTeaser(recipe: Recipe | RecipeTeaser): KeresRecipeTeaser {
   const macros = recipeMacroFields(recipe)
-  const img =
-    recipe.img ??
-    recipeHeroToCardImg(recipe.year, recipe.image, undefined) ??
-    undefined
+  const img = recipeCardImg(recipe) ?? undefined
   return {
     id: recipe.id,
     year: recipe.year,
@@ -262,8 +272,7 @@ export function normalizeRecipeTeaser(
     author: raw.author ?? '',
     category: raw.category ?? '',
     ...macros,
-    image: raw.image ?? null,
-    img: raw.img ?? recipeHeroToCardImg(raw.year, raw.image, undefined) ?? undefined,
+    img: recipeCardImg(raw) ?? undefined,
     video: raw.video,
     servings,
     hasSubRecipes: Boolean(raw.hasSubRecipes),
@@ -279,21 +288,5 @@ export function toLayoutRecipe(recipe: Recipe): RecipeLayoutEntry {
   }
 }
 
-/** Title-keyword matches for the Receptsarok cross-link widget (magazine + recipe detail). */
-export function similarRecipesForTitle(
-  title: string,
-  entries: RecipeLayoutEntry[],
-  exclude?: Pick<Recipe, 'year' | 'id'>,
-  limit = 4
-): RecipeLayoutEntry[] {
-  const titleWords = (title || '').toLowerCase().split(/\s+/)
-  return entries
-    .filter((r) => {
-      if (exclude && r.year === exclude.year && r.id === exclude.id) return false
-      return (
-        r.searchTerms?.some((t) => titleWords.some((w) => w.length > 3 && t.includes(w))) ||
-        r.ingredientNames?.some((n) => titleWords.some((w) => w.length > 3 && n.includes(w)))
-      )
-    })
-    .slice(0, limit)
-}
+// Similar-recipe matching lives in $lib/server/similarRecipes (recipes-only
+// MiniSearch index, same fuzzy/prefix behavior as /keres).

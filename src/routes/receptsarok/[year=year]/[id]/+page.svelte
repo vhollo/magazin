@@ -8,7 +8,11 @@
   import { hasReceptsarokAccess } from '$lib/authStore'
   import ReceptsarokLogo from '$lib/components/ReceptsarokLogo.svelte'
   import ReceptsarokWidget from '$lib/components/ReceptsarokWidget.svelte'
-  import { recipeDetailSegments, recipeHeroToCardImg, type Recipe } from '$lib/receptsarok'
+  import {
+    recipeCardImg,
+    recipeDetailSegments,
+    type Recipe,
+  } from '$lib/receptsarok'
   import type { PageProps } from './$types'
 
   let { data }: PageProps = $props()
@@ -32,9 +36,7 @@
 
   let displayRecipe = $derived((fullRecipe ?? recipe) as Recipe)
 
-  let heroCardImg = $derived(
-    recipeHeroToCardImg(displayRecipe.year, displayRecipe.image, displayRecipe.img)
-  )
+  let heroCardImg = $derived(recipeCardImg(displayRecipe))
   let recipeVideo = $derived.by(() => {
     const video = displayRecipe.video
 
@@ -119,7 +121,7 @@
       <li>
         <a href="/receptsarok/{recipe.category}" class="opacity-70 hover:opacity-100">{category?.name || recipe.category}</a>
       </li>
-      <li class="max-w-[min(100%,40ch)] truncate" title={recipe.title}>{recipe.title}</li>
+      <!-- <li class="max-w-[min(100%,40ch)] truncate" title={recipe.title}>{recipe.title}</li> -->
     </ul>
   </nav>
   <h1 class="text-center">{recipe.title}</h1>
@@ -141,9 +143,9 @@
     </figure>
   {:else if heroCardImg}
     <figure class="text-center not-prose">
-      <img src={heroCardImg.src} alt={displayRecipe.image?.alt ?? displayRecipe.title} class="mx-auto" />
-      {#if displayRecipe.image?.caption}
-        <figcaption class="mt-2 text-sm text-base-content/70">{displayRecipe.image.caption}</figcaption>
+      <img src={heroCardImg.src} alt={heroCardImg.alt ?? displayRecipe.title} class="mx-auto" />
+      {#if heroCardImg.caption}
+        <figcaption class="mt-2 text-sm text-base-content/70">{heroCardImg.caption}</figcaption>
       {/if}
     </figure>
   {/if}
@@ -224,11 +226,15 @@
             <p>{paragraph}</p>
           {/each}
 
-          {#if sub.image}
+          {#if sub.img}
             <figure class="text-center not-prose">
-              <img src="/rs/{recipe.year}/{sub.image.src}" alt={sub.image.alt} class="mx-auto" />
-              {#if sub.image.caption}
-                <figcaption class="mt-2 text-sm text-base-content/70">{sub.image.caption}</figcaption>
+              <img
+                src={sub.img.src}
+                alt={sub.img.alt ?? sub.title}
+                class="mx-auto"
+              />
+              {#if sub.img.caption}
+                <figcaption class="mt-2 text-sm text-base-content/70">{sub.img.caption}</figcaption>
               {/if}
             </figure>
           {/if}
@@ -240,7 +246,11 @@
   {/if}
 </article>
 
-<ReceptsarokWidget recipes={data.similarRecipes ?? []} title={recipe.title} />
+<ReceptsarokWidget
+  recipes={data.similarRecipes ?? []}
+  title={data.similarIsLinked ? '' : recipe.title}
+  heading={data.similarIsLinked ? 'További receptek a Receptsarokban' : undefined}
+/>
 
 <Search articles={data.articleCount} recipes={data.recipeCount} />
 <Nav2 actual="/receptsarok" />

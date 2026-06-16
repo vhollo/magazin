@@ -1,0 +1,35 @@
+{
+	"version": 1.1,
+	"atDirectives": [
+		{
+			"name": "@apply",
+			"description": "Inline Tailwind utility classes into custom CSS."
+		},
+		{
+			"name": "@theme",
+			"description": "Tailwind CSS v4 theme configuration."
+		},
+		{
+			"name": "@plugin",
+			"description": "Load a Tailwind CSS plugin."
+		},
+		{
+			"name": "@import",
+			"description": "Import a CSS file or Tailwind module."
+		},
+		{
+			"name": "@container",
+			"description": "Container query wrapper."
+		}
+	],
+	"properties": [
+		{
+			"name": "container-type",
+			"description": "Establishes an element as a query container for size container queries."
+		},
+		{
+			"name": "container-name",
+			"description": "Optional name for a query container."
+		}
+	]
+}

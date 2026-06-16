@@ -1,5 +1,16 @@
 /** Shared server + client logic for Receptsarok premium access (Firestore users/{uid}.subscription). */
 
+import { env } from '$env/dynamic/public'
+
+/**
+ * Free trial period: when PUBLIC_RECEPTSAROK_TRIAL is 'true' or '1' (Netlify env var),
+ * any signed-in user gets full Receptsarok access — no subscription required.
+ */
+export function isReceptsarokTrialActive(): boolean {
+  const v = env.PUBLIC_RECEPTSAROK_TRIAL
+  return v === 'true' || v === '1'
+}
+
 export type ReceptsarokSubscription = {
   status: 'active' | 'expired' | 'none'
   type?: 'lifetime' | 'annual'

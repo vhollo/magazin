@@ -1,45 +1,7 @@
+import { decodeHtmlEntities } from './htmlEntities.js'
+import { extractLinkedModxIds, stripLinkedRecipeBlocks } from './modxLinkedRecipes.js'
+
 const DEFAULT_NUTRITION_LABEL = '1 adag energia- es tapanyagtartalma:'
-
-const NAMED_HTML_ENTITIES = {
-  nbsp: ' ',
-  amp: '&',
-  quot: '"',
-  apos: "'",
-  lt: '<',
-  gt: '>',
-  aacute: 'á',
-  eacute: 'é',
-  iacute: 'í',
-  oacute: 'ó',
-  uacute: 'ú',
-  ouml: 'ö',
-  uuml: 'ü',
-  odblac: 'ő',
-  udblac: 'ű',
-  Aacute: 'Á',
-  Eacute: 'É',
-  Iacute: 'Í',
-  Oacute: 'Ó',
-  Uacute: 'Ú',
-  Ouml: 'Ö',
-  Uuml: 'Ü',
-  Odblac: 'Ő',
-  Udblac: 'Ű',
-}
-
-function decodeHtmlEntities(value) {
-  if (!value) return ''
-  return String(value)
-    .replace(/&#x([0-9a-f]+);/gi, (_, code) => {
-      const parsed = Number.parseInt(code, 16)
-      return Number.isFinite(parsed) ? String.fromCodePoint(parsed) : ''
-    })
-    .replace(/&#(\d+);/g, (_, code) => {
-      const parsed = Number(code)
-      return Number.isFinite(parsed) ? String.fromCodePoint(parsed) : ''
-    })
-    .replace(/&([a-z][a-z0-9]+);/gi, (match, name) => NAMED_HTML_ENTITIES[name.toLowerCase()] ?? match)
-}
 
 function normalizeReadableText(value) {
   return decodeHtmlEntities(String(value ?? ''))
@@ -96,14 +58,12 @@ function parseIssueCodeYear(value) {
     const yy = Number(dtMatch[1])
     if (Number.isFinite(yy)) return 2000 + yy
   }
+  // MODX paths never contain four-digit calendar years: a segment like /2001/
+  // is always issue code YYMM (year 2020, issue 01).
   const segmentMatch = raw.match(/(?:^|\/)(\d{2})(0[1-9]|1[0-2])(?:\/|$)/)
   if (segmentMatch?.[1]) {
     const yy = Number(segmentMatch[1])
     if (!Number.isFinite(yy)) return null
-    const fourDigit = `${segmentMatch[1]}${segmentMatch[2]}`
-    const asCalendar = Number(fourDigit)
-    // Paths like /2001/ are magazine years, not YYMM issue codes.
-    if (asCalendar >= 2000 && asCalendar <= 2008) return null
     return 2000 + yy
   }
   return null
@@ -220,7 +180,13 @@ function splitParagraphsFromTag(content, tagName) {
 }
 
 function parseIngredientItem(text) {
-  const clean = String(text ?? '').replace(/\s+/g, ' ').trim()
+  // Booklet/MODX lists end items with "," (and the last with ".") — strip the list
+  // punctuation so `text`/`name` are clean for display and `array-contains` search.
+  const clean = String(text ?? '')
+    .replace(/\s+/g, ' ')
+    .trim()
+    .replace(/\s*[,;]+$/, '')
+    .replace(/\s*\.$/, '')
   if (!clean) {
     return { text: '', amount: null, unit: null, name: '' }
   }
@@ -323,8 +289,11 @@ function parseIngredientGroups(content) {
   const cleanIngredientSectionLabel = (sectionValue) => {
     const raw = String(sectionValue ?? '').replace(/\s+/g, ' ').trim()
     if (!raw) return null
-    const hozzavalokSlice = raw.match(/(Hozz[aá]val[oó]k.*)$/i)
-    return (hozzavalokSlice?.[1] || raw).trim()
+    // FIREBASE.md: `section` is the text AFTER "Hozzávalók" (e.g. "15 szelethez (3 rúdhoz)"),
+    // matching parseBookletHtml.mjs; subsection headings ("A rántáshoz:") are kept as-is.
+    const afterHozzavalok = raw.match(/Hozz[aá]val[oó]k\s*:?\s*(.*)$/i)
+    if (afterHozzavalok) return afterHozzavalok[1].trim() || null
+    return raw
   }
   const isLikelyIngredientHeading = (section) => {
     const normalized = normalizeReadableText(section)
@@ -339,13 +308,15 @@ function parseIngredientGroups(content) {
     const headingListRegex = /<h[1-6][^>]*>([\s\S]*?)<\/h[1-6]>\s*<(ul|ol)[^>]*>([\s\S]*?)<\/\2>/gi
     let match
     while ((match = headingListRegex.exec(htmlSource))) {
-      const section = cleanIngredientSectionLabel(stripHtml(match[1]))
+      const rawSection = stripHtml(match[1])
+      const section = cleanIngredientSectionLabel(rawSection)
       const itemTexts = splitParagraphsFromTag(match[3], 'li')
       if (itemTexts.length === 0) continue
       const items = parseIngredientLines(itemTexts)
       if (items.length === 0) continue
       // Prevent non-ingredient promo/navigation lists from becoming ingredient groups.
-      if (!hasMeasuredIngredientItems(items) && !isLikelyIngredientHeading(section)) continue
+      // (Heuristic runs on the raw heading so the stripped "Hozzávalók" prefix still counts.)
+      if (!hasMeasuredIngredientItems(items) && !isLikelyIngredientHeading(rawSection)) continue
       groups.push({
         section,
         items,
@@ -591,13 +562,20 @@ function uniqueByNormalized(values) {
 }
 
 function deriveInstructions(content) {
-  const instructionHtml = deriveInstructionsHtml(content)
+  // Drop image markup (e.g. the next dish's lead-in `<figure><figcaption>`) and the
+  // trailing "További receptek" linked-recipe blocks so their text never leaks into
+  // this recipe's instructions.
+  const cleaned = stripLinkedRecipeBlocks(String(content ?? '')).replace(
+    /<figure\b[\s\S]*?<\/figure>/gi,
+    ' '
+  )
+  const instructionHtml = deriveInstructionsHtml(cleaned)
   if (instructionHtml) {
     // Preserve full imported MODX instruction flow (including heading/list text).
     const lines = htmlToTextLines(instructionHtml).filter((text) => text.length > 1)
     return uniqueByNormalized(lines)
   }
-  const source = instructionHtml || content
+  const source = instructionHtml || cleaned
   const paragraphs = splitParagraphsFromTag(source, 'p')
   const orderedListItems = []
   const orderedListRegex = /<ol\b[^>]*>([\s\S]*?)<\/ol>/gi
@@ -669,20 +647,59 @@ function deriveVideo(doc, content) {
   return parseVideoObject(match[0])
 }
 
-function deriveImage(doc) {
+/** Canonical `img` shape: card fields (`src`, `pos`, `ext`) + optional `alt`/`caption`. */
+function cardImgFromSrc(src, { pos, ext, alt, caption } = {}) {
+  if (!src || typeof src !== 'string') return null
+  const img = {
+    src,
+    pos: (typeof pos === 'string' && pos) || '50% 40%',
+    ext: (typeof ext === 'string' && ext) || src.split('.').pop()?.split('?')[0] || 'jpg',
+  }
+  // `alt` falls back to the recipe title at render time — only store a real override.
+  if (alt) img.alt = alt
+  if (caption) img.caption = caption
+  return img
+}
+
+function deriveImg(doc) {
   if (doc?.img && typeof doc.img === 'object' && typeof doc.img.src === 'string') {
-    return {
-      src: doc.img.src,
-      alt: doc.longtitle || doc.title || '',
-      caption: typeof doc.img.caption === 'string' && doc.img.caption.trim() ? doc.img.caption : null,
-    }
+    return cardImgFromSrc(doc.img.src, {
+      pos: doc.img.pos,
+      ext: doc.img.ext,
+      caption:
+        typeof doc.img.caption === 'string' && doc.img.caption.trim()
+          ? decodeHtmlEntities(doc.img.caption)
+          : undefined,
+    })
   }
   return null
 }
 
-function deriveSearchTerms({ title, ingredientNames }) {
+/**
+ * Last `<img>` in an HTML fragment → `{ src, alt }` (or null).
+ * Used to attach a recipe's lead-in image, which sits just before its heading
+ * (the MODX `[[nagyito]]` snippets are rendered to `<img>` before parsing).
+ * @param {string} html
+ * @returns {{ src: string, alt: string } | null}
+ */
+function lastImageInHtml(html) {
+  const re = /<img\b[^>]*>/gi
+  let m
+  let last = null
+  while ((m = re.exec(String(html ?? '')))) last = m[0]
+  if (!last) return null
+  const src = (last.match(/\bsrc\s*=\s*["']([^"']+)["']/i) || [])[1]
+  if (!src) return null
+  const alt = (last.match(/\balt\s*=\s*["']([^"']*)["']/i) || [])[1] || ''
+  return { src, alt: decodeHtmlEntities(alt) }
+}
+
+function deriveSearchTerms({ title, ingredientNames, subRecipeTitles = [] }) {
+  // FIREBASE.md: searchTerms aggregate the main title + all sub-recipe titles
+  // (+ ingredient names) so one array-contains query finds the parent recipe.
   const words = [
     ...normalizeText(title).split(/\s+/),
+    ...subRecipeTitles.flatMap((subTitle) => normalizeText(subTitle).split(/\s+/)),
     ...ingredientNames.flatMap((name) => normalizeText(name).split(/\s+/)),
   ].filter((token) => token.length >= 3)
   return uniqueByNormalized(words)
@@ -695,13 +712,27 @@ function normalizeServingUnit(unitValue) {
     ['db', 'db'],
     ['darab', 'db'],
     ['szelet', 'szelet'],
-    ['fo', 'fo'],
-    ['pohar', 'pohar'],
+    ['fo', 'fő'],
+    ['pohar', 'pohár'],
     ['tepsi', 'tepsi'],
     ['tortaforma', 'tortaforma'],
-    ['rud', 'rud'],
+    ['rud', 'rúd'],
   ])
   return unitMap.get(key) || key || 'adag'
+}
+
+/** "3 rúdhoz" → "3 rúd"; anything else (e.g. "18×27 cm-es tepsi") is kept as written. */
+function cleanServingParenthetical(value) {
+  const raw = String(value ?? '').replace(/\s+/g, ' ').trim()
+  if (!raw) return null
+  const m = raw.match(/^(\d+(?:[.,]\d+)?)\s+(\S+)$/)
+  if (m) {
+    const bare = m[2].replace(/(?:hoz|hez|h[öo]z|nak|nek|ra|re)$/i, '')
+    if (/^(adag|db|darab|szelet|f[őo]|poh[aá]r|tepsi|tortaforma|r[úu]d)$/i.test(bare)) {
+      return `${m[1]} ${bare}`
+    }
+  }
+  return raw
 }
 
 function parseServingsFromText(value) {
@@ -713,7 +744,16 @@ function parseServingsFromText(value) {
   if (!match?.[1]) return null
   const amount = parseNullableNumber(match[1])
   if (amount === null || amount <= 0) return null
-  return { amount, unit: normalizeServingUnit(match[2] || 'adag') }
+  const unit = normalizeServingUnit(match[2] || 'adag')
+  // FIREBASE.md: keep the heading's parenthetical, e.g. "15 szelethez (3 rúdhoz)"
+  // → unit "szelet (3 rúd)".
+  const rawText = decodeHtmlEntities(String(value ?? '')).replace(/\s+/g, ' ').trim()
+  const paren = rawText.match(/\(([^)]+)\)/)
+  if (paren?.[1]) {
+    const detail = cleanServingParenthetical(paren[1])
+    if (detail) return { amount, unit: `${unit} (${detail})` }
+  }
+  return { amount, unit }
 }
 
 function deriveServings({ ingredientGroups, content, nutritionTables }) {
@@ -752,7 +792,7 @@ function deriveSubRecipes(content) {
   const preInstruction = source.split(
     /<h[1-6][^>]*>\s*(?:A\s+recept\s+elk[eé]sz[íi]t[eé]se|Elk[eé]sz[íi]t[eé]s)\s*<\/h[1-6]>/i
   )[0]
-  if (!preInstruction) return { subRecipes: [], fallbackInstructionLines: [] }
+  if (!preInstruction) return { subRecipes: [], fallbackInstructionLines: [], mainContentHtml: null }
 
   const useH2OnlySubrecipeHeadings =
     !hasMainStyleHozzavalokH2(source) && !hasExplicitInstructionHeading(source)
@@ -780,7 +820,7 @@ function deriveSubRecipes(content) {
   const headingRegex = useH2OnlySubrecipeHeadings
     ? /<h2\b[^>]*>([\s\S]*?)<\/h2>([\s\S]*?)(?=<h2\b[^>]*>|$)/gi
     : /<h([2-5])[^>]*>([\s\S]*?)<\/h\1>([\s\S]*?)(?=<h[2-5][^>]*>|$)/gi
-  const parseSubRecipeBlock = (title, blockHtml) => {
+  const parseSubRecipeBlock = (title, blockHtml, image = /** @type {{ src: string, alt: string } | null} */ (null)) => {
     const titleKey = normalizeText(title)
     if (!titleKey || /hozzavalok|elkeszites/.test(titleKey)) return null
     if (/tovabbi\s+recept|kapcsolodo|ajanlott/.test(titleKey)) return null
@@ -808,13 +848,17 @@ function deriveSubRecipes(content) {
         nutritionTables,
         ingredientGroups,
         instructions,
-        image: null,
+        img: image
+          ? cardImgFromSrc(image.src, {
+              alt: image.alt && image.alt !== title ? image.alt : undefined,
+            })
+          : null,
       },
     }
   }
 
-  const appendParsedBlock = (title, blockHtml) => {
-    const parsed = parseSubRecipeBlock(title, blockHtml)
+  const appendParsedBlock = (title, blockHtml, image = /** @type {{ src: string, alt: string } | null} */ (null)) => {
+    const parsed = parseSubRecipeBlock(title, blockHtml, image)
     if (!parsed) return
     if (parsed.subRecipe) {
       subRecipes.push(parsed.subRecipe)
@@ -826,11 +870,19 @@ function deriveSubRecipes(content) {
     }
   }
 
+  // A recipe's image sits just before its heading (image between two titles
+  // belongs to the recipe whose heading follows it). Carry the image seen before
+  // each heading and attach it to that recipe.
+  let pendingImage = null
+  const firstHeadingIdx = preInstruction.search(useH2OnlySubrecipeHeadings ? /<h2\b/i : /<h[2-5]\b/i)
+  if (firstHeadingIdx > 0) pendingImage = lastImageInHtml(preInstruction.slice(0, firstHeadingIdx))
   let match
   while ((match = headingRegex.exec(preInstruction))) {
     const title = stripHtml(useH2OnlySubrecipeHeadings ? match[1] : match[2])
     const blockHtml = useH2OnlySubrecipeHeadings ? match[2] : match[3]
-    appendParsedBlock(title, blockHtml)
+    const imageForThisRecipe = pendingImage
+    pendingImage = lastImageInHtml(blockHtml)
+    appendParsedBlock(title, blockHtml, imageForThisRecipe)
   }
 
   // General inline multi-recipe format: repeated <h3> dish blocks where each
@@ -838,10 +890,15 @@ function deriveSubRecipes(content) {
   if (subRecipes.length === 0) {
     const h3BlockRegex = /<h3\b[^>]*>([\s\S]*?)<\/h3>([\s\S]*?)(?=<h3\b[^>]*>|$)/gi
     const h3ParsedSubRecipes = []
+    let h3PendingImage = null
+    const firstH3Idx = source.search(/<h3\b/i)
+    if (firstH3Idx > 0) h3PendingImage = lastImageInHtml(source.slice(0, firstH3Idx))
     while ((match = h3BlockRegex.exec(source))) {
       const title = stripHtml(match[1])
       const blockHtml = match[2]
-      const parsed = parseSubRecipeBlock(title, blockHtml)
+      const imageForThisRecipe = h3PendingImage
+      h3PendingImage = lastImageInHtml(blockHtml)
+      const parsed = parseSubRecipeBlock(title, blockHtml, imageForThisRecipe)
       if (parsed?.subRecipe) {
         h3ParsedSubRecipes.push(parsed.subRecipe)
       }
@@ -851,7 +908,62 @@ function deriveSubRecipes(content) {
       subRecipes.push(...h3ParsedSubRecipes)
     }
   }
-  return { subRecipes, fallbackInstructionLines }
+
+  // Booklet-style variations placed AFTER the main instruction block (FIREBASE.md:
+  // "Rántásos rétesvariációk"): <h2>Töltelék</h2> <table…> <h3|h4>Hozzávalók…</h3|h4>
+  // <ul…> <h3>A recept elkészítése</h3> <p…>, repeated per filling. When found,
+  // `mainContentHtml` is the content up to the first such block, so the caller can
+  // keep sub-recipe text out of the parent's instructions.
+  let mainContentHtml = null
+  if (subRecipes.length === 0) {
+    const instructionHeadingMatch = source.match(
+      /<h[1-6][^>]*>\s*(?:A\s+recept\s+elk[eé]sz[íi]t[eé]se|Elk[eé]sz[íi]t[eé]s)\s*<\/h[1-6]>/i
+    )
+    if (instructionHeadingMatch) {
+      const tailStart = instructionHeadingMatch.index + instructionHeadingMatch[0].length
+      const tail = source.slice(tailStart)
+      // First dish-like heading in the tail decides the block level (h2 in booklet HTML).
+      const headingProbe = /<h([2-5])\b[^>]*>([\s\S]*?)<\/h[1-6]>/gi
+      let probe
+      let blockLevel = null
+      let firstBlockIdx = -1
+      while ((probe = headingProbe.exec(tail))) {
+        const probeKey = normalizeText(stripHtml(probe[2]))
+        if (!probeKey || /hozzavalok|elkeszites/.test(probeKey)) continue
+        if (/tovabbi\s+recept|kapcsolodo|ajanlott/.test(probeKey)) continue
+        blockLevel = probe[1]
+        firstBlockIdx = probe.index
+        break
+      }
+      if (blockLevel !== null && firstBlockIdx >= 0) {
+        const blockRegex = new RegExp(
+          `<h${blockLevel}\\b[^>]*>([\\s\\S]*?)<\\/h[1-6]>([\\s\\S]*?)(?=<h${blockLevel}\\b[^>]*>|$)`,
+          'gi'
+        )
+        blockRegex.lastIndex = firstBlockIdx
+        const parsedBlocks = []
+        let blockMatch
+        while ((blockMatch = blockRegex.exec(tail))) {
+          const title = stripHtml(blockMatch[1])
+          const blockHtml = blockMatch[2]
+          // Trailing blocks carry their own image inside the block (figure after the table).
+          parsedBlocks.push({ parsed: parseSubRecipeBlock(title, blockHtml, lastImageInHtml(blockHtml)) })
+        }
+        const completeCount = parsedBlocks.filter((b) => b.parsed?.subRecipe).length
+        if (completeCount > 0) {
+          for (const b of parsedBlocks) {
+            if (b.parsed?.subRecipe) {
+              subRecipes.push(b.parsed.subRecipe)
+            } else if (Array.isArray(b.parsed?.fallbackLines) && b.parsed.fallbackLines.length > 0) {
+              fallbackInstructionLines.push(...b.parsed.fallbackLines)
+            }
+          }
+          mainContentHtml = source.slice(0, tailStart + firstBlockIdx)
+        }
+      }
+    }
+  }
+  return { subRecipes, fallbackInstructionLines, mainContentHtml }
 }
 
 /**
@@ -959,8 +1071,9 @@ export function buildRecipesFromModxDoc(doc, options) {
       ingredientNames,
       searchTerms: deriveSearchTerms({ title: subTitle, ingredientNames }),
       instructions: sub.instructions,
-      image: deriveImage(doc),
-      img: doc?.img && typeof doc.img === 'object' ? doc.img : undefined,
+      // Each split recipe keeps its own lead-in image; only the first recipe
+      // falls back to the document's main (page) image.
+      img: sub.img ?? (out.length === 0 ? deriveImg(doc) ?? undefined : undefined),
       subRecipes: [],
       hasSubRecipes: false,
       createdAt,
@@ -972,6 +1085,8 @@ export function buildRecipesFromModxDoc(doc, options) {
     if (Number.isFinite(sourceModxId)) {
       recipe.sourceModxId = sourceModxId
     }
+    const linkedModxIds = extractLinkedModxIds(content).filter((id) => id !== Number(doc?.id))
+    if (linkedModxIds.length) recipe.linkedModxIds = linkedModxIds
     out.push({ recipe, categoryDecision })
   }
 
@@ -1010,15 +1125,17 @@ export function buildRecipeFromModxDoc(doc, options) {
   const title = String(doc?.longtitle || doc?.title || '').trim()
   const content = String(doc?.content || '')
   const ingredientGroups = parseIngredientGroups(content)
-  const nutritionTables = parseNutritionTables(content)
-  const { subRecipes, fallbackInstructionLines } = deriveSubRecipes(content)
-  if (nutritionTables.length === 0) {
-    const firstSubNutrition = subRecipes.find((sub) => Array.isArray(sub.nutritionTables) && sub.nutritionTables.length > 0)
-    if (firstSubNutrition?.nutritionTables?.[0]) {
-      nutritionTables.push(firstSubNutrition.nutritionTables[0])
-    }
-  }
-  const firstNutrition = nutritionTables[0] || {
+  const { subRecipes, fallbackInstructionLines, mainContentHtml } = deriveSubRecipes(content)
+  // Parent tables come only from the parent's own region; tables inside trailing
+  // sub-recipe blocks belong to the sub-recipes (FIREBASE.md).
+  const nutritionTables = parseNutritionTables(mainContentHtml ?? content)
+  // FIREBASE.md: the parent's `nutritionTables` holds only its own tables; when it has
+  // none, the root-level macro fields duplicate the FIRST sub-recipe's first table row
+  // (the parent array stays empty).
+  const firstSubNutrition = subRecipes.find(
+    (sub) => Array.isArray(sub.nutritionTables) && sub.nutritionTables.length > 0
+  )?.nutritionTables?.[0]
+  const firstNutrition = nutritionTables[0] || firstSubNutrition || {
     energy: null,
     protein: null,
     fat: null,
@@ -1026,10 +1143,17 @@ export function buildRecipeFromModxDoc(doc, options) {
     carbs: null,
     fiber: null,
   }
-  const ingredientNames = uniqueByNormalized(
-    ingredientGroups.flatMap((group) => group.items.map((item) => item.name))
-  )
-  const mainInstructions = deriveInstructions(content)
+  // FIREBASE.md: `ingredientNames` aggregates parent + all sub-recipe ingredient names
+  // (unique, deduplicated) so one array-contains query finds the parent recipe.
+  const ingredientNames = uniqueByNormalized([
+    ...ingredientGroups.flatMap((group) => group.items.map((item) => item.name)),
+    ...subRecipes.flatMap((sub) =>
+      (sub.ingredientGroups || []).flatMap((group) => group.items.map((item) => item.name))
+    ),
+  ])
+  // When sub-recipes follow the main instruction block, derive the parent's
+  // instructions only from the content before the first sub-recipe heading.
+  const mainInstructions = deriveInstructions(mainContentHtml ?? content)
   const seenInstructions = new Set(mainInstructions.map((line) => String(line ?? '').trim()).filter(Boolean))
   const instructions = [...mainInstructions]
   for (const line of fallbackInstructionLines) {
@@ -1066,10 +1190,13 @@ export function buildRecipeFromModxDoc(doc, options) {
     nutritionTables,
     ingredientGroups,
     ingredientNames,
-    searchTerms: deriveSearchTerms({ title, ingredientNames }),
+    searchTerms: deriveSearchTerms({
+      title,
+      ingredientNames,
+      subRecipeTitles: subRecipes.map((sub) => sub.title),
+    }),
     instructions,
-    image: deriveImage(doc),
-    img: doc?.img && typeof doc.img === 'object' ? doc.img : undefined,
+    img: deriveImg(doc) ?? undefined,
     subRecipes,
     hasSubRecipes: subRecipes.length > 0,
     createdAt,
@@ -1081,6 +1208,8 @@ export function buildRecipeFromModxDoc(doc, options) {
   if (Number.isFinite(sourceModxId)) {
     recipe.sourceModxId = sourceModxId
   }
+  const linkedModxIds = extractLinkedModxIds(content).filter((id) => id !== Number(doc?.id))
+  if (linkedModxIds.length) recipe.linkedModxIds = linkedModxIds
   return { recipe, categoryDecision }
 }
 

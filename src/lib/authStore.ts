@@ -1,7 +1,7 @@
 import { writable, derived } from 'svelte/store';
 import { dev } from '$app/environment';
 import type { ReceptsarokSubscription } from './receptsarokAccess';
-import { hasReceptsarokAccessFromSubscription } from './receptsarokAccess';
+import { hasReceptsarokAccessFromSubscription, isReceptsarokTrialActive } from './receptsarokAccess';
 
 interface AuthUserType {
   uid: string;
@@ -17,9 +17,12 @@ const email = writable<string | undefined>(undefined);
 const uid = writable<string | undefined>(undefined);
 const authReady = writable<boolean>(false);
 
-/** In dev, any signed-in user gets premium UI without Firestore subscription.receptsarok. */
+/**
+ * In dev, any signed-in user gets premium UI without Firestore subscription.receptsarok.
+ * Same during the free trial period (PUBLIC_RECEPTSAROK_TRIAL).
+ */
 const hasReceptsarokAccess = derived(authUser, ($authUser) => {
-  if (dev && $authUser) return true;
+  if ((dev || isReceptsarokTrialActive()) && $authUser) return true;
   return hasReceptsarokAccessFromSubscription($authUser?.subscription);
 });
 

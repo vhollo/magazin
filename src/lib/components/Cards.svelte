@@ -1,5 +1,6 @@
 <script lang="ts">
   import { browser } from '$app/environment'
+  import { onMount } from 'svelte'
   import { authUser } from '$lib/authStore';
   import { goto, afterNavigate } from '$app/navigation';
   import {
@@ -30,7 +31,9 @@
       GAP = parseFloat(cs.rowGap) || GAP
     }
     let lastSpan = 0
-    const setSpan = () => {
+    let raf = 0
+    const measure = () => {
+      raf = 0
       const h = node.getBoundingClientRect().height
       if (!h) return
       const span = Math.max(1, Math.ceil((h + GAP) / (ROW + GAP)))
@@ -39,7 +42,11 @@
         node.style.gridRowEnd = `span ${span}`
       }
     }
-    setSpan()
+    // Coalesce bursts (many images resolving at once) into one write per frame.
+    const setSpan = () => {
+      if (!raf) raf = requestAnimationFrame(measure)
+    }
+    measure() // initial span synchronously, before first paint
     const ro = new ResizeObserver(setSpan)
     ro.observe(node)
     const imgs = Array.from(node.querySelectorAll('img'))
@@ -48,12 +55,20 @@
     })
     return {
       destroy() {
+        if (raf) cancelAnimationFrame(raf)
         ro.disconnect()
         imgs.forEach((img) => img.removeEventListener('load', setSpan))
       }
     }
   }
   
+  // Masonry spans are JS-only; switch to the fine-grained grid once mounted so the
+  // SSR/pre-hydration paint uses content-sized rows and never overlaps before JS loads.
+  let ready = false
+  onMount(() => {
+    ready = true
+  })
+
   let /* win: { location: { hash: string; }; }, */ pagenum = 1, volume = 18
   afterNavigate(() => {
     // pagenum = +win?.location.hash.replace('#', '') || 1
@@ -69,7 +84,7 @@
   $: if (full) { // #3 után mem frissül, de #5 után újra
     h = 0
     hirds = JSON.parse(JSON.stringify(banners))
-    for (let i = banners.length * ads_distance; i < volume * pagenum + ads_distance; i = i + ads_distance) {
+    for (let i = banners.length * ads_distance; banners.length && i < volume * pagenum + ads_distance; i = i + ads_distance) {
       hirds.push(JSON.parse(JSON.stringify(banners[h])))
       h++
       if (h >= banners.length) h = 0
@@ -83,13 +98,12 @@
 <!-- <svelte:window bind:this={win}/> -->
 
 {#if full}
-  <section class="grid gap-x-6 gap-y-12 px-4 py-6">
+  <section class="grid gap-x-6 gap-y-12 px-4 py-6" class:ready>
     {#each cards.slice(0, volume * pagenum) as card, i}
       {#if card.recipeTeaser}
         <aside
           in:fade={{ duration: 1000 }}
           use:masonryItem
-          class:double={Boolean(card.recipeTeaser.img || card.recipeTeaser.video)}
           style="order:{i}"
         >
           <RecipeCard recipe={card.recipeTeaser} locked={Boolean(card.locked)} />
@@ -127,9 +141,15 @@
   section {
     scroll-behavior: auto;
     grid-template-columns: repeat(auto-fill, minmax(24ch, 1fr));
-    /* small unit so dynamic spans can hug each card's actual height */
+    /* Pre-hydration / no-JS fallback: rows hug content so cards never overlap. */
+    grid-auto-rows: max-content;
+  }
+  section.ready {
+    /* JS active: tiny unit so dynamic spans can hug each card's actual height. */
     grid-auto-rows: 4px;
     grid-auto-flow: dense;
+    /* Safety net: a too-short span can never spill content past the grid. */
+    overflow: clip;
   }
   aside {
     position: unset;

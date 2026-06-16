@@ -1,9 +1,11 @@
 import { initializeApp, getApps, cert } from 'firebase-admin/app';
 import { getFirestore } from 'firebase-admin/firestore';
+import { getStorage } from 'firebase-admin/storage';
 import type { Firestore } from 'firebase-admin/firestore';
 import { env } from '$env/dynamic/private';
 
 let dbInstance: Firestore | undefined;
+let projectId: string | undefined;
 
 function getAdminDb(): Firestore {
 	if (dbInstance) return dbInstance;
@@ -15,7 +17,9 @@ function getAdminDb(): Firestore {
 		}
 		let credential;
 		try {
-			credential = cert(JSON.parse(raw));
+			const parsed = JSON.parse(raw);
+			projectId = parsed.project_id;
+			credential = cert(parsed);
 		} catch {
 			throw new Error('FIREBASE_ADMIN_KEY is not valid JSON');
 		}
@@ -46,3 +50,13 @@ export const db: Firestore = new Proxy({} as Firestore, {
 		return typeof value === 'function' ? value.bind(instance) : value;
 	}
 });
+
+/** Default Storage bucket (FIREBASE_STORAGE_BUCKET or {project}.firebasestorage.app). */
+export function getAdminBucket() {
+	getAdminDb(); // ensures the app is initialized and projectId is known
+	const name =
+		env.FIREBASE_STORAGE_BUCKET?.trim() ||
+		(projectId ? `${projectId}.firebasestorage.app` : undefined);
+	if (!name) throw new Error('No Storage bucket configured (FIREBASE_STORAGE_BUCKET)');
+	return getStorage().bucket(name);
+}

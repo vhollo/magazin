@@ -35,7 +35,6 @@
 
   $: conf = data.conf
   $: doc = data.doc
-  $: recipeTeasersByKey = data.recipeTeasersByKey ?? {}
 
   const cachedOnInit = browser ? getCachedSearchIndex() : null
   let ms = cachedOnInit
@@ -112,7 +111,8 @@
     ? ms.search(q, { boost: { ellipsis: 2 }, fuzzy: 0.2 })
     : []
 
-  function recipeTeaserFromHit(c, teasersByKey) {
+  /** Teaser data ships inside the search index (`recipeTeaser` stored field). */
+  function recipeTeaserFromHit(c) {
     const partial = c.recipeTeaser ?? {}
     let year = partial.year
     let id = partial.id
@@ -121,13 +121,11 @@
       year = Number(m[1])
       id = decodeURIComponent(m[2])
     }
-    const key = year && id ? `${year}/${id}` : ''
-    const fromRecipes = key ? teasersByKey?.[key] : null
     return normalizeRecipeTeaser({
-      ...(fromRecipes ?? partial),
+      ...partial,
       year: year ?? partial.year,
       id: id ?? partial.id,
-      title: (fromRecipes ?? partial).title ?? c.title ?? '',
+      title: partial.title ?? c.title ?? '',
     })
   }
 
@@ -135,7 +133,7 @@
     if (isReceptsarokRecipePath(c.path)) {
       return {
         ...c,
-        recipeTeaser: recipeTeaserFromHit(c, recipeTeasersByKey),
+        recipeTeaser: recipeTeaserFromHit(c),
         locked: !c.free && !$hasReceptsarokAccess,
       }
     }
