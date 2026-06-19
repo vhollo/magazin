@@ -449,7 +449,7 @@ Nav2 defines the secondary navigation menu with categorized content sections:
 - `rendezvenyek`: ['+rendezvény', '-covid-19']
 - `gyogyitok`: ['+személyes', '#orvosok', 'szakellátás', 'elismerés', '-kezelés', '-covid-19']
 - `sorstarsak`: ['+személyes', 'elismerés', '-szakellátás', '-orvosok', '-önellenőrzés', '-kezelés', '-várandósság', '-közösség', '-edukáció', '-egyesület', '-covid-19']
-- `hirek`: ['hírek']
+- `hirek`: ['hírek', 'hirek'] — the news bucket. `parent==1` rows (the `modxSiteHirek` set) are auto-tagged `hírek` by the transform; editors also hand-tag other docs and frequently omit the accent, so both spellings are accepted. Built with `includeFolders: true` so editor-tagged folder landing pages (e.g. `diaeuro-futsal`) are admitted, not just leaf articles
 - `diaeuro`: ['+diaeuro']
 - `all`: [] (all documents)
 
@@ -459,13 +459,15 @@ Nav2 defines the secondary navigation menu with categorized content sections:
 - `tag`: Optional tag (low priority)
 - `-tag`: Excluded tag
 
-**Ranking Algorithm**:
-1. Required tags (`+`): 100 points each
-2. Important tags (`#`): 10 points each
-3. Optional tags: 1 point each
-4. Excludes documents with excluded tags (`-`)
-5. Sorts by rank (descending)
+**Ranking Algorithm** (`rankDocByTags`): each of a document's tags that matches the query scores:
+1. Required (`+tag`): 11 points (1 base + 10 bonus)
+2. Important (`#tag`): 3 points (1 base + 2 bonus)
+3. Optional (`tag`): 1 point (base only)
+4. Excluded (`-tag`): if the document carries any excluded tag, its **base** points are zeroed — but `+`/`#` **bonus** points still apply (legacy quirk). A document is dropped only when its total rank is 0
+5. Sorts by rank (descending), then `publishedon` (descending, newest first) as a tie-break
+   - This is what orders all-optional-tag collections like `hirek` (`['hírek', 'hirek']`), where every match ties at rank 1
 6. Returns top 72 documents (18 × 4)
+   - Folders (`isfolder`) are skipped unless the caller passes `includeFolders: true` (only the `hirek` slug does)
 
 #### Individual document routes
 

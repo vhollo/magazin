@@ -606,7 +606,9 @@ async function writeCollections(firestore, projectionDocs) {
 
   for (const slug of slugs) {
     const queryTags = collectionQueries[slug]
-    const matched = docsByTags(listedDocs, queryTags, '0')
+    // `hirek` is the news bucket: admit folder landing pages editors tag by hand
+    // (e.g. `diaeuro-futsal`), not just leaf articles.
+    const matched = docsByTags(listedDocs, queryTags, '0', { includeFolders: slug === 'hirek' })
     const cards = matched.map((doc) => toThinCard(doc, doc.rank))
     await firestore.collection(COLLECTIONS_COLLECTION).doc(slug).set({
       slug,

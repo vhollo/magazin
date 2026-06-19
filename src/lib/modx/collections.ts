@@ -76,7 +76,11 @@ export const collectionQueries: Record<string, string[]> = {
 		'-egyesület',
 		'-covid-19'
 	],
-	hirek: ['hírek'],
+	// `parent==1` news is auto-tagged `hírek` (transform.ts); editors also tag other
+	// docs by hand and often type `hirek` without the accent — accept both so the two
+	// sources merge into one news bucket. See `includeFolders` in `docsByTags` for the
+	// folder landing pages (e.g. `diaeuro-futsal`) editors surface here.
+	hirek: ['hírek', 'hirek'],
 	diaeuro: ['+diaeuro'],
 	all: []
 };
@@ -189,7 +193,19 @@ export function rankDocByTags(doc: DocLike, queryTags: string[]): number {
 
 /**
  * Return the top `COLLECTION_LIMIT` listed docs matching a tag query, sorted by
- * rank descending. Does NOT mutate inputs. Mirrors `docsByTags` in the route.
+ * rank descending, then `publishedon` descending (newest first) as a tie-break.
+ * Does NOT mutate inputs. Mirrors `docsByTags` in the route.
+ *
+ * The `publishedon` tie-break is what orders all-optional-tag collections like
+ * `hirek` (`['hírek', 'hirek']`), where every match scores rank 1 — without it they
+ * would fall back to arbitrary projection order. For rank-discriminating collections
+ * it only reorders docs within an equal rank bucket.
+ *
+ * Folders (`isfolder`) are skipped by default — they are nav containers, not
+ * articles. Pass `includeFolders: true` to keep folder landing pages that an editor
+ * has explicitly tagged (used by the `hirek` news bucket); folders whose first tag is
+ * `folder` are already dropped upstream by `isListedDoc`, so this only admits folders
+ * that carry real content tags.
  *
  * Returns docs with an injected `rank` field. Callers should typically project
  * each with `toThinCard(doc, doc.rank)` before writing to Firestore.
@@ -197,17 +213,21 @@ export function rankDocByTags(doc: DocLike, queryTags: string[]): number {
 export function docsByTags<T extends DocLike>(
 	listedDocs: T[],
 	queryTags: string[],
-	excludeId?: string | number | null
+	excludeId?: string | number | null,
+	{ includeFolders = false }: { includeFolders?: boolean } = {}
 ): Array<T & { rank: number }> {
 	const ranked: Array<T & { rank: number }> = [];
 	const exclude = excludeId == null ? null : String(excludeId);
 	for (const doc of listedDocs) {
-		if (doc.isfolder) continue;
+		if (doc.isfolder && !includeFolders) continue;
 		if (exclude != null && doc.id != null && String(doc.id) === exclude) continue;
 		const rank = rankDocByTags(doc, queryTags);
 		if (rank > 0) ranked.push({ ...doc, rank } as T & { rank: number });
 	}
-	ranked.sort((a, b) => b.rank - a.rank);
+	ranked.sort(
+		(a, b) =>
+			b.rank - a.rank || Number(b.publishedon ?? 0) - Number(a.publishedon ?? 0)
+	);
 	return ranked.slice(0, COLLECTION_LIMIT);
 }
 
