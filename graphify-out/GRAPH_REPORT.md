@@ -1,7 +1,7 @@
-# Graph Report - magazin  (2026-06-19)
+# Graph Report - magazin  (2026-06-20)
 
 ## Corpus Check
-- 169 files · ~4,538,177 words
+- 169 files · ~4,538,237 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
@@ -10,7 +10,7 @@
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `acb943da`
+- Built from commit: `daec14e9`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -562,9 +562,11 @@ Nodes (5): Layout Server (`+layout.server.ts`), Layout Server (`+layout.server.t
 _Questions this graph is uniquely positioned to answer:_
 
 - **Why does `stringifyRecipesJson()` connect `Community 33` to `Community 11`, `Community 43`, `Community 14`, `Community 52`, `Community 23`?**
-  _High betweenness centrality (0.056) - this node is a cross-community bridge._
+  _High betweenness centrality (0.055) - this node is a cross-community bridge._
+- **Why does `scripts` connect `Community 5` to `Community 69`?**
+  _High betweenness centrality (0.034) - this node is a cross-community bridge._
 - **Why does `dependencies` connect `Community 17` to `Community 69`?**
-  _High betweenness centrality (0.035) - this node is a cross-community bridge._
+  _High betweenness centrality (0.034) - this node is a cross-community bridge._
 - **Are the 2 inferred relationships involving `main()` (e.g. with `createModxTransform()` and `loadReceptsarokRedirectMaps()`) actually correct?**
   _`main()` has 2 INFERRED edges - model-reasoned connections that need verification._
 - **What connects `config`, `id`, `name` to the rest of the system?**
@@ -573,5 +575,3 @@ _Questions this graph is uniquely positioned to answer:_
   _Cohesion score 0.02631578947368421 - nodes in this community are weakly interconnected._
 - **Should `Community 1` be split into smaller, more focused modules?**
   _Cohesion score 0.05443371378402107 - nodes in this community are weakly interconnected._
-- **Should `Community 2` be split into smaller, more focused modules?**
-  _Cohesion score 0.029850746268656716 - nodes in this community are weakly interconnected._

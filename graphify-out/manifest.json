@@ -135,8 +135,8 @@
     "semantic_hash": ""
   },
   "/Users/vhollo/Public/Google/webdev/diabetes/magazin/scripts/modx/modx-firestore-sync-plugin.php": {
-    "mtime": 1780566625.10678,
-    "ast_hash": "cac85f693a14ae65e3e134f0a72e0db1",
+    "mtime": 1781945785.3089647,
+    "ast_hash": "e465bc26c26baf47ec74abce2d050045",
     "semantic_hash": ""
   },
   "/Users/vhollo/Public/Google/webdev/diabetes/magazin/scripts/lib/receptsarok-redirect-match.mjs": {
@@ -330,13 +330,13 @@
     "semantic_hash": ""
   },
   "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/lib/modx/collections.ts": {
-    "mtime": 1781891943.0865479,
-    "ast_hash": "0eeece9f3e08add9a6f10fe7f3fb6cda",
+    "mtime": 1781947842.9649162,
+    "ast_hash": "a489a26d617468e1f110225e4b1d2548",
     "semantic_hash": ""
   },
   "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/lib/modx/index.ts": {
-    "mtime": 1779312312.9439337,
-    "ast_hash": "af332163c6be594c518a7c3cc0a38b06",
+    "mtime": 1781947853.3210704,
+    "ast_hash": "1385e0ba127be28ea7cf9e042157d37a",
     "semantic_hash": ""
   },
   "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/lib/server/receptsarokSubscriber.ts": {
@@ -710,8 +710,8 @@
     "semantic_hash": ""
   },
   "/Users/vhollo/Public/Google/webdev/diabetes/magazin/AGENTS.md": {
-    "mtime": 1781892103.3225138,
-    "ast_hash": "b3ab637ceb5bd0dc1c03b0d4d1f7047c",
+    "mtime": 1781948087.6391125,
+    "ast_hash": "998b104106c4e43bf049bb3bc2b493a6",
     "semantic_hash": ""
   },
   "/Users/vhollo/Public/Google/webdev/diabetes/magazin/.github/workflows/sync-receptsarok-patika.yml": {
@@ -4300,8 +4300,8 @@
     "semantic_hash": ""
   },
   "/Users/vhollo/Public/Google/webdev/diabetes/magazin/.claude/settings.local.json": {
-    "mtime": 1781900002.2367692,
-    "ast_hash": "036d79b6381fa87a47ee863b106540cb",
+    "mtime": 1781948390.1063664,
+    "ast_hash": "493ab948959b1459fc2581b7618fb3e4",
     "semantic_hash": ""
   },
   "/Users/vhollo/Public/Google/webdev/diabetes/magazin/scripts/backfill-collection-recipe-content.mjs": {
