@@ -34,3 +34,6 @@ magazin.code-workspace
 scripts/data/data.json
 src/lib/data/.recipes-rev.json
 /static/banners
+
+# graphify
+graphify-out/

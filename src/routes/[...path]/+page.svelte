@@ -250,7 +250,7 @@
     {#if !doc.id}
       <h1 class="text-center">{doc.id && '' || docstitle}</h1>
     {:else}
-      <h2 class="text-center">Hasonló cikkek</h2>
+      <h2 class="text-center">Kapcsolódó cikkek</h2>
     {/if}
   </article>
   <Cards cards={docs} banners={conf.side_banners} ads_distance={conf.ads_distance}/>

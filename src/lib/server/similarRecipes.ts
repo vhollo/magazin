@@ -1,5 +1,5 @@
 /**
- * "Hasonló receptek" via a recipes-only MiniSearch index built in-process —
+ * "Kapcsolódó receptek" via a recipes-only MiniSearch index built in-process —
  * the same engine and matching behavior as /keres (fuzzy + prefix), scoped to
  * published recipes so the SSR lambda never touches the 10 MB article index.
  *

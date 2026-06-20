@@ -35,6 +35,12 @@ export async function getMagazineArticle(path: string): Promise<MagazineArticle 
 	return snap.data() as MagazineArticle;
 }
 
+/** Direct children's MODX ids — used to surface a recipe folder's own child recipes. */
+export async function getChildModxIds(parentModxId: number): Promise<number[]> {
+	const snap = await db.collection('docs').where('parent', '==', parentModxId).select('id').get();
+	return snap.docs.map((d) => Number(d.get('id'))).filter((n) => Number.isFinite(n));
+}
+
 export async function getMagazineCollection(slug: string): Promise<CollectionDoc | null> {
 	const snap = await db.collection('collections').doc(slug).get();
 	if (!snap.exists) return null;

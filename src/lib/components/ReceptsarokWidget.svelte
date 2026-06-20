@@ -9,7 +9,7 @@
   export let recipes: (RecipeTeaser | RecipeLayoutEntry)[] = []
   export let title = ''
   /** Section heading — overridden for curated "További receptek" lists. */
-  export let heading = 'Hasonló receptek a Receptsarokban'
+  export let heading = 'Kapcsolódó receptek a Receptsarokban'
 
   // Masonry spans are JS-only; pre-hydration the grid uses content-sized rows
   // (no overlap), then switches to the fine-grained dense grid once mounted.

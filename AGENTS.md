@@ -189,7 +189,7 @@ Nav2 defines the secondary navigation menu with categorized content sections:
 - **Content Display**:
   - Shows carousel on home page
   - Displays article cards if documents exist
-  - Shows "Hasonló cikkek" (Similar articles) if viewing a specific document
+  - Shows "Kapcsolódó cikkek" (Similar articles) if viewing a specific document
 
 ---
 
@@ -710,7 +710,7 @@ Eligible docs (`isMagazineRecipeDoc` in `receptsarok-redirect-match.mjs`):
 - `NutritionTable.svelte` — Full or compact nutrition table display
 - `RecipeFilters.svelte` — Nutrition range filters + ingredient search + sort (premium-gated)
 - `PaywallCTA.svelte` — Subscription prompt with context-specific messaging
-- `ReceptsarokWidget.svelte` — Cross-link widget for magazine recipe articles ("Hasonló receptek a Receptsarokban")
+- `ReceptsarokWidget.svelte` — Cross-link widget for magazine recipe articles ("Kapcsolódó receptek a Receptsarokban")
 - `MealPlanner.svelte` — Weekly meal planner with per-day recipe list, aggregated nutrition, and shopping list (premium-gated). Loads the **slim catalog** from `/api/receptsarok/recipes` (layout entries, no ingredients/instructions); the shopping list fetches each planned recipe's `ingredientGroups` individually via `/api/receptsarok/recipe/[year]/[id]` and caches them client-side. Search input strips one kcal (energy) and one gram (carbs) nutrition filter before AND-matching the remaining words: exact (`350 kcal`, `20 g`), closed range (`100-200 kcal`), or strict `<`/`>` comparison (`<350 kcal`, `>20 g`); kcal also matches `kalória`/`kaloria` spellings, grams also `gr`/`gramm`
 
 ### Cross-linking with Magazine
@@ -718,7 +718,7 @@ Eligible docs (`isMagazineRecipeDoc` in `receptsarok-redirect-match.mjs`):
 When a magazine article has the `recept` tag, the `[...path]/+page.svelte` shows a `ReceptsarokWidget` with matching Receptsarok recipes. Two sources, in priority order:
 
 1. **Curated "További receptek" links** (`linkedModxIds`): many MODX recipe articles end with a `<p|h2|h3>További … receptek</…>` + `<ul>` of `[~id~]` links to related recipes (same magazine issue/series). The shared extractor `src/lib/modxLinkedRecipes.js` reads them — in the parser onto `recipe.linkedModxIds` (recipes.json/Firestore) and in `modx/transform.ts` onto the magazine doc (at the start of `alapjav`, **before** `[~id~]` → path rewriting destroys the ids). When present, `linkedRecipesFor()` resolves them via recipes' `sourceModxId` + the redirect manifest (`receptsarok-redirects.json` — covers dedupe-variant docs), and the widget shows **all of them** (not 4), heading "További receptek a Receptsarokban". The same extractor strips these blocks out of derived `instructions`. Existing data needs `recipes:backfill-content:apply` (recipes) / `sync:modx:full` (magazine docs) after extractor changes.
-2. **Similarity fallback** — `similarRecipesFor()` in `src/lib/server/similarRecipes.ts`: a recipes-only MiniSearch index (title/searchTerms/ingredientNames; same fuzzy+prefix options as `/keres`) built in-process and memoized against the `getRecipes()` result (~100 ms once per lambda instance, sub-ms per query). When a title matches nothing (compound words like „Csicsókaleves”), it retries with the recipe's rarest own terms by corpus document frequency. Top 4, heading "Hasonló receptek a Receptsarokban".
+2. **Similarity fallback** — `similarRecipesFor()` in `src/lib/server/similarRecipes.ts`: a recipes-only MiniSearch index (title/searchTerms/ingredientNames; same fuzzy+prefix options as `/keres`) built in-process and memoized against the `getRecipes()` result (~100 ms once per lambda instance, sub-ms per query). When a title matches nothing (compound words like „Csicsókaleves”), it retries with the recipe's rarest own terms by corpus document frequency. Top 4, heading "Kapcsolódó receptek a Receptsarokban".
 
 The recipe detail page uses the same priority. Returned as slim `RecipeLayoutEntry[]`; the root layout does not ship full recipes.
 
