@@ -164,7 +164,7 @@ Nav2 defines the secondary navigation menu with categorized content sections:
 
 - **SSR** (not prerendered): one Firestore read of `collections/home`
 - **Data Loading**:
-  - Returns latest 72 article cards from `collections/home`
+  - Returns latest 72 article cards from `collections/home` (sorted by `publishedon` descending, `id` descending as tie-break — see `homeDocs`)
   - `Cache-Control`: CDN-cached (`s-maxage=86400`)
 
 ### Client-Side Logic (`+page.svelte`)

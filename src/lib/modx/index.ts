@@ -18,7 +18,6 @@ export {
 	homeDocs,
 	isListedDoc,
 	rankDocByTags,
-	sortListedDocsByIdDesc,
 	toThinCard,
 	type DocLike,
 	type ThinCard

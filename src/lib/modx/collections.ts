@@ -155,11 +155,6 @@ export function isListedDoc(doc: DocLike): boolean {
 	return true;
 }
 
-/** Sort listed docs by id descending — same ordering as `allDocs` in `$lib/modx`. */
-export function sortListedDocsByIdDesc<T extends DocLike>(docs: T[]): T[] {
-	return [...docs].sort((a, b) => Number(b.id ?? 0) - Number(a.id ?? 0));
-}
-
 /**
  * Compute the per-doc rank for a tag query. Faithful translation of the
  * algorithm in `src/routes/[...path]/+layout.server.ts` so the precomputed
@@ -231,7 +226,13 @@ export function docsByTags<T extends DocLike>(
 	return ranked.slice(0, COLLECTION_LIMIT);
 }
 
-/** Latest N listed docs (id desc) for the `collections/home` grid. */
+/** Latest N listed docs (publishedon desc, id desc tie-break) for the `collections/home` grid. */
 export function homeDocs<T extends DocLike>(listedDocs: T[]): T[] {
-	return sortListedDocsByIdDesc(listedDocs).slice(0, COLLECTION_LIMIT);
+	return [...listedDocs]
+		.sort(
+			(a, b) =>
+				Number(b.publishedon ?? 0) - Number(a.publishedon ?? 0) ||
+				Number(b.id ?? 0) - Number(a.id ?? 0)
+		)
+		.slice(0, COLLECTION_LIMIT);
 }
