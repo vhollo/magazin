@@ -449,7 +449,7 @@ Nav2 defines the secondary navigation menu with categorized content sections:
 - `rendezvenyek`: ['+rendezvény', '-covid-19']
 - `gyogyitok`: ['+személyes', '#orvosok', 'szakellátás', 'elismerés', '-kezelés', '-covid-19']
 - `sorstarsak`: ['+személyes', 'elismerés', '-szakellátás', '-orvosok', '-önellenőrzés', '-kezelés', '-várandósság', '-közösség', '-edukáció', '-egyesület', '-covid-19']
-- `hirek`: ['hírek', 'hirek'] — the news bucket. `parent==1` rows (the `modxSiteHirek` set) are auto-tagged `hírek` by the transform; editors also hand-tag other docs and frequently omit the accent, so both spellings are accepted. Built with `includeFolders: true` so editor-tagged folder landing pages (e.g. `diaeuro-futsal`) are admitted, not just leaf articles
+- `hirek`: ['hírek', 'hirek'] — the news bucket. `parent==1` rows (the `modxSiteHirek` set) are auto-tagged `hírek` by the transform; editors also hand-tag other docs and frequently omit the accent, so both spellings are accepted
 - `diaeuro`: ['+diaeuro']
 - `all`: [] (all documents)
 
@@ -467,7 +467,7 @@ Nav2 defines the secondary navigation menu with categorized content sections:
 5. Sorts by rank (descending), then `publishedon` (descending, newest first) as a tie-break
    - This is what orders all-optional-tag collections like `hirek` (`['hírek', 'hirek']`), where every match ties at rank 1
 6. Returns top 72 documents (18 × 4)
-   - Folders (`isfolder`) are skipped unless the caller passes `includeFolders: true` (only the `hirek` slug does)
+   - Folders (`isfolder`) are skipped by default; **collection building** passes `includeFolders: true`, so a content-tagged folder appears in every collection one of its tags matches — **except** folders whose post-`alapjav` `content` is blank (pure containers), which the sync drops up-front via `emptyContentFolderPaths` (`scripts/lib/empty-folders.mjs`). The related-cards tag fallback keeps the default (no folders).
 
 #### Individual document routes
 
@@ -479,7 +479,12 @@ Nav2 defines the secondary navigation menu with categorized content sections:
 
 #### Related articles
 
-- Primary source: `doc.relatedCards` on the Firestore document (patched by sync worker)
+- Primary source: `doc.relatedCards` on the Firestore document (patched by the sync worker — `scripts/lib/related-cards.mjs`)
+- For folder-structured content, structural relations (derived by path) override tag similarity:
+  1. A folder → its direct children (newest first)
+  2. A leaf under a matching folder → that parent + all direct siblings
+  3. Otherwise → top tag-matched cards from the doc's best-matching collection
+  - Rule 1 wins for a folder that is itself a child (e.g. a year sub-folder). An empty-content folder (blank `content` after `alapjav`) is never shown as a related card — it is replaced by its children, recursively (`emptyContentFolderPaths`)
 - Fallback: read matching `collections/{slug}` when relatedCards empty
 
 ### Page Component (`+page.svelte`)
