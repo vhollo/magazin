@@ -78,8 +78,7 @@ export const collectionQueries: Record<string, string[]> = {
 	],
 	// `parent==1` news is auto-tagged `hírek` (transform.ts); editors also tag other
 	// docs by hand and often type `hirek` without the accent — accept both so the two
-	// sources merge into one news bucket. See `includeFolders` in `docsByTags` for the
-	// folder landing pages (e.g. `diaeuro-futsal`) editors surface here.
+	// sources merge into one news bucket.
 	hirek: ['hírek', 'hirek'],
 	diaeuro: ['+diaeuro'],
 	all: []
@@ -196,11 +195,12 @@ export function rankDocByTags(doc: DocLike, queryTags: string[]): number {
  * would fall back to arbitrary projection order. For rank-discriminating collections
  * it only reorders docs within an equal rank bucket.
  *
- * Folders (`isfolder`) are skipped by default — they are nav containers, not
- * articles. Pass `includeFolders: true` to keep folder landing pages that an editor
- * has explicitly tagged (used by the `hirek` news bucket); folders whose first tag is
- * `folder` are already dropped upstream by `isListedDoc`, so this only admits folders
- * that carry real content tags.
+ * Folders (`isfolder`) are skipped by default. Pass `includeFolders: true` to admit
+ * content-tagged folders — a folder then appears in every collection one of its tags
+ * matches (folders whose first tag is `folder` are already dropped upstream by
+ * `isListedDoc`, so this only admits folders with real content tags). Collection
+ * building enables this; the related-cards tag-based fallback keeps the default so
+ * folder hubs don't surface as "similar articles".
  *
  * Returns docs with an injected `rank` field. Callers should typically project
  * each with `toThinCard(doc, doc.rank)` before writing to Firestore.

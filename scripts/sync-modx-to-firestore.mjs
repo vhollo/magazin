@@ -606,9 +606,9 @@ async function writeCollections(firestore, projectionDocs) {
 
   for (const slug of slugs) {
     const queryTags = collectionQueries[slug]
-    // `hirek` is the news bucket: admit folder landing pages editors tag by hand
-    // (e.g. `diaeuro-futsal`), not just leaf articles.
-    const matched = docsByTags(listedDocs, queryTags, '0', { includeFolders: slug === 'hirek' })
+    // Admit content-tagged folders into every collection a tag of theirs matches
+    // (e.g. the `diaeuro-futsal` hub + year folders), not just leaf articles.
+    const matched = docsByTags(listedDocs, queryTags, '0', { includeFolders: true })
     const cards = matched.map((doc) => toThinCard(doc, doc.rank))
     await firestore.collection(COLLECTIONS_COLLECTION).doc(slug).set({
       slug,

@@ -396,12 +396,16 @@ if (!function_exists('magazin_evoDispatchSavePayload')) {
         }
 
         $hint = '';
-        if ($result['http'] === 404) {
+        if ($result['http'] === 401) {
+            $hint = ' HTTP 401 — magazin_github_token is invalid or expired; re-issue the PAT.';
+        } elseif ($result['http'] === 403) {
+            $hint = ' HTTP 403 — token authenticated but lacks permission. Fine-grained PAT:'
+                . ' grant this repo + Contents:Read and write. Classic PAT: repo scope.'
+                . ' Token owner must have push access.';
+        } elseif ($result['http'] === 404) {
             $hint = ' HTTP 404 — check repo name + PAT Contents:write permission.';
         } elseif ($result['http'] === 422) {
             $hint = ' HTTP 422 — event_type or client_payload may be invalid.';
-        } elseif ($result['http'] === 403) {
-            $hint = ' HTTP 403 — PAT missing Contents:write permission (fine-grained) or repo scope (classic).';
         }
 
         magazin_evoLog(
