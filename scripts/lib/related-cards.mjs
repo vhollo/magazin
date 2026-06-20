@@ -1,4 +1,5 @@
 import { encodeDocPathId } from './doc-path-id.mjs'
+import { emptyContentFolderPaths } from './empty-folders.mjs'
 
 const byPublishedonDesc = (a, b) => Number(b.publishedon ?? 0) - Number(a.publishedon ?? 0)
 
@@ -18,6 +19,11 @@ function parentPathOf(path) {
  * Rule 1 wins for a folder that is itself a child (e.g. a year sub-folder). Parent /
  * child / sibling links are derived from paths over the *listed* docs, so untagged
  * pages are not surfaced as relations.
+ *
+ * A folder whose stored (post-`alapjav`) content is empty is a pure container: it is
+ * never shown as a related card — it is replaced by its children (recursively). So a
+ * leaf under an empty parent relates to its siblings only, and a hub of empty folders
+ * relates straight to the leaf articles.
  *
  * @param {import('firebase-admin/firestore').Firestore} firestore
  * @param {Record<string, unknown>[]} listedDocs
@@ -47,6 +53,29 @@ export async function updateRelatedCards(
     arr.push(doc)
   }
 
+  // Empty-content folders are pure containers: hidden as related cards, replaced by children.
+  const emptyFolderPaths = await emptyContentFolderPaths(firestore, listedDocs)
+
+  // Expand a list of docs into related cards: empty-content folders are replaced by
+  // their children (recursively); the doc being related to, and duplicates, are dropped.
+  const expandRelated = (docs, selfId) => {
+    const out = []
+    const seen = new Set()
+    const visit = (doc, depth) => {
+      if (depth > 8) return
+      if (doc.isfolder && emptyFolderPaths.has(doc.path)) {
+        for (const kid of childrenByParentPath.get(doc.path) ?? []) visit(kid, depth + 1)
+        return
+      }
+      const key = String(doc.id)
+      if (key === String(selfId) || seen.has(key)) return
+      seen.add(key)
+      out.push(doc)
+    }
+    for (const doc of docs) visit(doc, 0)
+    return out.sort(byPublishedonDesc)
+  }
+
   let updated = 0
   for (const id of idsToUpdate) {
     const processed = workingById.get(id)
@@ -54,19 +83,17 @@ export async function updateRelatedCards(
 
     let related
     if (processed.isfolder) {
-      // Rule 1: a matching folder → its direct children, newest first.
-      const children = (childrenByParentPath.get(processed.path) ?? [])
-        .filter((c) => String(c.id) !== String(processed.id))
-        .sort(byPublishedonDesc)
-      related = children.map((c) => toThinCard(c))
+      // Rule 1: a matching folder → its direct children (empty sub-folders flattened).
+      const children = childrenByParentPath.get(processed.path) ?? []
+      related = expandRelated(children, processed.id).map((c) => toThinCard(c))
     } else {
       const parent = byPath.get(parentPathOf(processed.path))
       if (parent?.isfolder) {
-        // Rule 2: a leaf under a matching folder → parent + direct siblings, newest first.
-        const siblings = (childrenByParentPath.get(parent.path) ?? [])
-          .filter((s) => String(s.id) !== String(processed.id))
-          .sort(byPublishedonDesc)
-        related = [parent, ...siblings].map((c) => toThinCard(c))
+        // Rule 2: a leaf under a matching folder → parent + direct siblings. A non-empty
+        // parent leads; an empty parent is hidden, leaving only its children (siblings).
+        const siblings = expandRelated(childrenByParentPath.get(parent.path) ?? [], processed.id)
+        const ordered = emptyFolderPaths.has(parent.path) ? siblings : [parent, ...siblings]
+        related = ordered.map((c) => toThinCard(c))
       } else {
         // Rule 3: tag-based similar — best-matching collection, falling back to own tags.
         const articleTags = processed.tv.tags

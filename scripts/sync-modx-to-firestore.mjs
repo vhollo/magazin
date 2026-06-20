@@ -38,6 +38,7 @@ import { getFirestoreDb } from './lib/firebase-admin.mjs'
 import { encodeDocPathId, decodeDocPathId } from './lib/doc-path-id.mjs'
 import { buildAndUploadSearchIndex, changedListedPaths } from './lib/search-index.mjs'
 import { updateRelatedCards } from './lib/related-cards.mjs'
+import { emptyContentFolderPaths } from './lib/empty-folders.mjs'
 import {
   loadProjectionDocsForSync,
   uploadProjectionSnapshot,
@@ -596,8 +597,14 @@ async function writeCollections(firestore, projectionDocs) {
   } = collectionsMod
 
   const listedDocs = projectionDocs.filter(isListedDoc)
+
+  // Drop empty-content container folders (post-alapjav `content` blank) — they admit
+  // no real card. Non-empty folders (e.g. the diaeuro-futsal hub + year folders) stay.
+  const emptyFolderPaths = await emptyContentFolderPaths(firestore, listedDocs)
+  const collectionDocs = listedDocs.filter((d) => !(d.isfolder && emptyFolderPaths.has(d.path)))
   console.log(
-    `collections: scanning ${listedDocs.length}/${projectionDocs.length} listed docs, limit=${COLLECTION_LIMIT}`
+    `collections: scanning ${collectionDocs.length}/${projectionDocs.length} docs ` +
+      `(${listedDocs.length} listed − ${listedDocs.length - collectionDocs.length} empty folders), limit=${COLLECTION_LIMIT}`
   )
 
   const generatedAt = new Date().toISOString()
@@ -608,7 +615,7 @@ async function writeCollections(firestore, projectionDocs) {
     const queryTags = collectionQueries[slug]
     // Admit content-tagged folders into every collection a tag of theirs matches
     // (e.g. the `diaeuro-futsal` hub + year folders), not just leaf articles.
-    const matched = docsByTags(listedDocs, queryTags, '0', { includeFolders: true })
+    const matched = docsByTags(collectionDocs, queryTags, '0', { includeFolders: true })
     const cards = matched.map((doc) => toThinCard(doc, doc.rank))
     await firestore.collection(COLLECTIONS_COLLECTION).doc(slug).set({
       slug,
@@ -621,7 +628,7 @@ async function writeCollections(firestore, projectionDocs) {
     console.log(`  wrote ${COLLECTIONS_COLLECTION}/${slug} (${cards.length} cards)`)
   }
 
-  const homeCards = homeDocs(listedDocs).map((doc) => toThinCard(doc))
+  const homeCards = homeDocs(collectionDocs).map((doc) => toThinCard(doc))
   await firestore.collection(COLLECTIONS_COLLECTION).doc(HOME_COLLECTION_ID).set({
     slug: HOME_COLLECTION_ID,
     cards: homeCards,
