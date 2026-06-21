@@ -377,6 +377,7 @@ export function createModxTransform(deps: ModxTransformDeps): ModxTransform {
 		const replaceModxLink = (_match: string, id: string) => pathById(Number(id));
 		for (const field of ['content', 'description', 'introtext'] as const) {
 			doc[field] = doc[field]
+				.replaceAll('"/[~[*id*]~]', '"')
 				.replaceAll(/\[~\[\*id\*\]~\]/g, '')
 				.replaceAll(/\/\[~\[\*id\*\]~\]/g, '')
 				.replaceAll(/\[\*id\*\]/g, doc.id)
