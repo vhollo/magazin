@@ -377,8 +377,10 @@ export function createModxTransform(deps: ModxTransformDeps): ModxTransform {
 		const replaceModxLink = (_match: string, id: string) => pathById(Number(id));
 		for (const field of ['content', 'description', 'introtext'] as const) {
 			doc[field] = doc[field]
-				.replaceAll(/\[~\[\*id\*\]~\]/g, '')
-				.replaceAll(/\/\[~\[\*id\*\]~\]/g, '')
+				// Self-link tag `[~[*id*]~]`, optionally with a leading slash, e.g.
+				// href="/[~[*id*]~]#anchor" → href="#anchor". The optional `/?` must be
+				// in the SAME pass: stripping the tag first would orphan the slash.
+				.replaceAll(/\/?\[~\[\*id\*\]~\]/g, '')
 				.replaceAll(/\[\*id\*\]/g, doc.id)
 				.replaceAll(modxlink, replaceModxLink);
 		}
