@@ -25,11 +25,12 @@ import path from 'node:path'
 import { fileURLToPath, pathToFileURL } from 'node:url'
 import mysql from 'mysql2/promise'
 import { buildRecipesFromModxDoc } from '../src/lib/modxToRsParser.js'
-import { extractLinkedModxIds } from '../src/lib/modxLinkedRecipes.js'
+import { extractLinkedModxIds, linkedModxIdsForRecipe } from '../src/lib/modxLinkedRecipes.js'
 import { stringifyRecipesJson } from '../src/lib/recipesJsonFormat.js'
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 const RECIPES_PATH = path.join(root, 'src/lib/data/recipes.json')
+const REDIRECTS_PATH = path.join(root, 'src/lib/data/receptsarok-redirects.json')
 const PUBLIC_BASE_URL = process.env.PUBLIC_BASE_URL || 'https://www.diabetes.hu/'
 const apply = process.argv.includes('--apply')
 
@@ -53,6 +54,20 @@ const transform = createModxTransform({
 
 const recipes = JSON.parse(fs.readFileSync(RECIPES_PATH, 'utf8'))
 if (!Array.isArray(recipes)) throw new Error('recipes.json must be an array')
+
+const redirectManifest = fs.existsSync(REDIRECTS_PATH)
+  ? JSON.parse(fs.readFileSync(REDIRECTS_PATH, 'utf8'))
+  : { entries: [] }
+const recipeModxIds = new Set()
+for (const r of recipes) {
+  if (r?.published === false) continue
+  const src = Number(r?.sourceModxId)
+  if (Number.isFinite(src)) recipeModxIds.add(src)
+}
+for (const e of redirectManifest.entries ?? []) {
+  const id = Number(e?.modxContentId)
+  if (Number.isFinite(id)) recipeModxIds.add(id)
+}
 
 // Group recipes by source MODX doc; a doc that produced >1 recipe is a collection split.
 const byDoc = new Map()
@@ -183,7 +198,10 @@ let linkedChanged = 0
   await conn2.end()
   const linkedByDoc = new Map()
   for (const row of linkRows) {
-    const ids = extractLinkedModxIds(String(row.content || '')).filter((id) => id !== row.id)
+    const ids = linkedModxIdsForRecipe(
+      extractLinkedModxIds(String(row.content || '')).filter((id) => id !== row.id),
+      recipeModxIds
+    )
     if (ids.length) linkedByDoc.set(row.id, ids)
   }
   console.log(`\nlinked-recipe lists found in ${linkedByDoc.size} source doc(s)`)

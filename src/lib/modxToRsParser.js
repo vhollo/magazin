@@ -1,5 +1,5 @@
 import { decodeHtmlEntities } from './htmlEntities.js'
-import { extractLinkedModxIds, stripLinkedRecipeBlocks } from './modxLinkedRecipes.js'
+import { extractLinkedModxIds, linkedModxIdsForRecipe, stripLinkedRecipeBlocks } from './modxLinkedRecipes.js'
 
 const DEFAULT_NUTRITION_LABEL = '1 adag energia- es tapanyagtartalma:'
 
@@ -1085,7 +1085,10 @@ export function buildRecipesFromModxDoc(doc, options) {
     if (Number.isFinite(sourceModxId)) {
       recipe.sourceModxId = sourceModxId
     }
-    const linkedModxIds = extractLinkedModxIds(content).filter((id) => id !== Number(doc?.id))
+    const linkedModxIds = linkedModxIdsForRecipe(
+      extractLinkedModxIds(content).filter((id) => id !== Number(doc?.id)),
+      options?.recipeModxIds
+    )
     if (linkedModxIds.length) recipe.linkedModxIds = linkedModxIds
     out.push({ recipe, categoryDecision })
   }
@@ -1208,7 +1211,10 @@ export function buildRecipeFromModxDoc(doc, options) {
   if (Number.isFinite(sourceModxId)) {
     recipe.sourceModxId = sourceModxId
   }
-  const linkedModxIds = extractLinkedModxIds(content).filter((id) => id !== Number(doc?.id))
+  const linkedModxIds = linkedModxIdsForRecipe(
+    extractLinkedModxIds(content).filter((id) => id !== Number(doc?.id)),
+    options?.recipeModxIds
+  )
   if (linkedModxIds.length) recipe.linkedModxIds = linkedModxIds
   return { recipe, categoryDecision }
 }

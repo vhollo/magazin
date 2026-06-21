@@ -233,7 +233,7 @@
     <ReceptsarokWidget
       recipes={rsMatches}
       title={data.rsWidgetLinked ? '' : doc.title || ''}
-      heading={data.rsWidgetLinked ? 'További receptek a Receptsarokban' : undefined}
+      heading={data.rsWidgetLinked ? 'Kapcsolódó receptek a Receptsarokban' : undefined}
     />
   {/if}
 

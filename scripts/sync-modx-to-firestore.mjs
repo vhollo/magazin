@@ -57,11 +57,13 @@ import {
   appendRedirectsManifest,
   registerRedirectEntries,
 } from './lib/receptsarok-redirects-manifest.mjs'
+import { refreshReceptsarokRedirectsFromManifest } from './lib/refresh-receptsarok-redirects.mjs'
 import { isMagazineCandidate, shouldSyncRow } from './lib/magazine-scope.mjs'
 import { parseModxSavePayload, classifyPayload } from './lib/modx-save-payload.mjs'
 
 const isFullSync = process.argv.includes('--full')
 const skipRsCollections = process.argv.includes('--skip-rs-collections')
+const skipRedirectRefresh = process.argv.includes('--skip-redirect-refresh')
 const isFromPayload = process.argv.includes('--from-payload') || !!process.env.MODX_SYNC_PAYLOAD
 
 const COLLECTIONS_COLLECTION = 'collections'
@@ -748,7 +750,22 @@ async function main() {
   }
 
   if (changedRows.length === 0 && removedRows.length === 0) {
-    console.log('nothing to sync')
+    console.log('nothing to sync from MODX')
+    if (!skipRedirectRefresh) {
+      const refresh = await refreshReceptsarokRedirectsFromManifest(firestore, RS_REDIRECTS_PATH, {
+        apply: true,
+      })
+      if (refresh.updated > 0) {
+        console.log(`redirect refresh: updated ${refresh.updated} doc(s)`)
+        const purgePaths = [
+          ...refresh.changedPaths.map((p) => `/${p}`),
+          ...refresh.redirectPaths,
+        ]
+        await purgeNetlifyPaths(purgePaths)
+      } else {
+        console.log('redirect refresh: all manifest redirects already match Firestore')
+      }
+    }
     return
   }
 
@@ -952,6 +969,23 @@ async function main() {
   if (deleted > 0) {
     purgePaths.push('/', ...Object.keys(collectionsMod.collectionQueries))
   }
+
+  let redirectRefreshUpdated = 0
+  if (!skipRedirectRefresh) {
+    const refresh = await refreshReceptsarokRedirectsFromManifest(firestore, RS_REDIRECTS_PATH, {
+      apply: true,
+    })
+    readCounts.redirectRefresh = refresh.reads
+    redirectRefreshUpdated = refresh.updated
+    if (refresh.updated > 0) {
+      console.log(
+        `redirect refresh: updated ${refresh.updated} doc(s), missing ${refresh.missing} (manifest entries with no Firestore doc)`
+      )
+      for (const p of refresh.changedPaths) purgePaths.push(`/${p}`)
+      for (const r of refresh.redirectPaths) purgePaths.push(r)
+    }
+  }
+
   const purgeResult = await purgeNetlifyPaths(purgePaths)
 
   let lastEditSummary = 'n/a (payload mode)'
@@ -968,7 +1002,7 @@ async function main() {
   }
 
   console.log(
-    `sync complete: wrote=${written}, deleted=${deleted}, skipped=${skipped}, redirectsAdded=${redirectsAdded}, receptsarokFree=${freeSync.updated}, collections=${collectionsWritten}, relatedCards=${relatedUpdated}, search v${searchIndex.version} (${searchIndex.articleCount} articles, ${searchIndex.recipeCount} recipes), purge=${purgeResult.skipped ? 'skipped' : purgeResult.ok ? `ok(${purgeResult.status})` : 'failed'}, lastEdit ${lastEditSummary}, ${formatReadCounts(readCounts)}`
+    `sync complete: wrote=${written}, deleted=${deleted}, skipped=${skipped}, redirectsAdded=${redirectsAdded}, redirectRefresh=${redirectRefreshUpdated}, receptsarokFree=${freeSync.updated}, collections=${collectionsWritten}, relatedCards=${relatedUpdated}, search v${searchIndex.version} (${searchIndex.articleCount} articles, ${searchIndex.recipeCount} recipes), purge=${purgeResult.skipped ? 'skipped' : purgeResult.ok ? `ok(${purgeResult.status})` : 'failed'}, lastEdit ${lastEditSummary}, ${formatReadCounts(readCounts)}`
   )
 }
 

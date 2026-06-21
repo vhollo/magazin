@@ -1,27 +1,11 @@
 import fs from 'node:fs'
 import path from 'node:path'
-import { chooseWinner, pickRedirectTarget } from '../../src/lib/receptsarokDedupeShared.js'
+import { chooseWinner, pickRedirectTarget, titleMatchScore } from '../../src/lib/receptsarokDedupeShared.js'
 import {
   isDescriptionAuthorCompatible,
   normalizeText,
   parseYearFromMagazinPath,
 } from '../../src/lib/modxToRsParser.js'
-
-function tokenize(value) {
-  return normalizeText(value).split(/\s+/).filter(Boolean)
-}
-
-function titleMatchScore(doc, recipe) {
-  const docTitle = normalizeText(doc.longtitle || doc.title || '')
-  const recipeTitle = normalizeText(recipe.title || '')
-  if (!docTitle || !recipeTitle) return 0
-  if (docTitle === recipeTitle) return 100
-  if (recipeTitle.includes(docTitle) || docTitle.includes(recipeTitle)) return 80
-  const docWords = tokenize(docTitle).filter((w) => w.length > 3)
-  if (!docWords.length) return 0
-  const overlap = docWords.filter((w) => recipeTitle.includes(w)).length
-  return Math.round((overlap / docWords.length) * 50)
-}
 
 /** Legacy MODX tree: `receptsarok/{category}/{slug}` (no year in path). */
 export function isReceptsarokLegacyModxPath(doc) {

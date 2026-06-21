@@ -1,3 +1,5 @@
+import { normalizeText } from './modxToRsParser.js'
+
 /**
  * @typedef {object} CandidateLike
  * @property {string} id
@@ -25,6 +27,46 @@
  */
 
 const NUTRITION_KEYS = ['energy', 'protein', 'fat', 'saturatedFat', 'carbs', 'fiber']
+
+function tokenizeTitle(value, normalizeTextFn) {
+  return normalizeTextFn(value).split(/\s+/).filter(Boolean)
+}
+
+/**
+ * Title similarity for magazine doc ↔ catalogue recipe matching.
+ * Single-word doc titles only score on exact equality (avoids „Csokitorta“ → „Céklás… csokitorta“).
+ *
+ * @param {Record<string, unknown>} doc
+ * @param {CandidateLike & { title?: string }} recipe
+ * @param {(value: unknown) => string} [normalizeTextFn]
+ * @returns {number}
+ */
+export function titleMatchScore(doc, recipe, normalizeTextFn = normalizeText) {
+  const docTitle = normalizeTextFn(doc?.longtitle || doc?.title || '')
+  const recipeTitle = normalizeTextFn(recipe?.title || '')
+  if (!docTitle || !recipeTitle) return 0
+  if (docTitle === recipeTitle) return 100
+  const docWords = tokenizeTitle(docTitle, normalizeTextFn)
+  if (docWords.length >= 2 && (recipeTitle.includes(docTitle) || docTitle.includes(recipeTitle))) {
+    return 80
+  }
+  const significantDocWords = docWords.filter((w) => w.length > 3)
+  if (!significantDocWords.length) return 0
+  if (docWords.length === 1) return 0
+  const overlap = significantDocWords.filter((w) => recipeTitle.includes(w)).length
+  return Math.round((overlap / significantDocWords.length) * 50)
+}
+
+/**
+ * @param {CandidateLike[]} recipes
+ * @param {string} id
+ * @returns {CandidateLike[]}
+ */
+export function publishedRecipesByAliasId(recipes, id) {
+  const alias = String(id ?? '').trim()
+  if (!alias) return []
+  return recipes.filter((recipe) => recipe.published !== false && String(recipe.id) === alias)
+}
 
 function countNutritionValuesFromTables(tables) {
   if (!Array.isArray(tables)) return 0

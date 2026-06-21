@@ -3198,7 +3198,7 @@
       "source_file": "scripts/manual-receptsarok-dedupe.js",
       "source_location": "L1",
       "id": "scripts_manual_receptsarok_dedupe_js",
-      "community": 88,
+      "community": 14,
       "norm_label": "manual-receptsarok-dedupe.js"
     },
     {
@@ -3207,7 +3207,7 @@
       "source_file": "scripts/manual-receptsarok-dedupe.js",
       "source_location": "L3",
       "id": "scripts_manual_receptsarok_dedupe_applylocal",
-      "community": 88,
+      "community": 14,
       "norm_label": "applylocal"
     },
     {
@@ -3216,7 +3216,7 @@
       "source_file": "scripts/manual-receptsarok-dedupe.js",
       "source_location": "L4",
       "id": "scripts_manual_receptsarok_dedupe_createlocal",
-      "community": 88,
+      "community": 14,
       "norm_label": "createlocal"
     },
     {
@@ -3225,7 +3225,7 @@
       "source_file": "scripts/manual-receptsarok-dedupe.js",
       "source_location": "L5",
       "id": "scripts_manual_receptsarok_dedupe_allowmissingdata",
-      "community": 88,
+      "community": 14,
       "norm_label": "allowmissingdata"
     },
     {
@@ -3566,7 +3566,7 @@
       "source_file": "scripts/dedupe-receptsarok-internal.mjs",
       "source_location": "L1",
       "id": "scripts_dedupe_receptsarok_internal_mjs",
-      "community": 52,
+      "community": 33,
       "norm_label": "dedupe-receptsarok-internal.mjs"
     },
     {
@@ -3575,7 +3575,7 @@
       "source_file": "scripts/dedupe-receptsarok-internal.mjs",
       "source_location": "L7",
       "id": "scripts_dedupe_receptsarok_internal_recipes_path",
-      "community": 52,
+      "community": 33,
       "norm_label": "recipes_path"
     },
     {
@@ -3584,7 +3584,7 @@
       "source_file": "scripts/dedupe-receptsarok-internal.mjs",
       "source_location": "L8",
       "id": "scripts_dedupe_receptsarok_internal_audit_path",
-      "community": 52,
+      "community": 33,
       "norm_label": "audit_path"
     },
     {
@@ -3593,7 +3593,7 @@
       "source_file": "scripts/dedupe-receptsarok-internal.mjs",
       "source_location": "L10",
       "id": "scripts_dedupe_receptsarok_internal_applylocal",
-      "community": 52,
+      "community": 33,
       "norm_label": "applylocal"
     },
     {
@@ -3602,7 +3602,7 @@
       "source_file": "scripts/dedupe-receptsarok-internal.mjs",
       "source_location": "L12",
       "id": "scripts_dedupe_receptsarok_internal_readjson",
-      "community": 52,
+      "community": 33,
       "norm_label": "readjson()"
     },
     {
@@ -3611,7 +3611,7 @@
       "source_file": "scripts/dedupe-receptsarok-internal.mjs",
       "source_location": "L16",
       "id": "scripts_dedupe_receptsarok_internal_writejson",
-      "community": 52,
+      "community": 33,
       "norm_label": "writejson()"
     },
     {
@@ -3620,7 +3620,7 @@
       "source_file": "scripts/dedupe-receptsarok-internal.mjs",
       "source_location": "L20",
       "id": "scripts_dedupe_receptsarok_internal_recipes",
-      "community": 52,
+      "community": 33,
       "norm_label": "recipes"
     },
     {
@@ -3629,7 +3629,7 @@
       "source_file": "scripts/dedupe-receptsarok-internal.mjs",
       "source_location": "L23",
       "id": "scripts_dedupe_receptsarok_internal_clusters",
-      "community": 52,
+      "community": 33,
       "norm_label": "clusters"
     },
     {
@@ -3638,7 +3638,7 @@
       "source_file": "scripts/dedupe-receptsarok-internal.mjs",
       "source_location": "L32",
       "id": "scripts_dedupe_receptsarok_internal_duplicateclusters",
-      "community": 52,
+      "community": 33,
       "norm_label": "duplicateclusters"
     },
     {
@@ -3647,7 +3647,7 @@
       "source_file": "scripts/dedupe-receptsarok-internal.mjs",
       "source_location": "L33",
       "id": "scripts_dedupe_receptsarok_internal_loserstounpublish",
-      "community": 52,
+      "community": 33,
       "norm_label": "loserstounpublish"
     },
     {
@@ -3656,7 +3656,7 @@
       "source_file": "scripts/dedupe-receptsarok-internal.mjs",
       "source_location": "L34",
       "id": "scripts_dedupe_receptsarok_internal_entries",
-      "community": 52,
+      "community": 33,
       "norm_label": "entries"
     },
     {
@@ -3665,7 +3665,7 @@
       "source_file": "scripts/dedupe-receptsarok-internal.mjs",
       "source_location": "L36",
       "id": "scripts_dedupe_receptsarok_internal_winnerstofree",
-      "community": 52,
+      "community": 33,
       "norm_label": "winnerstofree"
     },
     {
@@ -3701,104 +3701,113 @@
       "source_file": "scripts/validate-recipe-dedupe-v2.mjs",
       "source_location": "L1",
       "id": "scripts_validate_recipe_dedupe_v2_mjs",
-      "community": 32,
+      "community": 15,
       "norm_label": "validate-recipe-dedupe-v2.mjs"
     },
     {
       "label": "root",
       "file_type": "code",
       "source_file": "scripts/validate-recipe-dedupe-v2.mjs",
-      "source_location": "L17",
+      "source_location": "L18",
       "id": "scripts_validate_recipe_dedupe_v2_root",
-      "community": 32,
+      "community": 15,
       "norm_label": "root"
     },
     {
       "label": "createReviewPath",
       "file_type": "code",
       "source_file": "scripts/validate-recipe-dedupe-v2.mjs",
-      "source_location": "L18",
+      "source_location": "L19",
       "id": "scripts_validate_recipe_dedupe_v2_createreviewpath",
-      "community": 32,
+      "community": 15,
       "norm_label": "createreviewpath"
     },
     {
       "label": "redirectsPath",
       "file_type": "code",
       "source_file": "scripts/validate-recipe-dedupe-v2.mjs",
-      "source_location": "L19",
+      "source_location": "L20",
       "id": "scripts_validate_recipe_dedupe_v2_redirectspath",
-      "community": 32,
+      "community": 15,
       "norm_label": "redirectspath"
     },
     {
       "label": "patternsPath",
       "file_type": "code",
       "source_file": "scripts/validate-recipe-dedupe-v2.mjs",
-      "source_location": "L20",
+      "source_location": "L21",
       "id": "scripts_validate_recipe_dedupe_v2_patternspath",
-      "community": 32,
+      "community": 15,
       "norm_label": "patternspath"
     },
     {
       "label": "uncategorizedPath",
       "file_type": "code",
       "source_file": "scripts/validate-recipe-dedupe-v2.mjs",
-      "source_location": "L21",
+      "source_location": "L22",
       "id": "scripts_validate_recipe_dedupe_v2_uncategorizedpath",
-      "community": 32,
+      "community": 15,
       "norm_label": "uncategorizedpath"
     },
     {
       "label": "recipesPath",
       "file_type": "code",
       "source_file": "scripts/validate-recipe-dedupe-v2.mjs",
-      "source_location": "L22",
+      "source_location": "L23",
       "id": "scripts_validate_recipe_dedupe_v2_recipespath",
-      "community": 32,
+      "community": 15,
       "norm_label": "recipespath"
     },
     {
       "label": "readJson()",
       "file_type": "code",
       "source_file": "scripts/validate-recipe-dedupe-v2.mjs",
-      "source_location": "L24",
+      "source_location": "L25",
       "id": "scripts_validate_recipe_dedupe_v2_readjson",
-      "community": 32,
+      "community": 15,
       "norm_label": "readjson()"
     },
     {
       "label": "testComparatorOrder()",
       "file_type": "code",
       "source_file": "scripts/validate-recipe-dedupe-v2.mjs",
-      "source_location": "L28",
+      "source_location": "L29",
       "id": "scripts_validate_recipe_dedupe_v2_testcomparatororder",
-      "community": 9,
+      "community": 14,
       "norm_label": "testcomparatororder()"
     },
     {
       "label": "testPickRedirectTargetPrefersRsBookletYear()",
       "file_type": "code",
       "source_file": "scripts/validate-recipe-dedupe-v2.mjs",
-      "source_location": "L91",
+      "source_location": "L92",
       "id": "scripts_validate_recipe_dedupe_v2_testpickredirecttargetprefersrsbookletyear",
-      "community": 9,
+      "community": 14,
       "norm_label": "testpickredirecttargetprefersrsbookletyear()"
+    },
+    {
+      "label": "testSingleWordTitleDoesNotSubstringMatch()",
+      "file_type": "code",
+      "source_file": "scripts/validate-recipe-dedupe-v2.mjs",
+      "source_location": "L103",
+      "id": "scripts_validate_recipe_dedupe_v2_testsinglewordtitledoesnotsubstringmatch",
+      "community": 14,
+      "norm_label": "testsinglewordtitledoesnotsubstringmatch()"
     },
     {
       "label": "testAuthorGate()",
       "file_type": "code",
       "source_file": "scripts/validate-recipe-dedupe-v2.mjs",
-      "source_location": "L102",
+      "source_location": "L111",
       "id": "scripts_validate_recipe_dedupe_v2_testauthorgate",
-      "community": 32,
+      "community": 15,
       "norm_label": "testauthorgate()"
     },
     {
       "label": "testParserEntityAndYearResilience()",
       "file_type": "code",
       "source_file": "scripts/validate-recipe-dedupe-v2.mjs",
-      "source_location": "L109",
+      "source_location": "L118",
       "id": "scripts_validate_recipe_dedupe_v2_testparserentityandyearresilience",
       "community": 15,
       "norm_label": "testparserentityandyearresilience()"
@@ -3807,61 +3816,61 @@
       "label": "testParserNutritionFallbackFromParagraphs()",
       "file_type": "code",
       "source_file": "scripts/validate-recipe-dedupe-v2.mjs",
-      "source_location": "L145",
+      "source_location": "L154",
       "id": "scripts_validate_recipe_dedupe_v2_testparsernutritionfallbackfromparagraphs",
-      "community": 32,
+      "community": 15,
       "norm_label": "testparsernutritionfallbackfromparagraphs()"
     },
     {
       "label": "testParserIngredientAndServingFallbacks()",
       "file_type": "code",
       "source_file": "scripts/validate-recipe-dedupe-v2.mjs",
-      "source_location": "L174",
+      "source_location": "L183",
       "id": "scripts_validate_recipe_dedupe_v2_testparseringredientandservingfallbacks",
-      "community": 32,
+      "community": 15,
       "norm_label": "testparseringredientandservingfallbacks()"
     },
     {
       "label": "testParserParagraphIngredientsAndSubrecipes()",
       "file_type": "code",
       "source_file": "scripts/validate-recipe-dedupe-v2.mjs",
-      "source_location": "L204",
+      "source_location": "L213",
       "id": "scripts_validate_recipe_dedupe_v2_testparserparagraphingredientsandsubrecipes",
-      "community": 32,
+      "community": 15,
       "norm_label": "testparserparagraphingredientsandsubrecipes()"
     },
     {
       "label": "testParserDoesNotTreatRelatedLinksAsSubrecipe()",
       "file_type": "code",
       "source_file": "scripts/validate-recipe-dedupe-v2.mjs",
-      "source_location": "L234",
+      "source_location": "L243",
       "id": "scripts_validate_recipe_dedupe_v2_testparserdoesnottreatrelatedlinksassubrecipe",
-      "community": 32,
+      "community": 15,
       "norm_label": "testparserdoesnottreatrelatedlinksassubrecipe()"
     },
     {
       "label": "testParsedBranchBCompleteness()",
       "file_type": "code",
       "source_file": "scripts/validate-recipe-dedupe-v2.mjs",
-      "source_location": "L267",
+      "source_location": "L276",
       "id": "scripts_validate_recipe_dedupe_v2_testparsedbranchbcompleteness",
-      "community": 32,
+      "community": 15,
       "norm_label": "testparsedbranchbcompleteness()"
     },
     {
       "label": "testRedirectsShape()",
       "file_type": "code",
       "source_file": "scripts/validate-recipe-dedupe-v2.mjs",
-      "source_location": "L284",
+      "source_location": "L293",
       "id": "scripts_validate_recipe_dedupe_v2_testredirectsshape",
-      "community": 32,
+      "community": 15,
       "norm_label": "testredirectsshape()"
     },
     {
       "label": "testCategoryPatternsShapeAndPredictor()",
       "file_type": "code",
       "source_file": "scripts/validate-recipe-dedupe-v2.mjs",
-      "source_location": "L292",
+      "source_location": "L301",
       "id": "scripts_validate_recipe_dedupe_v2_testcategorypatternsshapeandpredictor",
       "community": 3,
       "norm_label": "testcategorypatternsshapeandpredictor()"
@@ -3870,9 +3879,9 @@
       "label": "testUncategorizedQueueConsistency()",
       "file_type": "code",
       "source_file": "scripts/validate-recipe-dedupe-v2.mjs",
-      "source_location": "L418",
+      "source_location": "L427",
       "id": "scripts_validate_recipe_dedupe_v2_testuncategorizedqueueconsistency",
-      "community": 32,
+      "community": 15,
       "norm_label": "testuncategorizedqueueconsistency()"
     },
     {
@@ -3903,10 +3912,19 @@
       "norm_label": "recipes_path"
     },
     {
+      "label": "REDIRECTS_PATH",
+      "file_type": "code",
+      "source_file": "scripts/backfill-collection-recipe-content.mjs",
+      "source_location": "L33",
+      "id": "scripts_backfill_collection_recipe_content_redirects_path",
+      "community": 43,
+      "norm_label": "redirects_path"
+    },
+    {
       "label": "apply",
       "file_type": "code",
       "source_file": "scripts/backfill-collection-recipe-content.mjs",
-      "source_location": "L34",
+      "source_location": "L35",
       "id": "scripts_backfill_collection_recipe_content_apply",
       "community": 43,
       "norm_label": "apply"
@@ -3915,7 +3933,7 @@
       "label": "transform",
       "file_type": "code",
       "source_file": "scripts/backfill-collection-recipe-content.mjs",
-      "source_location": "L46",
+      "source_location": "L47",
       "id": "scripts_backfill_collection_recipe_content_transform",
       "community": 43,
       "norm_label": "transform"
@@ -3924,16 +3942,25 @@
       "label": "recipes",
       "file_type": "code",
       "source_file": "scripts/backfill-collection-recipe-content.mjs",
-      "source_location": "L54",
+      "source_location": "L55",
       "id": "scripts_backfill_collection_recipe_content_recipes",
       "community": 43,
       "norm_label": "recipes"
     },
     {
+      "label": "recipeModxIds",
+      "file_type": "code",
+      "source_file": "scripts/backfill-collection-recipe-content.mjs",
+      "source_location": "L61",
+      "id": "scripts_backfill_collection_recipe_content_recipemodxids",
+      "community": 43,
+      "norm_label": "recipemodxids"
+    },
+    {
       "label": "byDoc",
       "file_type": "code",
       "source_file": "scripts/backfill-collection-recipe-content.mjs",
-      "source_location": "L58",
+      "source_location": "L73",
       "id": "scripts_backfill_collection_recipe_content_bydoc",
       "community": 43,
       "norm_label": "bydoc"
@@ -3942,7 +3969,7 @@
       "label": "collectionDocIds",
       "file_type": "code",
       "source_file": "scripts/backfill-collection-recipe-content.mjs",
-      "source_location": "L64",
+      "source_location": "L79",
       "id": "scripts_backfill_collection_recipe_content_collectiondocids",
       "community": 43,
       "norm_label": "collectiondocids"
@@ -3951,7 +3978,7 @@
       "label": "docById",
       "file_type": "code",
       "source_file": "scripts/backfill-collection-recipe-content.mjs",
-      "source_location": "L80",
+      "source_location": "L95",
       "id": "scripts_backfill_collection_recipe_content_docbyid",
       "community": 43,
       "norm_label": "docbyid"
@@ -3960,7 +3987,7 @@
       "label": "pageImageByDoc",
       "file_type": "code",
       "source_file": "scripts/backfill-collection-recipe-content.mjs",
-      "source_location": "L81",
+      "source_location": "L96",
       "id": "scripts_backfill_collection_recipe_content_pageimagebydoc",
       "community": 43,
       "norm_label": "pageimagebydoc"
@@ -3969,7 +3996,7 @@
       "label": "options",
       "file_type": "code",
       "source_file": "scripts/backfill-collection-recipe-content.mjs",
-      "source_location": "L83",
+      "source_location": "L98",
       "id": "scripts_backfill_collection_recipe_content_options",
       "community": 43,
       "norm_label": "options"
@@ -4043,7 +4070,7 @@
       "source_file": "scripts/verify-firestore-magazine.mjs",
       "source_location": "L1",
       "id": "scripts_verify_firestore_magazine_mjs",
-      "community": 41,
+      "community": 1,
       "norm_label": "verify-firestore-magazine.mjs"
     },
     {
@@ -4052,7 +4079,7 @@
       "source_file": "scripts/verify-firestore-magazine.mjs",
       "source_location": "L10",
       "id": "scripts_verify_firestore_magazine_key_routes",
-      "community": 41,
+      "community": 1,
       "norm_label": "key_routes"
     },
     {
@@ -4061,7 +4088,7 @@
       "source_file": "scripts/verify-firestore-magazine.mjs",
       "source_location": "L22",
       "id": "scripts_verify_firestore_magazine_sample_article_paths",
-      "community": 41,
+      "community": 1,
       "norm_label": "sample_article_paths"
     },
     {
@@ -4070,7 +4097,7 @@
       "source_file": "scripts/verify-firestore-magazine.mjs",
       "source_location": "L24",
       "id": "scripts_verify_firestore_magazine_getdoc",
-      "community": 41,
+      "community": 1,
       "norm_label": "getdoc()"
     },
     {
@@ -4079,7 +4106,7 @@
       "source_file": "scripts/verify-firestore-magazine.mjs",
       "source_location": "L29",
       "id": "scripts_verify_firestore_magazine_main",
-      "community": 41,
+      "community": 1,
       "norm_label": "main()"
     },
     {
@@ -4095,7 +4122,7 @@
       "label": "isFullSync",
       "file_type": "code",
       "source_file": "scripts/sync-modx-to-firestore.mjs",
-      "source_location": "L62",
+      "source_location": "L63",
       "id": "scripts_sync_modx_to_firestore_isfullsync",
       "community": 8,
       "norm_label": "isfullsync"
@@ -4104,7 +4131,7 @@
       "label": "skipRsCollections",
       "file_type": "code",
       "source_file": "scripts/sync-modx-to-firestore.mjs",
-      "source_location": "L63",
+      "source_location": "L64",
       "id": "scripts_sync_modx_to_firestore_skiprscollections",
       "community": 8,
       "norm_label": "skiprscollections"
@@ -4113,7 +4140,7 @@
       "label": "__dirname",
       "file_type": "code",
       "source_file": "scripts/sync-modx-to-firestore.mjs",
-      "source_location": "L69",
+      "source_location": "L70",
       "id": "scripts_sync_modx_to_firestore_dirname",
       "community": 8,
       "norm_label": "__dirname"
@@ -4122,7 +4149,7 @@
       "label": "root",
       "file_type": "code",
       "source_file": "scripts/sync-modx-to-firestore.mjs",
-      "source_location": "L70",
+      "source_location": "L71",
       "id": "scripts_sync_modx_to_firestore_root",
       "community": 8,
       "norm_label": "root"
@@ -4131,7 +4158,7 @@
       "label": "RS_REDIRECTS_PATH",
       "file_type": "code",
       "source_file": "scripts/sync-modx-to-firestore.mjs",
-      "source_location": "L72",
+      "source_location": "L73",
       "id": "scripts_sync_modx_to_firestore_rs_redirects_path",
       "community": 8,
       "norm_label": "rs_redirects_path"
@@ -4140,7 +4167,7 @@
       "label": "RECIPES_JSON_PATH",
       "file_type": "code",
       "source_file": "scripts/sync-modx-to-firestore.mjs",
-      "source_location": "L73",
+      "source_location": "L74",
       "id": "scripts_sync_modx_to_firestore_recipes_json_path",
       "community": 8,
       "norm_label": "recipes_json_path"
@@ -4149,7 +4176,7 @@
       "label": "forceModxDocId",
       "file_type": "code",
       "source_file": "scripts/sync-modx-to-firestore.mjs",
-      "source_location": "L76",
+      "source_location": "L77",
       "id": "scripts_sync_modx_to_firestore_forcemodxdocid",
       "community": 8,
       "norm_label": "forcemodxdocid"
@@ -4158,7 +4185,7 @@
       "label": "queryChangedRows()",
       "file_type": "code",
       "source_file": "scripts/sync-modx-to-firestore.mjs",
-      "source_location": "L82",
+      "source_location": "L83",
       "id": "scripts_sync_modx_to_firestore_querychangedrows",
       "community": 8,
       "norm_label": "querychangedrows()"
@@ -4167,25 +4194,25 @@
       "label": "queryRemovedRows()",
       "file_type": "code",
       "source_file": "scripts/sync-modx-to-firestore.mjs",
-      "source_location": "L125",
+      "source_location": "L126",
       "id": "scripts_sync_modx_to_firestore_queryremovedrows",
-      "community": 8,
+      "community": 47,
       "norm_label": "queryremovedrows()"
     },
     {
       "label": "queryForcedRow()",
       "file_type": "code",
       "source_file": "scripts/sync-modx-to-firestore.mjs",
-      "source_location": "L158",
+      "source_location": "L159",
       "id": "scripts_sync_modx_to_firestore_queryforcedrow",
-      "community": 8,
+      "community": 47,
       "norm_label": "queryforcedrow()"
     },
     {
       "label": "mergeRowsById()",
       "file_type": "code",
       "source_file": "scripts/sync-modx-to-firestore.mjs",
-      "source_location": "L193",
+      "source_location": "L194",
       "id": "scripts_sync_modx_to_firestore_mergerowsbyid",
       "community": 8,
       "norm_label": "mergerowsbyid()"
@@ -4194,7 +4221,7 @@
       "label": "queryAllRows()",
       "file_type": "code",
       "source_file": "scripts/sync-modx-to-firestore.mjs",
-      "source_location": "L205",
+      "source_location": "L206",
       "id": "scripts_sync_modx_to_firestore_queryallrows",
       "community": 8,
       "norm_label": "queryallrows()"
@@ -4203,7 +4230,7 @@
       "label": "expandRowsWithAncestors()",
       "file_type": "code",
       "source_file": "scripts/sync-modx-to-firestore.mjs",
-      "source_location": "L248",
+      "source_location": "L249",
       "id": "scripts_sync_modx_to_firestore_expandrowswithancestors",
       "community": 8,
       "norm_label": "expandrowswithancestors()"
@@ -4212,7 +4239,7 @@
       "label": "sortRowsByDepth()",
       "file_type": "code",
       "source_file": "scripts/sync-modx-to-firestore.mjs",
-      "source_location": "L271",
+      "source_location": "L272",
       "id": "scripts_sync_modx_to_firestore_sortrowsbydepth",
       "community": 8,
       "norm_label": "sortrowsbydepth()"
@@ -4221,16 +4248,16 @@
       "label": "loadExistingRedirectsForChanged()",
       "file_type": "code",
       "source_file": "scripts/sync-modx-to-firestore.mjs",
-      "source_location": "L294",
+      "source_location": "L295",
       "id": "scripts_sync_modx_to_firestore_loadexistingredirectsforchanged",
-      "community": 8,
+      "community": 9,
       "norm_label": "loadexistingredirectsforchanged()"
     },
     {
       "label": "processRow()",
       "file_type": "code",
       "source_file": "scripts/sync-modx-to-firestore.mjs",
-      "source_location": "L336",
+      "source_location": "L337",
       "id": "scripts_sync_modx_to_firestore_processrow",
       "community": 8,
       "norm_label": "processrow()"
@@ -4239,7 +4266,7 @@
       "label": "ensureRowInWorkingById()",
       "file_type": "code",
       "source_file": "scripts/sync-modx-to-firestore.mjs",
-      "source_location": "L423",
+      "source_location": "L424",
       "id": "scripts_sync_modx_to_firestore_ensurerowinworkingbyid",
       "community": 8,
       "norm_label": "ensurerowinworkingbyid()"
@@ -4248,7 +4275,7 @@
       "label": "deleteRemovedDocs()",
       "file_type": "code",
       "source_file": "scripts/sync-modx-to-firestore.mjs",
-      "source_location": "L439",
+      "source_location": "L440",
       "id": "scripts_sync_modx_to_firestore_deleteremoveddocs",
       "community": 8,
       "norm_label": "deleteremoveddocs()"
@@ -4257,7 +4284,7 @@
       "label": "findFirestorePathByModxId()",
       "file_type": "code",
       "source_file": "scripts/sync-modx-to-firestore.mjs",
-      "source_location": "L479",
+      "source_location": "L480",
       "id": "scripts_sync_modx_to_firestore_findfirestorepathbymodxid",
       "community": 8,
       "norm_label": "findfirestorepathbymodxid()"
@@ -4266,7 +4293,7 @@
       "label": "deleteStaleDocsForId()",
       "file_type": "code",
       "source_file": "scripts/sync-modx-to-firestore.mjs",
-      "source_location": "L500",
+      "source_location": "L501",
       "id": "scripts_sync_modx_to_firestore_deletestaledocsforid",
       "community": 8,
       "norm_label": "deletestaledocsforid()"
@@ -4275,16 +4302,16 @@
       "label": "deleteOrphanFirestoreDocs()",
       "file_type": "code",
       "source_file": "scripts/sync-modx-to-firestore.mjs",
-      "source_location": "L528",
+      "source_location": "L529",
       "id": "scripts_sync_modx_to_firestore_deleteorphanfirestoredocs",
-      "community": 8,
+      "community": 9,
       "norm_label": "deleteorphanfirestoredocs()"
     },
     {
       "label": "readLastEdit()",
       "file_type": "code",
       "source_file": "scripts/sync-modx-to-firestore.mjs",
-      "source_location": "L565",
+      "source_location": "L566",
       "id": "scripts_sync_modx_to_firestore_readlastedit",
       "community": 8,
       "norm_label": "readlastedit()"
@@ -4293,7 +4320,7 @@
       "label": "maxEditedon()",
       "file_type": "code",
       "source_file": "scripts/sync-modx-to-firestore.mjs",
-      "source_location": "L574",
+      "source_location": "L575",
       "id": "scripts_sync_modx_to_firestore_maxeditedon",
       "community": 8,
       "norm_label": "maxeditedon()"
@@ -4302,16 +4329,16 @@
       "label": "writeCollections()",
       "file_type": "code",
       "source_file": "scripts/sync-modx-to-firestore.mjs",
-      "source_location": "L585",
+      "source_location": "L586",
       "id": "scripts_sync_modx_to_firestore_writecollections",
-      "community": 1,
+      "community": 9,
       "norm_label": "writecollections()"
     },
     {
       "label": "main()",
       "file_type": "code",
       "source_file": "scripts/sync-modx-to-firestore.mjs",
-      "source_location": "L637",
+      "source_location": "L644",
       "id": "scripts_sync_modx_to_firestore_main",
       "community": 8,
       "norm_label": "main()"
@@ -4763,77 +4790,59 @@
       "source_file": "scripts/lib/receptsarok-redirect-match.mjs",
       "source_location": "L1",
       "id": "scripts_lib_receptsarok_redirect_match_mjs",
-      "community": 73,
+      "community": 14,
       "norm_label": "receptsarok-redirect-match.mjs"
-    },
-    {
-      "label": "tokenize()",
-      "file_type": "code",
-      "source_file": "scripts/lib/receptsarok-redirect-match.mjs",
-      "source_location": "L10",
-      "id": "lib_receptsarok_redirect_match_tokenize",
-      "community": 73,
-      "norm_label": "tokenize()"
-    },
-    {
-      "label": "titleMatchScore()",
-      "file_type": "code",
-      "source_file": "scripts/lib/receptsarok-redirect-match.mjs",
-      "source_location": "L14",
-      "id": "lib_receptsarok_redirect_match_titlematchscore",
-      "community": 73,
-      "norm_label": "titlematchscore()"
     },
     {
       "label": "isReceptsarokLegacyModxPath()",
       "file_type": "code",
       "source_file": "scripts/lib/receptsarok-redirect-match.mjs",
-      "source_location": "L27",
+      "source_location": "L11",
       "id": "lib_receptsarok_redirect_match_isreceptsaroklegacymodxpath",
-      "community": 73,
+      "community": 14,
       "norm_label": "isreceptsaroklegacymodxpath()"
     },
     {
       "label": "isMagazineRecipeDoc()",
       "file_type": "code",
       "source_file": "scripts/lib/receptsarok-redirect-match.mjs",
-      "source_location": "L39",
+      "source_location": "L23",
       "id": "lib_receptsarok_redirect_match_ismagazinerecipedoc",
-      "community": 73,
+      "community": 14,
       "norm_label": "ismagazinerecipedoc()"
     },
     {
       "label": "matchReceptsarokLegacyPathAlias()",
       "file_type": "code",
       "source_file": "scripts/lib/receptsarok-redirect-match.mjs",
-      "source_location": "L53",
+      "source_location": "L37",
       "id": "lib_receptsarok_redirect_match_matchreceptsaroklegacypathalias",
-      "community": 73,
+      "community": 14,
       "norm_label": "matchreceptsaroklegacypathalias()"
     },
     {
       "label": "matchReceptsarokRedirectTarget()",
       "file_type": "code",
       "source_file": "scripts/lib/receptsarok-redirect-match.mjs",
-      "source_location": "L78",
+      "source_location": "L62",
       "id": "lib_receptsarok_redirect_match_matchreceptsarokredirecttarget",
-      "community": 73,
+      "community": 14,
       "norm_label": "matchreceptsarokredirecttarget()"
     },
     {
       "label": "redirectPathForTarget()",
       "file_type": "code",
       "source_file": "scripts/lib/receptsarok-redirect-match.mjs",
-      "source_location": "L134",
+      "source_location": "L118",
       "id": "lib_receptsarok_redirect_match_redirectpathfortarget",
-      "community": 73,
+      "community": 14,
       "norm_label": "redirectpathfortarget()"
     },
     {
       "label": "loadRecipesFromJson()",
       "file_type": "code",
       "source_file": "scripts/lib/receptsarok-redirect-match.mjs",
-      "source_location": "L142",
+      "source_location": "L126",
       "id": "lib_receptsarok_redirect_match_loadrecipesfromjson",
       "community": 21,
       "norm_label": "loadrecipesfromjson()"
@@ -4842,9 +4851,9 @@
       "label": "resolveReceptsarokRedirect()",
       "file_type": "code",
       "source_file": "scripts/lib/receptsarok-redirect-match.mjs",
-      "source_location": "L157",
+      "source_location": "L141",
       "id": "lib_receptsarok_redirect_match_resolvereceptsarokredirect",
-      "community": 73,
+      "community": 14,
       "norm_label": "resolvereceptsarokredirect()"
     },
     {
@@ -5123,7 +5132,7 @@
       "source_file": "scripts/lib/modx-to-rs-parser.mjs",
       "source_location": "L37",
       "id": "lib_modx_to_rs_parser_isdescriptionauthorcompatible",
-      "community": 32,
+      "community": 15,
       "norm_label": "isdescriptionauthorcompatible()"
     },
     {
@@ -5582,7 +5591,7 @@
       "source_file": "scripts/lib/modx-save-payload.mjs",
       "source_location": "L1",
       "id": "scripts_lib_modx_save_payload_mjs",
-      "community": 8,
+      "community": 47,
       "norm_label": "modx-save-payload.mjs"
     },
     {
@@ -5591,7 +5600,7 @@
       "source_file": "scripts/lib/modx-save-payload.mjs",
       "source_location": "L18",
       "id": "lib_modx_save_payload_gunzip",
-      "community": 8,
+      "community": 47,
       "norm_label": "gunzip"
     },
     {
@@ -5600,7 +5609,7 @@
       "source_file": "scripts/lib/modx-save-payload.mjs",
       "source_location": "L24",
       "id": "lib_modx_save_payload_parsemodxsavepayload",
-      "community": 8,
+      "community": 47,
       "norm_label": "parsemodxsavepayload()"
     },
     {
@@ -5609,7 +5618,7 @@
       "source_file": "scripts/lib/modx-save-payload.mjs",
       "source_location": "L51",
       "id": "lib_modx_save_payload_classifypayload",
-      "community": 8,
+      "community": 47,
       "norm_label": "classifypayload()"
     },
     {
@@ -5721,21 +5730,57 @@
       "norm_label": "registerredirectentries()"
     },
     {
+      "label": "empty-folders.mjs",
+      "file_type": "code",
+      "source_file": "scripts/lib/empty-folders.mjs",
+      "source_location": "L1",
+      "id": "scripts_lib_empty_folders_mjs",
+      "community": 9,
+      "norm_label": "empty-folders.mjs"
+    },
+    {
+      "label": "emptyContentFolderPaths()",
+      "file_type": "code",
+      "source_file": "scripts/lib/empty-folders.mjs",
+      "source_location": "L12",
+      "id": "lib_empty_folders_emptycontentfolderpaths",
+      "community": 9,
+      "norm_label": "emptycontentfolderpaths()"
+    },
+    {
       "label": "related-cards.mjs",
       "file_type": "code",
       "source_file": "scripts/lib/related-cards.mjs",
       "source_location": "L1",
       "id": "scripts_lib_related_cards_mjs",
-      "community": 29,
+      "community": 9,
       "norm_label": "related-cards.mjs"
+    },
+    {
+      "label": "byPublishedonDesc()",
+      "file_type": "code",
+      "source_file": "scripts/lib/related-cards.mjs",
+      "source_location": "L4",
+      "id": "lib_related_cards_bypublishedondesc",
+      "community": 9,
+      "norm_label": "bypublishedondesc()"
+    },
+    {
+      "label": "parentPathOf()",
+      "file_type": "code",
+      "source_file": "scripts/lib/related-cards.mjs",
+      "source_location": "L7",
+      "id": "lib_related_cards_parentpathof",
+      "community": 9,
+      "norm_label": "parentpathof()"
     },
     {
       "label": "updateRelatedCards()",
       "file_type": "code",
       "source_file": "scripts/lib/related-cards.mjs",
-      "source_location": "L12",
+      "source_location": "L34",
       "id": "lib_related_cards_updaterelatedcards",
-      "community": 29,
+      "community": 9,
       "norm_label": "updaterelatedcards()"
     },
     {
@@ -5744,7 +5789,7 @@
       "source_file": "scripts/lib/magazine-scope.mjs",
       "source_location": "L1",
       "id": "scripts_lib_magazine_scope_mjs",
-      "community": 8,
+      "community": 47,
       "norm_label": "magazine-scope.mjs"
     },
     {
@@ -5753,7 +5798,7 @@
       "source_file": "scripts/lib/magazine-scope.mjs",
       "source_location": "L9",
       "id": "lib_magazine_scope_ismagazinecandidate",
-      "community": 8,
+      "community": 47,
       "norm_label": "ismagazinecandidate()"
     },
     {
@@ -5762,7 +5807,7 @@
       "source_file": "scripts/lib/magazine-scope.mjs",
       "source_location": "L22",
       "id": "lib_magazine_scope_shouldsyncrow",
-      "community": 8,
+      "community": 47,
       "norm_label": "shouldsyncrow()"
     },
     {
@@ -5843,7 +5888,7 @@
       "source_file": "scripts/lib/doc-path-id.mjs",
       "source_location": "L1",
       "id": "scripts_lib_doc_path_id_mjs",
-      "community": 29,
+      "community": 9,
       "norm_label": "doc-path-id.mjs"
     },
     {
@@ -5852,7 +5897,7 @@
       "source_file": "scripts/lib/doc-path-id.mjs",
       "source_location": "L5",
       "id": "lib_doc_path_id_encodedocpathid",
-      "community": 29,
+      "community": 9,
       "norm_label": "encodedocpathid()"
     },
     {
@@ -5861,7 +5906,7 @@
       "source_file": "scripts/lib/doc-path-id.mjs",
       "source_location": "L16",
       "id": "lib_doc_path_id_normalizearticlepath",
-      "community": 29,
+      "community": 21,
       "norm_label": "normalizearticlepath()"
     },
     {
@@ -7110,7 +7155,7 @@
       "label": "DATA_PATH",
       "file_type": "code",
       "source_file": "src/lib/receptsarokDedupePipeline.js",
-      "source_location": "L19",
+      "source_location": "L20",
       "id": "lib_receptsarokdedupepipeline_data_path",
       "community": 14,
       "norm_label": "data_path"
@@ -7119,7 +7164,7 @@
       "label": "RECIPES_PATH",
       "file_type": "code",
       "source_file": "src/lib/receptsarokDedupePipeline.js",
-      "source_location": "L20",
+      "source_location": "L21",
       "id": "lib_receptsarokdedupepipeline_recipes_path",
       "community": 14,
       "norm_label": "recipes_path"
@@ -7128,7 +7173,7 @@
       "label": "REDIRECTS_PATH",
       "file_type": "code",
       "source_file": "src/lib/receptsarokDedupePipeline.js",
-      "source_location": "L21",
+      "source_location": "L22",
       "id": "lib_receptsarokdedupepipeline_redirects_path",
       "community": 14,
       "norm_label": "redirects_path"
@@ -7137,7 +7182,7 @@
       "label": "AUDIT_PATH",
       "file_type": "code",
       "source_file": "src/lib/receptsarokDedupePipeline.js",
-      "source_location": "L22",
+      "source_location": "L23",
       "id": "lib_receptsarokdedupepipeline_audit_path",
       "community": 14,
       "norm_label": "audit_path"
@@ -7146,7 +7191,7 @@
       "label": "CREATE_REVIEW_PATH",
       "file_type": "code",
       "source_file": "src/lib/receptsarokDedupePipeline.js",
-      "source_location": "L23",
+      "source_location": "L24",
       "id": "lib_receptsarokdedupepipeline_create_review_path",
       "community": 14,
       "norm_label": "create_review_path"
@@ -7155,7 +7200,7 @@
       "label": "UNCATEGORIZED_REVIEW_PATH",
       "file_type": "code",
       "source_file": "src/lib/receptsarokDedupePipeline.js",
-      "source_location": "L24",
+      "source_location": "L25",
       "id": "lib_receptsarokdedupepipeline_uncategorized_review_path",
       "community": 14,
       "norm_label": "uncategorized_review_path"
@@ -7164,34 +7209,16 @@
       "label": "CATEGORY_REVIEW_PATH",
       "file_type": "code",
       "source_file": "src/lib/receptsarokDedupePipeline.js",
-      "source_location": "L28",
+      "source_location": "L29",
       "id": "lib_receptsarokdedupepipeline_category_review_path",
       "community": 14,
       "norm_label": "category_review_path"
     },
     {
-      "label": "tokenize()",
-      "file_type": "code",
-      "source_file": "src/lib/receptsarokDedupePipeline.js",
-      "source_location": "L33",
-      "id": "lib_receptsarokdedupepipeline_tokenize",
-      "community": 14,
-      "norm_label": "tokenize()"
-    },
-    {
-      "label": "titleMatchScore()",
-      "file_type": "code",
-      "source_file": "src/lib/receptsarokDedupePipeline.js",
-      "source_location": "L37",
-      "id": "lib_receptsarokdedupepipeline_titlematchscore",
-      "community": 14,
-      "norm_label": "titlematchscore()"
-    },
-    {
       "label": "readJson()",
       "file_type": "code",
       "source_file": "src/lib/receptsarokDedupePipeline.js",
-      "source_location": "L49",
+      "source_location": "L34",
       "id": "lib_receptsarokdedupepipeline_readjson",
       "community": 14,
       "norm_label": "readjson()"
@@ -7200,7 +7227,7 @@
       "label": "writeJson()",
       "file_type": "code",
       "source_file": "src/lib/receptsarokDedupePipeline.js",
-      "source_location": "L53",
+      "source_location": "L38",
       "id": "lib_receptsarokdedupepipeline_writejson",
       "community": 14,
       "norm_label": "writejson()"
@@ -7209,7 +7236,7 @@
       "label": "normalizeCategory()",
       "file_type": "code",
       "source_file": "src/lib/receptsarokDedupePipeline.js",
-      "source_location": "L57",
+      "source_location": "L42",
       "id": "lib_receptsarokdedupepipeline_normalizecategory",
       "community": 14,
       "norm_label": "normalizecategory()"
@@ -7218,7 +7245,7 @@
       "label": "isDefaultCategory()",
       "file_type": "code",
       "source_file": "src/lib/receptsarokDedupePipeline.js",
-      "source_location": "L61",
+      "source_location": "L46",
       "id": "lib_receptsarokdedupepipeline_isdefaultcategory",
       "community": 14,
       "norm_label": "isdefaultcategory()"
@@ -7227,7 +7254,7 @@
       "label": "loserMajorityCategory()",
       "file_type": "code",
       "source_file": "src/lib/receptsarokDedupePipeline.js",
-      "source_location": "L65",
+      "source_location": "L50",
       "id": "lib_receptsarokdedupepipeline_losermajoritycategory",
       "community": 14,
       "norm_label": "losermajoritycategory()"
@@ -7236,7 +7263,7 @@
       "label": "hasReceptTag()",
       "file_type": "code",
       "source_file": "src/lib/receptsarokDedupePipeline.js",
-      "source_location": "L98",
+      "source_location": "L83",
       "id": "lib_receptsarokdedupepipeline_hasrecepttag",
       "community": 14,
       "norm_label": "hasrecepttag()"
@@ -7245,7 +7272,7 @@
       "label": "hasRequiredRecipeBody()",
       "file_type": "code",
       "source_file": "src/lib/receptsarokDedupePipeline.js",
-      "source_location": "L103",
+      "source_location": "L88",
       "id": "lib_receptsarokdedupepipeline_hasrequiredrecipebody",
       "community": 14,
       "norm_label": "hasrequiredrecipebody()"
@@ -7254,7 +7281,7 @@
       "label": "auditSkipNoRecipeBody()",
       "file_type": "code",
       "source_file": "src/lib/receptsarokDedupePipeline.js",
-      "source_location": "L108",
+      "source_location": "L93",
       "id": "lib_receptsarokdedupepipeline_auditskipnorecipebody",
       "community": 14,
       "norm_label": "auditskipnorecipebody()"
@@ -7263,7 +7290,7 @@
       "label": "slugFromTitle()",
       "file_type": "code",
       "source_file": "src/lib/receptsarokDedupePipeline.js",
-      "source_location": "L118",
+      "source_location": "L103",
       "id": "lib_receptsarokdedupepipeline_slugfromtitle",
       "community": 14,
       "norm_label": "slugfromtitle()"
@@ -7272,7 +7299,7 @@
       "label": "uniqueByNormalized()",
       "file_type": "code",
       "source_file": "src/lib/receptsarokDedupePipeline.js",
-      "source_location": "L126",
+      "source_location": "L111",
       "id": "lib_receptsarokdedupepipeline_uniquebynormalized",
       "community": 14,
       "norm_label": "uniquebynormalized()"
@@ -7281,7 +7308,7 @@
       "label": "deriveSearchTerms()",
       "file_type": "code",
       "source_file": "src/lib/receptsarokDedupePipeline.js",
-      "source_location": "L140",
+      "source_location": "L125",
       "id": "lib_receptsarokdedupepipeline_derivesearchterms",
       "community": 14,
       "norm_label": "derivesearchterms()"
@@ -7290,7 +7317,7 @@
       "label": "nextUniqueRecipeId()",
       "file_type": "code",
       "source_file": "src/lib/receptsarokDedupePipeline.js",
-      "source_location": "L148",
+      "source_location": "L133",
       "id": "lib_receptsarokdedupepipeline_nextuniquerecipeid",
       "community": 14,
       "norm_label": "nextuniquerecipeid()"
@@ -7299,7 +7326,7 @@
       "label": "convertSubRecipesToParsedList()",
       "file_type": "code",
       "source_file": "src/lib/receptsarokDedupePipeline.js",
-      "source_location": "L159",
+      "source_location": "L144",
       "id": "lib_receptsarokdedupepipeline_convertsubrecipestoparsedlist",
       "community": 14,
       "norm_label": "convertsubrecipestoparsedlist()"
@@ -7308,25 +7335,52 @@
       "label": "enforceFreeForMagazinOrigin()",
       "file_type": "code",
       "source_file": "src/lib/receptsarokDedupePipeline.js",
-      "source_location": "L275",
+      "source_location": "L260",
       "id": "lib_receptsarokdedupepipeline_enforcefreeformagazinorigin",
       "community": 14,
       "norm_label": "enforcefreeformagazinorigin()"
     },
     {
+      "label": "republishModxRedirectTarget()",
+      "file_type": "code",
+      "source_file": "src/lib/receptsarokDedupePipeline.js",
+      "source_location": "L266",
+      "id": "lib_receptsarokdedupepipeline_republishmodxredirecttarget",
+      "community": 14,
+      "norm_label": "republishmodxredirecttarget()"
+    },
+    {
+      "label": "redirectTargetForAliasPool()",
+      "file_type": "code",
+      "source_file": "src/lib/receptsarokDedupePipeline.js",
+      "source_location": "L273",
+      "id": "lib_receptsarokdedupepipeline_redirecttargetforaliaspool",
+      "community": 14,
+      "norm_label": "redirecttargetforaliaspool()"
+    },
+    {
       "label": "loadCategoryReviewMap()",
       "file_type": "code",
       "source_file": "src/lib/receptsarokDedupePipeline.js",
-      "source_location": "L281",
+      "source_location": "L277",
       "id": "lib_receptsarokdedupepipeline_loadcategoryreviewmap",
       "community": 14,
       "norm_label": "loadcategoryreviewmap()"
     },
     {
+      "label": "buildRecipeModxIdSet()",
+      "file_type": "code",
+      "source_file": "src/lib/receptsarokDedupePipeline.js",
+      "source_location": "L295",
+      "id": "lib_receptsarokdedupepipeline_buildrecipemodxidset",
+      "community": 14,
+      "norm_label": "buildrecipemodxidset()"
+    },
+    {
       "label": "runMagazinRecipeDedupe()",
       "file_type": "code",
       "source_file": "src/lib/receptsarokDedupePipeline.js",
-      "source_location": "L298",
+      "source_location": "L309",
       "id": "lib_receptsarokdedupepipeline_runmagazinrecipededupe",
       "community": 14,
       "norm_label": "runmagazinrecipededupe()"
@@ -7335,7 +7389,7 @@
       "label": "runMagazinRecipeDedupeFromDataFile()",
       "file_type": "code",
       "source_file": "src/lib/receptsarokDedupePipeline.js",
-      "source_location": "L729",
+      "source_location": "L801",
       "id": "lib_receptsarokdedupepipeline_runmagazinrecipededupefromdatafile",
       "community": 14,
       "norm_label": "runmagazinrecipededupefromdatafile()"
@@ -7414,10 +7468,19 @@
       "norm_label": "extractlinkedmodxids()"
     },
     {
+      "label": "linkedModxIdsForRecipe()",
+      "file_type": "code",
+      "source_file": "src/lib/modxLinkedRecipes.js",
+      "source_location": "L60",
+      "id": "lib_modxlinkedrecipes_linkedmodxidsforrecipe",
+      "community": 37,
+      "norm_label": "linkedmodxidsforrecipe()"
+    },
+    {
       "label": "stripLinkedRecipeBlocks()",
       "file_type": "code",
       "source_file": "src/lib/modxLinkedRecipes.js",
-      "source_location": "L59",
+      "source_location": "L72",
       "id": "lib_modxlinkedrecipes_striplinkedrecipeblocks",
       "community": 79,
       "norm_label": "striplinkedrecipeblocks()"
@@ -7455,7 +7518,7 @@
       "source_file": "src/lib/firebase.ts",
       "source_location": "L1",
       "id": "src_lib_firebase_ts",
-      "community": 55,
+      "community": 26,
       "norm_label": "firebase.ts"
     },
     {
@@ -7464,7 +7527,7 @@
       "source_file": "src/lib/firebase.ts",
       "source_location": "L15",
       "id": "lib_firebase_firebaseconfig",
-      "community": 55,
+      "community": 26,
       "norm_label": "firebaseconfig"
     },
     {
@@ -7473,7 +7536,7 @@
       "source_file": "src/lib/firebase.ts",
       "source_location": "L27",
       "id": "lib_firebase_apps",
-      "community": 55,
+      "community": 26,
       "norm_label": "apps"
     },
     {
@@ -7482,7 +7545,7 @@
       "source_file": "src/lib/firebase.ts",
       "source_location": "L37",
       "id": "lib_firebase_firebaseauth",
-      "community": 55,
+      "community": 26,
       "norm_label": "firebaseauth"
     },
     {
@@ -7491,133 +7554,160 @@
       "source_file": "src/lib/receptsarokDedupeShared.js",
       "source_location": "L1",
       "id": "src_lib_receptsarokdedupeshared_js",
-      "community": 47,
+      "community": 14,
       "norm_label": "receptsarokdedupeshared.js"
     },
     {
       "label": "NUTRITION_KEYS",
       "file_type": "code",
       "source_file": "src/lib/receptsarokDedupeShared.js",
-      "source_location": "L27",
+      "source_location": "L29",
       "id": "lib_receptsarokdedupeshared_nutrition_keys",
-      "community": 47,
+      "community": 14,
       "norm_label": "nutrition_keys"
+    },
+    {
+      "label": "tokenizeTitle()",
+      "file_type": "code",
+      "source_file": "src/lib/receptsarokDedupeShared.js",
+      "source_location": "L31",
+      "id": "lib_receptsarokdedupeshared_tokenizetitle",
+      "community": 14,
+      "norm_label": "tokenizetitle()"
+    },
+    {
+      "label": "titleMatchScore()",
+      "file_type": "code",
+      "source_file": "src/lib/receptsarokDedupeShared.js",
+      "source_location": "L44",
+      "id": "lib_receptsarokdedupeshared_titlematchscore",
+      "community": 14,
+      "norm_label": "titlematchscore()"
+    },
+    {
+      "label": "publishedRecipesByAliasId()",
+      "file_type": "code",
+      "source_file": "src/lib/receptsarokDedupeShared.js",
+      "source_location": "L65",
+      "id": "lib_receptsarokdedupeshared_publishedrecipesbyaliasid",
+      "community": 14,
+      "norm_label": "publishedrecipesbyaliasid()"
     },
     {
       "label": "countNutritionValuesFromTables()",
       "file_type": "code",
       "source_file": "src/lib/receptsarokDedupeShared.js",
-      "source_location": "L29",
+      "source_location": "L71",
       "id": "lib_receptsarokdedupeshared_countnutritionvaluesfromtables",
-      "community": 47,
+      "community": 14,
       "norm_label": "countnutritionvaluesfromtables()"
     },
     {
       "label": "countNutritionValues()",
       "file_type": "code",
       "source_file": "src/lib/receptsarokDedupeShared.js",
-      "source_location": "L47",
+      "source_location": "L89",
       "id": "lib_receptsarokdedupeshared_countnutritionvalues",
-      "community": 47,
+      "community": 14,
       "norm_label": "countnutritionvalues()"
     },
     {
       "label": "hasRecipeNutrition()",
       "file_type": "code",
       "source_file": "src/lib/receptsarokDedupeShared.js",
-      "source_location": "L63",
+      "source_location": "L105",
       "id": "lib_receptsarokdedupeshared_hasrecipenutrition",
-      "community": 47,
+      "community": 14,
       "norm_label": "hasrecipenutrition()"
     },
     {
       "label": "hasRecipeIngredients()",
       "file_type": "code",
       "source_file": "src/lib/receptsarokDedupeShared.js",
-      "source_location": "L73",
+      "source_location": "L115",
       "id": "lib_receptsarokdedupeshared_hasrecipeingredients",
-      "community": 47,
+      "community": 14,
       "norm_label": "hasrecipeingredients()"
     },
     {
       "label": "hasNutritionAndIngredients()",
       "file_type": "code",
       "source_file": "src/lib/receptsarokDedupeShared.js",
-      "source_location": "L87",
+      "source_location": "L129",
       "id": "lib_receptsarokdedupeshared_hasnutritionandingredients",
-      "community": 47,
+      "community": 14,
       "norm_label": "hasnutritionandingredients()"
     },
     {
       "label": "hasVideo()",
       "file_type": "code",
       "source_file": "src/lib/receptsarokDedupeShared.js",
-      "source_location": "L95",
+      "source_location": "L137",
       "id": "lib_receptsarokdedupeshared_hasvideo",
-      "community": 47,
+      "community": 14,
       "norm_label": "hasvideo()"
     },
     {
       "label": "hasRealAuthor()",
       "file_type": "code",
       "source_file": "src/lib/receptsarokDedupeShared.js",
-      "source_location": "L111",
+      "source_location": "L153",
       "id": "lib_receptsarokdedupeshared_hasrealauthor",
-      "community": 47,
+      "community": 14,
       "norm_label": "hasrealauthor()"
     },
     {
       "label": "scoresFor()",
       "file_type": "code",
       "source_file": "src/lib/receptsarokDedupeShared.js",
-      "source_location": "L124",
+      "source_location": "L166",
       "id": "lib_receptsarokdedupeshared_scoresfor",
-      "community": 47,
+      "community": 14,
       "norm_label": "scoresfor()"
     },
     {
       "label": "compareRecipeCandidates()",
       "file_type": "code",
       "source_file": "src/lib/receptsarokDedupeShared.js",
-      "source_location": "L145",
+      "source_location": "L187",
       "id": "lib_receptsarokdedupeshared_comparerecipecandidates",
-      "community": 9,
+      "community": 14,
       "norm_label": "comparerecipecandidates()"
     },
     {
       "label": "isModxImportRecipe()",
       "file_type": "code",
       "source_file": "src/lib/receptsarokDedupeShared.js",
-      "source_location": "L184",
+      "source_location": "L226",
       "id": "lib_receptsarokdedupeshared_ismodximportrecipe",
-      "community": 47,
+      "community": 14,
       "norm_label": "ismodximportrecipe()"
     },
     {
       "label": "isRsBookletRecipe()",
       "file_type": "code",
       "source_file": "src/lib/receptsarokDedupeShared.js",
-      "source_location": "L193",
+      "source_location": "L235",
       "id": "lib_receptsarokdedupeshared_isrsbookletrecipe",
-      "community": 47,
+      "community": 14,
       "norm_label": "isrsbookletrecipe()"
     },
     {
       "label": "pickRedirectTarget()",
       "file_type": "code",
       "source_file": "src/lib/receptsarokDedupeShared.js",
-      "source_location": "L206",
+      "source_location": "L248",
       "id": "lib_receptsarokdedupeshared_pickredirecttarget",
-      "community": 9,
+      "community": 14,
       "norm_label": "pickredirecttarget()"
     },
     {
       "label": "chooseWinner()",
       "file_type": "code",
       "source_file": "src/lib/receptsarokDedupeShared.js",
-      "source_location": "L225",
+      "source_location": "L267",
       "id": "lib_receptsarokdedupeshared_choosewinner",
-      "community": 9,
+      "community": 14,
       "norm_label": "choosewinner()"
     },
     {
@@ -7689,7 +7779,7 @@
       "source_file": "src/lib/siteConf.ts",
       "source_location": "L203",
       "id": "lib_siteconf_consolidaterecipeimg",
-      "community": 18,
+      "community": 23,
       "norm_label": "consolidaterecipeimg()"
     },
     {
@@ -7698,7 +7788,7 @@
       "source_file": "src/lib/siteConf.ts",
       "source_location": "L224",
       "id": "lib_siteconf_normalizerecipeforexport",
-      "community": 18,
+      "community": 23,
       "norm_label": "normalizerecipeforexport()"
     },
     {
@@ -7707,7 +7797,7 @@
       "source_file": "src/lib/siteConf.ts",
       "source_location": "L235",
       "id": "lib_siteconf_toruntimerecipe",
-      "community": 18,
+      "community": 23,
       "norm_label": "toruntimerecipe()"
     },
     {
@@ -7734,7 +7824,7 @@
       "source_file": "src/lib/siteConf.ts",
       "source_location": "L253",
       "id": "lib_siteconf_getrecipescachekeyfordev",
-      "community": 23,
+      "community": 22,
       "norm_label": "getrecipescachekeyfordev()"
     },
     {
@@ -7770,7 +7860,7 @@
       "source_file": "src/lib/siteConf.ts",
       "source_location": "L336",
       "id": "lib_siteconf_getrecipes",
-      "community": 48,
+      "community": 22,
       "norm_label": "getrecipes()"
     },
     {
@@ -7971,7 +8061,7 @@
       "source_file": "src/lib/receptsarokDedupe.ts",
       "source_location": "L1",
       "id": "src_lib_receptsarokdedupe_ts",
-      "community": 9,
+      "community": 14,
       "norm_label": "receptsarokdedupe.ts"
     },
     {
@@ -7980,7 +8070,7 @@
       "source_file": "src/lib/receptsarokDedupe.ts",
       "source_location": "L8",
       "id": "lib_receptsarokdedupe_candidatelike",
-      "community": 9,
+      "community": 14,
       "norm_label": "candidatelike"
     },
     {
@@ -7989,7 +8079,7 @@
       "source_file": "src/lib/receptsarokDedupe.ts",
       "source_location": "L17",
       "id": "lib_receptsarokdedupe_comparerecipescores",
-      "community": 9,
+      "community": 14,
       "norm_label": "comparerecipescores"
     },
     {
@@ -7998,7 +8088,7 @@
       "source_file": "src/lib/receptsarokDedupe.ts",
       "source_location": "L24",
       "id": "lib_receptsarokdedupe_comparereciperesult",
-      "community": 9,
+      "community": 14,
       "norm_label": "comparereciperesult"
     },
     {
@@ -8007,7 +8097,7 @@
       "source_file": "src/lib/receptsarokDedupe.ts",
       "source_location": "L40",
       "id": "lib_receptsarokdedupe_comparerecipecandidates",
-      "community": 9,
+      "community": 14,
       "norm_label": "comparerecipecandidates()"
     },
     {
@@ -8016,7 +8106,7 @@
       "source_file": "src/lib/receptsarokDedupe.ts",
       "source_location": "L44",
       "id": "lib_receptsarokdedupe_choosewinner",
-      "community": 9,
+      "community": 14,
       "norm_label": "choosewinner()"
     },
     {
@@ -8025,7 +8115,7 @@
       "source_file": "src/lib/receptsarokDedupe.ts",
       "source_location": "L48",
       "id": "lib_receptsarokdedupe_pickredirecttarget",
-      "community": 9,
+      "community": 14,
       "norm_label": "pickredirecttarget()"
     },
     {
@@ -8034,7 +8124,7 @@
       "source_file": "src/lib/receptsarokDedupe.ts",
       "source_location": "L56",
       "id": "lib_receptsarokdedupe_recipededupecandidate",
-      "community": 9,
+      "community": 14,
       "norm_label": "recipededupecandidate"
     },
     {
@@ -8052,7 +8142,7 @@
       "source_file": "src/lib/receptsarok.ts",
       "source_location": "L1",
       "id": "lib_receptsarok_nutritionvalues",
-      "community": 9,
+      "community": 14,
       "norm_label": "nutritionvalues"
     },
     {
@@ -8115,7 +8205,7 @@
       "source_file": "src/lib/receptsarok.ts",
       "source_location": "L54",
       "id": "lib_receptsarok_recipeherotocardimg",
-      "community": 18,
+      "community": 23,
       "norm_label": "recipeherotocardimg()"
     },
     {
@@ -8133,7 +8223,7 @@
       "source_file": "src/lib/receptsarok.ts",
       "source_location": "L82",
       "id": "lib_receptsarok_subrecipe",
-      "community": 9,
+      "community": 14,
       "norm_label": "subrecipe"
     },
     {
@@ -8160,7 +8250,7 @@
       "source_file": "src/lib/receptsarok.ts",
       "source_location": "L143",
       "id": "lib_receptsarok_recipelayoutentry",
-      "community": 48,
+      "community": 18,
       "norm_label": "recipelayoutentry"
     },
     {
@@ -8728,7 +8818,7 @@
       "source_file": "src/lib/receptsarokAccess.ts",
       "source_location": "L1",
       "id": "src_lib_receptsarokaccess_ts",
-      "community": 55,
+      "community": 78,
       "norm_label": "receptsarokaccess.ts"
     },
     {
@@ -8737,7 +8827,7 @@
       "source_file": "src/lib/receptsarokAccess.ts",
       "source_location": "L9",
       "id": "lib_receptsarokaccess_isreceptsaroktrialactive",
-      "community": 55,
+      "community": 78,
       "norm_label": "isreceptsaroktrialactive()"
     },
     {
@@ -8755,7 +8845,7 @@
       "source_file": "src/lib/receptsarokAccess.ts",
       "source_location": "L21",
       "id": "lib_receptsarokaccess_hasreceptsarokaccessfromsubscription",
-      "community": 55,
+      "community": 78,
       "norm_label": "hasreceptsarokaccessfromsubscription()"
     },
     {
@@ -8926,7 +9016,7 @@
       "source_file": "src/lib/receptsarokFirestore.ts",
       "source_location": "L218",
       "id": "lib_receptsarokfirestore_getreceptsarokrecipe",
-      "community": 48,
+      "community": 18,
       "norm_label": "getreceptsarokrecipe()"
     },
     {
@@ -9034,7 +9124,7 @@
       "source_file": "src/lib/modxToRsParser.js",
       "source_location": "L28",
       "id": "lib_modxtorsparser_normalizetext",
-      "community": 14,
+      "community": 37,
       "norm_label": "normalizetext()"
     },
     {
@@ -9043,7 +9133,7 @@
       "source_file": "src/lib/modxToRsParser.js",
       "source_location": "L37",
       "id": "lib_modxtorsparser_isdescriptionauthorcompatible",
-      "community": 14,
+      "community": 37,
       "norm_label": "isdescriptionauthorcompatible()"
     },
     {
@@ -9437,7 +9527,7 @@
       "label": "timestampFromUnix()",
       "file_type": "code",
       "source_file": "src/lib/modxToRsParser.js",
-      "source_location": "L1096",
+      "source_location": "L1099",
       "id": "lib_modxtorsparser_timestampfromunix",
       "community": 37,
       "norm_label": "timestampfromunix()"
@@ -9446,7 +9536,7 @@
       "label": "buildRecipeFromModxDoc()",
       "file_type": "code",
       "source_file": "src/lib/modxToRsParser.js",
-      "source_location": "L1120",
+      "source_location": "L1123",
       "id": "lib_modxtorsparser_buildrecipefrommodxdoc",
       "community": 37,
       "norm_label": "buildrecipefrommodxdoc()"
@@ -9520,7 +9610,7 @@
       "source_file": "src/lib/auth.ts",
       "source_location": "L9",
       "id": "lib_auth_loadsubscription",
-      "community": 41,
+      "community": 26,
       "norm_label": "loadsubscription()"
     },
     {
@@ -9716,7 +9806,7 @@
       "label": "Tv",
       "file_type": "code",
       "source_file": "src/lib/modx/collections.ts",
-      "source_location": "L91",
+      "source_location": "L90",
       "id": "modx_collections_tv",
       "community": 1,
       "norm_label": "tv"
@@ -9725,7 +9815,7 @@
       "label": "DocLike",
       "file_type": "code",
       "source_file": "src/lib/modx/collections.ts",
-      "source_location": "L98",
+      "source_location": "L97",
       "id": "modx_collections_doclike",
       "community": 1,
       "norm_label": "doclike"
@@ -9734,7 +9824,7 @@
       "label": "ThinCard",
       "file_type": "code",
       "source_file": "src/lib/modx/collections.ts",
-      "source_location": "L115",
+      "source_location": "L114",
       "id": "modx_collections_thincard",
       "community": 1,
       "norm_label": "thincard"
@@ -9743,7 +9833,7 @@
       "label": "toThinCard()",
       "file_type": "code",
       "source_file": "src/lib/modx/collections.ts",
-      "source_location": "L130",
+      "source_location": "L129",
       "id": "modx_collections_tothincard",
       "community": 1,
       "norm_label": "tothincard()"
@@ -9752,7 +9842,7 @@
       "label": "isListedDoc()",
       "file_type": "code",
       "source_file": "src/lib/modx/collections.ts",
-      "source_location": "L150",
+      "source_location": "L149",
       "id": "modx_collections_islisteddoc",
       "community": 21,
       "norm_label": "islisteddoc()"
@@ -9761,7 +9851,7 @@
       "label": "rankDocByTags()",
       "file_type": "code",
       "source_file": "src/lib/modx/collections.ts",
-      "source_location": "L170",
+      "source_location": "L169",
       "id": "modx_collections_rankdocbytags",
       "community": 1,
       "norm_label": "rankdocbytags()"
@@ -9772,7 +9862,7 @@
       "source_file": "src/lib/modx/collections.ts",
       "source_location": "L208",
       "id": "modx_collections_docsbytags",
-      "community": 1,
+      "community": 9,
       "norm_label": "docsbytags()"
     },
     {
@@ -9799,7 +9889,7 @@
       "source_file": "src/lib/server/receptsarokSubscriber.ts",
       "source_location": "L1",
       "id": "src_lib_server_receptsaroksubscriber_ts",
-      "community": 55,
+      "community": 78,
       "norm_label": "receptsaroksubscriber.ts"
     },
     {
@@ -9808,7 +9898,7 @@
       "source_file": "src/lib/server/receptsarokSubscriber.ts",
       "source_location": "L7",
       "id": "server_receptsaroksubscriber_requirereceptsaroksubscriber",
-      "community": 55,
+      "community": 78,
       "norm_label": "requirereceptsaroksubscriber()"
     },
     {
@@ -10059,7 +10149,7 @@
       "source_file": "src/lib/receptsarokAccess",
       "confidence": "EXTRACTED",
       "id": "users_vhollo_public_google_webdev_diabetes_magazin_src_lib_receptsarokaccess",
-      "community": 16,
+      "community": 78,
       "norm_label": "$lib/receptsarokaccess"
     },
     {
@@ -10162,7 +10252,7 @@
       "source_file": "$app/navigation",
       "confidence": "EXTRACTED",
       "id": "navigation",
-      "community": 20,
+      "community": 76,
       "norm_label": "$app/navigation"
     },
     {
@@ -10201,7 +10291,7 @@
       "source_location": "L1",
       "confidence": "EXTRACTED",
       "id": "src_lib_components_footer_svelte",
-      "community": 20,
+      "community": 76,
       "norm_label": "$lib/components/footer.svelte"
     },
     {
@@ -10247,7 +10337,7 @@
       "source_file": "$env/dynamic/public",
       "confidence": "EXTRACTED",
       "id": "public",
-      "community": 55,
+      "community": 20,
       "norm_label": "$env/dynamic/public"
     },
     {
@@ -10257,7 +10347,7 @@
       "source_location": "L1",
       "confidence": "EXTRACTED",
       "id": "src_lib_components_search_svelte",
-      "community": 20,
+      "community": 76,
       "norm_label": "$lib/components/search.svelte"
     },
     {
@@ -10411,7 +10501,7 @@
       "source_file": "firebase/auth",
       "confidence": "EXTRACTED",
       "id": "auth",
-      "community": 55,
+      "community": 26,
       "norm_label": "firebase/auth"
     },
     {
@@ -10506,10 +10596,28 @@
       "norm_label": "getmagazinearticle()"
     },
     {
+      "label": "getChildModxIds()",
+      "file_type": "code",
+      "source_file": "src/lib/magazine/firestore.ts",
+      "source_location": "L39",
+      "id": "magazine_firestore_getchildmodxids",
+      "community": 48,
+      "norm_label": "getchildmodxids()"
+    },
+    {
+      "label": "getSiblingReceptModxIds()",
+      "file_type": "code",
+      "source_file": "src/lib/magazine/firestore.ts",
+      "source_location": "L48",
+      "id": "magazine_firestore_getsiblingreceptmodxids",
+      "community": 48,
+      "norm_label": "getsiblingreceptmodxids()"
+    },
+    {
       "label": "getMagazineCollection()",
       "file_type": "code",
       "source_file": "src/lib/magazine/firestore.ts",
-      "source_location": "L38",
+      "source_location": "L74",
       "id": "magazine_firestore_getmagazinecollection",
       "community": 1,
       "norm_label": "getmagazinecollection()"
@@ -10518,7 +10626,7 @@
       "label": "getSearchMeta()",
       "file_type": "code",
       "source_file": "src/lib/magazine/firestore.ts",
-      "source_location": "L44",
+      "source_location": "L80",
       "id": "magazine_firestore_getsearchmeta",
       "community": 1,
       "norm_label": "getsearchmeta()"
@@ -10527,7 +10635,7 @@
       "label": "getMagazineStats()",
       "file_type": "code",
       "source_file": "src/lib/magazine/firestore.ts",
-      "source_location": "L52",
+      "source_location": "L88",
       "id": "magazine_firestore_getmagazinestats",
       "community": 1,
       "norm_label": "getmagazinestats()"
@@ -10536,7 +10644,7 @@
       "label": "SiteStats",
       "file_type": "code",
       "source_file": "src/lib/magazine/firestore.ts",
-      "source_location": "L67",
+      "source_location": "L103",
       "id": "magazine_firestore_sitestats",
       "community": 1,
       "norm_label": "sitestats"
@@ -10545,7 +10653,7 @@
       "label": "getSiteStats()",
       "file_type": "code",
       "source_file": "src/lib/magazine/firestore.ts",
-      "source_location": "L79",
+      "source_location": "L115",
       "id": "magazine_firestore_getsitestats",
       "community": 1,
       "norm_label": "getsitestats()"
@@ -10565,7 +10673,7 @@
       "source_file": "src/lib/magazine/loadSearchIndex.ts",
       "source_location": "L1",
       "id": "src_lib_magazine_loadsearchindex_ts",
-      "community": 17,
+      "community": 32,
       "norm_label": "loadsearchindex.ts"
     },
     {
@@ -10574,7 +10682,7 @@
       "source_file": "src/lib/magazine/loadSearchIndex.ts",
       "source_location": "L2",
       "id": "magazine_loadsearchindex_readgzippedindexresponse",
-      "community": 17,
+      "community": 32,
       "norm_label": "readgzippedindexresponse()"
     },
     {
@@ -10583,7 +10691,7 @@
       "source_file": "src/lib/magazine/loadSearchIndex.ts",
       "source_location": "L20",
       "id": "magazine_loadsearchindex_prefersearchindexproxy",
-      "community": 17,
+      "community": 32,
       "norm_label": "prefersearchindexproxy()"
     },
     {
@@ -10592,7 +10700,7 @@
       "source_file": "src/lib/magazine/loadSearchIndex.ts",
       "source_location": "L32",
       "id": "magazine_loadsearchindex_fetchsearchindextext",
-      "community": 17,
+      "community": 32,
       "norm_label": "fetchsearchindextext()"
     },
     {
@@ -10646,7 +10754,7 @@
       "source_file": "src/lib/magazine/searchIndexCache.ts",
       "source_location": "L1",
       "id": "src_lib_magazine_searchindexcache_ts",
-      "community": 17,
+      "community": 32,
       "norm_label": "searchindexcache.ts"
     },
     {
@@ -10655,7 +10763,7 @@
       "source_file": "src/lib/magazine/searchIndexCache.ts",
       "source_location": "L4",
       "id": "magazine_searchindexcache_minisearch_load_options",
-      "community": 17,
+      "community": 32,
       "norm_label": "minisearch_load_options"
     },
     {
@@ -10664,7 +10772,7 @@
       "source_file": "src/lib/magazine/searchIndexCache.ts",
       "source_location": "L22",
       "id": "magazine_searchindexcache_clientsearchmeta",
-      "community": 17,
+      "community": 32,
       "norm_label": "clientsearchmeta"
     },
     {
@@ -10673,7 +10781,7 @@
       "source_file": "src/lib/magazine/searchIndexCache.ts",
       "source_location": "L34",
       "id": "magazine_searchindexcache_fetchsearchmeta",
-      "community": 17,
+      "community": 32,
       "norm_label": "fetchsearchmeta()"
     },
     {
@@ -10682,7 +10790,7 @@
       "source_file": "src/lib/magazine/searchIndexCache.ts",
       "source_location": "L56",
       "id": "magazine_searchindexcache_parseindex",
-      "community": 17,
+      "community": 32,
       "norm_label": "parseindex()"
     },
     {
@@ -10691,7 +10799,7 @@
       "source_file": "src/lib/magazine/searchIndexCache.ts",
       "source_location": "L60",
       "id": "magazine_searchindexcache_loadindex",
-      "community": 17,
+      "community": 32,
       "norm_label": "loadindex()"
     },
     {
@@ -10700,7 +10808,7 @@
       "source_file": "src/lib/magazine/searchIndexCache.ts",
       "source_location": "L79",
       "id": "magazine_searchindexcache_getcachedsearchindex",
-      "community": 17,
+      "community": 32,
       "norm_label": "getcachedsearchindex()"
     },
     {
@@ -10709,7 +10817,7 @@
       "source_file": "src/lib/magazine/searchIndexCache.ts",
       "source_location": "L84",
       "id": "magazine_searchindexcache_getsearchindex",
-      "community": 17,
+      "community": 32,
       "norm_label": "getsearchindex()"
     },
     {
@@ -10905,7 +11013,7 @@
       "label": "restoreScrollWhenReady()",
       "file_type": "code",
       "source_file": "src/routes/+page.svelte",
-      "source_location": "L61",
+      "source_location": "L28",
       "id": "routes_page_restorescrollwhenready",
       "community": 20,
       "norm_label": "restorescrollwhenready()"
@@ -10914,7 +11022,7 @@
       "label": "snapshot",
       "file_type": "code",
       "source_file": "src/routes/+page.svelte",
-      "source_location": "L79",
+      "source_location": "L46",
       "id": "routes_page_snapshot",
       "community": 20,
       "norm_label": "snapshot"
@@ -10943,7 +11051,7 @@
       "source_file": "src/routes/+layout.svelte",
       "source_location": "L1",
       "id": "src_routes_layout_svelte",
-      "community": 20,
+      "community": 76,
       "norm_label": "+layout.svelte"
     },
     {
@@ -10952,7 +11060,7 @@
       "source_file": "src/app.css",
       "confidence": "EXTRACTED",
       "id": "users_vhollo_public_google_webdev_diabetes_magazin_src_app_css",
-      "community": 20,
+      "community": 76,
       "norm_label": "../app.css"
     },
     {
@@ -10970,7 +11078,7 @@
       "source_file": "src/lib/auth",
       "confidence": "EXTRACTED",
       "id": "users_vhollo_public_google_webdev_diabetes_magazin_src_lib_auth",
-      "community": 20,
+      "community": 76,
       "norm_label": "$lib/auth"
     },
     {
@@ -10979,7 +11087,7 @@
       "source_file": "$app/stores",
       "confidence": "EXTRACTED",
       "id": "stores",
-      "community": 20,
+      "community": 76,
       "norm_label": "$app/stores"
     },
     {
@@ -11312,7 +11420,7 @@
       "source_file": "src/routes/keres/+page.svelte",
       "source_location": "L115",
       "id": "keres_page_recipeteaserfromhit",
-      "community": 76,
+      "community": 18,
       "norm_label": "recipeteaserfromhit()"
     },
     {
@@ -11364,7 +11472,7 @@
       "label": "WidgetDoc",
       "file_type": "code",
       "source_file": "src/routes/[...path]/+page.server.ts",
-      "source_location": "L5",
+      "source_location": "L6",
       "id": "path_page_server_widgetdoc",
       "community": 48,
       "norm_label": "widgetdoc"
@@ -11373,7 +11481,7 @@
       "label": "load()",
       "file_type": "code",
       "source_file": "src/routes/[...path]/+page.server.ts",
-      "source_location": "L13",
+      "source_location": "L17",
       "id": "path_page_server_load",
       "community": 48,
       "norm_label": "load()"
@@ -11456,7 +11564,7 @@
       "source_file": "src/routes/api/receptsarok/recipe/[year]/[id]/+server.ts",
       "source_location": "L1",
       "id": "src_routes_api_receptsarok_recipe_year_id_server_ts",
-      "community": 48,
+      "community": 22,
       "norm_label": "+server.ts"
     },
     {
@@ -11465,7 +11573,7 @@
       "source_file": "src/routes/api/receptsarok/recipe/[year]/[id]/+server.ts",
       "source_location": "L8",
       "id": "id_server_recipepublished",
-      "community": 48,
+      "community": 22,
       "norm_label": "recipepublished"
     },
     {
@@ -11474,7 +11582,7 @@
       "source_file": "src/routes/api/receptsarok/recipe/[year]/[id]/+server.ts",
       "source_location": "L15",
       "id": "id_server_get",
-      "community": 48,
+      "community": 22,
       "norm_label": "get()"
     },
     {
@@ -15441,8 +15549,8 @@
       "label": "Page Component (`+page.svelte`)",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L485",
-      "id": "magazin_agents_page_component_page_svelte_485",
+      "source_location": "L490",
+      "id": "magazin_agents_page_component_page_svelte_490",
       "community": 80,
       "norm_label": "page component (`+page.svelte`)"
     },
@@ -15450,7 +15558,7 @@
       "label": "Authentication Logic",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L514",
+      "source_location": "L519",
       "id": "magazin_agents_authentication_logic",
       "community": 94,
       "norm_label": "authentication logic"
@@ -15459,7 +15567,7 @@
       "label": "Authentication Methods",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L518",
+      "source_location": "L523",
       "id": "magazin_agents_authentication_methods",
       "community": 94,
       "norm_label": "authentication methods"
@@ -15468,7 +15576,7 @@
       "label": "Authentication State",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L531",
+      "source_location": "L536",
       "id": "magazin_agents_authentication_state",
       "community": 94,
       "norm_label": "authentication state"
@@ -15477,7 +15585,7 @@
       "label": "Protected Features",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L537",
+      "source_location": "L542",
       "id": "magazin_agents_protected_features",
       "community": 94,
       "norm_label": "protected features"
@@ -15486,7 +15594,7 @@
       "label": "Logout",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L543",
+      "source_location": "L548",
       "id": "magazin_agents_logout",
       "community": 94,
       "norm_label": "logout"
@@ -15495,7 +15603,7 @@
       "label": "Receptsarok Routes (`/receptsarok`)",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L551",
+      "source_location": "L556",
       "id": "magazin_agents_receptsarok_routes_receptsarok",
       "community": 81,
       "norm_label": "receptsarok routes (`/receptsarok`)"
@@ -15504,7 +15612,7 @@
       "label": "Data Source",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L563",
+      "source_location": "L568",
       "id": "magazin_agents_data_source",
       "community": 81,
       "norm_label": "data source"
@@ -15513,7 +15621,7 @@
       "label": "Recipe data pipeline (`recipes.json`) \u2014 create-only",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L591",
+      "source_location": "L596",
       "id": "magazin_agents_recipe_data_pipeline_recipes_json_create_only",
       "community": 81,
       "norm_label": "recipe data pipeline (`recipes.json`) \u2014 create-only"
@@ -15522,7 +15630,7 @@
       "label": "Dedupe & sync process (recipes)",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L608",
+      "source_location": "L613",
       "id": "magazin_agents_dedupe_sync_process_recipes",
       "community": 81,
       "norm_label": "dedupe & sync process (recipes)"
@@ -15531,7 +15639,7 @@
       "label": "Magazine \u2192 Receptsarok redirects (storage & processing)",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L618",
+      "source_location": "L623",
       "id": "magazin_agents_magazine_receptsarok_redirects_storage_processing",
       "community": 96,
       "norm_label": "magazine \u2192 receptsarok redirects (storage & processing)"
@@ -15540,7 +15648,7 @@
       "label": "Where redirects are stored",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L622",
+      "source_location": "L627",
       "id": "magazin_agents_where_redirects_are_stored",
       "community": 96,
       "norm_label": "where redirects are stored"
@@ -15549,7 +15657,7 @@
       "label": "Sync-time processing",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L634",
+      "source_location": "L639",
       "id": "magazin_agents_sync_time_processing",
       "community": 96,
       "norm_label": "sync-time processing"
@@ -15558,7 +15666,7 @@
       "label": "Dynamic matching",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L656",
+      "source_location": "L661",
       "id": "magazin_agents_dynamic_matching",
       "community": 96,
       "norm_label": "dynamic matching"
@@ -15567,7 +15675,7 @@
       "label": "Runtime request handling",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L672",
+      "source_location": "L677",
       "id": "magazin_agents_runtime_request_handling",
       "community": 96,
       "norm_label": "runtime request handling"
@@ -15576,7 +15684,7 @@
       "label": "Pitfalls & maintenance",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L678",
+      "source_location": "L683",
       "id": "magazin_agents_pitfalls_maintenance",
       "community": 96,
       "norm_label": "pitfalls & maintenance"
@@ -15585,7 +15693,7 @@
       "label": "Paywall / Freemium Model",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L686",
+      "source_location": "L691",
       "id": "magazin_agents_paywall_freemium_model",
       "community": 81,
       "norm_label": "paywall / freemium model"
@@ -15594,7 +15702,7 @@
       "label": "Route Structure",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L696",
+      "source_location": "L701",
       "id": "magazin_agents_route_structure",
       "community": 81,
       "norm_label": "route structure"
@@ -15603,7 +15711,7 @@
       "label": "Components",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L702",
+      "source_location": "L707",
       "id": "magazin_agents_components",
       "community": 81,
       "norm_label": "components"
@@ -15612,7 +15720,7 @@
       "label": "Cross-linking with Magazine",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L711",
+      "source_location": "L716",
       "id": "magazin_agents_cross_linking_with_magazine",
       "community": 81,
       "norm_label": "cross-linking with magazine"
@@ -15621,7 +15729,7 @@
       "label": "Magazine Content Sync (MODX \u2192 Firestore)",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L722",
+      "source_location": "L727",
       "id": "magazin_agents_magazine_content_sync_modx_firestore",
       "community": 45,
       "norm_label": "magazine content sync (modx \u2192 firestore)"
@@ -15630,7 +15738,7 @@
       "label": "Commands",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L730",
+      "source_location": "L735",
       "id": "magazin_agents_commands",
       "community": 45,
       "norm_label": "commands"
@@ -15639,7 +15747,7 @@
       "label": "Agent reminders",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L756",
+      "source_location": "L761",
       "id": "magazin_agents_agent_reminders",
       "community": 45,
       "norm_label": "agent reminders"
@@ -15648,7 +15756,7 @@
       "label": "Data Flow Summary",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L789",
+      "source_location": "L794",
       "id": "magazin_agents_data_flow_summary",
       "community": 45,
       "norm_label": "data flow summary"
@@ -15657,7 +15765,7 @@
       "label": "Key Libraries & Services",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L805",
+      "source_location": "L810",
       "id": "magazin_agents_key_libraries_services",
       "community": 45,
       "norm_label": "key libraries & services"
@@ -15666,7 +15774,7 @@
       "label": "MCP Servers & AI Assistant Integration",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L816",
+      "source_location": "L821",
       "id": "magazin_agents_mcp_servers_ai_assistant_integration",
       "community": 77,
       "norm_label": "mcp servers & ai assistant integration"
@@ -15675,7 +15783,7 @@
       "label": "Available MCP Servers",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L820",
+      "source_location": "L825",
       "id": "magazin_agents_available_mcp_servers",
       "community": 77,
       "norm_label": "available mcp servers"
@@ -15684,7 +15792,7 @@
       "label": "1. Svelte MCP Server (`svelte`)",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L822",
+      "source_location": "L827",
       "id": "magazin_agents_1_svelte_mcp_server_svelte",
       "community": 77,
       "norm_label": "1. svelte mcp server (`svelte`)"
@@ -15693,7 +15801,7 @@
       "label": "2. Firebase MCP Server (`firebase`)",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L853",
+      "source_location": "L858",
       "id": "magazin_agents_2_firebase_mcp_server_firebase",
       "community": 77,
       "norm_label": "2. firebase mcp server (`firebase`)"
@@ -15702,7 +15810,7 @@
       "label": "3. Daisy UI MCP Server (`daisyui`)",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L885",
+      "source_location": "L890",
       "id": "magazin_agents_3_daisy_ui_mcp_server_daisyui",
       "community": 77,
       "norm_label": "3. daisy ui mcp server (`daisyui`)"
@@ -15711,7 +15819,7 @@
       "label": "How Agents Use These MCP Servers",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L920",
+      "source_location": "L925",
       "id": "magazin_agents_how_agents_use_these_mcp_servers",
       "community": 77,
       "norm_label": "how agents use these mcp servers"
@@ -15720,7 +15828,7 @@
       "label": "Project-Specific MCP Usage Guidelines",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L930",
+      "source_location": "L935",
       "id": "magazin_agents_project_specific_mcp_usage_guidelines",
       "community": 77,
       "norm_label": "project-specific mcp usage guidelines"
@@ -15729,10 +15837,55 @@
       "label": "Route Priority",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L949",
+      "source_location": "L954",
       "id": "magazin_agents_route_priority",
       "community": 45,
       "norm_label": "route priority"
+    },
+    {
+      "label": "tokenize()",
+      "file_type": "code",
+      "source_file": "scripts/lib/receptsarok-redirect-match.mjs",
+      "source_location": "L10",
+      "community": 14,
+      "norm_label": "tokenize()",
+      "id": "lib_receptsarok_redirect_match_tokenize"
+    },
+    {
+      "label": "titleMatchScore()",
+      "file_type": "code",
+      "source_file": "scripts/lib/receptsarok-redirect-match.mjs",
+      "source_location": "L14",
+      "community": 14,
+      "norm_label": "titlematchscore()",
+      "id": "lib_receptsarok_redirect_match_titlematchscore"
+    },
+    {
+      "label": "tokenize()",
+      "file_type": "code",
+      "source_file": "src/lib/receptsarokDedupePipeline.js",
+      "source_location": "L33",
+      "community": 14,
+      "norm_label": "tokenize()",
+      "id": "lib_receptsarokdedupepipeline_tokenize"
+    },
+    {
+      "label": "titleMatchScore()",
+      "file_type": "code",
+      "source_file": "src/lib/receptsarokDedupePipeline.js",
+      "source_location": "L37",
+      "community": 14,
+      "norm_label": "titlematchscore()",
+      "id": "lib_receptsarokdedupepipeline_titlematchscore"
+    },
+    {
+      "label": "Page Component (`+page.svelte`)",
+      "file_type": "document",
+      "source_file": "AGENTS.md",
+      "source_location": "L485",
+      "community": 80,
+      "norm_label": "page component (`+page.svelte`)",
+      "id": "magazin_agents_page_component_page_svelte_485"
     },
     {
       "label": "sortListedDocsByIdDesc()",
@@ -16027,7 +16180,7 @@
       "file_type": "code",
       "source_file": "scripts/sync-modx-to-firestore.mjs",
       "source_location": "L149",
-      "community": 8,
+      "community": 47,
       "norm_label": "queryforcedremovalrow()",
       "id": "scripts_sync_modx_to_firestore_queryforcedremovalrow"
     },
@@ -21129,6 +21282,17 @@
       "target": "lib_receptsarokdedupeshared_pickredirecttarget"
     },
     {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/validate-recipe-dedupe-v2.mjs",
+      "source_location": "L4",
+      "weight": 1.0,
+      "source": "scripts_validate_recipe_dedupe_v2_mjs",
+      "target": "lib_receptsarokdedupeshared_titlematchscore",
+      "confidence_score": 1.0
+    },
+    {
       "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
@@ -21324,6 +21488,16 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/validate-recipe-dedupe-v2.mjs",
+      "source_location": "L103",
+      "weight": 1.0,
+      "source": "scripts_validate_recipe_dedupe_v2_mjs",
+      "target": "scripts_validate_recipe_dedupe_v2_testsinglewordtitledoesnotsubstringmatch",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/validate-recipe-dedupe-v2.mjs",
       "source_location": "L387",
       "weight": 1.0,
       "confidence_score": 1.0,
@@ -21427,6 +21601,17 @@
       "confidence_score": 1.0,
       "source": "scripts_validate_recipe_dedupe_v2_testpickredirecttargetprefersrsbookletyear",
       "target": "lib_receptsarokdedupeshared_pickredirecttarget"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/validate-recipe-dedupe-v2.mjs",
+      "source_location": "L107",
+      "weight": 1.0,
+      "source": "scripts_validate_recipe_dedupe_v2_testsinglewordtitledoesnotsubstringmatch",
+      "target": "lib_receptsarokdedupeshared_titlematchscore",
+      "confidence_score": 1.0
     },
     {
       "relation": "calls",
@@ -21554,6 +21739,17 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "scripts/backfill-collection-recipe-content.mjs",
+      "source_location": "L28",
+      "weight": 1.0,
+      "source": "scripts_backfill_collection_recipe_content_mjs",
+      "target": "lib_modxlinkedrecipes_linkedmodxidsforrecipe",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/backfill-collection-recipe-content.mjs",
       "source_location": "L27",
       "weight": 1.0,
       "confidence_score": 1.0,
@@ -21635,6 +21831,16 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/backfill-collection-recipe-content.mjs",
+      "source_location": "L61",
+      "weight": 1.0,
+      "source": "scripts_backfill_collection_recipe_content_mjs",
+      "target": "scripts_backfill_collection_recipe_content_recipemodxids",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/backfill-collection-recipe-content.mjs",
       "source_location": "L52",
       "weight": 1.0,
       "confidence_score": 1.0,
@@ -21650,6 +21856,16 @@
       "confidence_score": 1.0,
       "source": "scripts_backfill_collection_recipe_content_mjs",
       "target": "scripts_backfill_collection_recipe_content_recipes_path"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/backfill-collection-recipe-content.mjs",
+      "source_location": "L33",
+      "weight": 1.0,
+      "source": "scripts_backfill_collection_recipe_content_mjs",
+      "target": "scripts_backfill_collection_recipe_content_redirects_path",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -22018,6 +22234,17 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "scripts/sync-modx-to-firestore.mjs",
+      "source_location": "L41",
+      "weight": 1.0,
+      "source": "scripts_sync_modx_to_firestore_mjs",
+      "target": "lib_empty_folders_emptycontentfolderpaths",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/sync-modx-to-firestore.mjs",
       "source_location": "L34",
       "weight": 1.0,
       "confidence_score": 1.0,
@@ -22243,6 +22470,17 @@
       "confidence_score": 1.0,
       "source": "scripts_sync_modx_to_firestore_mjs",
       "target": "scripts_lib_doc_path_id_mjs"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/sync-modx-to-firestore.mjs",
+      "source_location": "L41",
+      "weight": 1.0,
+      "source": "scripts_sync_modx_to_firestore_mjs",
+      "target": "scripts_lib_empty_folders_mjs",
+      "confidence_score": 1.0
     },
     {
       "relation": "imports_from",
@@ -22985,6 +23223,17 @@
       "confidence_score": 1.0,
       "source": "scripts_sync_modx_to_firestore_main",
       "target": "scripts_sync_modx_to_firestore_writecollections"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/sync-modx-to-firestore.mjs",
+      "source_location": "L603",
+      "weight": 1.0,
+      "source": "scripts_sync_modx_to_firestore_writecollections",
+      "target": "lib_empty_folders_emptycontentfolderpaths",
+      "confidence_score": 1.0
     },
     {
       "relation": "calls",
@@ -24367,6 +24616,17 @@
       "target": "lib_receptsarokdedupeshared_pickredirecttarget"
     },
     {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/lib/receptsarok-redirect-match.mjs",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "scripts_lib_receptsarok_redirect_match_mjs",
+      "target": "lib_receptsarokdedupeshared_titlematchscore",
+      "confidence_score": 1.0
+    },
+    {
       "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
@@ -24398,39 +24658,6 @@
       "confidence_score": 1.0,
       "source": "scripts_lib_search_index_mjs",
       "target": "scripts_lib_receptsarok_redirect_match_mjs"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/lib/receptsarok-redirect-match.mjs",
-      "source_location": "L20",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "lib_receptsarok_redirect_match_titlematchscore",
-      "target": "lib_receptsarok_redirect_match_tokenize"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/lib/receptsarok-redirect-match.mjs",
-      "source_location": "L11",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "lib_receptsarok_redirect_match_tokenize",
-      "target": "lib_modxtorsparser_normalizetext"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "scripts/lib/receptsarok-redirect-match.mjs",
-      "source_location": "L15",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "lib_receptsarok_redirect_match_titlematchscore",
-      "target": "lib_modxtorsparser_normalizetext"
     },
     {
       "relation": "calls",
@@ -27356,12 +27583,97 @@
       "relation": "imports",
       "context": "import",
       "confidence": "EXTRACTED",
+      "source_file": "scripts/lib/empty-folders.mjs",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "scripts_lib_empty_folders_mjs",
+      "target": "lib_doc_path_id_encodedocpathid",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/lib/empty-folders.mjs",
+      "source_location": "L12",
+      "weight": 1.0,
+      "source": "scripts_lib_empty_folders_mjs",
+      "target": "lib_empty_folders_emptycontentfolderpaths",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/lib/empty-folders.mjs",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "scripts_lib_empty_folders_mjs",
+      "target": "scripts_lib_doc_path_id_mjs",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/lib/related-cards.mjs",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "scripts_lib_related_cards_mjs",
+      "target": "scripts_lib_empty_folders_mjs",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "scripts/lib/related-cards.mjs",
+      "source_location": "L57",
+      "weight": 1.0,
+      "source": "lib_related_cards_updaterelatedcards",
+      "target": "lib_empty_folders_emptycontentfolderpaths"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/lib/related-cards.mjs",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "scripts_lib_related_cards_mjs",
+      "target": "lib_empty_folders_emptycontentfolderpaths",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
       "source_file": "scripts/lib/related-cards.mjs",
       "source_location": "L1",
       "weight": 1.0,
       "confidence_score": 1.0,
       "source": "scripts_lib_related_cards_mjs",
       "target": "lib_doc_path_id_encodedocpathid"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/lib/related-cards.mjs",
+      "source_location": "L4",
+      "weight": 1.0,
+      "source": "scripts_lib_related_cards_mjs",
+      "target": "lib_related_cards_bypublishedondesc",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/lib/related-cards.mjs",
+      "source_location": "L7",
+      "weight": 1.0,
+      "source": "scripts_lib_related_cards_mjs",
+      "target": "lib_related_cards_parentpathof",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -27383,6 +27695,17 @@
       "confidence_score": 1.0,
       "source": "scripts_lib_related_cards_mjs",
       "target": "scripts_lib_doc_path_id_mjs"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/lib/related-cards.mjs",
+      "source_location": "L49",
+      "weight": 1.0,
+      "source": "lib_related_cards_updaterelatedcards",
+      "target": "lib_related_cards_parentpathof",
+      "confidence_score": 1.0
     },
     {
       "relation": "calls",
@@ -29356,6 +29679,16 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/lib/receptsarokDedupePipeline.js",
+      "source_location": "L295",
+      "weight": 1.0,
+      "source": "src_lib_receptsarokdedupepipeline_js",
+      "target": "lib_receptsarokdedupepipeline_buildrecipemodxidset",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/receptsarokDedupePipeline.js",
       "source_location": "L23",
       "weight": 1.0,
       "confidence_score": 1.0,
@@ -29516,6 +29849,26 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/lib/receptsarokDedupePipeline.js",
+      "source_location": "L273",
+      "weight": 1.0,
+      "source": "src_lib_receptsarokdedupepipeline_js",
+      "target": "lib_receptsarokdedupepipeline_redirecttargetforaliaspool",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/receptsarokDedupePipeline.js",
+      "source_location": "L266",
+      "weight": 1.0,
+      "source": "src_lib_receptsarokdedupepipeline_js",
+      "target": "lib_receptsarokdedupepipeline_republishmodxredirecttarget",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/receptsarokDedupePipeline.js",
       "source_location": "L290",
       "weight": 1.0,
       "confidence_score": 1.0,
@@ -29630,6 +29983,28 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "src/lib/receptsarokDedupePipeline.js",
+      "source_location": "L4",
+      "weight": 1.0,
+      "source": "src_lib_receptsarokdedupepipeline_js",
+      "target": "lib_receptsarokdedupeshared_publishedrecipesbyaliasid",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/receptsarokDedupePipeline.js",
+      "source_location": "L4",
+      "weight": 1.0,
+      "source": "src_lib_receptsarokdedupepipeline_js",
+      "target": "lib_receptsarokdedupeshared_titlematchscore",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/receptsarokDedupePipeline.js",
       "source_location": "L17",
       "weight": 1.0,
       "confidence_score": 1.0,
@@ -29679,39 +30054,6 @@
       "confidence_score": 1.0,
       "source": "src_lib_receptsarokdedupepipeline_js",
       "target": "src_lib_recipesjsonformat_js"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "src/lib/receptsarokDedupePipeline.js",
-      "source_location": "L38",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "lib_receptsarokdedupepipeline_titlematchscore",
-      "target": "lib_receptsarokdedupepipeline_tokenize"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "src/lib/receptsarokDedupePipeline.js",
-      "source_location": "L29",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "lib_receptsarokdedupepipeline_tokenize",
-      "target": "lib_modxtorsparser_normalizetext"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "src/lib/receptsarokDedupePipeline.js",
-      "source_location": "L33",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "lib_receptsarokdedupepipeline_titlematchscore",
-      "target": "lib_modxtorsparser_normalizetext"
     },
     {
       "relation": "calls",
@@ -29982,11 +30324,55 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "src/lib/receptsarokDedupePipeline.js",
+      "source_location": "L447",
+      "weight": 1.0,
+      "source": "lib_receptsarokdedupepipeline_runmagazinrecipededupe",
+      "target": "lib_receptsarokdedupepipeline_republishmodxredirecttarget",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/receptsarokDedupePipeline.js",
+      "source_location": "L274",
+      "weight": 1.0,
+      "source": "lib_receptsarokdedupepipeline_redirecttargetforaliaspool",
+      "target": "lib_receptsarokdedupeshared_pickredirecttarget",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/receptsarokDedupePipeline.js",
+      "source_location": "L444",
+      "weight": 1.0,
+      "source": "lib_receptsarokdedupepipeline_runmagazinrecipededupe",
+      "target": "lib_receptsarokdedupepipeline_redirecttargetforaliaspool",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/receptsarokDedupePipeline.js",
       "source_location": "L297",
       "weight": 1.0,
       "confidence_score": 1.0,
       "source": "lib_receptsarokdedupepipeline_runmagazinrecipededupe",
       "target": "lib_receptsarokdedupepipeline_loadcategoryreviewmap"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/receptsarokDedupePipeline.js",
+      "source_location": "L318",
+      "weight": 1.0,
+      "source": "lib_receptsarokdedupepipeline_runmagazinrecipededupe",
+      "target": "lib_receptsarokdedupepipeline_buildrecipemodxidset",
+      "confidence_score": 1.0
     },
     {
       "relation": "calls",
@@ -29998,6 +30384,17 @@
       "weight": 1.0,
       "source": "lib_receptsarokdedupepipeline_runmagazinrecipededupe",
       "target": "lib_receptsarokdedupeshared_hasnutritionandingredients"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/lib/receptsarokDedupePipeline.js",
+      "source_location": "L441",
+      "weight": 1.0,
+      "source": "lib_receptsarokdedupepipeline_runmagazinrecipededupe",
+      "target": "lib_receptsarokdedupeshared_publishedrecipesbyaliasid"
     },
     {
       "relation": "calls",
@@ -30161,6 +30558,16 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/lib/modxLinkedRecipes.js",
+      "source_location": "L60",
+      "weight": 1.0,
+      "source": "src_lib_modxlinkedrecipes_js",
+      "target": "lib_modxlinkedrecipes_linkedmodxidsforrecipe",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/modxLinkedRecipes.js",
       "source_location": "L59",
       "weight": 1.0,
       "confidence_score": 1.0,
@@ -30232,6 +30639,39 @@
       "confidence_score": 1.0,
       "source": "src_lib_modxtorsparser_js",
       "target": "lib_modxlinkedrecipes_extractlinkedmodxids"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/lib/modxToRsParser.js",
+      "source_location": "L1214",
+      "weight": 1.0,
+      "source": "lib_modxtorsparser_buildrecipefrommodxdoc",
+      "target": "lib_modxlinkedrecipes_linkedmodxidsforrecipe"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/lib/modxToRsParser.js",
+      "source_location": "L1088",
+      "weight": 1.0,
+      "source": "lib_modxtorsparser_buildrecipesfrommodxdoc",
+      "target": "lib_modxlinkedrecipes_linkedmodxidsforrecipe"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/modxToRsParser.js",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "src_lib_modxtorsparser_js",
+      "target": "lib_modxlinkedrecipes_linkedmodxidsforrecipe",
+      "confidence_score": 1.0
     },
     {
       "relation": "calls",
@@ -30515,6 +30955,17 @@
       "target": "src_lib_receptsarokdedupeshared_js"
     },
     {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/receptsarokDedupeShared.js",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "src_lib_receptsarokdedupeshared_js",
+      "target": "lib_modxtorsparser_normalizetext",
+      "confidence_score": 1.0
+    },
+    {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/lib/receptsarokDedupeShared.js",
@@ -30648,11 +31099,63 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/lib/receptsarokDedupeShared.js",
+      "source_location": "L65",
+      "weight": 1.0,
+      "source": "src_lib_receptsarokdedupeshared_js",
+      "target": "lib_receptsarokdedupeshared_publishedrecipesbyaliasid",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/receptsarokDedupeShared.js",
       "source_location": "L75",
       "weight": 1.0,
       "confidence_score": 1.0,
       "source": "src_lib_receptsarokdedupeshared_js",
       "target": "lib_receptsarokdedupeshared_scoresfor"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/receptsarokDedupeShared.js",
+      "source_location": "L44",
+      "weight": 1.0,
+      "source": "src_lib_receptsarokdedupeshared_js",
+      "target": "lib_receptsarokdedupeshared_titlematchscore",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/receptsarokDedupeShared.js",
+      "source_location": "L31",
+      "weight": 1.0,
+      "source": "src_lib_receptsarokdedupeshared_js",
+      "target": "lib_receptsarokdedupeshared_tokenizetitle",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/receptsarokDedupeShared.js",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "src_lib_receptsarokdedupeshared_js",
+      "target": "src_lib_modxtorsparser_js",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/receptsarokDedupeShared.js",
+      "source_location": "L49",
+      "weight": 1.0,
+      "source": "lib_receptsarokdedupeshared_titlematchscore",
+      "target": "lib_receptsarokdedupeshared_tokenizetitle",
+      "confidence_score": 1.0
     },
     {
       "relation": "calls",
@@ -35600,6 +36103,50 @@
       "relation": "calls",
       "context": "call",
       "confidence": "EXTRACTED",
+      "source_file": "scripts/lib/receptsarok-redirect-match.mjs",
+      "source_location": "L15",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_receptsarok_redirect_match_titlematchscore",
+      "target": "lib_modxtorsparser_normalizetext"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/lib/receptsarok-redirect-match.mjs",
+      "source_location": "L11",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_receptsarok_redirect_match_tokenize",
+      "target": "lib_modxtorsparser_normalizetext"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/receptsarokDedupePipeline.js",
+      "source_location": "L33",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_receptsarokdedupepipeline_titlematchscore",
+      "target": "lib_modxtorsparser_normalizetext"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/receptsarokDedupePipeline.js",
+      "source_location": "L29",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_receptsarokdedupepipeline_tokenize",
+      "target": "lib_modxtorsparser_normalizetext"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
       "source_file": "src/lib/modxToRsParser.js",
       "source_location": "L438",
       "weight": 1.0,
@@ -37922,8 +38469,11 @@
     },
     {
       "relation": "imports_from",
+      "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "src/routes/+page.svelte",
+      "source_location": "L12",
+      "weight": 1.0,
       "confidence_score": 1.0,
       "source": "src_routes_page_svelte",
       "target": "src_lib_components_nav2_svelte"
@@ -38473,8 +39023,11 @@
     },
     {
       "relation": "imports_from",
+      "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "src/routes/+page.svelte",
+      "source_location": "L9",
+      "weight": 1.0,
       "confidence_score": 1.0,
       "source": "src_routes_page_svelte",
       "target": "src_lib_components_cards_svelte"
@@ -38641,8 +39194,11 @@
     },
     {
       "relation": "imports_from",
+      "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "src/routes/+page.svelte",
+      "source_location": "L10",
+      "weight": 1.0,
       "confidence_score": 1.0,
       "source": "src_routes_page_svelte",
       "target": "src_lib_components_carousel_svelte"
@@ -38697,8 +39253,11 @@
     },
     {
       "relation": "imports_from",
+      "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "src/routes/+page.svelte",
+      "source_location": "L11",
+      "weight": 1.0,
       "confidence_score": 1.0,
       "source": "src_routes_page_svelte",
       "target": "src_lib_components_search_svelte"
@@ -38961,8 +39520,11 @@
     },
     {
       "relation": "imports_from",
+      "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "src/routes/+page.svelte",
+      "source_location": "L13",
+      "weight": 1.0,
       "confidence_score": 1.0,
       "source": "src_routes_page_svelte",
       "target": "src_lib_components_bannertop_svelte"
@@ -39010,6 +39572,16 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/lib/magazine/firestore.ts",
+      "source_location": "L39",
+      "weight": 1.0,
+      "source": "src_lib_magazine_firestore_ts",
+      "target": "magazine_firestore_getchildmodxids",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/magazine/firestore.ts",
       "source_location": "L32",
       "weight": 1.0,
       "confidence_score": 1.0,
@@ -39045,6 +39617,16 @@
       "confidence_score": 1.0,
       "source": "src_lib_magazine_firestore_ts",
       "target": "magazine_firestore_getsearchmeta"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/magazine/firestore.ts",
+      "source_location": "L48",
+      "weight": 1.0,
+      "source": "src_lib_magazine_firestore_ts",
+      "target": "magazine_firestore_getsiblingreceptmodxids",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -39163,6 +39745,17 @@
       "target": "src_lib_magazine_firestore_ts"
     },
     {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/routes/[...path]/+page.server.ts",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "src_routes_path_page_server_ts",
+      "target": "src_lib_magazine_firestore_ts",
+      "confidence_score": 1.0
+    },
+    {
       "relation": "calls",
       "context": "call",
       "confidence": "EXTRACTED",
@@ -39205,6 +39798,50 @@
       "confidence_score": 1.0,
       "source": "src_routes_path_layout_server_ts",
       "target": "magazine_firestore_getmagazinearticle"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/routes/[...path]/+page.server.ts",
+      "source_location": "L26",
+      "weight": 1.0,
+      "source": "path_page_server_load",
+      "target": "magazine_firestore_getchildmodxids"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/routes/[...path]/+page.server.ts",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "src_routes_path_page_server_ts",
+      "target": "magazine_firestore_getchildmodxids",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/routes/[...path]/+page.server.ts",
+      "source_location": "L30",
+      "weight": 1.0,
+      "source": "path_page_server_load",
+      "target": "magazine_firestore_getsiblingreceptmodxids"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/routes/[...path]/+page.server.ts",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "src_routes_path_page_server_ts",
+      "target": "magazine_firestore_getsiblingreceptmodxids",
+      "confidence_score": 1.0
     },
     {
       "relation": "calls",
@@ -45433,6 +46070,16 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "AGENTS.md",
+      "source_location": "L490",
+      "weight": 1.0,
+      "source": "magazin_agents_dynamic_content_routes_path",
+      "target": "magazin_agents_page_component_page_svelte_490",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "AGENTS.md",
       "source_location": "L422",
       "weight": 1.0,
       "confidence_score": 1.0,
@@ -45743,6 +46390,28 @@
       "relation": "calls",
       "context": "call",
       "confidence": "EXTRACTED",
+      "source_file": "scripts/lib/receptsarok-redirect-match.mjs",
+      "source_location": "L20",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_receptsarok_redirect_match_titlematchscore",
+      "target": "lib_receptsarok_redirect_match_tokenize"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/receptsarokDedupePipeline.js",
+      "source_location": "L38",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_receptsarokdedupepipeline_titlematchscore",
+      "target": "lib_receptsarokdedupepipeline_tokenize"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
       "source_file": "scripts/modx/modx-firestore-sync-plugin.php",
       "source_location": "L262",
       "weight": 1.0,
@@ -45785,5 +46454,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "daec14e9b481e2b6caf3d30ac16b2dc1abe09266"
+  "built_at_commit": "4f92bf9c19f51c786c6d3ca6ef7e60e903e8a3e4"
 }

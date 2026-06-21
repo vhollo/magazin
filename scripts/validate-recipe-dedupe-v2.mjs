@@ -6,6 +6,7 @@ import {
   chooseWinner,
   hasNutritionAndIngredients,
   pickRedirectTarget,
+  titleMatchScore,
 } from '../src/lib/receptsarokDedupeShared.js'
 import {
   buildRecipeFromModxDoc,
@@ -97,6 +98,14 @@ function testPickRedirectTargetPrefersRsBookletYear() {
   const redirectTarget = pickRedirectTarget(matches, contentWinner)
   assert.equal(redirectTarget?.year, 2025, 'Redirect should use RS booklet year')
   assert.equal(redirectTarget?.id, 'puszedli')
+}
+
+function testSingleWordTitleDoesNotSubstringMatch() {
+  const doc = { longtitle: 'Csokitorta', title: 'Csokitorta' }
+  const distinct = { id: 'ceklas-narancsos-csokitorta', title: 'Céklás, narancsos csokitorta' }
+  const exact = { id: 'csokitorta', title: 'Csokitorta' }
+  assert.equal(titleMatchScore(doc, distinct), 0, 'Single-word title must not substring-match longer recipe')
+  assert.equal(titleMatchScore(doc, exact), 100)
 }
 
 function testAuthorGate() {
@@ -449,6 +458,7 @@ function testUncategorizedQueueConsistency() {
 
 testComparatorOrder()
 testPickRedirectTargetPrefersRsBookletYear()
+testSingleWordTitleDoesNotSubstringMatch()
 testAuthorGate()
 testParserEntityAndYearResilience()
 testParserNutritionFallbackFromParagraphs()

@@ -249,7 +249,7 @@
 <ReceptsarokWidget
   recipes={data.similarRecipes ?? []}
   title={data.similarIsLinked ? '' : recipe.title}
-  heading={data.similarIsLinked ? 'További receptek a Receptsarokban' : undefined}
+  heading={data.similarIsLinked ? 'Kapcsolódó receptek a Receptsarokban' : undefined}
 />
 
 <Search articles={data.articleCount} recipes={data.recipeCount} />

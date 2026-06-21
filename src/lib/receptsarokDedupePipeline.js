@@ -5,12 +5,13 @@ import {
   chooseWinner,
   hasNutritionAndIngredients,
   pickRedirectTarget,
+  publishedRecipesByAliasId,
+  titleMatchScore,
 } from './receptsarokDedupeShared.js'
 import {
   buildRecipeFromModxDoc,
   buildRecipesFromModxDoc,
   isDescriptionAuthorCompatible,
-  parseYearFromMagazinPath,
   normalizeText,
 } from './modxToRsParser.js'
 import { predictRecipeCategory } from './receptsarokCategoryPredictor.js'
@@ -29,22 +30,6 @@ const CATEGORY_REVIEW_PATH = path.resolve(
   process.cwd(),
   'scripts/data/magazin-recipe-category-review.json'
 )
-
-function tokenize(value, normalizeText) {
-  return normalizeText(value).split(/\s+/).filter(Boolean)
-}
-
-function titleMatchScore(doc, recipe, normalizeText) {
-  const docTitle = normalizeText(doc.longtitle || doc.title || '')
-  const recipeTitle = normalizeText(recipe.title || '')
-  if (!docTitle || !recipeTitle) return 0
-  if (docTitle === recipeTitle) return 100
-  if (recipeTitle.includes(docTitle) || docTitle.includes(recipeTitle)) return 80
-  const docWords = tokenize(docTitle, normalizeText).filter((w) => w.length > 3)
-  if (!docWords.length) return 0
-  const overlap = docWords.filter((w) => recipeTitle.includes(w)).length
-  return Math.round((overlap / docWords.length) * 50)
-}
 
 function readJson(filePath) {
   return JSON.parse(fs.readFileSync(filePath, 'utf8'))
@@ -278,6 +263,17 @@ function enforceFreeForMagazinOrigin(recipe) {
   }
 }
 
+function republishModxRedirectTarget(recipe, modxContentId) {
+  if (!recipe || recipe.published !== false) return
+  if (Number(recipe.sourceModxId) === Number(modxContentId)) {
+    delete recipe.published
+  }
+}
+
+function redirectTargetForAliasPool(aliasMatches, contentWinner) {
+  return pickRedirectTarget(aliasMatches, contentWinner) ?? contentWinner ?? aliasMatches[0] ?? null
+}
+
 function loadCategoryReviewMap() {
   const categoryReview = fs.existsSync(CATEGORY_REVIEW_PATH) ? readJson(CATEGORY_REVIEW_PATH) : { entries: [] }
   if (!Array.isArray(categoryReview?.entries)) {
@@ -295,12 +291,31 @@ function loadCategoryReviewMap() {
   return categoryByKey
 }
 
+/** MODX content ids that resolve to a published Receptsarok recipe. */
+function buildRecipeModxIdSet(recipes, redirectEntries = []) {
+  const set = new Set()
+  for (const r of recipes) {
+    if (r?.published === false) continue
+    const src = Number(r?.sourceModxId)
+    if (Number.isFinite(src)) set.add(src)
+  }
+  for (const e of redirectEntries) {
+    const id = Number(e?.modxContentId)
+    if (Number.isFinite(id)) set.add(id)
+  }
+  return set
+}
+
 export async function runMagazinRecipeDedupe({ docs, applyLocal = false, createLocal = false } = {}) {
   if (!Array.isArray(docs)) throw new Error('docs must be an array')
   if (!fs.existsSync(RECIPES_PATH)) throw new Error(`Missing required input file: ${RECIPES_PATH}`)
 
   const recipes = readJson(RECIPES_PATH)
   if (!Array.isArray(recipes)) throw new Error('recipes.json must be an array')
+
+  const existingRedirects = fs.existsSync(REDIRECTS_PATH) ? readJson(REDIRECTS_PATH) : { entries: [] }
+  const redirectEntries = Array.isArray(existingRedirects?.entries) ? existingRedirects.entries : []
+  const recipeModxIds = buildRecipeModxIdSet(recipes, redirectEntries)
 
   const categoryByKey = loadCategoryReviewMap()
   const magazineCandidates = docs.filter((doc) => hasReceptTag(doc, normalizeText))
@@ -338,6 +353,7 @@ export async function runMagazinRecipeDedupe({ docs, applyLocal = false, createL
         id: String(winner.id),
         categoryByKey,
         predictCategory: predictRecipeCategory,
+        recipeModxIds,
       })
       winner.subRecipes = Array.isArray(reparsedWinner?.subRecipes) ? reparsedWinner.subRecipes : []
       winner.hasSubRecipes = winner.subRecipes.length > 0
@@ -411,7 +427,6 @@ export async function runMagazinRecipeDedupe({ docs, applyLocal = false, createL
       continue
     }
 
-    const year = parseYearFromMagazinPath(doc.path)
     const id = String(doc.alias || '').trim()
     if (!id) {
       audit.push({
@@ -423,21 +438,76 @@ export async function runMagazinRecipeDedupe({ docs, applyLocal = false, createL
       continue
     }
 
-    const key = `${year}-${id}`
-    if (!recipeByKey.has(key)) {
-      const parsedList = buildRecipesFromModxDoc(doc, {
-        id,
-        categoryByKey,
-        predictCategory: predictRecipeCategory,
+    const aliasMatches = publishedRecipesByAliasId(recipes, id)
+    if (aliasMatches.length > 0) {
+      const { winner: contentWinner, reason } = chooseWinner(aliasMatches)
+      const redirectTarget = redirectTargetForAliasPool(aliasMatches, contentWinner)
+      if (!redirectTarget) continue
+
+      republishModxRedirectTarget(
+        recipeByKey.get(`${redirectTarget.year}-${redirectTarget.id}`),
+        doc.id
+      )
+      redirects.push({
+        modxContentId: doc.id,
+        path: doc.path,
+        year: redirectTarget.year,
+        id: redirectTarget.id,
       })
-      const shouldRedirectToRecipe = parsedList.length === 1
-      let redirectPushed = false
-      let collectionSplitAudit = false
+      audit.push({
+        type: 'rs-alias-match',
+        modxContentId: doc.id,
+        modxPath: doc.path,
+        winner: `${redirectTarget.year}-${redirectTarget.id}`,
+        matched: aliasMatches.map((r) => `${r.year}-${r.id}`),
+        reason,
+      })
+      continue
+    }
 
-      for (const { recipe: parsedRecipe, categoryDecision } of parsedList) {
-        const recipeKey = `${parsedRecipe.year}-${parsedRecipe.id}`
+    const parsedList = buildRecipesFromModxDoc(doc, {
+      id,
+      categoryByKey,
+      predictCategory: predictRecipeCategory,
+      recipeModxIds,
+    })
+    const shouldRedirectToRecipe = parsedList.length === 1
+    let redirectPushed = false
+    let collectionSplitAudit = false
+    let createdForDoc = false
 
-        if (!hasNutritionAndIngredients(parsedRecipe)) {
+    for (const { recipe: parsedRecipe, categoryDecision } of parsedList) {
+      const recipeKey = `${parsedRecipe.year}-${parsedRecipe.id}`
+
+      if (recipeByKey.has(recipeKey)) {
+        republishModxRedirectTarget(recipeByKey.get(recipeKey), doc.id)
+        if (shouldRedirectToRecipe && !redirectPushed) {
+          const existing = recipeByKey.get(recipeKey)
+          const pool = publishedRecipesByAliasId(recipes, parsedRecipe.id)
+          const redirectTarget =
+            pool.length > 0
+              ? redirectTargetForAliasPool(pool, chooseWinner(pool).winner)
+              : existing
+          if (redirectTarget) {
+            redirects.push({
+              modxContentId: doc.id,
+              path: doc.path,
+              year: redirectTarget.year,
+              id: redirectTarget.id,
+            })
+            redirectPushed = true
+          }
+        }
+        audit.push({
+          type: 'existing-rs-key',
+          modxContentId: doc.id,
+          modxPath: doc.path,
+          target: recipeKey,
+        })
+        continue
+      }
+
+      if (!hasNutritionAndIngredients(parsedRecipe)) {
           const subRecipeParsedList = convertSubRecipesToParsedList({
             doc,
             parentRecipe: parsedRecipe,
@@ -583,11 +653,16 @@ export async function runMagazinRecipeDedupe({ docs, applyLocal = false, createL
         }
 
         if (shouldRedirectToRecipe && !redirectPushed) {
+          const rsByAlias = publishedRecipesByAliasId(recipes, parsedRecipe.id)
+          const redirectTarget =
+            rsByAlias.length > 0
+              ? redirectTargetForAliasPool(rsByAlias, chooseWinner(rsByAlias).winner)
+              : parsedRecipe
           redirects.push({
             modxContentId: doc.id,
             path: doc.path,
-            year: parsedRecipe.year,
-            id: parsedRecipe.id,
+            year: redirectTarget.year,
+            id: redirectTarget.id,
           })
           redirectPushed = true
         }
@@ -598,6 +673,7 @@ export async function runMagazinRecipeDedupe({ docs, applyLocal = false, createL
           categoryDecision,
         })
         plannedCreateKeys.add(recipeKey)
+        createdForDoc = true
         if (parsedList.length > 1 && !collectionSplitAudit) {
           collectionSplitAudit = true
           audit.push({
@@ -609,22 +685,16 @@ export async function runMagazinRecipeDedupe({ docs, applyLocal = false, createL
           })
         }
       }
-    } else {
-      const existing = recipeByKey.get(key)
-      redirects.push({
+
+    if (createdForDoc) {
+      audit.push({
+        type: 'new-rs-required',
         modxContentId: doc.id,
-        path: doc.path,
-        year: existing?.year ?? year,
-        id: existing?.id ?? id,
+        modxPath: doc.path,
+        target: parsedList.map((e) => `${e.recipe.year}-${e.recipe.id}`).join(','),
+        categorySource: 'predicted-or-manual',
       })
     }
-    audit.push({
-      type: 'new-rs-required',
-      modxContentId: doc.id,
-      modxPath: doc.path,
-      target: key,
-      categorySource: recipeByKey.has(key) ? 'existing-rs' : 'predicted-or-manual',
-    })
   }
 
   for (const key of losersToUnpublish) {
@@ -686,12 +756,14 @@ export async function runMagazinRecipeDedupe({ docs, applyLocal = false, createL
   const createReviewPayload = {
     generatedAt,
     instructions: 'Review parsed MODX->RS recipes before import/write.',
-    entries: createRecipes.map((entry) => ({
-      key: entry.key,
-      sourcePath: entry.sourcePath,
-      recipe: entry.recipe,
-      categoryDecision: entry.categoryDecision,
-    })),
+    entries: createRecipes
+      .filter((entry) => !recipeByKey.has(entry.key))
+      .map((entry) => ({
+        key: entry.key,
+        sourcePath: entry.sourcePath,
+        recipe: entry.recipe,
+        categoryDecision: entry.categoryDecision,
+      })),
   }
 
   const uncategorizedReviewPayload = {

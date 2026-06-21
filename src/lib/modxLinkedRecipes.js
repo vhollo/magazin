@@ -51,6 +51,19 @@ export function extractLinkedModxIds(html) {
 }
 
 /**
+ * Drop MODX ids that do not map to a published Receptsarok recipe — e.g. editorial
+ * hub pages linked from a series footer alongside real recipes.
+ * @param {number[]} ids
+ * @param {ReadonlySet<number>} [recipeModxIds]
+ * @returns {number[]}
+ */
+export function linkedModxIdsForRecipe(ids, recipeModxIds) {
+  if (!Array.isArray(ids)) return []
+  if (!(recipeModxIds instanceof Set) || recipeModxIds.size === 0) return [...ids]
+  return ids.filter((id) => recipeModxIds.has(Number(id)))
+}
+
+/**
  * Remove linked-recipe blocks (announcing heading + list, or the bare heading)
  * so their text never leaks into derived recipe instructions.
  * @param {string} [html]

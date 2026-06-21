@@ -41,6 +41,36 @@ export async function getChildModxIds(parentModxId: number): Promise<number[]> {
 	return snap.docs.map((d) => Number(d.get('id'))).filter((n) => Number.isFinite(n));
 }
 
+/**
+ * Sibling magazine recipe articles under the same MODX parent that redirect into
+ * Receptsarok — e.g. hypertonia/1601 hub (1689) listing four `recept` siblings.
+ */
+export async function getSiblingReceptModxIds(
+	parentModxId: number,
+	excludeModxId: number
+): Promise<number[]> {
+	const snap = await db
+		.collection('docs')
+		.where('parent', '==', parentModxId)
+		.select('id', 'tv', 'redirect')
+		.get();
+	return snap.docs
+		.map((d) => ({
+			id: Number(d.get('id')),
+			tags: (d.get('tv') as { tags?: string[] } | undefined)?.tags,
+			redirect: String(d.get('redirect') ?? '')
+		}))
+		.filter(
+			({ id, tags, redirect }) =>
+				Number.isFinite(id) &&
+				id !== excludeModxId &&
+				tags?.includes('recept') &&
+				redirect.startsWith('/receptsarok/')
+		)
+		.map(({ id }) => id)
+		.sort((a, b) => a - b);
+}
+
 export async function getMagazineCollection(slug: string): Promise<CollectionDoc | null> {
 	const snap = await db.collection('collections').doc(slug).get();
 	if (!snap.exists) return null;
