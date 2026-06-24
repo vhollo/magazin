@@ -1,7 +1,8 @@
 import { decodeHtmlEntities } from './htmlEntities.js'
 import { extractLinkedModxIds, linkedModxIdsForRecipe, stripLinkedRecipeBlocks } from './modxLinkedRecipes.js'
+import { extractAlairasAuthor, extractReceptjeAuthor, extractPhotoCredit } from './modxAuthor.js'
 
-const DEFAULT_NUTRITION_LABEL = '1 adag energia- es tapanyagtartalma:'
+const DEFAULT_NUTRITION_LABEL = '1 adag energia- és tápanyagtartalma:'
 
 function normalizeReadableText(value) {
   return decodeHtmlEntities(String(value ?? ''))
@@ -472,12 +473,23 @@ function parseNutritionTables(content) {
   return parseNutritionFromText(content)
 }
 
-function deriveAuthor(doc) {
+function deriveAuthor(doc, { allowDescription = true } = {}) {
   if (Array.isArray(doc?.tv?.szerzo) && doc.tv.szerzo.length > 0) {
     const first = doc.tv.szerzo[0]
     const fromTv = typeof first?.name === 'string' ? first.name.trim() : ''
     if (fromTv) return fromTv
   }
+  // A per-recipe "X receptje" heading names the recipe's own author and wins over
+  // the article's `alairas` (which may be the journalist who wrote the feature).
+  const fromReceptje = extractReceptjeAuthor(doc?.content ?? '')
+  if (fromReceptje) return fromReceptje
+  // Footer signature byline (collection articles like recept-sarok) — a strong
+  // author signal, preferred over the description heuristic which on collections
+  // often holds an intro/quote rather than the author.
+  const fromAlairas = extractAlairasAuthor(doc?.content ?? '')
+  if (fromAlairas) return fromAlairas
+  // On collection articles the description is an intro/award, not an author — skip it.
+  if (!allowDescription) return ''
   const description = stripHtml(doc?.description ?? '')
   if (!description) return ''
   return description
@@ -561,18 +573,40 @@ function uniqueByNormalized(values) {
   return out
 }
 
-function deriveInstructions(content) {
-  // Drop image markup (e.g. the next dish's lead-in `<figure><figcaption>`) and the
-  // trailing "További receptek" linked-recipe blocks so their text never leaks into
-  // this recipe's instructions.
-  const cleaned = stripLinkedRecipeBlocks(String(content ?? '')).replace(
-    /<figure\b[\s\S]*?<\/figure>/gi,
-    ' '
+// Lines that are never a cooking step — facts/footers/headers some imports leak into
+// the instruction flow; dropped from derived `instructions`:
+//   • nutrition summary, shorthand "E.: 225 kcal Sz.: … Fehérje: … Zsír: …"        (2008 `enni-jo`)
+//     or prose "Energia- és tápanyagtartalom 1 szeletben: energia: 122 kcal (510 kJ), …" (2014 junior)
+//   • per-piece disclaimer "A feltüntetett értékek … egy darabra vonatkoznak."
+//   • a leaked ingredients header "Hozzávalók 10 …hoz:" — the items live in `ingredientGroups`
+//     (`\b` so it matches the header forms but not a step like "Hozzávalókat összekeverjük")
+const NUTRITION_SHORTHAND_RE = /^\s*E\.?\s*:?\s*\d+(?:[.,]\d+)?\s*kcal\b/i
+const NUTRITION_PROSE_RE = /^\s*energia-?\s*és\s*t[áa]panyagtartal(?:om|ma)\b/i
+const VALUE_DISCLAIMER_RE = /^\s*A feltüntetett értékek\b[\s\S]*vonatkoznak\.?\s*$/i
+const INGREDIENTS_HEADER_RE = /^\s*Hozzávalók\b/i
+function isNonStepLine(text) {
+  return (
+    NUTRITION_SHORTHAND_RE.test(text) ||
+    NUTRITION_PROSE_RE.test(text) ||
+    VALUE_DISCLAIMER_RE.test(text) ||
+    INGREDIENTS_HEADER_RE.test(text)
   )
+}
+
+function deriveInstructions(content) {
+  // Drop image markup (e.g. the next dish's lead-in `<figure><figcaption>`), the
+  // article's `alairas` signature (author + "Fotó: …" byline, sits at the end of the
+  // last dish's block), and trailing "További receptek" linked-recipe blocks so their
+  // text never leaks into this recipe's instructions.
+  const cleaned = stripLinkedRecipeBlocks(String(content ?? ''))
+    .replace(/<p[^>]*class="alairas"[^>]*>[\s\S]*?<\/p>/gi, ' ')
+    .replace(/<figure\b[\s\S]*?<\/figure>/gi, ' ')
   const instructionHtml = deriveInstructionsHtml(cleaned)
   if (instructionHtml) {
     // Preserve full imported MODX instruction flow (including heading/list text).
-    const lines = htmlToTextLines(instructionHtml).filter((text) => text.length > 1)
+    const lines = htmlToTextLines(instructionHtml).filter(
+      (text) => text.length > 1 && !isNonStepLine(text)
+    )
     return uniqueByNormalized(lines)
   }
   const source = instructionHtml || cleaned
@@ -587,7 +621,7 @@ function deriveInstructions(content) {
   const instructionItems = orderedListItems
   // Avoid flattening full HTML (tables, ingredient lists, side lists) into instructions.
   const steps = [...paragraphs, ...instructionItems, ...divLines].filter(
-    (text) => text.length > 6
+    (text) => text.length > 6 && !isNonStepLine(text)
   )
   return uniqueByNormalized(steps)
 }
@@ -596,6 +630,9 @@ function htmlToTextLines(content) {
   if (!content) return []
   const text = decodeHtmlEntities(
     String(content)
+      // Drop the article's `alairas` signature (author + "Fotó: …") — it sits at the
+      // end of the last dish's block but is a byline, never a recipe step.
+      .replace(/<p[^>]*class="alairas"[^>]*>[\s\S]*?<\/p>/gi, '')
       .replace(/<br\s*\/?>/gi, '\n')
       .replace(/<\/(p|div|li|h[1-6]|tr)>/gi, '\n')
       .replace(/<[^>]+>/g, '')
@@ -987,6 +1024,27 @@ function idSlugFromRecipeTitle(title) {
 }
 
 /**
+ * Pull a trailing serving count out of a dish heading:
+ *   "Margit tészta (45 darab)" → { title: "Margit tészta", servings: { amount: 45, unit: "darab" } }
+ * Returns `servings: null` when there is no recognised "(N unit)" yield (so a real
+ * parenthetical like "Csirke (sült)" is left in the title).
+ */
+function extractTitleServings(title) {
+  const m = String(title ?? '').match(
+    /^(.*?)\s*\((\d+)\s*(darab|db|szelet|adag|fő|fo|személy|szemely|gombóc|gomboc|pohár|pohar)\)\s*$/i
+  )
+  if (!m) return { title: String(title ?? '').trim(), servings: null }
+  return { title: m[1].trim(), servings: { amount: Number(m[2]), unit: m[3].toLowerCase() } }
+}
+
+/** Stamp the article's "Fotó: …" credit onto the recipe image's caption (when unset). */
+function applyPhotoCredit(recipe, content) {
+  if (!recipe?.img || recipe.img.caption) return
+  const credit = extractPhotoCredit(content)
+  if (credit) recipe.img = { ...recipe.img, caption: credit }
+}
+
+/**
  * When MODX content is only multiple complete mini-recipes (no main Hozzávalók / Elkészítés shell),
  * returns one `{ recipe, categoryDecision }` per dish. Otherwise returns a single-item array (same as {@link buildRecipeFromModxDoc}).
  *
@@ -1020,8 +1078,9 @@ export function buildRecipesFromModxDoc(doc, options) {
   const usedIds = new Set()
   const out = []
   for (const sub of subRecipes) {
-    const subTitle = String(sub.title ?? '').trim()
-    if (!subTitle) continue
+    const rawTitle = String(sub.title ?? '').trim()
+    if (!rawTitle) continue
+    const { title: subTitle, servings: titleServings } = extractTitleServings(rawTitle)
 
     let id = idSlugFromRecipeTitle(subTitle)
     let uniqueId = id
@@ -1057,9 +1116,9 @@ export function buildRecipesFromModxDoc(doc, options) {
       id: uniqueId,
       year,
       title: subTitle,
-      author: deriveAuthor(doc),
+      author: deriveAuthor(doc, { allowDescription: false }),
       category: categoryDecision.category || '',
-      servings: sub.servings,
+      servings: titleServings ?? sub.servings,
       energy: firstNutrition.energy ?? null,
       protein: firstNutrition.protein ?? null,
       fat: firstNutrition.fat ?? null,
@@ -1081,6 +1140,7 @@ export function buildRecipesFromModxDoc(doc, options) {
       free: true,
       video: deriveVideo(doc, content),
     }
+    applyPhotoCredit(recipe, content)
     const sourceModxId = Number(doc?.id)
     if (Number.isFinite(sourceModxId)) {
       recipe.sourceModxId = sourceModxId
@@ -1207,6 +1267,7 @@ export function buildRecipeFromModxDoc(doc, options) {
     free: true,
     video: deriveVideo(doc, content),
   }
+  applyPhotoCredit(recipe, content)
   const sourceModxId = Number(doc?.id)
   if (Number.isFinite(sourceModxId)) {
     recipe.sourceModxId = sourceModxId

@@ -1,0 +1,8 @@
+{
+  "note": "Manual category overrides for magazine collection recipes whose category the predictor could not resolve. Keyed by {year}/{id}. Categories: levesek, zoldsegetelek, haletelek, husetelek, egytaletelek, koretek-italok-hidegkonyha, sos-edes-sutemenyek-desszertek-tesztak.",
+  "entries": [
+    { "year": 2014, "id": "dioba-forgatott-almas-repas-gombockak", "category": "sos-edes-sutemenyek-desszertek-tesztak" },
+    { "year": 2015, "id": "feherjeszegeny-palacsinta", "category": "sos-edes-sutemenyek-desszertek-tesztak" },
+    { "year": 2016, "id": "epres-joghurt", "category": "sos-edes-sutemenyek-desszertek-tesztak" }
+  ]
+}

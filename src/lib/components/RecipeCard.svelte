@@ -35,7 +35,7 @@
   })()
 </script>
 
-<a {href} class="card card-sm bg-base-200 rounded-sm hover:shadow-lg transition-shadow max-h-fit">
+<a {href} class="card card-sm bg-base-300 rounded-sm hover:shadow-lg transition-shadow max-h-fit">
   {#if cardVideo}
     <figure class="rounded-t">
       <!-- svelte-ignore a11y_media_has_caption -->
@@ -96,6 +96,8 @@
     <div class="card-actions justify-between items-center mt-4">
       {#if recipe.servings?.amount}
         <small class="opacity-50">{recipe.servings.amount} {recipe.servings.unit}</small>
+        {:else}
+          <span></span>
       {/if}
       <div class="flex gap-1">
         {#if free}

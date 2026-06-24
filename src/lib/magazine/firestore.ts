@@ -5,6 +5,9 @@ import { collectionQueries } from '$lib/modx/collections';
 
 export type MagazineArticle = DocLike & {
 	relatedCards?: ThinCard[];
+	/** Precomputed recipe-group keys (`{year}-{id}`); replaces the tag-based grid when set. */
+	related?: string[];
+	linkedModxIds?: number[];
 };
 
 export type CollectionDoc = {

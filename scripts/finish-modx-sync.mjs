@@ -12,8 +12,18 @@ import {
   loadProjectionDocsForSync,
   uploadProjectionSnapshot,
 } from './lib/firestore-docs.mjs'
+import { loadRecipesFromJson } from './lib/receptsarok-redirect-match.mjs'
+import { loadRedirectsManifest } from './lib/receptsarok-redirects-manifest.mjs'
+import {
+  buildRecipeKeyByModxId,
+  syncRecipeRelatedCards,
+  relatedWriteIds,
+  updateDocRelatedRecipes,
+} from './lib/related-recipe-cards.mjs'
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
+const RS_REDIRECTS_PATH = path.join(root, 'src/lib/data/receptsarok-redirects.json')
+const RECIPES_JSON_PATH = path.join(root, 'src/lib/data/recipes.json')
 const META_SYNC_DOC = 'sync'
 
 async function main() {
@@ -50,6 +60,26 @@ async function main() {
     collectionsMod
   )
 
+  // Recipe-group related fields (uniform with sync:modx).
+  const recipes = loadRecipesFromJson(RECIPES_JSON_PATH)
+  const manifestEntries = loadRedirectsManifest(RS_REDIRECTS_PATH).entries
+  const relatedCardsSync = await syncRecipeRelatedCards({
+    recipes,
+    manifestEntries,
+    recipesJsonPath: RECIPES_JSON_PATH,
+    firestore,
+    apply: true,
+  })
+  const { publishedKeys, bySourceModxId } = buildRecipeKeyByModxId(recipes, manifestEntries)
+  const docRelatedUpdated = await updateDocRelatedRecipes({
+    firestore,
+    projectionDocs,
+    workingById,
+    idsToWrite: relatedWriteIds({ changedIds: new Set(), projectionDocs, workingById, isFullSync: true }),
+    publishedKeys,
+    bySourceModxId,
+  })
+
   const lastEdit = projectionDocs.reduce(
     (max, doc) => (Number(doc.editedon) > max ? Number(doc.editedon) : max),
     0
@@ -60,7 +90,7 @@ async function main() {
   )
 
   console.log(
-    `finish complete: docs=${projectionDocs.length}, listed=${listedDocs.length}, relatedCards=${relatedUpdated}, search v${searchIndex.version}, lastEdit=${lastEdit}`
+    `finish complete: docs=${projectionDocs.length}, listed=${listedDocs.length}, relatedCards=${relatedUpdated}, recipeRelated=${relatedCardsSync.updated}, docRelated=${docRelatedUpdated}, search v${searchIndex.version}, lastEdit=${lastEdit}`
   )
 }
 

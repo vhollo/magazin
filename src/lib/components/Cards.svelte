@@ -68,7 +68,7 @@
           <RecipeCard recipe={card.recipeTeaser} locked={Boolean(card.locked)} />
         </aside>
       {:else}
-        <aside in:fade={{ duration: 1000 }} use:masonryItem class="card card-sm gap-2 rounded-sm bg-base-200" style="order:{i}">
+        <aside in:fade={{ duration: 1000 }} use:masonryItem class="card card-sm gap-2 rounded-sm bg-base-300" style="order:{i}">
           <CardV {card}/>
         </aside>
       {/if}

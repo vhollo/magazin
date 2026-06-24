@@ -1,12 +1,23 @@
 {
-  "generatedAt": "2026-06-10T12:20:36.795Z",
+  "generatedAt": "2026-06-21T18:34:44.685Z",
   "sourceRecipes": "src/lib/data/recipes.json",
   "summary": {
     "applyLocal": false,
-    "publishedRecipes": 1764,
-    "duplicateClusters": 0,
-    "losersUnpublished": 0,
+    "publishedRecipes": 1810,
+    "duplicateClusters": 1,
+    "losersUnpublished": 1,
     "winnersFreed": 0
   },
-  "entries": []
+  "entries": [
+    {
+      "title": "Málnás joghurthab",
+      "winner": "2018-malnas-joghurthab",
+      "reason": "year",
+      "clusterSize": 2,
+      "matched": [
+        "2017-malnas-joghurthab",
+        "2018-malnas-joghurthab"
+      ]
+    }
+  ]
 }

@@ -1,4 +1,9 @@
-import { linkedRecipesFor, similarRecipesFor } from '$lib/server/similarRecipes'
+import {
+  linkedRecipesFor,
+  similarRecipesFor,
+  relatedRecipesByKey,
+  recipesBySourceModxId,
+} from '$lib/server/similarRecipes'
 import { getChildModxIds, getSiblingReceptModxIds } from '$lib/magazine/firestore'
 import type { RecipeLayoutEntry } from '$lib/receptsarok'
 import type { PageServerLoad } from './$types'
@@ -12,6 +17,8 @@ type WidgetDoc = {
   tv?: { tags?: string[] }
   /** Curated "További receptek" MODX ids, set by the sync transform. */
   linkedModxIds?: number[]
+  /** Precomputed recipe-group keys (`{year}-{id}`), set at sync. */
+  related?: string[]
 }
 
 export const load: PageServerLoad = async ({ parent }) => {
@@ -19,6 +26,24 @@ export const load: PageServerLoad = async ({ parent }) => {
   const d = doc as WidgetDoc
   if (d?.redirect) {
     return { rsWidgetRecipes: [] as RecipeLayoutEntry[], rsWidgetLinked: false }
+  }
+
+  // Precomputed recipe link group wins (e.g. an editorial hub whose body lists
+  // its sibling recipes). Falls through to runtime detection when unset.
+  if (d.related?.length) {
+    const relatedCards = await relatedRecipesByKey(d.related)
+    if (relatedCards.length) {
+      return { rsWidgetRecipes: relatedCards, rsWidgetLinked: true }
+    }
+  }
+
+  // A multi-recipe collection article ("gyűjtőcikk") relates to the dishes split
+  // out of its own body (recipe.sourceModxId == this doc's id) — mirrors the sync.
+  if (d.id != null) {
+    const derived = await recipesBySourceModxId(Number(d.id))
+    if (derived.length) {
+      return { rsWidgetRecipes: derived, rsWidgetLinked: true }
+    }
   }
 
   let linkedIds = d.linkedModxIds ?? []

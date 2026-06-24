@@ -18,7 +18,7 @@
  * Usage:
  *   node scripts/sync-modx-to-firestore.mjs          # incremental
  *   node scripts/sync-modx-to-firestore.mjs --full   # one-time backfill (lastEdit ignored)
- *   node scripts/sync-modx-to-firestore.mjs --skip-rs-collections  # skip rs-home rebuild after free-flag updates
+ *   node scripts/sync-modx-to-firestore.mjs --references-only  # backfill root weblink/reference redirects only
  *
  * Env: MODXDB_*, FIREBASE_ADMIN_KEY, FIREBASE_STORAGE_BUCKET, PUBLIC_BASE_URL (optional)
  * Optional: NETLIFY_SITE_ID, NETLIFY_ACCESS_TOKEN (edge-cache purge)
@@ -56,12 +56,20 @@ import {
 import {
   appendRedirectsManifest,
   registerRedirectEntries,
+  loadRedirectsManifest,
 } from './lib/receptsarok-redirects-manifest.mjs'
+import {
+  buildRecipeKeyByModxId,
+  syncRecipeRelatedCards,
+  relatedWriteIds,
+  updateDocRelatedRecipes,
+} from './lib/related-recipe-cards.mjs'
 import { refreshReceptsarokRedirectsFromManifest } from './lib/refresh-receptsarok-redirects.mjs'
-import { isMagazineCandidate, shouldSyncRow } from './lib/magazine-scope.mjs'
+import { isMagazineCandidate, shouldSyncRow, referenceTargetIds } from './lib/magazine-scope.mjs'
 import { parseModxSavePayload, classifyPayload } from './lib/modx-save-payload.mjs'
 
 const isFullSync = process.argv.includes('--full')
+const isReferencesOnly = process.argv.includes('--references-only')
 const skipRsCollections = process.argv.includes('--skip-rs-collections')
 const skipRedirectRefresh = process.argv.includes('--skip-redirect-refresh')
 const isFromPayload = process.argv.includes('--from-payload') || !!process.env.MODX_SYNC_PAYLOAD
@@ -80,6 +88,50 @@ const forceModxDocId = (() => {
   const fromEnv = Number(process.env.MODX_FORCE_DOC_ID)
   return Number.isFinite(fromEnv) && fromEnv > 0 ? fromEnv : 0
 })()
+
+const rootReferenceTypeFilter = or(
+  eq(modx_site_content.type, 'reference'),
+  eq(modx_site_content.type, 'weblink')
+)
+
+/** Published root weblink/reference rows with a numeric MODX target id. */
+/** @param {typeof modx_site_content.$inferSelect[]} rows */
+function syncableReferenceRows(rows) {
+  return rows.filter((row) => shouldSyncRow(row))
+}
+
+/** @param {import('drizzle-orm/mysql2').MySql2Database} modxdb */
+async function queryChangedReferenceRows(modxdb, lastEdit) {
+  const rows = await modxdb
+    .select()
+    .from(modx_site_content)
+    .where(
+      and(
+        gt(modx_site_content.editedon, lastEdit),
+        eq(modx_site_content.deleted, 0),
+        eq(modx_site_content.published, 1),
+        eq(modx_site_content.parent, 0),
+        rootReferenceTypeFilter
+      )
+    )
+  return syncableReferenceRows(rows)
+}
+
+/** @param {import('drizzle-orm/mysql2').MySql2Database} modxdb */
+async function queryAllReferenceRows(modxdb) {
+  const rows = await modxdb
+    .select()
+    .from(modx_site_content)
+    .where(
+      and(
+        eq(modx_site_content.deleted, 0),
+        eq(modx_site_content.published, 1),
+        eq(modx_site_content.parent, 0),
+        rootReferenceTypeFilter
+      )
+    )
+  return syncableReferenceRows(rows)
+}
 
 /** @param {import('drizzle-orm/mysql2').MySql2Database} modxdb */
 async function queryChangedRows(modxdb, lastEdit) {
@@ -116,8 +168,10 @@ async function queryChangedRows(modxdb, lastEdit) {
       )
     )
 
+  const changedReferences = await queryChangedReferenceRows(modxdb, lastEdit)
+
   const byId = new Map()
-  for (const row of [...newDocs, ...modxSiteHirek]) {
+  for (const row of [...newDocs, ...modxSiteHirek, ...changedReferences]) {
     byId.set(row.id, row)
   }
   return [...byId.values()]
@@ -133,14 +187,19 @@ async function queryRemovedRows(modxdb, lastEdit) {
       and(
         // gte: catch unpublish saves that reuse the same editedon as a prior publish sync
         gte(modx_site_content.editedon, lastEdit),
-        eq(modx_site_content.type, 'document'),
         or(
-          eq(modx_site_content.id, 2797),
-          eq(modx_site_content.parent, 1),
           and(
-            ne(modx_site_content.parent, 1),
-            or(eq(modx_site_content.template, 9), eq(modx_site_content.template, 13))
-          )
+            eq(modx_site_content.type, 'document'),
+            or(
+              eq(modx_site_content.id, 2797),
+              eq(modx_site_content.parent, 1),
+              and(
+                ne(modx_site_content.parent, 1),
+                or(eq(modx_site_content.template, 9), eq(modx_site_content.template, 13))
+              )
+            )
+          ),
+          and(eq(modx_site_content.parent, 0), rootReferenceTypeFilter)
         )
       )
     )
@@ -237,8 +296,10 @@ async function queryAllRows(modxdb) {
       )
     )
 
+  const allReferences = await queryAllReferenceRows(modxdb)
+
   const byId = new Map()
-  for (const row of [...newDocs, ...modxSiteHirek]) {
+  for (const row of [...newDocs, ...modxSiteHirek, ...allReferences]) {
     byId.set(row.id, row)
   }
   return [...byId.values()]
@@ -250,7 +311,10 @@ async function queryAllRows(modxdb) {
  */
 async function expandRowsWithAncestors(modxdb, initialRows) {
   const byId = new Map(initialRows.map((row) => [row.id, row]))
-  let queue = initialRows.map((row) => row.parent).filter((parentId) => parentId > 0 && !byId.has(parentId))
+  let queue = [
+    ...initialRows.map((row) => row.parent).filter((parentId) => parentId > 0 && !byId.has(parentId)),
+    ...referenceTargetIds(initialRows).filter((targetId) => !byId.has(targetId)),
+  ]
 
   while (queue.length) {
     const batch = [...new Set(queue)]
@@ -347,6 +411,49 @@ async function processRow(
   existingRedirectsByModxId
 ) {
   const doc = structuredClone(rawRow)
+
+  if (modxTransform.isReferenceDoc(doc)) {
+    modxTransform.findPath(doc)
+    modxTransform.setReferenceRedirect(doc)
+    const processed = modxTransform.referenceDocFields(doc)
+    workingById.set(doc.id, processed)
+
+    if (!changedIds.has(doc.id)) {
+      return { written: false, processed }
+    }
+
+    if (!processed.path) {
+      console.warn(`skip write: reference id=${processed.id} has no path after transform`)
+      return { written: false, processed }
+    }
+    if (!processed.redirect) {
+      console.warn(
+        `skip write: reference id=${processed.id} alias=${processed.alias} has no resolvable redirect`
+      )
+      return { written: false, processed }
+    }
+
+    const docId = encodeDocPathId(processed.path)
+    await firestore.collection('docs').doc(docId).set(processed)
+    console.log(`  reference id=${processed.id} → ${processed.redirect}`)
+
+    let stalePaths = []
+    let staleReads = 0
+    if (!isFullSync) {
+      const stale = await deleteStaleDocsForId(firestore, doc.id, docId)
+      stalePaths = stale.paths
+      staleReads = stale.reads
+    }
+
+    return {
+      written: true,
+      processed,
+      docId,
+      stalePaths,
+      staleReads,
+    }
+  }
+
   const cached = workingById.get(doc.id)
 
   modxTransform.addTVs(doc)
@@ -426,6 +533,12 @@ async function processRow(
 function ensureRowInWorkingById(modxTransform, rawRow, workingById) {
   if (workingById.has(rawRow.id)) return
   const doc = structuredClone(rawRow)
+  if (modxTransform.isReferenceDoc(doc)) {
+    modxTransform.findPath(doc)
+    modxTransform.setReferenceRedirect(doc)
+    workingById.set(rawRow.id, modxTransform.referenceDocFields(doc))
+    return
+  }
   modxTransform.addTVs(doc)
   modxTransform.findPath(doc)
   if (doc.tv?.tags?.length > 0) modxTransform.extraTags(doc)
@@ -703,18 +816,24 @@ async function main() {
     const modxdb = drizzle(connection)
 
     try {
-      changedRows = isFullSync
-        ? await queryAllRows(modxdb)
-        : await queryChangedRows(modxdb, lastEdit)
-      if (!isFullSync) {
-        removedRows = await queryRemovedRows(modxdb, lastEdit)
-        if (forceModxDocId > 0) {
-          const forced = await queryForcedRow(modxdb, forceModxDocId)
-          if (forced.reprocess.length > 0) {
-            changedRows = mergeRowsById(changedRows, forced.reprocess)
-          }
-          if (forced.remove.length > 0) {
-            removedRows = mergeRowsById(removedRows, forced.remove)
+      if (isReferencesOnly) {
+        changedRows = await queryAllReferenceRows(modxdb)
+        removedRows = []
+        console.log(`references-only backfill: ${changedRows.length} root weblink/reference row(s)`)
+      } else {
+        changedRows = isFullSync
+          ? await queryAllRows(modxdb)
+          : await queryChangedRows(modxdb, lastEdit)
+        if (!isFullSync) {
+          removedRows = await queryRemovedRows(modxdb, lastEdit)
+          if (forceModxDocId > 0) {
+            const forced = await queryForcedRow(modxdb, forceModxDocId)
+            if (forced.reprocess.length > 0) {
+              changedRows = mergeRowsById(changedRows, forced.reprocess)
+            }
+            if (forced.remove.length > 0) {
+              removedRows = mergeRowsById(removedRows, forced.remove)
+            }
           }
         }
       }
@@ -740,11 +859,15 @@ async function main() {
     )
     console.log(`rows to process (incl. ancestors): ${rowsToProcess.length}`)
 
-    tmplvarContentvalues = await modxdb.select().from(modx_site_tmplvar_contentvalues)
-    modxSzerzok = await modxdb
-      .select()
-      .from(modx_site_htmlsnippets)
-      .where(eq(modx_site_htmlsnippets.category, 24))
+    tmplvarContentvalues = isReferencesOnly
+      ? []
+      : await modxdb.select().from(modx_site_tmplvar_contentvalues)
+    modxSzerzok = isReferencesOnly
+      ? []
+      : await modxdb
+          .select()
+          .from(modx_site_htmlsnippets)
+          .where(eq(modx_site_htmlsnippets.category, 24))
 
     await connection.end()
   }
@@ -795,12 +918,10 @@ async function main() {
   /** @type {string[]} stale paths left behind by alias changes (incremental) */
   const renamedPaths = []
 
-  // Ancestors only: path resolution for changed/removed rows; never overlay unpublished rows.
-  if (removedRows.length > 0) {
-    for (const rawRow of rowsToProcess) {
-      if (changedIds.has(rawRow.id) || removedIds.has(rawRow.id)) continue
-      ensureRowInWorkingById(modxTransform, rawRow, workingById)
-    }
+  // Ancestors / reference targets: path resolution only; never overlay changed/removed rows.
+  for (const rawRow of rowsToProcess) {
+    if (changedIds.has(rawRow.id) || removedIds.has(rawRow.id)) continue
+    ensureRowInWorkingById(modxTransform, rawRow, workingById)
   }
 
   for (const rawRow of rowsToProcess) {
@@ -839,10 +960,27 @@ async function main() {
     }
     if (result.written) {
       written++
-      console.log(`  wrote docs/${result.docId} (id=${result.processed.id})`)
+      if (!modxTransform.isReferenceDoc(rawRow)) {
+        console.log(`  wrote docs/${result.docId} (id=${result.processed.id})`)
+      }
     } else {
       skipped++
     }
+  }
+
+  if (isReferencesOnly) {
+    /** @type {string[]} */
+    const purgePaths = []
+    for (const id of changedIds) {
+      const doc = workingById.get(id)
+      if (typeof doc?.path === 'string' && doc.path.length > 0) purgePaths.push(`/${doc.path}`)
+      if (typeof doc?.redirect === 'string' && doc.redirect.length > 0) purgePaths.push(doc.redirect)
+    }
+    const purgeResult = await purgeNetlifyPaths(purgePaths)
+    console.log(
+      `references backfill complete: wrote=${written}, skipped=${skipped}, purge=${purgeResult.skipped ? 'skipped' : purgeResult.ok ? `ok(${purgeResult.status})` : 'failed'}`
+    )
+    return
   }
 
   let deleted = staleDeleted
@@ -905,6 +1043,22 @@ async function main() {
     }
   }
 
+  // Recipe `relatedCards` (curated link groups): recompute from each recipe's
+  // own `linkedModxIds` and write changed recipes to recipes.json + Firestore.
+  const manifestEntries = loadRedirectsManifest(RS_REDIRECTS_PATH).entries
+  const relatedCardsSync = await syncRecipeRelatedCards({
+    recipes,
+    manifestEntries,
+    recipesJsonPath: RECIPES_JSON_PATH,
+    firestore,
+    apply: true,
+  })
+  if (relatedCardsSync.updated > 0) {
+    console.log(
+      `receptsarok relatedCards: updated ${relatedCardsSync.updated} recipe(s) → ${relatedCardsSync.keys.join(', ')}`
+    )
+  }
+
   const projectionResult = await loadProjectionDocsForSync(
     firestore,
     workingById,
@@ -952,6 +1106,29 @@ async function main() {
     idsForRelated,
     collectionsMod
   )
+
+  // Magazine `doc.related` (recipe link groups): for hubs/articles whose related
+  // list is a set of Receptsarok recipes (e.g. cikkek/hypertonia/1601/nyari-gyumolcsok),
+  // write the group's recipe keys. Resolved + rendered as recipe cards, and it
+  // suppresses the tag-based "Kapcsolódó cikkek" grid on the page.
+  const { publishedKeys, bySourceModxId } = buildRecipeKeyByModxId(recipes, manifestEntries)
+  const docRelatedIds = relatedWriteIds({
+    changedIds,
+    projectionDocs,
+    workingById,
+    isFullSync,
+  })
+  const docRelatedUpdated = await updateDocRelatedRecipes({
+    firestore,
+    projectionDocs,
+    workingById,
+    idsToWrite: docRelatedIds,
+    publishedKeys,
+    bySourceModxId,
+  })
+  if (docRelatedUpdated > 0) {
+    console.log(`doc.related (recipe groups): updated ${docRelatedUpdated} doc(s)`)
+  }
 
   const purgePaths = [
     ...[...changedIds]

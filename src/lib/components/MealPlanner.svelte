@@ -500,7 +500,7 @@
         class="input input-bordered w-full"
       />
       {#if searchResults.length > 0}
-        <div class="card bg-base-200 mt-1 max-h-[min(50vh,22rem)] overflow-y-auto overscroll-contain">
+        <div class="card bg-base-300 mt-1 max-h-[min(50vh,22rem)] overflow-y-auto overscroll-contain">
           {#each searchResults as recipe}
             <button
               class="flex items-center gap-2 p-2 hover:bg-base-300 w-full text-left"
@@ -540,7 +540,7 @@
         {:else}
           <div class="flex flex-col gap-2">
             {#each plan[activeDay] as recipe}
-              <div class="card card-side bg-base-200 p-2 rounded-sm">
+              <div class="card card-side bg-base-300 p-2 rounded-sm">
                 <div class="flex-1">
                   <a href={recipeDetailPath(recipe)} class="font-medium text-sm hover:underline">
                     {recipe.title}

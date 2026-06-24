@@ -1,13 +1,13 @@
 {
-  "generatedAt": "2026-06-20T22:29:10.413Z",
+  "generatedAt": "2026-06-21T19:11:25.078Z",
   "summary": {
     "magazineCandidates": 519,
-    "redirects": 503,
-    "unpublishCount": 6,
-    "createDrafts": 0,
-    "unresolvedCategoryDrafts": 9,
+    "redirects": 510,
+    "unpublishCount": 5,
+    "createDrafts": 3,
+    "unresolvedCategoryDrafts": 0,
     "applyLocal": false,
-    "createLocal": false
+    "createLocal": true
   },
   "entries": [
     {
@@ -137,31 +137,21 @@
       }
     },
     {
-      "type": "new-rs-category-unresolved",
+      "type": "rs-winner",
       "modxContentId": 4436,
       "modxPath": "junior/2015/cikkek/receptsarok/mandarinos-francia-palacsinta",
-      "target": "2015-mandarinos-francia-palacsinta",
+      "winner": "2015-mandarinos-francia-palacsinta",
+      "matched": [
+        "2015-mandarinos-francia-palacsinta"
+      ],
+      "reason": "id",
+      "categorySource": "winner-original",
       "categoryDecision": {
-        "resolved": false,
-        "category": null,
-        "categorySource": "unresolved",
-        "confidence": 0.4521212122401888,
-        "margin": 0.059670841660703966,
-        "matchedFeatures": [
-          {
-            "feature": "folyekony",
-            "score": 1.061199
-          },
-          {
-            "feature": "folyekony_edesitoszer",
-            "score": 1.025745
-          },
-          {
-            "feature": "nehany",
-            "score": 0.615098
-          }
-        ],
-        "reason": "below-threshold"
+        "category": "sos-edes-sutemenyek-desszertek-tesztak",
+        "confidence": 1,
+        "margin": 1,
+        "matchedFeatures": [],
+        "reason": "winner-original"
       }
     },
     {
@@ -714,22 +704,18 @@
       "reason": "id"
     },
     {
-      "type": "rs-alias-match",
+      "type": "existing-rs-key",
       "modxContentId": 4314,
       "modxPath": "cikkek/diabetes/nagymamaink-receptjei-modern-kontosben/csokitorta",
-      "winner": "2025-csokitorta",
-      "matched": [
-        "2025-csokitorta"
-      ],
-      "reason": "id"
+      "target": "2025-csokitorta"
     },
     {
       "type": "rs-alias-match",
       "modxContentId": 4307,
       "modxPath": "cikkek/diabetes/nagymamaink-receptjei-modern-kontosben/toltott-paprika",
-      "winner": "2009-toltott-paprika",
+      "winner": "2025-toltott-paprika",
       "matched": [
-        "2009-toltott-paprika"
+        "2025-toltott-paprika"
       ],
       "reason": "id"
     },
@@ -744,32 +730,14 @@
       "reason": "id"
     },
     {
-      "type": "new-rs-category-unresolved",
+      "type": "rs-alias-match",
       "modxContentId": 4293,
       "modxPath": "cikkek/diabetes/nagymamaink-receptjei-modern-kontosben/mogyorokremes-teljes-kiorlesu-minicsigak",
-      "target": "2025-mogyorokremes-teljes-kiorlesu-minicsigak",
-      "categoryDecision": {
-        "resolved": false,
-        "category": null,
-        "categorySource": "unresolved",
-        "confidence": 0.42483822413776273,
-        "margin": 0.2918798520218984,
-        "matchedFeatures": [
-          {
-            "feature": "kiorlesu",
-            "score": 0.578739
-          },
-          {
-            "feature": "teljes_kiorlesu",
-            "score": 0.578739
-          },
-          {
-            "feature": "teljes",
-            "score": 0.568614
-          }
-        ],
-        "reason": "below-threshold"
-      }
+      "winner": "2025-mogyorokremes-teljes-kiorlesu-minicsigak",
+      "matched": [
+        "2025-mogyorokremes-teljes-kiorlesu-minicsigak"
+      ],
+      "reason": "id"
     },
     {
       "type": "rs-alias-match",
@@ -3405,23 +3373,21 @@
       }
     },
     {
-      "type": "new-rs-category-unresolved",
+      "type": "rs-winner",
       "modxContentId": 3297,
       "modxPath": "cikkek/diabetes/2103/nyari-receptek/cseresznyelekvar",
-      "target": "2021-cseresznyelekvar",
+      "winner": "2021-cseresznyelekvar",
+      "matched": [
+        "2021-cseresznyelekvar"
+      ],
+      "reason": "id",
+      "categorySource": "winner-original",
       "categoryDecision": {
-        "resolved": false,
-        "category": null,
-        "categorySource": "unresolved",
-        "confidence": 0.5403524796510886,
-        "margin": 0.3203639971750917,
-        "matchedFeatures": [
-          {
-            "feature": "eritrit",
-            "score": 2.829342
-          }
-        ],
-        "reason": "below-threshold"
+        "category": "koretek-italok-hidegkonyha",
+        "confidence": 1,
+        "margin": 1,
+        "matchedFeatures": [],
+        "reason": "winner-original"
       }
     },
     {
@@ -3507,23 +3473,21 @@
       }
     },
     {
-      "type": "new-rs-category-unresolved",
+      "type": "rs-winner",
       "modxContentId": 3275,
       "modxPath": "cikkek/diabetes/2103/nyari-receptek/kakukkfuves-narancsdzsem",
-      "target": "2021-kakukkfuves-narancsdzsem",
+      "winner": "2021-kakukkfuves-narancsdzsem",
+      "matched": [
+        "2021-kakukkfuves-narancsdzsem"
+      ],
+      "reason": "id",
+      "categorySource": "winner-original",
       "categoryDecision": {
-        "resolved": false,
-        "category": null,
-        "categorySource": "unresolved",
-        "confidence": 0.6194012733425205,
-        "margin": 0.49674122315155705,
-        "matchedFeatures": [
-          {
-            "feature": "cukormentes",
-            "score": 3.24691
-          }
-        ],
-        "reason": "below-threshold"
+        "category": "koretek-italok-hidegkonyha",
+        "confidence": 1,
+        "margin": 1,
+        "matchedFeatures": [],
+        "reason": "winner-original"
       }
     },
     {
@@ -3851,23 +3815,21 @@
       }
     },
     {
-      "type": "new-rs-category-unresolved",
+      "type": "rs-winner",
       "modxContentId": 3184,
       "modxPath": "cikkek/diabetes/2101/receptek-husvetra/repas-lepenykenyer",
-      "target": "2021-repas-lepenykenyer",
+      "winner": "2021-repas-lepenykenyer",
+      "matched": [
+        "2021-repas-lepenykenyer"
+      ],
+      "reason": "id",
+      "categorySource": "winner-original",
       "categoryDecision": {
-        "resolved": false,
-        "category": null,
-        "categorySource": "unresolved",
-        "confidence": 0.5480760631170578,
-        "margin": 0.33290497621750637,
-        "matchedFeatures": [
-          {
-            "feature": "eleszto",
-            "score": 3.620182
-          }
-        ],
-        "reason": "below-threshold"
+        "category": "sos-edes-sutemenyek-desszertek-tesztak",
+        "confidence": 1,
+        "margin": 1,
+        "matchedFeatures": [],
+        "reason": "winner-original"
       }
     },
     {
@@ -5787,25 +5749,19 @@
       "type": "rs-winner",
       "modxContentId": 2447,
       "modxPath": "cikkek/hypertonia/1802/toltott-paprika",
-      "winner": "2009-toltott-paprika",
+      "winner": "2025-toltott-paprika",
       "matched": [
-        "2009-toltott-paprika",
-        "2018-cukkinis-toltott-paprika",
+        "2025-toltott-paprika",
         "2019-zoldfuszeres-serteshussal-cukkinivel-es-kolessel-toltott-paprika"
       ],
       "reason": "year",
-      "categorySource": "predicted",
+      "categorySource": "winner-original",
       "categoryDecision": {
         "category": "husetelek",
         "confidence": 1,
         "margin": 1,
-        "matchedFeatures": [
-          {
-            "feature": "stuffed:hus",
-            "score": 999
-          }
-        ],
-        "reason": "tied-top-votes"
+        "matchedFeatures": [],
+        "reason": "winner-original"
       }
     },
     {
@@ -6777,8 +6733,7 @@
       "modxPath": "cikkek/diabetes/1801/parolt-spenot",
       "winner": "2018-parolt-spenot",
       "matched": [
-        "2018-parolt-spenot",
-        "2018-parolt-spenot-friss-sajttal"
+        "2018-parolt-spenot"
       ],
       "reason": "id",
       "categorySource": "winner-original",
@@ -6824,7 +6779,6 @@
       "modxPath": "cikkek/diabetes/1801/parolt-spenot-friss-sajttal",
       "winner": "2018-parolt-spenot",
       "matched": [
-        "2018-parolt-spenot-friss-sajttal",
         "2018-parolt-spenot"
       ],
       "reason": "id",
@@ -6910,27 +6864,21 @@
       }
     },
     {
-      "type": "new-rs-category-unresolved",
+      "type": "rs-winner",
       "modxContentId": 2075,
       "modxPath": "cikkek/diabetes/1706/cekla-sargarepa-narancs-smoothie",
-      "target": "2017-cekla-sargarepa-narancs-smoothie",
+      "winner": "2017-cekla-sargarepa-narancs-smoothie",
+      "matched": [
+        "2017-cekla-sargarepa-narancs-smoothie"
+      ],
+      "reason": "id",
+      "categorySource": "winner-original",
       "categoryDecision": {
-        "resolved": false,
-        "category": null,
-        "categorySource": "unresolved",
-        "confidence": 0.42488348838828993,
-        "margin": 0.0036806419125732792,
-        "matchedFeatures": [
-          {
-            "feature": "cekla",
-            "score": 1.753431
-          },
-          {
-            "feature": "narancs",
-            "score": 0.893255
-          }
-        ],
-        "reason": "below-threshold"
+        "category": "koretek-italok-hidegkonyha",
+        "confidence": 1,
+        "margin": 1,
+        "matchedFeatures": [],
+        "reason": "winner-original"
       }
     },
     {
@@ -7386,24 +7334,10 @@
       "target": "2017-almas-szelet"
     },
     {
-      "type": "new-rs-category-unresolved",
+      "type": "existing-rs-key",
       "modxContentId": 1953,
       "modxPath": "cikkek/diabetes/1703/nagy-margit-gyumolcsos-receptjei",
-      "target": "2017-ribiszkemartas",
-      "categoryDecision": {
-        "resolved": false,
-        "category": null,
-        "categorySource": "unresolved",
-        "confidence": 0.30511741124942565,
-        "margin": 0.12498313051517998,
-        "matchedFeatures": [
-          {
-            "feature": "liszt_tej",
-            "score": 1.490193
-          }
-        ],
-        "reason": "below-threshold"
-      }
+      "target": "2017-ribiszkemartas"
     },
     {
       "type": "existing-rs-key",
@@ -7454,24 +7388,10 @@
       "target": "2017-narancsos-savanyu-kaposzta"
     },
     {
-      "type": "new-rs-category-unresolved",
+      "type": "existing-rs-key",
       "modxContentId": 1953,
       "modxPath": "cikkek/diabetes/1703/nagy-margit-gyumolcsos-receptjei",
-      "target": "2017-almagomboc",
-      "categoryDecision": {
-        "resolved": false,
-        "category": null,
-        "categorySource": "unresolved",
-        "confidence": 0.4825087971613983,
-        "margin": 0.31641249401749694,
-        "matchedFeatures": [
-          {
-            "feature": "fahejas",
-            "score": 2.942758
-          }
-        ],
-        "reason": "below-threshold"
-      }
+      "target": "2017-almagomboc"
     },
     {
       "type": "rs-winner",
@@ -8195,22 +8115,13 @@
         "2014-parazslo-sutotokpure-voroscurry-martassal-es-rozmaringos-grillkolbaszkakkal"
       ],
       "reason": "id",
-      "categorySource": "predicted",
+      "categorySource": "winner-original",
       "categoryDecision": {
         "category": "zoldsegetelek",
         "confidence": 1,
         "margin": 1,
-        "matchedFeatures": [
-          {
-            "feature": "ingredientProof:sutotok",
-            "score": 999
-          },
-          {
-            "feature": "ingredientProof:tok",
-            "score": 999
-          }
-        ],
-        "reason": "no-loser-votes"
+        "matchedFeatures": [],
+        "reason": "winner-original"
       }
     },
     {
@@ -8322,47 +8233,21 @@
       }
     },
     {
-      "type": "new-rs-category-unresolved",
+      "type": "rs-winner",
       "modxContentId": 1221,
       "modxPath": "cikkek/diabetes/1404/currys-repatorta-hajdinaval",
-      "target": "2014-currys-repatorta-hajdinaval",
+      "winner": "2014-currys-repatorta-hajdinaval",
+      "matched": [
+        "2014-currys-repatorta-hajdinaval"
+      ],
+      "reason": "id",
+      "categorySource": "winner-original",
       "categoryDecision": {
-        "resolved": false,
-        "category": null,
-        "categorySource": "unresolved",
-        "confidence": 0.3651416413491207,
-        "margin": 0.08070112661061307,
-        "matchedFeatures": [
-          {
-            "feature": "curry",
-            "score": 1.457381
-          },
-          {
-            "feature": "sargarepa",
-            "score": 1.407536
-          },
-          {
-            "feature": "viz",
-            "score": 1.088228
-          },
-          {
-            "feature": "piritott",
-            "score": 1.009524
-          },
-          {
-            "feature": "szem",
-            "score": 0.496635
-          },
-          {
-            "feature": "nagy",
-            "score": 0.16266
-          },
-          {
-            "feature": "kakukkfu",
-            "score": 0.116628
-          }
-        ],
-        "reason": "below-threshold"
+        "category": "sos-edes-sutemenyek-desszertek-tesztak",
+        "confidence": 1,
+        "margin": 1,
+        "matchedFeatures": [],
+        "reason": "winner-original"
       }
     },
     {
@@ -8446,11 +8331,12 @@
       "type": "rs-winner",
       "modxContentId": 1078,
       "modxPath": "cikkek/diabetes/1402/joghurtos-panna-cotta-citromfuvel-es-erdeiszamoca-ontettel",
-      "winner": "2014-joghurtos-panna-cotta-citromfuvel-es-erdeiszamoca-ontettel",
+      "winner": "2016-panna-cotta",
       "matched": [
-        "2014-joghurtos-panna-cotta-citromfuvel-es-erdeiszamoca-ontettel"
+        "2014-joghurtos-panna-cotta-citromfuvel-es-erdeiszamoca-ontettel",
+        "2016-panna-cotta"
       ],
-      "reason": "id",
+      "reason": "year",
       "categorySource": "winner-original",
       "categoryDecision": {
         "category": "sos-edes-sutemenyek-desszertek-tesztak",
@@ -8549,6 +8435,216 @@
         "matchedFeatures": [],
         "reason": "winner-original"
       }
+    },
+    {
+      "type": "new-rs-collection-split",
+      "modxContentId": 399,
+      "modxPath": "cikkek/diabetes/0803/enni-jo",
+      "sourceAlias": "enni-jo",
+      "targets": [
+        "2008-margit-teszta",
+        "2008-esterhazy-torta",
+        "2008-malnas-gyumolcsszelet"
+      ]
+    },
+    {
+      "type": "new-rs-required",
+      "modxContentId": 399,
+      "modxPath": "cikkek/diabetes/0803/enni-jo",
+      "target": "2008-margit-teszta,2008-esterhazy-torta,2008-malnas-gyumolcsszelet",
+      "categorySource": "predicted-or-manual"
+    },
+    {
+      "type": "existing-rs-key",
+      "modxContentId": 1040,
+      "modxPath": "junior/2014/cikkek/otletek-zsurokra-bulikra",
+      "target": "2014-dioba-forgatott-almas-repas-gombockak"
+    },
+    {
+      "type": "existing-rs-key",
+      "modxContentId": 1040,
+      "modxPath": "junior/2014/cikkek/otletek-zsurokra-bulikra",
+      "target": "2014-kokuszba-forgatott-turogolyok"
+    },
+    {
+      "type": "existing-rs-key",
+      "modxContentId": 1040,
+      "modxPath": "junior/2014/cikkek/otletek-zsurokra-bulikra",
+      "target": "2014-joghurtos-martogatos"
+    },
+    {
+      "type": "existing-rs-key",
+      "modxContentId": 1040,
+      "modxPath": "junior/2014/cikkek/otletek-zsurokra-bulikra",
+      "target": "2014-erdei-gyumolcsos-joghurttorta"
+    },
+    {
+      "type": "existing-rs-key",
+      "modxContentId": 1424,
+      "modxPath": "cikkek/diabetes/1502/a-veseszovodmeny-etrendi-kezeleserol",
+      "target": "2015-burgonyas-femi-ni-kenyer"
+    },
+    {
+      "type": "existing-rs-key",
+      "modxContentId": 1424,
+      "modxPath": "cikkek/diabetes/1502/a-veseszovodmeny-etrendi-kezeleserol",
+      "target": "2015-feherjeszegeny-palacsinta"
+    },
+    {
+      "type": "existing-rs-key",
+      "modxContentId": 1424,
+      "modxPath": "cikkek/diabetes/1502/a-veseszovodmeny-etrendi-kezeleserol",
+      "target": "2015-feherjeszegeny-tejfolos-langos"
+    },
+    {
+      "type": "existing-rs-key",
+      "modxContentId": 1500,
+      "modxPath": "cikkek/diabetes/1301/szivvel-fozni-a-szivunkert",
+      "target": "2013-sutoben-sult-hal-paradicsommal"
+    },
+    {
+      "type": "existing-rs-key",
+      "modxContentId": 1500,
+      "modxPath": "cikkek/diabetes/1301/szivvel-fozni-a-szivunkert",
+      "target": "2013-spenotos-toltott-burgonya"
+    },
+    {
+      "type": "existing-rs-key",
+      "modxContentId": 1614,
+      "modxPath": "cikkek/diabetes/1601/barackos-buborek",
+      "target": "2016-csokis-kaland"
+    },
+    {
+      "type": "existing-rs-key",
+      "modxContentId": 1614,
+      "modxPath": "cikkek/diabetes/1601/barackos-buborek",
+      "target": "2016-ribizlihabos-almas-reteges"
+    },
+    {
+      "type": "existing-rs-key",
+      "modxContentId": 1658,
+      "modxPath": "cikkek/diabetes/1602/kozeleg-az-eperszezon",
+      "target": "2016-epres-joghurttorta"
+    },
+    {
+      "type": "existing-rs-key",
+      "modxContentId": 1658,
+      "modxPath": "cikkek/diabetes/1602/kozeleg-az-eperszezon",
+      "target": "2016-ricottas-muffin"
+    },
+    {
+      "type": "existing-rs-key",
+      "modxContentId": 1658,
+      "modxPath": "cikkek/diabetes/1602/kozeleg-az-eperszezon",
+      "target": "2016-mini-eperbomba"
+    },
+    {
+      "type": "existing-rs-key",
+      "modxContentId": 1658,
+      "modxPath": "cikkek/diabetes/1602/kozeleg-az-eperszezon",
+      "target": "2016-eperpep"
+    },
+    {
+      "type": "existing-rs-key",
+      "modxContentId": 1658,
+      "modxPath": "cikkek/diabetes/1602/kozeleg-az-eperszezon",
+      "target": "2016-epres-joghurt"
+    },
+    {
+      "type": "existing-rs-key",
+      "modxContentId": 1658,
+      "modxPath": "cikkek/diabetes/1602/kozeleg-az-eperszezon",
+      "target": "2016-panna-cotta"
+    },
+    {
+      "type": "existing-rs-key",
+      "modxContentId": 1658,
+      "modxPath": "cikkek/diabetes/1602/kozeleg-az-eperszezon",
+      "target": "2016-epres-mascarpone"
+    },
+    {
+      "type": "existing-rs-key",
+      "modxContentId": 1658,
+      "modxPath": "cikkek/diabetes/1602/kozeleg-az-eperszezon",
+      "target": "2016-csirkemell-eperrel-es-parolt-rizzsel"
+    },
+    {
+      "type": "existing-rs-key",
+      "modxContentId": 1677,
+      "modxPath": "cikkek/diabetes/1603/nyari-husitok",
+      "target": "2016-dietas-fagylalt-es-jegkrem-egyszeruen"
+    },
+    {
+      "type": "existing-rs-key",
+      "modxContentId": 1677,
+      "modxPath": "cikkek/diabetes/1603/nyari-husitok",
+      "target": "2016-nyaresti-alkoholfogyasztas"
+    },
+    {
+      "type": "existing-rs-key",
+      "modxContentId": 1994,
+      "modxPath": "rendezveny/tura/diabetes-taborok-2017/accu-chek-fozoklub",
+      "target": "2017-csirkemell-foliaban-sutve"
+    },
+    {
+      "type": "existing-rs-key",
+      "modxContentId": 1994,
+      "modxPath": "rendezveny/tura/diabetes-taborok-2017/accu-chek-fozoklub",
+      "target": "2017-zoldseges-koles"
+    },
+    {
+      "type": "existing-rs-key",
+      "modxContentId": 1994,
+      "modxPath": "rendezveny/tura/diabetes-taborok-2017/accu-chek-fozoklub",
+      "target": "2017-friss-vegyes-salata"
+    },
+    {
+      "type": "existing-rs-key",
+      "modxContentId": 1994,
+      "modxPath": "rendezveny/tura/diabetes-taborok-2017/accu-chek-fozoklub",
+      "target": "2017-bakonyi-betyarleves"
+    },
+    {
+      "type": "existing-rs-key",
+      "modxContentId": 1994,
+      "modxPath": "rendezveny/tura/diabetes-taborok-2017/accu-chek-fozoklub",
+      "target": "2017-amarantgolyo"
+    },
+    {
+      "type": "existing-rs-key",
+      "modxContentId": 1994,
+      "modxPath": "rendezveny/tura/diabetes-taborok-2017/accu-chek-fozoklub",
+      "target": "2017-kuszkusz"
+    },
+    {
+      "type": "existing-rs-key",
+      "modxContentId": 2032,
+      "modxPath": "cikkek/diabetes/1705/accu-chek-fozoklub",
+      "target": "2017-orias-kagyloteszta-ricottaval-es-spenottal-toltve-fuszeres-paradicsomszoszban"
+    },
+    {
+      "type": "existing-rs-key",
+      "modxContentId": 2032,
+      "modxPath": "cikkek/diabetes/1705/accu-chek-fozoklub",
+      "target": "2017-serpenyos-brokkolis-csirkemell"
+    },
+    {
+      "type": "existing-rs-key",
+      "modxContentId": 2032,
+      "modxPath": "cikkek/diabetes/1705/accu-chek-fozoklub",
+      "target": "2017-teljes-kiorlesu-muffin"
+    },
+    {
+      "type": "existing-rs-key",
+      "modxContentId": 4198,
+      "modxPath": "junior/2025/dr-almassy-zsuzsanna",
+      "target": "2025-lechon-asado-con-moros-y-cristianos-sult-boros-malac-fekete-babos-rizzsel"
+    },
+    {
+      "type": "existing-rs-key",
+      "modxContentId": 4198,
+      "modxPath": "junior/2025/dr-almassy-zsuzsanna",
+      "target": "2025-vietnami-tavaszi-tekercs"
     }
   ]
 }

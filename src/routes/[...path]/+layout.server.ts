@@ -59,7 +59,12 @@ export const load: LayoutServerLoad = async ({ params, setHeaders }) => {
 	}
 
 	const articleTags: string[] = (doc.tv?.tags as string[]) ?? [];
-	const docs = await similarCards(doc, articleTags, bestCollectionSlug(articleTags));
+	// A precomputed recipe link group (`doc.related`) replaces the tag-based
+	// "Kapcsolódó cikkek" grid — the recipes render via the ReceptsarokWidget instead.
+	const hasRelatedRecipes = Array.isArray(doc.related) && doc.related.length > 0;
+	const docs = hasRelatedRecipes
+		? []
+		: await similarCards(doc, articleTags, bestCollectionSlug(articleTags));
 
 	return { doc, docs };
 };

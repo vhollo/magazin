@@ -61,7 +61,7 @@
 
   {#if expanded}
     {#if hasAccess}
-      <div class="card bg-base-200 p-4 mt-2">
+      <div class="card bg-base-300 p-4 mt-2">
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <label class="form-control">
             <span class="label-text text-xs">Max. energia (kcal) {filters.maxEnergy > 0 ? `≤ ${filters.maxEnergy}` : ''}</span>

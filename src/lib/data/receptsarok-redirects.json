@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-20T22:29:10.413Z",
+  "generatedAt": "2026-06-21T19:11:25.078Z",
   "sourceDocs": "scripts/data/data.json",
   "sourceRecipes": "src/lib/data/recipes.json",
   "entries": [
@@ -36,8 +36,8 @@
     {
       "modxContentId": 1078,
       "path": "cikkek/diabetes/1402/joghurtos-panna-cotta-citromfuvel-es-erdeiszamoca-ontettel",
-      "year": 2014,
-      "id": "joghurtos-panna-cotta-citromfuvel-es-erdeiszamoca-ontettel"
+      "year": 2016,
+      "id": "panna-cotta"
     },
     {
       "modxContentId": 1079,
@@ -68,6 +68,12 @@
       "path": "cikkek/diabetes/1404/azsiai-zoldsegleves-hajdinaval",
       "year": 2014,
       "id": "azsiai-zoldsegleves-hajdinaval"
+    },
+    {
+      "modxContentId": 1221,
+      "path": "cikkek/diabetes/1404/currys-repatorta-hajdinaval",
+      "year": 2014,
+      "id": "currys-repatorta-hajdinaval"
     },
     {
       "modxContentId": 1222,
@@ -452,6 +458,12 @@
       "path": "cikkek/diabetes/1706/almas-ceklaleves",
       "year": 2025,
       "id": "almas-ceklaleves-fahejas-parolt-almakockakkal"
+    },
+    {
+      "modxContentId": 2075,
+      "path": "cikkek/diabetes/1706/cekla-sargarepa-narancs-smoothie",
+      "year": 2017,
+      "id": "cekla-sargarepa-narancs-smoothie"
     },
     {
       "modxContentId": 2071,
@@ -1492,6 +1504,12 @@
       "id": "narancsos-nyulgerinc-burgonyarozsaval"
     },
     {
+      "modxContentId": 3184,
+      "path": "cikkek/diabetes/2101/receptek-husvetra/repas-lepenykenyer",
+      "year": 2021,
+      "id": "repas-lepenykenyer"
+    },
+    {
       "modxContentId": 3173,
       "path": "cikkek/diabetes/2101/receptek-husvetra/szenhidratcsokkentett-sos-kalacs",
       "year": 2021,
@@ -1594,6 +1612,12 @@
       "id": "sos-zoldfuszeres-sarga-turo"
     },
     {
+      "modxContentId": 3297,
+      "path": "cikkek/diabetes/2103/nyari-receptek/cseresznyelekvar",
+      "year": 2021,
+      "id": "cseresznyelekvar"
+    },
+    {
       "modxContentId": 3274,
       "path": "cikkek/diabetes/2103/nyari-receptek/cukormentes-meggyleves",
       "year": 2021,
@@ -1610,6 +1634,12 @@
       "path": "cikkek/diabetes/2103/nyari-receptek/fahejas-reszelt-alma",
       "year": 2021,
       "id": "fahejas-reszelt-alma"
+    },
+    {
+      "modxContentId": 3275,
+      "path": "cikkek/diabetes/2103/nyari-receptek/kakukkfuves-narancsdzsem",
+      "year": 2021,
+      "id": "kakukkfuves-narancsdzsem"
     },
     {
       "modxContentId": 3269,
@@ -2554,6 +2584,12 @@
       "id": "meggyleves-hozzaadott-cukor-nelkul"
     },
     {
+      "modxContentId": 4293,
+      "path": "cikkek/diabetes/nagymamaink-receptjei-modern-kontosben/mogyorokremes-teljes-kiorlesu-minicsigak",
+      "year": 2025,
+      "id": "mogyorokremes-teljes-kiorlesu-minicsigak"
+    },
+    {
       "modxContentId": 4272,
       "path": "cikkek/diabetes/nagymamaink-receptjei-modern-kontosben/paradicsomos-cukkinikremleves",
       "year": 2025,
@@ -2574,7 +2610,7 @@
     {
       "modxContentId": 4307,
       "path": "cikkek/diabetes/nagymamaink-receptjei-modern-kontosben/toltott-paprika",
-      "year": 2009,
+      "year": 2025,
       "id": "toltott-paprika"
     },
     {
@@ -2616,8 +2652,8 @@
     {
       "modxContentId": 1690,
       "path": "cikkek/hypertonia/1601/vanilias-meggyleves",
-      "year": 2016,
-      "id": "vanilias-meggyleves"
+      "year": 2013,
+      "id": "meggyleves"
     },
     {
       "modxContentId": 1691,
@@ -2712,7 +2748,7 @@
     {
       "modxContentId": 2447,
       "path": "cikkek/hypertonia/1802/toltott-paprika",
-      "year": 2009,
+      "year": 2025,
       "id": "toltott-paprika"
     },
     {
@@ -2888,6 +2924,12 @@
       "path": "junior/2015/cikkek/receptsarok/gyumolcsos-puding",
       "year": 2015,
       "id": "gyumolcsos-puding"
+    },
+    {
+      "modxContentId": 4436,
+      "path": "junior/2015/cikkek/receptsarok/mandarinos-francia-palacsinta",
+      "year": 2015,
+      "id": "mandarinos-francia-palacsinta"
     },
     {
       "modxContentId": 4435,

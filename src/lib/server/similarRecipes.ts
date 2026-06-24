@@ -38,6 +38,8 @@ let memo: {
   df: Map<string, number>
   /** MODX doc id → recipe slug, for resolving curated "További receptek" links. */
   byModxId: Map<number, string>
+  /** MODX article id → slugs of the recipes split out of it (multi-recipe gyűjtőcikk). */
+  bySourceModxId: Map<number, string[]>
 } | null = null
 
 function ownTermsOf(entry: RecipeLayoutEntry | undefined): string[] {
@@ -78,10 +80,15 @@ async function getRecipeSearchIndex() {
   // the recipe the live site actually redirects to (covers dedupe-variant docs
   // whose sourceModxId differs from their article id).
   const byModxId = new Map<number, string>()
+  // MODX article id → slugs of its split-out dishes (multi-recipe gyűjtőcikk).
+  const bySourceModxId = new Map<number, string[]>()
   for (const r of published) {
     const src = (r as Recipe).sourceModxId
-    if (Number.isFinite(src) && !byModxId.has(src as number)) {
-      byModxId.set(src as number, recipeSlug(r))
+    if (Number.isFinite(src)) {
+      if (!byModxId.has(src as number)) byModxId.set(src as number, recipeSlug(r))
+      const arr = bySourceModxId.get(src as number)
+      if (arr) arr.push(recipeSlug(r))
+      else bySourceModxId.set(src as number, [recipeSlug(r)])
     }
   }
   for (const e of redirectManifestEntries()) {
@@ -94,7 +101,7 @@ async function getRecipeSearchIndex() {
   }
 
   memoSource = recipes
-  memo = { index, entries, df, byModxId }
+  memo = { index, entries, df, byModxId, bySourceModxId }
   return memo
 }
 
@@ -121,6 +128,44 @@ export async function linkedRecipesFor(
     out.push(entry)
   }
   return out
+}
+
+/**
+ * Resolve curated related-recipe keys (`{year}-{id}`) — stored on a recipe's
+ * `relatedCards` or a magazine doc's `related` — to recipe cards, in order,
+ * deduplicated, published-only, excluding the recipe being viewed.
+ */
+export async function relatedRecipesByKey(
+  keys: string[] | undefined,
+  exclude?: Pick<Recipe, 'year' | 'id'>
+): Promise<RecipeLayoutEntry[]> {
+  if (!Array.isArray(keys) || keys.length === 0) return []
+  const { entries } = await getRecipeSearchIndex()
+  const excludeId = exclude ? recipeSlug(exclude) : null
+  const seen = new Set<string>()
+  const out: RecipeLayoutEntry[] = []
+  for (const key of keys) {
+    if (typeof key !== 'string' || key === excludeId || seen.has(key)) continue
+    const entry = entries.get(key)
+    if (!entry) continue
+    seen.add(key)
+    out.push(entry)
+  }
+  return out
+}
+
+/**
+ * Recipes split out of a multi-recipe collection article (a "gyűjtőcikk" whose
+ * own body became several Receptsarok recipes), resolved from `recipe.sourceModxId`
+ * == the article's MODX id. The most direct article→recipes relationship.
+ */
+export async function recipesBySourceModxId(modxId: number): Promise<RecipeLayoutEntry[]> {
+  if (!Number.isFinite(modxId)) return []
+  const { entries, bySourceModxId } = await getRecipeSearchIndex()
+  const slugs = bySourceModxId.get(Number(modxId)) ?? []
+  return slugs
+    .map((slug) => entries.get(slug))
+    .filter((entry): entry is RecipeLayoutEntry => Boolean(entry))
 }
 
 /**

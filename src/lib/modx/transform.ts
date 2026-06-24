@@ -29,7 +29,8 @@ export interface ProcessedDocFields {
 	introtext: string;
 	img: ModxDoc['img'];
 	tv: ModxDoc['tv'];
-	related: ModxDoc['related'];
+	/** Recipe-group keys (`{year}-{id}`), written post-transform by the related pass — not from MODX. */
+	related?: string[];
 	ellipsis: string;
 	table: boolean;
 	video: string;
@@ -63,7 +64,10 @@ export interface ModxTransform {
 	alapjav: (doc: ModxDoc) => void;
 	ellipsis: (doc: ModxDoc) => void;
 	docFields: (doc: ModxDoc) => ProcessedDocFields;
+	referenceDocFields: (doc: ModxDoc) => ProcessedDocFields;
 	setReceptsarokRedirect: (doc: ModxDoc, fallbackRedirect?: string) => void;
+	setReferenceRedirect: (doc: ModxDoc) => void;
+	isReferenceDoc: (doc: ModxDoc) => boolean;
 }
 
 type RedirectManifestEntry = {
@@ -86,6 +90,22 @@ function normalizeDocPath(pathValue: unknown): string {
 	return String(pathValue ?? '')
 		.trim()
 		.replace(/^\/+/, '');
+}
+
+/** MODX Evolution `reference` (= manager "weblink"); Revolution uses `weblink`. */
+export function isModxReferenceType(type: unknown): boolean {
+	return type === 'reference' || type === 'weblink';
+}
+
+export function parseModxReferenceTargetId(content: unknown): number | undefined {
+	const trimmed = String(content ?? '').trim();
+	if (!/^\d+$/.test(trimmed)) return undefined;
+	const id = Number(trimmed);
+	return Number.isFinite(id) && id > 0 ? id : undefined;
+}
+
+export function isRootReferenceDoc(doc: ModxDoc): boolean {
+	return Number(doc.parent) === 0 && isModxReferenceType(doc.type);
 }
 
 export function loadReceptsarokRedirectMaps(manifestPath: string): ReceptsarokRedirectMaps {
@@ -445,7 +465,6 @@ export function createModxTransform(deps: ModxTransformDeps): ModxTransform {
 		introtext: doc.introtext,
 		img: doc.img,
 		tv: doc.tv,
-		related: doc.related,
 		ellipsis: doc.ellipsis,
 		table: doc.table,
 		video: doc.video,
@@ -472,6 +491,43 @@ export function createModxTransform(deps: ModxTransformDeps): ModxTransform {
 		}
 	};
 
+	const setReferenceRedirect = (doc: ModxDoc) => {
+		const targetId = parseModxReferenceTargetId(doc.content);
+		if (!targetId) {
+			delete doc.redirect;
+			return;
+		}
+		const resolved = pathById(targetId);
+		if (resolved && resolved !== '/') {
+			doc.redirect = resolved;
+		} else {
+			delete doc.redirect;
+		}
+	};
+
+	const referenceDocFields = (doc: ModxDoc): ProcessedDocFields => ({
+		id: doc.id,
+		path: doc.path,
+		alias: doc.alias,
+		parent: doc.parent,
+		title: decodeHtmlEntities(doc.pagetitle),
+		longtitle: '',
+		description: '',
+		content: '',
+		introtext: '',
+		img: null,
+		tv: { tags: [], szerzo: [], cat: '' },
+		ellipsis: '',
+		table: false,
+		video: '',
+		redirect: doc.redirect,
+		publishedon: doc.publishedon,
+		editedon: doc.editedon,
+		isfolder: false
+	});
+
+	const isReferenceDoc = (doc: ModxDoc) => isRootReferenceDoc(doc);
+
 	return {
 		addTVs,
 		findPath,
@@ -480,6 +536,9 @@ export function createModxTransform(deps: ModxTransformDeps): ModxTransform {
 		alapjav,
 		ellipsis,
 		docFields,
-		setReceptsarokRedirect
+		referenceDocFields,
+		setReceptsarokRedirect,
+		setReferenceRedirect,
+		isReferenceDoc
 	};
 }

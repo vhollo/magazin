@@ -78,8 +78,11 @@
 
   $: docstitle = doc.title || matchingSubcat
 
-  $: isRecipeArticle = doc.tv?.tags?.includes('recept')
   $: rsMatches = data.rsWidgetRecipes ?? []
+  // A curated/derived recipe group (hub siblings, linked list, or a collection's
+  // own dishes) replaces the tag-based "Kapcsolódó cikkek" grid. Weak title-similarity
+  // matches (rsWidgetLinked=false) do not.
+  $: rsLinked = data.rsWidgetLinked ?? false
 
   // ── Scroll restoration ─────────────────────────────────────────────────────
   // The inline script in app.html jumps to the saved position before hydration,
@@ -222,14 +225,7 @@
     {/if}
   </main>
 
-  {#if doc.related?.length}
-    <article class="prose mt-16 mb-8 w-full mx-auto flex-none">
-      <h2 class="text-center">Kapcsolódó cikkek</h2>
-    </article>
-    <Cards cards={doc.related} full={false}/>
-  {/if}
-
-  {#if isRecipeArticle && rsMatches.length}
+  {#if rsMatches.length}
     <ReceptsarokWidget
       recipes={rsMatches}
       title={data.rsWidgetLinked ? '' : doc.title || ''}
@@ -245,7 +241,7 @@
 <Search articles={data.articleCount} recipes={data.recipeCount} />
 <Nav2 actual={data.path}/>
 
-{#if docs.length}
+{#if docs.length && !rsLinked}
   <article class="prose mt-16 mb-8 mx-auto w-full">
     {#if !doc.id}
       <h1 class="text-center">{doc.id && '' || docstitle}</h1>

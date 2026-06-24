@@ -319,6 +319,26 @@ export async function runMagazinRecipeDedupe({ docs, applyLocal = false, createL
 
   const categoryByKey = loadCategoryReviewMap()
   const magazineCandidates = docs.filter((doc) => hasReceptTag(doc, normalizeText))
+  // Recipe-collection articles ("gyűjtőcikk"): multi-tag docs that carry `recept`
+  // (so `hasReceptTag` — exactly one tag — skips them) but whose body splits into
+  // ≥2 standalone recipes (e.g. `recept-sarok`, `kozeleg-az-eperszezon`). They are
+  // not single recipes to redirect, so they go straight to the create/split path.
+  const collectionDocIds = new Set()
+  const collectionCandidates = []
+  for (const doc of docs) {
+    if (hasReceptTag(doc, normalizeText)) continue
+    const tags = Array.isArray(doc?.tv?.tags) ? doc.tv.tags : []
+    if (!tags.some((t) => normalizeText(t) === 'recept')) continue
+    const parsed = buildRecipesFromModxDoc(doc, {
+      categoryByKey,
+      predictCategory: predictRecipeCategory,
+      recipeModxIds,
+    })
+    if (Array.isArray(parsed) && parsed.length >= 2) {
+      collectionCandidates.push(doc)
+      collectionDocIds.add(doc.id)
+    }
+  }
   const redirects = []
   const createRecipes = []
   const uncategorizedRecipes = []
@@ -327,10 +347,14 @@ export async function runMagazinRecipeDedupe({ docs, applyLocal = false, createL
   const losersToUnpublish = new Set()
   const plannedCreateKeys = new Set()
 
-  for (const doc of magazineCandidates) {
+  for (const doc of [...magazineCandidates, ...collectionCandidates]) {
     const aliasNorm = normalizeText(doc.alias)
     const docTitle = doc.longtitle || doc.title || ''
-    const matches = recipes
+    const isCollectionDoc = collectionDocIds.has(doc.id)
+    // Collection articles never redirect to a single recipe — skip title matching.
+    const matches = isCollectionDoc
+      ? []
+      : recipes
       .filter((recipe) => recipe.published !== false)
       .filter((recipe) => isDescriptionAuthorCompatible(doc?.description, recipe?.author))
       .map((recipe) => {

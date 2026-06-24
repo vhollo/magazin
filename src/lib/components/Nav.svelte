@@ -382,7 +382,7 @@
     <button class="btn btn-sm !btn-circle btn-ghost absolute right-2 top-2 border-none" onclick={()=>mod_login.close()}>✕</button>
     <h3 class="text-lg font-bold">Hello!</h3>
     {#if !$authUser}
-    <p class="py-4">Az Email címed igazolása közösségi fiókkal vagy egyszer használható ellenőrző link küldésével történhet.</p>
+    <p class="py-4">Az Email címed igazolása közösségi fiókkal vagy ellenőrző link küldésével történhet.</p>
     <!-- <div class="modal-action flex-col gap-4"> -->
     <fieldset class="fieldset flex gap-4 justify-center">
       <button class="btn btn-secondary !border-secondary h-8" onclick={() => google_login()}>Google fiók</button>

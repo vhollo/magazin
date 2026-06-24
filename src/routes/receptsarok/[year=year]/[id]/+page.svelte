@@ -36,6 +36,18 @@
 
   let displayRecipe = $derived((fullRecipe ?? recipe) as Recipe)
 
+  // "Hozzávalók N <unit>hoz" — the suffix follows Hungarian vowel harmony, chosen
+  // from the counted noun's last vowel (the head word, ignoring any "(…)" qualifier
+  // like "szelet (24 cm-es tortaforma)"). Back-vowel units keep "-hoz" (adag→adaghoz,
+  // darab→darabhoz); front-vowel ones get "-hez"/"-höz" (szelet→szelethez, fő→főhöz).
+  function ingredientUnitTo(unit: string): string {
+    const head = String(unit ?? '').trim().split(/\s+/)[0] ?? ''
+    const vowels = head.toLowerCase().match(/[aáeéiíoóöőuúüű]/g)
+    const last = vowels?.length ? vowels[vowels.length - 1] : ''
+    const suffix = last && 'eéií'.includes(last) ? 'hez' : last && 'öőüű'.includes(last) ? 'höz' : 'hoz'
+    return `${unit}${suffix}`
+  }
+
   let heroCardImg = $derived(recipeCardImg(displayRecipe))
   let recipeVideo = $derived.by(() => {
     const video = displayRecipe.video
@@ -151,10 +163,12 @@
   {/if}
 
   <div class="flex flex-wrap gap-2 my-4">
+    {#if recipe.servings.amount}
     <span class="badge badge-outline badge-sm">{recipe.servings.amount} {recipe.servings.unit}</span>
+    {/if}
     <span class="badge badge-outline badge-sm">{recipe.year}</span>
     {#if isFree}
-      <span class="badge badge-success">ingyenes</span>
+      <span class="badge badge-success badge-sm">ingyenes</span>
     {/if}
   </div>
 
@@ -184,7 +198,7 @@
         {#if group.section}
           <h3>{group.section}</h3>
         {:else}
-          <h2>Hozzávalók {displayRecipe.servings.amount} {displayRecipe.servings.unit}hoz</h2>
+          <h2>Hozzávalók {displayRecipe.servings.amount} {ingredientUnitTo(displayRecipe.servings.unit)}</h2>
         {/if}
         <ul>
           {#each group.items as item, i}

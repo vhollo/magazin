@@ -118,6 +118,12 @@ export interface Recipe {
   sourceModxId?: number
   /** MODX doc ids from the source article's "További receptek" list (curated related recipes). */
   linkedModxIds?: number[]
+  /**
+   * Curated related-recipe keys (`{year}-{id}`) for this recipe's link group, resolved
+   * from `linkedModxIds` at sync/backfill time. Rendered as "Kapcsolódó receptek",
+   * overriding the title-similarity fallback. Uniform with a magazine doc's `related`.
+   */
+  relatedCards?: string[]
 }
 
 export interface RecipeTeaser {

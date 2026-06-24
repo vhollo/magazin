@@ -21,6 +21,8 @@ import { createHash } from 'node:crypto'
 import { fileURLToPath, pathToFileURL } from 'node:url'
 import { getFirestoreDb } from './lib/firebase-admin.mjs'
 import { buildAndUploadSearchIndex } from './lib/search-index.mjs'
+import { normalizeRecipeIngredientPunctuation } from './lib/normalize-ingredient-punctuation.mjs'
+import { stringifyRecipesJson } from '../src/lib/recipesJsonFormat.js'
 import {
   loadProjectionDocsForSync,
   uploadProjectionSnapshot,
@@ -133,6 +135,17 @@ async function main() {
 
   const recipes = readJson(RECIPES_PATH)
   if (!Array.isArray(recipes)) throw new Error('recipes.json must be an array')
+
+  // Strip stray trailing list punctuation ("…,") from ingredient fields so it
+  // never reaches Firestore; persist the cleaned file when anything changed.
+  const normalizedCount = recipes.filter(normalizeRecipeIngredientPunctuation).length
+  if (normalizedCount > 0) {
+    console.log(`Normalized ingredient punctuation in ${normalizedCount} recipe(s)`)
+    if (apply) {
+      fs.writeFileSync(RECIPES_PATH, stringifyRecipesJson(recipes))
+      console.log(`Rewrote ${path.relative(root, RECIPES_PATH)}`)
+    }
+  }
 
   /** docId → recipe (valid ids only) */
   const recipesById = new Map(

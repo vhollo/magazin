@@ -77,11 +77,15 @@ if (!function_exists('magazin_evoIsMagazineCandidate')) {
      */
     function magazin_evoIsMagazineCandidate(array $doc)
     {
-        if (isset($doc['type']) && $doc['type'] !== 'document') {
+        $type = isset($doc['type']) ? (string) $doc['type'] : 'document';
+        $parent = (int) $doc['parent'];
+        if (in_array($type, array('reference', 'weblink'), true) && $parent === 0) {
+            return true;
+        }
+        if ($type !== 'document') {
             return false;
         }
         $id = (int) $doc['id'];
-        $parent = (int) $doc['parent'];
         $template = (int) $doc['template'];
         if ($id === 2797) {
             return true;

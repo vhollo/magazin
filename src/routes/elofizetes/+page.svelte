@@ -229,7 +229,7 @@ const freeCount = $derived(data.freeCount)
     Több mint 1500 diabétesz-barát recept, tápanyagtáblázattal, összetevő-kereséssel és tápanyag-szűréssel.
   </p>
   <div class="flex flex-col sm:flex-row gap-4 justify-center items-center not-prose mt-4">
-    <div class="card bg-base-200 w-64">
+    <div class="card bg-base-300 w-64">
       <div class="card-body items-center text-center">
         <h3 class="card-title">Örök hozzáférés</h3>
         <p class="text-3xl font-bold">4 990 Ft</p>
@@ -237,7 +237,7 @@ const freeCount = $derived(data.freeCount)
         <a href="/receptsarok" class="btn btn-primary btn-sm mt-2">Megnézem</a>
       </div>
     </div>
-    <div class="card bg-base-200 w-64">
+    <div class="card bg-base-300 w-64">
       <div class="card-body items-center text-center">
         <h3 class="card-title">Éves előfizetés</h3>
         <p class="text-3xl font-bold">1 990 Ft<small class="text-sm font-normal">/év</small></p>

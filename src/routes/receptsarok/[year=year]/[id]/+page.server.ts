@@ -1,7 +1,12 @@
 import type { PageServerLoad } from './$types'
 import { error } from '@sveltejs/kit'
 import { getReceptsarokRecipe } from '$lib/receptsarokFirestore'
-import { linkedRecipesFor, similarRecipesFor } from '$lib/server/similarRecipes'
+import {
+  linkedRecipesFor,
+  similarRecipesFor,
+  relatedRecipesByKey,
+  recipesBySourceModxId,
+} from '$lib/server/similarRecipes'
 
 export const load: PageServerLoad = async ({ params }) => {
   const year = Number(params.year)
@@ -15,14 +20,27 @@ export const load: PageServerLoad = async ({ params }) => {
     error(404, { message: `Recept nem található: ${params.year}/${params.id}` })
   }
 
-  // Curated "További receptek" links from the source article win over the
-  // title-similarity search — and all of them are shown, not just 4.
+  // Curated related recipes win over the title-similarity search — and all of
+  // them are shown, not just 4. Precomputed `relatedCards` (the recipe's link
+  // group) first, then the legacy runtime resolution of `linkedModxIds`.
   const self = { year: result.recipe.year, id: result.recipe.id }
-  const linked = result.recipe.linkedModxIds?.length
-    ? await linkedRecipesFor(result.recipe.linkedModxIds, self)
+  const related = result.recipe.relatedCards?.length
+    ? await relatedRecipesByKey(result.recipe.relatedCards, self)
     : []
-  const similarRecipes = linked.length
-    ? linked
+  const linked =
+    !related.length && result.recipe.linkedModxIds?.length
+      ? await linkedRecipesFor(result.recipe.linkedModxIds, self)
+      : []
+  let curated = related.length ? related : linked
+  // Co-derived siblings: other dishes split out of the same collection article.
+  if (!curated.length && Number.isFinite(result.recipe.sourceModxId)) {
+    const siblings = (await recipesBySourceModxId(Number(result.recipe.sourceModxId))).filter(
+      (e) => !(e.year === self.year && e.id === self.id)
+    )
+    if (siblings.length) curated = siblings
+  }
+  const similarRecipes = curated.length
+    ? curated
     : await similarRecipesFor(result.recipe.title, self)
 
   return {
@@ -30,6 +48,6 @@ export const load: PageServerLoad = async ({ params }) => {
     isFree: result.isFree,
     categoryId: result.recipe.category,
     similarRecipes,
-    similarIsLinked: linked.length > 0,
+    similarIsLinked: curated.length > 0,
   }
 }
