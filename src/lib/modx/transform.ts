@@ -54,6 +54,14 @@ export interface ModxTransformDeps {
 	/** Returns the current full document list (for path resolution and MODX links). */
 	getEveryDocs: () => ModxDoc[];
 	redirectMaps?: ReceptsarokRedirectMaps;
+	/**
+	 * Log a warning when a doc's parent can't be resolved during path building.
+	 * Off by default: path resolution runs in multiple passes (ancestors, then
+	 * changed rows), so a parent is routinely absent on an early pass and present
+	 * on a later one — making the warning a false positive. Genuinely unresolvable
+	 * rows are caught at write time by the sync's `skip write:` guards.
+	 */
+	debugUnresolvedParents?: boolean;
 }
 
 export interface ModxTransform {
@@ -140,6 +148,16 @@ export function loadReceptsarokRedirectMaps(manifestPath: string): ReceptsarokRe
 	return { byContentId, byPath };
 }
 
+/** Plain-text alt from a desc that may contain HTML (e.g. an <a> link). Decode entities, strip tags, collapse whitespace, escape quotes so the attribute stays valid. */
+function descToAltText(desc: string): string {
+	if (!desc) return '';
+	return decodeHtmlEntities(desc)
+		.replace(/<[^>]+>/g, ' ')
+		.replace(/\s+/g, ' ')
+		.trim()
+		.replace(/"/g, '&quot;');
+}
+
 function renderNagyitoHtml(img: {
 	file: string;
 	desc: string;
@@ -149,7 +167,7 @@ function renderNagyitoHtml(img: {
 }): string {
 	const zoomAttr = img.zoom ? ' class="zoom"' : '';
 	const figcaption = img.desc ? `<figcaption class="">${img.desc}</figcaption>` : '';
-	return `<figure class="${img.align}"><img src="${img.file}" alt="${img.desc}"${zoomAttr} data-theme="dark" style="background-color: ${img.bg}">${figcaption}</figure>`;
+	return `<figure class="${img.align}"><img src="${img.file}" alt="${descToAltText(img.desc)}"${zoomAttr} data-theme="dark" style="background-color: ${img.bg}">${figcaption}</figure>`;
 }
 
 /** [[nagyito? …]], [[-nagyito? …-]] (MODX comment), [[!nagyito? …]] */
@@ -207,7 +225,14 @@ function replaceNagyitoTags(html: string, doc: ModxDoc, publicBaseUrl: string): 
 }
 
 export function createModxTransform(deps: ModxTransformDeps): ModxTransform {
-	const { publicBaseUrl, tmplvarContentvalues, modxSzerzok, getEveryDocs, redirectMaps } = deps;
+	const {
+		publicBaseUrl,
+		tmplvarContentvalues,
+		modxSzerzok,
+		getEveryDocs,
+		redirectMaps,
+		debugUnresolvedParents = false
+	} = deps;
 
 	const findPath = (doc: ModxDoc): ModxDoc => {
 		if (!doc.path) {
@@ -218,7 +243,9 @@ export function createModxTransform(deps: ModxTransformDeps): ModxTransform {
 			} else {
 				const parentDoc = getEveryDocs().find((d) => d.id == doc.parent);
 				if (!parentDoc) {
-					console.log('parentDoc not found', doc.id);
+					if (debugUnresolvedParents) {
+						console.log('parentDoc not found', doc.id, '(parent', doc.parent + ')');
+					}
 					return doc;
 				}
 				const parent = findPath(parentDoc);

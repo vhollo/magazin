@@ -1,6 +1,11 @@
 /**
- * Purge Netlify CDN cache for changed article paths (optional).
+ * Purge the Netlify CDN cache after a sync (optional).
  * Env: NETLIFY_SITE_ID, NETLIFY_ACCESS_TOKEN
+ *
+ * Netlify's purge API (`POST /api/v1/purge`) only purges by cache tag or the
+ * whole site — there is no purge-by-path. Our responses carry no cache tags, so
+ * this does a whole-site purge. The `paths` argument is kept for log context
+ * (what changed and triggered the purge); it is not sent to Netlify.
  *
  * Failures are non-fatal: always resolves, never throws.
  *
@@ -21,36 +26,31 @@ export async function purgeNetlifyPaths(paths) {
   }
 
   const unique = [...new Set(paths.map((p) => `/${String(p).replace(/^\/+/, '')}`))]
-  const batch = unique.slice(0, 50)
-  if (unique.length > batch.length) {
-    console.warn(`Netlify purge: truncating ${unique.length} paths to ${batch.length}`)
-  }
-
-  console.log(`Netlify purge: requesting ${batch.length} path(s): ${batch.join(', ')}`)
+  console.log(
+    `Netlify purge: whole-site purge (triggered by ${unique.length} changed path(s): ${unique.join(', ')})`
+  )
 
   try {
-    const res = await fetch(`https://api.netlify.com/api/v1/sites/${siteId}/purge_cache`, {
+    const res = await fetch('https://api.netlify.com/api/v1/purge', {
       method: 'POST',
       headers: {
         Authorization: `Bearer ${token}`,
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ paths: batch }),
+      body: JSON.stringify({ site_id: siteId }),
     })
 
     if (!res.ok) {
       const text = await res.text()
-      console.warn(
-        `Netlify purge failed: status=${res.status}, paths=[${batch.join(', ')}], response=${text.slice(0, 500)}`
-      )
-      return { ok: false, status: res.status, paths: batch, body: text }
+      console.warn(`Netlify purge failed: status=${res.status}, response=${text.slice(0, 500)}`)
+      return { ok: false, status: res.status, paths: unique, body: text }
     }
 
-    console.log(`Netlify purge OK: status=${res.status}, paths=[${batch.join(', ')}]`)
-    return { ok: true, status: res.status, count: batch.length, paths: batch }
+    console.log(`Netlify purge OK: status=${res.status} (whole site)`)
+    return { ok: true, status: res.status, count: unique.length, paths: unique }
   } catch (err) {
     const message = err instanceof Error ? err.message : String(err)
-    console.warn(`Netlify purge error: paths=[${batch.join(', ')}], error=${message}`)
-    return { ok: false, paths: batch, error: message }
+    console.warn(`Netlify purge error: ${message}`)
+    return { ok: false, paths: unique, error: message }
   }
 }

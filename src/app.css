@@ -84,7 +84,6 @@ body {
   text-decoration: dashed underline;
   text-underline-offset: 4px;
 }
-
 /* DRAWER */
 
 .menu-active {
@@ -285,9 +284,17 @@ article :not(table).nicebox {
 }
 article :not(table).nicebox, article :not(table).boxright, article :not(table).boxleft {
   @apply card card-sm bg-primary text-primary-content shadow-xl card-body px-2 py-4 last:mb-0 gap-2;
+  /* card-body makes this a flex container, which blockifies direct-child <a>
+     (a flex item's display:inline is forced to block — so `.nicebox > a {display:inline}`
+     can never work). Drop back to block flow so anchors stay inline; restore the
+     flex `gap-2` rhythm with margins below. */
+  display: block;
 
   & > * {
     @apply my-0/*  mx-4 */;
+  }
+  & > * + * {
+    margin-top: .5rem; /* replaces the now-inert flex gap-2 */
   }
   /* & > h3 {
     @apply card-title mt-6;
@@ -379,7 +386,7 @@ summary h2 {
   }
 }
 .left, .right, .boxleft, .boxright {
-  width: calc(50% - 1rem);
+  width: calc(50% - 1rem)!important;
   margin-bottom: 1rem;
 }
 .left, .right, .boxleft, .boxright {
@@ -387,11 +394,11 @@ summary h2 {
 }
 .left, .boxleft {
   float: left;
-  margin-right: 1rem;
+  margin-right: 1rem!important;
 }
 .right, .boxright {
   float: right;
-  margin-left: 1rem;
+  margin-left: 1rem!important;
 }
 .center {
   text-align: center;

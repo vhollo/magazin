@@ -910,6 +910,7 @@ async function main() {
     modxSzerzok,
     getEveryDocs: () => [...workingById.values()],
     redirectMaps,
+    debugUnresolvedParents: process.env.SYNC_DEBUG_PATHS === '1',
   })
 
   let written = 0
