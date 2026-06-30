@@ -53,7 +53,7 @@ async function main() {
   const e = env()
   const db = await mysql.createConnection({
     host: e.MODXDB_HOST,
-    port: Number(e.MODXDB_PORT || 3306),
+    port: Number(e.MODXDB_PORT),
     user: e.MODXDB_USER,
     password: e.MODXDB_PASSWORD,
     database: e.MODXDB_DATABASE,

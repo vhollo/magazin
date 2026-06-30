@@ -34,7 +34,7 @@ async function main() {
   // 1) junior (template 9) articles + content
   const db = await mysql.createConnection({
     host: process.env.MODXDB_HOST,
-    port: Number(process.env.MODXDB_PORT || 3306),
+    port: Number(process.env.MODXDB_PORT),
     user: process.env.MODXDB_USER,
     password: process.env.MODXDB_PASSWORD,
     database: process.env.MODXDB_DATABASE,
