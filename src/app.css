@@ -304,6 +304,7 @@ article :not(table).nicebox, article :not(table).boxright, article :not(table).b
     text-align: center;
     width: 100%;
     flex-direction: column;
+    border-radius: 0;
   }
   & > figure img {
     object-fit: contain;
@@ -413,15 +414,23 @@ summary h2 {
 /*.card.left p, .card.right p {
   @apply self-end;
 }*/
-@container (max-width: 54ch) {
+@container (max-width: 42ch) {
   .left, .right, .boxleft, .boxright {
     float: none!important;
     width: 100%;
-    margin-inline: 0!important;
+    margin-inline: auto!important;
     /* text-align: center!important; */
+  }
+  .left, .right, .boxleft, .boxright {
   }
   .left img, .right img {
     margin-inline: auto!important;
+  }
+  .nicebox img, .boxleft img, .boxright img {
+    padding: .5rem;
+  }
+  figure {
+    margin-bottom: 1rem!important;
   }
 }
 

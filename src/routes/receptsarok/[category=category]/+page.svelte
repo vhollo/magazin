@@ -105,7 +105,7 @@
   </p>
 {/if}
 
-<Cards {cards} />
+<Cards {cards} moreLabel="További receptek" />
 
 {#if filtered.length === 0}
   <p class="text-center py-12 opacity-50">Nincs a szűrési feltételeknek megfelelő recept.</p>

@@ -20,6 +20,7 @@
   export let ads_distance = 4
   // import { ads } from '$lib/ads.js'
   export let cards: any[], full = true
+  export let moreLabel = 'További cikkek'
 
   // Masonry spans are JS-only; switch to the fine-grained grid once mounted so the
   // SSR/pre-hydration paint uses content-sized rows and never overlaps before JS loads.
@@ -85,7 +86,7 @@
   </section>
   {#if volume * pagenum < cards.length}
     <footer class="footer footer-center bg--base-200 text-base-content pb-4">
-      <button on:click={_pageplus} class="btn btn-outline">További cikkek</button>
+      <button on:click={_pageplus} class="btn btn-outline">{moreLabel}</button>
     </footer>
   {/if}
 {:else}

@@ -64,9 +64,7 @@
             {cat.name}
           </h2>
           <p class="mt-1 text-sm text-[#9CA3AF]">{cat.recipeCount} recept</p>
-          {#if !trial}
-            <p class="mt-0.5 text-xs text-success/90">{freeCountsByCategory[cat.id] ?? 0} ingyenes recept</p>
-          {/if}
+          <p class="mt-0.5 text-xs text-success/90">{freeCountsByCategory[cat.id] ?? 0} ingyenes recept</p>
         </div>
         <div class="flex shrink-0 items-center self-stretch pr-0.5">
           <svg
