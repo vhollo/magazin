@@ -1,6 +1,5 @@
 <script module>
   import Cards from '$lib/components/Cards.svelte'
-  import Carousel from '$lib/components/Carousel.svelte'
   import Search from '$lib/components/Search.svelte'
   import Nav2 from '$lib/components/Nav2.svelte'
   import BannerSide from '$lib/components/BannerSide.svelte'
@@ -8,6 +7,10 @@
   import ReceptsarokWidget from '$lib/components/ReceptsarokWidget.svelte'
 
   import { nav2 } from '$lib/nav2.js'
+  // Fallback page-title lookup (see `matchingSubcat` below): supplies human titles
+  // for collection slugs that aren't in nav2. The 'carousel' key is historical —
+  // these labels used to back the home Carousel (now the Hero); they're kept here
+  // only so /s-o-s and /gyermekvallalas still resolve a title.
   let copycats = JSON.parse(JSON.stringify(nav2))
   copycats['carousel'] = {}
   copycats['carousel']['Segítség, cukorbeteg vagyok!'] = '/s-o-s'
@@ -152,10 +155,6 @@
   {/if}
 </svelte:head>
 <!-- <svelte:window bind:this={win}/> -->
-
-{#if doc.path == '/'}
-  <Carousel/>
-{/if}
 
 {#if doc.id}
   {#if conf.top_banners.length}

@@ -1,0 +1,208 @@
+<script>
+  // Home hero (homepage redesign 2026, F3.1) — replaces the legacy hardcoded
+  // Carousel on `/`. Left: welcome + audience entry points ("Kezdje itt");
+  // right: the newest expert pick from `collections/home.expertCards`.
+  /** @type {import('$lib/modx/collections').ThinCard | undefined} */
+  export let expert = undefined;
+
+  // Audience entry points distilled from the old Carousel's five cards.
+  const entries = [
+    { label: "Most diagnosztizáltak", href: "/s-o-s" },
+    { label: "Táplálkozás és receptek", href: "/taplalkozas" },
+    { label: "Junior – gyerekek, fiatalok", href: "/junior" },
+    { label: "Várandósság, GDM", href: "/gyermekvallalas" },
+    {
+      label: "Közösség, egyesületek",
+      href: "/hirek/civil-szervezetek-es-szakellatohelyek",
+    },
+  ];
+
+  $: authors = (expert?.tv?.szerzo ?? [])
+    .map((s) => s?.name)
+    .filter(Boolean)
+    .join(", ");
+
+  /**
+   * ThinCard types `img` as unknown; the sync always writes {src, pos, ext, caption}.
+   * @param {import('$lib/modx/collections').ThinCard | undefined} card
+   * @returns {{ src?: string, pos?: string, ext?: string } | null | undefined}
+   */
+  const cardImg = (card) => /** @type {any} */ (card?.img);
+  $: img = cardImg(expert);
+</script>
+
+<section class="band relative overflow-hidden bg-base-200">
+  <!-- Decorative glucose-curve motif -->
+  <svg
+    class="curve pointer-events-none absolute inset-x-0 bottom-0 h-24 w-full text-secondary"
+    viewBox="0 0 1200 96"
+    preserveAspectRatio="none"
+    aria-hidden="true"
+  >
+    <path
+      d="M0,72 C90,70 140,44 210,40 C280,36 320,64 400,66 C480,68 530,30 610,26 C690,22 740,58 820,62 C900,66 950,38 1030,36 C1110,34 1160,56 1200,58"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      opacity="0.16"
+    />
+    <path
+      d="M0,80 L1200,80"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="1"
+      stroke-dasharray="2 6"
+      opacity="0.12"
+    />
+  </svg>
+
+  <div
+    class="mx-auto grid max-w-6xl items-center gap-8 px-4 py-10 sm:py-14 lg:grid-cols-2 lg:gap-12"
+  >
+    <header class="welcome flex flex-col gap-4">
+      <p
+        class="kicker text-xs font-semibold tracking-[0.18em] uppercase opacity-60"
+      >
+        A cukorbetegek magazinja · 1993 óta
+      </p>
+      <h1 class="display text-3xl leading-tight text-balance sm:text-4xl">
+        Megbízható válaszok a cukorbetegséggel élt mindennapokhoz
+      </h1>
+      <p class="lead max-w-prose opacity-80">
+        Cikkeinket orvosok és szakemberek írják — a diagnózis első napjától a
+        magabiztos önellenőrzésig.
+      </p>
+      <nav class="mt-2" aria-label="Belépési pontok">
+        <span
+          class="mb-2 block text-xs font-semibold tracking-[0.18em] uppercase opacity-60"
+        >
+          Kezdje itt:
+        </span>
+        <ul class="flex flex-wrap gap-2">
+          {#each entries as entry (entry.href)}
+            <li>
+              <a class="chip" href={entry.href}>{entry.label}</a>
+            </li>
+          {/each}
+        </ul>
+      </nav>
+    </header>
+
+    {#if expert}
+      <a
+        href={`/${expert.path}`}
+        class="feat card overflow-hidden rounded-sm bg-base-100 shadow-lg transition-shadow duration-300 hover:shadow-xl"
+      >
+        {#if img}
+          <figure class="relative m-0">
+            <img
+              src={img.src}
+              alt=""
+              width="928"
+              height="548"
+              fetchpriority="high"
+              style={`object-fit: ${img.ext == "png" ? "contain" : "cover"}; object-position: ${img.pos || "50% 40%"}`}
+            />
+            <span
+              class="badge badge-secondary absolute top-3 left-3 rounded-sm"
+            >
+              Szakértőnk írása
+            </span>
+          </figure>
+        {:else}
+          <span class="badge badge-secondary m-4 mb-0 self-start rounded-sm">
+            Szakértőnk írása
+          </span>
+        {/if}
+        <div class="card-body gap-2 p-4">
+          {#if expert.description}
+            <p class="text-sm italic opacity-70">{@html expert.description}</p>
+          {/if}
+          <h2 class="display card-title block text-xl leading-snug sm:text-2xl">
+            {@html expert.longtitle || expert.title}
+          </h2>
+          {#if expert.ellipsis}
+            <div class="ellipsis twoliner text-sm opacity-80">
+              {@html expert.ellipsis}
+            </div>
+          {/if}
+          {#if authors}
+            <p class="mt-1 text-sm font-medium text-secondary">{authors}</p>
+          {/if}
+        </div>
+      </a>
+    {/if}
+  </div>
+</section>
+
+<style>
+  .display {
+    font-family:
+      Charter, "Iowan Old Style", "Palatino Linotype", Georgia, Cambria, serif;
+    font-weight: 600;
+  }
+  .band::before {
+    content: "";
+    position: absolute;
+    inset: -40% -20% auto auto;
+    width: 60%;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: radial-gradient(
+      closest-side,
+      var(--color-primary),
+      transparent 70%
+    );
+    opacity: 0.25;
+    pointer-events: none;
+  }
+  .chip {
+    display: inline-block;
+    padding: 0.35rem 0.85rem;
+    border: 1px solid
+      color-mix(in oklch, var(--color-base-content) 25%, transparent);
+    border-radius: 9999px;
+    font-size: 0.85rem;
+    line-height: 1.4;
+    text-decoration: none;
+    transition:
+      border-color 0.2s ease,
+      color 0.2s ease,
+      background-color 0.2s ease;
+  }
+  .chip:hover,
+  .chip:focus-visible {
+    border-color: var(--color-secondary);
+    color: var(--color-secondary);
+    background-color: color-mix(
+      in oklch,
+      var(--color-secondary) 8%,
+      transparent
+    );
+  }
+  .feat figure,
+  .feat img {
+    aspect-ratio: var(--imgratio);
+    width: 100%;
+  }
+  /* Orchestrated load: welcome column, then the featured card. */
+  @media (prefers-reduced-motion: no-preference) {
+    .welcome,
+    .feat {
+      animation: rise 0.5s ease-out backwards;
+    }
+    .feat {
+      animation-delay: 0.15s;
+    }
+    @keyframes rise {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: none;
+      }
+    }
+  }
+</style>

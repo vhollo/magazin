@@ -164,7 +164,7 @@ Nav2 defines the secondary navigation menu with categorized content sections:
 
 - **SSR** (not prerendered): one Firestore read of `collections/home`
 - **Data Loading**:
-  - Returns latest 72 article cards from `collections/home` (sorted by `publishedon` descending, `id` descending as tie-break — see `homeDocs`)
+  - Returns up to 72 article cards from `collections/home` (sorted by `publishedon` descending, `id` descending as tie-break — see `homeDocs`). **Homepage redesign 2026:** the grid is no longer "latest of everything" — `homeDocs` keeps only docs matching `isExpertDoc` (Dr.-authored + expert-tagged) or `isNewsDoc` (`hírek`/`hirek` tag), merged and date-sorted.
   - Also returns `expertCards` — up to 24 Dr.-authored, expert-tagged picks precomputed onto the same `collections/home` doc (see `expertDocs` below), so the home route stays a single Firestore read
   - `Cache-Control`: CDN-cached (`s-maxage=86400`)
 
@@ -183,11 +183,15 @@ Nav2 defines the secondary navigation menu with categorized content sections:
 ### Client-Side Logic (`+page.svelte`)
 
 - **Components**:
-  - `Carousel` - Displays featured content carousel
+  - `Hero` - Home hero (homepage redesign 2026): left column = welcome copy + "Kezdje itt" audience entry-point chips (distilled from the old hardcoded Carousel cards); right column = the newest expert pick (`expertCards[0]`, LCP image `fetchpriority=high` + `<link rel=preload>` in the page head). Renders welcome + chips even when `expertCards` is empty (e.g. before the first sync). Decorative glucose-curve SVG motif; serif display type from a zero-load system stack (Charter/Georgia). Replaced the legacy `Carousel` on `/` — `Carousel.svelte` is still referenced by `[...path]/+page.svelte` (`doc.path == '/'` branch, likely dead code; cleanup scheduled for the F3.6 integration pass).
   - `BannerTop` - Shows top banners if configured
   - `Search` - Search component with document count
   - `Nav2` - Secondary navigation
+  - `ExpertSection` - "Szakértőink válogatása" rail (homepage redesign 2026): grid of `expertCards.slice(1)` (index 0 is already shown in `Hero`, so this avoids duplicating it), each card with image, title, author name
+  - `NewsletterCTA` - Home newsletter promo band (homepage redesign 2026): micro-conversion link to `/hirlevel`, same glucose-curve motif language as `Hero`
+  - `TopicGrid` - "Böngésszen témák szerint" section (homepage redesign 2026): one card per `nav2.js` top-level category, sub-categories rendered as link chips
   - `Cards` - Displays article cards
+  - `SubscribeCTA` - Home subscribe promo band (homepage redesign 2026): macro-conversion link to `/elofizetes`, placed after the article grid
 
 - **Title Logic**:
   - Matches document path against navigation structure (`nav2`)
@@ -200,7 +204,7 @@ Nav2 defines the secondary navigation menu with categorized content sections:
   - Image preloading for document images
 
 - **Content Display**:
-  - Shows carousel on home page
+  - Shows the `Hero` (expert pick + audience chips) on the home page
   - Displays article cards if documents exist
   - Shows "Kapcsolódó cikkek" (Similar articles) if viewing a specific document
 

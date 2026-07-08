@@ -226,9 +226,27 @@ export function docsByTags<T extends DocLike>(
 	return ranked.slice(0, COLLECTION_LIMIT);
 }
 
-/** Latest N listed docs (publishedon desc, id desc tie-break) for the `collections/home` grid. */
+/**
+ * News tags for the home grid — same pair the `hirek` collection accepts
+ * (`parent==1` rows are auto-tagged `hírek`; editors often type `hirek` unaccented).
+ */
+const NEWS_TAGS = ['hírek', 'hirek'];
+
+/** True if a doc carries a news tag. */
+export function isNewsDoc(doc: DocLike): boolean {
+	const tags = doc.tv?.tags ?? [];
+	return tags.some((t) => NEWS_TAGS.includes(t));
+}
+
+/**
+ * Top N docs for the `collections/home` grid (publishedon desc, id desc tie-break).
+ * Homepage redesign 2026: no longer "latest of everything" — only expert picks
+ * (`isExpertDoc`: Dr.-authored + expert-tagged) merged with the latest news
+ * (`isNewsDoc`), so a new visitor meets curated professional content plus news.
+ */
 export function homeDocs<T extends DocLike>(listedDocs: T[]): T[] {
-	return [...listedDocs]
+	return listedDocs
+		.filter((doc) => isExpertDoc(doc) || isNewsDoc(doc))
 		.sort(
 			(a, b) =>
 				Number(b.publishedon ?? 0) - Number(a.publishedon ?? 0) ||
