@@ -1197,7 +1197,7 @@
       "source_file": "ify_test.json",
       "source_location": "L230",
       "id": "magazin_ify_test_ify_shipping_address",
-      "community": 100,
+      "community": 9,
       "norm_label": "shipping_address"
     },
     {
@@ -1206,7 +1206,7 @@
       "source_file": "ify_test.json",
       "source_location": "L231",
       "id": "magazin_ify_test_shipping_address_zip",
-      "community": 100,
+      "community": 9,
       "norm_label": "zip"
     },
     {
@@ -1215,7 +1215,7 @@
       "source_file": "ify_test.json",
       "source_location": "L232",
       "id": "magazin_ify_test_shipping_address_city",
-      "community": 100,
+      "community": 9,
       "norm_label": "city"
     },
     {
@@ -1224,7 +1224,7 @@
       "source_file": "ify_test.json",
       "source_location": "L233",
       "id": "magazin_ify_test_shipping_address_name",
-      "community": 100,
+      "community": 9,
       "norm_label": "name"
     },
     {
@@ -1233,7 +1233,7 @@
       "source_file": "ify_test.json",
       "source_location": "L234",
       "id": "magazin_ify_test_shipping_address_phone",
-      "community": 100,
+      "community": 9,
       "norm_label": "phone"
     },
     {
@@ -1242,7 +1242,7 @@
       "source_file": "ify_test.json",
       "source_location": "L235",
       "id": "magazin_ify_test_shipping_address_company",
-      "community": 100,
+      "community": 9,
       "norm_label": "company"
     },
     {
@@ -1251,7 +1251,7 @@
       "source_file": "ify_test.json",
       "source_location": "L236",
       "id": "magazin_ify_test_shipping_address_country",
-      "community": 100,
+      "community": 9,
       "norm_label": "country"
     },
     {
@@ -1260,7 +1260,7 @@
       "source_file": "ify_test.json",
       "source_location": "L237",
       "id": "magazin_ify_test_shipping_address_address1",
-      "community": 100,
+      "community": 9,
       "norm_label": "address1"
     },
     {
@@ -1269,7 +1269,7 @@
       "source_file": "ify_test.json",
       "source_location": "L238",
       "id": "magazin_ify_test_shipping_address_address2",
-      "community": 100,
+      "community": 9,
       "norm_label": "address2"
     },
     {
@@ -1278,7 +1278,7 @@
       "source_file": "ify_test.json",
       "source_location": "L239",
       "id": "magazin_ify_test_shipping_address_latitude",
-      "community": 100,
+      "community": 9,
       "norm_label": "latitude"
     },
     {
@@ -1287,7 +1287,7 @@
       "source_file": "ify_test.json",
       "source_location": "L240",
       "id": "magazin_ify_test_shipping_address_province",
-      "community": 100,
+      "community": 9,
       "norm_label": "province"
     },
     {
@@ -1296,7 +1296,7 @@
       "source_file": "ify_test.json",
       "source_location": "L241",
       "id": "magazin_ify_test_shipping_address_last_name",
-      "community": 100,
+      "community": 9,
       "norm_label": "last_name"
     },
     {
@@ -1305,7 +1305,7 @@
       "source_file": "ify_test.json",
       "source_location": "L242",
       "id": "magazin_ify_test_shipping_address_longitude",
-      "community": 100,
+      "community": 9,
       "norm_label": "longitude"
     },
     {
@@ -1314,7 +1314,7 @@
       "source_file": "ify_test.json",
       "source_location": "L243",
       "id": "magazin_ify_test_shipping_address_first_name",
-      "community": 100,
+      "community": 9,
       "norm_label": "first_name"
     },
     {
@@ -1323,7 +1323,7 @@
       "source_file": "ify_test.json",
       "source_location": "L244",
       "id": "magazin_ify_test_shipping_address_country_code",
-      "community": 100,
+      "community": 9,
       "norm_label": "country_code"
     },
     {
@@ -1332,7 +1332,7 @@
       "source_file": "ify_test.json",
       "source_location": "L245",
       "id": "magazin_ify_test_shipping_address_province_code",
-      "community": 100,
+      "community": 9,
       "norm_label": "province_code"
     },
     {
@@ -3090,7 +3090,7 @@
       "source_file": "scripts/fix-modx-recipe-years.mjs",
       "source_location": "L75",
       "id": "scripts_fix_modx_recipe_years_expectedmodximportyear",
-      "community": 55,
+      "community": 100,
       "norm_label": "expectedmodximportyear()"
     },
     {
@@ -3656,7 +3656,7 @@
       "source_file": "scripts/dedupe-receptsarok-internal.mjs",
       "source_location": "L1",
       "id": "scripts_dedupe_receptsarok_internal_mjs",
-      "community": 33,
+      "community": 15,
       "norm_label": "dedupe-receptsarok-internal.mjs"
     },
     {
@@ -3665,7 +3665,7 @@
       "source_file": "scripts/dedupe-receptsarok-internal.mjs",
       "source_location": "L7",
       "id": "scripts_dedupe_receptsarok_internal_recipes_path",
-      "community": 33,
+      "community": 15,
       "norm_label": "recipes_path"
     },
     {
@@ -3674,7 +3674,7 @@
       "source_file": "scripts/dedupe-receptsarok-internal.mjs",
       "source_location": "L8",
       "id": "scripts_dedupe_receptsarok_internal_audit_path",
-      "community": 33,
+      "community": 15,
       "norm_label": "audit_path"
     },
     {
@@ -3683,7 +3683,7 @@
       "source_file": "scripts/dedupe-receptsarok-internal.mjs",
       "source_location": "L10",
       "id": "scripts_dedupe_receptsarok_internal_applylocal",
-      "community": 33,
+      "community": 15,
       "norm_label": "applylocal"
     },
     {
@@ -3692,7 +3692,7 @@
       "source_file": "scripts/dedupe-receptsarok-internal.mjs",
       "source_location": "L12",
       "id": "scripts_dedupe_receptsarok_internal_readjson",
-      "community": 33,
+      "community": 15,
       "norm_label": "readjson()"
     },
     {
@@ -3701,7 +3701,7 @@
       "source_file": "scripts/dedupe-receptsarok-internal.mjs",
       "source_location": "L16",
       "id": "scripts_dedupe_receptsarok_internal_writejson",
-      "community": 33,
+      "community": 15,
       "norm_label": "writejson()"
     },
     {
@@ -3710,7 +3710,7 @@
       "source_file": "scripts/dedupe-receptsarok-internal.mjs",
       "source_location": "L20",
       "id": "scripts_dedupe_receptsarok_internal_recipes",
-      "community": 33,
+      "community": 15,
       "norm_label": "recipes"
     },
     {
@@ -3719,7 +3719,7 @@
       "source_file": "scripts/dedupe-receptsarok-internal.mjs",
       "source_location": "L23",
       "id": "scripts_dedupe_receptsarok_internal_clusters",
-      "community": 33,
+      "community": 15,
       "norm_label": "clusters"
     },
     {
@@ -3728,7 +3728,7 @@
       "source_file": "scripts/dedupe-receptsarok-internal.mjs",
       "source_location": "L32",
       "id": "scripts_dedupe_receptsarok_internal_duplicateclusters",
-      "community": 33,
+      "community": 15,
       "norm_label": "duplicateclusters"
     },
     {
@@ -3737,7 +3737,7 @@
       "source_file": "scripts/dedupe-receptsarok-internal.mjs",
       "source_location": "L33",
       "id": "scripts_dedupe_receptsarok_internal_loserstounpublish",
-      "community": 33,
+      "community": 15,
       "norm_label": "loserstounpublish"
     },
     {
@@ -3746,7 +3746,7 @@
       "source_file": "scripts/dedupe-receptsarok-internal.mjs",
       "source_location": "L34",
       "id": "scripts_dedupe_receptsarok_internal_entries",
-      "community": 33,
+      "community": 15,
       "norm_label": "entries"
     },
     {
@@ -3755,7 +3755,7 @@
       "source_file": "scripts/dedupe-receptsarok-internal.mjs",
       "source_location": "L36",
       "id": "scripts_dedupe_receptsarok_internal_winnerstofree",
-      "community": 33,
+      "community": 15,
       "norm_label": "winnerstofree"
     },
     {
@@ -3908,7 +3908,7 @@
       "source_file": "scripts/validate-recipe-dedupe-v2.mjs",
       "source_location": "L111",
       "id": "scripts_validate_recipe_dedupe_v2_testauthorgate",
-      "community": 29,
+      "community": 15,
       "norm_label": "testauthorgate()"
     },
     {
@@ -4223,7 +4223,7 @@
       "source_file": "scripts/verify-firestore-magazine.mjs",
       "source_location": "L1",
       "id": "scripts_verify_firestore_magazine_mjs",
-      "community": 76,
+      "community": 30,
       "norm_label": "verify-firestore-magazine.mjs"
     },
     {
@@ -4232,7 +4232,7 @@
       "source_file": "scripts/verify-firestore-magazine.mjs",
       "source_location": "L10",
       "id": "scripts_verify_firestore_magazine_key_routes",
-      "community": 76,
+      "community": 30,
       "norm_label": "key_routes"
     },
     {
@@ -4241,7 +4241,7 @@
       "source_file": "scripts/verify-firestore-magazine.mjs",
       "source_location": "L22",
       "id": "scripts_verify_firestore_magazine_sample_article_paths",
-      "community": 76,
+      "community": 30,
       "norm_label": "sample_article_paths"
     },
     {
@@ -4250,7 +4250,7 @@
       "source_file": "scripts/verify-firestore-magazine.mjs",
       "source_location": "L24",
       "id": "scripts_verify_firestore_magazine_getdoc",
-      "community": 76,
+      "community": 30,
       "norm_label": "getdoc()"
     },
     {
@@ -4259,7 +4259,7 @@
       "source_file": "scripts/verify-firestore-magazine.mjs",
       "source_location": "L29",
       "id": "scripts_verify_firestore_magazine_main",
-      "community": 76,
+      "community": 30,
       "norm_label": "main()"
     },
     {
@@ -4538,14 +4538,14 @@
       "source_file": "scripts/sync-modx-to-firestore.mjs",
       "source_location": "L701",
       "id": "scripts_sync_modx_to_firestore_writecollections",
-      "community": 105,
+      "community": 75,
       "norm_label": "writecollections()"
     },
     {
       "label": "main()",
       "file_type": "code",
       "source_file": "scripts/sync-modx-to-firestore.mjs",
-      "source_location": "L759",
+      "source_location": "L764",
       "id": "scripts_sync_modx_to_firestore_main",
       "community": 8,
       "norm_label": "main()"
@@ -4556,7 +4556,7 @@
       "source_file": "scripts/import-collection-articles-to-dump.mjs",
       "source_location": "L1",
       "id": "scripts_import_collection_articles_to_dump_mjs",
-      "community": 15,
+      "community": 127,
       "norm_label": "import-collection-articles-to-dump.mjs"
     },
     {
@@ -4565,7 +4565,7 @@
       "source_file": "scripts/import-collection-articles-to-dump.mjs",
       "source_location": "L21",
       "id": "scripts_import_collection_articles_to_dump_root",
-      "community": 15,
+      "community": 127,
       "norm_label": "root"
     },
     {
@@ -4574,7 +4574,7 @@
       "source_file": "scripts/import-collection-articles-to-dump.mjs",
       "source_location": "L22",
       "id": "scripts_import_collection_articles_to_dump_data_json",
-      "community": 15,
+      "community": 127,
       "norm_label": "data_json"
     },
     {
@@ -4583,7 +4583,7 @@
       "source_file": "scripts/import-collection-articles-to-dump.mjs",
       "source_location": "L27",
       "id": "scripts_import_collection_articles_to_dump_ids",
-      "community": 15,
+      "community": 127,
       "norm_label": "ids"
     },
     {
@@ -4592,7 +4592,7 @@
       "source_file": "scripts/import-collection-articles-to-dump.mjs",
       "source_location": "L29",
       "id": "scripts_import_collection_articles_to_dump_env",
-      "community": 15,
+      "community": 127,
       "norm_label": "env()"
     },
     {
@@ -4601,7 +4601,7 @@
       "source_file": "scripts/import-collection-articles-to-dump.mjs",
       "source_location": "L43",
       "id": "scripts_import_collection_articles_to_dump_parsetags",
-      "community": 15,
+      "community": 127,
       "norm_label": "parsetags()"
     },
     {
@@ -4610,7 +4610,7 @@
       "source_file": "scripts/import-collection-articles-to-dump.mjs",
       "source_location": "L52",
       "id": "scripts_import_collection_articles_to_dump_main",
-      "community": 15,
+      "community": 127,
       "norm_label": "main()"
     },
     {
@@ -4907,7 +4907,7 @@
       "source_file": "scripts/backfill-recipe-related-cards.mjs",
       "source_location": "L1",
       "id": "scripts_backfill_recipe_related_cards_mjs",
-      "community": 52,
+      "community": 32,
       "norm_label": "backfill-recipe-related-cards.mjs"
     },
     {
@@ -4916,7 +4916,7 @@
       "source_file": "scripts/backfill-recipe-related-cards.mjs",
       "source_location": "L21",
       "id": "scripts_backfill_recipe_related_cards_root",
-      "community": 52,
+      "community": 32,
       "norm_label": "root"
     },
     {
@@ -4925,7 +4925,7 @@
       "source_file": "scripts/backfill-recipe-related-cards.mjs",
       "source_location": "L22",
       "id": "scripts_backfill_recipe_related_cards_recipes_json_path",
-      "community": 52,
+      "community": 32,
       "norm_label": "recipes_json_path"
     },
     {
@@ -4934,7 +4934,7 @@
       "source_file": "scripts/backfill-recipe-related-cards.mjs",
       "source_location": "L23",
       "id": "scripts_backfill_recipe_related_cards_rs_redirects_path",
-      "community": 52,
+      "community": 32,
       "norm_label": "rs_redirects_path"
     },
     {
@@ -4943,7 +4943,7 @@
       "source_file": "scripts/backfill-recipe-related-cards.mjs",
       "source_location": "L24",
       "id": "scripts_backfill_recipe_related_cards_apply",
-      "community": 52,
+      "community": 32,
       "norm_label": "apply"
     },
     {
@@ -4952,7 +4952,7 @@
       "source_file": "scripts/backfill-recipe-related-cards.mjs",
       "source_location": "L26",
       "id": "scripts_backfill_recipe_related_cards_main",
-      "community": 52,
+      "community": 32,
       "norm_label": "main()"
     },
     {
@@ -5168,7 +5168,7 @@
       "source_file": "scripts/lib/receptsarok-redirect-match.mjs",
       "source_location": "L126",
       "id": "lib_receptsarok_redirect_match_loadrecipesfromjson",
-      "community": 21,
+      "community": 32,
       "norm_label": "loadrecipesfromjson()"
     },
     {
@@ -5609,7 +5609,7 @@
       "source_file": "scripts/lib/modx-to-rs-parser.mjs",
       "source_location": "L38",
       "id": "lib_modx_to_rs_parser_isdescriptionauthorcompatible",
-      "community": 29,
+      "community": 15,
       "norm_label": "isdescriptionauthorcompatible()"
     },
     {
@@ -6185,7 +6185,7 @@
       "source_file": "scripts/lib/magazine-projection-snapshot.mjs",
       "source_location": "L165",
       "id": "lib_magazine_projection_snapshot_uploadprojectionsnapshot",
-      "community": 75,
+      "community": 27,
       "norm_label": "uploadprojectionsnapshot()"
     },
     {
@@ -6239,7 +6239,7 @@
       "source_file": "scripts/lib/empty-folders.mjs",
       "source_location": "L1",
       "id": "scripts_lib_empty_folders_mjs",
-      "community": 105,
+      "community": 75,
       "norm_label": "empty-folders.mjs"
     },
     {
@@ -6248,7 +6248,7 @@
       "source_file": "scripts/lib/empty-folders.mjs",
       "source_location": "L12",
       "id": "lib_empty_folders_emptycontentfolderpaths",
-      "community": 105,
+      "community": 75,
       "norm_label": "emptycontentfolderpaths()"
     },
     {
@@ -6257,7 +6257,7 @@
       "source_file": "scripts/lib/related-cards.mjs",
       "source_location": "L1",
       "id": "scripts_lib_related_cards_mjs",
-      "community": 105,
+      "community": 75,
       "norm_label": "related-cards.mjs"
     },
     {
@@ -6266,7 +6266,7 @@
       "source_file": "scripts/lib/related-cards.mjs",
       "source_location": "L4",
       "id": "lib_related_cards_bypublishedondesc",
-      "community": 105,
+      "community": 75,
       "norm_label": "bypublishedondesc()"
     },
     {
@@ -6275,7 +6275,7 @@
       "source_file": "scripts/lib/related-cards.mjs",
       "source_location": "L7",
       "id": "lib_related_cards_parentpathof",
-      "community": 105,
+      "community": 75,
       "norm_label": "parentpathof()"
     },
     {
@@ -6284,7 +6284,7 @@
       "source_file": "scripts/lib/related-cards.mjs",
       "source_location": "L34",
       "id": "lib_related_cards_updaterelatedcards",
-      "community": 105,
+      "community": 75,
       "norm_label": "updaterelatedcards()"
     },
     {
@@ -6356,7 +6356,7 @@
       "source_file": "scripts/lib/normalize-ingredient-punctuation.mjs",
       "source_location": "L1",
       "id": "scripts_lib_normalize_ingredient_punctuation_mjs",
-      "community": 27,
+      "community": 129,
       "norm_label": "normalize-ingredient-punctuation.mjs"
     },
     {
@@ -6365,7 +6365,7 @@
       "source_file": "scripts/lib/normalize-ingredient-punctuation.mjs",
       "source_location": "L19",
       "id": "lib_normalize_ingredient_punctuation_striptrailinglistpunctuation",
-      "community": 27,
+      "community": 129,
       "norm_label": "striptrailinglistpunctuation()"
     },
     {
@@ -6374,7 +6374,7 @@
       "source_file": "scripts/lib/normalize-ingredient-punctuation.mjs",
       "source_location": "L28",
       "id": "lib_normalize_ingredient_punctuation_normalizegroup",
-      "community": 27,
+      "community": 129,
       "norm_label": "normalizegroup()"
     },
     {
@@ -6383,7 +6383,7 @@
       "source_file": "scripts/lib/normalize-ingredient-punctuation.mjs",
       "source_location": "L47",
       "id": "lib_normalize_ingredient_punctuation_normalizescope",
-      "community": 27,
+      "community": 129,
       "norm_label": "normalizescope()"
     },
     {
@@ -6392,7 +6392,7 @@
       "source_file": "scripts/lib/normalize-ingredient-punctuation.mjs",
       "source_location": "L71",
       "id": "lib_normalize_ingredient_punctuation_normalizerecipeingredientpunctuation",
-      "community": 27,
+      "community": 129,
       "norm_label": "normalizerecipeingredientpunctuation()"
     },
     {
@@ -6563,7 +6563,7 @@
       "source_file": "scripts/lib/doc-path-id.mjs",
       "source_location": "L1",
       "id": "scripts_lib_doc_path_id_mjs",
-      "community": 105,
+      "community": 75,
       "norm_label": "doc-path-id.mjs"
     },
     {
@@ -6572,7 +6572,7 @@
       "source_file": "scripts/lib/doc-path-id.mjs",
       "source_location": "L5",
       "id": "lib_doc_path_id_encodedocpathid",
-      "community": 105,
+      "community": 75,
       "norm_label": "encodedocpathid()"
     },
     {
@@ -6626,7 +6626,7 @@
       "source_file": "scripts/lib/firestore-docs.mjs",
       "source_location": "L42",
       "id": "lib_firestore_docs_loadprojectiondocs",
-      "community": 32,
+      "community": 27,
       "norm_label": "loadprojectiondocs()"
     },
     {
@@ -6635,7 +6635,7 @@
       "source_file": "scripts/lib/receptsarok-modx-free-sync.mjs",
       "source_location": "L1",
       "id": "scripts_lib_receptsarok_modx_free_sync_mjs",
-      "community": 52,
+      "community": 32,
       "norm_label": "receptsarok-modx-free-sync.mjs"
     },
     {
@@ -6653,7 +6653,7 @@
       "source_file": "scripts/lib/receptsarok-modx-free-sync.mjs",
       "source_location": "L21",
       "id": "lib_receptsarok_modx_free_sync_targetkey",
-      "community": 52,
+      "community": 32,
       "norm_label": "targetkey()"
     },
     {
@@ -6662,7 +6662,7 @@
       "source_file": "scripts/lib/receptsarok-modx-free-sync.mjs",
       "source_location": "L36",
       "id": "lib_receptsarok_modx_free_sync_applymodxlinkedrecipefreeflags",
-      "community": 52,
+      "community": 32,
       "norm_label": "applymodxlinkedrecipefreeflags()"
     },
     {
@@ -7850,7 +7850,7 @@
       "source_file": "src/lib/modxAuthor.js",
       "source_location": "L1",
       "id": "src_lib_modxauthor_js",
-      "community": 15,
+      "community": 28,
       "norm_label": "modxauthor.js"
     },
     {
@@ -7859,7 +7859,7 @@
       "source_file": "src/lib/modxAuthor.js",
       "source_location": "L25",
       "id": "lib_modxauthor_extractphotocredit",
-      "community": 15,
+      "community": 28,
       "norm_label": "extractphotocredit()"
     },
     {
@@ -7868,7 +7868,7 @@
       "source_file": "src/lib/modxAuthor.js",
       "source_location": "L44",
       "id": "lib_modxauthor_extractreceptjeauthor",
-      "community": 15,
+      "community": 28,
       "norm_label": "extractreceptjeauthor()"
     },
     {
@@ -7877,7 +7877,7 @@
       "source_file": "src/lib/modxAuthor.js",
       "source_location": "L50",
       "id": "lib_modxauthor_extractalairasauthor",
-      "community": 15,
+      "community": 28,
       "norm_label": "extractalairasauthor()"
     },
     {
@@ -8012,7 +8012,7 @@
       "source_file": "src/lib/receptsarokDedupePipeline.js",
       "source_location": "L88",
       "id": "lib_receptsarokdedupepipeline_hasrequiredrecipebody",
-      "community": 14,
+      "community": 37,
       "norm_label": "hasrequiredrecipebody()"
     },
     {
@@ -8138,7 +8138,7 @@
       "source_file": "src/lib/recipesJsonFormat.js",
       "source_location": "L1",
       "id": "src_lib_recipesjsonformat_js",
-      "community": 52,
+      "community": 32,
       "norm_label": "recipesjsonformat.js"
     },
     {
@@ -8147,7 +8147,7 @@
       "source_file": "src/lib/recipesJsonFormat.js",
       "source_location": "L12",
       "id": "lib_recipesjsonformat_stringifyrecipesjson",
-      "community": 52,
+      "community": 32,
       "norm_label": "stringifyrecipesjson()"
     },
     {
@@ -8211,7 +8211,7 @@
       "source_file": "src/lib/modxLinkedRecipes.js",
       "source_location": "L60",
       "id": "lib_modxlinkedrecipes_linkedmodxidsforrecipe",
-      "community": 24,
+      "community": 38,
       "norm_label": "linkedmodxidsforrecipe()"
     },
     {
@@ -8229,7 +8229,7 @@
       "source_file": "src/lib/htmlEntities.js",
       "source_location": "L1",
       "id": "src_lib_htmlentities_js",
-      "community": 15,
+      "community": 28,
       "norm_label": "htmlentities.js"
     },
     {
@@ -8238,7 +8238,7 @@
       "source_file": "src/lib/htmlEntities.js",
       "source_location": "L12",
       "id": "lib_htmlentities_named_html_entities",
-      "community": 15,
+      "community": 28,
       "norm_label": "named_html_entities"
     },
     {
@@ -8247,7 +8247,7 @@
       "source_file": "src/lib/htmlEntities.js",
       "source_location": "L104",
       "id": "lib_htmlentities_decodehtmlentities",
-      "community": 15,
+      "community": 28,
       "norm_label": "decodehtmlentities()"
     },
     {
@@ -8256,7 +8256,7 @@
       "source_file": "src/lib/firebase.ts",
       "source_location": "L1",
       "id": "src_lib_firebase_ts",
-      "community": 30,
+      "community": 26,
       "norm_label": "firebase.ts"
     },
     {
@@ -8265,7 +8265,7 @@
       "source_file": "src/lib/firebase.ts",
       "source_location": "L15",
       "id": "lib_firebase_firebaseconfig",
-      "community": 30,
+      "community": 26,
       "norm_label": "firebaseconfig"
     },
     {
@@ -8274,7 +8274,7 @@
       "source_file": "src/lib/firebase.ts",
       "source_location": "L27",
       "id": "lib_firebase_apps",
-      "community": 30,
+      "community": 26,
       "norm_label": "apps"
     },
     {
@@ -8283,7 +8283,7 @@
       "source_file": "src/lib/firebase.ts",
       "source_location": "L37",
       "id": "lib_firebase_firebaseauth",
-      "community": 30,
+      "community": 26,
       "norm_label": "firebaseauth"
     },
     {
@@ -8409,7 +8409,7 @@
       "source_file": "src/lib/receptsarokDedupeShared.js",
       "source_location": "L187",
       "id": "lib_receptsarokdedupeshared_comparerecipecandidates",
-      "community": 37,
+      "community": 29,
       "norm_label": "comparerecipecandidates()"
     },
     {
@@ -8736,7 +8736,7 @@
       "source_file": "src/lib/authStore.ts",
       "source_location": "L1",
       "id": "src_lib_authstore_ts",
-      "community": 30,
+      "community": 26,
       "norm_label": "authstore.ts"
     },
     {
@@ -8745,7 +8745,7 @@
       "source_file": "src/lib/authStore.ts",
       "source_location": "L6",
       "id": "lib_authstore_authusertype",
-      "community": 30,
+      "community": 26,
       "norm_label": "authusertype"
     },
     {
@@ -8754,7 +8754,7 @@
       "source_file": "src/lib/authStore.ts",
       "source_location": "L15",
       "id": "lib_authstore_authuser",
-      "community": 30,
+      "community": 26,
       "norm_label": "authuser"
     },
     {
@@ -8763,7 +8763,7 @@
       "source_file": "src/lib/authStore.ts",
       "source_location": "L16",
       "id": "lib_authstore_email",
-      "community": 30,
+      "community": 26,
       "norm_label": "email"
     },
     {
@@ -8781,7 +8781,7 @@
       "source_file": "src/lib/authStore.ts",
       "source_location": "L18",
       "id": "lib_authstore_authready",
-      "community": 30,
+      "community": 26,
       "norm_label": "authready"
     },
     {
@@ -8943,7 +8943,7 @@
       "source_file": "src/lib/receptsarok.ts",
       "source_location": "L54",
       "id": "lib_receptsarok_recipeherotocardimg",
-      "community": 23,
+      "community": 18,
       "norm_label": "recipeherotocardimg()"
     },
     {
@@ -8970,7 +8970,7 @@
       "source_file": "src/lib/receptsarok.ts",
       "source_location": "L91",
       "id": "lib_receptsarok_recipe",
-      "community": 22,
+      "community": 48,
       "norm_label": "recipe"
     },
     {
@@ -8988,7 +8988,7 @@
       "source_file": "src/lib/receptsarok.ts",
       "source_location": "L149",
       "id": "lib_receptsarok_recipelayoutentry",
-      "community": 18,
+      "community": 12,
       "norm_label": "recipelayoutentry"
     },
     {
@@ -9042,7 +9042,7 @@
       "source_file": "src/lib/receptsarok.ts",
       "source_location": "L184",
       "id": "lib_receptsarok_isreceptsarokrecipepath",
-      "community": 18,
+      "community": 20,
       "norm_label": "isreceptsarokrecipepath()"
     },
     {
@@ -9574,7 +9574,7 @@
       "source_file": "src/lib/receptsarokAccess.ts",
       "source_location": "L1",
       "id": "src_lib_receptsarokaccess_ts",
-      "community": 30,
+      "community": 22,
       "norm_label": "receptsarokaccess.ts"
     },
     {
@@ -9583,7 +9583,7 @@
       "source_file": "src/lib/receptsarokAccess.ts",
       "source_location": "L9",
       "id": "lib_receptsarokaccess_isreceptsaroktrialactive",
-      "community": 30,
+      "community": 22,
       "norm_label": "isreceptsaroktrialactive()"
     },
     {
@@ -9592,7 +9592,7 @@
       "source_file": "src/lib/receptsarokAccess.ts",
       "source_location": "L14",
       "id": "lib_receptsarokaccess_receptsaroksubscription",
-      "community": 30,
+      "community": 26,
       "norm_label": "receptsaroksubscription"
     },
     {
@@ -9601,7 +9601,7 @@
       "source_file": "src/lib/receptsarokAccess.ts",
       "source_location": "L21",
       "id": "lib_receptsarokaccess_hasreceptsarokaccessfromsubscription",
-      "community": 30,
+      "community": 22,
       "norm_label": "hasreceptsarokaccessfromsubscription()"
     },
     {
@@ -9691,7 +9691,7 @@
       "source_file": "src/lib/receptsarokFirestore.ts",
       "source_location": "L75",
       "id": "lib_receptsarokfirestore_getreceptsarokhome",
-      "community": 12,
+      "community": 124,
       "norm_label": "getreceptsarokhome()"
     },
     {
@@ -9700,7 +9700,7 @@
       "source_file": "src/lib/receptsarokFirestore.ts",
       "source_location": "L81",
       "id": "lib_receptsarokfirestore_buildreceptsarokhome",
-      "community": 18,
+      "community": 23,
       "norm_label": "buildreceptsarokhome()"
     },
     {
@@ -9880,7 +9880,7 @@
       "source_file": "src/lib/modxToRsParser.js",
       "source_location": "L29",
       "id": "lib_modxtorsparser_normalizetext",
-      "community": 24,
+      "community": 28,
       "norm_label": "normalizetext()"
     },
     {
@@ -9889,7 +9889,7 @@
       "source_file": "src/lib/modxToRsParser.js",
       "source_location": "L38",
       "id": "lib_modxtorsparser_isdescriptionauthorcompatible",
-      "community": 24,
+      "community": 28,
       "norm_label": "isdescriptionauthorcompatible()"
     },
     {
@@ -9907,7 +9907,7 @@
       "source_file": "src/lib/modxToRsParser.js",
       "source_location": "L55",
       "id": "lib_modxtorsparser_parseissuecodeyear",
-      "community": 55,
+      "community": 100,
       "norm_label": "parseissuecodeyear()"
     },
     {
@@ -9916,7 +9916,7 @@
       "source_file": "src/lib/modxToRsParser.js",
       "source_location": "L73",
       "id": "lib_modxtorsparser_parseyearfrommagazinpath",
-      "community": 55,
+      "community": 100,
       "norm_label": "parseyearfrommagazinpath()"
     },
     {
@@ -9925,7 +9925,7 @@
       "source_file": "src/lib/modxToRsParser.js",
       "source_location": "L94",
       "id": "lib_modxtorsparser_parsevalidyear",
-      "community": 55,
+      "community": 100,
       "norm_label": "parsevalidyear()"
     },
     {
@@ -9934,7 +9934,7 @@
       "source_file": "src/lib/modxToRsParser.js",
       "source_location": "L101",
       "id": "lib_modxtorsparser_derivedoccreatedatiso",
-      "community": 24,
+      "community": 100,
       "norm_label": "derivedoccreatedatiso()"
     },
     {
@@ -9943,7 +9943,7 @@
       "source_file": "src/lib/modxToRsParser.js",
       "source_location": "L125",
       "id": "lib_modxtorsparser_parseyearfromiso",
-      "community": 55,
+      "community": 100,
       "norm_label": "parseyearfromiso()"
     },
     {
@@ -9952,7 +9952,7 @@
       "source_file": "src/lib/modxToRsParser.js",
       "source_location": "L131",
       "id": "lib_modxtorsparser_deriveyear",
-      "community": 55,
+      "community": 100,
       "norm_label": "deriveyear()"
     },
     {
@@ -9961,7 +9961,7 @@
       "source_file": "src/lib/modxToRsParser.js",
       "source_location": "L172",
       "id": "lib_modxtorsparser_splitparagraphsfromtag",
-      "community": 28,
+      "community": 105,
       "norm_label": "splitparagraphsfromtag()"
     },
     {
@@ -9970,7 +9970,7 @@
       "source_file": "src/lib/modxToRsParser.js",
       "source_location": "L183",
       "id": "lib_modxtorsparser_parseingredientitem",
-      "community": 28,
+      "community": 105,
       "norm_label": "parseingredientitem()"
     },
     {
@@ -9979,7 +9979,7 @@
       "source_file": "src/lib/modxToRsParser.js",
       "source_location": "L213",
       "id": "lib_modxtorsparser_splitingredientlistbycomma",
-      "community": 28,
+      "community": 105,
       "norm_label": "splitingredientlistbycomma()"
     },
     {
@@ -9988,7 +9988,7 @@
       "source_file": "src/lib/modxToRsParser.js",
       "source_location": "L220",
       "id": "lib_modxtorsparser_mergesplitdecimalingredientlines",
-      "community": 28,
+      "community": 105,
       "norm_label": "mergesplitdecimalingredientlines()"
     },
     {
@@ -9997,7 +9997,7 @@
       "source_file": "src/lib/modxToRsParser.js",
       "source_location": "L235",
       "id": "lib_modxtorsparser_parseingredientlines",
-      "community": 28,
+      "community": 105,
       "norm_label": "parseingredientlines()"
     },
     {
@@ -10006,7 +10006,7 @@
       "source_file": "src/lib/modxToRsParser.js",
       "source_location": "L251",
       "id": "lib_modxtorsparser_parseparagraphingredientgroups",
-      "community": 28,
+      "community": 105,
       "norm_label": "parseparagraphingredientgroups()"
     },
     {
@@ -10015,7 +10015,7 @@
       "source_file": "src/lib/modxToRsParser.js",
       "source_location": "L280",
       "id": "lib_modxtorsparser_preinstructioncontent",
-      "community": 28,
+      "community": 24,
       "norm_label": "preinstructioncontent()"
     },
     {
@@ -10024,7 +10024,7 @@
       "source_file": "src/lib/modxToRsParser.js",
       "source_location": "L288",
       "id": "lib_modxtorsparser_parseingredientgroups",
-      "community": 28,
+      "community": 24,
       "norm_label": "parseingredientgroups()"
     },
     {
@@ -10087,7 +10087,7 @@
       "source_file": "src/lib/modxToRsParser.js",
       "source_location": "L476",
       "id": "lib_modxtorsparser_deriveauthor",
-      "community": 24,
+      "community": 28,
       "norm_label": "deriveauthor()"
     },
     {
@@ -10123,7 +10123,7 @@
       "source_file": "src/lib/modxToRsParser.js",
       "source_location": "L596",
       "id": "lib_modxtorsparser_deriveinstructions",
-      "community": 28,
+      "community": 24,
       "norm_label": "deriveinstructions()"
     },
     {
@@ -10141,7 +10141,7 @@
       "source_file": "src/lib/modxToRsParser.js",
       "source_location": "L646",
       "id": "lib_modxtorsparser_deriveinstructionshtml",
-      "community": 28,
+      "community": 24,
       "norm_label": "deriveinstructionshtml()"
     },
     {
@@ -10168,7 +10168,7 @@
       "source_file": "src/lib/modxToRsParser.js",
       "source_location": "L688",
       "id": "lib_modxtorsparser_cardimgfromsrc",
-      "community": 24,
+      "community": 28,
       "norm_label": "cardimgfromsrc()"
     },
     {
@@ -10177,7 +10177,7 @@
       "source_file": "src/lib/modxToRsParser.js",
       "source_location": "L701",
       "id": "lib_modxtorsparser_deriveimg",
-      "community": 24,
+      "community": 28,
       "norm_label": "deriveimg()"
     },
     {
@@ -10186,7 +10186,7 @@
       "source_file": "src/lib/modxToRsParser.js",
       "source_location": "L722",
       "id": "lib_modxtorsparser_lastimageinhtml",
-      "community": 79,
+      "community": 28,
       "norm_label": "lastimageinhtml()"
     },
     {
@@ -10231,7 +10231,7 @@
       "source_file": "src/lib/modxToRsParser.js",
       "source_location": "L796",
       "id": "lib_modxtorsparser_deriveservings",
-      "community": 28,
+      "community": 105,
       "norm_label": "deriveservings()"
     },
     {
@@ -10240,7 +10240,7 @@
       "source_file": "src/lib/modxToRsParser.js",
       "source_location": "L817",
       "id": "lib_modxtorsparser_hasmainstylehozzavalokh2",
-      "community": 79,
+      "community": 24,
       "norm_label": "hasmainstylehozzavalokh2()"
     },
     {
@@ -10249,7 +10249,7 @@
       "source_file": "src/lib/modxToRsParser.js",
       "source_location": "L821",
       "id": "lib_modxtorsparser_hasexplicitinstructionheading",
-      "community": 79,
+      "community": 24,
       "norm_label": "hasexplicitinstructionheading()"
     },
     {
@@ -10258,7 +10258,7 @@
       "source_file": "src/lib/modxToRsParser.js",
       "source_location": "L827",
       "id": "lib_modxtorsparser_derivesubrecipes",
-      "community": 79,
+      "community": 24,
       "norm_label": "derivesubrecipes()"
     },
     {
@@ -10267,7 +10267,7 @@
       "source_file": "src/lib/modxToRsParser.js",
       "source_location": "L1010",
       "id": "lib_modxtorsparser_isonlystandalonerecipecollection",
-      "community": 79,
+      "community": 24,
       "norm_label": "isonlystandalonerecipecollection()"
     },
     {
@@ -10276,7 +10276,7 @@
       "source_file": "src/lib/modxToRsParser.js",
       "source_location": "L1018",
       "id": "lib_modxtorsparser_idslugfromrecipetitle",
-      "community": 24,
+      "community": 28,
       "norm_label": "idslugfromrecipetitle()"
     },
     {
@@ -10294,7 +10294,7 @@
       "source_file": "src/lib/modxToRsParser.js",
       "source_location": "L1041",
       "id": "lib_modxtorsparser_applyphotocredit",
-      "community": 24,
+      "community": 28,
       "norm_label": "applyphotocredit()"
     },
     {
@@ -10384,7 +10384,7 @@
       "source_file": "src/lib/auth.ts",
       "source_location": "L1",
       "id": "src_lib_auth_ts",
-      "community": 30,
+      "community": 26,
       "norm_label": "auth.ts"
     },
     {
@@ -10402,7 +10402,7 @@
       "source_file": "src/lib/auth.ts",
       "source_location": "L21",
       "id": "lib_auth_initauth",
-      "community": 30,
+      "community": 26,
       "norm_label": "initauth()"
     },
     {
@@ -10438,7 +10438,7 @@
       "source_file": "src/lib/modx/transform.ts",
       "source_location": "L18",
       "id": "modx_transform_modxdoc",
-      "community": 1,
+      "community": 33,
       "norm_label": "modxdoc"
     },
     {
@@ -10447,7 +10447,7 @@
       "source_file": "src/lib/modx/transform.ts",
       "source_location": "L20",
       "id": "modx_transform_processeddocfields",
-      "community": 1,
+      "community": 33,
       "norm_label": "processeddocfields"
     },
     {
@@ -10456,7 +10456,7 @@
       "source_file": "src/lib/modx/transform.ts",
       "source_location": "L45",
       "id": "modx_transform_receptsarokredirectmaps",
-      "community": 1,
+      "community": 33,
       "norm_label": "receptsarokredirectmaps"
     },
     {
@@ -10474,7 +10474,7 @@
       "source_file": "src/lib/modx/transform.ts",
       "source_location": "L67",
       "id": "modx_transform_modxtransform",
-      "community": 1,
+      "community": 33,
       "norm_label": "modxtransform"
     },
     {
@@ -10600,7 +10600,7 @@
       "source_file": "src/lib/modx/transform.ts",
       "source_location": "L227",
       "id": "modx_transform_createmodxtransform",
-      "community": 1,
+      "community": 33,
       "norm_label": "createmodxtransform()"
     },
     {
@@ -10609,7 +10609,7 @@
       "source_file": "src/lib/modx/collections.ts",
       "source_location": "L1",
       "id": "src_lib_modx_collections_ts",
-      "community": 1,
+      "community": 33,
       "norm_label": "collections.ts"
     },
     {
@@ -10618,7 +10618,7 @@
       "source_file": "src/lib/modx/collections.ts",
       "source_location": "L12",
       "id": "modx_collections_collectionqueries",
-      "community": 1,
+      "community": 30,
       "norm_label": "collectionqueries"
     },
     {
@@ -10627,7 +10627,7 @@
       "source_file": "src/lib/modx/collections.ts",
       "source_location": "L90",
       "id": "modx_collections_tv",
-      "community": 1,
+      "community": 33,
       "norm_label": "tv"
     },
     {
@@ -10636,7 +10636,7 @@
       "source_file": "src/lib/modx/collections.ts",
       "source_location": "L97",
       "id": "modx_collections_doclike",
-      "community": 1,
+      "community": 33,
       "norm_label": "doclike"
     },
     {
@@ -10645,7 +10645,7 @@
       "source_file": "src/lib/modx/collections.ts",
       "source_location": "L114",
       "id": "modx_collections_thincard",
-      "community": 1,
+      "community": 33,
       "norm_label": "thincard"
     },
     {
@@ -10654,7 +10654,7 @@
       "source_file": "src/lib/modx/collections.ts",
       "source_location": "L129",
       "id": "modx_collections_tothincard",
-      "community": 1,
+      "community": 33,
       "norm_label": "tothincard()"
     },
     {
@@ -10672,7 +10672,7 @@
       "source_file": "src/lib/modx/collections.ts",
       "source_location": "L169",
       "id": "modx_collections_rankdocbytags",
-      "community": 1,
+      "community": 91,
       "norm_label": "rankdocbytags()"
     },
     {
@@ -10681,7 +10681,7 @@
       "source_file": "src/lib/modx/collections.ts",
       "source_location": "L208",
       "id": "modx_collections_docsbytags",
-      "community": 105,
+      "community": 75,
       "norm_label": "docsbytags()"
     },
     {
@@ -10690,8 +10690,44 @@
       "source_file": "src/lib/modx/collections.ts",
       "source_location": "L230",
       "id": "modx_collections_homedocs",
-      "community": 1,
+      "community": 33,
       "norm_label": "homedocs()"
+    },
+    {
+      "label": "EXPERT_TAGS",
+      "file_type": "code",
+      "source_file": "src/lib/modx/collections.ts",
+      "source_location": "L244",
+      "id": "modx_collections_expert_tags",
+      "community": 33,
+      "norm_label": "expert_tags"
+    },
+    {
+      "label": "hasDoctorAuthor()",
+      "file_type": "code",
+      "source_file": "src/lib/modx/collections.ts",
+      "source_location": "L270",
+      "id": "modx_collections_hasdoctorauthor",
+      "community": 33,
+      "norm_label": "hasdoctorauthor()"
+    },
+    {
+      "label": "isExpertDoc()",
+      "file_type": "code",
+      "source_file": "src/lib/modx/collections.ts",
+      "source_location": "L279",
+      "id": "modx_collections_isexpertdoc",
+      "community": 33,
+      "norm_label": "isexpertdoc()"
+    },
+    {
+      "label": "expertDocs()",
+      "file_type": "code",
+      "source_file": "src/lib/modx/collections.ts",
+      "source_location": "L291",
+      "id": "modx_collections_expertdocs",
+      "community": 33,
+      "norm_label": "expertdocs()"
     },
     {
       "label": "index.ts",
@@ -10699,7 +10735,7 @@
       "source_file": "src/lib/modx/index.ts",
       "source_location": "L1",
       "id": "src_lib_modx_index_ts",
-      "community": 1,
+      "community": 33,
       "norm_label": "index.ts"
     },
     {
@@ -11023,7 +11059,7 @@
       "source_file": "$app/environment",
       "confidence": "EXTRACTED",
       "id": "environment",
-      "community": 96,
+      "community": 26,
       "norm_label": "$app/environment"
     },
     {
@@ -11183,7 +11219,7 @@
       "source_file": "$env/dynamic/public",
       "confidence": "EXTRACTED",
       "id": "public",
-      "community": 30,
+      "community": 26,
       "norm_label": "$env/dynamic/public"
     },
     {
@@ -11347,7 +11383,7 @@
       "source_file": "firebase/auth",
       "confidence": "EXTRACTED",
       "id": "auth",
-      "community": 30,
+      "community": 26,
       "norm_label": "firebase/auth"
     },
     {
@@ -11384,7 +11420,7 @@
       "source_file": "src/lib/magazine/firestore.ts",
       "source_location": "L1",
       "id": "src_lib_magazine_firestore_ts",
-      "community": 1,
+      "community": 79,
       "norm_label": "firestore.ts"
     },
     {
@@ -11393,7 +11429,7 @@
       "source_file": "src/lib/magazine/firestore.ts",
       "source_location": "L6",
       "id": "magazine_firestore_magazinearticle",
-      "community": 1,
+      "community": 79,
       "norm_label": "magazinearticle"
     },
     {
@@ -11402,50 +11438,50 @@
       "source_file": "src/lib/magazine/firestore.ts",
       "source_location": "L13",
       "id": "magazine_firestore_collectiondoc",
-      "community": 1,
+      "community": 79,
       "norm_label": "collectiondoc"
     },
     {
       "label": "SearchMeta",
       "file_type": "code",
       "source_file": "src/lib/magazine/firestore.ts",
-      "source_location": "L21",
+      "source_location": "L23",
       "id": "magazine_firestore_searchmeta",
-      "community": 1,
+      "community": 79,
       "norm_label": "searchmeta"
     },
     {
       "label": "COLLECTION_SLUGS",
       "file_type": "code",
       "source_file": "src/lib/magazine/firestore.ts",
-      "source_location": "L29",
+      "source_location": "L31",
       "id": "magazine_firestore_collection_slugs",
-      "community": 1,
+      "community": 79,
       "norm_label": "collection_slugs"
     },
     {
       "label": "isCollectionSlug()",
       "file_type": "code",
       "source_file": "src/lib/magazine/firestore.ts",
-      "source_location": "L31",
+      "source_location": "L33",
       "id": "magazine_firestore_iscollectionslug",
-      "community": 1,
+      "community": 91,
       "norm_label": "iscollectionslug()"
     },
     {
       "label": "getMagazineArticle()",
       "file_type": "code",
       "source_file": "src/lib/magazine/firestore.ts",
-      "source_location": "L35",
+      "source_location": "L37",
       "id": "magazine_firestore_getmagazinearticle",
-      "community": 1,
+      "community": 91,
       "norm_label": "getmagazinearticle()"
     },
     {
       "label": "getChildModxIds()",
       "file_type": "code",
       "source_file": "src/lib/magazine/firestore.ts",
-      "source_location": "L42",
+      "source_location": "L44",
       "id": "magazine_firestore_getchildmodxids",
       "community": 48,
       "norm_label": "getchildmodxids()"
@@ -11454,7 +11490,7 @@
       "label": "getSiblingReceptModxIds()",
       "file_type": "code",
       "source_file": "src/lib/magazine/firestore.ts",
-      "source_location": "L51",
+      "source_location": "L53",
       "id": "magazine_firestore_getsiblingreceptmodxids",
       "community": 48,
       "norm_label": "getsiblingreceptmodxids()"
@@ -11463,45 +11499,45 @@
       "label": "getMagazineCollection()",
       "file_type": "code",
       "source_file": "src/lib/magazine/firestore.ts",
-      "source_location": "L77",
+      "source_location": "L79",
       "id": "magazine_firestore_getmagazinecollection",
-      "community": 1,
+      "community": 91,
       "norm_label": "getmagazinecollection()"
     },
     {
       "label": "getSearchMeta()",
       "file_type": "code",
       "source_file": "src/lib/magazine/firestore.ts",
-      "source_location": "L83",
+      "source_location": "L85",
       "id": "magazine_firestore_getsearchmeta",
-      "community": 1,
+      "community": 79,
       "norm_label": "getsearchmeta()"
     },
     {
       "label": "getMagazineStats()",
       "file_type": "code",
       "source_file": "src/lib/magazine/firestore.ts",
-      "source_location": "L91",
+      "source_location": "L93",
       "id": "magazine_firestore_getmagazinestats",
-      "community": 1,
+      "community": 124,
       "norm_label": "getmagazinestats()"
     },
     {
       "label": "SiteStats",
       "file_type": "code",
       "source_file": "src/lib/magazine/firestore.ts",
-      "source_location": "L106",
+      "source_location": "L108",
       "id": "magazine_firestore_sitestats",
-      "community": 1,
+      "community": 79,
       "norm_label": "sitestats"
     },
     {
       "label": "getSiteStats()",
       "file_type": "code",
       "source_file": "src/lib/magazine/firestore.ts",
-      "source_location": "L118",
+      "source_location": "L120",
       "id": "magazine_firestore_getsitestats",
-      "community": 1,
+      "community": 124,
       "norm_label": "getsitestats()"
     },
     {
@@ -11510,7 +11546,7 @@
       "source_file": "src/lib/magazine/cacheHeaders.ts",
       "source_location": "L1",
       "id": "src_lib_magazine_cacheheaders_ts",
-      "community": 1,
+      "community": 91,
       "norm_label": "cacheheaders.ts"
     },
     {
@@ -11555,7 +11591,7 @@
       "source_file": "src/lib/magazine/docPathId.ts",
       "source_location": "L1",
       "id": "src_lib_magazine_docpathid_ts",
-      "community": 1,
+      "community": 79,
       "norm_label": "docpathid.ts"
     },
     {
@@ -11564,7 +11600,7 @@
       "source_file": "src/lib/magazine/docPathId.ts",
       "source_location": "L2",
       "id": "magazine_docpathid_encodedocpathid",
-      "community": 1,
+      "community": 79,
       "norm_label": "encodedocpathid()"
     },
     {
@@ -11573,7 +11609,7 @@
       "source_file": "src/lib/magazine/docPathId.ts",
       "source_location": "L10",
       "id": "magazine_docpathid_decodedocpathid",
-      "community": 1,
+      "community": 79,
       "norm_label": "decodedocpathid()"
     },
     {
@@ -11582,7 +11618,7 @@
       "source_file": "src/lib/magazine/searchIndexUrl.ts",
       "source_location": "L1",
       "id": "src_lib_magazine_searchindexurl_ts",
-      "community": 1,
+      "community": 79,
       "norm_label": "searchindexurl.ts"
     },
     {
@@ -11591,7 +11627,7 @@
       "source_file": "src/lib/magazine/searchIndexUrl.ts",
       "source_location": "L6",
       "id": "magazine_searchindexurl_resolvesearchindexurl",
-      "community": 1,
+      "community": 79,
       "norm_label": "resolvesearchindexurl()"
     },
     {
@@ -11834,7 +11870,7 @@
       "source_file": "src/routes/+page.server.ts",
       "source_location": "L1",
       "id": "src_routes_page_server_ts",
-      "community": 1,
+      "community": 91,
       "norm_label": "+page.server.ts"
     },
     {
@@ -11843,7 +11879,7 @@
       "source_file": "src/routes/+page.server.ts",
       "source_location": "L5",
       "id": "routes_page_server_load",
-      "community": 1,
+      "community": 91,
       "norm_label": "load()"
     },
     {
@@ -11879,7 +11915,7 @@
       "source_file": "src/routes/+layout.server.ts",
       "source_location": "L1",
       "id": "src_routes_layout_server_ts",
-      "community": 1,
+      "community": 124,
       "norm_label": "+layout.server.ts"
     },
     {
@@ -11888,7 +11924,7 @@
       "source_file": "src/routes/+layout.server.ts",
       "source_location": "L7",
       "id": "routes_layout_server_load",
-      "community": 1,
+      "community": 124,
       "norm_label": "load()"
     },
     {
@@ -11915,7 +11951,7 @@
       "source_file": "src/routes/$types",
       "confidence": "EXTRACTED",
       "id": "users_vhollo_public_google_webdev_diabetes_magazin_src_routes_types",
-      "community": 1,
+      "community": 91,
       "norm_label": "./$types"
     },
     {
@@ -11935,6 +11971,15 @@
       "id": "stores",
       "community": 20,
       "norm_label": "$app/stores"
+    },
+    {
+      "label": "+page.svelte",
+      "file_type": "code",
+      "source_file": "src/routes/hirlevel/+page.svelte",
+      "source_location": "L1",
+      "id": "src_routes_hirlevel_page_svelte",
+      "community": 93,
+      "norm_label": "+page.svelte"
     },
     {
       "label": "+page.svelte",
@@ -11996,7 +12041,7 @@
       "source_file": "src/routes/receptsarok/+layout.server.ts",
       "source_location": "L1",
       "id": "src_routes_receptsarok_layout_server_ts",
-      "community": 12,
+      "community": 124,
       "norm_label": "+layout.server.ts"
     },
     {
@@ -12005,7 +12050,7 @@
       "source_file": "src/routes/receptsarok/+layout.server.ts",
       "source_location": "L5",
       "id": "receptsarok_layout_server_load",
-      "community": 12,
+      "community": 124,
       "norm_label": "load()"
     },
     {
@@ -12257,7 +12302,7 @@
       "source_file": "src/routes/keres/+page.svelte",
       "source_location": "L115",
       "id": "keres_page_recipeteaserfromhit",
-      "community": 18,
+      "community": 20,
       "norm_label": "recipeteaserfromhit()"
     },
     {
@@ -12347,7 +12392,7 @@
       "source_file": "src/routes/[...path]/+layout.server.ts",
       "source_location": "L1",
       "id": "src_routes_path_layout_server_ts",
-      "community": 1,
+      "community": 91,
       "norm_label": "+layout.server.ts"
     },
     {
@@ -12356,7 +12401,7 @@
       "source_file": "src/routes/[...path]/+layout.server.ts",
       "source_location": "L8",
       "id": "path_layout_server_bestcollectionslug",
-      "community": 1,
+      "community": 91,
       "norm_label": "bestcollectionslug()"
     },
     {
@@ -12365,7 +12410,7 @@
       "source_file": "src/routes/[...path]/+layout.server.ts",
       "source_location": "L23",
       "id": "path_layout_server_similarcards",
-      "community": 1,
+      "community": 91,
       "norm_label": "similarcards()"
     },
     {
@@ -12374,7 +12419,7 @@
       "source_file": "src/routes/[...path]/+layout.server.ts",
       "source_location": "L36",
       "id": "path_layout_server_load",
-      "community": 1,
+      "community": 91,
       "norm_label": "load()"
     },
     {
@@ -12383,7 +12428,7 @@
       "source_file": "src/routes/api/search-index/+server.ts",
       "source_location": "L1",
       "id": "src_routes_api_search_index_server_ts",
-      "community": 1,
+      "community": 79,
       "norm_label": "+server.ts"
     },
     {
@@ -12392,7 +12437,7 @@
       "source_file": "src/routes/api/search-index/+server.ts",
       "source_location": "L8",
       "id": "search_index_server_get",
-      "community": 1,
+      "community": 79,
       "norm_label": "get()"
     },
     {
@@ -12446,7 +12491,7 @@
       "source_file": "src/routes/api/search-meta/+server.ts",
       "source_location": "L1",
       "id": "src_routes_api_search_meta_server_ts",
-      "community": 1,
+      "community": 79,
       "norm_label": "+server.ts"
     },
     {
@@ -12455,7 +12500,7 @@
       "source_file": "src/routes/api/search-meta/+server.ts",
       "source_location": "L8",
       "id": "search_meta_server_get",
-      "community": 1,
+      "community": 79,
       "norm_label": "get()"
     },
     {
@@ -13085,7 +13130,7 @@
       "source_file": "drizzle/schema.ts",
       "source_location": "L545",
       "id": "drizzle_schema_modx_site_content",
-      "community": 8,
+      "community": 2,
       "norm_label": "modx_site_content"
     },
     {
@@ -13103,7 +13148,7 @@
       "source_file": "drizzle/schema.ts",
       "source_location": "L606",
       "id": "drizzle_schema_modx_site_htmlsnippets",
-      "community": 8,
+      "community": 2,
       "norm_label": "modx_site_htmlsnippets"
     },
     {
@@ -13211,7 +13256,7 @@
       "source_file": "drizzle/schema.ts",
       "source_location": "L755",
       "id": "drizzle_schema_modx_site_tmplvar_contentvalues",
-      "community": 8,
+      "community": 2,
       "norm_label": "modx_site_tmplvar_contentvalues"
     },
     {
@@ -14471,7 +14516,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L219",
       "id": "meta_0000_snapshot_columns_user",
-      "community": 87,
+      "community": 55,
       "norm_label": "user"
     },
     {
@@ -14480,7 +14525,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L220",
       "id": "meta_0000_snapshot_user_autoincrement",
-      "community": 87,
+      "community": 55,
       "norm_label": "autoincrement"
     },
     {
@@ -14489,7 +14534,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L221",
       "id": "meta_0000_snapshot_user_name",
-      "community": 87,
+      "community": 55,
       "norm_label": "name"
     },
     {
@@ -14498,7 +14543,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L222",
       "id": "meta_0000_snapshot_user_type",
-      "community": 87,
+      "community": 55,
       "norm_label": "type"
     },
     {
@@ -14507,7 +14552,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L223",
       "id": "meta_0000_snapshot_user_primarykey",
-      "community": 87,
+      "community": 55,
       "norm_label": "primarykey"
     },
     {
@@ -14516,7 +14561,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L224",
       "id": "meta_0000_snapshot_user_notnull",
-      "community": 87,
+      "community": 55,
       "norm_label": "notnull"
     },
     {
@@ -14525,7 +14570,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L226",
       "id": "meta_0000_snapshot_columns_jatek",
-      "community": 129,
+      "community": 87,
       "norm_label": "jatek"
     },
     {
@@ -14534,7 +14579,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L227",
       "id": "meta_0000_snapshot_jatek_autoincrement",
-      "community": 129,
+      "community": 87,
       "norm_label": "autoincrement"
     },
     {
@@ -14543,7 +14588,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L228",
       "id": "meta_0000_snapshot_jatek_name",
-      "community": 129,
+      "community": 87,
       "norm_label": "name"
     },
     {
@@ -14552,7 +14597,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L229",
       "id": "meta_0000_snapshot_jatek_type",
-      "community": 129,
+      "community": 87,
       "norm_label": "type"
     },
     {
@@ -14561,7 +14606,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L230",
       "id": "meta_0000_snapshot_jatek_primarykey",
-      "community": 129,
+      "community": 87,
       "norm_label": "primarykey"
     },
     {
@@ -14570,7 +14615,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L231",
       "id": "meta_0000_snapshot_jatek_notnull",
-      "community": 129,
+      "community": 87,
       "norm_label": "notnull"
     },
     {
@@ -14750,7 +14795,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L305",
       "id": "meta_0000_snapshot_tables_modx_diaeuro2014",
-      "community": 35,
+      "community": 125,
       "norm_label": "modx_diaeuro2014"
     },
     {
@@ -14759,7 +14804,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L306",
       "id": "meta_0000_snapshot_modx_diaeuro2014_name",
-      "community": 35,
+      "community": 125,
       "norm_label": "name"
     },
     {
@@ -14768,7 +14813,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L307",
       "id": "meta_0000_snapshot_modx_diaeuro2014_columns",
-      "community": 35,
+      "community": 125,
       "norm_label": "columns"
     },
     {
@@ -14831,7 +14876,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L323",
       "id": "meta_0000_snapshot_modx_diaeuro2014_compositeprimarykeys",
-      "community": 35,
+      "community": 125,
       "norm_label": "compositeprimarykeys"
     },
     {
@@ -14840,7 +14885,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L324",
       "id": "meta_0000_snapshot_modx_diaeuro2014_indexes",
-      "community": 35,
+      "community": 125,
       "norm_label": "indexes"
     },
     {
@@ -14849,7 +14894,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L325",
       "id": "meta_0000_snapshot_modx_diaeuro2014_foreignkeys",
-      "community": 35,
+      "community": 125,
       "norm_label": "foreignkeys"
     },
     {
@@ -14858,7 +14903,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L326",
       "id": "meta_0000_snapshot_modx_diaeuro2014_uniqueconstraints",
-      "community": 35,
+      "community": 125,
       "norm_label": "uniqueconstraints"
     },
     {
@@ -14867,7 +14912,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L328",
       "id": "meta_0000_snapshot_tables_modx_diaeuro2014_player",
-      "community": 71,
+      "community": 34,
       "norm_label": "modx_diaeuro2014_player"
     },
     {
@@ -14876,7 +14921,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L329",
       "id": "meta_0000_snapshot_modx_diaeuro2014_player_name",
-      "community": 71,
+      "community": 34,
       "norm_label": "name"
     },
     {
@@ -14885,7 +14930,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L330",
       "id": "meta_0000_snapshot_modx_diaeuro2014_player_columns",
-      "community": 71,
+      "community": 34,
       "norm_label": "columns"
     },
     {
@@ -14912,7 +14957,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L333",
       "id": "meta_0000_snapshot_uid_name",
-      "community": 34,
+      "community": 71,
       "norm_label": "name"
     },
     {
@@ -14948,7 +14993,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L338",
       "id": "meta_0000_snapshot_columns_player",
-      "community": 71,
+      "community": 34,
       "norm_label": "player"
     },
     {
@@ -14957,7 +15002,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L339",
       "id": "meta_0000_snapshot_player_autoincrement",
-      "community": 71,
+      "community": 34,
       "norm_label": "autoincrement"
     },
     {
@@ -14966,7 +15011,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L340",
       "id": "meta_0000_snapshot_player_name",
-      "community": 71,
+      "community": 34,
       "norm_label": "name"
     },
     {
@@ -14975,7 +15020,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L341",
       "id": "meta_0000_snapshot_player_type",
-      "community": 71,
+      "community": 34,
       "norm_label": "type"
     },
     {
@@ -14984,7 +15029,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L342",
       "id": "meta_0000_snapshot_player_primarykey",
-      "community": 71,
+      "community": 34,
       "norm_label": "primarykey"
     },
     {
@@ -14993,7 +15038,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L343",
       "id": "meta_0000_snapshot_player_notnull",
-      "community": 71,
+      "community": 34,
       "norm_label": "notnull"
     },
     {
@@ -15002,7 +15047,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L346",
       "id": "meta_0000_snapshot_modx_diaeuro2014_player_compositeprimarykeys",
-      "community": 71,
+      "community": 34,
       "norm_label": "compositeprimarykeys"
     },
     {
@@ -15011,7 +15056,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L347",
       "id": "meta_0000_snapshot_modx_diaeuro2014_player_indexes",
-      "community": 71,
+      "community": 34,
       "norm_label": "indexes"
     },
     {
@@ -15020,7 +15065,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L348",
       "id": "meta_0000_snapshot_indexes_uid",
-      "community": 34,
+      "community": 71,
       "norm_label": "uid"
     },
     {
@@ -15029,7 +15074,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L350",
       "id": "meta_0000_snapshot_uid_columns",
-      "community": 34,
+      "community": 71,
       "norm_label": "columns"
     },
     {
@@ -15038,7 +15083,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L353",
       "id": "meta_0000_snapshot_uid_isunique",
-      "community": 34,
+      "community": 71,
       "norm_label": "isunique"
     },
     {
@@ -15047,7 +15092,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L356",
       "id": "meta_0000_snapshot_modx_diaeuro2014_player_foreignkeys",
-      "community": 71,
+      "community": 34,
       "norm_label": "foreignkeys"
     },
     {
@@ -15056,7 +15101,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L357",
       "id": "meta_0000_snapshot_modx_diaeuro2014_player_uniqueconstraints",
-      "community": 71,
+      "community": 34,
       "norm_label": "uniqueconstraints"
     },
     {
@@ -15065,7 +15110,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L359",
       "id": "meta_0000_snapshot_tables_modx_diaeuro2014_toto",
-      "community": 125,
+      "community": 68,
       "norm_label": "modx_diaeuro2014_toto"
     },
     {
@@ -15074,7 +15119,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L360",
       "id": "meta_0000_snapshot_modx_diaeuro2014_toto_name",
-      "community": 125,
+      "community": 68,
       "norm_label": "name"
     },
     {
@@ -15083,7 +15128,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L361",
       "id": "meta_0000_snapshot_modx_diaeuro2014_toto_columns",
-      "community": 125,
+      "community": 68,
       "norm_label": "columns"
     },
     {
@@ -15200,7 +15245,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L391",
       "id": "meta_0000_snapshot_modx_diaeuro2014_toto_compositeprimarykeys",
-      "community": 125,
+      "community": 68,
       "norm_label": "compositeprimarykeys"
     },
     {
@@ -15209,7 +15254,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L392",
       "id": "meta_0000_snapshot_modx_diaeuro2014_toto_indexes",
-      "community": 125,
+      "community": 71,
       "norm_label": "indexes"
     },
     {
@@ -15218,7 +15263,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L401",
       "id": "meta_0000_snapshot_modx_diaeuro2014_toto_foreignkeys",
-      "community": 125,
+      "community": 68,
       "norm_label": "foreignkeys"
     },
     {
@@ -15227,7 +15272,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L402",
       "id": "meta_0000_snapshot_modx_diaeuro2014_toto_uniqueconstraints",
-      "community": 125,
+      "community": 68,
       "norm_label": "uniqueconstraints"
     },
     {
@@ -15236,7 +15281,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L404",
       "id": "meta_0000_snapshot_tables_modx_diaeuro2015",
-      "community": 70,
+      "community": 35,
       "norm_label": "modx_diaeuro2015"
     },
     {
@@ -15245,7 +15290,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L405",
       "id": "meta_0000_snapshot_modx_diaeuro2015_name",
-      "community": 70,
+      "community": 35,
       "norm_label": "name"
     },
     {
@@ -15263,7 +15308,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L422",
       "id": "meta_0000_snapshot_modx_diaeuro2015_compositeprimarykeys",
-      "community": 70,
+      "community": 35,
       "norm_label": "compositeprimarykeys"
     },
     {
@@ -15272,7 +15317,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L423",
       "id": "meta_0000_snapshot_modx_diaeuro2015_indexes",
-      "community": 70,
+      "community": 35,
       "norm_label": "indexes"
     },
     {
@@ -15281,7 +15326,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L424",
       "id": "meta_0000_snapshot_modx_diaeuro2015_foreignkeys",
-      "community": 70,
+      "community": 35,
       "norm_label": "foreignkeys"
     },
     {
@@ -15290,7 +15335,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L425",
       "id": "meta_0000_snapshot_modx_diaeuro2015_uniqueconstraints",
-      "community": 70,
+      "community": 35,
       "norm_label": "uniqueconstraints"
     },
     {
@@ -15299,7 +15344,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L427",
       "id": "meta_0000_snapshot_tables_modx_diaeuro2015_player",
-      "community": 34,
+      "community": 71,
       "norm_label": "modx_diaeuro2015_player"
     },
     {
@@ -15308,7 +15353,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L428",
       "id": "meta_0000_snapshot_modx_diaeuro2015_player_name",
-      "community": 34,
+      "community": 71,
       "norm_label": "name"
     },
     {
@@ -15326,7 +15371,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L445",
       "id": "meta_0000_snapshot_modx_diaeuro2015_player_compositeprimarykeys",
-      "community": 34,
+      "community": 71,
       "norm_label": "compositeprimarykeys"
     },
     {
@@ -15335,7 +15380,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L446",
       "id": "meta_0000_snapshot_modx_diaeuro2015_player_indexes",
-      "community": 34,
+      "community": 71,
       "norm_label": "indexes"
     },
     {
@@ -15344,7 +15389,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L455",
       "id": "meta_0000_snapshot_modx_diaeuro2015_player_foreignkeys",
-      "community": 34,
+      "community": 71,
       "norm_label": "foreignkeys"
     },
     {
@@ -15353,7 +15398,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L456",
       "id": "meta_0000_snapshot_modx_diaeuro2015_player_uniqueconstraints",
-      "community": 34,
+      "community": 71,
       "norm_label": "uniqueconstraints"
     },
     {
@@ -15362,7 +15407,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L458",
       "id": "meta_0000_snapshot_tables_modx_diaeuro2015_toto",
-      "community": 50,
+      "community": 126,
       "norm_label": "modx_diaeuro2015_toto"
     },
     {
@@ -15371,7 +15416,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L459",
       "id": "meta_0000_snapshot_modx_diaeuro2015_toto_name",
-      "community": 50,
+      "community": 126,
       "norm_label": "name"
     },
     {
@@ -15380,7 +15425,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L460",
       "id": "meta_0000_snapshot_modx_diaeuro2015_toto_columns",
-      "community": 50,
+      "community": 126,
       "norm_label": "columns"
     },
     {
@@ -15389,7 +15434,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L490",
       "id": "meta_0000_snapshot_modx_diaeuro2015_toto_compositeprimarykeys",
-      "community": 50,
+      "community": 126,
       "norm_label": "compositeprimarykeys"
     },
     {
@@ -15398,7 +15443,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L491",
       "id": "meta_0000_snapshot_modx_diaeuro2015_toto_indexes",
-      "community": 34,
+      "community": 126,
       "norm_label": "indexes"
     },
     {
@@ -15407,7 +15452,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L500",
       "id": "meta_0000_snapshot_modx_diaeuro2015_toto_foreignkeys",
-      "community": 50,
+      "community": 126,
       "norm_label": "foreignkeys"
     },
     {
@@ -15416,7 +15461,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L501",
       "id": "meta_0000_snapshot_modx_diaeuro2015_toto_uniqueconstraints",
-      "community": 50,
+      "community": 126,
       "norm_label": "uniqueconstraints"
     },
     {
@@ -15425,7 +15470,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L503",
       "id": "meta_0000_snapshot_tables_modx_diaeuro2016_toto",
-      "community": 91,
+      "community": 70,
       "norm_label": "modx_diaeuro2016_toto"
     },
     {
@@ -15434,7 +15479,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L504",
       "id": "meta_0000_snapshot_modx_diaeuro2016_toto_name",
-      "community": 91,
+      "community": 70,
       "norm_label": "name"
     },
     {
@@ -15443,7 +15488,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L505",
       "id": "meta_0000_snapshot_modx_diaeuro2016_toto_columns",
-      "community": 91,
+      "community": 70,
       "norm_label": "columns"
     },
     {
@@ -15452,7 +15497,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L535",
       "id": "meta_0000_snapshot_modx_diaeuro2016_toto_compositeprimarykeys",
-      "community": 91,
+      "community": 70,
       "norm_label": "compositeprimarykeys"
     },
     {
@@ -15461,7 +15506,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L536",
       "id": "meta_0000_snapshot_modx_diaeuro2016_toto_indexes",
-      "community": 91,
+      "community": 70,
       "norm_label": "indexes"
     },
     {
@@ -15470,7 +15515,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L545",
       "id": "meta_0000_snapshot_modx_diaeuro2016_toto_foreignkeys",
-      "community": 91,
+      "community": 70,
       "norm_label": "foreignkeys"
     },
     {
@@ -15479,7 +15524,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L546",
       "id": "meta_0000_snapshot_modx_diaeuro2016_toto_uniqueconstraints",
-      "community": 91,
+      "community": 70,
       "norm_label": "uniqueconstraints"
     },
     {
@@ -15488,7 +15533,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L548",
       "id": "meta_0000_snapshot_tables_modx_diaeuro2017_toto",
-      "community": 68,
+      "community": 50,
       "norm_label": "modx_diaeuro2017_toto"
     },
     {
@@ -15497,7 +15542,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L549",
       "id": "meta_0000_snapshot_modx_diaeuro2017_toto_name",
-      "community": 68,
+      "community": 50,
       "norm_label": "name"
     },
     {
@@ -15506,7 +15551,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L550",
       "id": "meta_0000_snapshot_modx_diaeuro2017_toto_columns",
-      "community": 68,
+      "community": 50,
       "norm_label": "columns"
     },
     {
@@ -15515,7 +15560,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L580",
       "id": "meta_0000_snapshot_modx_diaeuro2017_toto_compositeprimarykeys",
-      "community": 68,
+      "community": 50,
       "norm_label": "compositeprimarykeys"
     },
     {
@@ -15524,7 +15569,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L581",
       "id": "meta_0000_snapshot_modx_diaeuro2017_toto_indexes",
-      "community": 34,
+      "community": 71,
       "norm_label": "indexes"
     },
     {
@@ -15533,7 +15578,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L590",
       "id": "meta_0000_snapshot_modx_diaeuro2017_toto_foreignkeys",
-      "community": 68,
+      "community": 50,
       "norm_label": "foreignkeys"
     },
     {
@@ -15542,7 +15587,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L591",
       "id": "meta_0000_snapshot_modx_diaeuro2017_toto_uniqueconstraints",
-      "community": 68,
+      "community": 50,
       "norm_label": "uniqueconstraints"
     },
     {
@@ -16149,10 +16194,19 @@
       "norm_label": "server-side logic (`+page.server.ts`)"
     },
     {
+      "label": "Expert picks (`expertCards`)",
+      "file_type": "document",
+      "source_file": "AGENTS.md",
+      "source_location": "L171",
+      "id": "magazin_agents_expert_picks_expertcards",
+      "community": 45,
+      "norm_label": "expert picks (`expertcards`)"
+    },
+    {
       "label": "Client-Side Logic (`+page.svelte`)",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L170",
+      "source_location": "L183",
       "id": "magazin_agents_client_side_logic_page_svelte",
       "community": 45,
       "norm_label": "client-side logic (`+page.svelte`)"
@@ -16161,7 +16215,7 @@
       "label": "Quiz Routes (`/kviz`)",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L196",
+      "source_location": "L209",
       "id": "magazin_agents_quiz_routes_kviz",
       "community": 44,
       "norm_label": "quiz routes (`/kviz`)"
@@ -16170,7 +16224,7 @@
       "label": "Quiz List Route (`/kviz`)",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L207",
+      "source_location": "L220",
       "id": "magazin_agents_quiz_list_route_kviz",
       "community": 44,
       "norm_label": "quiz list route (`/kviz`)"
@@ -16179,7 +16233,7 @@
       "label": "Layout Server (`+layout.server.ts`)",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L209",
+      "source_location": "L222",
       "id": "magazin_agents_layout_server_layout_server_ts",
       "community": 44,
       "norm_label": "layout server (`+layout.server.ts`)"
@@ -16188,7 +16242,7 @@
       "label": "Max Score Calculation (`getKviz()` in `src/lib/siteConf.ts`)",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L214",
+      "source_location": "L227",
       "id": "magazin_agents_max_score_calculation_getkviz_in_src_lib_siteconf_ts",
       "community": 44,
       "norm_label": "max score calculation (`getkviz()` in `src/lib/siteconf.ts`)"
@@ -16197,7 +16251,7 @@
       "label": "Page Load (`+page.ts`)",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L225",
+      "source_location": "L238",
       "id": "magazin_agents_page_load_page_ts",
       "community": 44,
       "norm_label": "page load (`+page.ts`)"
@@ -16206,7 +16260,7 @@
       "label": "Page Component (`+page.svelte`)",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L236",
+      "source_location": "L249",
       "id": "magazin_agents_page_component_page_svelte",
       "community": 44,
       "norm_label": "page component (`+page.svelte`)"
@@ -16215,7 +16269,7 @@
       "label": "Quiz Form Route (`/kviz/form`)",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L254",
+      "source_location": "L267",
       "id": "magazin_agents_quiz_form_route_kviz_form",
       "community": 44,
       "norm_label": "quiz form route (`/kviz/form`)"
@@ -16224,7 +16278,7 @@
       "label": "Server Action (`+page.server.ts`)",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L256",
+      "source_location": "L269",
       "id": "magazin_agents_server_action_page_server_ts",
       "community": 44,
       "norm_label": "server action (`+page.server.ts`)"
@@ -16233,7 +16287,7 @@
       "label": "Individual Quiz Route (`/kviz/[...id]`)",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L261",
+      "source_location": "L274",
       "id": "magazin_agents_individual_quiz_route_kviz_id",
       "community": 44,
       "norm_label": "individual quiz route (`/kviz/[...id]`)"
@@ -16242,7 +16296,7 @@
       "label": "Server Load (`+page.server.ts`)",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L263",
+      "source_location": "L276",
       "id": "magazin_agents_server_load_page_server_ts",
       "community": 44,
       "norm_label": "server load (`+page.server.ts`)"
@@ -16251,8 +16305,8 @@
       "label": "Page Component (`+page.svelte`)",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L278",
-      "id": "magazin_agents_page_component_page_svelte_278",
+      "source_location": "L291",
+      "id": "magazin_agents_page_component_page_svelte_291",
       "community": 44,
       "norm_label": "page component (`+page.svelte`)"
     },
@@ -16260,7 +16314,7 @@
       "label": "Search Route (`/keres`)",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L319",
+      "source_location": "L332",
       "id": "magazin_agents_search_route_keres",
       "community": 102,
       "norm_label": "search route (`/keres`)"
@@ -16269,8 +16323,8 @@
       "label": "Layout Server (`+layout.server.ts`)",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L326",
-      "id": "magazin_agents_layout_server_layout_server_ts_326",
+      "source_location": "L339",
+      "id": "magazin_agents_layout_server_layout_server_ts_339",
       "community": 102,
       "norm_label": "layout server (`+layout.server.ts`)"
     },
@@ -16278,7 +16332,7 @@
       "label": "Search index (client-side)",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L333",
+      "source_location": "L346",
       "id": "magazin_agents_search_index_client_side",
       "community": 102,
       "norm_label": "search index (client-side)"
@@ -16287,8 +16341,8 @@
       "label": "Page Component (`+page.svelte`)",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L340",
-      "id": "magazin_agents_page_component_page_svelte_340",
+      "source_location": "L353",
+      "id": "magazin_agents_page_component_page_svelte_353",
       "community": 102,
       "norm_label": "page component (`+page.svelte`)"
     },
@@ -16296,7 +16350,7 @@
       "label": "Pharmacy Route (`/patika`)",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L349",
+      "source_location": "L362",
       "id": "magazin_agents_pharmacy_route_patika",
       "community": 128,
       "norm_label": "pharmacy route (`/patika`)"
@@ -16305,8 +16359,8 @@
       "label": "Layout Server (`+layout.server.ts`)",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L355",
-      "id": "magazin_agents_layout_server_layout_server_ts_355",
+      "source_location": "L368",
+      "id": "magazin_agents_layout_server_layout_server_ts_368",
       "community": 128,
       "norm_label": "layout server (`+layout.server.ts`)"
     },
@@ -16314,8 +16368,8 @@
       "label": "Page Component (`+page.svelte`)",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L362",
-      "id": "magazin_agents_page_component_page_svelte_362",
+      "source_location": "L375",
+      "id": "magazin_agents_page_component_page_svelte_375",
       "community": 128,
       "norm_label": "page component (`+page.svelte`)"
     },
@@ -16323,25 +16377,25 @@
       "label": "Subscription Route (`/elofizetes`)",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L382",
+      "source_location": "L395",
       "id": "magazin_agents_subscription_route_elofizetes",
-      "community": 45,
+      "community": 130,
       "norm_label": "subscription route (`/elofizetes`)"
     },
     {
       "label": "Page Component (`+page.svelte`)",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L387",
-      "id": "magazin_agents_page_component_page_svelte_387",
-      "community": 45,
+      "source_location": "L400",
+      "id": "magazin_agents_page_component_page_svelte_400",
+      "community": 130,
       "norm_label": "page component (`+page.svelte`)"
     },
     {
       "label": "Dynamic Content Routes (`/[...path]`)",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L407",
+      "source_location": "L420",
       "id": "magazin_agents_dynamic_content_routes_path",
       "community": 80,
       "norm_label": "dynamic content routes (`/[...path]`)"
@@ -16350,8 +16404,8 @@
       "label": "Layout Server (`+layout.server.ts`)",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L414",
-      "id": "magazin_agents_layout_server_layout_server_ts_414",
+      "source_location": "L427",
+      "id": "magazin_agents_layout_server_layout_server_ts_427",
       "community": 80,
       "norm_label": "layout server (`+layout.server.ts`)"
     },
@@ -16359,7 +16413,7 @@
       "label": "Collection slugs (precomputed at sync time)",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L422",
+      "source_location": "L435",
       "id": "magazin_agents_collection_slugs_precomputed_at_sync_time",
       "community": 80,
       "norm_label": "collection slugs (precomputed at sync time)"
@@ -16368,7 +16422,7 @@
       "label": "Individual document routes",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L472",
+      "source_location": "L485",
       "id": "magazin_agents_individual_document_routes",
       "community": 80,
       "norm_label": "individual document routes"
@@ -16377,7 +16431,7 @@
       "label": "Related articles",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L480",
+      "source_location": "L493",
       "id": "magazin_agents_related_articles",
       "community": 80,
       "norm_label": "related articles"
@@ -16386,8 +16440,8 @@
       "label": "Page Component (`+page.svelte`)",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L491",
-      "id": "magazin_agents_page_component_page_svelte_491",
+      "source_location": "L504",
+      "id": "magazin_agents_page_component_page_svelte_504",
       "community": 80,
       "norm_label": "page component (`+page.svelte`)"
     },
@@ -16395,7 +16449,7 @@
       "label": "Authentication Logic",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L520",
+      "source_location": "L533",
       "id": "magazin_agents_authentication_logic",
       "community": 94,
       "norm_label": "authentication logic"
@@ -16404,7 +16458,7 @@
       "label": "Authentication Methods",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L524",
+      "source_location": "L537",
       "id": "magazin_agents_authentication_methods",
       "community": 94,
       "norm_label": "authentication methods"
@@ -16413,7 +16467,7 @@
       "label": "Authentication State",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L537",
+      "source_location": "L550",
       "id": "magazin_agents_authentication_state",
       "community": 94,
       "norm_label": "authentication state"
@@ -16422,7 +16476,7 @@
       "label": "Protected Features",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L543",
+      "source_location": "L556",
       "id": "magazin_agents_protected_features",
       "community": 94,
       "norm_label": "protected features"
@@ -16431,7 +16485,7 @@
       "label": "Logout",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L549",
+      "source_location": "L562",
       "id": "magazin_agents_logout",
       "community": 94,
       "norm_label": "logout"
@@ -16440,7 +16494,7 @@
       "label": "Receptsarok Routes (`/receptsarok`)",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L557",
+      "source_location": "L570",
       "id": "magazin_agents_receptsarok_routes_receptsarok",
       "community": 81,
       "norm_label": "receptsarok routes (`/receptsarok`)"
@@ -16449,7 +16503,7 @@
       "label": "Data Source",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L569",
+      "source_location": "L582",
       "id": "magazin_agents_data_source",
       "community": 81,
       "norm_label": "data source"
@@ -16458,7 +16512,7 @@
       "label": "Recipe data pipeline (`recipes.json`) \u2014 create-only",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L599",
+      "source_location": "L612",
       "id": "magazin_agents_recipe_data_pipeline_recipes_json_create_only",
       "community": 81,
       "norm_label": "recipe data pipeline (`recipes.json`) \u2014 create-only"
@@ -16467,7 +16521,7 @@
       "label": "Dedupe & sync process (recipes)",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L622",
+      "source_location": "L635",
       "id": "magazin_agents_dedupe_sync_process_recipes",
       "community": 81,
       "norm_label": "dedupe & sync process (recipes)"
@@ -16476,7 +16530,7 @@
       "label": "Magazine \u2192 Receptsarok redirects (storage & processing)",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L632",
+      "source_location": "L645",
       "id": "magazin_agents_magazine_receptsarok_redirects_storage_processing",
       "community": 81,
       "norm_label": "magazine \u2192 receptsarok redirects (storage & processing)"
@@ -16485,7 +16539,7 @@
       "label": "Where redirects are stored",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L636",
+      "source_location": "L649",
       "id": "magazin_agents_where_redirects_are_stored",
       "community": 81,
       "norm_label": "where redirects are stored"
@@ -16494,7 +16548,7 @@
       "label": "Sync-time processing",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L648",
+      "source_location": "L661",
       "id": "magazin_agents_sync_time_processing",
       "community": 81,
       "norm_label": "sync-time processing"
@@ -16503,7 +16557,7 @@
       "label": "Dynamic matching",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L670",
+      "source_location": "L683",
       "id": "magazin_agents_dynamic_matching",
       "community": 81,
       "norm_label": "dynamic matching"
@@ -16512,7 +16566,7 @@
       "label": "Runtime request handling",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L686",
+      "source_location": "L699",
       "id": "magazin_agents_runtime_request_handling",
       "community": 81,
       "norm_label": "runtime request handling"
@@ -16521,7 +16575,7 @@
       "label": "Pitfalls & maintenance",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L692",
+      "source_location": "L705",
       "id": "magazin_agents_pitfalls_maintenance",
       "community": 81,
       "norm_label": "pitfalls & maintenance"
@@ -16530,7 +16584,7 @@
       "label": "Paywall / Freemium Model",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L700",
+      "source_location": "L713",
       "id": "magazin_agents_paywall_freemium_model",
       "community": 81,
       "norm_label": "paywall / freemium model"
@@ -16539,7 +16593,7 @@
       "label": "Route Structure",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L710",
+      "source_location": "L723",
       "id": "magazin_agents_route_structure",
       "community": 81,
       "norm_label": "route structure"
@@ -16548,7 +16602,7 @@
       "label": "Components",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L716",
+      "source_location": "L729",
       "id": "magazin_agents_components",
       "community": 81,
       "norm_label": "components"
@@ -16557,7 +16611,7 @@
       "label": "Cross-linking with Magazine",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L725",
+      "source_location": "L738",
       "id": "magazin_agents_cross_linking_with_magazine",
       "community": 81,
       "norm_label": "cross-linking with magazine"
@@ -16566,7 +16620,7 @@
       "label": "Magazine Content Sync (MODX \u2192 Firestore)",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L739",
+      "source_location": "L752",
       "id": "magazin_agents_magazine_content_sync_modx_firestore",
       "community": 45,
       "norm_label": "magazine content sync (modx \u2192 firestore)"
@@ -16575,7 +16629,7 @@
       "label": "Commands",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L747",
+      "source_location": "L760",
       "id": "magazin_agents_commands",
       "community": 45,
       "norm_label": "commands"
@@ -16584,7 +16638,7 @@
       "label": "Agent reminders",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L774",
+      "source_location": "L787",
       "id": "magazin_agents_agent_reminders",
       "community": 45,
       "norm_label": "agent reminders"
@@ -16593,7 +16647,7 @@
       "label": "Data Flow Summary",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L808",
+      "source_location": "L821",
       "id": "magazin_agents_data_flow_summary",
       "community": 45,
       "norm_label": "data flow summary"
@@ -16602,7 +16656,7 @@
       "label": "Key Libraries & Services",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L824",
+      "source_location": "L837",
       "id": "magazin_agents_key_libraries_services",
       "community": 45,
       "norm_label": "key libraries & services"
@@ -16611,7 +16665,7 @@
       "label": "MCP Servers & AI Assistant Integration",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L835",
+      "source_location": "L848",
       "id": "magazin_agents_mcp_servers_ai_assistant_integration",
       "community": 77,
       "norm_label": "mcp servers & ai assistant integration"
@@ -16620,7 +16674,7 @@
       "label": "Available MCP Servers",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L839",
+      "source_location": "L852",
       "id": "magazin_agents_available_mcp_servers",
       "community": 77,
       "norm_label": "available mcp servers"
@@ -16629,7 +16683,7 @@
       "label": "1. Svelte MCP Server (`svelte`)",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L841",
+      "source_location": "L854",
       "id": "magazin_agents_1_svelte_mcp_server_svelte",
       "community": 77,
       "norm_label": "1. svelte mcp server (`svelte`)"
@@ -16638,7 +16692,7 @@
       "label": "2. Firebase MCP Server (`firebase`)",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L872",
+      "source_location": "L885",
       "id": "magazin_agents_2_firebase_mcp_server_firebase",
       "community": 77,
       "norm_label": "2. firebase mcp server (`firebase`)"
@@ -16647,7 +16701,7 @@
       "label": "3. Daisy UI MCP Server (`daisyui`)",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L904",
+      "source_location": "L917",
       "id": "magazin_agents_3_daisy_ui_mcp_server_daisyui",
       "community": 77,
       "norm_label": "3. daisy ui mcp server (`daisyui`)"
@@ -16656,7 +16710,7 @@
       "label": "How Agents Use These MCP Servers",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L939",
+      "source_location": "L952",
       "id": "magazin_agents_how_agents_use_these_mcp_servers",
       "community": 77,
       "norm_label": "how agents use these mcp servers"
@@ -16665,7 +16719,7 @@
       "label": "Project-Specific MCP Usage Guidelines",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L949",
+      "source_location": "L962",
       "id": "magazin_agents_project_specific_mcp_usage_guidelines",
       "community": 77,
       "norm_label": "project-specific mcp usage guidelines"
@@ -16674,10 +16728,82 @@
       "label": "Route Priority",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L968",
+      "source_location": "L981",
       "id": "magazin_agents_route_priority",
       "community": 45,
       "norm_label": "route priority"
+    },
+    {
+      "label": "Page Component (`+page.svelte`)",
+      "file_type": "document",
+      "source_file": "AGENTS.md",
+      "source_location": "L278",
+      "community": 44,
+      "norm_label": "page component (`+page.svelte`)",
+      "id": "magazin_agents_page_component_page_svelte_278"
+    },
+    {
+      "label": "Layout Server (`+layout.server.ts`)",
+      "file_type": "document",
+      "source_file": "AGENTS.md",
+      "source_location": "L326",
+      "community": 102,
+      "norm_label": "layout server (`+layout.server.ts`)",
+      "id": "magazin_agents_layout_server_layout_server_ts_326"
+    },
+    {
+      "label": "Page Component (`+page.svelte`)",
+      "file_type": "document",
+      "source_file": "AGENTS.md",
+      "source_location": "L340",
+      "community": 102,
+      "norm_label": "page component (`+page.svelte`)",
+      "id": "magazin_agents_page_component_page_svelte_340"
+    },
+    {
+      "label": "Layout Server (`+layout.server.ts`)",
+      "file_type": "document",
+      "source_file": "AGENTS.md",
+      "source_location": "L355",
+      "community": 128,
+      "norm_label": "layout server (`+layout.server.ts`)",
+      "id": "magazin_agents_layout_server_layout_server_ts_355"
+    },
+    {
+      "label": "Page Component (`+page.svelte`)",
+      "file_type": "document",
+      "source_file": "AGENTS.md",
+      "source_location": "L362",
+      "community": 128,
+      "norm_label": "page component (`+page.svelte`)",
+      "id": "magazin_agents_page_component_page_svelte_362"
+    },
+    {
+      "label": "Page Component (`+page.svelte`)",
+      "file_type": "document",
+      "source_file": "AGENTS.md",
+      "source_location": "L387",
+      "community": 130,
+      "norm_label": "page component (`+page.svelte`)",
+      "id": "magazin_agents_page_component_page_svelte_387"
+    },
+    {
+      "label": "Layout Server (`+layout.server.ts`)",
+      "file_type": "document",
+      "source_file": "AGENTS.md",
+      "source_location": "L414",
+      "community": 80,
+      "norm_label": "layout server (`+layout.server.ts`)",
+      "id": "magazin_agents_layout_server_layout_server_ts_414"
+    },
+    {
+      "label": "Page Component (`+page.svelte`)",
+      "file_type": "document",
+      "source_file": "AGENTS.md",
+      "source_location": "L491",
+      "community": 80,
+      "norm_label": "page component (`+page.svelte`)",
+      "id": "magazin_agents_page_component_page_svelte_491"
     },
     {
       "label": "freeCountsByCategory",
@@ -16765,7 +16891,7 @@
       "file_type": "code",
       "source_file": "src/lib/modx/collections.ts",
       "source_location": "L159",
-      "community": 1,
+      "community": 33,
       "norm_label": "sortlisteddocsbyiddesc()",
       "id": "modx_collections_sortlisteddocsbyiddesc"
     },
@@ -16864,7 +16990,7 @@
       "file_type": "code",
       "source_file": "src/lib/modxToRsParser.js",
       "source_location": "L645",
-      "community": 24,
+      "community": 28,
       "norm_label": "deriveimage()",
       "id": "lib_modxtorsparser_deriveimage"
     },
@@ -16918,7 +17044,7 @@
       "file_type": "document",
       "source_file": "AGENTS.md",
       "source_location": "L386",
-      "community": 45,
+      "community": 130,
       "norm_label": "page component (`+page.svelte`)",
       "id": "magazin_agents_page_component_page_svelte_386"
     },
@@ -24887,6 +25013,17 @@
       "weight": 1.0,
       "source": "scripts_sync_modx_to_firestore_writecollections",
       "target": "modx_collections_docsbytags"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "scripts/sync-modx-to-firestore.mjs",
+      "source_location": "L748",
+      "weight": 1.0,
+      "source": "scripts_sync_modx_to_firestore_writecollections",
+      "target": "modx_collections_expertdocs"
     },
     {
       "relation": "calls",
@@ -41014,11 +41151,51 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/lib/modx/collections.ts",
+      "source_location": "L244",
+      "weight": 1.0,
+      "source": "src_lib_modx_collections_ts",
+      "target": "modx_collections_expert_tags",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/modx/collections.ts",
+      "source_location": "L291",
+      "weight": 1.0,
+      "source": "src_lib_modx_collections_ts",
+      "target": "modx_collections_expertdocs",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/modx/collections.ts",
+      "source_location": "L270",
+      "weight": 1.0,
+      "source": "src_lib_modx_collections_ts",
+      "target": "modx_collections_hasdoctorauthor",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/modx/collections.ts",
       "source_location": "L215",
       "weight": 1.0,
       "confidence_score": 1.0,
       "source": "src_lib_modx_collections_ts",
       "target": "modx_collections_homedocs"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/modx/collections.ts",
+      "source_location": "L279",
+      "weight": 1.0,
+      "source": "src_lib_modx_collections_ts",
+      "target": "modx_collections_isexpertdoc",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -41288,6 +41465,17 @@
       "confidence_score": 1.0,
       "source": "src_lib_modx_index_ts",
       "target": "modx_collections_homedocs"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/modx/collections.ts",
+      "source_location": "L280",
+      "weight": 1.0,
+      "source": "modx_collections_isexpertdoc",
+      "target": "modx_collections_hasdoctorauthor",
+      "confidence_score": 1.0
     },
     {
       "relation": "re_exports",
@@ -49395,6 +49583,16 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "AGENTS.md",
+      "source_location": "L171",
+      "weight": 1.0,
+      "source": "magazin_agents_home_route",
+      "target": "magazin_agents_expert_picks_expertcards",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "AGENTS.md",
       "source_location": "L162",
       "weight": 1.0,
       "confidence_score": 1.0,
@@ -49505,6 +49703,16 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "AGENTS.md",
+      "source_location": "L291",
+      "weight": 1.0,
+      "source": "magazin_agents_individual_quiz_route_kviz_id",
+      "target": "magazin_agents_page_component_page_svelte_291",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "AGENTS.md",
       "source_location": "L262",
       "weight": 1.0,
       "confidence_score": 1.0,
@@ -49537,6 +49745,16 @@
       "source_file": "AGENTS.md",
       "source_location": "L339",
       "weight": 1.0,
+      "source": "magazin_agents_search_route_keres",
+      "target": "magazin_agents_layout_server_layout_server_ts_339",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "AGENTS.md",
+      "source_location": "L339",
+      "weight": 1.0,
       "confidence_score": 1.0,
       "source": "magazin_agents_search_route_keres",
       "target": "magazin_agents_page_component_page_svelte_339"
@@ -49550,6 +49768,16 @@
       "confidence_score": 1.0,
       "source": "magazin_agents_search_route_keres",
       "target": "magazin_agents_page_component_page_svelte_340"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "AGENTS.md",
+      "source_location": "L353",
+      "weight": 1.0,
+      "source": "magazin_agents_search_route_keres",
+      "target": "magazin_agents_page_component_page_svelte_353",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -49585,6 +49813,16 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "AGENTS.md",
+      "source_location": "L368",
+      "weight": 1.0,
+      "source": "magazin_agents_pharmacy_route_patika",
+      "target": "magazin_agents_layout_server_layout_server_ts_368",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "AGENTS.md",
       "source_location": "L361",
       "weight": 1.0,
       "confidence_score": 1.0,
@@ -49600,6 +49838,16 @@
       "confidence_score": 1.0,
       "source": "magazin_agents_pharmacy_route_patika",
       "target": "magazin_agents_page_component_page_svelte_362"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "AGENTS.md",
+      "source_location": "L375",
+      "weight": 1.0,
+      "source": "magazin_agents_pharmacy_route_patika",
+      "target": "magazin_agents_page_component_page_svelte_375",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -49625,6 +49873,16 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "AGENTS.md",
+      "source_location": "L400",
+      "weight": 1.0,
+      "source": "magazin_agents_subscription_route_elofizetes",
+      "target": "magazin_agents_page_component_page_svelte_400",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "AGENTS.md",
       "source_location": "L413",
       "weight": 1.0,
       "confidence_score": 1.0,
@@ -49640,6 +49898,16 @@
       "confidence_score": 1.0,
       "source": "magazin_agents_dynamic_content_routes_path",
       "target": "magazin_agents_layout_server_layout_server_ts_414"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "AGENTS.md",
+      "source_location": "L427",
+      "weight": 1.0,
+      "source": "magazin_agents_dynamic_content_routes_path",
+      "target": "magazin_agents_layout_server_layout_server_ts_427",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -49695,31 +49963,41 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "AGENTS.md",
-      "source_location": "L422",
+      "source_location": "L504",
       "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "magazin_agents_layout_server_layout_server_ts_414",
-      "target": "magazin_agents_collection_slugs_precomputed_at_sync_time"
+      "source": "magazin_agents_dynamic_content_routes_path",
+      "target": "magazin_agents_page_component_page_svelte_504",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "AGENTS.md",
-      "source_location": "L470",
+      "source_location": "L435",
       "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "magazin_agents_layout_server_layout_server_ts_414",
-      "target": "magazin_agents_individual_document_routes"
+      "source": "magazin_agents_layout_server_layout_server_ts_427",
+      "target": "magazin_agents_collection_slugs_precomputed_at_sync_time",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "AGENTS.md",
-      "source_location": "L478",
+      "source_location": "L485",
       "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "magazin_agents_layout_server_layout_server_ts_414",
-      "target": "magazin_agents_related_articles"
+      "source": "magazin_agents_layout_server_layout_server_ts_427",
+      "target": "magazin_agents_individual_document_routes",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "AGENTS.md",
+      "source_location": "L493",
+      "weight": 1.0,
+      "source": "magazin_agents_layout_server_layout_server_ts_427",
+      "target": "magazin_agents_related_articles",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -49729,6 +50007,16 @@
       "weight": 1.0,
       "confidence_score": 1.0,
       "source": "magazin_agents_layout_server_layout_server_ts_413",
+      "target": "magazin_agents_collection_slugs_precomputed_at_sync_time"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "AGENTS.md",
+      "source_location": "L422",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "magazin_agents_layout_server_layout_server_ts_414",
       "target": "magazin_agents_collection_slugs_precomputed_at_sync_time"
     },
     {
@@ -49745,10 +50033,30 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "AGENTS.md",
+      "source_location": "L470",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "magazin_agents_layout_server_layout_server_ts_414",
+      "target": "magazin_agents_individual_document_routes"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "AGENTS.md",
       "source_location": "L475",
       "weight": 1.0,
       "confidence_score": 1.0,
       "source": "magazin_agents_layout_server_layout_server_ts_413",
+      "target": "magazin_agents_related_articles"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "AGENTS.md",
+      "source_location": "L478",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "magazin_agents_layout_server_layout_server_ts_414",
       "target": "magazin_agents_related_articles"
     },
     {
@@ -50069,5 +50377,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "7f465fdb2f2d2126703bfffb8cedd0fbf59b708f"
+  "built_at_commit": "be16568689dcf5fd8d1305867f3647eee2ef55bf"
 }

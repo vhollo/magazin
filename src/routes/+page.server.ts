@@ -8,5 +8,6 @@ export const load: PageServerLoad = async ({ setHeaders }) => {
 	return {
 		docs: col?.cards ?? [],
 		count: col?.count ?? col?.cards?.length ?? 0,
+		expertCards: col?.expertCards ?? [],
 	};
 };

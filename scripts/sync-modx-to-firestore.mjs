@@ -706,6 +706,7 @@ async function writeCollections(firestore, projectionDocs) {
     collectionQueries,
     docsByTags,
     homeDocs,
+    expertDocs,
     isListedDoc,
     toThinCard,
     COLLECTION_LIMIT,
@@ -744,14 +745,18 @@ async function writeCollections(firestore, projectionDocs) {
   }
 
   const homeCards = homeDocs(collectionDocs).map((doc) => toThinCard(doc))
+  const expertCards = expertDocs(collectionDocs).map((doc) => toThinCard(doc))
   await firestore.collection(COLLECTIONS_COLLECTION).doc(HOME_COLLECTION_ID).set({
     slug: HOME_COLLECTION_ID,
     cards: homeCards,
     count: homeCards.length,
+    expertCards,
     generatedAt,
   })
   written++
-  console.log(`  wrote ${COLLECTIONS_COLLECTION}/${HOME_COLLECTION_ID} (${homeCards.length} cards)`)
+  console.log(
+    `  wrote ${COLLECTIONS_COLLECTION}/${HOME_COLLECTION_ID} (${homeCards.length} cards, ${expertCards.length} expertCards)`
+  )
 
   return written
 }

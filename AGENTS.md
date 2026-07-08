@@ -165,7 +165,20 @@ Nav2 defines the secondary navigation menu with categorized content sections:
 - **SSR** (not prerendered): one Firestore read of `collections/home`
 - **Data Loading**:
   - Returns latest 72 article cards from `collections/home` (sorted by `publishedon` descending, `id` descending as tie-break — see `homeDocs`)
+  - Also returns `expertCards` — up to 24 Dr.-authored, expert-tagged picks precomputed onto the same `collections/home` doc (see `expertDocs` below), so the home route stays a single Firestore read
   - `Cache-Control`: CDN-cached (`s-maxage=86400`)
+
+### Expert picks (`expertCards`)
+
+**Location**: `expertDocs()`, `isExpertDoc()`, `EXPERT_TAGS` in `src/lib/modx/collections.ts`
+
+- **Purpose**: surfaces physician-authored content on the home page ("Szakértőink válogatása" section) ahead of the general latest-articles grid.
+- **Filter** (`isExpertDoc`): a listed doc qualifies when **both** hold:
+  1. At least one `tv.szerzo[].name` carries a standalone "Dr." token — prefix (`Dr. Kovács János`) or Hungarian postfix (`Kovács János dr.`), including `Prof. dr. …`. Tokenized on whitespace with trailing dots stripped, **not** a `\b`-based regex — JS `\b` only recognizes ASCII word characters, so it would false-positive inside accented names (e.g. "Drágffy") right after the "r".
+  2. `tv.tags` intersects `EXPERT_TAGS` = `['edukáció','jog','kezelés','lexikon','neuropátia','piac','retinopátia','szakellátás','szövődmények','társbetegségek','vese','önellenőrzés','táplálkozás']`.
+- **Selection** (`expertDocs`): top 24 (`EXPERT_LIMIT`) matching docs, sorted `publishedon` desc, `id` desc tie-break — mirrors `homeDocs`.
+- **Computed at sync time**: `writeCollections()` in `scripts/sync-modx-to-firestore.mjs` calls `expertDocs(collectionDocs)` and writes the thin-card result as `expertCards` on the `collections/home` Firestore doc, alongside the existing `cards` field. No extra read at request time.
+- Live corpus check (2026-07): ~373 listed docs qualify out of ~2300 (137 distinct Dr. authors) — comfortably above the 24-item selection.
 
 ### Client-Side Logic (`+page.svelte`)
 

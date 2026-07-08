@@ -236,3 +236,65 @@ export function homeDocs<T extends DocLike>(listedDocs: T[]): T[] {
 		)
 		.slice(0, COLLECTION_LIMIT);
 }
+
+/**
+ * Tags that mark a doc as suitable for the home page's "Szakértőink válogatása"
+ * (expert picks) section — combined with the "Dr." author check in `isExpertDoc`.
+ */
+export const EXPERT_TAGS = [
+	'edukáció',
+	'jog',
+	'kezelés',
+	'lexikon',
+	'neuropátia',
+	'piac',
+	'retinopátia',
+	'szakellátás',
+	'szövődmények',
+	'társbetegségek',
+	'vese',
+	'önellenőrzés',
+	'táplálkozás'
+];
+
+/** Top-N for the `collections/home` `expertCards` field. */
+export const EXPERT_LIMIT = 24;
+
+/**
+ * True if any author name on the doc carries a "Dr." title, as a standalone token
+ * (prefix "Dr. Kovács János" or Hungarian postfix "Kovács János dr."). Tokenizes on
+ * whitespace rather than using a `\b`-based regex — JS regex word boundaries only
+ * recognize ASCII word characters, so `\bdr\b` would false-positive inside names
+ * like "Drágffy" (the accented "á" reads as a boundary right after "Dr").
+ */
+function hasDoctorAuthor(doc: DocLike): boolean {
+	return (doc.tv?.szerzo ?? []).some((s) =>
+		(s?.name ?? '')
+			.split(/\s+/)
+			.some((token) => token.replace(/\.+$/, '').toLowerCase() === 'dr')
+	);
+}
+
+/** True if a doc qualifies for the expert-picks section: Dr.-authored AND tagged with an expert topic. */
+export function isExpertDoc(doc: DocLike): boolean {
+	if (!hasDoctorAuthor(doc)) return false;
+	const tags = doc.tv?.tags ?? [];
+	return tags.some((t) => EXPERT_TAGS.includes(t));
+}
+
+/**
+ * Top `EXPERT_LIMIT` Dr.-authored, expert-tagged listed docs for the home page's
+ * "Szakértőink válogatása" section, sorted by `publishedon` desc, `id` desc tie-break.
+ * Mirrors `homeDocs` but pre-filtered — stored as `collections/home.expertCards`
+ * alongside the general `cards`, so the home route stays a single Firestore read.
+ */
+export function expertDocs<T extends DocLike>(listedDocs: T[]): T[] {
+	return listedDocs
+		.filter(isExpertDoc)
+		.sort(
+			(a, b) =>
+				Number(b.publishedon ?? 0) - Number(a.publishedon ?? 0) ||
+				Number(b.id ?? 0) - Number(a.id ?? 0)
+		)
+		.slice(0, EXPERT_LIMIT);
+}

@@ -16,6 +16,8 @@ export type CollectionDoc = {
 	cards: ThinCard[];
 	count?: number;
 	generatedAt?: string;
+	/** `collections/home` only — Dr.-authored, expert-tagged picks (see `expertDocs` in `$lib/modx/collections`). */
+	expertCards?: ThinCard[];
 };
 
 export type SearchMeta = {
