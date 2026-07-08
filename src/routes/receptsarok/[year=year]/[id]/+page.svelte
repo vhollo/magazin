@@ -8,6 +8,8 @@
   import { hasReceptsarokAccess } from '$lib/authStore'
   import ReceptsarokLogo from '$lib/components/ReceptsarokLogo.svelte'
   import ReceptsarokWidget from '$lib/components/ReceptsarokWidget.svelte'
+  import MealPlanner from '$lib/components/MealPlanner.svelte'
+  import { plannerOpen } from '$lib/mealPlannerStore'
   import {
     recipeCardImg,
     recipeDetailSegments,
@@ -259,6 +261,31 @@
     <PaywallCTA context="recipe" />
   {/if}
 </article>
+
+<div class="text-center py-4">
+  <button class="btn btn-outline" onclick={() => $plannerOpen = !$plannerOpen}>
+    {$plannerOpen ? 'Étlaptervező bezárása' : 'Heti étlaptervező'}
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" />
+    </svg>
+  </button>
+</div>
+
+{#if $plannerOpen}
+  <div class="w-full px-[clamp(1rem,4vw,2.75rem)] py-6">
+    <MealPlanner
+      categories={data.categories}
+      currentRecipe={{
+        year: recipe.year,
+        id: recipe.id,
+        title: recipe.title,
+        energy: recipe.energy,
+        protein: recipe.protein,
+        carbs: recipe.carbs,
+      }}
+    />
+  </div>
+{/if}
 
 <ReceptsarokWidget
   recipes={data.similarRecipes ?? []}

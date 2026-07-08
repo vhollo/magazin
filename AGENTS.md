@@ -711,7 +711,7 @@ Eligible docs (`isMagazineRecipeDoc` in `receptsarok-redirect-match.mjs`):
 
 - `/receptsarok` — Category grid (7 categories with cover images and counts), meal planner toggle
 - `/receptsarok/[category]` — Recipe list filtered by category, with nutrition filters (premium) and sorting
-- `/receptsarok/[year]/[id]` — Individual recipe page (`id` = recipe slug field, not Firestore doc id); shows full content if free or subscribed, paywall CTA otherwise
+- `/receptsarok/[year]/[id]` — Individual recipe page (`id` = recipe slug field, not Firestore doc id); shows full content if free or subscribed, paywall CTA otherwise. Also renders the meal planner toggle + `MealPlanner` at the bottom (same one as the `/receptsarok` home), passing the current recipe as the `currentRecipe` prop so the planner shows a hollow quick-add card for it under the active day
 
 ### Components
 
@@ -720,7 +720,7 @@ Eligible docs (`isMagazineRecipeDoc` in `receptsarok-redirect-match.mjs`):
 - `RecipeFilters.svelte` — Combined filter form: 3 nutrition preset **toggle chips** (kalória ≤ / szénhidrát ≤ / fehérje ≥) + collapsible panel with range sliders, ingredient search and sort. Chips and sliders read/write the same bound `filters` state (chip label live-updates from slider value; toggling never resets other dimensions). Chip activation auto-sets sort for its dimension only until the user picks a sort manually (`sortTouched`). Premium-gated via the `hasAccess` prop (`$hasReceptsarokAccess` on the category page): chips are disabled with lock icons and the panel shows `PaywallCTA` without access
 - `PaywallCTA.svelte` — Subscription prompt with context-specific messaging
 - `ReceptsarokWidget.svelte` — Cross-link widget for magazine recipe articles ("Kapcsolódó receptek a Receptsarokban")
-- `MealPlanner.svelte` — Weekly meal planner with per-day recipe list, aggregated nutrition, and shopping list (premium-gated). Loads the **slim catalog** from `/api/receptsarok/recipes` (layout entries, no ingredients/instructions); the shopping list fetches each planned recipe's `ingredientGroups` individually via `/api/receptsarok/recipe/[year]/[id]` and caches them client-side. Search input strips one kcal (energy) and one gram (carbs) nutrition filter before AND-matching the remaining words: exact (`350 kcal`, `20 g`), closed range (`100-200 kcal`), or strict `<`/`>` comparison (`<350 kcal`, `>20 g`); kcal also matches `kalória`/`kaloria` spellings, grams also `gr`/`gramm`
+- `MealPlanner.svelte` — Weekly meal planner with per-day recipe list, aggregated nutrition, and shopping list (premium-gated). Loads the **slim catalog** from `/api/receptsarok/recipes` (layout entries, no ingredients/instructions); the shopping list fetches each planned recipe's `ingredientGroups` individually via `/api/receptsarok/recipe/[year]/[id]` and caches them client-side. Search input strips one kcal (energy) and one gram (carbs) nutrition filter before AND-matching the remaining words: exact (`350 kcal`, `20 g`), closed range (`100-200 kcal`), or strict `<`/`>` comparison (`<350 kcal`, `>20 g`); kcal also matches `kalória`/`kaloria` spellings, grams also `gr`/`gramm`. Its open/closed state lives in the persisted `plannerOpen` store (`mealPlannerStore.ts`, `localStorage` key `receptsarok.mealPlan.open.v1`) shared by the home page and every recipe page, so navigating between recipes doesn't collapse it
 
 ### Cross-linking with Magazine
 

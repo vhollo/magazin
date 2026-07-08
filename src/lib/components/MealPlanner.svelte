@@ -20,10 +20,21 @@
   /** Slim catalogue entry from /api/receptsarok/recipes — no ingredientGroups/instructions. */
   type CatalogEntry = RecipeLayoutEntry & { nutritionTables?: NutritionValues[] }
 
+  /** Minimal recipe used for the "add this recipe" quick card on recipe pages. */
+  type CurrentRecipe = {
+    year: number
+    id: string
+    title: string
+    energy?: number | null
+    protein?: number | null
+    carbs?: number | null
+  }
+
   let {
     recipes: _layoutRecipes = [],
     categories = [],
-  }: { recipes?: RecipeLayoutEntry[]; categories?: Category[] } = $props()
+    currentRecipe = null,
+  }: { recipes?: RecipeLayoutEntry[]; categories?: Category[]; currentRecipe?: CurrentRecipe | null } = $props()
 
   const days = MEAL_PLANNER_DAYS
 
@@ -138,6 +149,14 @@
   )
 
   const usedDays = $derived(days.filter(d => plan[d].length > 0).length)
+
+  /** True when the current recipe is already in the active day's plan. */
+  const currentInActiveDay = $derived(
+    !!currentRecipe &&
+      (planRefs?.[activeDay] ?? []).some(
+        (r) => r.year === currentRecipe.year && r.id === currentRecipe.id
+      )
+  )
 
   /** Bevásárlólista csak a kiválasztott napra (`activeDay`); hozzávalók a recept-részletekből. */
   const shoppingList = $derived.by(() => {
@@ -535,6 +554,24 @@
     <div class="grid md:grid-cols-2 gap-4">
       <div>
         <h4 class="font-medium mb-2">{activeDay} receptjei</h4>
+        {#if currentRecipe && !currentInActiveDay}
+          <div class="card card-side border border-base-300 bg-transparent p-2 rounded-sm mb-2 items-center gap-2">
+            <div class="flex-1">
+              <span class="font-medium text-sm">{currentRecipe.title}</span>
+              <p class="text-xs opacity-50">
+                {typeof currentRecipe.energy === 'number' ? `${currentRecipe.energy} kcal` : '-'} ·
+                {typeof currentRecipe.protein === 'number' ? `${currentRecipe.protein}g F` : '-'} ·
+                {typeof currentRecipe.carbs === 'number' ? `${currentRecipe.carbs}g Sz` : '-'}
+              </p>
+            </div>
+            <button
+              class="btn btn-primary btn-sm shrink-0"
+              onclick={() => mealPlanAddRecipe(activeDay, { year: currentRecipe.year, id: currentRecipe.id })}
+            >
+              Hozzáadás
+            </button>
+          </div>
+        {/if}
         {#if plan[activeDay].length === 0}
           <p class="text-sm opacity-50 py-4">Még nincs hozzáadott recept. Keress fent és adj hozzá!</p>
         {:else}

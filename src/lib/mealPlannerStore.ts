@@ -110,3 +110,30 @@ export function mealPlanClearAll() {
   mealPlanRefs.set(next)
   persist(next)
 }
+
+const PLANNER_OPEN_KEY = `${STORAGE_PREFIX}.open.v${STORAGE_VERSION}`
+
+function readPlannerOpen(): boolean {
+  if (!browser) return false
+  try {
+    return localStorage.getItem(PLANNER_OPEN_KEY) === '1'
+  } catch {
+    return false
+  }
+}
+
+/**
+ * Whether the meal planner panel is expanded. Shared across the Receptsarok
+ * index and every recipe page, and persisted, so navigating between recipes
+ * (each a fresh page mount) doesn't collapse it — it "ne záródjon be magától".
+ */
+export const plannerOpen = writable<boolean>(readPlannerOpen())
+
+plannerOpen.subscribe((open) => {
+  if (!browser) return
+  try {
+    localStorage.setItem(PLANNER_OPEN_KEY, open ? '1' : '0')
+  } catch {
+    /* ignore quota / private mode */
+  }
+})
