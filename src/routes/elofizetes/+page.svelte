@@ -301,7 +301,7 @@
   <article id="receptsarok-sub" class="prose mt-16 mb-8 mx-auto w-full">
     <h2 class="text-center">Receptsarok Prémium</h2>
     <p class="text-center">
-      Több mint 1500 diabétesz-barát recept, tápanyagtáblázattal,
+      Több mint 1800 diabétesz-barát recept, tápanyagtáblázattal,
       összetevő-kereséssel és tápanyag-szűréssel.
     </p>
     <div
@@ -359,8 +359,7 @@
         >
         <div class="px-4 pb-4 text-sm opacity-80">
           A Diabetes évente hat alkalommal jelenik meg, és postai úton, házhoz
-          szállítva érkezik. A szállítási költséget a megrendeléskor, a kosárban
-          számítjuk ki.
+          szállítva érkezik. A szállítási költséget az ár tartalmazza.
         </div>
       </details>
       <details class="faq collapse-arrow rounded-sm bg-base-200">
@@ -380,7 +379,7 @@
         <div class="px-4 pb-4 text-sm opacity-80">
           A Diabetes nyomtatott magazin. Emellett a diabetes.hu-n folyamatosan,
           ingyenesen olvashatja szakértőink cikkeit, a Receptsarok Prémium pedig
-          a teljes, 1500 recept fölötti gyűjteményt nyitja meg.
+          a teljes, 1800 recept fölötti gyűjteményt nyitja meg.
         </div>
       </details>
       <details class="faq collapse-arrow rounded-sm bg-base-200">
@@ -401,11 +400,6 @@
 </main>
 
 <style>
-  .display {
-    font-family:
-      Charter, "Iowan Old Style", "Palatino Linotype", Georgia, Cambria, serif;
-    font-weight: 600;
-  }
   .faq summary {
     /* app.css gives summary h2 special treatment; keep ours a plain row */
     list-style: none;

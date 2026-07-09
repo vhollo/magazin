@@ -8,9 +8,9 @@
   logs: false;
 }
 @plugin "daisyui/theme" {
-	default: true;
-	prefersdark: false;
-	color-scheme: light;
+  default: true;
+  prefersdark: false;
+  color-scheme: light;
   --color-primary: oklch(80.25% 0.0589 246.91);
   --color-primary-content: var(--color-base-content);
   --color-secondary: oklch(60.51% 0.1178 246.91);
@@ -18,9 +18,9 @@
   /* --color-primary: #3f87c4; */
 }
 @plugin "daisyui/theme" {
-	default: false;
-	prefersdark: true;
-	color-scheme: dark;
+  default: false;
+  prefersdark: true;
+  color-scheme: dark;
   --color-primary: oklch(60.51% 0.1178 246.91);
   --color-primary-content: var(--color-base-content);
   --color-secondary: oklch(80.25% 0.0589 246.91);
@@ -29,7 +29,11 @@
 }
 :root {
   /* --color-primary: #3f87c4; */
-  font-size: clamp(1rem, 0.5vw + 0.85rem, 1.25rem); /* 16px@480px --> 22px@1200px, */ /* https://fluidtypography.com/ */
+  font-size: clamp(
+    1rem,
+    0.5vw + 0.85rem,
+    1.25rem
+  ); /* 16px@480px --> 22px@1200px, */ /* https://fluidtypography.com/ */
   --imgratio: 16 / 9;
   --lh: 1.75; /* fallback line-height */
   --lh: clamp(1.75rem, 0.875vw + 1.488rem, 2.188rem);
@@ -38,6 +42,11 @@
   --radius-box: 0.4rem;
   --radius-selector: 0.4rem;
   --radius-field: 0.2rem;
+  /* Serif display type for headings (homepage redesign 2026). Zero-load system
+     stack — no webfont. Defined once here; used by the global heading rule and
+     the `.display` utility below. */
+  --font-display:
+    Charter, "Iowan Old Style", "Palatino Linotype", Georgia, Cambria, serif;
   /*interpolate-size: allow-keywords;*/
   /* background-color: var(--fallback-b1, oklch(var(--b3) / 1)); */
   @apply bg-base-100;
@@ -54,6 +63,24 @@
   color: #de863e;
 }
 
+/* Global heading typeface (homepage redesign 2026): every heading site-wide uses
+   the serif display stack. Font-family only — per-level weights (e.g. the `.prose`
+   heading rules below) are left untouched. */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-display);
+}
+/* Reusable emphasis utility: serif + 600 weight, for headings (or any element)
+   that need the display look with a set weight. Replaces the per-component copies. */
+.display {
+  font-family: var(--font-display);
+  font-weight: 600;
+}
+
 body {
   @apply flex flex-col min-h-screen;
 }
@@ -62,7 +89,9 @@ body {
    and the zoom persists after navigation. 16px disables the zoom.
    -webkit-touch-callout is only supported on iOS WebKit. */
 @supports (-webkit-touch-callout: none) {
-  input, select, textarea {
+  input,
+  select,
+  textarea {
     font-size: 16px;
   }
 }
@@ -80,7 +109,8 @@ body {
   scroll-snap-align: center;
 }
 
-.prose a, .list a {
+.prose a,
+.list a {
   text-decoration: dashed underline;
   text-underline-offset: 4px;
 }
@@ -97,7 +127,6 @@ body {
   outline-offset: 0;
   outline-width: 0;
 }
-
 
 @media (max-width: 47.999rem) {
   body:has(#mobile-nav:checked) > *:not(nav), nav:has(/* nav >  */#mobile-nav:checked) ~ */* , footer ~ * */ {
@@ -124,10 +153,14 @@ body {
 }
 
 /* FORMS */
-input, button, select, textarea {
+input,
+button,
+select,
+textarea {
   @apply px-2 border border-primary rounded-sm;
 }
-input, .input {
+input,
+.input {
   outline-offset: 0px;
   outline-color: var(--secondary);
 }
@@ -160,7 +193,7 @@ input, .input {
 a.btn {
   text-decoration: none;
 }
-.prose :where(a):not(:where([class~="not-prose"],[class~="not-prose"] *)) {
+.prose :where(a):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
   text-decoration: dashed underline;
   text-underline-offset: 4px;
   /* text-decoration: none; */
@@ -185,13 +218,13 @@ article figure {
   padding: 0!important;
 }*/
 
-
 /* OVERFLOW w/ ELLIPSIS */
-.intro, .ellipsis {
+.intro,
+.ellipsis {
   display: -webkit-box;
   -webkit-line-clamp: 9;
-  -webkit-box-orient: vertical; 
-  margin: 0; 
+  -webkit-box-orient: vertical;
+  margin: 0;
   overflow: hidden;
 }
 /* .double .intro, .double .ellipsis {
@@ -219,37 +252,44 @@ article figure {
   & > tr {
     display: contents;
   }
-  & > tr > td, & > tr > th {
+  & > tr > td,
+  & > tr > th {
     padding: 0;
   }
-  & > tr > td:nth-child(1), & > tr > th:nth-child(1) {
+  & > tr > td:nth-child(1),
+  & > tr > th:nth-child(1) {
     order: 0;
   }
-  & > tr > td:nth-child(2), & > tr > th:nth-child(2) {
+  & > tr > td:nth-child(2),
+  & > tr > th:nth-child(2) {
     order: 1;
   }
-  & > tr > td:nth-child(3), & > tr > th:nth-child(3) {
+  & > tr > td:nth-child(3),
+  & > tr > th:nth-child(3) {
     order: 2;
   }
-  & > tr > td:nth-child(4), & > tr > th:nth-child(4) {
+  & > tr > td:nth-child(4),
+  & > tr > th:nth-child(4) {
     order: 3;
   }
-  & > tr > td:nth-child(5), & > tr > th:nth-child(5) {
+  & > tr > td:nth-child(5),
+  & > tr > th:nth-child(5) {
     order: 4;
   }
-  & > tr > td:nth-child(6), & > tr > th:nth-child(6) {
+  & > tr > td:nth-child(6),
+  & > tr > th:nth-child(6) {
     order: 5;
   }
 }
 
 .ellipsis table ~ p {
-  display: none; 
+  display: none;
 }
 .ellipsis > table {
   @apply prose text-xs;
   /* font-size: 0.875rem; */
   /* line-height: var(--lh-card, 1.5); */
-  margin-bottom: .75rem;
+  margin-bottom: 0.75rem;
   margin-top: 0;
   width: 100%;
 }
@@ -269,20 +309,23 @@ article figure {
   display: none;
 }
 
-.prose :where(p):not(:where([class~="not-prose"],[class~="not-prose"] *)) {
-  margin-top: .75em;
-  margin-bottom: .75em;
+.prose :where(p):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+  margin-top: 0.75em;
+  margin-bottom: 0.75em;
 }
-.prose :where(h2 + *):not(:where([class~="not-prose"],[class~="not-prose"] *)) {
+.prose
+  :where(h2 + *):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
   margin-top: 0;
 }
 .prose figcaption a {
-  --tw-prose-links: var(--fallback-bc,oklch(var(--bc)/.75));
+  --tw-prose-links: var(--fallback-bc, oklch(var(--bc)/0.75));
 }
 article :not(table).nicebox {
   @apply my-[2.8rem];
 }
-article :not(table).nicebox, article :not(table).boxright, article :not(table).boxleft {
+article :not(table).nicebox,
+article :not(table).boxright,
+article :not(table).boxleft {
   @apply card card-sm bg-primary text-primary-content shadow-xl card-body px-2 py-4 last:mb-0 gap-2;
   /* card-body makes this a flex container, which blockifies direct-child <a>
      (a flex item's display:inline is forced to block — so `.nicebox > a {display:inline}`
@@ -294,7 +337,7 @@ article :not(table).nicebox, article :not(table).boxright, article :not(table).b
     @apply my-0/*  mx-4 */;
   }
   & > * + * {
-    margin-top: .5rem; /* replaces the now-inert flex gap-2 */
+    margin-top: 0.5rem; /* replaces the now-inert flex gap-2 */
   }
   /* & > h3 {
     @apply card-title mt-6;
@@ -312,7 +355,10 @@ article :not(table).nicebox, article :not(table).boxright, article :not(table).b
   & > figure figcaption {
     @apply m-1;
   }
-  & > i, & > em, & > strong, & > b  {
+  & > i,
+  & > em,
+  & > strong,
+  & > b {
     display: contents;
   }
 }
@@ -320,7 +366,9 @@ ul.nicebox {
   list-style-position: inside;
 }
 
-p.nicebox, p.boxleft, p.boxright {
+p.nicebox,
+p.boxleft,
+p.boxright {
   @apply p-2!;
 }
 
@@ -345,11 +393,15 @@ table.nicebox {
 .nicebox tr {
   width: 100%;
 }
-.prose :where(tbody th,tfoot th):not(:where([class~=not-prose],[class~=not-prose] *)) {
-  padding-top: .571429em;
-  padding-bottom: .571429em;
+.prose
+  :where(tbody th, tfoot th):not(
+    :where([class~="not-prose"], [class~="not-prose"] *)
+  ) {
+  padding-top: 0.571429em;
+  padding-bottom: 0.571429em;
 }
-.nicebox th + th, .nicebox td + td {
+.nicebox th + th,
+.nicebox td + td {
   padding-left: 1rem;
 }
 
@@ -359,7 +411,8 @@ article table:not(.nicebox) {
 /* article table:not(.nicebox) thead th {
   @apply bg-base-200 font-normal;
 } */
-article th + th, article td + td {
+article th + th,
+article td + td {
   @apply text-center;
 }
 
@@ -382,24 +435,35 @@ summary h2 {
 
 /* FLOATS */
 :not(div) {
-  & > .left, & > .right, & > .boxleft, & > .boxright {
+  & > .left,
+  & > .right,
+  & > .boxleft,
+  & > .boxright {
     clear: both;
   }
 }
-.left, .right, .boxleft, .boxright {
-  width: calc(50% - 1rem)!important;
+.left,
+.right,
+.boxleft,
+.boxright {
+  width: calc(50% - 1rem) !important;
   margin-bottom: 1rem;
 }
-.left, .right, .boxleft, .boxright {
+.left,
+.right,
+.boxleft,
+.boxright {
   margin-top: 2rem;
 }
-.left, .boxleft {
+.left,
+.boxleft {
   float: left;
-  margin-right: 1rem!important;
+  margin-right: 1rem !important;
 }
-.right, .boxright {
+.right,
+.boxright {
   float: right;
-  margin-left: 1rem!important;
+  margin-left: 1rem !important;
 }
 .center {
   text-align: center;
@@ -407,7 +471,8 @@ summary h2 {
 .center img {
   margin-inline: auto;
 }
-.card.left figure, .card.right figure {
+.card.left figure,
+.card.right figure {
   /*max-width: 50%;*/
   margin-inline: auto;
 }
@@ -415,29 +480,39 @@ summary h2 {
   @apply self-end;
 }*/
 @container (max-width: 42ch) {
-  .left, .right, .boxleft, .boxright {
-    float: none!important;
+  .left,
+  .right,
+  .boxleft,
+  .boxright {
+    float: none !important;
     width: 100%;
-    margin-inline: auto!important;
+    margin-inline: auto !important;
     /* text-align: center!important; */
   }
-  .left, .right, .boxleft, .boxright {
+  .left,
+  .right,
+  .boxleft,
+  .boxright {
   }
-  .left img, .right img {
-    margin-inline: auto!important;
+  .left img,
+  .right img {
+    margin-inline: auto !important;
   }
-  .nicebox img, .boxleft img, .boxright img {
-    padding: .5rem;
+  .nicebox img,
+  .boxleft img,
+  .boxright img {
+    padding: 0.5rem;
   }
   figure {
-    margin-bottom: 1rem!important;
+    margin-bottom: 1rem !important;
   }
 }
 
 .bold {
   @apply font-bold;
 }
-.italic, .nev {
+.italic,
+.nev {
   @apply italic;
 }
 .underline {
@@ -446,7 +521,6 @@ summary h2 {
 .strikethrough {
   @apply line-through;
 }
-
 
 /* ALAIRAS */
 .alairas {
@@ -492,17 +566,18 @@ summary h2 {
   display: none;
 }
 
-.prose :where(p):not(:where([class~="not-prose"],[class~="not-prose"] *)) {
+.prose :where(p):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
   quotes: none;
 }
-.prose :where(figcaption):not(:where([class~="not-prose"],[class~="not-prose"] *)):first-child {
+.prose
+  :where(figcaption):not(
+    :where([class~="not-prose"], [class~="not-prose"] *)
+  ):first-child {
   margin-bottom: 0.8571429em;
   margin-top: 0;
 }
-
 
 /* MEDIA IFRAME */
 article iframe[height="100%"] {
   height: unset;
 }
-

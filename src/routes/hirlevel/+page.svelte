@@ -197,11 +197,6 @@
 </section>
 
 <style>
-  .display {
-    font-family:
-      Charter, "Iowan Old Style", "Palatino Linotype", Georgia, Cambria, serif;
-    font-weight: 600;
-  }
   .seg {
     background: transparent;
     border: none;

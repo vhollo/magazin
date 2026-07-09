@@ -153,6 +153,13 @@ Nav2 defines the secondary navigation menu with categorized content sections:
   - **Example**: Visiting `/receptek` without a document title will use "Receptek" from the navigation structure as the page title
   - **Benefit**: Ensures every page has a meaningful, human-readable title for SEO and user experience, even if the CMS document lacks a title field
 
+### Global typography (homepage redesign 2026)
+
+**Location**: `src/app.css`
+
+- **All headings site-wide** (`h1`–`h6`) use the serif display stack via `--font-display` (Charter → Iowan Old Style → Palatino → Georgia → serif; zero-load system fonts, no webfont). The global rule sets **font-family only** — per-level weights (the `.prose h1/h2/h3` rules of 600/500/400) are preserved. This applies everywhere: article/`.prose` titles, card titles, footer, the redesign components.
+- **`.display` utility** (`font-family: var(--font-display); font-weight: 600`) is the single reusable class for the display look with a set weight. The homepage-redesign components (`Hero`, `ExpertSection`, `NewsletterCTA`, `SubscribeCTA`, `TopicGrid`, `/hirlevel`, `/elofizetes`) put `class="display"` on their headings to get the 600 weight (headings already inherit the serif family from the global rule). The per-component `.display { … }` copies that used to live in each `<style>` block were consolidated here.
+
 ---
 
 ## Analytics
@@ -208,7 +215,7 @@ Added in the homepage redesign 2026 (F6.1). **Simple Analytics** (cookie-free, n
 ### Client-Side Logic (`+page.svelte`)
 
 - **Components**:
-  - `Hero` - Home hero (homepage redesign 2026): left column = welcome copy + "Kezdje itt" audience entry-point chips (distilled from the old hardcoded Carousel cards); right column = the newest expert pick (`expertCards[0]`, LCP image `fetchpriority=high` + `<link rel=preload>` in the page head). Renders welcome + chips even when `expertCards` is empty (e.g. before the first sync). Decorative glucose-curve SVG motif; serif display type from a zero-load system stack (Charter/Georgia). Replaced the legacy `Carousel` on `/`. The old `Carousel.svelte` + `CarItem.svelte` were **deleted** in the F3.6 pass (they were only rendered here and in a dead `doc.path == '/'` branch of `[...path]/+page.svelte`, which the root route never hits — the gyökér `/` is served by `src/routes/+page.svelte`). The `copycats['carousel']` key in `[...path]/+page.svelte` is unrelated (fallback page-title lookup) and stays.
+  - `Hero` - Home hero (homepage redesign 2026): left column = welcome copy + "Kezdje itt" audience entry-point chips (distilled from the old hardcoded Carousel cards); right column = the newest expert pick (`expertCards[0]`, LCP image `fetchpriority=high` + `<link rel=preload>` in the page head). Renders welcome + chips even when `expertCards` is empty (e.g. before the first sync). Decorative glucose-curve SVG motif. Replaced the legacy `Carousel` on `/`. The old `Carousel.svelte` + `CarItem.svelte` were **deleted** in the F3.6 pass (they were only rendered here and in a dead `doc.path == '/'` branch of `[...path]/+page.svelte`, which the root route never hits — the gyökér `/` is served by `src/routes/+page.svelte`). The `copycats['carousel']` key in `[...path]/+page.svelte` is unrelated (fallback page-title lookup) and stays.
   - `BannerTop` - Shows top banners if configured
   - `Search` - Search component with document count
   - `Nav2` - Secondary navigation
@@ -443,7 +450,7 @@ Added in the homepage redesign 2026 (F6.1). **Simple Analytics** (cookie-free, n
   - **Value-proposition hero** above the Shopify embed — same visual language as the home `Hero` (serif display, glucose-curve motif, `bg-base-200` band): kicker + H1 ("A nyomtatott Diabetes magazin — házhoz szállítva", matching the home `SubscribeCTA` heading), empathetic magázó lead, three benefit cards (szakértő szerzők / évente hat lapszám / Hypertonia+különszámok féláron), CTA "Előfizetek" → `#megrendeles` anchor (app.css `*[id]` scroll-margin handles the sticky header)
   - **`#megrendeles` section** wraps the Shopify collection embed with a "Válassza ki lapszámait" heading + the half-price / max-3 note
   - **Receptsarok Prémium** pricing cards (unchanged)
-  - **GYIK** — five native `<details>` FAQ items (no JS), answers grounded in the actual offer only: lapszám-tartalom, évente 6 postai megjelenés + szállítási költség a kosárban, féláras kedvezmény menete, nyomtatott vs. digitális (ingyenes cikkek + Receptsarok Prémium cross-sell), kosár "Üzenet a Kiadónak" mező
+  - **GYIK** — five native `<details>` FAQ items (no JS), answers grounded in the actual offer only: lapszám-tartalom, évente 6 postai megjelenés + szállítási költség az árban, féláras kedvezmény menete, nyomtatott vs. digitális (ingyenes cikkek + Receptsarok Prémium cross-sell), kosár "Üzenet a Kiadónak" mező
   - Copy unified to **magázó** tone (was tegező "Rendeld meg…"), including meta/og descriptions
   - Hungarian language interface
 

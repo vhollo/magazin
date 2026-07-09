@@ -147,11 +147,6 @@
 </section>
 
 <style>
-  .display {
-    font-family:
-      Charter, "Iowan Old Style", "Palatino Linotype", Georgia, Cambria, serif;
-    font-weight: 600;
-  }
   .band::before {
     content: "";
     position: absolute;
