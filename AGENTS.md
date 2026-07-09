@@ -679,7 +679,7 @@ Types and constants defined in `src/lib/receptsarok.ts`.
 
 ### Recipe data pipeline (`recipes.json`) — create-only
 
-`src/lib/data/recipes.json` is the source of truth for Receptsarok recipes (uploaded to Firestore by `sync:recipes:apply`). It is built by the dedupe pipeline (`npm run recipes:dedupe:manual*` → `src/lib/receptsarokDedupePipeline.js`), which reads MODX docs from **`scripts/data/data.json`** (a curated raw-content dump — a *subset*, not the full corpus) and calls `buildRecipesFromModxDoc()` (`src/lib/modxToRsParser.js`). That splitter turns a single multi-recipe **collection** article ("gyűjtőcikk", several `<h2>` dishes) into one recipe per dish, attaching the image that sits just before each dish's heading — MODX `[[nagyito]]` snippets are rendered to `<img>` by `modx/transform.ts` _before_ parsing, the dish whose heading follows an image gets it, and the first dish inherits the doc's page image.
+`src/lib/data/recipes.json` is the source of truth for Receptsarok recipes (uploaded to Firestore by `sync:recipes:apply`). It is built by the dedupe pipeline (`npm run recipes:dedupe:manual*` → `src/lib/receptsarokDedupePipeline.js`), which reads MODX docs from **`scripts/data/data.json`** (a curated raw-content dump — a *subset*, not the full corpus) and calls `buildRecipesFromModxDoc()` (`src/lib/modxToRsParser.js`). ⚠️ This is no longer the *only* writer: `sync:modx*` also creates single-recipe entries live (see [No existing match → sync-create](#no-existing-match--sync-create-new-recipe)) and appends them straight to `recipes.json` — the create-only pipeline never deletes existing recipes, so the two coexist, but sync-created recipes are **not** in `scripts/data/data.json`. That splitter turns a single multi-recipe **collection** article ("gyűjtőcikk", several `<h2>` dishes) into one recipe per dish, attaching the image that sits just before each dish's heading — MODX `[[nagyito]]` snippets are rendered to `<img>` by `modx/transform.ts` _before_ parsing, the dish whose heading follows an image gets it, and the first dish inherits the doc's page image.
 
 **Candidate selection:** the pipeline processes docs with **exactly one tag `recept`** (`hasReceptTag`), **plus** *recipe-collection articles* — multi-tag docs that carry `recept` and whose body splits into ≥2 standalone recipes (e.g. `kozeleg-az-eperszezon`, `enni-jo`). Collection articles skip title-redirect matching and go straight to the create/split path. To bring corpus articles that are not in the dump into scope, fetch them with **`node scripts/import-collection-articles-to-dump.mjs`** (reads raw rows + TVs from MODX MySQL, canonical path from Firestore, appends `data.json` entries), then run `recipes:dedupe:manual:create-local`.
 
@@ -764,6 +764,15 @@ Eligible docs (`isMagazineRecipeDoc` in `receptsarok-redirect-match.mjs`):
 
 **Dedupe tie-break** (shared with recipe dedupe): real author → video → nutrition count → more recent year → lexical `{year}-{id}`.
 
+#### No existing match → sync-create (new recipe)
+
+When an eligible doc has **no** match in `recipes.json`, `sync:modx*` builds a **new** Receptsarok recipe from it (`scripts/lib/receptsarok-modx-create-sync.mjs`, wired into `processRow`) — the sync is no longer create-blind for single recipes:
+
+- **Body** via `buildRecipeFromModxDoc`; **author** via `deriveSyncRecipeAuthor` (`szerzo` TV → `<p class="alairas">` name → description *only when it says "receptje"* → `''`) — intentionally simpler than the pipeline's `deriveAuthor` (no `<h3>X receptje</h3>` step).
+- **Category-gated.** Resolved (`magazin-recipe-category-review.json` override wins over `predictRecipeCategory`) → write `recipes/{year}-{id}` + append `recipes.json` + set `doc.redirect` = `/receptsarok/{year}/{id}` (same dynamic-entry → manifest path as a match) + rebuild `collections/rs-*` (the shared `sync:rs-collections:apply` spawn, also used by free-flag changes) + purge `/receptsarok`, `/keres`, the detail URL.
+- **Unresolved category** → the doc is queued into `magazin-recipe-category-review.json` (`{year,id,title,category:""}`), which the GitHub Action commits + pushes; **no recipe/redirect yet**. Fill in `category`, re-save the article in MODX → the manual override resolves on the next sync and the recipe is created.
+- **Scope: single `recept` docs only.** Multi-recipe collection "gyűjtőcikkek" (≥2 dishes) stay with the offline create-only pipeline.
+
 #### Runtime request handling
 
 - **`src/routes/[...path]/+layout.server.ts`**: `doc.redirect` → HTTP 308 to Receptsarok URL; missing doc → 307 to `/keres?q=…`
@@ -823,7 +832,7 @@ Magazine articles are **not** bundled in the Netlify build. MODX MySQL is read o
 
 **GitHub Actions sync**: Workflow `.github/workflows/sync-modx-to-firestore.yml` — **manual** (`workflow_dispatch`) or triggered from MODX on save (`scripts/modx/modx-firestore-sync-plugin.php`). Supports **full backfill** via workflow input.
 
-**Receptsarok redirects + free flags**: See [Magazine → Receptsarok redirects](#magazine--receptsarok-redirects-storage--processing). Summary: `sync:modx*` loads `receptsarok-redirects.json`, resolves `doc.redirect`, appends new dynamic matches to the manifest, sets linked recipes `free: true`, and may run `sync:rs-collections:apply`. GitHub Actions commits manifest + `recipes.json` when changed.
+**Receptsarok redirects + free flags**: See [Magazine → Receptsarok redirects](#magazine--receptsarok-redirects-storage--processing). Summary: `sync:modx*` loads `receptsarok-redirects.json`, resolves `doc.redirect`, appends new dynamic matches to the manifest, **creates new recipes from unmatched single-`recept` docs when their category resolves** (else queues them in `magazin-recipe-category-review.json`), sets linked recipes `free: true`, and may run `sync:rs-collections:apply`. GitHub Actions commits manifest + `recipes.json` + `magazin-recipe-category-review.json` when changed.
 
 ### Commands
 
@@ -873,6 +882,7 @@ Run from repo root (`magazin/`). Requires `.env` with `MODXDB_*`, `FIREBASE_ADMI
 | MODX plugin dispatches but GitHub Action fails immediately (no MySQL errors) | Check PAT has Contents: write; check `MODX_SYNC_PAYLOAD` env is non-empty in the run |
 | `doc.tv.egyesulet` missing on old articles after enabling TV 31 | Run `npm run sync:modx:full` to backfill all existing docs |
 | Re-saved a MODX **recipe collection** (or fixed the recipe parser) but recipe content / per-recipe images didn't change | Pipeline is create-only and `sync:modx` doesn't rebuild recipes. New docs → `npm run recipes:dedupe:manual`; existing recipes after a parser fix → `npm run recipes:backfill-content:apply` then `npm run sync:recipes:apply` |
+| Re-saved a single **`recept`** MODX article but it didn't appear in the Receptsarok | `sync:modx*` auto-creates it **only when its category resolves** (see [No existing match → sync-create](#no-existing-match--sync-create-new-recipe)). Unresolved → check `scripts/data/magazin-recipe-category-review.json` for a queued `{…,category:""}` row, fill the category, re-save the article. Also verify the doc has **exactly one** tag `recept` (extra tags disqualify it). |
 | Article's "További receptek" link list changed but the widget on the recipe page still shows old/4 similar recipes | `npm run recipes:backfill-content:apply` + `npm run sync:recipes:apply` (recipe `linkedModxIds`); magazine doc side needs `npm run sync:modx` (incremental, re-save) or `sync:modx:full` (backfill all) |
 | Editorial recipe hub (e.g. `cikkek/hypertonia/1601/nyari-gyumolcsok`) or its sibling recipes show tag-based "similar" instead of the group's recipes | `doc.related` / `recipe.relatedCards` are computed by `scripts/lib/related-recipe-cards.mjs`. Backfill recipes with `npm run recipes:backfill-related:apply` + `npm run sync:recipes:apply`; backfill all `doc.related` with `npm run sync:modx:full` (both are also written/refreshed on every incremental `sync:modx`). |
 | Same recipe shows up twice under different years (title duplicate) | `npm run recipes:dedupe:internal` (review audit) → `:apply-local` → `sync:recipes:apply` → `sync:rs-collections:apply`; winner = real author > video > nutrition > year |

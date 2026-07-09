@@ -48,11 +48,19 @@ import { purgeNetlifyPaths } from './lib/netlify-purge.mjs'
 import {
   loadRecipesFromJson,
   resolveReceptsarokRedirect,
+  isMagazineRecipeDoc,
 } from './lib/receptsarok-redirect-match.mjs'
 import {
   applyModxLinkedRecipeFreeFlags,
   parseReceptsarokRedirectPath,
 } from './lib/receptsarok-modx-free-sync.mjs'
+import {
+  loadCategoryReviewMap,
+  buildReceptsarokRecipeForDoc,
+  persistCreatedRecipes,
+  appendUncategorizedReview,
+} from './lib/receptsarok-modx-create-sync.mjs'
+import { predictRecipeCategory } from '../src/lib/receptsarokCategoryPredictor.js'
 import {
   appendRedirectsManifest,
   registerRedirectEntries,
@@ -82,6 +90,7 @@ const root = path.resolve(__dirname, '..')
 const PUBLIC_BASE_URL = process.env.PUBLIC_BASE_URL || 'https://www.diabetes.hu/'
 const RS_REDIRECTS_PATH = path.join(root, 'src/lib/data/receptsarok-redirects.json')
 const RECIPES_JSON_PATH = path.join(root, 'src/lib/data/recipes.json')
+const CATEGORY_REVIEW_PATH = path.join(root, 'scripts/data/magazin-recipe-category-review.json')
 const META_SYNC_DOC = 'sync'
 
 const forceModxDocId = (() => {
@@ -399,6 +408,7 @@ async function loadExistingRedirectsForChanged(firestore, workingById, changedId
  * @param {import('firebase-admin/firestore').Firestore} firestore
  * @param {Record<string, unknown>[]} recipes
  * @param {Map<number, string>} existingRedirectsByModxId
+ * @param {{ categoryByKey: Map<string,string>, predictCategory: Function, createdKeys: Set<string> } | null} [createState]
  */
 async function processRow(
   modxTransform,
@@ -408,7 +418,8 @@ async function processRow(
   redirectMaps,
   firestore,
   recipes,
-  existingRedirectsByModxId
+  existingRedirectsByModxId,
+  createState = null
 ) {
   const doc = structuredClone(rawRow)
 
@@ -469,15 +480,47 @@ async function processRow(
       : existingRedirectsByModxId.get(doc.id)
 
   const resolved = resolveReceptsarokRedirect(doc, redirectMaps, recipes, fallbackRedirect)
-  modxTransform.setReceptsarokRedirect(doc, resolved.redirect)
+
+  // No existing Receptsarok match for a single-tag `recept` article → create a new
+  // recipe from this doc (when its category resolves) and redirect to it. The recipe
+  // is built here (pure — no writes) so the doc is written with its redirect in one
+  // pass; the Firestore + recipes.json side-effects are batched after the row loop.
+  let redirect = resolved.redirect
+  let dynamicEntry = resolved.dynamicEntry
+  let createdRecipe
+  let uncategorizedEntry
+  if (!redirect && changedIds.has(doc.id) && createState && isMagazineRecipeDoc(doc)) {
+    const built = buildReceptsarokRecipeForDoc(doc, {
+      recipes,
+      categoryByKey: createState.categoryByKey,
+      predictCategory: createState.predictCategory,
+      createdKeys: createState.createdKeys,
+    })
+    if (built?.resolved) {
+      redirect = built.redirect
+      dynamicEntry = built.dynamicEntry
+      createdRecipe = built.recipe
+      createState.createdKeys.add(built.key)
+      console.log(
+        `  receptsarok create: id=${doc.id} → ${built.redirect} (category=${built.recipe.category})`
+      )
+    } else if (built?.uncategorized) {
+      uncategorizedEntry = built.uncategorized
+      console.log(
+        `  receptsarok create deferred (no category): ${built.uncategorized.year}-${built.uncategorized.id} → magazin-recipe-category-review.json`
+      )
+    }
+  }
+
+  modxTransform.setReceptsarokRedirect(doc, redirect)
   const processed = modxTransform.docFields(doc)
   workingById.set(doc.id, processed)
 
-  const redirectParsed = parseReceptsarokRedirectPath(resolved.redirect)
-  const freeTarget = resolved.dynamicEntry
+  const redirectParsed = parseReceptsarokRedirectPath(redirect)
+  const freeTarget = dynamicEntry
     ? {
-        year: resolved.dynamicEntry.year,
-        id: resolved.dynamicEntry.id,
+        year: dynamicEntry.year,
+        id: dynamicEntry.id,
         modxContentId: Number(doc.id),
       }
     : redirectParsed
@@ -485,7 +528,7 @@ async function processRow(
       : undefined
 
   if (!changedIds.has(doc.id)) {
-    return { written: false, processed, dynamicEntry: resolved.dynamicEntry, freeTarget }
+    return { written: false, processed, dynamicEntry, freeTarget }
   }
 
   if (!processed.path) {
@@ -520,8 +563,10 @@ async function processRow(
     docId,
     stalePaths,
     staleReads,
-    dynamicEntry: resolved.dynamicEntry,
+    dynamicEntry,
     freeTarget,
+    createdRecipe,
+    uncategorizedEntry,
   }
 }
 
@@ -908,6 +953,16 @@ async function main() {
   const dynamicRedirectEntries = []
   /** @type {{ year: number; id: string; modxContentId?: number }[]} */
   const modxLinkedFreeTargets = []
+  /** @type {Record<string, unknown>[]} recipes created this run from `recept` docs with no RS match */
+  const createdRecipes = []
+  /** @type {{ year: number; id: string; title: string }[]} docs whose category could not be resolved */
+  const uncategorizedEntries = []
+  // Category resolution for sync-created recipes: manual overrides win over the predictor.
+  const createState = {
+    categoryByKey: loadCategoryReviewMap(CATEGORY_REVIEW_PATH),
+    predictCategory: predictRecipeCategory,
+    createdKeys: new Set(),
+  }
 
   const modxTransform = createModxTransform({
     publicBaseUrl: PUBLIC_BASE_URL,
@@ -950,8 +1005,15 @@ async function main() {
       redirectMaps,
       firestore,
       recipes,
-      existingRedirectsByModxId
+      existingRedirectsByModxId,
+      createState
     )
+    if (result.createdRecipe) {
+      createdRecipes.push(result.createdRecipe)
+    }
+    if (result.uncategorizedEntry) {
+      uncategorizedEntries.push(result.uncategorizedEntry)
+    }
     if (result.dynamicEntry) {
       dynamicRedirectEntries.push(result.dynamicEntry)
       registerRedirectEntries(redirectMaps, [result.dynamicEntry])
@@ -1031,8 +1093,38 @@ async function main() {
     console.log(
       `receptsarok free: updated ${freeSync.updated} recipe(s) from MODX links → ${freeSync.keys.join(', ')}`
     )
+  }
+
+  // New Receptsarok recipes built from `recept` docs with no existing match: append
+  // to `recipes` + write `recipes/{year}-{id}` + persist recipes.json. Category-
+  // unresolved docs are queued in magazin-recipe-category-review.json (committed by
+  // the workflow) for a human to categorise; no recipe/redirect until then.
+  const createSync = await persistCreatedRecipes({
+    createdRecipes,
+    recipes,
+    recipesJsonPath: RECIPES_JSON_PATH,
+    firestore,
+    apply: true,
+  })
+  if (createSync.created > 0) {
+    console.log(`receptsarok create: added ${createSync.created} recipe(s) → ${createSync.keys.join(', ')}`)
+  }
+  const reviewSync = appendUncategorizedReview({
+    uncategorized: uncategorizedEntries,
+    categoryReviewPath: CATEGORY_REVIEW_PATH,
+    apply: true,
+  })
+  if (reviewSync.added > 0) {
+    console.log(
+      `receptsarok create: queued ${reviewSync.added} doc(s) for category review → ${reviewSync.keys.join(', ')}`
+    )
+  }
+
+  // rs-home free counts and rs-{category} cards derive from recipes.json — rebuild
+  // whenever free flags changed OR a new recipe was created.
+  if (freeSync.updated > 0 || createSync.created > 0) {
     if (!skipRsCollections) {
-      console.log('  → rebuilding collections/rs-home (freeCountsByCategory, totalFree)…')
+      console.log('  → rebuilding collections/rs-* (rs-home totals, freeCounts, category cards)…')
       const { spawnSync } = await import('node:child_process')
       const rsCollections = spawnSync('npm', ['run', 'sync:rs-collections:apply'], {
         cwd: root,
@@ -1040,7 +1132,7 @@ async function main() {
         env: process.env,
       })
       if (rsCollections.status !== 0) {
-        throw new Error('sync:rs-collections:apply failed after MODX-linked free recipe update')
+        throw new Error('sync:rs-collections:apply failed after receptsarok free/create update')
       }
     } else {
       console.log(
@@ -1149,6 +1241,12 @@ async function main() {
       if (year && id) purgePaths.push(`/receptsarok/${year}/${id}`)
     }
   }
+  if (createSync.created > 0) {
+    purgePaths.push('/receptsarok', '/keres')
+    for (const { year, id } of createSync.entries) {
+      purgePaths.push(`/receptsarok/${year}/${id}`)
+    }
+  }
   if (deleted > 0) {
     purgePaths.push('/', ...Object.keys(collectionsMod.collectionQueries))
   }
@@ -1185,7 +1283,7 @@ async function main() {
   }
 
   console.log(
-    `sync complete: wrote=${written}, deleted=${deleted}, skipped=${skipped}, redirectsAdded=${redirectsAdded}, redirectRefresh=${redirectRefreshUpdated}, receptsarokFree=${freeSync.updated}, collections=${collectionsWritten}, relatedCards=${relatedUpdated}, search v${searchIndex.version} (${searchIndex.articleCount} articles, ${searchIndex.recipeCount} recipes), purge=${purgeResult.skipped ? 'skipped' : purgeResult.ok ? `ok(${purgeResult.status})` : 'failed'}, lastEdit ${lastEditSummary}, ${formatReadCounts(readCounts)}`
+    `sync complete: wrote=${written}, deleted=${deleted}, skipped=${skipped}, redirectsAdded=${redirectsAdded}, redirectRefresh=${redirectRefreshUpdated}, receptsarokFree=${freeSync.updated}, receptsarokCreated=${createSync.created}, receptsarokUncategorized=${reviewSync.added}, collections=${collectionsWritten}, relatedCards=${relatedUpdated}, search v${searchIndex.version} (${searchIndex.articleCount} articles, ${searchIndex.recipeCount} recipes), purge=${purgeResult.skipped ? 'skipped' : purgeResult.ok ? `ok(${purgeResult.status})` : 'failed'}, lastEdit ${lastEditSummary}, ${formatReadCounts(readCounts)}`
   )
 }
 

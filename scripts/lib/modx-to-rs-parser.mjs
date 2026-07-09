@@ -505,6 +505,35 @@ function deriveAuthor(doc, { allowDescription = true } = {}) {
     .trim()
 }
 
+/**
+ * Author for the sync-create path (single-tag `recept` articles turned into a
+ * new Receptsarok recipe by the MODX→Firestore sync). Intentionally simpler than
+ * {@link deriveAuthor}: it drops the `<h3>X receptje</h3>` heading step and only
+ * falls back to the description when the description itself mentions "receptje".
+ *
+ * Priority: `szerzo` TV → `<p class="alairas">` name (before the `<span>`) →
+ * the description (when it contains "receptje") → '' (no author).
+ *
+ * @param {any} doc
+ * @returns {string}
+ */
+export function deriveSyncRecipeAuthor(doc) {
+  if (Array.isArray(doc?.tv?.szerzo) && doc.tv.szerzo.length > 0) {
+    const fromTv = typeof doc.tv.szerzo[0]?.name === 'string' ? doc.tv.szerzo[0].name.trim() : ''
+    if (fromTv) return fromTv
+  }
+  const fromAlairas = extractAlairasAuthor(doc?.content ?? '')
+  if (fromAlairas) return fromAlairas
+  const description = stripHtml(doc?.description ?? '')
+  if (/receptje/i.test(description)) {
+    return description
+      .replace(/\breceptje\b\.?/i, '')
+      .replace(/\s+/g, ' ')
+      .trim()
+  }
+  return ''
+}
+
 function deriveCategoryDecision({
   year,
   id,
