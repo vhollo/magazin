@@ -1,49 +1,46 @@
 <script module>
-  import Cards from '$lib/components/Cards.svelte'
-  import Search from '$lib/components/Search.svelte'
-  import Nav2 from '$lib/components/Nav2.svelte'
-  import BannerSide from '$lib/components/BannerSide.svelte'
-  import BannerTop from '$lib/components/BannerTop.svelte'
-  import ReceptsarokWidget from '$lib/components/ReceptsarokWidget.svelte'
+  import Cards from "$lib/components/Cards.svelte";
+  import Search from "$lib/components/Search.svelte";
+  import Nav2 from "$lib/components/Nav2.svelte";
+  import BannerSide from "$lib/components/BannerSide.svelte";
+  import BannerTop from "$lib/components/BannerTop.svelte";
+  import ReceptsarokWidget from "$lib/components/ReceptsarokWidget.svelte";
 
-  import { nav2 } from '$lib/nav2.js'
+  import { nav2 } from "$lib/nav2.js";
   // Fallback page-title lookup (see `matchingSubcat` below): supplies human titles
   // for collection slugs that aren't in nav2. The 'carousel' key is historical —
   // these labels used to back the home Carousel (now the Hero); they're kept here
   // only so /s-o-s and /gyermekvallalas still resolve a title.
-  let copycats = JSON.parse(JSON.stringify(nav2))
-  copycats['carousel'] = {}
-  copycats['carousel']['Segítség, cukorbeteg vagyok!'] = '/s-o-s'
-  copycats['carousel']['Gesztációs diabétesz'] = '/gyermekvallalas'
-  copycats['carousel']['Receptek'] = '/receptek'
-  copycats['carousel']['Táplálkozás'] = '/taplalkozas'
-  copycats['carousel']['Klubok, Egyesületek'] = '/hirek'
-  copycats['nav1'] = {}
-  copycats['nav1']['Hírek'] = '/hirek'
-
+  let copycats = JSON.parse(JSON.stringify(nav2));
+  copycats["carousel"] = {};
+  copycats["carousel"]["Segítség, cukorbeteg vagyok!"] = "/s-o-s";
+  copycats["carousel"]["Gesztációs diabétesz"] = "/gyermekvallalas";
+  copycats["carousel"]["Receptek"] = "/receptek";
+  copycats["carousel"]["Táplálkozás"] = "/taplalkozas";
+  copycats["carousel"]["Klubok, Egyesületek"] = "/hirek";
+  copycats["nav1"] = {};
+  copycats["nav1"]["Hírek"] = "/hirek";
 </script>
 
 <script>
-// @ts-nocheck
-  import { afterNavigate } from '$app/navigation'
-  import { browser } from '$app/environment'
-  import { tick } from 'svelte'
-  export let data
+  // @ts-nocheck
+  import { afterNavigate } from "$app/navigation";
+  import { browser } from "$app/environment";
+  import { tick } from "svelte";
+  export let data;
 
-  import { ads } from '$lib/ads.js'
-  $: conf = data.conf
-  $: prominent = conf.side_banners.filter(sb => sb.prominent)
+  import { ads } from "$lib/ads.js";
+  $: conf = data.conf;
+  $: prominent = conf.side_banners.filter((sb) => sb.prominent);
   // console.log('conf.side_banners',conf.side_banners)
 
   // let docstitle
   // console.log('[path]', data.doc.related)
 
-  $: doc = data.doc
-  $: docs = data.docs
+  $: doc = data.doc;
+  $: docs = data.docs;
   // $: console.log('docs.count', data.docs.count)
   // $: if (doc.id) console.log(doc.tv)
-
-
 
   /* let win, pagenum = 1, volume = 18, docs = []
   afterNavigate(() => {
@@ -58,8 +55,10 @@
     // console.log(pagenum)
   } */
 
-  $: pubdate = doc && new Date(doc.publishedon * 1000).toLocaleDateString('hu-HU')
-  $: editdate = doc && new Date(doc.editedon * 1000).toLocaleDateString('hu-HU')
+  $: pubdate =
+    doc && new Date(doc.publishedon * 1000).toLocaleDateString("hu-HU");
+  $: editdate =
+    doc && new Date(doc.editedon * 1000).toLocaleDateString("hu-HU");
   // $: console.log('editedon',doc.editedon)
   // $: console.log('publishedon',doc.publishedon)
 
@@ -71,21 +70,21 @@
 
   let matchingSubcat = null;
 
-  $: Object.keys(copycats).forEach(cat => {
-    Object.keys(copycats[cat]).forEach(subcat => {
+  $: Object.keys(copycats).forEach((cat) => {
+    Object.keys(copycats[cat]).forEach((subcat) => {
       if (copycats[cat][subcat] === `/${doc.path}`) {
         matchingSubcat = subcat; // Store the matching subcategory name
       }
     });
   });
 
-  $: docstitle = doc.title || matchingSubcat
+  $: docstitle = doc.title || matchingSubcat;
 
-  $: rsMatches = data.rsWidgetRecipes ?? []
+  $: rsMatches = data.rsWidgetRecipes ?? [];
   // A curated/derived recipe group (hub siblings, linked list, or a collection's
   // own dishes) replaces the tag-based "Kapcsolódó cikkek" grid. Weak title-similarity
   // matches (rsWidgetLinked=false) do not.
-  $: rsLinked = data.rsWidgetLinked ?? false
+  $: rsLinked = data.rsWidgetLinked ?? false;
 
   // ── Scroll restoration ─────────────────────────────────────────────────────
   // The inline script in app.html jumps to the saved position before hydration,
@@ -94,89 +93,117 @@
   // the scroll and retrying until we actually reach it, so it can "scroll further
   // when ready". behavior:'instant' (vs /keres' 'auto') because the global
   // scroll-behavior:smooth would otherwise animate each retry and defeat the poll.
-  let pendingScrollY = null
+  let pendingScrollY = null;
 
   async function restoreScrollWhenReady() {
-    if (pendingScrollY == null || !browser) return
-    const y = pendingScrollY
-    await tick()
-    await tick()
-    let attempts = 0
+    if (pendingScrollY == null || !browser) return;
+    const y = pendingScrollY;
+    await tick();
+    await tick();
+    let attempts = 0;
     const tryScroll = () => {
-      window.scrollTo({ top: y, left: 0, behavior: 'instant' })
-      attempts++
+      window.scrollTo({ top: y, left: 0, behavior: "instant" });
+      attempts++;
       if (window.scrollY >= y - 2 || attempts >= 12) {
-        pendingScrollY = null
-        return
+        pendingScrollY = null;
+        return;
       }
-      setTimeout(tryScroll, 50)
-    }
-    requestAnimationFrame(() => requestAnimationFrame(tryScroll))
+      setTimeout(tryScroll, 50);
+    };
+    requestAnimationFrame(() => requestAnimationFrame(tryScroll));
   }
 
   // /keres-style snapshot: instant restore on back/forward (popstate).
   export const snapshot = {
     capture: () => ({ scrollY: browser ? window.scrollY : 0 }),
     restore: (value) => {
-      if (browser && typeof value?.scrollY === 'number') pendingScrollY = value.scrollY
+      if (browser && typeof value?.scrollY === "number")
+        pendingScrollY = value.scrollY;
     },
-  }
+  };
 
   afterNavigate((navigation) => {
-    if (!browser) return
-    if (navigation.type !== 'enter' && navigation.type !== 'popstate') return
+    if (!browser) return;
+    if (navigation.type !== "enter" && navigation.type !== "popstate") return;
     if (pendingScrollY == null) {
       // Reload / initial load: reuse SvelteKit's own saved scroll for this entry.
       try {
-        const idx = history.state?.['sveltekit:history']
-        const map = JSON.parse(sessionStorage['sveltekit:scroll'] || '{}')
-        const pos = idx != null ? map[idx] : null
-        if (pos && typeof pos.y === 'number') pendingScrollY = pos.y
-      } catch (e) { /* ignore */ }
+        const idx = history.state?.["sveltekit:history"];
+        const map = JSON.parse(sessionStorage["sveltekit:scroll"] || "{}");
+        const pos = idx != null ? map[idx] : null;
+        if (pos && typeof pos.y === "number") pendingScrollY = pos.y;
+      } catch (e) {
+        /* ignore */
+      }
     }
-    if (pendingScrollY != null) restoreScrollWhenReady()
-  })
+    if (pendingScrollY != null) restoreScrollWhenReady();
+  });
 </script>
 
 <svelte:head>
-  <title>{(docstitle ? docstitle + ' • ' : '') + conf.sitename}</title>
-  <meta name="description" content={doc.ellipsis || conf.description || 'www.diabetes.hu • Az Alapítvány a Cukorbetegekért betegtájékoztató lapja. Kiadja a Tudomány Kiadó Kft.'}/>
-  <meta name="keywords" content={doc.tv?.tags?.join(', ') || conf.tags.join(', ') || 'diabetes, diabétesz, cukorbetegség, vese, keton, Tudomány Kiadó Kft'}/>
-  <meta name="author" content={doc.tv?.szerzo?.join(', ') || 'diabetes.hu'}/>
-  <meta name="og:image" content={doc.tv?.ogi || conf.ogi || '/icon.svg'}/>
-  <meta name="og:title" content={doc.longtitle || doc.title || conf.sitename || 'Diabetes'}/>
-  <meta name="og:description" content={doc.description || conf.description || 'www.diabetes.hu • Az Alapítvány a Cukorbetegekért betegtájékoztató lapja. Kiadja a Tudomány Kiadó Kft.'}/>
-  <meta name="og:url" content={doc.url || 'https://diabetes.hu'}/>
-  <meta name="og:site_name" content="Diabetes"/>
-  <meta name="og:type" content="article"/>
-  <meta name="og:locale" content="hu_HU"/>
+  <title>{(docstitle ? docstitle + " • " : "") + conf.sitename}</title>
+  <meta
+    name="description"
+    content={doc.ellipsis ||
+      conf.description ||
+      "www.diabetes.hu • Az Alapítvány a Cukorbetegekért betegtájékoztató lapja. Kiadja a Tudomány Kiadó Kft."}
+  />
+  <meta
+    name="keywords"
+    content={doc.tv?.tags?.join(", ") ||
+      conf.tags.join(", ") ||
+      "diabetes, diabétesz, cukorbetegség, vese, keton, Tudomány Kiadó Kft"}
+  />
+  <meta name="author" content={doc.tv?.szerzo?.join(", ") || "diabetes.hu"} />
+  <meta name="og:image" content={doc.tv?.ogi || conf.ogi || "/icon.svg"} />
+  <meta
+    name="og:title"
+    content={doc.longtitle || doc.title || conf.sitename || "Diabetes"}
+  />
+  <meta
+    name="og:description"
+    content={doc.description ||
+      conf.description ||
+      "www.diabetes.hu • Az Alapítvány a Cukorbetegekért betegtájékoztató lapja. Kiadja a Tudomány Kiadó Kft."}
+  />
+  <meta name="og:url" content={doc.url || "https://diabetes.hu"} />
+  <meta name="og:site_name" content="Diabetes" />
+  <meta name="og:type" content="article" />
+  <meta name="og:locale" content="hu_HU" />
   {#if doc.img}
-    <link rel="preload" href={doc.img.src} as="image"/>
+    <link rel="preload" href={doc.img.src} as="image" />
   {/if}
 </svelte:head>
 <!-- <svelte:window bind:this={win}/> -->
 
 {#if doc.id}
   {#if conf.top_banners.length}
-    <BannerTop banners={conf.top_banners}/>
+    <BannerTop banners={conf.top_banners} />
   {/if}
   <main class="bg-base-100 md:flex flex-row justify-center gap-8 px-2">
     <!--{@const meta = [doc.tv.szerzo, date, doc.tv.cat].join(' | ')}-->
     <article class="prose py-12 flex-1">
       {#if doc.description}
-      <h2 class="felcim uppercase text-sm">{@html doc.description}</h2>
+        <h2 class="felcim uppercase text-sm">{@html doc.description}</h2>
       {/if}
       <h1 class="title">{@html doc.longtitle || doc.title}</h1>
       <h4 class="introtext">{@html doc.introtext}</h4>
       <aside class="my-3">
         {#if doc.tv.szerzo?.length}
           {#each doc.tv.szerzo as sze, i}
-            <a href={`/keres?q=${encodeURIComponent(sze.name)}`}><small class="uppercase">{sze.name}</small></a>{#if (i + 1) < doc.tv.szerzo.length},&nbsp;{/if}
+            <a href={`/keres?q=${encodeURIComponent(sze.name)}`}
+              ><small class="uppercase">{sze.name}</small></a
+            >{#if i + 1 < doc.tv.szerzo.length},&nbsp;{/if}
           {/each}
           <!-- &nbsp; -->|
         {/if}
-        <small title={`${editdate !== pubdate ? 'Szerkesztve: '+editdate : ''}`}>{pubdate}<sup>{editdate !== pubdate ? 'i' : ''}</sup></small>
-        <small class="uppercase">{`${doc.tv.cat ? ' | ' + doc.tv.cat : ''}`}</small>
+        <small
+          title={`${editdate !== pubdate ? "Szerkesztve: " + editdate : ""}`}
+          >{pubdate}<sup>{editdate !== pubdate ? "i" : ""}</sup></small
+        >
+        <small class="uppercase"
+          >{`${doc.tv.cat ? " | " + doc.tv.cat : ""}`}</small
+        >
       </aside>
       <aside class="flex flex-wrap gap-2 mb-12">
         {#each doc.tv.tags as tag}
@@ -190,10 +217,15 @@
       </figure>
       {/if}-->
       {#if doc.img}
-      <figure class="pageimage text-center w-full">
-        <img class="mx-auto" style={`object-fit: contain;`} src={doc.img.src} alt="">
-        <figcaption>{@html doc.img.caption}</figcaption>
-      </figure>
+        <figure class="pageimage text-center w-full">
+          <img
+            class="mx-auto"
+            style={`object-fit: contain;`}
+            src={doc.img.src}
+            alt=""
+          />
+          <figcaption>{@html doc.img.caption}</figcaption>
+        </figure>
       {/if}
       <!--<p class="uppercase"><small></small></p>-->
       {@html doc.content}
@@ -207,48 +239,55 @@
         {/each}
       {/if}
     </article>
-    
+
     <!-- KIEMELT ADS -->
     <!-- {#if $authUser && browser && hirds.length} -->
     {#if prominent.length && doc.content}
-    <section class="max-md:hidden flex flex-col flex-0 gap-2 py-12 mx-auto md:mx-0">
-      {#each prominent as item, i}
-        <!-- {#if item.prominent} -->
+      <section
+        class="max-md:hidden flex flex-col flex-0 gap-2 py-12 mx-auto md:mx-0"
+      >
+        {#each prominent as item, i}
+          <!-- {#if item.prominent} -->
           <aside class="">
             <!-- <h1 class="card-body">{item.name}</h1> -->
-            <BannerSide banner={item}/>
+            <BannerSide banner={item} />
           </aside>
-        <!-- {/if} -->
-      {/each}
-    </section>
+          <!-- {/if} -->
+        {/each}
+      </section>
     {/if}
   </main>
 
   {#if rsMatches.length}
     <ReceptsarokWidget
       recipes={rsMatches}
-      title={data.rsWidgetLinked ? '' : doc.title || ''}
-      heading={data.rsWidgetLinked ? 'Kapcsolódó receptek a Receptsarokban' : undefined}
+      title={data.rsWidgetLinked ? "" : doc.title || ""}
+      heading={data.rsWidgetLinked
+        ? "Kapcsolódó receptek a Receptsarokban"
+        : undefined}
     />
   {/if}
-
 {/if}
 
 {#if conf.top_banners.length}
-  <BannerTop banners={conf.top_banners}/>
+  <BannerTop banners={conf.top_banners} />
 {/if}
 <Search articles={data.articleCount} recipes={data.recipeCount} />
-<Nav2 actual={data.path}/>
+<Nav2 actual={data.path} />
 
 {#if docs.length && !rsLinked}
   <article class="prose mt-16 mb-8 mx-auto w-full">
     {#if !doc.id}
-      <h1 class="text-center">{doc.id && '' || docstitle}</h1>
+      <h1 class="text-center">{(doc.id && "") || docstitle}</h1>
     {:else}
       <h2 class="text-center">Kapcsolódó cikkek</h2>
     {/if}
   </article>
-  <Cards cards={docs} banners={conf.side_banners} ads_distance={conf.ads_distance}/>
+  <Cards
+    cards={docs}
+    banners={conf.side_banners}
+    ads_distance={conf.ads_distance}
+  />
 {/if}
 
 <!-- {#if volume * pagenum < data.docs.length}
@@ -269,5 +308,4 @@
     /* grid-row-end: span 3; */
     margin-bottom: 3rem;
   }
-
 </style>

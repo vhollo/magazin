@@ -5,15 +5,33 @@
 <footer class="footer flex-grow sm:footer-horizontal bg-base-200 p-10 gap-x-8">
   <aside class="self-end w-full gap-y-4">
     <a class="block mx-auto" href="/">
-      <img class="w-16 h-16" src={'/icon.svg'} alt="diabetes.hu" width="120" height="120">
+      <img
+        class="w-16 h-16"
+        src={"/icon.svg"}
+        alt="diabetes.hu"
+        width="120"
+        height="120"
+      />
     </a>
-    <p class="mx-auto text-center">Az Alapítvány a Cukorbetegekért lapja – 1989 óta</p>
+    <p class="mx-auto text-center">
+      Az Alapítvány a Cukorbetegekért lapja – 1989 óta
+    </p>
   </aside>
   <aside class="self-end">
     <p class="text-justify">
-      Az optimális cukoranyagcsere eléréséhez az oldalakon hirdetett termékek alkalmazása esetén is feltétlenül szükséges a beállított diéta, a rendszeres mozgás és az orvosa által rendelt gyógyszerek használata, valamint a rendszeres ellenőrzés! Minden esetben kérje ki kezelőorvosa véleményét!
+      Az optimális cukoranyagcsere eléréséhez az oldalakon hirdetett termékek
+      alkalmazása esetén is feltétlenül szükséges a beállított diéta, a
+      rendszeres mozgás és az orvosa által rendelt gyógyszerek használata,
+      valamint a rendszeres ellenőrzés! Minden esetben kérje ki kezelőorvosa
+      véleményét!
     </p>
   </aside>
+  <nav class="self-end">
+    <h6 class="footer-title">Magazin</h6>
+    <a class="link link-hover" href="/hirlevel">Hírlevél</a>
+    <a class="link link-hover" href="/elofizetes">Előfizetés</a>
+    <a class="link link-hover" href="/kviz">DiabKVÍZ</a>
+  </nav>
   <!-- <nav>
     <h6 class="footer-title">Kategóriák</h6>
     <a class="link link-hover">Diabetes</a>

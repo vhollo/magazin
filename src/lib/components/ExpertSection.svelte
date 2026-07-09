@@ -1,7 +1,9 @@
 <script>
-  // Home "Szakértőink válogatása" rail (homepage redesign 2026, F3.2).
+  // Home "Válogatás szakértőinktől" rail (homepage redesign 2026, F3.2).
   // Renders a slice of `collections/home.expertCards` — the Hero already shows
   // the newest one, so the page typically passes `expertCards.slice(1)`.
+  import { trackEvent } from "$lib/analytics";
+
   /** @type {import('$lib/modx/collections').ThinCard[]} */
   export let cards = [];
 
@@ -22,10 +24,10 @@
 {#if cards.length}
   <section class="mx-auto max-w-6xl px-4 py-10 sm:py-14">
     <header class="mb-6 flex items-baseline justify-between gap-4">
-      <h2 class="display text-2xl sm:text-3xl">Szakértőink válogatása</h2>
-      <span class="badge badge-outline badge-secondary hidden sm:inline-flex"
+      <h2 class="display text-2xl sm:text-3xl">Válogatás szakértőinktől</h2>
+      <!-- <span class="badge badge-outline badge-secondary hidden sm:inline-flex"
         >Dr.</span
-      >
+      > -->
     </header>
     <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
       {#each cards as card (card.id)}
@@ -34,6 +36,8 @@
         <a
           href={`/${card.path}`}
           class="pick card overflow-hidden rounded-sm bg-base-100 shadow-md transition-shadow duration-300 hover:shadow-lg"
+          on:click={() =>
+            trackEvent("expert_card_click", { path: String(card.path ?? "") })}
         >
           {#if img}
             <figure class="m-0">

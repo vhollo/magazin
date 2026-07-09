@@ -2,6 +2,8 @@
   // Home hero (homepage redesign 2026, F3.1) — replaces the legacy hardcoded
   // Carousel on `/`. Left: welcome + audience entry points ("Kezdje itt");
   // right: the newest expert pick from `collections/home.expertCards`.
+  import { trackEvent } from "$lib/analytics";
+
   /** @type {import('$lib/modx/collections').ThinCard | undefined} */
   export let expert = undefined;
 
@@ -63,7 +65,7 @@
       <p
         class="kicker text-xs font-semibold tracking-[0.18em] uppercase opacity-60"
       >
-        A cukorbetegek magazinja · 1993 óta
+        A cukorbetegek magazinja · 1989 óta
       </p>
       <h1 class="display text-3xl leading-tight text-balance sm:text-4xl">
         Megbízható válaszok a cukorbetegséggel élt mindennapokhoz
@@ -81,7 +83,14 @@
         <ul class="flex flex-wrap gap-2">
           {#each entries as entry (entry.href)}
             <li>
-              <a class="chip" href={entry.href}>{entry.label}</a>
+              <a
+                class="chip"
+                href={entry.href}
+                on:click={() =>
+                  trackEvent("hero_entry_click", { label: entry.label })}
+              >
+                {entry.label}
+              </a>
             </li>
           {/each}
         </ul>
@@ -92,6 +101,8 @@
       <a
         href={`/${expert.path}`}
         class="feat card overflow-hidden rounded-sm bg-base-100 shadow-lg transition-shadow duration-300 hover:shadow-xl"
+        on:click={() =>
+          trackEvent("hero_expert_click", { path: String(expert.path ?? "") })}
       >
         {#if img}
           <figure class="relative m-0">

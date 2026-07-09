@@ -256,7 +256,7 @@ export function homeDocs<T extends DocLike>(listedDocs: T[]): T[] {
 }
 
 /**
- * Tags that mark a doc as suitable for the home page's "Szakértőink válogatása"
+ * Tags that mark a doc as suitable for the home page's "Válogatás szakértőinktől"
  * (expert picks) section — combined with the "Dr." author check in `isExpertDoc`.
  */
 export const EXPERT_TAGS = [
@@ -302,7 +302,7 @@ export function isExpertDoc(doc: DocLike): boolean {
 
 /**
  * Top `EXPERT_LIMIT` Dr.-authored, expert-tagged listed docs for the home page's
- * "Szakértőink válogatása" section, sorted by `publishedon` desc, `id` desc tie-break.
+ * "Válogatás szakértőinktől" section, sorted by `publishedon` desc, `id` desc tie-break.
  * Mirrors `homeDocs` but pre-filtered — stored as `collections/home.expertCards`
  * alongside the general `cards`, so the home route stays a single Firestore read.
  */

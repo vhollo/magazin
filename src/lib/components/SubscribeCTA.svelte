@@ -2,6 +2,7 @@
   // Home subscribe CTA module (homepage redesign 2026, F3.4) — macro-conversion
   // toward `/elofizetes`. Placed at the bottom of the home page, after the
   // latest-articles grid.
+  import { trackEvent } from "$lib/analytics";
 </script>
 
 <section class="band relative overflow-hidden bg-primary text-primary-content">
@@ -19,10 +20,14 @@
       </h2>
       <p class="max-w-prose opacity-90">
         Minden lapszámunk tele van orvosi és dietetikai tanácsokkal, receptekkel
-        és sorstársak történeteivel — negyedévente a postaládájában.
+        és sorstársak történeteivel — évente hatszor a postaládájában.
       </p>
     </div>
-    <a href="/elofizetes" class="btn btn-lg btn-secondary shrink-0 rounded-sm">
+    <a
+      href="/elofizetes"
+      class="btn btn-lg btn-secondary shrink-0 rounded-sm"
+      on:click={() => trackEvent("subscribe_cta_click", { source: "home" })}
+    >
       Előfizetek
     </a>
   </div>

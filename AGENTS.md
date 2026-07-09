@@ -5,15 +5,17 @@ This document describes the logic and behavior of all routes in the Diabetes.hu 
 ## Table of Contents
 
 1. [Navigation System](#navigation-system)
-2. [Home Route (`/`)](#home-route-)
-3. [Quiz Routes (`/kviz`)](#quiz-routes-kviz)
-4. [Search Route (`/keres`)](#search-route-keres)
-5. [Pharmacy Route (`/patika`)](#pharmacy-route-patika)
-6. [Subscription Route (`/elofizetes`)](#subscription-route-elofizetes)
-7. [Dynamic Content Routes (`/[...path]`)](#dynamic-content-routes-path)
-8. [Authentication Logic](#authentication-logic)
-9. [Receptsarok Routes (`/receptsarok`)](#receptsarok-routes-receptsarok) — includes [Magazine → Receptsarok redirects](#magazine--receptsarok-redirects-storage--processing)
-10. [Magazine Content Sync (MODX → Firestore)](#magazine-content-sync-modx--firestore)
+2. [Analytics](#analytics)
+3. [Home Route (`/`)](#home-route-)
+4. [Quiz Routes (`/kviz`)](#quiz-routes-kviz)
+5. [Search Route (`/keres`)](#search-route-keres)
+6. [Pharmacy Route (`/patika`)](#pharmacy-route-patika)
+7. [Subscription Route (`/elofizetes`)](#subscription-route-elofizetes)
+8. [Newsletter Route (`/hirlevel`)](#newsletter-route-hirlevel)
+9. [Dynamic Content Routes (`/[...path]`)](#dynamic-content-routes-path)
+10. [Authentication Logic](#authentication-logic)
+11. [Receptsarok Routes (`/receptsarok`)](#receptsarok-routes-receptsarok) — includes [Magazine → Receptsarok redirects](#magazine--receptsarok-redirects-storage--processing)
+12. [Magazine Content Sync (MODX → Firestore)](#magazine-content-sync-modx--firestore)
 
 ---
 
@@ -153,6 +155,29 @@ Nav2 defines the secondary navigation menu with categorized content sections:
 
 ---
 
+## Analytics
+
+**Files:**
+- `src/app.html` — Simple Analytics script tags
+- `src/lib/analytics.ts` — `trackEvent()` helper
+
+Added in the homepage redesign 2026 (F6.1). **Simple Analytics** (cookie-free, no consent banner needed) — loaded via `<script async defer src="https://scripts.simpleanalyticscdn.com/latest.js">` in `app.html`, plus a `<noscript>` pixel fallback. Pageviews are tracked automatically by the script; no code changes needed per-route.
+
+**Custom events** (`trackEvent(name, metadata?)` in `src/lib/analytics.ts`): thin wrapper around the global `window.sa_event()` — no-ops during SSR (`browser` check) and swallows errors (analytics must never throw or block the UI it's attached to). Wired onto the funnel's key interaction points:
+
+| Event | Component | Fires on |
+|---|---|---|
+| `hero_entry_click` | `Hero.svelte` | "Kezdje itt" audience chip click (`label` metadata) |
+| `hero_expert_click` | `Hero.svelte` | Featured expert-pick card click (`path` metadata) |
+| `expert_card_click` | `ExpertSection.svelte` | Any "Válogatás szakértőinktől" card click (`path` metadata) |
+| `newsletter_cta_click` | `NewsletterCTA.svelte` | Home newsletter band CTA → `/hirlevel` |
+| `subscribe_cta_click` | `SubscribeCTA.svelte` | Home subscribe band CTA → `/elofizetes` |
+| `hirlevel_submit` | `hirlevel/+page.svelte` | Successful subscribe/unsubscribe (fired inside the `use:enhance` callback on `result.data?.success`, `muvelet` metadata) |
+
+**Testing note**: `trackEvent`/`sa_event` calls can't be reliably exercised via synthetic `click()`/`requestSubmit()` in the preview sandbox when routed through SvelteKit's `use:enhance` — verify with a real click or `dispatchEvent(new MouseEvent('click', ...))` on the anchor directly (bypassing `use:enhance`), or a native form POST for server-side behavior.
+
+---
+
 ## Home Route (`/`)
 
 **Files:**
@@ -172,7 +197,7 @@ Nav2 defines the secondary navigation menu with categorized content sections:
 
 **Location**: `expertDocs()`, `isExpertDoc()`, `EXPERT_TAGS` in `src/lib/modx/collections.ts`
 
-- **Purpose**: surfaces physician-authored content on the home page ("Szakértőink válogatása" section) ahead of the general latest-articles grid.
+- **Purpose**: surfaces physician-authored content on the home page ("Válogatás szakértőinktől" section) ahead of the general latest-articles grid.
 - **Filter** (`isExpertDoc`): a listed doc qualifies when **both** hold:
   1. At least one `tv.szerzo[].name` carries a standalone "Dr." token — prefix (`Dr. Kovács János`) or Hungarian postfix (`Kovács János dr.`), including `Prof. dr. …`. Tokenized on whitespace with trailing dots stripped, **not** a `\b`-based regex — JS `\b` only recognizes ASCII word characters, so it would false-positive inside accented names (e.g. "Drágffy") right after the "r".
   2. `tv.tags` intersects `EXPERT_TAGS` = `['edukáció','jog','kezelés','lexikon','neuropátia','piac','retinopátia','szakellátás','szövődmények','társbetegségek','vese','önellenőrzés','táplálkozás']`.
@@ -183,14 +208,14 @@ Nav2 defines the secondary navigation menu with categorized content sections:
 ### Client-Side Logic (`+page.svelte`)
 
 - **Components**:
-  - `Hero` - Home hero (homepage redesign 2026): left column = welcome copy + "Kezdje itt" audience entry-point chips (distilled from the old hardcoded Carousel cards); right column = the newest expert pick (`expertCards[0]`, LCP image `fetchpriority=high` + `<link rel=preload>` in the page head). Renders welcome + chips even when `expertCards` is empty (e.g. before the first sync). Decorative glucose-curve SVG motif; serif display type from a zero-load system stack (Charter/Georgia). Replaced the legacy `Carousel` on `/` — `Carousel.svelte` is still referenced by `[...path]/+page.svelte` (`doc.path == '/'` branch, likely dead code; cleanup scheduled for the F3.6 integration pass).
+  - `Hero` - Home hero (homepage redesign 2026): left column = welcome copy + "Kezdje itt" audience entry-point chips (distilled from the old hardcoded Carousel cards); right column = the newest expert pick (`expertCards[0]`, LCP image `fetchpriority=high` + `<link rel=preload>` in the page head). Renders welcome + chips even when `expertCards` is empty (e.g. before the first sync). Decorative glucose-curve SVG motif; serif display type from a zero-load system stack (Charter/Georgia). Replaced the legacy `Carousel` on `/`. The old `Carousel.svelte` + `CarItem.svelte` were **deleted** in the F3.6 pass (they were only rendered here and in a dead `doc.path == '/'` branch of `[...path]/+page.svelte`, which the root route never hits — the gyökér `/` is served by `src/routes/+page.svelte`). The `copycats['carousel']` key in `[...path]/+page.svelte` is unrelated (fallback page-title lookup) and stays.
   - `BannerTop` - Shows top banners if configured
   - `Search` - Search component with document count
   - `Nav2` - Secondary navigation
-  - `ExpertSection` - "Szakértőink válogatása" rail (homepage redesign 2026): grid of `expertCards.slice(1)` (index 0 is already shown in `Hero`, so this avoids duplicating it), each card with image, title, author name
+  - `ExpertSection` - "Válogatás szakértőinktől" rail (homepage redesign 2026): grid of `expertCards.slice(1)` (index 0 is already shown in `Hero`, so this avoids duplicating it), each card with image, title, author name
   - `NewsletterCTA` - Home newsletter promo band (homepage redesign 2026): micro-conversion link to `/hirlevel`, same glucose-curve motif language as `Hero`
   - `TopicGrid` - "Böngésszen témák szerint" section (homepage redesign 2026): one card per `nav2.js` top-level category, sub-categories rendered as link chips
-  - `Cards` - Displays article cards
+  - `Cards` - Displays article cards. On the home page it receives `docs` **deduplicated against `expertCards`** (`+page.svelte` filters out the top-24 picks already shown in `Hero` + `ExpertSection`) so no card repeats between the curated sections and the "latest" grid.
   - `SubscribeCTA` - Home subscribe promo band (homepage redesign 2026): macro-conversion link to `/elofizetes`, placed after the article grid
 
 - **Title Logic**:
@@ -414,10 +439,42 @@ Nav2 defines the secondary navigation menu with categorized content sections:
   - Custom button styles (blue theme)
   - Responsive product grid (4 columns on desktop)
 
-- **Content**:
-  - Explains subscription offer (Diabetes magazine + Hypertonia at half price)
-  - Limits to maximum 3 items
+- **Content** (restructured in the homepage redesign 2026, F5):
+  - **Value-proposition hero** above the Shopify embed — same visual language as the home `Hero` (serif display, glucose-curve motif, `bg-base-200` band): kicker + H1 ("A nyomtatott Diabetes magazin — házhoz szállítva", matching the home `SubscribeCTA` heading), empathetic magázó lead, three benefit cards (szakértő szerzők / évente hat lapszám / Hypertonia+különszámok féláron), CTA "Előfizetek" → `#megrendeles` anchor (app.css `*[id]` scroll-margin handles the sticky header)
+  - **`#megrendeles` section** wraps the Shopify collection embed with a "Válassza ki lapszámait" heading + the half-price / max-3 note
+  - **Receptsarok Prémium** pricing cards (unchanged)
+  - **GYIK** — five native `<details>` FAQ items (no JS), answers grounded in the actual offer only: lapszám-tartalom, évente 6 postai megjelenés + szállítási költség a kosárban, féláras kedvezmény menete, nyomtatott vs. digitális (ingyenes cikkek + Receptsarok Prémium cross-sell), kosár "Üzenet a Kiadónak" mező
+  - Copy unified to **magázó** tone (was tegező "Rendeld meg…"), including meta/og descriptions
   - Hungarian language interface
+
+---
+
+## Newsletter Route (`/hirlevel`)
+
+**Files:**
+- `src/routes/hirlevel/+page.svelte` — visible subscribe/unsubscribe form
+- `src/routes/hirlevel/+page.server.ts` — form action (validation + Netlify relay)
+- `src/routes/hirlevel/form/+page.svelte` — hidden static form for Netlify bot-detection
+- `src/routes/hirlevel/form/+page.server.ts` — `prerender = true`
+
+Added in the homepage redesign 2026 (F4), replacing the old two-line placeholder. It's the micro-conversion target of the home `NewsletterCTA`, plus a Footer link ("Magazin" nav).
+
+### Netlify Forms wiring (same indirection as `/kviz`)
+
+- A native form POST to this SSR route would hit SvelteKit, not Netlify's form processor. So the **server action relays** the submission (`application/x-www-form-urlencoded`, `form-name=hirlevel`) to the **prerendered `/hirlevel/form`** page, which carries the `data-netlify` form Netlify's build-time bot detects. Fields declared on the hidden form must match what the action relays: `email`, `nev`, `muvelet`, `consent`.
+- In dev (`localhost`/`192.168`) the relay targets `https://diabeteshu.netlify.app` (like `/kviz`), so a real subscribe in dev POSTs to production — don't exercise the success path locally until the form is deployed.
+
+### Server action (`+page.server.ts`)
+
+- `muvelet`: `feliratkozas` | `leiratkozas` — drives copy and validation.
+- **Validation** (before the Netlify relay, so it never wastes a POST): email regex; consent **required for subscribe only** (GDPR); honeypot `bot-field` filled ⇒ silently returns `success` without relaying (bots don't reach Netlify).
+- Returns `{ success, muvelet }` on success, or `fail(4xx, { emailError | consentError | postFail, email, muvelet })`.
+
+### Page component (`+page.svelte`)
+
+- **Progressive enhancement**: works without JS (native POST → action re-renders with `form` prop) and with JS (`use:enhance` swaps in the confirmation without reload). Same visual language as the home (serif display, glucose-curve motif, primary/secondary theme).
+- Subscribe/unsubscribe segmented toggle; name (optional) + consent shown only for subscribe; CSS-hidden honeypot (`.hp`, off-screen); success state shows a thank-you/goodbye confirmation.
+- **GDPR consent text is a placeholder pending legal review** (no `adatkezelési tájékoztató` page exists yet — the link was intentionally omitted, see the comment in the consent block).
 
 ---
 

@@ -1,6 +1,7 @@
 <script>
   // Home newsletter CTA band (homepage redesign 2026, F3.3) — micro-conversion
   // toward `/hirlevel`. Placed between ExpertSection and TopicGrid.
+  import { trackEvent } from "$lib/analytics";
 </script>
 
 <section
@@ -35,6 +36,7 @@
     <a
       href="/hirlevel"
       class="btn btn-lg shrink-0 rounded-sm bg-base-100 text-base-content border-none hover:bg-base-200"
+      on:click={() => trackEvent("newsletter_cta_click", { source: "home" })}
     >
       Feliratkozom
     </a>

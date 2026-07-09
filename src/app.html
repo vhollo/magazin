@@ -1,29 +1,47 @@
 <!doctype html>
 <html lang="hu">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" href="/icon.png" sizes="32x32">
-		<link rel="icon" href="/icon.svg" type="image/svg+xml">
-		<link rel="apple-touch-icon" href="/apple-touch-icon.png"><!-- 180×180 -->
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		%sveltekit.head%
-	</head>
-	<body data-sveltekit-preload-data="hover">
-		<div style="display: contents">%sveltekit.body%</div>
-		<!-- Pre-hydration scroll restore: jump to the saved position as soon as HTML+CSS
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="/icon.png" sizes="32x32" />
+    <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <!-- 180×180 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    %sveltekit.head%
+  </head>
+  <body data-sveltekit-preload-data="hover">
+    <div style="display: contents">%sveltekit.body%</div>
+    <!-- Pre-hydration scroll restore: jump to the saved position as soon as HTML+CSS
 		     parse, before the SvelteKit bundle hydrates. Reuses SvelteKit's own saved
 		     scroll (sessionStorage 'sveltekit:scroll', keyed by history.state index). The
 		     page then finishes the job once content has expanded/settled. -->
-		<script>
-			try {
-				history.scrollRestoration = 'manual';
-				var i = history.state && history.state['sveltekit:history'];
-				var m = JSON.parse(sessionStorage['sveltekit:scroll'] || '{}');
-				var p = i != null ? m[i] : null;
-				if (p && p.y) window.scrollTo({ top: p.y, left: p.x || 0, behavior: 'instant' });
-			} catch (e) {}
-		</script>
+    <script>
+      try {
+        history.scrollRestoration = "manual";
+        var i = history.state && history.state["sveltekit:history"];
+        var m = JSON.parse(sessionStorage["sveltekit:scroll"] || "{}");
+        var p = i != null ? m[i] : null;
+        if (p && p.y)
+          window.scrollTo({ top: p.y, left: p.x || 0, behavior: "instant" });
+      } catch (e) {}
+    </script>
     <script defer src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <script defer src="https://code.jquery.com/ui/1.14.1/jquery-ui.min.js"></script>
-	</body>
+    <script
+      defer
+      src="https://code.jquery.com/ui/1.14.1/jquery-ui.min.js"
+    ></script>
+    <!-- Simple Analytics: cookie-free, no consent banner needed (homepage redesign 2026, F6.1).
+		     Custom events (funnel CTAs) are fired via sa_event() — see $lib/analytics.ts. -->
+    <script
+      async
+      defer
+      src="https://scripts.simpleanalyticscdn.com/latest.js"
+    ></script>
+    <noscript
+      ><img
+        src="https://queue.simpleanalyticscdn.com/noscript.gif"
+        alt=""
+        referrerpolicy="no-referrer-when-downgrade"
+    /></noscript>
+  </body>
 </html>

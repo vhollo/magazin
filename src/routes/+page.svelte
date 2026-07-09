@@ -19,7 +19,12 @@
 
   $: conf = data.conf;
   $: doc = data.doc;
-  $: docs = data.docs;
+  // The Hero (expertCards[0]) and ExpertSection (expertCards[1..]) already show the
+  // top 24 expert picks, so drop them from the "latest" grid to avoid repeating cards.
+  $: shownExpertIds = new Set(
+    (data.expertCards ?? []).map((c) => String(c.id)),
+  );
+  $: docs = (data.docs ?? []).filter((d) => !shownExpertIds.has(String(d.id)));
 
   // ── Scroll restoration ─────────────────────────────────────────────────────
   // app.html restores scroll before hydration; here we finish once the masonry
