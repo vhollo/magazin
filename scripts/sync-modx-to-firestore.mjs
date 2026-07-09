@@ -489,7 +489,24 @@ async function processRow(
   let dynamicEntry = resolved.dynamicEntry
   let createdRecipe
   let uncategorizedEntry
-  if (!redirect && changedIds.has(doc.id) && createState && isMagazineRecipeDoc(doc)) {
+  // Self-heal: a redirect can point at THIS doc's own recipe while that recipe is
+  // missing from recipes.json — it reached Firestore but its recipes.json commit was
+  // lost to a concurrent-sync push race, so re-saving otherwise short-circuits on the
+  // stale redirect and never re-creates. Re-run create when the redirect targets the
+  // doc's own slug and that recipe is absent, so recipes.json converges. (The
+  // concurrency-safe push prevents new losses; this recovers already-orphaned ones.)
+  let redirectToMissingOwnRecipe = false
+  if (redirect) {
+    const target = parseReceptsarokRedirectPath(redirect)
+    if (
+      target &&
+      String(target.id) === String(doc.alias ?? '').trim() &&
+      !recipes.some((r) => `${r.year}-${r.id}` === `${target.year}-${target.id}`)
+    ) {
+      redirectToMissingOwnRecipe = true
+    }
+  }
+  if ((!redirect || redirectToMissingOwnRecipe) && changedIds.has(doc.id) && createState && isMagazineRecipeDoc(doc)) {
     const built = buildReceptsarokRecipeForDoc(doc, {
       recipes,
       categoryByKey: createState.categoryByKey,

@@ -772,6 +772,7 @@ When an eligible doc has **no** match in `recipes.json`, `sync:modx*` builds a *
 - **Category-gated.** Resolved (`magazin-recipe-category-review.json` override wins over `predictRecipeCategory`) → write `recipes/{year}-{id}` + append `recipes.json` + set `doc.redirect` = `/receptsarok/{year}/{id}` (same dynamic-entry → manifest path as a match) + rebuild `collections/rs-*` (the shared `sync:rs-collections:apply` spawn, also used by free-flag changes) + purge `/receptsarok`, `/keres`, the detail URL.
 - **Unresolved category** → the doc is queued into `magazin-recipe-category-review.json` (`{year,id,title,category:""}`), which the GitHub Action commits + pushes; **no recipe/redirect yet**. Fill in `category`, re-save the article in MODX → the manual override resolves on the next sync and the recipe is created.
 - **Scope: single `recept` docs only.** Multi-recipe collection "gyűjtőcikkek" (≥2 dishes) stay with the offline create-only pipeline.
+- **Self-heal.** Create normally short-circuits when a redirect already exists, but it still fires when the redirect points at the **doc's own slug** and that recipe is **missing from `recipes.json`** — i.e. the recipe reached Firestore but its `recipes.json` commit was lost to a concurrent-sync push race. Re-saving then re-creates it so the source of truth converges. (The concurrency-safe push prevents new losses; this recovers already-orphaned recipes.)
 
 #### Runtime request handling
 

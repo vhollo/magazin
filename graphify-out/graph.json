@@ -4590,7 +4590,7 @@
       "label": "ensureRowInWorkingById()",
       "file_type": "code",
       "source_file": "scripts/sync-modx-to-firestore.mjs",
-      "source_location": "L578",
+      "source_location": "L595",
       "id": "scripts_sync_modx_to_firestore_ensurerowinworkingbyid",
       "community": 8,
       "norm_label": "ensurerowinworkingbyid()"
@@ -4599,7 +4599,7 @@
       "label": "deleteRemovedDocs()",
       "file_type": "code",
       "source_file": "scripts/sync-modx-to-firestore.mjs",
-      "source_location": "L600",
+      "source_location": "L617",
       "id": "scripts_sync_modx_to_firestore_deleteremoveddocs",
       "community": 8,
       "norm_label": "deleteremoveddocs()"
@@ -4608,7 +4608,7 @@
       "label": "findFirestorePathByModxId()",
       "file_type": "code",
       "source_file": "scripts/sync-modx-to-firestore.mjs",
-      "source_location": "L640",
+      "source_location": "L657",
       "id": "scripts_sync_modx_to_firestore_findfirestorepathbymodxid",
       "community": 8,
       "norm_label": "findfirestorepathbymodxid()"
@@ -4617,7 +4617,7 @@
       "label": "deleteStaleDocsForId()",
       "file_type": "code",
       "source_file": "scripts/sync-modx-to-firestore.mjs",
-      "source_location": "L661",
+      "source_location": "L678",
       "id": "scripts_sync_modx_to_firestore_deletestaledocsforid",
       "community": 8,
       "norm_label": "deletestaledocsforid()"
@@ -4626,7 +4626,7 @@
       "label": "deleteOrphanFirestoreDocs()",
       "file_type": "code",
       "source_file": "scripts/sync-modx-to-firestore.mjs",
-      "source_location": "L689",
+      "source_location": "L706",
       "id": "scripts_sync_modx_to_firestore_deleteorphanfirestoredocs",
       "community": 8,
       "norm_label": "deleteorphanfirestoredocs()"
@@ -4635,7 +4635,7 @@
       "label": "readLastEdit()",
       "file_type": "code",
       "source_file": "scripts/sync-modx-to-firestore.mjs",
-      "source_location": "L726",
+      "source_location": "L743",
       "id": "scripts_sync_modx_to_firestore_readlastedit",
       "community": 8,
       "norm_label": "readlastedit()"
@@ -4644,7 +4644,7 @@
       "label": "maxEditedon()",
       "file_type": "code",
       "source_file": "scripts/sync-modx-to-firestore.mjs",
-      "source_location": "L735",
+      "source_location": "L752",
       "id": "scripts_sync_modx_to_firestore_maxeditedon",
       "community": 8,
       "norm_label": "maxeditedon()"
@@ -4653,7 +4653,7 @@
       "label": "writeCollections()",
       "file_type": "code",
       "source_file": "scripts/sync-modx-to-firestore.mjs",
-      "source_location": "L746",
+      "source_location": "L763",
       "id": "scripts_sync_modx_to_firestore_writecollections",
       "community": 33,
       "norm_label": "writecollections()"
@@ -4662,7 +4662,7 @@
       "label": "main()",
       "file_type": "code",
       "source_file": "scripts/sync-modx-to-firestore.mjs",
-      "source_location": "L809",
+      "source_location": "L826",
       "id": "scripts_sync_modx_to_firestore_main",
       "community": 8,
       "norm_label": "main()"
@@ -14862,7 +14862,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L226",
       "id": "meta_0000_snapshot_columns_jatek",
-      "community": 94,
+      "community": 87,
       "norm_label": "jatek"
     },
     {
@@ -14871,7 +14871,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L227",
       "id": "meta_0000_snapshot_jatek_autoincrement",
-      "community": 94,
+      "community": 87,
       "norm_label": "autoincrement"
     },
     {
@@ -14880,7 +14880,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L228",
       "id": "meta_0000_snapshot_jatek_name",
-      "community": 94,
+      "community": 87,
       "norm_label": "name"
     },
     {
@@ -14889,7 +14889,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L229",
       "id": "meta_0000_snapshot_jatek_type",
-      "community": 94,
+      "community": 87,
       "norm_label": "type"
     },
     {
@@ -14898,7 +14898,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L230",
       "id": "meta_0000_snapshot_jatek_primarykey",
-      "community": 94,
+      "community": 87,
       "norm_label": "primarykey"
     },
     {
@@ -14907,7 +14907,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L231",
       "id": "meta_0000_snapshot_jatek_notnull",
-      "community": 94,
+      "community": 87,
       "norm_label": "notnull"
     },
     {
@@ -14916,7 +14916,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L233",
       "id": "meta_0000_snapshot_columns_ok",
-      "community": 87,
+      "community": 129,
       "norm_label": "ok"
     },
     {
@@ -14925,7 +14925,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L234",
       "id": "meta_0000_snapshot_ok_autoincrement",
-      "community": 87,
+      "community": 129,
       "norm_label": "autoincrement"
     },
     {
@@ -14934,7 +14934,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L235",
       "id": "meta_0000_snapshot_ok_name",
-      "community": 87,
+      "community": 129,
       "norm_label": "name"
     },
     {
@@ -14943,7 +14943,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L236",
       "id": "meta_0000_snapshot_ok_type",
-      "community": 87,
+      "community": 129,
       "norm_label": "type"
     },
     {
@@ -14952,7 +14952,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L237",
       "id": "meta_0000_snapshot_ok_primarykey",
-      "community": 87,
+      "community": 129,
       "norm_label": "primarykey"
     },
     {
@@ -14961,7 +14961,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L238",
       "id": "meta_0000_snapshot_ok_notnull",
-      "community": 87,
+      "community": 129,
       "norm_label": "notnull"
     },
     {
@@ -15699,7 +15699,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L458",
       "id": "meta_0000_snapshot_tables_modx_diaeuro2015_toto",
-      "community": 34,
+      "community": 50,
       "norm_label": "modx_diaeuro2015_toto"
     },
     {
@@ -15708,7 +15708,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L459",
       "id": "meta_0000_snapshot_modx_diaeuro2015_toto_name",
-      "community": 34,
+      "community": 50,
       "norm_label": "name"
     },
     {
@@ -15717,7 +15717,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L460",
       "id": "meta_0000_snapshot_modx_diaeuro2015_toto_columns",
-      "community": 34,
+      "community": 50,
       "norm_label": "columns"
     },
     {
@@ -15726,7 +15726,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L490",
       "id": "meta_0000_snapshot_modx_diaeuro2015_toto_compositeprimarykeys",
-      "community": 34,
+      "community": 50,
       "norm_label": "compositeprimarykeys"
     },
     {
@@ -15744,7 +15744,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L500",
       "id": "meta_0000_snapshot_modx_diaeuro2015_toto_foreignkeys",
-      "community": 34,
+      "community": 50,
       "norm_label": "foreignkeys"
     },
     {
@@ -15753,7 +15753,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L501",
       "id": "meta_0000_snapshot_modx_diaeuro2015_toto_uniqueconstraints",
-      "community": 34,
+      "community": 50,
       "norm_label": "uniqueconstraints"
     },
     {
@@ -15762,7 +15762,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L503",
       "id": "meta_0000_snapshot_tables_modx_diaeuro2016_toto",
-      "community": 68,
+      "community": 94,
       "norm_label": "modx_diaeuro2016_toto"
     },
     {
@@ -15771,7 +15771,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L504",
       "id": "meta_0000_snapshot_modx_diaeuro2016_toto_name",
-      "community": 68,
+      "community": 94,
       "norm_label": "name"
     },
     {
@@ -15780,7 +15780,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L505",
       "id": "meta_0000_snapshot_modx_diaeuro2016_toto_columns",
-      "community": 68,
+      "community": 94,
       "norm_label": "columns"
     },
     {
@@ -15789,7 +15789,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L535",
       "id": "meta_0000_snapshot_modx_diaeuro2016_toto_compositeprimarykeys",
-      "community": 68,
+      "community": 94,
       "norm_label": "compositeprimarykeys"
     },
     {
@@ -15798,7 +15798,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L536",
       "id": "meta_0000_snapshot_modx_diaeuro2016_toto_indexes",
-      "community": 68,
+      "community": 94,
       "norm_label": "indexes"
     },
     {
@@ -15807,7 +15807,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L545",
       "id": "meta_0000_snapshot_modx_diaeuro2016_toto_foreignkeys",
-      "community": 68,
+      "community": 94,
       "norm_label": "foreignkeys"
     },
     {
@@ -15816,7 +15816,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L546",
       "id": "meta_0000_snapshot_modx_diaeuro2016_toto_uniqueconstraints",
-      "community": 68,
+      "community": 94,
       "norm_label": "uniqueconstraints"
     },
     {
@@ -15825,7 +15825,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L548",
       "id": "meta_0000_snapshot_tables_modx_diaeuro2017_toto",
-      "community": 50,
+      "community": 68,
       "norm_label": "modx_diaeuro2017_toto"
     },
     {
@@ -15834,7 +15834,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L549",
       "id": "meta_0000_snapshot_modx_diaeuro2017_toto_name",
-      "community": 50,
+      "community": 68,
       "norm_label": "name"
     },
     {
@@ -15843,7 +15843,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L550",
       "id": "meta_0000_snapshot_modx_diaeuro2017_toto_columns",
-      "community": 50,
+      "community": 68,
       "norm_label": "columns"
     },
     {
@@ -15852,7 +15852,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L580",
       "id": "meta_0000_snapshot_modx_diaeuro2017_toto_compositeprimarykeys",
-      "community": 50,
+      "community": 68,
       "norm_label": "compositeprimarykeys"
     },
     {
@@ -15870,7 +15870,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L590",
       "id": "meta_0000_snapshot_modx_diaeuro2017_toto_foreignkeys",
-      "community": 50,
+      "community": 68,
       "norm_label": "foreignkeys"
     },
     {
@@ -15879,7 +15879,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L591",
       "id": "meta_0000_snapshot_modx_diaeuro2017_toto_uniqueconstraints",
-      "community": 50,
+      "community": 68,
       "norm_label": "uniqueconstraints"
     },
     {
@@ -16921,7 +16921,7 @@
       "label": "Runtime request handling",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L776",
+      "source_location": "L777",
       "id": "magazin_agents_runtime_request_handling",
       "community": 81,
       "norm_label": "runtime request handling"
@@ -16930,7 +16930,7 @@
       "label": "Pitfalls & maintenance",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L782",
+      "source_location": "L783",
       "id": "magazin_agents_pitfalls_maintenance",
       "community": 81,
       "norm_label": "pitfalls & maintenance"
@@ -16939,7 +16939,7 @@
       "label": "Paywall / Freemium Model",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L790",
+      "source_location": "L791",
       "id": "magazin_agents_paywall_freemium_model",
       "community": 81,
       "norm_label": "paywall / freemium model"
@@ -16948,7 +16948,7 @@
       "label": "Route Structure",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L800",
+      "source_location": "L801",
       "id": "magazin_agents_route_structure",
       "community": 81,
       "norm_label": "route structure"
@@ -16957,7 +16957,7 @@
       "label": "Components",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L806",
+      "source_location": "L807",
       "id": "magazin_agents_components",
       "community": 81,
       "norm_label": "components"
@@ -16966,7 +16966,7 @@
       "label": "Cross-linking with Magazine",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L815",
+      "source_location": "L816",
       "id": "magazin_agents_cross_linking_with_magazine",
       "community": 81,
       "norm_label": "cross-linking with magazine"
@@ -16975,7 +16975,7 @@
       "label": "Magazine Content Sync (MODX \u2192 Firestore)",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L829",
+      "source_location": "L830",
       "id": "magazin_agents_magazine_content_sync_modx_firestore",
       "community": 45,
       "norm_label": "magazine content sync (modx \u2192 firestore)"
@@ -16984,7 +16984,7 @@
       "label": "Commands",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L837",
+      "source_location": "L838",
       "id": "magazin_agents_commands",
       "community": 45,
       "norm_label": "commands"
@@ -16993,7 +16993,7 @@
       "label": "Agent reminders",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L864",
+      "source_location": "L865",
       "id": "magazin_agents_agent_reminders",
       "community": 45,
       "norm_label": "agent reminders"
@@ -17002,7 +17002,7 @@
       "label": "Data Flow Summary",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L899",
+      "source_location": "L900",
       "id": "magazin_agents_data_flow_summary",
       "community": 45,
       "norm_label": "data flow summary"
@@ -17011,7 +17011,7 @@
       "label": "Key Libraries & Services",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L915",
+      "source_location": "L916",
       "id": "magazin_agents_key_libraries_services",
       "community": 45,
       "norm_label": "key libraries & services"
@@ -17020,7 +17020,7 @@
       "label": "MCP Servers & AI Assistant Integration",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L926",
+      "source_location": "L927",
       "id": "magazin_agents_mcp_servers_ai_assistant_integration",
       "community": 77,
       "norm_label": "mcp servers & ai assistant integration"
@@ -17029,7 +17029,7 @@
       "label": "Available MCP Servers",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L930",
+      "source_location": "L931",
       "id": "magazin_agents_available_mcp_servers",
       "community": 77,
       "norm_label": "available mcp servers"
@@ -17038,7 +17038,7 @@
       "label": "1. Svelte MCP Server (`svelte`)",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L932",
+      "source_location": "L933",
       "id": "magazin_agents_1_svelte_mcp_server_svelte",
       "community": 77,
       "norm_label": "1. svelte mcp server (`svelte`)"
@@ -17047,7 +17047,7 @@
       "label": "2. Firebase MCP Server (`firebase`)",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L963",
+      "source_location": "L964",
       "id": "magazin_agents_2_firebase_mcp_server_firebase",
       "community": 77,
       "norm_label": "2. firebase mcp server (`firebase`)"
@@ -17056,7 +17056,7 @@
       "label": "3. Daisy UI MCP Server (`daisyui`)",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L995",
+      "source_location": "L996",
       "id": "magazin_agents_3_daisy_ui_mcp_server_daisyui",
       "community": 77,
       "norm_label": "3. daisy ui mcp server (`daisyui`)"
@@ -17065,7 +17065,7 @@
       "label": "How Agents Use These MCP Servers",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L1030",
+      "source_location": "L1031",
       "id": "magazin_agents_how_agents_use_these_mcp_servers",
       "community": 77,
       "norm_label": "how agents use these mcp servers"
@@ -17074,7 +17074,7 @@
       "label": "Project-Specific MCP Usage Guidelines",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L1040",
+      "source_location": "L1041",
       "id": "magazin_agents_project_specific_mcp_usage_guidelines",
       "community": 77,
       "norm_label": "project-specific mcp usage guidelines"
@@ -17083,7 +17083,7 @@
       "label": "Route Priority",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L1059",
+      "source_location": "L1060",
       "id": "magazin_agents_route_priority",
       "community": 45,
       "norm_label": "route priority"
@@ -24165,9 +24165,9 @@
       "source_file": "scripts/merge-sync-data-files.mjs",
       "source_location": "L20",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "scripts_merge_sync_data_files_mjs",
-      "target": "lib_receptsarok_redirects_manifest_mergeredirectentries",
-      "confidence_score": 1.0
+      "target": "lib_receptsarok_redirects_manifest_mergeredirectentries"
     },
     {
       "relation": "imports",
@@ -24176,9 +24176,9 @@
       "source_file": "scripts/merge-sync-data-files.mjs",
       "source_location": "L19",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "scripts_merge_sync_data_files_mjs",
-      "target": "lib_recipesjsonformat_stringifyrecipesjson",
-      "confidence_score": 1.0
+      "target": "lib_recipesjsonformat_stringifyrecipesjson"
     },
     {
       "relation": "imports_from",
@@ -24187,9 +24187,9 @@
       "source_file": "scripts/merge-sync-data-files.mjs",
       "source_location": "L20",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "scripts_merge_sync_data_files_mjs",
-      "target": "scripts_lib_receptsarok_redirects_manifest_mjs",
-      "confidence_score": 1.0
+      "target": "scripts_lib_receptsarok_redirects_manifest_mjs"
     },
     {
       "relation": "contains",
@@ -24197,9 +24197,9 @@
       "source_file": "scripts/merge-sync-data-files.mjs",
       "source_location": "L22",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "scripts_merge_sync_data_files_mjs",
-      "target": "scripts_merge_sync_data_files_dirname",
-      "confidence_score": 1.0
+      "target": "scripts_merge_sync_data_files_dirname"
     },
     {
       "relation": "contains",
@@ -24207,9 +24207,9 @@
       "source_file": "scripts/merge-sync-data-files.mjs",
       "source_location": "L120",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "scripts_merge_sync_data_files_mjs",
-      "target": "scripts_merge_sync_data_files_gitshow",
-      "confidence_score": 1.0
+      "target": "scripts_merge_sync_data_files_gitshow"
     },
     {
       "relation": "contains",
@@ -24217,9 +24217,9 @@
       "source_file": "scripts/merge-sync-data-files.mjs",
       "source_location": "L137",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "scripts_merge_sync_data_files_mjs",
-      "target": "scripts_merge_sync_data_files_main",
-      "confidence_score": 1.0
+      "target": "scripts_merge_sync_data_files_main"
     },
     {
       "relation": "contains",
@@ -24227,9 +24227,9 @@
       "source_file": "scripts/merge-sync-data-files.mjs",
       "source_location": "L74",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "scripts_merge_sync_data_files_mjs",
-      "target": "scripts_merge_sync_data_files_mergecategoryreview",
-      "confidence_score": 1.0
+      "target": "scripts_merge_sync_data_files_mergecategoryreview"
     },
     {
       "relation": "contains",
@@ -24237,9 +24237,9 @@
       "source_file": "scripts/merge-sync-data-files.mjs",
       "source_location": "L48",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "scripts_merge_sync_data_files_mjs",
-      "target": "scripts_merge_sync_data_files_mergerecipesjson",
-      "confidence_score": 1.0
+      "target": "scripts_merge_sync_data_files_mergerecipesjson"
     },
     {
       "relation": "contains",
@@ -24247,9 +24247,9 @@
       "source_file": "scripts/merge-sync-data-files.mjs",
       "source_location": "L105",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "scripts_merge_sync_data_files_mjs",
-      "target": "scripts_merge_sync_data_files_mergeredirectsmanifest",
-      "confidence_score": 1.0
+      "target": "scripts_merge_sync_data_files_mergeredirectsmanifest"
     },
     {
       "relation": "contains",
@@ -24257,9 +24257,9 @@
       "source_file": "scripts/merge-sync-data-files.mjs",
       "source_location": "L29",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "scripts_merge_sync_data_files_mjs",
-      "target": "scripts_merge_sync_data_files_parsejsonor",
-      "confidence_score": 1.0
+      "target": "scripts_merge_sync_data_files_parsejsonor"
     },
     {
       "relation": "contains",
@@ -24267,9 +24267,9 @@
       "source_file": "scripts/merge-sync-data-files.mjs",
       "source_location": "L128",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "scripts_merge_sync_data_files_mjs",
-      "target": "scripts_merge_sync_data_files_readworkingtree",
-      "confidence_score": 1.0
+      "target": "scripts_merge_sync_data_files_readworkingtree"
     },
     {
       "relation": "contains",
@@ -24277,9 +24277,9 @@
       "source_file": "scripts/merge-sync-data-files.mjs",
       "source_location": "L39",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "scripts_merge_sync_data_files_mjs",
-      "target": "scripts_merge_sync_data_files_recipekey",
-      "confidence_score": 1.0
+      "target": "scripts_merge_sync_data_files_recipekey"
     },
     {
       "relation": "contains",
@@ -24287,9 +24287,9 @@
       "source_file": "scripts/merge-sync-data-files.mjs",
       "source_location": "L23",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "scripts_merge_sync_data_files_mjs",
-      "target": "scripts_merge_sync_data_files_root",
-      "confidence_score": 1.0
+      "target": "scripts_merge_sync_data_files_root"
     },
     {
       "relation": "contains",
@@ -24297,9 +24297,9 @@
       "source_file": "scripts/merge-sync-data-files.mjs",
       "source_location": "L133",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "scripts_merge_sync_data_files_mjs",
-      "target": "scripts_merge_sync_data_files_writeworkingtree",
-      "confidence_score": 1.0
+      "target": "scripts_merge_sync_data_files_writeworkingtree"
     },
     {
       "relation": "imports_from",
@@ -24308,9 +24308,9 @@
       "source_file": "scripts/merge-sync-data-files.mjs",
       "source_location": "L19",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "scripts_merge_sync_data_files_mjs",
-      "target": "src_lib_recipesjsonformat_js",
-      "confidence_score": 1.0
+      "target": "src_lib_recipesjsonformat_js"
     },
     {
       "relation": "calls",
@@ -24319,9 +24319,9 @@
       "source_file": "scripts/merge-sync-data-files.mjs",
       "source_location": "L75",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "scripts_merge_sync_data_files_mergecategoryreview",
-      "target": "scripts_merge_sync_data_files_parsejsonor",
-      "confidence_score": 1.0
+      "target": "scripts_merge_sync_data_files_parsejsonor"
     },
     {
       "relation": "calls",
@@ -24330,9 +24330,9 @@
       "source_file": "scripts/merge-sync-data-files.mjs",
       "source_location": "L49",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "scripts_merge_sync_data_files_mergerecipesjson",
-      "target": "scripts_merge_sync_data_files_parsejsonor",
-      "confidence_score": 1.0
+      "target": "scripts_merge_sync_data_files_parsejsonor"
     },
     {
       "relation": "calls",
@@ -24341,9 +24341,9 @@
       "source_file": "scripts/merge-sync-data-files.mjs",
       "source_location": "L106",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "scripts_merge_sync_data_files_mergeredirectsmanifest",
-      "target": "scripts_merge_sync_data_files_parsejsonor",
-      "confidence_score": 1.0
+      "target": "scripts_merge_sync_data_files_parsejsonor"
     },
     {
       "relation": "calls",
@@ -24352,9 +24352,9 @@
       "source_file": "scripts/merge-sync-data-files.mjs",
       "source_location": "L55",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "scripts_merge_sync_data_files_mergerecipesjson",
-      "target": "scripts_merge_sync_data_files_recipekey",
-      "confidence_score": 1.0
+      "target": "scripts_merge_sync_data_files_recipekey"
     },
     {
       "relation": "calls",
@@ -24385,9 +24385,9 @@
       "source_file": "scripts/merge-sync-data-files.mjs",
       "source_location": "L151",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "scripts_merge_sync_data_files_main",
-      "target": "scripts_merge_sync_data_files_gitshow",
-      "confidence_score": 1.0
+      "target": "scripts_merge_sync_data_files_gitshow"
     },
     {
       "relation": "calls",
@@ -24396,9 +24396,9 @@
       "source_file": "scripts/merge-sync-data-files.mjs",
       "source_location": "L149",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "scripts_merge_sync_data_files_main",
-      "target": "scripts_merge_sync_data_files_readworkingtree",
-      "confidence_score": 1.0
+      "target": "scripts_merge_sync_data_files_readworkingtree"
     },
     {
       "relation": "calls",
@@ -24407,9 +24407,9 @@
       "source_file": "scripts/merge-sync-data-files.mjs",
       "source_location": "L152",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "scripts_merge_sync_data_files_main",
-      "target": "scripts_merge_sync_data_files_writeworkingtree",
-      "confidence_score": 1.0
+      "target": "scripts_merge_sync_data_files_writeworkingtree"
     },
     {
       "relation": "imports",
@@ -52470,5 +52470,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "c05f9c5f40fb6b1c528aeb34cb8c66827f613c18"
+  "built_at_commit": "27879481085dbd6cff1229250f0f44650fd1a153"
 }

@@ -1,16 +1,16 @@
 # Graph Report - magazin  (2026-07-10)
 
 ## Corpus Check
-- 190 files · ~4,535,931 words
+- 190 files · ~4,536,238 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 1990 nodes · 3347 edges · 132 communities (124 shown, 8 thin omitted)
+- 1990 nodes · 3347 edges · 133 communities (125 shown, 8 thin omitted)
 - Extraction: 100% EXTRACTED · 0% INFERRED · 0% AMBIGUOUS · INFERRED: 13 edges (avg confidence: 0.8)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `c05f9c5f`
+- Built from commit: `27879481`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -130,6 +130,7 @@
 - [[_COMMUNITY_Community 126|Community 126]]
 - [[_COMMUNITY_Community 127|Community 127]]
 - [[_COMMUNITY_Community 128|Community 128]]
+- [[_COMMUNITY_Community 129|Community 129]]
 - [[_COMMUNITY_Community 130|Community 130]]
 
 ## God Nodes (most connected - your core abstractions)
@@ -156,7 +157,7 @@
 - `main()` --calls--> `loadReceptsarokRedirectMaps()`  [INFERRED]
   scripts/sync-modx-to-firestore.mjs → src/lib/modx/transform.ts
 
-## Communities (132 total, 8 thin omitted)
+## Communities (133 total, 8 thin omitted)
 
 ### Community 0 - "Community 0"
 Cohesion: 0.03
@@ -295,8 +296,8 @@ Cohesion: 0.14
 Nodes (19): DocLike, docsByTags(), EXPERT_TAGS, expertDocs(), hasDoctorAuthor(), homeDocs(), isExpertDoc(), NEWS_TAGS (+11 more)
 
 ### Community 34 - "Community 34"
-Cohesion: 0.09
-Nodes (24): uid, uid, columns, compositePrimaryKeys, foreignKeys, indexes, name, uniqueConstraints (+16 more)
+Cohesion: 0.12
+Nodes (18): uid, uid, columns, compositePrimaryKeys, foreignKeys, indexes, name, uniqueConstraints (+10 more)
 
 ### Community 35 - "Community 35"
 Cohesion: 0.14
@@ -431,8 +432,8 @@ Cohesion: 0.29
 Nodes (7): columns, compositePrimaryKeys, foreignKeys, indexes, name, uniqueConstraints, modx_active_user_sessions
 
 ### Community 68 - "Community 68"
-Cohesion: 0.14
-Nodes (14): date, autoincrement, default, name, notNull, primaryKey, type, columns (+6 more)
+Cohesion: 0.15
+Nodes (13): date, autoincrement, default, name, notNull, primaryKey, type, columns (+5 more)
 
 ### Community 69 - "Community 69"
 Cohesion: 0.20
@@ -504,7 +505,7 @@ Nodes (4): getSearchMeta(), resolveSearchIndexUrl(), GET(), GET()
 
 ### Community 87 - "Community 87"
 Cohesion: 0.11
-Nodes (18): ok, user, columns, compositePrimaryKeys, foreignKeys, indexes, name, autoincrement (+10 more)
+Nodes (18): jatek, user, autoincrement, name, notNull, primaryKey, type, columns (+10 more)
 
 ### Community 90 - "Community 90"
 Cohesion: 0.13
@@ -519,8 +520,8 @@ Cohesion: 0.15
 Nodes (17): __dirname, gitShow(), main(), mergeCategoryReview(), mergeRecipesJson(), mergeRedirectsManifest(), parseJsonOr(), readWorkingTree() (+9 more)
 
 ### Community 94 - "Community 94"
-Cohesion: 0.33
-Nodes (6): jatek, autoincrement, name, notNull, primaryKey, type
+Cohesion: 0.29
+Nodes (7): columns, compositePrimaryKeys, foreignKeys, indexes, name, uniqueConstraints, modx_diaeuro2016_toto
 
 ### Community 95 - "Community 95"
 Cohesion: 0.40
@@ -585,6 +586,10 @@ Nodes (5): Authentication Logic, Authentication Methods, Authentication State, L
 ### Community 128 - "Community 128"
 Cohesion: 0.14
 Nodes (14): Layout Server (`+layout.server.ts`), Layout Server (`+layout.server.ts`), Layout Server (`+layout.server.ts`), Layout Server (`+layout.server.ts`), Layout Server (`+layout.server.ts`), Layout Server (`+layout.server.ts`), Layout Server (`+layout.server.ts`), Page Component (`+page.svelte`) (+6 more)
+
+### Community 129 - "Community 129"
+Cohesion: 0.33
+Nodes (6): ok, autoincrement, name, notNull, primaryKey, type
 
 ### Community 130 - "Community 130"
 Cohesion: 0.25
