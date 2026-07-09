@@ -117,23 +117,47 @@ jobs:
         continue-on-error: true
         run: |
           set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          FILES="src/lib/data/receptsarok-redirects.json src/lib/data/recipes.json scripts/data/magazin-recipe-category-review.json"
+          MSG="chore(sync): MODX sync — receptsarok redirects, recipes and/or category review"
+
           CHANGED=0
-          for f in src/lib/data/receptsarok-redirects.json \
-                   src/lib/data/recipes.json \
-                   scripts/data/magazin-recipe-category-review.json; do
-            if ! git diff --quiet -- "$f"; then
-              git add "$f"
-              CHANGED=1
-            fi
+          for f in $FILES; do
+            if ! git diff --quiet -- "$f"; then git add "$f"; CHANGED=1; fi
           done
           if [ "$CHANGED" -eq 0 ]; then
             echo "No redirect manifest, recipes.json or category-review changes"
             exit 0
           fi
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git commit -m "chore(sync): MODX sync — receptsarok redirects, recipes and/or category review"
-          git push
+          git commit -m "$MSG"
+
+          # Concurrent modx-doc-save runs both append to these data files, so the
+          # loser's plain `git push` is rejected (non-fast-forward) and its new recipe
+          # is lost from git. On rejection, re-merge our changes with the advanced
+          # remote BY KEY (union — not a git text merge, which conflicts on appended
+          # JSON lines) and retry, so both runs' additions survive.
+          for attempt in 1 2 3 4 5; do
+            if git push; then
+              echo "pushed data updates (attempt $attempt)"
+              exit 0
+            fi
+            echo "push rejected (attempt $attempt) — re-merging with remote main…"
+            git fetch origin main
+            node scripts/merge-sync-data-files.mjs FETCH_HEAD
+            git reset --mixed FETCH_HEAD
+            for f in $FILES; do
+              if ! git diff --quiet -- "$f"; then git add "$f"; fi
+            done
+            if git diff --cached --quiet; then
+              echo "nothing left to commit after merge (remote already has our changes)"
+              exit 0
+            fi
+            git commit -m "$MSG"
+          done
+          echo "ERROR: could not push data updates after 5 attempts" >&2
+          exit 1
 
       - name: Revoke GitHub Actions runner IP from cPanel Remote MySQL
         if: always() && github.event_name == 'workflow_dispatch' && steps.cpanel_mysql.outcome == 'success'
