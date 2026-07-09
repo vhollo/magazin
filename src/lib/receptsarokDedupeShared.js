@@ -33,6 +33,30 @@ function tokenizeTitle(value, normalizeTextFn) {
 }
 
 /**
+ * True when `needle` appears as a contiguous run of whole words inside `haystack`.
+ * Word-boundary aware — unlike a raw substring test, „sült csirke“ is NOT contained
+ * in „sült csirkemellcsíkok…“ (`csirke` ≠ the whole word `csirkemellcsíkok`).
+ *
+ * @param {string[]} haystack
+ * @param {string[]} needle
+ * @returns {boolean}
+ */
+function containsWordRun(haystack, needle) {
+  if (needle.length === 0 || needle.length > haystack.length) return false
+  for (let start = 0; start + needle.length <= haystack.length; start += 1) {
+    let match = true
+    for (let i = 0; i < needle.length; i += 1) {
+      if (haystack[start + i] !== needle[i]) {
+        match = false
+        break
+      }
+    }
+    if (match) return true
+  }
+  return false
+}
+
+/**
  * Title similarity for magazine doc ↔ catalogue recipe matching.
  * Single-word doc titles only score on exact equality (avoids „Csokitorta“ → „Céklás… csokitorta“).
  *
@@ -47,7 +71,14 @@ export function titleMatchScore(doc, recipe, normalizeTextFn = normalizeText) {
   if (!docTitle || !recipeTitle) return 0
   if (docTitle === recipeTitle) return 100
   const docWords = tokenizeTitle(docTitle, normalizeTextFn)
-  if (docWords.length >= 2 && (recipeTitle.includes(docTitle) || docTitle.includes(recipeTitle))) {
+  const recipeWords = tokenizeTitle(recipeTitle, normalizeTextFn)
+  // One title fully contains the other as a run of WHOLE words (not a mid-word
+  // substring — see `containsWordRun`), so „Almás pite“ ↔ „Almás pite diétás“ still
+  // scores 80, but „Sült csirke“ no longer spuriously matches „Sült csirkemellcsíkok…“.
+  if (
+    docWords.length >= 2 &&
+    (containsWordRun(recipeWords, docWords) || containsWordRun(docWords, recipeWords))
+  ) {
     return 80
   }
   const significantDocWords = docWords.filter((w) => w.length > 3)

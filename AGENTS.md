@@ -758,7 +758,7 @@ Eligible docs (`isMagazineRecipeDoc` in `receptsarok-redirect-match.mjs`):
 **Match order** (`matchReceptsarokRedirectTarget` — same rules as `recipes:dedupe:manual`):
 
 1. Legacy path alias — slug under `receptsarok/…` matched to recipe `id` (`chooseWinner` / `pickRedirectTarget`)
-2. Title scoring (min 60) + author compatibility + alias-id bonus; winner picked with dedupe tie-break
+2. Title scoring (min 60) + author compatibility + alias-id bonus; winner picked with dedupe tie-break. `titleMatchScore` (`receptsarokDedupeShared.js`) is **word-boundary aware**: a title containing another scores 80 only when the shorter is a run of *whole words* (`containsWordRun`) — so „Sült csirke“ does **not** match „Sült csirkemellcsíkok…“ (`csirke` ≠ the word `csirkemellcsíkok`), which would otherwise redirect a distinct dish to the wrong recipe (and block its sync-create).
 3. Alias-only match on recipe `id`
 4. Exact `{year from path YYMM}/{alias}` key in catalogue
 
