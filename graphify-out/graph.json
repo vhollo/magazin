@@ -5985,7 +5985,7 @@
       "label": "htmlToTextLines()",
       "file_type": "code",
       "source_file": "scripts/lib/modx-to-rs-parser.mjs",
-      "source_location": "L663",
+      "source_location": "L669",
       "id": "lib_modx_to_rs_parser_htmltotextlines",
       "community": 15,
       "norm_label": "htmltotextlines()"
@@ -5994,7 +5994,7 @@
       "label": "deriveInstructionsHtml()",
       "file_type": "code",
       "source_file": "scripts/lib/modx-to-rs-parser.mjs",
-      "source_location": "L680",
+      "source_location": "L686",
       "id": "lib_modx_to_rs_parser_deriveinstructionshtml",
       "community": 15,
       "norm_label": "deriveinstructionshtml()"
@@ -6003,7 +6003,7 @@
       "label": "parseVideoObject()",
       "file_type": "code",
       "source_file": "scripts/lib/modx-to-rs-parser.mjs",
-      "source_location": "L688",
+      "source_location": "L694",
       "id": "lib_modx_to_rs_parser_parsevideoobject",
       "community": 15,
       "norm_label": "parsevideoobject()"
@@ -6012,7 +6012,7 @@
       "label": "deriveVideo()",
       "file_type": "code",
       "source_file": "scripts/lib/modx-to-rs-parser.mjs",
-      "source_location": "L704",
+      "source_location": "L710",
       "id": "lib_modx_to_rs_parser_derivevideo",
       "community": 15,
       "norm_label": "derivevideo()"
@@ -6021,7 +6021,7 @@
       "label": "cardImgFromSrc()",
       "file_type": "code",
       "source_file": "scripts/lib/modx-to-rs-parser.mjs",
-      "source_location": "L722",
+      "source_location": "L728",
       "id": "lib_modx_to_rs_parser_cardimgfromsrc",
       "community": 15,
       "norm_label": "cardimgfromsrc()"
@@ -6030,7 +6030,7 @@
       "label": "deriveImg()",
       "file_type": "code",
       "source_file": "scripts/lib/modx-to-rs-parser.mjs",
-      "source_location": "L735",
+      "source_location": "L741",
       "id": "lib_modx_to_rs_parser_deriveimg",
       "community": 15,
       "norm_label": "deriveimg()"
@@ -6039,7 +6039,7 @@
       "label": "lastImageInHtml()",
       "file_type": "code",
       "source_file": "scripts/lib/modx-to-rs-parser.mjs",
-      "source_location": "L756",
+      "source_location": "L762",
       "id": "lib_modx_to_rs_parser_lastimageinhtml",
       "community": 15,
       "norm_label": "lastimageinhtml()"
@@ -6048,7 +6048,7 @@
       "label": "deriveSearchTerms()",
       "file_type": "code",
       "source_file": "scripts/lib/modx-to-rs-parser.mjs",
-      "source_location": "L768",
+      "source_location": "L774",
       "id": "lib_modx_to_rs_parser_derivesearchterms",
       "community": 15,
       "norm_label": "derivesearchterms()"
@@ -6057,7 +6057,7 @@
       "label": "normalizeServingUnit()",
       "file_type": "code",
       "source_file": "scripts/lib/modx-to-rs-parser.mjs",
-      "source_location": "L779",
+      "source_location": "L785",
       "id": "lib_modx_to_rs_parser_normalizeservingunit",
       "community": 15,
       "norm_label": "normalizeservingunit()"
@@ -6066,7 +6066,7 @@
       "label": "cleanServingParenthetical()",
       "file_type": "code",
       "source_file": "scripts/lib/modx-to-rs-parser.mjs",
-      "source_location": "L796",
+      "source_location": "L802",
       "id": "lib_modx_to_rs_parser_cleanservingparenthetical",
       "community": 15,
       "norm_label": "cleanservingparenthetical()"
@@ -6075,7 +6075,7 @@
       "label": "parseServingsFromText()",
       "file_type": "code",
       "source_file": "scripts/lib/modx-to-rs-parser.mjs",
-      "source_location": "L809",
+      "source_location": "L815",
       "id": "lib_modx_to_rs_parser_parseservingsfromtext",
       "community": 15,
       "norm_label": "parseservingsfromtext()"
@@ -6084,7 +6084,7 @@
       "label": "deriveServings()",
       "file_type": "code",
       "source_file": "scripts/lib/modx-to-rs-parser.mjs",
-      "source_location": "L830",
+      "source_location": "L836",
       "id": "lib_modx_to_rs_parser_deriveservings",
       "community": 15,
       "norm_label": "deriveservings()"
@@ -6093,7 +6093,7 @@
       "label": "hasMainStyleHozzavalokH2()",
       "file_type": "code",
       "source_file": "scripts/lib/modx-to-rs-parser.mjs",
-      "source_location": "L851",
+      "source_location": "L857",
       "id": "lib_modx_to_rs_parser_hasmainstylehozzavalokh2",
       "community": 15,
       "norm_label": "hasmainstylehozzavalokh2()"
@@ -6102,7 +6102,7 @@
       "label": "hasExplicitInstructionHeading()",
       "file_type": "code",
       "source_file": "scripts/lib/modx-to-rs-parser.mjs",
-      "source_location": "L855",
+      "source_location": "L861",
       "id": "lib_modx_to_rs_parser_hasexplicitinstructionheading",
       "community": 15,
       "norm_label": "hasexplicitinstructionheading()"
@@ -6111,7 +6111,7 @@
       "label": "deriveSubRecipes()",
       "file_type": "code",
       "source_file": "scripts/lib/modx-to-rs-parser.mjs",
-      "source_location": "L861",
+      "source_location": "L867",
       "id": "lib_modx_to_rs_parser_derivesubrecipes",
       "community": 15,
       "norm_label": "derivesubrecipes()"
@@ -6120,7 +6120,7 @@
       "label": "isOnlyStandaloneRecipeCollection()",
       "file_type": "code",
       "source_file": "scripts/lib/modx-to-rs-parser.mjs",
-      "source_location": "L1045",
+      "source_location": "L1051",
       "id": "lib_modx_to_rs_parser_isonlystandalonerecipecollection",
       "community": 15,
       "norm_label": "isonlystandalonerecipecollection()"
@@ -6129,7 +6129,7 @@
       "label": "idSlugFromRecipeTitle()",
       "file_type": "code",
       "source_file": "scripts/lib/modx-to-rs-parser.mjs",
-      "source_location": "L1053",
+      "source_location": "L1059",
       "id": "lib_modx_to_rs_parser_idslugfromrecipetitle",
       "community": 15,
       "norm_label": "idslugfromrecipetitle()"
@@ -6138,7 +6138,7 @@
       "label": "extractTitleServings()",
       "file_type": "code",
       "source_file": "scripts/lib/modx-to-rs-parser.mjs",
-      "source_location": "L1067",
+      "source_location": "L1073",
       "id": "lib_modx_to_rs_parser_extracttitleservings",
       "community": 15,
       "norm_label": "extracttitleservings()"
@@ -6147,7 +6147,7 @@
       "label": "applyPhotoCredit()",
       "file_type": "code",
       "source_file": "scripts/lib/modx-to-rs-parser.mjs",
-      "source_location": "L1076",
+      "source_location": "L1082",
       "id": "lib_modx_to_rs_parser_applyphotocredit",
       "community": 15,
       "norm_label": "applyphotocredit()"
@@ -6156,7 +6156,7 @@
       "label": "buildRecipesFromModxDoc()",
       "file_type": "code",
       "source_file": "scripts/lib/modx-to-rs-parser.mjs",
-      "source_location": "L1102",
+      "source_location": "L1108",
       "id": "lib_modx_to_rs_parser_buildrecipesfrommodxdoc",
       "community": 15,
       "norm_label": "buildrecipesfrommodxdoc()"
@@ -6165,7 +6165,7 @@
       "label": "timestampFromUnix()",
       "file_type": "code",
       "source_file": "scripts/lib/modx-to-rs-parser.mjs",
-      "source_location": "L1191",
+      "source_location": "L1197",
       "id": "lib_modx_to_rs_parser_timestampfromunix",
       "community": 15,
       "norm_label": "timestampfromunix()"
@@ -6174,7 +6174,7 @@
       "label": "buildRecipeFromModxDoc()",
       "file_type": "code",
       "source_file": "scripts/lib/modx-to-rs-parser.mjs",
-      "source_location": "L1215",
+      "source_location": "L1221",
       "id": "lib_modx_to_rs_parser_buildrecipefrommodxdoc",
       "community": 15,
       "norm_label": "buildrecipefrommodxdoc()"
@@ -10328,7 +10328,7 @@
       "label": "htmlToTextLines()",
       "file_type": "code",
       "source_file": "src/lib/modxToRsParser.js",
-      "source_location": "L629",
+      "source_location": "L635",
       "id": "lib_modxtorsparser_htmltotextlines",
       "community": 26,
       "norm_label": "htmltotextlines()"
@@ -10337,7 +10337,7 @@
       "label": "deriveInstructionsHtml()",
       "file_type": "code",
       "source_file": "src/lib/modxToRsParser.js",
-      "source_location": "L646",
+      "source_location": "L652",
       "id": "lib_modxtorsparser_deriveinstructionshtml",
       "community": 26,
       "norm_label": "deriveinstructionshtml()"
@@ -10346,7 +10346,7 @@
       "label": "parseVideoObject()",
       "file_type": "code",
       "source_file": "src/lib/modxToRsParser.js",
-      "source_location": "L654",
+      "source_location": "L660",
       "id": "lib_modxtorsparser_parsevideoobject",
       "community": 75,
       "norm_label": "parsevideoobject()"
@@ -10355,7 +10355,7 @@
       "label": "deriveVideo()",
       "file_type": "code",
       "source_file": "src/lib/modxToRsParser.js",
-      "source_location": "L670",
+      "source_location": "L676",
       "id": "lib_modxtorsparser_derivevideo",
       "community": 75,
       "norm_label": "derivevideo()"
@@ -10364,7 +10364,7 @@
       "label": "cardImgFromSrc()",
       "file_type": "code",
       "source_file": "src/lib/modxToRsParser.js",
-      "source_location": "L688",
+      "source_location": "L694",
       "id": "lib_modxtorsparser_cardimgfromsrc",
       "community": 26,
       "norm_label": "cardimgfromsrc()"
@@ -10373,7 +10373,7 @@
       "label": "deriveImg()",
       "file_type": "code",
       "source_file": "src/lib/modxToRsParser.js",
-      "source_location": "L701",
+      "source_location": "L707",
       "id": "lib_modxtorsparser_deriveimg",
       "community": 75,
       "norm_label": "deriveimg()"
@@ -10382,7 +10382,7 @@
       "label": "lastImageInHtml()",
       "file_type": "code",
       "source_file": "src/lib/modxToRsParser.js",
-      "source_location": "L722",
+      "source_location": "L728",
       "id": "lib_modxtorsparser_lastimageinhtml",
       "community": 125,
       "norm_label": "lastimageinhtml()"
@@ -10391,7 +10391,7 @@
       "label": "deriveSearchTerms()",
       "file_type": "code",
       "source_file": "src/lib/modxToRsParser.js",
-      "source_location": "L734",
+      "source_location": "L740",
       "id": "lib_modxtorsparser_derivesearchterms",
       "community": 75,
       "norm_label": "derivesearchterms()"
@@ -10400,7 +10400,7 @@
       "label": "normalizeServingUnit()",
       "file_type": "code",
       "source_file": "src/lib/modxToRsParser.js",
-      "source_location": "L745",
+      "source_location": "L751",
       "id": "lib_modxtorsparser_normalizeservingunit",
       "community": 26,
       "norm_label": "normalizeservingunit()"
@@ -10409,7 +10409,7 @@
       "label": "cleanServingParenthetical()",
       "file_type": "code",
       "source_file": "src/lib/modxToRsParser.js",
-      "source_location": "L762",
+      "source_location": "L768",
       "id": "lib_modxtorsparser_cleanservingparenthetical",
       "community": 26,
       "norm_label": "cleanservingparenthetical()"
@@ -10418,7 +10418,7 @@
       "label": "parseServingsFromText()",
       "file_type": "code",
       "source_file": "src/lib/modxToRsParser.js",
-      "source_location": "L775",
+      "source_location": "L781",
       "id": "lib_modxtorsparser_parseservingsfromtext",
       "community": 26,
       "norm_label": "parseservingsfromtext()"
@@ -10427,7 +10427,7 @@
       "label": "deriveServings()",
       "file_type": "code",
       "source_file": "src/lib/modxToRsParser.js",
-      "source_location": "L796",
+      "source_location": "L802",
       "id": "lib_modxtorsparser_deriveservings",
       "community": 26,
       "norm_label": "deriveservings()"
@@ -10436,7 +10436,7 @@
       "label": "hasMainStyleHozzavalokH2()",
       "file_type": "code",
       "source_file": "src/lib/modxToRsParser.js",
-      "source_location": "L817",
+      "source_location": "L823",
       "id": "lib_modxtorsparser_hasmainstylehozzavalokh2",
       "community": 125,
       "norm_label": "hasmainstylehozzavalokh2()"
@@ -10445,7 +10445,7 @@
       "label": "hasExplicitInstructionHeading()",
       "file_type": "code",
       "source_file": "src/lib/modxToRsParser.js",
-      "source_location": "L821",
+      "source_location": "L827",
       "id": "lib_modxtorsparser_hasexplicitinstructionheading",
       "community": 125,
       "norm_label": "hasexplicitinstructionheading()"
@@ -10454,7 +10454,7 @@
       "label": "deriveSubRecipes()",
       "file_type": "code",
       "source_file": "src/lib/modxToRsParser.js",
-      "source_location": "L827",
+      "source_location": "L833",
       "id": "lib_modxtorsparser_derivesubrecipes",
       "community": 125,
       "norm_label": "derivesubrecipes()"
@@ -10463,7 +10463,7 @@
       "label": "isOnlyStandaloneRecipeCollection()",
       "file_type": "code",
       "source_file": "src/lib/modxToRsParser.js",
-      "source_location": "L1010",
+      "source_location": "L1016",
       "id": "lib_modxtorsparser_isonlystandalonerecipecollection",
       "community": 125,
       "norm_label": "isonlystandalonerecipecollection()"
@@ -10472,7 +10472,7 @@
       "label": "idSlugFromRecipeTitle()",
       "file_type": "code",
       "source_file": "src/lib/modxToRsParser.js",
-      "source_location": "L1018",
+      "source_location": "L1024",
       "id": "lib_modxtorsparser_idslugfromrecipetitle",
       "community": 105,
       "norm_label": "idslugfromrecipetitle()"
@@ -10481,7 +10481,7 @@
       "label": "extractTitleServings()",
       "file_type": "code",
       "source_file": "src/lib/modxToRsParser.js",
-      "source_location": "L1032",
+      "source_location": "L1038",
       "id": "lib_modxtorsparser_extracttitleservings",
       "community": 75,
       "norm_label": "extracttitleservings()"
@@ -10490,7 +10490,7 @@
       "label": "applyPhotoCredit()",
       "file_type": "code",
       "source_file": "src/lib/modxToRsParser.js",
-      "source_location": "L1041",
+      "source_location": "L1047",
       "id": "lib_modxtorsparser_applyphotocredit",
       "community": 75,
       "norm_label": "applyphotocredit()"
@@ -10499,7 +10499,7 @@
       "label": "buildRecipesFromModxDoc()",
       "file_type": "code",
       "source_file": "src/lib/modxToRsParser.js",
-      "source_location": "L1067",
+      "source_location": "L1073",
       "id": "lib_modxtorsparser_buildrecipesfrommodxdoc",
       "community": 75,
       "norm_label": "buildrecipesfrommodxdoc()"
@@ -10508,7 +10508,7 @@
       "label": "timestampFromUnix()",
       "file_type": "code",
       "source_file": "src/lib/modxToRsParser.js",
-      "source_location": "L1159",
+      "source_location": "L1165",
       "id": "lib_modxtorsparser_timestampfromunix",
       "community": 75,
       "norm_label": "timestampfromunix()"
@@ -10517,7 +10517,7 @@
       "label": "buildRecipeFromModxDoc()",
       "file_type": "code",
       "source_file": "src/lib/modxToRsParser.js",
-      "source_location": "L1183",
+      "source_location": "L1189",
       "id": "lib_modxtorsparser_buildrecipefrommodxdoc",
       "community": 75,
       "norm_label": "buildrecipefrommodxdoc()"
@@ -14808,7 +14808,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L219",
       "id": "meta_0000_snapshot_columns_user",
-      "community": 133,
+      "community": 87,
       "norm_label": "user"
     },
     {
@@ -14817,7 +14817,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L220",
       "id": "meta_0000_snapshot_user_autoincrement",
-      "community": 133,
+      "community": 87,
       "norm_label": "autoincrement"
     },
     {
@@ -14826,7 +14826,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L221",
       "id": "meta_0000_snapshot_user_name",
-      "community": 133,
+      "community": 87,
       "norm_label": "name"
     },
     {
@@ -14835,7 +14835,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L222",
       "id": "meta_0000_snapshot_user_type",
-      "community": 133,
+      "community": 87,
       "norm_label": "type"
     },
     {
@@ -14844,7 +14844,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L223",
       "id": "meta_0000_snapshot_user_primarykey",
-      "community": 133,
+      "community": 87,
       "norm_label": "primarykey"
     },
     {
@@ -14853,7 +14853,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L224",
       "id": "meta_0000_snapshot_user_notnull",
-      "community": 133,
+      "community": 87,
       "norm_label": "notnull"
     },
     {
@@ -14862,7 +14862,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L226",
       "id": "meta_0000_snapshot_columns_jatek",
-      "community": 87,
+      "community": 94,
       "norm_label": "jatek"
     },
     {
@@ -14871,7 +14871,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L227",
       "id": "meta_0000_snapshot_jatek_autoincrement",
-      "community": 87,
+      "community": 94,
       "norm_label": "autoincrement"
     },
     {
@@ -14880,7 +14880,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L228",
       "id": "meta_0000_snapshot_jatek_name",
-      "community": 87,
+      "community": 94,
       "norm_label": "name"
     },
     {
@@ -14889,7 +14889,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L229",
       "id": "meta_0000_snapshot_jatek_type",
-      "community": 87,
+      "community": 94,
       "norm_label": "type"
     },
     {
@@ -14898,7 +14898,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L230",
       "id": "meta_0000_snapshot_jatek_primarykey",
-      "community": 87,
+      "community": 94,
       "norm_label": "primarykey"
     },
     {
@@ -14907,7 +14907,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L231",
       "id": "meta_0000_snapshot_jatek_notnull",
-      "community": 87,
+      "community": 94,
       "norm_label": "notnull"
     },
     {
@@ -15222,7 +15222,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L330",
       "id": "meta_0000_snapshot_modx_diaeuro2014_player_columns",
-      "community": 34,
+      "community": 47,
       "norm_label": "columns"
     },
     {
@@ -15249,7 +15249,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L333",
       "id": "meta_0000_snapshot_uid_name",
-      "community": 47,
+      "community": 34,
       "norm_label": "name"
     },
     {
@@ -15285,7 +15285,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L338",
       "id": "meta_0000_snapshot_columns_player",
-      "community": 34,
+      "community": 47,
       "norm_label": "player"
     },
     {
@@ -15294,7 +15294,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L339",
       "id": "meta_0000_snapshot_player_autoincrement",
-      "community": 34,
+      "community": 47,
       "norm_label": "autoincrement"
     },
     {
@@ -15303,7 +15303,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L340",
       "id": "meta_0000_snapshot_player_name",
-      "community": 34,
+      "community": 47,
       "norm_label": "name"
     },
     {
@@ -15312,7 +15312,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L341",
       "id": "meta_0000_snapshot_player_type",
-      "community": 34,
+      "community": 47,
       "norm_label": "type"
     },
     {
@@ -15321,7 +15321,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L342",
       "id": "meta_0000_snapshot_player_primarykey",
-      "community": 34,
+      "community": 47,
       "norm_label": "primarykey"
     },
     {
@@ -15330,7 +15330,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L343",
       "id": "meta_0000_snapshot_player_notnull",
-      "community": 34,
+      "community": 47,
       "norm_label": "notnull"
     },
     {
@@ -15357,7 +15357,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L348",
       "id": "meta_0000_snapshot_indexes_uid",
-      "community": 47,
+      "community": 34,
       "norm_label": "uid"
     },
     {
@@ -15366,7 +15366,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L350",
       "id": "meta_0000_snapshot_uid_columns",
-      "community": 47,
+      "community": 34,
       "norm_label": "columns"
     },
     {
@@ -15375,7 +15375,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L353",
       "id": "meta_0000_snapshot_uid_isunique",
-      "community": 47,
+      "community": 34,
       "norm_label": "isunique"
     },
     {
@@ -15699,7 +15699,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L458",
       "id": "meta_0000_snapshot_tables_modx_diaeuro2015_toto",
-      "community": 68,
+      "community": 34,
       "norm_label": "modx_diaeuro2015_toto"
     },
     {
@@ -15708,7 +15708,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L459",
       "id": "meta_0000_snapshot_modx_diaeuro2015_toto_name",
-      "community": 68,
+      "community": 34,
       "norm_label": "name"
     },
     {
@@ -15717,7 +15717,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L460",
       "id": "meta_0000_snapshot_modx_diaeuro2015_toto_columns",
-      "community": 68,
+      "community": 34,
       "norm_label": "columns"
     },
     {
@@ -15726,7 +15726,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L490",
       "id": "meta_0000_snapshot_modx_diaeuro2015_toto_compositeprimarykeys",
-      "community": 68,
+      "community": 34,
       "norm_label": "compositeprimarykeys"
     },
     {
@@ -15735,7 +15735,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L491",
       "id": "meta_0000_snapshot_modx_diaeuro2015_toto_indexes",
-      "community": 47,
+      "community": 34,
       "norm_label": "indexes"
     },
     {
@@ -15744,7 +15744,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L500",
       "id": "meta_0000_snapshot_modx_diaeuro2015_toto_foreignkeys",
-      "community": 68,
+      "community": 34,
       "norm_label": "foreignkeys"
     },
     {
@@ -15753,7 +15753,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L501",
       "id": "meta_0000_snapshot_modx_diaeuro2015_toto_uniqueconstraints",
-      "community": 68,
+      "community": 34,
       "norm_label": "uniqueconstraints"
     },
     {
@@ -15762,7 +15762,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L503",
       "id": "meta_0000_snapshot_tables_modx_diaeuro2016_toto",
-      "community": 94,
+      "community": 68,
       "norm_label": "modx_diaeuro2016_toto"
     },
     {
@@ -15771,7 +15771,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L504",
       "id": "meta_0000_snapshot_modx_diaeuro2016_toto_name",
-      "community": 94,
+      "community": 68,
       "norm_label": "name"
     },
     {
@@ -15780,7 +15780,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L505",
       "id": "meta_0000_snapshot_modx_diaeuro2016_toto_columns",
-      "community": 94,
+      "community": 68,
       "norm_label": "columns"
     },
     {
@@ -15789,7 +15789,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L535",
       "id": "meta_0000_snapshot_modx_diaeuro2016_toto_compositeprimarykeys",
-      "community": 94,
+      "community": 68,
       "norm_label": "compositeprimarykeys"
     },
     {
@@ -15798,7 +15798,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L536",
       "id": "meta_0000_snapshot_modx_diaeuro2016_toto_indexes",
-      "community": 94,
+      "community": 68,
       "norm_label": "indexes"
     },
     {
@@ -15807,7 +15807,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L545",
       "id": "meta_0000_snapshot_modx_diaeuro2016_toto_foreignkeys",
-      "community": 94,
+      "community": 68,
       "norm_label": "foreignkeys"
     },
     {
@@ -15816,7 +15816,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L546",
       "id": "meta_0000_snapshot_modx_diaeuro2016_toto_uniqueconstraints",
-      "community": 94,
+      "community": 68,
       "norm_label": "uniqueconstraints"
     },
     {
@@ -15861,7 +15861,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L581",
       "id": "meta_0000_snapshot_modx_diaeuro2017_toto_indexes",
-      "community": 47,
+      "community": 34,
       "norm_label": "indexes"
     },
     {
@@ -50857,9 +50857,9 @@
       "source_file": "AGENTS.md",
       "source_location": "L1071",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "magazin_agents_route_logic_documentation",
-      "target": "magazin_agents_local_dev_servers_claude_launch_json",
-      "confidence_score": 1.0
+      "target": "magazin_agents_local_dev_servers_claude_launch_json"
     },
     {
       "relation": "contains",
@@ -52489,5 +52489,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "c79c44ba2c3c2a65412cc2ce4088436b54691275"
+  "built_at_commit": "d1320b4df7c3da93f6983f6b23fd80bd06aecad7"
 }

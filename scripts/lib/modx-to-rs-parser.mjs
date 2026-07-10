@@ -635,6 +635,12 @@ function deriveInstructions(content) {
   const cleaned = stripLinkedRecipeBlocks(String(content ?? ''))
     .replace(/<p[^>]*class="alairas"[^>]*>[\s\S]*?<\/p>/gi, ' ')
     .replace(/<figure\b[\s\S]*?<\/figure>/gi, ' ')
+    // Ingredients belong to `ingredientGroups`, never to the steps. Some MODX imports
+    // place the "Hozzávalók" block AFTER "A recept elkészítése" (e.g. 2102/grillreceptek,
+    // whose elkészítés heading sits in a video `nicebox` before the ingredients), so
+    // `deriveInstructionsHtml` would otherwise flatten the ingredient list into the
+    // steps. Drop the "Hozzávalók …" heading + its immediately-following list up front.
+    .replace(/<h[1-6][^>]*>\s*Hozzávalók\b[^<]*<\/h[1-6]>\s*(?:<(ul|ol)\b[\s\S]*?<\/\1>)?/gi, ' ')
   const instructionHtml = deriveInstructionsHtml(cleaned)
   if (instructionHtml) {
     // Preserve full imported MODX instruction flow (including heading/list text).
