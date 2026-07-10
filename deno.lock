@@ -1,6 +1,8 @@
 {
   "version": "5",
   "remote": {
+    "https://deno.land/x/htmlrewriter@v1.0.0/pkg/htmlrewriter.js": "43bdda5837229406789950aa018272c36d4ec0d3d72a293b374d10b1d6352520",
+    "https://deno.land/x/htmlrewriter@v1.0.0/src/index.ts": "94690fe1bdf2cbab2becf6c13206a7412e1b4028aed0bce40adbf3b24d87e2aa",
     "https://edge.netlify.com/": "fd941d61d88673d5f28aab283fb86fcc50f08a3bc80ee5470498fcfa88c65cfb",
     "https://edge.netlify.com/bootstrap/config.ts": "6a2ce0e544e15e8f8883a5c18da5948e37fd0f2619f68cb31f3af53c51817025",
     "https://edge.netlify.com/bootstrap/context.ts": "e97240232121e2f369f6546ce961490f34d961ea1ea54be3ff09633e3f08373f",

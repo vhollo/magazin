@@ -659,7 +659,7 @@ Added in the homepage redesign 2026 (F4), replacing the old two-line placeholder
 | `/receptsarok/[year]/[id]` | `recipes/{year}-{id}` (direct doc lookup) | full `Recipe`; non-free recipes go through `stripRecipeGatedFields` before serialization |
 | `/keres` layout | — | zero reads; teasers come from the search index `recipeTeaser` stored field (deprecated `rs-teasers-*` shards still written as rollback) |
 | `/api/receptsarok/recipe/[year]/[id]` | `recipes/{year}-{id}` (1 read, subscriber-auth) | full recipe — fresh after every sync without redeploy; bundled `recipes.json` only as fallback |
-| `/api/receptsarok/recipes` | Storage `receptsarok/catalog.json.gz` (subscriber-auth) | slim `RecipeLayoutEntry[]` catalog (~190 KB gz vs the old ~4 MB full dump); built by `sync:rs-collections`; bundled-JSON slim fallback |
+| `/api/receptsarok/recipes` | Storage `receptsarok/catalog.json.gz` (subscriber-auth) | slim `RecipeLayoutEntry[]` catalog (~190 KB gz vs the old ~4 MB full dump); built by `sync:rs-collections`; bundled-JSON slim fallback. The endpoint **`gunzipSync`s the object and returns plain JSON** — it must NOT forward the raw gzip bytes with a manual `Content-Encoding: gzip` header (see below) |
 
 Source data — Firestore `recipes/{year}-{id}` (one doc per recipe, keyed by `recipeSlug()` from `receptsarok.ts`) + `categories/{id}` collection — is **uploaded by `npm run sync:recipes:apply`** from `src/lib/data/recipes.json`. The aggregate UI docs above are then computed and written by `npm run sync:rs-collections:apply`.
 
@@ -891,6 +891,7 @@ Run from repo root (`magazin/`). Requires `.env` with `MODXDB_*`, `FIREBASE_ADMI
 | Recipe data changed but dev server still shows old recipes / deleted recipe still renders | Restart the dev server — `getRecipes()` is memoized per process. On restart the dev server re-scans Firestore only when `meta/recipesUpload.revision` differs from the local `.recipes-rev.json` sidecar |
 | Manually edited a `recipes/*` doc in the Firestore console and `sync:recipes:apply` says "0 changed" | The diff baseline (`meta/recipesUpload`) can't see console edits — run `npm run sync:recipes -- --apply --force` (full rewrite + orphan re-scan) |
 | Meal planner shows stale recipes / wrong free flags after a sync | `sync:rs-collections:apply` re-uploads the slim catalog (`receptsarok/catalog.json.gz`); clients cache it for 1h (`Cache-Control: private, max-age=3600`) |
+| Meal planner works locally but breaks **only on Netlify** ("Nem sikerült betölteni az étlaptervezőt"), `/api/receptsarok/recipes` fails with `net::ERR_CONTENT_DECODING_FAILED` | The endpoint must **decompress** the Storage gzip (`gunzipSync`) and return plain JSON — never forward raw gzip bytes with a manual `Content-Encoding: gzip` header. Netlify Functions' Lambda-style transport mangles binary bodies for non-binary Content-Types, so the browser's gunzip fails; local Vite dev/preview forgives it, hiding the bug. Let Netlify's CDN do the compression. This class of bug reproduces locally **only** through the real bundled function — run `netlify serve` (launch config `magazin-netlify-serve`), not `npm run dev` / `vite preview` |
 | Article's recipe redirect points at a 404 | Manifest entry's `{year}-{id}` no longer exists in `recipes.json` — fix the entry, and update `doc.redirect` on `docs/{encodedPath}` (not the legacy numeric-id doc) |
 
 Do **not** suggest `npm run build` to refresh article text — content updates come from the sync worker, not the SvelteKit build.
@@ -1064,3 +1065,15 @@ Routes are matched in this order:
 2. Receptsarok dynamic routes (`/receptsarok/[category]`, `/receptsarok/[year]/[id]`)
 3. Quiz dynamic routes (`/kviz/[...id]`)
 4. Catch-all route (`/[...path]`) - handles collections and individual documents
+
+---
+
+## Local dev servers (`.claude/launch.json`)
+
+| Config | Command | When to use |
+|---|---|---|
+| `magazin-dev` | `vite dev` (port 5180) | Everyday work — fast HMR. Runs endpoints in the Vite server, which is forgiving about response bodies (`dev === true`, so subscriber/paywall checks are bypassed — any signed-in user gets full access). |
+| `magazin-netlify-dev` | `netlify dev` (port 5190) | Vite behind the Netlify dev proxy (redirects/headers/edge). Still the Vite server under the hood, so it does **not** reproduce the function transport. |
+| `magazin-netlify-serve` | `netlify serve` (port 5191) | **Reproduces production behavior locally** — builds and runs the real bundled Netlify Function (`sveltekit-render`) through the Lambda-style transport. Use this to catch bugs that only surface on Netlify (e.g. binary/`Content-Encoding` response handling — see the `ERR_CONTENT_DECODING_FAILED` troubleshooting row). Needs a `build` first and reads `.env`. |
+
+Rule of thumb: if a change touches how a server endpoint **serializes its response** (encoding, binary bodies, streaming, headers), verify with `magazin-netlify-serve` — plain `vite dev`/`preview` will happily pass while production breaks.

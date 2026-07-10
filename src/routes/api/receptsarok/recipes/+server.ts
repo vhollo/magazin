@@ -1,3 +1,4 @@
+import { gunzipSync } from 'node:zlib'
 import { json } from '@sveltejs/kit'
 import type { RequestHandler } from './$types'
 import { getAdminBucket } from '$lib/firebase-admin'
@@ -20,10 +21,15 @@ export const GET: RequestHandler = async ({ request }) => {
 
   try {
     const [buffer] = await getAdminBucket().file(CATALOG_OBJECT_PATH).download()
-    return new Response(new Uint8Array(buffer), {
+    // Decompress here rather than forwarding the gzip bytes with a manual
+    // Content-Encoding header: Netlify Functions' Lambda-style transport
+    // mangles binary bodies for non-binary Content-Types, which broke the
+    // client's gunzip in production (net::ERR_CONTENT_DECODING_FAILED)
+    // even though it worked fine against local dev/preview servers.
+    const catalog = gunzipSync(buffer)
+    return new Response(new Uint8Array(catalog), {
       headers: {
         'Content-Type': 'application/json',
-        'Content-Encoding': 'gzip',
         'Cache-Control': 'private, max-age=3600',
       },
     })

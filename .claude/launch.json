@@ -7,6 +7,20 @@
       "runtimeArgs": ["run", "dev", "--", "--port", "5180"],
       "port": 5180,
       "autoPort": false
+    },
+    {
+      "name": "magazin-netlify-dev",
+      "runtimeExecutable": "netlify",
+      "runtimeArgs": ["dev", "--port", "5190"],
+      "port": 5190,
+      "autoPort": false
+    },
+    {
+      "name": "magazin-netlify-serve",
+      "runtimeExecutable": "netlify",
+      "runtimeArgs": ["serve", "--port", "5191"],
+      "port": 5191,
+      "autoPort": false
     }
   ]
 }
