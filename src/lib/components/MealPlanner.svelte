@@ -144,6 +144,14 @@
     mealPlanRemoveRecipeRef(day, { year: recipe.year, id: recipe.id })
   }
 
+  /** Confirmation modal for the destructive "Terv törlése" action. */
+  let clearConfirmDialog = $state<HTMLDialogElement>()
+
+  function confirmClearPlan() {
+    mealPlanClearAll()
+    clearConfirmDialog?.close()
+  }
+
   // Daily summary totals only energy and carbs (the two metrics that matter for
   // planning); the other columns are left null so NutritionTable hides them.
   const dayTotals = $derived(
@@ -552,9 +560,25 @@
     <div class="flex flex-wrap gap-2 items-center justify-between mb-4">
       <h3 class="text-lg font-semibold">Heti étlaptervező</h3>
       {#if usedDays > 0}
-        <button class="btn btn-ghost btn-sm" onclick={mealPlanClearAll}>Terv törlése</button>
+        <button class="btn btn-ghost btn-sm" onclick={() => clearConfirmDialog?.showModal()}>Terv törlése</button>
       {/if}
     </div>
+
+    <dialog bind:this={clearConfirmDialog} class="modal modal-bottom sm:modal-middle">
+      <div class="modal-box">
+        <h3 class="text-lg font-bold">Terv törlése</h3>
+        <p class="py-4">Biztosan törlöd a teljes heti étlaptervet? A művelet nem vonható vissza.</p>
+        <div class="modal-action">
+          <form method="dialog">
+            <button class="btn btn-ghost">Mégse</button>
+          </form>
+          <button class="btn btn-error" onclick={confirmClearPlan}>Igen, törlöm</button>
+        </div>
+      </div>
+      <form method="dialog" class="modal-backdrop">
+        <button aria-label="Bezárás">✕</button>
+      </form>
+    </dialog>
 
     <div class="mb-4">
       <input
