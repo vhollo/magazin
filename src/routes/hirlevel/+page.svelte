@@ -16,7 +16,7 @@
   <title>Hírlevél • Diabetes</title>
   <meta
     name="description"
-    content="Iratkozzon fel a Diabetes magazin hírlevelére: havonta egy összefoglaló a legfontosabb szakértői cikkekről és hírekről. Leiratkozás bármikor."
+    content="Iratkozz fel a Diabetes magazin hírlevelére: havonta egy összefoglaló a legfontosabb szakértői cikkekről és hírekről. Leiratkozás bármikor."
   />
 </svelte:head>
 
@@ -41,16 +41,16 @@
       <div class="flex flex-col gap-4 text-center">
         <h1 class="display text-3xl sm:text-4xl">
           {form.muvelet === "leiratkozas"
-            ? "Leiratkozott"
+            ? "Leiratkoztál"
             : "Köszönjük a feliratkozást!"}
         </h1>
         <p class="mx-auto max-w-prose opacity-80">
           {#if form.muvelet === "leiratkozas"}
-            Töröltük a címét a hírlevél-listáról. Ha meggondolná magát, bármikor
-            újra feliratkozhat ezen az oldalon.
+            Töröltük a címedet a hírlevél-listáról. Ha meggondolod magad, bármikor
+            újra feliratkozhatsz ezen az oldalon.
           {:else}
             Hamarosan megérkezik az első összefoglalónk a legfontosabb szakértői
-            cikkekről és hírekről. Leiratkozni bármikor egy kattintással tud.
+            cikkekről és hírekről. Leiratkozni bármikor egy kattintással tudsz.
           {/if}
         </p>
         <a href="/" class="btn btn-outline mx-auto mt-2 rounded-sm"
@@ -63,7 +63,7 @@
           Hírlevél
         </p>
         <h1 class="display text-3xl leading-tight sm:text-4xl">
-          Ne maradjon le a fontos cikkekről
+          Ne maradj le a fontos cikkekről
         </h1>
         <p class="max-w-prose opacity-80">
           Havonta egy összefoglaló e-mail a legfontosabb szakértői írásokról és
@@ -116,7 +116,7 @@
         <!-- Honeypot: hidden from humans; the server rejects submissions where it's filled. -->
         <div class="hp" aria-hidden="true">
           <label
-            >Ezt a mezőt hagyja üresen<input
+            >Ezt a mezőt hagyd üresen<input
               name="bot-field"
               tabindex="-1"
               autocomplete="off"
@@ -151,7 +151,7 @@
           />
           {#if form?.emailError}
             <span class="text-sm text-error"
-              >Adjon meg egy érvényes e-mail címet.</span
+              >Add meg egy érvényes e-mail címet.</span
             >
           {/if}
         </label>
@@ -169,14 +169,14 @@
           </label>
           {#if form?.consentError}
             <span class="text-sm text-error"
-              >A feliratkozáshoz el kell fogadnia az adatkezelési feltételeket.</span
+              >A feliratkozáshoz el kell fogadnod az adatkezelési feltételeket.</span
             >
           {/if}
         {/if}
 
         {#if form?.postFail}
           <p class="text-sm text-error">
-            A beküldés most nem sikerült. Kérjük, próbálja újra kicsit később.
+            A beküldés most nem sikerült. Kérlek, próbáld újra kicsit később.
           </p>
         {/if}
 

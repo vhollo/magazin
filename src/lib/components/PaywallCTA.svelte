@@ -65,7 +65,7 @@
       <p class="text-xs opacity-50">A próbaidőszak végén a teljes hozzáféréshez előfizetés lesz szükséges.</p>
     {:else}
       {#if !$authUser}
-        <p class="text-sm opacity-60">Először jelentkezzen be, majd fizessen elő.</p>
+        <p class="text-sm opacity-60">Először jelentkezz be, majd fizess elő.</p>
       {/if}
       <a href="/elofizetes" class="btn btn-primary">{msg.cta}</a>
       <p class="text-xs opacity-50">A Diabetes és Hypertonia lapokban megjelent {freeCount} recept ingyenesen elérhető.</p>

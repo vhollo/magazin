@@ -96,7 +96,7 @@
       ready = true
     } catch (err) {
       loadError =
-        'A keresési index még nem érhető el. Próbálja újra később, vagy böngésszen a rovatok között.'
+        'A keresési index még nem érhető el. Próbáld újra később, vagy böngéssz a rovatok között.'
       if (import.meta.env.DEV || (typeof window !== 'undefined' && /localhost|127\.0\.0\.1/.test(window.location.hostname))) {
         console.warn('search index load failed:', err)
       }

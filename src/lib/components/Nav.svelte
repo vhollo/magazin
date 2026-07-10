@@ -199,8 +199,8 @@
     if (!email) {
       // User opened the link on a different device. To prevent session fixation
       // attacks, ask the user to provide the associated email again. For example:
-      email = window.prompt('Kérjük, add meg újra az email címed')
-      // displayName = window.prompt('Kérjük, add meg a neved')
+      email = window.prompt('Kérlek, add meg újra az email címed')
+      // displayName = window.prompt('Kérlek, add meg a neved')
     }
     // The client SDK will parse the code from the link for you.
     signInWithEmailLink(firebaseAuth, email, window.location.href)
@@ -430,7 +430,7 @@
         <!-- <button type="submit" class="btn btn-sm text-center">Login</button> -->
       <!-- </fieldset> -->
       {#if success === false}
-        <div class="flex-col py-2 mt-2 bg-error text-error-content text-center">Hiba történt. Kérjük, próbáld újra.</div>
+        <div class="flex-col py-2 mt-2 bg-error text-error-content text-center">Hiba történt. Kérlek, próbáld újra.</div>
       {/if}
       {#if success === 'sent'}
         <div class="flex-col py-2 mt-2 bg-success text-success-content text-center">Az ellenőrző linket elküldtük az Email címedre.</div>
@@ -438,7 +438,7 @@
       <!-- </div> -->
     </form>
     {:else}
-      <p class="py-4">Kérjük, add meg a neved.</p>
+      <p class="py-4">Kérlek, add meg a neved.</p>
       <form onsubmit={() => setDisplayName()}>
         <fieldset class="fieldset flex gap-4 items-center">
           <input

@@ -26,7 +26,7 @@
   >
     <div class="flex flex-col gap-2">
       <h2 class="display text-2xl sm:text-3xl">
-        Ne maradjon le a fontos cikkekről
+        Ne maradj le a fontos cikkekről
       </h2>
       <p class="max-w-prose opacity-90">
         Havonta egy összefoglaló e-mail a legfontosabb szakértői írásokról és

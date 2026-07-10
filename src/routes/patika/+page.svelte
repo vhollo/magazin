@@ -26,7 +26,7 @@
 
 <svelte:head>
   <title>{(data.doc.title ? data.doc.title + ' • ' : '') + data.conf.sitename}</title>
-  <meta name="description" content="Keresőnkkel megtalálhatja az Önhöz legközelebb eső gyógyszertárat, ahol a Diabetes és/vagy Hypertonia betegtájékoztató magazin elérhető."/>
+  <meta name="description" content="Keresőnkkel megtalálhatod a hozzád legközelebb eső gyógyszertárat, ahol a Diabetes és/vagy Hypertonia betegtájékoztató magazin elérhető."/>
   <meta name="keywords" content={data.conf.tags.join(', ') || 'diabetes, diabétesz, cukorbetegség, vese, keton, Tudomány Kiadó Kft'}/>
   <meta name="author" content={data.conf.sitename}/>
   <meta name="og:image" content={data.conf.ogi || '/icon.svg'}/>
@@ -42,10 +42,10 @@
   <article class="prose mt-16 mb-8 w-full mx-auto flex-none">
     <h1 class="text-center">Gyógyszertárkereső</h1>
     <!-- <h2 class="text-center">{kviz.title}</h2> -->
-    <p class="text-center">Keresőnkkel megtalálhatja az Önhöz legközelebb eső gyógyszertárat, ahol a Diabetes és/vagy Hypertonia betegtájékoztató magazin elérhető.</p>
+    <p class="text-center">Keresőnkkel megtalálhatod a hozzád legközelebb eső gyógyszertárat, ahol a Diabetes és/vagy Hypertonia betegtájékoztató magazin elérhető.</p>
   <form class="form-control w-full max-w-md mx-auto">
     <p class="label">
-      Keressen gyógyszertárat név, cím, város vagy irányítószám alapján
+      Keress gyógyszertárat név, cím, város vagy irányítószám alapján
     </p>
     <input type="text" placeholder="Keresés" class="input input-bordered w-full max-w-sm" bind:value={query} />
   </form>

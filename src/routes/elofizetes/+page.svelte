@@ -207,7 +207,7 @@
   <title>{"Előfizetés • " + data.conf.sitename}</title>
   <meta
     name="description"
-    content="Fizessen elő a Diabetes betegtájékoztató magazinra — a Hypertonia magazint és a különszámokat féláron adjuk mellé!"
+    content="Fizess elő a Diabetes betegtájékoztató magazinra — a Hypertonia magazint és a különszámokat féláron adjuk mellé!"
   />
   <meta
     name="keywords"
@@ -219,7 +219,7 @@
   <meta name="og:title" content={"Előfizetés • " + data.conf.sitename} />
   <meta
     name="og:description"
-    content="Fizessen elő a Diabetes betegtájékoztató magazinra — a Hypertonia magazint és a különszámokat féláron adjuk mellé!"
+    content="Fizess elő a Diabetes betegtájékoztató magazinra — a Hypertonia magazint és a különszámokat féláron adjuk mellé!"
   />
   <meta name="og:url" content={data.conf.url || "https://diabetes.hu"} />
   <meta name="og:site_name" content="Diabetes" />
@@ -253,8 +253,8 @@
           A nyomtatott Diabetes magazin — házhoz szállítva
         </h1>
         <p class="max-w-prose opacity-80">
-          Egy jó magazin nem sürget és nem riogat: leül Önnel, és érthetően
-          elmondja, mi történik a szervezetében — és mit tehet érte. Ezt kínálja
+          Egy jó magazin nem sürget és nem riogat: leül veled, és érthetően
+          elmondja, mi történik a szervezetedben — és mit tehetsz érte. Ezt kínálja
           a Diabetes, 1989 óta.
         </p>
       </header>
@@ -269,7 +269,7 @@
         <li class="card rounded-sm bg-base-100 p-4 shadow-md">
           <h2 class="display text-base mb-1">Évente hat lapszám</h2>
           <p class="text-sm opacity-80">
-            Nyomtatva, a postaládájába — képernyő nélkül, kényelmesen olvasható.
+            Nyomtatva, a postaládádba — képernyő nélkül, kényelmesen olvasható.
           </p>
         </li>
         <li class="card rounded-sm bg-base-100 p-4 shadow-md">
@@ -289,7 +289,7 @@
 
   <section id="megrendeles" class="mx-auto max-w-6xl px-4 py-10 sm:py-14">
     <header class="mb-2 text-center">
-      <h2 class="display text-2xl sm:text-3xl">Válassza ki lapszámait</h2>
+      <h2 class="display text-2xl sm:text-3xl">Válaszd ki lapszámaidat</h2>
       <p class="mt-2 opacity-80">
         A Diabetes mellé a Hypertonia magazint és a különszámokat féláron adjuk
         — legfeljebb 3 példányt.
