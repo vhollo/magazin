@@ -792,7 +792,7 @@
       "source_file": "ify_test.json",
       "source_location": "L138",
       "id": "magazin_ify_test_total_tax_set_shop_money",
-      "community": 19,
+      "community": 94,
       "norm_label": "shop_money"
     },
     {
@@ -801,7 +801,7 @@
       "source_file": "ify_test.json",
       "source_location": "L139",
       "id": "magazin_ify_test_shop_money_amount",
-      "community": 19,
+      "community": 94,
       "norm_label": "amount"
     },
     {
@@ -810,7 +810,7 @@
       "source_file": "ify_test.json",
       "source_location": "L140",
       "id": "magazin_ify_test_shop_money_currency_code",
-      "community": 19,
+      "community": 94,
       "norm_label": "currency_code"
     },
     {
@@ -1143,7 +1143,7 @@
       "source_file": "ify_test.json",
       "source_location": "L217",
       "id": "magazin_ify_test_ify_total_price_set",
-      "community": 19,
+      "community": 94,
       "norm_label": "total_price_set"
     },
     {
@@ -1152,7 +1152,7 @@
       "source_file": "ify_test.json",
       "source_location": "L218",
       "id": "magazin_ify_test_total_price_set_shop_money",
-      "community": 19,
+      "community": 94,
       "norm_label": "shop_money"
     },
     {
@@ -1377,7 +1377,7 @@
       "source_file": "ify_test.json",
       "source_location": "L251",
       "id": "magazin_ify_test_ify_subtotal_price_set",
-      "community": 19,
+      "community": 94,
       "norm_label": "subtotal_price_set"
     },
     {
@@ -1386,7 +1386,7 @@
       "source_file": "ify_test.json",
       "source_location": "L252",
       "id": "magazin_ify_test_subtotal_price_set_shop_money",
-      "community": 19,
+      "community": 94,
       "norm_label": "shop_money"
     },
     {
@@ -1431,7 +1431,7 @@
       "source_file": "ify_test.json",
       "source_location": "L264",
       "id": "magazin_ify_test_ify_total_discounts_set",
-      "community": 19,
+      "community": 94,
       "norm_label": "total_discounts_set"
     },
     {
@@ -1440,7 +1440,7 @@
       "source_file": "ify_test.json",
       "source_location": "L265",
       "id": "magazin_ify_test_total_discounts_set_shop_money",
-      "community": 19,
+      "community": 94,
       "norm_label": "shop_money"
     },
     {
@@ -1476,7 +1476,7 @@
       "source_file": "ify_test.json",
       "source_location": "L276",
       "id": "magazin_ify_test_ify_current_total_tax_set",
-      "community": 19,
+      "community": 94,
       "norm_label": "current_total_tax_set"
     },
     {
@@ -1485,7 +1485,7 @@
       "source_file": "ify_test.json",
       "source_location": "L277",
       "id": "magazin_ify_test_current_total_tax_set_shop_money",
-      "community": 19,
+      "community": 94,
       "norm_label": "shop_money"
     },
     {
@@ -1566,7 +1566,7 @@
       "source_file": "ify_test.json",
       "source_location": "L295",
       "id": "magazin_ify_test_current_total_price_set_shop_money",
-      "community": 19,
+      "community": 94,
       "norm_label": "shop_money"
     },
     {
@@ -1593,7 +1593,7 @@
       "source_file": "ify_test.json",
       "source_location": "L305",
       "id": "magazin_ify_test_ify_total_shipping_price_set",
-      "community": 19,
+      "community": 94,
       "norm_label": "total_shipping_price_set"
     },
     {
@@ -1602,7 +1602,7 @@
       "source_file": "ify_test.json",
       "source_location": "L306",
       "id": "magazin_ify_test_total_shipping_price_set_shop_money",
-      "community": 19,
+      "community": 94,
       "norm_label": "shop_money"
     },
     {
@@ -1647,7 +1647,7 @@
       "source_file": "ify_test.json",
       "source_location": "L318",
       "id": "magazin_ify_test_current_subtotal_price_set_shop_money",
-      "community": 19,
+      "community": 94,
       "norm_label": "shop_money"
     },
     {
@@ -1674,7 +1674,7 @@
       "source_file": "ify_test.json",
       "source_location": "L328",
       "id": "magazin_ify_test_total_line_items_price_set_shop_money",
-      "community": 19,
+      "community": 94,
       "norm_label": "shop_money"
     },
     {
@@ -1701,7 +1701,7 @@
       "source_file": "ify_test.json",
       "source_location": "L338",
       "id": "magazin_ify_test_current_total_discounts_set_shop_money",
-      "community": 19,
+      "community": 94,
       "norm_label": "shop_money"
     },
     {
@@ -11265,7 +11265,7 @@
       "label": "for()",
       "file_type": "code",
       "source_file": "src/lib/components/MealPlanner.svelte",
-      "source_location": "L167",
+      "source_location": "L180",
       "id": "components_mealplanner_for",
       "community": 16,
       "norm_label": "for()"
@@ -14862,7 +14862,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L226",
       "id": "meta_0000_snapshot_columns_jatek",
-      "community": 94,
+      "community": 133,
       "norm_label": "jatek"
     },
     {
@@ -14871,7 +14871,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L227",
       "id": "meta_0000_snapshot_jatek_autoincrement",
-      "community": 94,
+      "community": 133,
       "norm_label": "autoincrement"
     },
     {
@@ -14880,7 +14880,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L228",
       "id": "meta_0000_snapshot_jatek_name",
-      "community": 94,
+      "community": 133,
       "norm_label": "name"
     },
     {
@@ -14889,7 +14889,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L229",
       "id": "meta_0000_snapshot_jatek_type",
-      "community": 94,
+      "community": 133,
       "norm_label": "type"
     },
     {
@@ -14898,7 +14898,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L230",
       "id": "meta_0000_snapshot_jatek_primarykey",
-      "community": 94,
+      "community": 133,
       "norm_label": "primarykey"
     },
     {
@@ -14907,7 +14907,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L231",
       "id": "meta_0000_snapshot_jatek_notnull",
-      "community": 94,
+      "community": 133,
       "norm_label": "notnull"
     },
     {
@@ -52489,5 +52489,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "d1320b4df7c3da93f6983f6b23fd80bd06aecad7"
+  "built_at_commit": "295030e18f387c33bfbb808386921849a75f7e6c"
 }

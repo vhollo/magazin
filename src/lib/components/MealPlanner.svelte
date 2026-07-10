@@ -9,9 +9,11 @@
     type MealPlanByDay,
     type MealPlannerDay,
     mealPlanAddRecipe,
+    mealPlanChecked,
     mealPlanClearAll,
     mealPlanRefs,
     mealPlanRemoveRecipeRef,
+    setMealPlanChecked,
     syncMealPlanStorage,
   } from '$lib/mealPlannerStore'
   import { recipeDetailPath, type Category, type NutritionValues, type Recipe, type RecipeLayoutEntry } from '$lib/receptsarok'
@@ -45,6 +47,15 @@
   let catalogError = $state(false)
   /** Full recipes (ingredientGroups) fetched per planned recipe for the shopping list. */
   let detailCache = $state<Record<string, Recipe>>({})
+  /** Bevásárlólistán bepipált tételek (kulcs: hozzávaló neve) — a store-ból tükrözve. */
+  let checkedItems = $state<Record<string, boolean>>(get(mealPlanChecked))
+  $effect(() => {
+    return mealPlanChecked.subscribe((v) => {
+      checkedItems = v
+    })
+  })
+  /** Detail keys with an in-flight fetch — non-reactive, guards against duplicate/cross-cancelled fetches. */
+  const detailInFlight = new Set<string>()
 
   let planRefs = $state<MealPlanByDay>(get(mealPlanRefs))
   $effect(() => {
@@ -133,18 +144,16 @@
     mealPlanRemoveRecipeRef(day, { year: recipe.year, id: recipe.id })
   }
 
+  // Daily summary totals only energy and carbs (the two metrics that matter for
+  // planning); the other columns are left null so NutritionTable hides them.
   const dayTotals = $derived(
     Object.fromEntries(days.map(day => {
       const totals = plan[day].reduce((acc, r) => ({
         // Missing values are stored as `null` now — treat them as 0 for totals.
         energy: acc.energy + (r.energy ?? 0),
-        protein: acc.protein + (r.protein ?? 0),
-        fat: acc.fat + (r.fat ?? 0),
-        saturatedFat: acc.saturatedFat + (r.saturatedFat ?? 0),
         carbs: acc.carbs + (r.carbs ?? 0),
-        fiber: acc.fiber + (r.fiber ?? 0),
-      }), { energy: 0, protein: 0, fat: 0, saturatedFat: 0, carbs: 0, fiber: 0 })
-      return [day, totals]
+      }), { energy: 0, carbs: 0 })
+      return [day, { ...totals, protein: null, fat: null, saturatedFat: null, fiber: null }]
     }))
   )
 
@@ -158,6 +167,19 @@
       )
   )
 
+  /**
+   * Pantry staples that don't belong on a shopping list: water, salt, pepper
+   * (incl. qualified forms like "forró víz", "csipet só", "őrölt bors") and bare
+   * "ízlés szerint" / "szükség szerint" qualifiers. Word-boundary matching keeps
+   * real ingredients such as "borsó" (peas), "borsmenta" (mint) and "ízlés
+   * szerint édesítő" (sweetener).
+   */
+  function isNonShoppingIngredient(name: string): boolean {
+    const n = name.toLowerCase().trim()
+    if (/^(ízlés|szükség) szerint$/.test(n)) return true
+    return /(^|\s|-)(víz|só|bors)(\s|$)/.test(n)
+  }
+
   /** Bevásárlólista csak a kiválasztott napra (`activeDay`); hozzávalók a recept-részletekből. */
   const shoppingList = $derived.by(() => {
     const ingredients: Record<string, { amount: number; unit: string }> = {}
@@ -165,17 +187,28 @@
       const detail = detailCache[`${entry.year}:${entry.id}`]
       for (const group of detail?.ingredientGroups || []) {
         for (const item of group.items) {
-          const key = item.name.toLowerCase()
-          if (!ingredients[key]) {
-            ingredients[key] = { amount: 0, unit: item.unit || '' }
-          }
-          if (item.amount) {
-            ingredients[key].amount += item.amount
+          // Seasoning lines like "só, bors, babérlevél" are stored as a single
+          // no-amount item named after the first word; split them so every
+          // seasoning reaches the list. Split on ", " (not bare commas) to keep
+          // Hungarian decimals like "1,5" intact.
+          const names =
+            item.amount == null && item.unit == null && item.text?.includes(', ')
+              ? item.text.split(/,\s+/).map((s) => s.trim()).filter(Boolean)
+              : [item.name]
+          for (const rawName of names) {
+            const key = rawName.toLowerCase()
+            if (!ingredients[key]) {
+              ingredients[key] = { amount: 0, unit: item.unit || '' }
+            }
+            if (item.amount) {
+              ingredients[key].amount += item.amount
+            }
           }
         }
       }
     }
     return Object.entries(ingredients)
+      .filter(([name]) => !isNonShoppingIngredient(name))
       .sort(([a], [b]) => a.localeCompare(b, 'hu'))
       .map(([name, { amount, unit }]) => ({
         name,
@@ -462,35 +495,47 @@
   )
 
   // Shopping-list details: fetch each planned recipe of the active day once.
+  // `detailInFlight` (non-reactive) stops a still-loading recipe from being
+  // re-fetched — or dropped — when another recipe's result lands and re-runs
+  // this effect. Writes reassign `detailCache` so `shoppingList` reliably
+  // recomputes as each recipe arrives (a keyed mutation would not).
   $effect(() => {
     if (!browser || !$hasReceptsarokAccess || !$uid) return
     const refs = planRefs?.[activeDay] ?? []
-    const missing = refs.filter((ref) => !detailCache[`${ref.year}:${ref.id}`])
+    const missing = refs.filter((ref) => {
+      const key = `${ref.year}:${ref.id}`
+      return !detailCache[key] && !detailInFlight.has(key)
+    })
     if (missing.length === 0) return
-    let cancelled = false
     ;(async () => {
       const user = firebaseAuth.currentUser
       if (!user) return
-      const token = await user.getIdToken()
+      let token: string
+      try {
+        token = await user.getIdToken()
+      } catch {
+        return
+      }
       await Promise.all(
         missing.map(async (ref) => {
+          const key = `${ref.year}:${ref.id}`
+          detailInFlight.add(key)
           try {
             const res = await fetch(
               `/api/receptsarok/recipe/${ref.year}/${encodeURIComponent(ref.id)}`,
               { headers: { Authorization: `Bearer ${token}` } }
             )
-            if (!res.ok || cancelled) return
+            if (!res.ok) return
             const j = await res.json()
-            if (!cancelled && j?.recipe) detailCache[`${ref.year}:${ref.id}`] = j.recipe as Recipe
+            if (j?.recipe) detailCache = { ...detailCache, [key]: j.recipe as Recipe }
           } catch {
             // recipe stays out of the shopping list; totals still work from the entry
+          } finally {
+            detailInFlight.delete(key)
           }
         })
       )
     })()
-    return () => {
-      cancelled = true
-    }
   })
 </script>
 
@@ -612,13 +657,28 @@
 
           {#if shoppingList.length > 0}
             <h4 class="font-medium mb-2">Bevásárlólista · {activeDay} ({shoppingList.length} tétel)</h4>
-            <div class="p-3 bg-base-200 rounded-sm max-h-64 overflow-y-auto">
-              <ul class="text-sm space-y-0.5">
+            <div class="p-3 bg-base-200 rounded-sm">
+              <ul class="text-sm grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-4 gap-y-1">
                 {#each shoppingList as item}
-                  <li>{item.text}</li>
+                  <li>
+                    <label class="flex items-start gap-2 cursor-pointer">
+                      <input
+                        type="checkbox"
+                        class="mt-0.5 size-4 shrink-0 accent-primary"
+                        checked={!!checkedItems[item.name]}
+                        onchange={(e) => setMealPlanChecked(item.name, e.currentTarget.checked)}
+                      />
+                      <span class:opacity-50={checkedItems[item.name]}>
+                        {item.text}
+                      </span>
+                    </label>
+                  </li>
                 {/each}
               </ul>
             </div>
+            {#if shoppingListPending}
+              <p class="text-sm opacity-50 mt-1">További hozzávalók betöltése…</p>
+            {/if}
           {:else if shoppingListPending && plan[activeDay].length > 0}
             <p class="text-sm opacity-50">Bevásárlólista összeállítása…</p>
           {/if}

@@ -45,8 +45,8 @@
     "semantic_hash": ""
   },
   "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/search-meta.json": {
-    "mtime": 1783533096.0766783,
-    "ast_hash": "780211ceb4922df85378016e13ff8bac",
+    "mtime": 1783712400.7892056,
+    "ast_hash": "163b9b63863095265d819188f0287114",
     "semantic_hash": ""
   },
   "/Users/vhollo/Public/Google/webdev/diabetes/magazin/scripts/fix-modx-recipe-years.mjs": {
@@ -385,8 +385,8 @@
     "semantic_hash": ""
   },
   "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/lib/components/MealPlanner.svelte": {
-    "mtime": 1783506700.6284056,
-    "ast_hash": "ec4ff5f97199dceebe7617b76f3510a6",
+    "mtime": 1783717198.9665396,
+    "ast_hash": "4f9ff4ce28e55cc4fd3c206f19390c73",
     "semantic_hash": ""
   },
   "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/lib/components/CardV.svelte": {
@@ -485,8 +485,8 @@
     "semantic_hash": ""
   },
   "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/lib/data/recipes.json": {
-    "mtime": 1783640291.414936,
-    "ast_hash": "df7923e04a8fa7b8799e49d648a619f3",
+    "mtime": 1783715195.1586525,
+    "ast_hash": "c3f5dd2d9e340ad87d66e9f2e6143f92",
     "semantic_hash": ""
   },
   "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/lib/data/conf.json": {
@@ -4290,8 +4290,8 @@
     "semantic_hash": ""
   },
   "/Users/vhollo/Public/Google/webdev/diabetes/magazin/.claude/settings.local.json": {
-    "mtime": 1783705422.4865427,
-    "ast_hash": "4acf1c4491df57f1334685e0e2097667",
+    "mtime": 1783714944.1372864,
+    "ast_hash": "86997ea7b74f2320c2a93e166945bef3",
     "semantic_hash": ""
   },
   "/Users/vhollo/Public/Google/webdev/diabetes/magazin/scripts/backfill-collection-recipe-content.mjs": {

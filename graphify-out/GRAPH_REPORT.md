@@ -1,16 +1,16 @@
 # Graph Report - magazin  (2026-07-10)
 
 ## Corpus Check
-- 190 files · ~4,536,803 words
+- 190 files · ~4,536,896 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 1991 nodes · 3348 edges · 136 communities (129 shown, 7 thin omitted)
+- 1991 nodes · 3348 edges · 137 communities (130 shown, 7 thin omitted)
 - Extraction: 100% EXTRACTED · 0% INFERRED · 0% AMBIGUOUS · INFERRED: 13 edges (avg confidence: 0.8)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `d1320b4d`
+- Built from commit: `295030e1`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -132,6 +132,7 @@
 - [[_COMMUNITY_Community 128|Community 128]]
 - [[_COMMUNITY_Community 129|Community 129]]
 - [[_COMMUNITY_Community 130|Community 130]]
+- [[_COMMUNITY_Community 133|Community 133]]
 - [[_COMMUNITY_Community 134|Community 134]]
 - [[_COMMUNITY_Community 135|Community 135]]
 - [[_COMMUNITY_Community 136|Community 136]]
@@ -160,7 +161,7 @@
 - `main()` --calls--> `loadReceptsarokRedirectMaps()`  [INFERRED]
   scripts/sync-modx-to-firestore.mjs → src/lib/modx/transform.ts
 
-## Communities (136 total, 7 thin omitted)
+## Communities (137 total, 7 thin omitted)
 
 ### Community 0 - "Community 0"
 Cohesion: 0.03
@@ -239,8 +240,8 @@ Cohesion: 0.11
 Nodes (26): recipeTeaserFromHit(), Category, IngredientGroup, IngredientItem, isRecipeFree(), KeresRecipeTeaser, LegacyHeroImage, normalizeRecipeAssetSrc() (+18 more)
 
 ### Community 19 - "Community 19"
-Cohesion: 0.11
-Nodes (34): presentment_money, shop_money, presentment_money, shop_money, presentment_money, shop_money, presentment_money, shop_money (+26 more)
+Cohesion: 0.18
+Nodes (17): presentment_money, presentment_money, presentment_money, presentment_money, current_subtotal_price_set, current_total_discounts_set, current_total_price_set, total_line_items_price_set (+9 more)
 
 ### Community 20 - "Community 20"
 Cohesion: 0.12
@@ -523,8 +524,8 @@ Cohesion: 0.27
 Nodes (11): __dirname, gitShow(), main(), mergeCategoryReview(), mergeRecipesJson(), mergeRedirectsManifest(), parseJsonOr(), readWorkingTree() (+3 more)
 
 ### Community 94 - "Community 94"
-Cohesion: 0.33
-Nodes (6): jatek, autoincrement, name, notNull, primaryKey, type
+Cohesion: 0.18
+Nodes (17): shop_money, shop_money, shop_money, shop_money, current_total_tax_set, subtotal_price_set, total_discounts_set, total_price_set (+9 more)
 
 ### Community 95 - "Community 95"
 Cohesion: 0.40
@@ -601,6 +602,10 @@ Nodes (6): apply, fold(), normalizeSrc(), recipes, RECIPES_PATH, stats
 ### Community 130 - "Community 130"
 Cohesion: 0.25
 Nodes (8): Page Component (`+page.svelte`), Page Component (`+page.svelte`), Page Component (`+page.svelte`), Page Component (`+page.svelte`), Page Component (`+page.svelte`), Page Component (`+page.svelte`), Page Component (`+page.svelte`), Subscription Route (`/elofizetes`)
+
+### Community 133 - "Community 133"
+Cohesion: 0.33
+Nodes (6): jatek, autoincrement, name, notNull, primaryKey, type
 
 ### Community 134 - "Community 134"
 Cohesion: 0.33
