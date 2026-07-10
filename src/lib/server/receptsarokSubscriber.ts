@@ -1,7 +1,6 @@
 import { dev } from '$app/environment'
 import { json } from '@sveltejs/kit'
-import { getAuth } from 'firebase-admin/auth'
-import { db } from '$lib/firebase-admin'
+import { db, getAdminAuth } from '$lib/firebase-admin'
 import { hasReceptsarokAccessFromSubscription, isReceptsarokTrialActive } from '$lib/receptsarokAccess'
 
 export async function requireReceptsarokSubscriber(request: Request) {
@@ -12,7 +11,7 @@ export async function requireReceptsarokSubscriber(request: Request) {
   const token = authHeader.slice(7)
   let uid: string
   try {
-    const decoded = await getAuth().verifyIdToken(token)
+    const decoded = await getAdminAuth().verifyIdToken(token)
     uid = decoded.uid
   } catch {
     return { ok: false as const, response: json({ error: 'Invalid token' }, { status: 401 }) }

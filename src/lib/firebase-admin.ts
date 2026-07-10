@@ -1,7 +1,9 @@
 import { initializeApp, getApps, cert } from 'firebase-admin/app';
 import { getFirestore } from 'firebase-admin/firestore';
 import { getStorage } from 'firebase-admin/storage';
+import { getAuth } from 'firebase-admin/auth';
 import type { Firestore } from 'firebase-admin/firestore';
+import type { Auth } from 'firebase-admin/auth';
 import { env } from '$env/dynamic/private';
 
 let dbInstance: Firestore | undefined;
@@ -50,6 +52,19 @@ export const db: Firestore = new Proxy({} as Firestore, {
 		return typeof value === 'function' ? value.bind(instance) : value;
 	}
 });
+
+/**
+ * Admin Auth handle. Calls getAdminDb() first so `initializeApp()` is
+ * guaranteed to have run — bare `getAuth()` on the default app throws
+ * "The default Firebase app does not exist" on a cold serverless instance
+ * whose first admin call is an ID-token verification (the token path never
+ * touches the lazy `db` proxy), and that error surfaces to the client,
+ * masked, as a 401 "Invalid token".
+ */
+export function getAdminAuth(): Auth {
+	getAdminDb();
+	return getAuth();
+}
 
 /** Default Storage bucket (FIREBASE_STORAGE_BUCKET or {project}.firebasestorage.app). */
 export function getAdminBucket() {
