@@ -30,7 +30,7 @@
       {/each}
     </div>
   {:else}
-    <!-- daisyUI table: https://daisyui.com/components/table/ — not-prose avoids article.prose breaking layout -->
+    <!-- daisyUI table: https://daisyui.com/components/table/ – not-prose avoids article.prose breaking layout -->
     <div class="not-prose my-4 overflow-x-auto w-full rounded-lg border border-base-300 bg-base-200/40">
       <table class="table table-xs w-full min-w-[min(100%,32rem)]">
         <thead>

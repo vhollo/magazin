@@ -1,5 +1,5 @@
 <script>
-  // Home newsletter CTA band (homepage redesign 2026, F3.3) — micro-conversion
+  // Home newsletter CTA band (homepage redesign 2026, F3.3) – micro-conversion
   // toward `/hirlevel`. Placed between ExpertSection and TopicGrid.
   import { trackEvent } from "$lib/analytics";
 </script>
@@ -30,7 +30,7 @@
       </h2>
       <p class="max-w-prose opacity-90">
         Havonta egy összefoglaló e-mail a legfontosabb szakértői írásokról és
-        hírekről — leiratkozás bármikor egy kattintással.
+        hírekről – leiratkozás bármikor egy kattintással.
       </p>
     </div>
     <a

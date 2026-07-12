@@ -28,7 +28,7 @@
     if (typeof recipe.energy === 'number') parts.push(`${recipe.energy} kcal`)
     if (typeof recipe.protein === 'number') parts.push(`${recipe.protein} g fehérje`)
     if (typeof recipe.carbs === 'number') parts.push(`${recipe.carbs} g szénhidrát`)
-    return parts.length ? `${recipe.author} receptje — ${parts.join(', ')}` : `${recipe.author} receptje`
+    return parts.length ? `${recipe.author} receptje – ${parts.join(', ')}` : `${recipe.author} receptje`
   })
 
   let canView = $derived(isFree || $hasReceptsarokAccess)
@@ -38,7 +38,7 @@
 
   let displayRecipe = $derived((fullRecipe ?? recipe) as Recipe)
 
-  // "Hozzávalók N <unit>hoz" — the suffix follows Hungarian vowel harmony, chosen
+  // "Hozzávalók N <unit>hoz" – the suffix follows Hungarian vowel harmony, chosen
   // from the counted noun's last vowel (the head word, ignoring any "(…)" qualifier
   // like "szelet (24 cm-es tortaforma)"). Back-vowel units keep "-hoz" (adag→adaghoz,
   // darab→darabhoz); front-vowel ones get "-hez"/"-höz" (szelet→szelethez, fő→főhöz).

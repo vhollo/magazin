@@ -8,7 +8,7 @@
 
   export let form;
 
-  // 'feliratkozas' | 'leiratkozas' — drives the copy and whether consent is required.
+  // 'feliratkozas' | 'leiratkozas' – drives the copy and whether consent is required.
   let muvelet = form?.muvelet ?? "feliratkozas";
   let submitting = false;
 
@@ -84,7 +84,7 @@
         </h1>
         <p class="max-w-prose opacity-80">
           Havonta egy összefoglaló e-mail a legfontosabb szakértői írásokról és
-          hírekről — semmi spam, leiratkozás bármikor egy kattintással.
+          hírekről – semmi spam, leiratkozás bármikor egy kattintással.
         </p>
       </header>
 
@@ -120,7 +120,7 @@
         {/if}
 
         <!-- daisyUI radio tabs-box: the checked radio carries `muvelet` on submit and
-             (via CSS) reveals its `.tab-content` panel — the toggle works without JS.
+             (via CSS) reveals its `.tab-content` panel – the toggle works without JS.
              Each panel is the full form for its mode, so the email lives inside the box.
              The inactive panel's inputs are `disabled` so only the active mode's fields
              submit (and a hidden `required` email can't block submission); both email
@@ -142,7 +142,7 @@
                 >
                 <!-- Not disabled on unsubscribe: a single `nev` input with no `required`,
                      so it can stay enabled and still submit the (prefilled) name on
-                     unsubscribe too — matching the pre-tabs behavior. -->
+                     unsubscribe too – matching the pre-tabs behavior. -->
                 <input
                   name="nev"
                   type="text"
@@ -178,7 +178,7 @@
                   class="mt-1"
                 />
                 <span class="text-sm opacity-80">
-                  <!-- GDPR: placeholder consent wording — final legal text + linked
+                  <!-- GDPR: placeholder consent wording – final legal text + linked
                        adatkezelési tájékoztató page pending legal review (see F4.2). -->
                   Hozzájárulok, hogy a Diabetes magazin a megadott e-mail címemre
                   hírlevelet küldjön. Adataimat harmadik félnek nem adjuk át; a hozzájárulás

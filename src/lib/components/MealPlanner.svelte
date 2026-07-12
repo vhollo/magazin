@@ -19,7 +19,7 @@
   import { recipeDetailPath, type Category, type NutritionValues, type Recipe, type RecipeLayoutEntry } from '$lib/receptsarok'
   import { get } from 'svelte/store'
 
-  /** Slim catalogue entry from /api/receptsarok/recipes — no ingredientGroups/instructions. */
+  /** Slim catalogue entry from /api/receptsarok/recipes – no ingredientGroups/instructions. */
   type CatalogEntry = RecipeLayoutEntry & { nutritionTables?: NutritionValues[] }
 
   /** Minimal recipe used for the "add this recipe" quick card on recipe pages. */
@@ -47,14 +47,14 @@
   let catalogError = $state(false)
   /** Full recipes (ingredientGroups) fetched per planned recipe for the shopping list. */
   let detailCache = $state<Record<string, Recipe>>({})
-  /** Bevásárlólistán bepipált tételek (kulcs: hozzávaló neve) — a store-ból tükrözve. */
+  /** Bevásárlólistán bepipált tételek (kulcs: hozzávaló neve) – a store-ból tükrözve. */
   let checkedItems = $state<Record<string, boolean>>(get(mealPlanChecked))
   $effect(() => {
     return mealPlanChecked.subscribe((v) => {
       checkedItems = v
     })
   })
-  /** Detail keys with an in-flight fetch — non-reactive, guards against duplicate/cross-cancelled fetches. */
+  /** Detail keys with an in-flight fetch – non-reactive, guards against duplicate/cross-cancelled fetches. */
   const detailInFlight = new Set<string>()
 
   let planRefs = $state<MealPlanByDay>(get(mealPlanRefs))
@@ -157,7 +157,7 @@
   const dayTotals = $derived(
     Object.fromEntries(days.map(day => {
       const totals = plan[day].reduce((acc, r) => ({
-        // Missing values are stored as `null` now — treat them as 0 for totals.
+        // Missing values are stored as `null` now – treat them as 0 for totals.
         energy: acc.energy + (r.energy ?? 0),
         carbs: acc.carbs + (r.carbs ?? 0),
       }), { energy: 0, carbs: 0 })
@@ -504,7 +504,7 @@
 
   // Shopping-list details: fetch each planned recipe of the active day once.
   // `detailInFlight` (non-reactive) stops a still-loading recipe from being
-  // re-fetched — or dropped — when another recipe's result lands and re-runs
+  // re-fetched – or dropped – when another recipe's result lands and re-runs
   // this effect. Writes reassign `detailCache` so `shoppingList` reliably
   // recomputes as each recipe arrives (a keyed mutation would not).
   $effect(() => {

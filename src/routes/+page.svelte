@@ -28,7 +28,7 @@
 
   // ── Scroll restoration ─────────────────────────────────────────────────────
   // app.html restores scroll before hydration; here we finish once the masonry
-  // packs and any deeper page (#2, #5…) expands — retrying until we reach the
+  // packs and any deeper page (#2, #5…) expands – retrying until we reach the
   // saved Y so it can "scroll further when ready". behavior:'instant' avoids the
   // global scroll-behavior:smooth animating each retry. (browser comes from the
   // module script above.) Mirrors [...path]/+page.svelte.

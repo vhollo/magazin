@@ -8,7 +8,7 @@
 
   export let recipes: (RecipeTeaser | RecipeLayoutEntry)[] = []
   export let title = ''
-  /** Section heading — overridden for curated "További receptek" lists. */
+  /** Section heading – overridden for curated "További receptek" lists. */
   export let heading = 'Kapcsolódó receptek a Receptsarokban'
 
   // Masonry spans are JS-only; pre-hydration the grid uses content-sized rows
@@ -25,7 +25,7 @@
       <h2 class="text-center">{heading}</h2>
       {#if title}
         <p class="text-center text-sm opacity-60">
-          Keresés: „{title}" — {recipes.length} találat
+          Keresés: „{title}" – {recipes.length} találat
         </p>
       {/if}
     </article>

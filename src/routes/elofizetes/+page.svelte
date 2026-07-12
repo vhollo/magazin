@@ -1,90 +1,136 @@
 <script module>
-  import { browser } from "$app/environment";
   import Search from "$lib/components/Search.svelte";
   import Nav2 from "$lib/components/Nav2.svelte";
-  const lightcolor = "#222";
-  const darkcolor = "#ddd";
 </script>
 
 <script lang="ts">
+  import { onMount } from "svelte";
   import type { PageProps } from "./$types";
-  // export let data
-  // console.log(data)
 
-  if (browser) {
-    let color = window?.matchMedia("(prefers-color-scheme: dark)").matches
-      ? darkcolor
-      : lightcolor;
-    /* window?.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
-    const colorScheme = event.matches ? "dark" : "light";
-    color = colorScheme === 'dark' ? darkcolor : lightcolor;
-  }); */
+  const { data }: PageProps = $props();
+  const freeCount = $derived(data.freeCount);
 
-    var scriptURL =
-      "https://sdks.shopifycdn.com/buy-button/latest/buy-button-storefront.min.js";
-    if (window?.ShopifyBuy) {
-      if (window?.ShopifyBuy.UI) {
-        ShopifyBuyInit();
-      } else {
-        loadScript();
+  // Drives the skeleton / error UI around the Shopify embed.
+  let embedState = $state<"loading" | "ready" | "error">("loading");
+
+  const scriptURL =
+    "https://sdks.shopifycdn.com/buy-button/latest/buy-button-storefront.min.js";
+  const nodeId = "collection-component-1719931041752";
+
+  // The Buy Button renders in an <iframe>, so the site's CSS variables aren't
+  // available inside it. Instead we hardcode the DaisyUI light-theme colours and
+  // override them in a prefers-color-scheme media block — that query evaluates
+  // live *inside* the iframe, so the embed re-themes with the OS/browser dark
+  // mode automatically (this replaces the old load-time matchMedia colour whose
+  // change-listener was commented out, so dark-mode toggling never recoloured).
+  // Both schemes are scoped in media queries (never a bare base value): the Buy
+  // Button compiler emits the `dark` block *before* the base rule, so an
+  // unscoped light value would win over dark at equal specificity. `light` also
+  // matches the no-preference default, so exactly one block applies and source
+  // order stops mattering.
+  const LIGHTMQ = "@media (prefers-color-scheme: light)";
+  const DARK = "@media (prefers-color-scheme: dark)";
+  const LIGHT_TEXT = "oklch(21% 0.006 285.885)"; // --color-base-content (light)
+  const DARK_TEXT = "oklch(97.807% 0.029 256.847)"; // --color-base-content (dark)
+
+  const textColor = {
+    [LIGHTMQ]: { color: LIGHT_TEXT },
+    [DARK]: { color: DARK_TEXT },
+  };
+
+  // Matches the site's `btn-primary` (DaisyUI --color-primary), so the "Kosárba"
+  // / "Megrendelés" buttons read as the same brand blue as the rest of the page.
+  // Hover/focus must be a single top-level rule: the SDK compiler drops the
+  // scheme `@media` both when it wraps a pseudo *and* when nested inside one, so
+  // a scheme-specific hover isn't expressible here. A mid brand-blue reads as a
+  // clear "darker" hover against both the light (L≈0.80) and dark (L≈0.61) base
+  // — and, importantly, overrides the store's default green hover (#5f9d3e).
+  const BTN_HOVER = "oklch(55% 0.13 246.91)";
+  const buttonStyle = {
+    "font-weight": "bold",
+    "border-radius": "0.2rem", // --radius-field
+    [LIGHTMQ]: {
+      color: LIGHT_TEXT,
+      "background-color": "oklch(80.25% 0.0589 246.91)",
+    },
+    [DARK]: {
+      color: DARK_TEXT,
+      "background-color": "oklch(60.51% 0.1178 246.91)",
+    },
+    ":hover": { "background-color": BTN_HOVER },
+    ":focus": { "background-color": BTN_HOVER },
+  };
+
+  function initShopify(ShopifyBuy: any) {
+    const node = document.getElementById(nodeId);
+    if (!node) {
+      embedState = "error";
+      return;
+    }
+
+    // The SDK's return value isn't a reliable "done" signal across versions, so
+    // flip out of the skeleton when it inserts its iframe (with a safety timeout).
+    const observer = new MutationObserver(() => {
+      if (node.querySelector("iframe")) {
+        embedState = "ready";
+        observer.disconnect();
+        clearTimeout(timer);
       }
-    } else {
-      loadScript();
-    }
-    function loadScript() {
-      var script = document.createElement("script");
-      script.async = true;
-      script.src = scriptURL;
-      (
-        document.getElementsByTagName("head")[0] ||
-        document.getElementsByTagName("body")[0]
-      ).appendChild(script);
-      script.onload = ShopifyBuyInit;
-    }
-    function ShopifyBuyInit() {
-      var client = ShopifyBuy.buildClient({
-        domain: "tud-kiado.myshopify.com",
-        storefrontAccessToken: "94cec9c870df862494030b6f488c43a1",
-      });
-      ShopifyBuy.UI.onReady(client).then(function (ui) {
+    });
+    observer.observe(node, { childList: true, subtree: true });
+    const timer = setTimeout(() => {
+      observer.disconnect();
+      embedState = node.querySelector("iframe") ? "ready" : "error";
+    }, 8000);
+
+    const client = ShopifyBuy.buildClient({
+      domain: "tud-kiado.myshopify.com",
+      storefrontAccessToken: "94cec9c870df862494030b6f488c43a1",
+    });
+    ShopifyBuy.UI.onReady(client)
+      .then((ui: any) => {
         ui.createComponent("collection", {
           id: "395347394795",
-          node: document.getElementById("collection-component-1719931041752"),
-          moneyFormat: "%7B%7Bamount_no_decimals_with_comma_separator%7D%7D",
+          node,
+          moneyFormat: "%7B%7Bamount_no_decimals_with_comma_separator%7D%7D%20Ft",
           options: {
             product: {
               styles: {
                 product: {
+                  // Card look, aligned with the site's cards (bg-base-100 +
+                  // subtle border/shadow, --radius-box corners).
+                  "border-radius": "0.4rem",
+                  padding: "1rem 1rem 1.25rem",
+                  transition: "transform 0.15s ease, box-shadow 0.15s ease",
+                  ":hover": {
+                    transform: "translateY(-2px)",
+                    "box-shadow": "0 8px 20px rgba(0, 0, 0, 0.1)",
+                  },
                   "@media (min-width: 600px)": {
                     "max-width": "calc(25% - 20px)",
                     "margin-left": "20px",
-                    "margin-bottom": "50px",
+                    "margin-bottom": "40px",
                     width: "calc(25% - 20px)",
+                  },
+                  [LIGHTMQ]: {
+                    "background-color": "oklch(100% 0 0)",
+                    border: "1px solid oklch(21% 0.006 285.885 / 0.12)",
+                    "box-shadow": "0 1px 2px rgba(0, 0, 0, 0.06)",
+                  },
+                  [DARK]: {
+                    "background-color": "oklch(25.33% 0.016 252.42)",
+                    border: "1px solid oklch(97.807% 0.029 256.847 / 0.14)",
+                    "box-shadow": "0 1px 2px rgba(0, 0, 0, 0.3)",
                   },
                 },
                 title: {
                   "font-weight": "normal",
-                  color: color,
+                  ...textColor,
                 },
-                button: {
-                  "font-weight": "bold",
-                  ":hover": {
-                    "background-color": "#3b9ce6",
-                  },
-                  "background-color": "#41adff",
-                  ":focus": {
-                    "background-color": "#3b9ce6",
-                  },
-                },
-                price: {
-                  color: color,
-                },
-                compareAt: {
-                  color: color,
-                },
-                unitPrice: {
-                  color: color,
-                },
+                button: buttonStyle,
+                price: { ...textColor },
+                compareAt: { ...textColor },
+                unitPrice: { ...textColor },
               },
               text: {
                 button: "Kosárba",
@@ -114,39 +160,26 @@
                     "margin-bottom": "0px",
                   },
                 },
-                button: {
-                  "font-weight": "bold",
-                  ":hover": {
-                    "background-color": "#3b9ce6",
-                  },
-                  "background-color": "#41adff",
-                  ":focus": {
-                    "background-color": "#3b9ce6",
-                  },
-                },
+                button: buttonStyle,
                 title: {
-                  "font-family": "Helvetica Neue, sans-serif",
                   "font-weight": "bold",
                   "font-size": "26px",
-                  color: "#4c4c4c",
+                  ...textColor,
                 },
                 price: {
-                  "font-family": "Helvetica Neue, sans-serif",
                   "font-weight": "normal",
                   "font-size": "18px",
-                  color: "#4c4c4c",
+                  ...textColor,
                 },
                 compareAt: {
-                  "font-family": "Helvetica Neue, sans-serif",
                   "font-weight": "normal",
-                  "font-size": "15.299999999999999px",
-                  color: "#4c4c4c",
+                  "font-size": "15px",
+                  ...textColor,
                 },
                 unitPrice: {
-                  "font-family": "Helvetica Neue, sans-serif",
                   "font-weight": "normal",
-                  "font-size": "15.299999999999999px",
-                  color: "#4c4c4c",
+                  "font-size": "15px",
+                  ...textColor,
                 },
               },
               text: {
@@ -156,16 +189,7 @@
             option: {},
             cart: {
               styles: {
-                button: {
-                  "font-weight": "bold",
-                  ":hover": {
-                    "background-color": "#3b9ce6",
-                  },
-                  "background-color": "#41adff",
-                  ":focus": {
-                    "background-color": "#3b9ce6",
-                  },
-                },
+                button: buttonStyle,
               },
               text: {
                 title: "Kosár",
@@ -184,30 +208,49 @@
               styles: {
                 toggle: {
                   "font-weight": "bold",
-                  "background-color": "#41adff",
-                  ":hover": {
-                    "background-color": "#3b9ce6",
+                  [LIGHTMQ]: {
+                    color: LIGHT_TEXT,
+                    "background-color": "oklch(80.25% 0.0589 246.91)",
                   },
-                  ":focus": {
-                    "background-color": "#3b9ce6",
+                  [DARK]: {
+                    color: DARK_TEXT,
+                    "background-color": "oklch(60.51% 0.1178 246.91)",
                   },
+                  ":hover": { "background-color": BTN_HOVER },
+                  ":focus": { "background-color": BTN_HOVER },
                 },
               },
             },
           },
         });
+      })
+      .catch(() => {
+        observer.disconnect();
+        clearTimeout(timer);
+        embedState = "error";
       });
-    }
   }
-  const { data }: PageProps = $props();
-  const freeCount = $derived(data.freeCount);
+
+  onMount(() => {
+    const w = window as any;
+    if (w.ShopifyBuy?.UI) {
+      initShopify(w.ShopifyBuy);
+      return;
+    }
+    const script = document.createElement("script");
+    script.async = true;
+    script.src = scriptURL;
+    script.onload = () => initShopify(w.ShopifyBuy);
+    script.onerror = () => (embedState = "error");
+    (document.head || document.body).appendChild(script);
+  });
 </script>
 
 <svelte:head>
   <title>{"Előfizetés • " + data.conf.sitename}</title>
   <meta
     name="description"
-    content="Fizess elő a Diabetes betegtájékoztató magazinra — a Hypertonia magazint és a különszámokat féláron adjuk mellé!"
+    content="Fizess elő a Diabetes betegtájékoztató magazinra – a Hypertonia magazint és a különszámokat féláron adjuk mellé!"
   />
   <meta
     name="keywords"
@@ -219,7 +262,7 @@
   <meta name="og:title" content={"Előfizetés • " + data.conf.sitename} />
   <meta
     name="og:description"
-    content="Fizess elő a Diabetes betegtájékoztató magazinra — a Hypertonia magazint és a különszámokat féláron adjuk mellé!"
+    content="Fizess elő a Diabetes betegtájékoztató magazinra – a Hypertonia magazint és a különszámokat féláron adjuk mellé!"
   />
   <meta name="og:url" content={data.conf.url || "https://diabetes.hu"} />
   <meta name="og:site_name" content="Diabetes" />
@@ -228,7 +271,7 @@
 </svelte:head>
 
 <main class="">
-  <!-- Value-proposition hero (homepage redesign 2026, F5) — same visual language as the home Hero -->
+  <!-- Value-proposition hero (homepage redesign 2026, F5) – same visual language as the home Hero -->
   <section class="band relative overflow-hidden bg-base-200">
     <svg
       class="pointer-events-none absolute inset-x-0 bottom-0 h-20 w-full text-secondary"
@@ -250,11 +293,11 @@
           Előfizetés
         </p>
         <h1 class="display text-3xl leading-tight text-balance sm:text-4xl">
-          A nyomtatott Diabetes magazin — házhoz szállítva
+          A nyomtatott Diabetes magazin – házhoz szállítva
         </h1>
         <p class="max-w-prose opacity-80">
           Egy jó magazin nem sürget és nem riogat: leül veled, és érthetően
-          elmondja, mi történik a szervezetedben — és mit tehetsz érte. Ezt
+          elmondja, mi történik a szervezetedben – és mit tehetsz érte. Ezt
           kínálja a Diabetes, 1989 óta.
         </p>
       </header>
@@ -269,7 +312,7 @@
         <li class="card rounded-sm bg-base-100 p-4 shadow-md">
           <h2 class="display text-base mb-1">Évente hat lapszám</h2>
           <p class="text-sm opacity-80">
-            Nyomtatva, a postaládádba — képernyő nélkül, kényelmesen olvasható.
+            Nyomtatva, a postaládádba – képernyő nélkül, kényelmesen olvasható.
           </p>
         </li>
         <li class="card rounded-sm bg-base-100 p-4 shadow-md">
@@ -288,14 +331,52 @@
   </section>
 
   <section id="megrendeles" class="mx-auto max-w-6xl px-4 py-10 sm:py-14">
-    <header class="mb-2 text-center">
+    <header class="mb-6 text-center">
       <h2 class="display text-2xl sm:text-3xl">Válaszd ki lapszámaidat</h2>
       <p class="mt-2 opacity-80">
         A Diabetes mellé a Hypertonia magazint és a különszámokat féláron adjuk
-        — legfeljebb 3 példányt.
+        – legfeljebb 3 példányt.
       </p>
     </header>
-    <div id="collection-component-1719931041752"></div>
+
+    {#if embedState === "error"}
+      <div
+        role="alert"
+        class="alert alert-warning mx-auto max-w-xl flex-col items-start gap-2 rounded-sm sm:flex-row sm:items-center"
+      >
+        <span>
+          A terméklista most nem tölthető be – ez általában átmeneti. Töltsd
+          újra az oldalt, és próbáld ismét.
+        </span>
+        <button
+          type="button"
+          class="btn btn-sm rounded-sm"
+          onclick={() => location.reload()}>Újratöltés</button
+        >
+      </div>
+    {:else}
+      <div class="relative">
+        {#if embedState === "loading"}
+          <div
+            class="grid gap-5 sm:grid-cols-2 lg:grid-cols-4"
+            aria-hidden="true"
+          >
+            {#each Array.from({ length: 4 }) as _, i (i)}
+              <div
+                class="flex flex-col gap-3 rounded-sm bg-base-100 p-4 shadow-md"
+              >
+                <div class="skeleton aspect-square w-full rounded-sm"></div>
+                <div class="skeleton h-4 w-3/4"></div>
+                <div class="skeleton h-4 w-1/3"></div>
+                <div class="skeleton h-9 w-full rounded-sm"></div>
+              </div>
+            {/each}
+          </div>
+          <p class="sr-only" aria-live="polite">Terméklista betöltése…</p>
+        {/if}
+        <div id={nodeId} class:hidden={embedState !== "ready"}></div>
+      </div>
+    {/if}
   </section>
 
   <article id="receptsarok-sub" class="prose mt-16 mb-8 mx-auto w-full">
@@ -311,7 +392,7 @@
         <div class="card-body items-center text-center">
           <h3 class="card-title">Örök hozzáférés</h3>
           <p class="text-3xl font-bold">4 990 Ft</p>
-          <p class="text-sm opacity-60">Egyszeri díj — minden recept, örökre</p>
+          <p class="text-sm opacity-60">Egyszeri díj – minden recept, örökre</p>
           <a href="/receptsarok" class="btn btn-primary btn-sm mt-2">Megnézem</a
           >
         </div>
@@ -335,7 +416,7 @@
     </p>
   </article>
 
-  <!-- GYIK (F5.1) — answers grounded in the actual offer: quarterly print magazine,
+  <!-- GYIK (F5.1) – answers grounded in the actual offer: quarterly print magazine,
      Hypertonia + különszámok at half price (max 3), shipping computed at checkout,
      cart note to the publisher. -->
   <section class="mx-auto max-w-2xl px-4 py-10 sm:py-14">
@@ -349,7 +430,7 @@
         >
         <div class="px-4 pb-4 text-sm opacity-80">
           Orvosi és dietetikai tanácsokat, recepteket tápanyagértékekkel,
-          sorstársak történeteit és a diabétesz-közösség híreit — mindezt
+          sorstársak történeteit és a diabétesz-közösség híreit – mindezt
           gyakorló szakemberek tollából, közérthetően.
         </div>
       </details>
@@ -368,7 +449,7 @@
         >
         <div class="px-4 pb-4 text-sm opacity-80">
           Tedd a kosárba a Diabetes-előfizetést, majd mellé a Hypertonia
-          magazint vagy a különszámokat — ezeket féláron adjuk, legfeljebb 3
+          magazint vagy a különszámokat – ezeket féláron adjuk, legfeljebb 3
           példányig.
         </div>
       </details>
@@ -384,11 +465,11 @@
       </details>
       <details class="faq collapse-arrow rounded-sm bg-base-200">
         <summary class="cursor-pointer px-4 py-3 font-medium"
-          >Kérdésem van a megrendelésemmel kapcsolatban — kihez fordulhatok?</summary
+          >Kérdésem van a megrendelésemmel kapcsolatban – kihez fordulhatok?</summary
         >
         <div class="px-4 pb-4 text-sm opacity-80">
           A kosár „Üzenet a Kiadónak" mezőjében közvetlenül írhatsz a Tudomány
-          Kiadónak — például ha ajándékba rendelsz, vagy a kézbesítéssel
+          Kiadónak – például ha ajándékba rendelsz, vagy a kézbesítéssel
           kapcsolatban van kérdésed.
         </div>
       </details>

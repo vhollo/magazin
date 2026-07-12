@@ -1,5 +1,5 @@
 <script>
-  // Home "Böngéssz témák szerint" topic grid (homepage redesign 2026, F3.5) —
+  // Home "Böngéssz témák szerint" topic grid (homepage redesign 2026, F3.5) –
   // visual entry to the nav2 category structure, each card listing its
   // sub-topic links as chips.
   import { nav2 } from "$lib/nav2.js";

@@ -8,7 +8,7 @@
 
   import { nav2 } from "$lib/nav2.js";
   // Fallback page-title lookup (see `matchingSubcat` below): supplies human titles
-  // for collection slugs that aren't in nav2. The 'carousel' key is historical —
+  // for collection slugs that aren't in nav2. The 'carousel' key is historical –
   // these labels used to back the home Carousel (now the Hero); they're kept here
   // only so /s-o-s and /gyermekvallalas still resolve a title.
   let copycats = JSON.parse(JSON.stringify(nav2));
@@ -89,7 +89,7 @@
   // ── Scroll restoration ─────────────────────────────────────────────────────
   // The inline script in app.html jumps to the saved position before hydration,
   // collapsing the wait to "HTML + CSS parse". Here we finish the job once the
-  // masonry has packed and any deeper page (#2, #5…) has expanded — re-applying
+  // masonry has packed and any deeper page (#2, #5…) has expanded – re-applying
   // the scroll and retrying until we actually reach it, so it can "scroll further
   // when ready". behavior:'instant' (vs /keres' 'auto') because the global
   // scroll-behavior:smooth would otherwise animate each retry and defeat the poll.

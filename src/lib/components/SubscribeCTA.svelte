@@ -1,5 +1,5 @@
 <script>
-  // Home subscribe CTA module (homepage redesign 2026, F3.4) — macro-conversion
+  // Home subscribe CTA module (homepage redesign 2026, F3.4) – macro-conversion
   // toward `/elofizetes`. Placed at the bottom of the home page, after the
   // latest-articles grid.
   import { trackEvent } from "$lib/analytics";
@@ -16,11 +16,11 @@
         Előfizetés
       </p>
       <h2 class="display text-2xl sm:text-3xl">
-        A nyomtatott Diabetes magazin — házhoz szállítva
+        A nyomtatott Diabetes magazin – házhoz szállítva
       </h2>
       <p class="max-w-prose opacity-90">
         Minden lapszámunk tele van orvosi és dietetikai tanácsokkal, receptekkel
-        és sorstársak történeteivel — évente hatszor a postaládádban.
+        és sorstársak történeteivel – évente hatszor a postaládádban.
       </p>
     </div>
     <a

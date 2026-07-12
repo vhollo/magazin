@@ -316,7 +316,7 @@
           <a href="{nav1[cat]}" class="relative max-md:p-4 md:py-2 rounded-sm md:menu-title text-nowrap font-medium bg-base-300 transition-[color,background-color] duration-200 ease-out focus-visible:bg-base-content/10 focus-visible:outline-none" class:!text-base-content={!navLinkActive(actual, nav1[cat])} class:!text-primary-content={navLinkActive(actual, nav1[cat])} class:bg-primary={navLinkActive(actual, nav1[cat])} onclick={() => { _open_nav = false; closeAllCollapses(); }}>{#if cat === 'Receptsarok'}<span class="color-rs">RECEPTSAROK</span>{:else}{cat}{/if}</a>
         {:else}
           <input type="radio" name="collapse" class="md:hidden" bind:group={collapse} value={cat} onclick={(e) => handleRadioClick(cat, e)} onchange={(e) => { handleRadioChange(cat, e); _scrollIntoView(e); }}/>
-          <!-- svelte-ignore a11y_invalid_attribute — same element as sibling links; # prevented in onclick -->
+          <!-- svelte-ignore a11y_invalid_attribute – same element as sibling links; # prevented in onclick -->
           <a href="#" tabindex="0" class="relative max-md:collapse-title max-md:!min-h-0 max-md:!p-4 max-md:!pr-12 md:py-2 rounded-sm md:menu-title text-nowrap font-medium no-underline bg-base-300 transition-[color,background-color] duration-200 ease-out hover:bg-base-content/10 focus-visible:bg-base-content/10 focus-visible:outline-none" class:!text-base-content={!navSubgroupActive(actual, nav1[cat])} class:!text-primary-content={navSubgroupActive(actual, nav1[cat])} class:bg-primary={navSubgroupActive(actual, nav1[cat])} onclick={(e) => { e.preventDefault(); handleCollapseClick(cat, e) }} onkeydown={(e) => handleCollapseKeydown(cat, e)}>{cat}</a>
           <ul tabindex="0" class="!z-0 menu max-md:w-full flex-nowrap max-md:collapse-content dropdown-content md:rounded-md text-base-content py-0 md:p-2 bg-base-300">
             {#each Object.keys(nav1[cat]) as subcat}
@@ -333,7 +333,7 @@
           <a href="{nav2[cat]}" class="relative max-md:p-4 md:p-2 rounded-sm md:menu-title text-nowrap font-medium bg-base-300 transition-[color,background-color] duration-200 ease-out hover:bg-base-content/10 focus-visible:bg-base-content/10 focus-visible:outline-none" class:!bg-secondary={navLinkActive(actual, nav2[cat])} class:!text-secondary-content={navLinkActive(actual, nav2[cat])} class:!text-base-content={!navLinkActive(actual, nav2[cat])} onclick={() => { _open_nav = false; closeAllCollapses(); }}>{cat}</a>
         {:else}
           <input type="radio" name="collapse" class="md:hidden" bind:group={collapse} value={cat} onclick={(e) => handleRadioClick(cat, e)} onchange={(e) => { handleRadioChange(cat, e); _scrollIntoView(e); }}/>
-          <!-- svelte-ignore a11y_invalid_attribute — same element as sibling links; # prevented in onclick -->
+          <!-- svelte-ignore a11y_invalid_attribute – same element as sibling links; # prevented in onclick -->
           <a href="#" tabindex="0" class="relative max-md:collapse-title max-md:!min-h-0 max-md:!p-4 max-md:!pr-12 md:p-2 rounded-sm md:menu-title text-nowrap font-medium no-underline bg-base-300 transition-[color,background-color] duration-200 ease-out hover:bg-base-content/10 focus-visible:bg-base-content/10 focus-visible:outline-none" class:!text-base-content={!navSubgroupActive(actual, nav2[cat])} class:!text-primary-content={navSubgroupActive(actual, nav2[cat])} class:bg-primary={navSubgroupActive(actual, nav2[cat])} onclick={(e) => { e.preventDefault(); handleCollapseClick(cat, e) }} onkeydown={(e) => handleCollapseKeydown(cat, e)}>{cat}</a>
           <ul tabindex="0" class="!z-0 menu max-md:w-full flex-nowrap max-md:collapse-content dropdown-content md:rounded-md text-base-content py-0 md:p-2 bg-base-300">
             {#each Object.keys(nav2[cat]) as subcat}
@@ -544,7 +544,7 @@
     /* #mobile-nav:checked ~ ul > li{
       margin-block: 1rem;
     } */
-    /* max-md:collapse-content is not .collapse-content — DaisyUI keeps content-visibility:hidden until checked~.collapse-content */
+    /* max-md:collapse-content is not .collapse-content – DaisyUI keeps content-visibility:hidden until checked~.collapse-content */
     li input:checked ~ ul {
       visibility: visible !important;
       display: block !important;

@@ -459,15 +459,18 @@ Added in the homepage redesign 2026 (F6.1). **Simple Analytics** (cookie-free, n
 ### Page Component (`+page.svelte`)
 
 - **Shopify Integration**:
-  - Loads Shopify Buy Button SDK dynamically
-  - Initializes Shopify client with store domain and access token
-  - Creates collection component for subscription products
-  - Collection ID: `395347394795`
+  - Loads the Shopify Buy Button SDK dynamically **in `onMount`** (not top-level `if (browser)` — guarantees the target node exists and avoids a null node on warm SPA nav)
+  - Initializes the Shopify client with store domain and access token
+  - Creates a `collection` component for subscription products (Collection ID `395347394795`), rendered into `#collection-component-1719931041752`
+  - **Loading/error UX**: a reactive `embedState: "loading" | "ready" | "error"` (`$state`) drives a DaisyUI **skeleton grid** (4 cards) while the SDK loads and a warning **alert with a reload button** on failure. Readiness is detected with a **`MutationObserver`** on the target node (flips to `ready` when the SDK inserts its `<iframe>`) plus an 8s safety timeout — the SDK's `createComponent` return value is *not* a reliable done-signal across versions.
 
-- **Styling**:
-  - Adapts colors based on user's color scheme preference
-  - Custom button styles (blue theme)
-  - Responsive product grid (4 columns on desktop)
+- **Styling** (the Buy Button renders inside an **iframe**, so the site's DaisyUI CSS variables and the page's `:global()` CSS do **not** reach it):
+  - All embed styling lives in the SDK's `options.*.styles` config. Colours are **hardcoded DaisyUI theme values** (light `--color-primary` `oklch(80.25% 0.0589 246.91)`, dark `oklch(60.51% 0.1178 246.91)`; base-content light `oklch(21% …)` / dark `oklch(97.807% …)`) — the buttons match the site's `btn-primary`, and product cards get the site card look (bg-base-100, subtle border/shadow, `--radius-box` corners).
+  - **Dark mode is reactive without JS**: every themed value is scoped under **both** `@media (prefers-color-scheme: light)` **and** `@media (prefers-color-scheme: dark)` (never a bare base value). Media queries evaluate live inside the iframe, so it re-themes with the OS/browser setting. Both are media-scoped because the SDK compiler emits the `dark` block *before* the base rule → an unscoped light value would win at equal specificity even in dark mode (`light` also matches the no-preference default, so exactly one block always applies). This replaced the old load-time `matchMedia` colour whose change-listener was commented out (dark toggle never recoloured).
+  - `iframe: false` was tried and rejected: it drops the embed into the host DOM where `@tailwindcss/forms`' base reset strips the button backgrounds and the SDK's own defaults leak.
+  - **`:hover`/`:focus` must be a single top-level rule, not scheme-specific.** The SDK compiler drops the `@media` context both when it wraps a pseudo and when nested inside one, so a per-scheme hover can't be expressed — it's one mid brand-blue (`oklch(55% 0.13 246.91)`) for both. This also matters because the store's Shopify theme default hover is **green (#5f9d3e)**; our flat `:hover`/`:focus` rule must out-order it (equal specificity, later wins) or the buttons flash green on hover.
+  - The **`moneyFormat`** is URL-encoded and carries the currency suffix: `{{amount_no_decimals_with_comma_separator}} Ft` → prices render as e.g. `7.380 Ft` on cards, in the modal, and in the cart.
+  - Responsive product grid (4 columns ≥600px) is set via the `product`/`productSet` config media blocks.
 
 - **Content** (restructured in the homepage redesign 2026, F5):
   - **Value-proposition hero** above the Shopify embed — same visual language as the home `Hero` (serif display, glucose-curve motif, `bg-base-200` band): kicker + H1 ("A nyomtatott Diabetes magazin — házhoz szállítva", matching the home `SubscribeCTA` heading), empathetic lead, three benefit cards (szakértő szerzők / évente hat lapszám / Hypertonia+különszámok féláron), CTA "Előfizetek" → `#megrendeles` anchor (app.css `*[id]` scroll-margin handles the sticky header)

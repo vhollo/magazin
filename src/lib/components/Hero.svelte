@@ -1,5 +1,5 @@
 <script>
-  // Home hero (homepage redesign 2026, F3.1) — replaces the legacy hardcoded
+  // Home hero (homepage redesign 2026, F3.1) – replaces the legacy hardcoded
   // Carousel on `/`. Left: welcome + audience entry points ("Kezdd itt");
   // right: the newest expert pick from `collections/home.expertCards`.
   import { trackEvent } from "$lib/analytics";
@@ -71,7 +71,7 @@
         Megbízható válaszok a cukorbetegséggel élt mindennapokhoz
       </h1>
       <p class="lead max-w-prose opacity-80">
-        Cikkeinket orvosok és szakemberek írják — a diagnózis első napjától a
+        Cikkeinket orvosok és szakemberek írják – a diagnózis első napjától a
         magabiztos önellenőrzésig.
       </p>
       <nav class="mt-2" aria-label="Belépési pontok">

@@ -32,7 +32,7 @@ const isExpired = (k: any) => !!k.expires_on && (new Date(k.expires_on).getTime(
 const activeKvizzes = $derived((kvizzes ?? []).filter((k: any) => !isExpired(k)))
 const expiredKvizzes = $derived((kvizzes ?? []).filter((k: any) => isExpired(k)))
 
-// "2027. jan. 1." — year + abbreviated Hungarian month + day.
+// "2027. jan. 1." – year + abbreviated Hungarian month + day.
 function fmtDeadline(d: Date) {
   return `${d.getFullYear()}. ${d.toLocaleDateString('hu-HU', { month: 'short' })} ${d.getDate()}.`
 }
@@ -58,7 +58,7 @@ const activeGroups = $derived.by(() => {
 // ── Scroll restoration ───────────────────────────────────────────────────────
 // This page is ssr:false, so the pre-hydration restore in app.html can't help
 // (no server HTML). Instead we restore once the client has rendered the list,
-// retrying until we reach the saved Y — this also returns you to your place in
+// retrying until we reach the saved Y – this also returns you to your place in
 // the list on back/forward from a quiz. behavior:'instant' avoids the global
 // scroll-behavior:smooth animating each retry.
 let pendingScrollY: number | null = null

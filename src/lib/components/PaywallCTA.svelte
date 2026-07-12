@@ -12,7 +12,7 @@
   const trialMessages = {
     recipe: {
       title: 'Ingyenes próbaidőszak',
-      body: 'A próbaidőszak alatt minden recept teljes tartalma elérhető — csak bejelentkezés szükséges.',
+      body: 'A próbaidőszak alatt minden recept teljes tartalma elérhető – csak bejelentkezés szükséges.',
       cta: 'Bejelentkezés'
     },
     filter: {
