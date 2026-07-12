@@ -96,9 +96,8 @@ afterNavigate((navigation) => {
 <main class="">
   <article class="prose mt-16 mb-8 w-full mx-auto flex-none">
     <h1 class="text-center">DiabKVÍZ</h1>
-    <!-- <h2 class="text-center">{kviz.title}</h2> -->
     <p class="text-center">Az alábbi kvízek csak példák.</p>
-    <!-- <p class="text-center"><a href="/kviz/tabella" class="btn btn-outline btn-sm">TABELLA</a></p> -->
+    <p class="text-center"><a href="/kviz/tabella" class="btn btn-outline btn-sm">TABELLA</a></p>
   </article>
 
 <div class="list max-w-screen-md mx-auto grid grid-cols-[auto 1fr auto] gap-4 mb-16 px-2">

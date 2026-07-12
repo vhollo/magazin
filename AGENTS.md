@@ -257,12 +257,19 @@ Added in the homepage redesign 2026 (F6.1). **Simple Analytics** (cookie-free, n
 
 #### Layout Server (`+layout.server.ts`)
 
-- Loads all quizzes via `getKviz()`
+- Loads all quizzes via `getKviz()` **inside `load()`** (per-request), not at module top-level — so the list reflects current Firestore data on every navigation
 - Returns quizzes array and document metadata
+
+#### Data Freshness (`getKviz()` in `src/lib/siteConf.ts`)
+
+- **Build/dev**: reads Firestore live and writes the snapshot to `src/lib/data/kviz.json` (committed; also the production fallback).
+- **Production runtime**: reads Firestore live via `fetchKvizFromFirestore()`, cached in-memory with a **60s TTL** (`KVIZ_TTL_MS`) per serverless instance, with concurrent refreshes coalesced (`kvizInflight`). On a Firestore error it serves stale cache, then the bundled `kviz.json` snapshot (`readKvizSnapshot()`).
+- **Consequence**: FireCMS edits appear in production within ~60s **without a redeploy**. (Previously prod served only the build-time `kviz.json` snapshot, so edits required a rebuild.)
+- Requires `FIREBASE_ADMIN_KEY` at runtime (already used by auth), read lazily in `$lib/firebase-admin`.
 
 #### Max Score Calculation (`getKviz()` in `src/lib/siteConf.ts`)
 
-- **Location**: Calculated in `getKviz()` function when loading quizzes from Firestore
+- **Location**: Calculated in `fetchKvizFromFirestore()` when loading quizzes from Firestore
 - **Algorithm**:
   1. Iterates through all questions in the quiz
   2. For each question, iterates through all answer options

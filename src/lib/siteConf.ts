@@ -147,32 +147,71 @@ export const getSiteConf = async () => {
 }
 
 
+async function fetchKvizFromFirestore(): Promise<any[]> {
+  const kvizRef = db.collection('kviz');
+  const kvizSnap = await kvizRef.get();
+  return kvizSnap.docs.filter((doc: QueryDocumentSnapshot) => doc.data().status).map((doc: QueryDocumentSnapshot) => {
+    // console.log ('doc:', doc);
+    const id = doc.ref.path.split('/').pop()
+    const data: any = {id: id, ...doc.data()}
+    data.starts_on = data.starts_on ? data.starts_on.toDate() : undefined
+    data.expires_on = data.expires_on ? data.expires_on.toDate() : undefined
+    // console.log(data.questions)//.map(q => q.score))
+    data.max_score = data.questions?.reduce((acc: number, question: any) => acc + (question.options?.reduce((optionAcc: number, option: any) => optionAcc + (option.score > 0 ? option.score : 0), 0) || 0), 0) || 0
+    return data;
+  }).sort((a, b) => b.starts_on - a.starts_on) || [];
+}
+
+// Read the bundled build-time snapshot. Used as a fallback when a live
+// Firestore read fails in production.
+function readKvizSnapshot(): any[] {
+  try {
+    const data = fs.readFileSync(path.resolve(process.cwd(), 'src/lib/data', 'kviz.json'), 'utf-8');
+    return JSON.parse(data);
+  } catch {
+    return [];
+  }
+}
+
+// Short in-memory TTL cache so production reads Firestore live (picking up
+// FireCMS edits without a redeploy) without a Firestore round-trip on every
+// /kviz and /kviz/[id] request. Cache is per serverless instance.
+const KVIZ_TTL_MS = 60_000;
+let kvizCache: { data: any[]; ts: number } | null = null;
+let kvizInflight: Promise<any[]> | null = null;
+
 export const getKviz = async () => {
+  // Build/dev: read live and persist the snapshot to kviz.json (committed,
+  // and used as the production fallback).
   if (building || dev) {
     try {
-      const kvizRef = db.collection('kviz');
-      const kvizSnap = await kvizRef.get();
-      const kvizData = kvizSnap.docs.filter((doc: QueryDocumentSnapshot) => doc.data().status).map((doc: QueryDocumentSnapshot) => {
-        // console.log ('doc:', doc);
-        const id = doc.ref.path.split('/').pop()
-        const data: any = {id: id, ...doc.data()}
-        data.starts_on = data.starts_on ? data.starts_on.toDate() : undefined
-        data.expires_on = data.expires_on ? data.expires_on.toDate() : undefined
-        // console.log(data.questions)//.map(q => q.score))
-        data.max_score = data.questions?.reduce((acc: number, question: any) => acc + (question.options?.reduce((optionAcc: number, option: any) => optionAcc + (option.score > 0 ? option.score : 0), 0) || 0), 0) || 0
-        return data;
-      }).sort((a, b) => b.starts_on - a.starts_on) || [];
+      const kvizData = await fetchKvizFromFirestore();
       writeData(kvizData, 'kviz.json')
       return kvizData;
     } catch (error) {
       console.error("Error getting kviz:", error);
       return []
     }
-  } else {
-    const data = fs.readFileSync(path.resolve(process.cwd(), 'src/lib/data', 'kviz.json'), 'utf-8');
-    // console.log(data)
-    return JSON.parse(data);
   }
+
+  // Production runtime: serve from cache while fresh.
+  if (kvizCache && Date.now() - kvizCache.ts < KVIZ_TTL_MS) {
+    return kvizCache.data;
+  }
+  // Coalesce concurrent refreshes into one Firestore read.
+  if (kvizInflight) return kvizInflight;
+  kvizInflight = fetchKvizFromFirestore()
+    .then((data) => {
+      kvizCache = { data, ts: Date.now() };
+      return data;
+    })
+    .catch((error) => {
+      console.error("Error getting kviz:", error);
+      // Serve stale cache if we have it, otherwise the bundled snapshot.
+      return kvizCache?.data ?? readKvizSnapshot();
+    })
+    .finally(() => { kvizInflight = null; });
+  return kvizInflight;
 }
 
 export const getPatika = async () => {
