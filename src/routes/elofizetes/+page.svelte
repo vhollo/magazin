@@ -442,7 +442,7 @@
     <div class="flex flex-col gap-2">
       <details class="faq collapse-arrow rounded-sm bg-base-200">
         <summary class="cursor-pointer px-4 py-3 font-medium"
-          >Mit tartalmaz egy lapszám?</summary
+          >Mit tartalmaz egy Diabetes lapszám?</summary
         >
         <div class="px-4 pb-4 text-sm opacity-80">
           Orvosi és dietetikai tanácsokat, recepteket tápanyagértékekkel,
