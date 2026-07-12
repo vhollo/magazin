@@ -20,7 +20,7 @@
 	<article class="prose mt-16 mb-8 w-full mx-auto flex-none">
 		<h1 class="text-center">DiabKVÍZ Tabella</h1>
 		<p class="text-center">Összpontszámok szerint csökkenő sorrendben</p>
-		<p class="text-center">(Csak a jelenleg is aktuális kvízek pontszámai)</p>
+		<p class="text-center">(Csak a le nem járt kvízek pontszámai)</p>
 	</article>
 
 	<div class="max-w-screen-md mx-auto mb-16 px-2">
