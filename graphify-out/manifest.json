@@ -620,8 +620,8 @@
     "semantic_hash": ""
   },
   "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/routes/kviz/+page.svelte": {
-    "mtime": 1783884920.884696,
-    "ast_hash": "8fde6261d7315759404622cc807bcc54",
+    "mtime": 1783889103.839071,
+    "ast_hash": "7bb4a95d282e5674da90254a5d0eb5c8",
     "semantic_hash": ""
   },
   "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/routes/kviz/+page.ts": {
@@ -650,8 +650,8 @@
     "semantic_hash": ""
   },
   "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/routes/kviz/[...id]/+page.svelte": {
-    "mtime": 1783885675.343483,
-    "ast_hash": "9215235ca9cbb5550d875267dab0e5de",
+    "mtime": 1783886354.8233924,
+    "ast_hash": "73f5b88df6eda08b913a2add21dd98b6",
     "semantic_hash": ""
   },
   "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/routes/kviz/tabella/+page.server.ts": {
@@ -700,8 +700,8 @@
     "semantic_hash": ""
   },
   "/Users/vhollo/Public/Google/webdev/diabetes/magazin/AGENTS.md": {
-    "mtime": 1783885739.6594863,
-    "ast_hash": "ad413b0fc87b80be8b15ef7c5aca9404",
+    "mtime": 1783889209.7297127,
+    "ast_hash": "b9526d5bc681e6703beed2f4942e566c",
     "semantic_hash": ""
   },
   "/Users/vhollo/Public/Google/webdev/diabetes/magazin/.github/workflows/sync-receptsarok-patika.yml": {

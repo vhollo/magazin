@@ -27,6 +27,31 @@ onMount(() => {
 
 const { data }: PageProps = $props()
 const kvizzes = $derived(data.kvizzes)
+// A quiz is expired 24h past its expires_on; ones without expires_on never expire.
+const isExpired = (k: any) => !!k.expires_on && (new Date(k.expires_on).getTime() + 24 * 60 * 60 * 1000) < Date.now()
+const activeKvizzes = $derived((kvizzes ?? []).filter((k: any) => !isExpired(k)))
+const expiredKvizzes = $derived((kvizzes ?? []).filter((k: any) => isExpired(k)))
+
+// "2027. jan. 1." — year + abbreviated Hungarian month + day.
+function fmtDeadline(d: Date) {
+  return `${d.getFullYear()}. ${d.toLocaleDateString('hu-HU', { month: 'short' })} ${d.getDate()}.`
+}
+// Group active quizzes by deadline (soonest first); each group is shown under a
+// "Határidő: <date>" divider. Quizzes without an expires_on go in a dateless group.
+const activeGroups = $derived.by(() => {
+  const map = new Map<string, { key: string; date: Date | null; items: any[] }>()
+  for (const k of activeKvizzes) {
+    const date = k.expires_on ? new Date(k.expires_on) : null
+    const key = date ? date.toISOString().slice(0, 10) : 'none'
+    if (!map.has(key)) map.set(key, { key, date, items: [] })
+    map.get(key)!.items.push(k)
+  }
+  return [...map.values()].sort((a, b) => {
+    if (!a.date) return 1
+    if (!b.date) return -1
+    return a.date.getTime() - b.date.getTime()
+  })
+})
 // console.log({kvizzes})
 // marked is configured in $lib/marked.ts, imported via +page.ts
 
@@ -107,45 +132,20 @@ afterNavigate((navigation) => {
     </p>
   </article>
 
-<div class="list max-w-screen-md mx-auto mb-16 px-2 flex flex-col gap-6">
-  {#each kvizzes as kviz, i (kviz.id)}
+{#snippet quizRow(kviz: any)}
     {@const score = $kvizScores[kviz.id]}
     {@const expired = !!kviz.expires_on && (new Date(kviz.expires_on).getTime() + 24 * 60 * 60 * 1000) < Date.now()}
     {@const done = !expired && !isNaN(score)}
     {@const status = expired ? 'expired' : done ? 'done' : 'open'}
     <article
-      class="quiz border-l-4 pl-4 pb-6 border-b border-b-base-200 grid grid-cols-[auto_1fr_auto] gap-4"
+      class="quiz border-l-4 pl-4 pb-6 border-b border-b-base-200 grid grid-cols-[1fr_auto] gap-4"
       class:border-l-accent={status === 'open'}
       class:border-l-primary={status === 'done'}
       class:border-l-warning={status === 'expired'}
     >
-      <h2 class="col-span-3 uppercase mt-0 mb-1">
+      <h2 class="col-span-2 uppercase mt-0 mb-1">
         <a class="!no-underline" href={`/kviz/${kviz.id}`}>{kviz.title}</a>
       </h2>
-
-      <div class="flex flex-col gap-2 items-start">
-        <span
-          class="badge badge-sm font-semibold whitespace-nowrap"
-          class:badge-accent={status === 'open'}
-          class:badge-primary={status === 'done'}
-          class:badge-warning={status === 'expired'}
-        >
-          {status === 'open' ? 'Határidő' : status === 'done' ? 'Kitöltve' : 'Lejárt'}
-        </span>
-        {#if kviz.expires_on}
-          {@const d = new Date(kviz.expires_on)}
-          <span
-            class="font-medium tabular-nums text-sm leading-tight text-center mx-auto"
-            class:text-primary={done}
-            class:text-accent={status === 'open'}
-            class:text-warning={expired}
-          >
-            <span class="block">{d.getFullYear()}.</span>
-            <span class="block">{String(d.getMonth() + 1).padStart(2, '0')}.</span>
-            <span class="block">{String(d.getDate()).padStart(2, '0')}.</span>
-          </span>
-        {/if}
-      </div>
 
       <div class="opacity-70 hyphens-auto">{@html marked.parse(kviz.description || '')}</div>
 
@@ -178,8 +178,30 @@ afterNavigate((navigation) => {
         {/if}
       </span>
     </article>
-  {/each}
-</div>
+{/snippet}
+
+{#each activeGroups as group (group.key)}
+  <div class="divider max-w-screen-md mx-auto px-2 mt-10 mb-4 font-semibold">
+    {group.date ? `Határidő: ${fmtDeadline(group.date)}` : 'Nincs határidő'}
+  </div>
+  <div class="list max-w-screen-md mx-auto mb-8 px-2 flex flex-col gap-6">
+    {#each group.items as kviz (kviz.id)}
+      {@render quizRow(kviz)}
+    {/each}
+  </div>
+{/each}
+{#if activeKvizzes.length === 0}
+  <p class="opacity-60 text-center py-4">Jelenleg nincs aktuális kvíz.</p>
+{/if}
+
+{#if expiredKvizzes.length}
+  <div class="divider max-w-screen-md mx-auto px-2 mt-10 mb-4 font-semibold opacity-70">Korábbi kvízek</div>
+  <div class="list max-w-screen-md mx-auto mb-16 px-2 flex flex-col gap-6">
+    {#each expiredKvizzes as kviz (kviz.id)}
+      {@render quizRow(kviz)}
+    {/each}
+  </div>
+{/if}
 </main>
 <Search articles={data.articleCount} recipes={data.recipeCount} />
 <Nav2 actual={data.path}/>

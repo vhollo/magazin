@@ -292,8 +292,10 @@ Added in the homepage redesign 2026 (F6.1). **Simple Analytics** (cookie-free, n
 #### Page Component (`+page.svelte`)
 
 - **Display Logic**:
-  - Lists all available quizzes
-  - Shows quiz title, description (markdown parsed), and expiration date
+  - Quizzes split into `activeKvizzes` / `expiredKvizzes` (expiry = `expires_on + 24h < now`; no `expires_on` ⇒ active).
+  - **Active** quizzes are grouped by deadline (`activeGroups`, soonest first; dateless ones last), each group under a DaisyUI `divider` reading **`Határidő: <date>`** (`fmtDeadline()` → `2027. jan. 1.`, month abbreviated via `toLocaleDateString('hu-HU', { month: 'short' })`).
+  - **Expired** quizzes render under a muted **`Korábbi kvízek`** divider.
+  - A single `{#snippet quizRow(kviz)}` renders each row as a 2-column grid (description | action). The old first column (status badge + per-row date) was removed — the deadline now lives in the group divider, and expired rows show no date. Status is still color-coded via the `border-l-4` accent stripe (accent/primary/warning) and the action button.
   - Displays user's score if available
 
 - **Quiz Status Indicators** (color-coded per quiz — status badge + left accent stripe `border-l-4` + colored date/action, keyed to three states):
