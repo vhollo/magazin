@@ -397,9 +397,16 @@ export const getCategories = async () => {
 
 export const getScores = async () => {
   try {
-    // Get all quizzes with status: true
-    const activeKvizzes = await getKviz();
-    
+    // Only count still-current quizzes: a quiz must have an expires_on that
+    // hasn't passed (expires_on + 24h grace >= now, matching the /kviz list).
+    // Quizzes without an expires_on are excluded from the tabella entirely.
+    const now = Date.now();
+    const activeKvizzes = (await getKviz()).filter(
+      (kviz: any) =>
+        kviz?.expires_on &&
+        new Date(kviz.expires_on).getTime() + 24 * 60 * 60 * 1000 >= now
+    );
+
     if (!activeKvizzes || activeKvizzes.length === 0) {
       return [];
     }

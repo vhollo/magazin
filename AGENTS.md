@@ -370,6 +370,16 @@ Added in the homepage redesign 2026 (F6.1). **Simple Analytics** (cookie-free, n
   - Displays current score: `{score} / {max_score} pont`
   - Stays visible at bottom of viewport
 
+### Leaderboard Route (`/kviz/tabella`)
+
+**Files:**
+- `src/routes/kviz/tabella/+page.server.ts` (SSR, `prerender = false`)
+- `src/routes/kviz/tabella/+page.svelte`
+
+- Server `load()` calls `getScores()` in `src/lib/siteConf.ts`.
+- `getScores()` sums each participant's `score` across the `kviz/{id}/scores` subcollections and returns a name→total leaderboard sorted descending.
+- **Only still-current quizzes count**: `getScores()` keeps only quizzes that have an `expires_on` which hasn't passed (`expires_on + 24h grace >= now`, matching the `/kviz` list's expiry rule) before aggregating — matching the page's "Csak a jelenleg is aktuális kvízek pontszámai" note. Expired quizzes **and quizzes without an `expires_on`** are excluded from totals.
+
 ---
 
 ## Search Route (`/keres`)

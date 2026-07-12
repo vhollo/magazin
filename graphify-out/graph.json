@@ -3090,7 +3090,7 @@
       "source_file": "scripts/fix-modx-recipe-years.mjs",
       "source_location": "L75",
       "id": "scripts_fix_modx_recipe_years_expectedmodximportyear",
-      "community": 28,
+      "community": 135,
       "norm_label": "expectedmodximportyear()"
     },
     {
@@ -3809,7 +3809,7 @@
       "source_file": "scripts/validate-recipe-dedupe-v2.mjs",
       "source_location": "L1",
       "id": "scripts_validate_recipe_dedupe_v2_mjs",
-      "community": 1,
+      "community": 15,
       "norm_label": "validate-recipe-dedupe-v2.mjs"
     },
     {
@@ -3818,7 +3818,7 @@
       "source_file": "scripts/validate-recipe-dedupe-v2.mjs",
       "source_location": "L18",
       "id": "scripts_validate_recipe_dedupe_v2_root",
-      "community": 1,
+      "community": 15,
       "norm_label": "root"
     },
     {
@@ -3827,7 +3827,7 @@
       "source_file": "scripts/validate-recipe-dedupe-v2.mjs",
       "source_location": "L19",
       "id": "scripts_validate_recipe_dedupe_v2_createreviewpath",
-      "community": 1,
+      "community": 15,
       "norm_label": "createreviewpath"
     },
     {
@@ -3836,7 +3836,7 @@
       "source_file": "scripts/validate-recipe-dedupe-v2.mjs",
       "source_location": "L20",
       "id": "scripts_validate_recipe_dedupe_v2_redirectspath",
-      "community": 1,
+      "community": 15,
       "norm_label": "redirectspath"
     },
     {
@@ -3845,7 +3845,7 @@
       "source_file": "scripts/validate-recipe-dedupe-v2.mjs",
       "source_location": "L21",
       "id": "scripts_validate_recipe_dedupe_v2_patternspath",
-      "community": 1,
+      "community": 15,
       "norm_label": "patternspath"
     },
     {
@@ -3854,7 +3854,7 @@
       "source_file": "scripts/validate-recipe-dedupe-v2.mjs",
       "source_location": "L22",
       "id": "scripts_validate_recipe_dedupe_v2_uncategorizedpath",
-      "community": 1,
+      "community": 15,
       "norm_label": "uncategorizedpath"
     },
     {
@@ -3863,7 +3863,7 @@
       "source_file": "scripts/validate-recipe-dedupe-v2.mjs",
       "source_location": "L23",
       "id": "scripts_validate_recipe_dedupe_v2_recipespath",
-      "community": 1,
+      "community": 15,
       "norm_label": "recipespath"
     },
     {
@@ -3872,7 +3872,7 @@
       "source_file": "scripts/validate-recipe-dedupe-v2.mjs",
       "source_location": "L25",
       "id": "scripts_validate_recipe_dedupe_v2_readjson",
-      "community": 1,
+      "community": 15,
       "norm_label": "readjson()"
     },
     {
@@ -3881,7 +3881,7 @@
       "source_file": "scripts/validate-recipe-dedupe-v2.mjs",
       "source_location": "L29",
       "id": "scripts_validate_recipe_dedupe_v2_testcomparatororder",
-      "community": 1,
+      "community": 39,
       "norm_label": "testcomparatororder()"
     },
     {
@@ -3890,7 +3890,7 @@
       "source_file": "scripts/validate-recipe-dedupe-v2.mjs",
       "source_location": "L92",
       "id": "scripts_validate_recipe_dedupe_v2_testpickredirecttargetprefersrsbookletyear",
-      "community": 1,
+      "community": 39,
       "norm_label": "testpickredirecttargetprefersrsbookletyear()"
     },
     {
@@ -3908,7 +3908,7 @@
       "source_file": "scripts/validate-recipe-dedupe-v2.mjs",
       "source_location": "L111",
       "id": "scripts_validate_recipe_dedupe_v2_testauthorgate",
-      "community": 1,
+      "community": 15,
       "norm_label": "testauthorgate()"
     },
     {
@@ -3926,7 +3926,7 @@
       "source_file": "scripts/validate-recipe-dedupe-v2.mjs",
       "source_location": "L154",
       "id": "scripts_validate_recipe_dedupe_v2_testparsernutritionfallbackfromparagraphs",
-      "community": 1,
+      "community": 15,
       "norm_label": "testparsernutritionfallbackfromparagraphs()"
     },
     {
@@ -3935,7 +3935,7 @@
       "source_file": "scripts/validate-recipe-dedupe-v2.mjs",
       "source_location": "L183",
       "id": "scripts_validate_recipe_dedupe_v2_testparseringredientandservingfallbacks",
-      "community": 1,
+      "community": 15,
       "norm_label": "testparseringredientandservingfallbacks()"
     },
     {
@@ -3944,7 +3944,7 @@
       "source_file": "scripts/validate-recipe-dedupe-v2.mjs",
       "source_location": "L213",
       "id": "scripts_validate_recipe_dedupe_v2_testparserparagraphingredientsandsubrecipes",
-      "community": 1,
+      "community": 15,
       "norm_label": "testparserparagraphingredientsandsubrecipes()"
     },
     {
@@ -3953,7 +3953,7 @@
       "source_file": "scripts/validate-recipe-dedupe-v2.mjs",
       "source_location": "L243",
       "id": "scripts_validate_recipe_dedupe_v2_testparserdoesnottreatrelatedlinksassubrecipe",
-      "community": 1,
+      "community": 15,
       "norm_label": "testparserdoesnottreatrelatedlinksassubrecipe()"
     },
     {
@@ -3962,7 +3962,7 @@
       "source_file": "scripts/validate-recipe-dedupe-v2.mjs",
       "source_location": "L276",
       "id": "scripts_validate_recipe_dedupe_v2_testparsedbranchbcompleteness",
-      "community": 1,
+      "community": 15,
       "norm_label": "testparsedbranchbcompleteness()"
     },
     {
@@ -3971,7 +3971,7 @@
       "source_file": "scripts/validate-recipe-dedupe-v2.mjs",
       "source_location": "L293",
       "id": "scripts_validate_recipe_dedupe_v2_testredirectsshape",
-      "community": 1,
+      "community": 15,
       "norm_label": "testredirectsshape()"
     },
     {
@@ -3989,7 +3989,7 @@
       "source_file": "scripts/validate-recipe-dedupe-v2.mjs",
       "source_location": "L427",
       "id": "scripts_validate_recipe_dedupe_v2_testuncategorizedqueueconsistency",
-      "community": 1,
+      "community": 15,
       "norm_label": "testuncategorizedqueueconsistency()"
     },
     {
@@ -4115,7 +4115,7 @@
       "source_file": "scripts/backfill-junior-magazine-fields.mjs",
       "source_location": "L1",
       "id": "scripts_backfill_junior_magazine_fields_mjs",
-      "community": 41,
+      "community": 1,
       "norm_label": "backfill-junior-magazine-fields.mjs"
     },
     {
@@ -4124,7 +4124,7 @@
       "source_file": "scripts/backfill-junior-magazine-fields.mjs",
       "source_location": "L28",
       "id": "scripts_backfill_junior_magazine_fields_apply",
-      "community": 41,
+      "community": 1,
       "norm_label": "apply"
     },
     {
@@ -4133,7 +4133,7 @@
       "source_file": "scripts/backfill-junior-magazine-fields.mjs",
       "source_location": "L29",
       "id": "scripts_backfill_junior_magazine_fields_root",
-      "community": 41,
+      "community": 1,
       "norm_label": "root"
     },
     {
@@ -4142,7 +4142,7 @@
       "source_file": "scripts/backfill-junior-magazine-fields.mjs",
       "source_location": "L31",
       "id": "scripts_backfill_junior_magazine_fields_fields",
-      "community": 41,
+      "community": 1,
       "norm_label": "fields"
     },
     {
@@ -4151,7 +4151,7 @@
       "source_file": "scripts/backfill-junior-magazine-fields.mjs",
       "source_location": "L33",
       "id": "scripts_backfill_junior_magazine_fields_main",
-      "community": 41,
+      "community": 1,
       "norm_label": "main()"
     },
     {
@@ -4160,7 +4160,7 @@
       "source_file": "scripts/merge-sync-data-files.mjs",
       "source_location": "L1",
       "id": "scripts_merge_sync_data_files_mjs",
-      "community": 93,
+      "community": 130,
       "norm_label": "merge-sync-data-files.mjs"
     },
     {
@@ -4169,7 +4169,7 @@
       "source_file": "scripts/merge-sync-data-files.mjs",
       "source_location": "L22",
       "id": "scripts_merge_sync_data_files_dirname",
-      "community": 93,
+      "community": 130,
       "norm_label": "__dirname"
     },
     {
@@ -4178,7 +4178,7 @@
       "source_file": "scripts/merge-sync-data-files.mjs",
       "source_location": "L23",
       "id": "scripts_merge_sync_data_files_root",
-      "community": 93,
+      "community": 130,
       "norm_label": "root"
     },
     {
@@ -4187,7 +4187,7 @@
       "source_file": "scripts/merge-sync-data-files.mjs",
       "source_location": "L29",
       "id": "scripts_merge_sync_data_files_parsejsonor",
-      "community": 93,
+      "community": 130,
       "norm_label": "parsejsonor()"
     },
     {
@@ -4196,7 +4196,7 @@
       "source_file": "scripts/merge-sync-data-files.mjs",
       "source_location": "L39",
       "id": "scripts_merge_sync_data_files_recipekey",
-      "community": 93,
+      "community": 130,
       "norm_label": "recipekey()"
     },
     {
@@ -4205,7 +4205,7 @@
       "source_file": "scripts/merge-sync-data-files.mjs",
       "source_location": "L48",
       "id": "scripts_merge_sync_data_files_mergerecipesjson",
-      "community": 93,
+      "community": 130,
       "norm_label": "mergerecipesjson()"
     },
     {
@@ -4214,7 +4214,7 @@
       "source_file": "scripts/merge-sync-data-files.mjs",
       "source_location": "L74",
       "id": "scripts_merge_sync_data_files_mergecategoryreview",
-      "community": 93,
+      "community": 130,
       "norm_label": "mergecategoryreview()"
     },
     {
@@ -4223,7 +4223,7 @@
       "source_file": "scripts/merge-sync-data-files.mjs",
       "source_location": "L105",
       "id": "scripts_merge_sync_data_files_mergeredirectsmanifest",
-      "community": 93,
+      "community": 130,
       "norm_label": "mergeredirectsmanifest()"
     },
     {
@@ -4232,7 +4232,7 @@
       "source_file": "scripts/merge-sync-data-files.mjs",
       "source_location": "L120",
       "id": "scripts_merge_sync_data_files_gitshow",
-      "community": 93,
+      "community": 130,
       "norm_label": "gitshow()"
     },
     {
@@ -4241,7 +4241,7 @@
       "source_file": "scripts/merge-sync-data-files.mjs",
       "source_location": "L128",
       "id": "scripts_merge_sync_data_files_readworkingtree",
-      "community": 93,
+      "community": 130,
       "norm_label": "readworkingtree()"
     },
     {
@@ -4250,7 +4250,7 @@
       "source_file": "scripts/merge-sync-data-files.mjs",
       "source_location": "L133",
       "id": "scripts_merge_sync_data_files_writeworkingtree",
-      "community": 93,
+      "community": 130,
       "norm_label": "writeworkingtree()"
     },
     {
@@ -4259,7 +4259,7 @@
       "source_file": "scripts/merge-sync-data-files.mjs",
       "source_location": "L137",
       "id": "scripts_merge_sync_data_files_main",
-      "community": 93,
+      "community": 130,
       "norm_label": "main()"
     },
     {
@@ -4484,7 +4484,7 @@
       "source_file": "scripts/sync-modx-to-firestore.mjs",
       "source_location": "L108",
       "id": "scripts_sync_modx_to_firestore_syncablereferencerows",
-      "community": 8,
+      "community": 91,
       "norm_label": "syncablereferencerows()"
     },
     {
@@ -4493,7 +4493,7 @@
       "source_file": "scripts/sync-modx-to-firestore.mjs",
       "source_location": "L113",
       "id": "scripts_sync_modx_to_firestore_querychangedreferencerows",
-      "community": 8,
+      "community": 91,
       "norm_label": "querychangedreferencerows()"
     },
     {
@@ -4502,7 +4502,7 @@
       "source_file": "scripts/sync-modx-to-firestore.mjs",
       "source_location": "L130",
       "id": "scripts_sync_modx_to_firestore_queryallreferencerows",
-      "community": 8,
+      "community": 91,
       "norm_label": "queryallreferencerows()"
     },
     {
@@ -4511,7 +4511,7 @@
       "source_file": "scripts/sync-modx-to-firestore.mjs",
       "source_location": "L146",
       "id": "scripts_sync_modx_to_firestore_querychangedrows",
-      "community": 8,
+      "community": 91,
       "norm_label": "querychangedrows()"
     },
     {
@@ -4520,7 +4520,7 @@
       "source_file": "scripts/sync-modx-to-firestore.mjs",
       "source_location": "L191",
       "id": "scripts_sync_modx_to_firestore_queryremovedrows",
-      "community": 8,
+      "community": 127,
       "norm_label": "queryremovedrows()"
     },
     {
@@ -4529,7 +4529,7 @@
       "source_file": "scripts/sync-modx-to-firestore.mjs",
       "source_location": "L229",
       "id": "scripts_sync_modx_to_firestore_queryforcedrow",
-      "community": 8,
+      "community": 127,
       "norm_label": "queryforcedrow()"
     },
     {
@@ -4538,7 +4538,7 @@
       "source_file": "scripts/sync-modx-to-firestore.mjs",
       "source_location": "L264",
       "id": "scripts_sync_modx_to_firestore_mergerowsbyid",
-      "community": 8,
+      "community": 91,
       "norm_label": "mergerowsbyid()"
     },
     {
@@ -4547,7 +4547,7 @@
       "source_file": "scripts/sync-modx-to-firestore.mjs",
       "source_location": "L276",
       "id": "scripts_sync_modx_to_firestore_queryallrows",
-      "community": 8,
+      "community": 91,
       "norm_label": "queryallrows()"
     },
     {
@@ -4556,7 +4556,7 @@
       "source_file": "scripts/sync-modx-to-firestore.mjs",
       "source_location": "L321",
       "id": "scripts_sync_modx_to_firestore_expandrowswithancestors",
-      "community": 8,
+      "community": 91,
       "norm_label": "expandrowswithancestors()"
     },
     {
@@ -4565,7 +4565,7 @@
       "source_file": "scripts/sync-modx-to-firestore.mjs",
       "source_location": "L347",
       "id": "scripts_sync_modx_to_firestore_sortrowsbydepth",
-      "community": 8,
+      "community": 91,
       "norm_label": "sortrowsbydepth()"
     },
     {
@@ -4637,7 +4637,7 @@
       "source_file": "scripts/sync-modx-to-firestore.mjs",
       "source_location": "L743",
       "id": "scripts_sync_modx_to_firestore_readlastedit",
-      "community": 8,
+      "community": 91,
       "norm_label": "readlastedit()"
     },
     {
@@ -4646,7 +4646,7 @@
       "source_file": "scripts/sync-modx-to-firestore.mjs",
       "source_location": "L752",
       "id": "scripts_sync_modx_to_firestore_maxeditedon",
-      "community": 8,
+      "community": 91,
       "norm_label": "maxeditedon()"
     },
     {
@@ -4664,7 +4664,7 @@
       "source_file": "scripts/sync-modx-to-firestore.mjs",
       "source_location": "L826",
       "id": "scripts_sync_modx_to_firestore_main",
-      "community": 8,
+      "community": 91,
       "norm_label": "main()"
     },
     {
@@ -4736,7 +4736,7 @@
       "source_file": "scripts/import-receptsarok-uncategorized-review.mjs",
       "source_location": "L1",
       "id": "scripts_import_receptsarok_uncategorized_review_mjs",
-      "community": 44,
+      "community": 93,
       "norm_label": "import-receptsarok-uncategorized-review.mjs"
     },
     {
@@ -4745,7 +4745,7 @@
       "source_file": "scripts/import-receptsarok-uncategorized-review.mjs",
       "source_location": "L5",
       "id": "scripts_import_receptsarok_uncategorized_review_recipes_path",
-      "community": 44,
+      "community": 93,
       "norm_label": "recipes_path"
     },
     {
@@ -4754,7 +4754,7 @@
       "source_file": "scripts/import-receptsarok-uncategorized-review.mjs",
       "source_location": "L6",
       "id": "scripts_import_receptsarok_uncategorized_review_review_path",
-      "community": 44,
+      "community": 93,
       "norm_label": "review_path"
     },
     {
@@ -4763,7 +4763,7 @@
       "source_file": "scripts/import-receptsarok-uncategorized-review.mjs",
       "source_location": "L8",
       "id": "scripts_import_receptsarok_uncategorized_review_readjson",
-      "community": 44,
+      "community": 93,
       "norm_label": "readjson()"
     },
     {
@@ -4772,7 +4772,7 @@
       "source_file": "scripts/import-receptsarok-uncategorized-review.mjs",
       "source_location": "L12",
       "id": "scripts_import_receptsarok_uncategorized_review_writejson",
-      "community": 44,
+      "community": 93,
       "norm_label": "writejson()"
     },
     {
@@ -4781,7 +4781,7 @@
       "source_file": "scripts/import-receptsarok-uncategorized-review.mjs",
       "source_location": "L16",
       "id": "scripts_import_receptsarok_uncategorized_review_normalizecategory",
-      "community": 44,
+      "community": 93,
       "norm_label": "normalizecategory()"
     },
     {
@@ -4790,7 +4790,7 @@
       "source_file": "scripts/import-receptsarok-uncategorized-review.mjs",
       "source_location": "L20",
       "id": "scripts_import_receptsarok_uncategorized_review_recipes",
-      "community": 44,
+      "community": 93,
       "norm_label": "recipes"
     },
     {
@@ -4799,7 +4799,7 @@
       "source_file": "scripts/import-receptsarok-uncategorized-review.mjs",
       "source_location": "L21",
       "id": "scripts_import_receptsarok_uncategorized_review_review",
-      "community": 44,
+      "community": 93,
       "norm_label": "review"
     },
     {
@@ -4808,7 +4808,7 @@
       "source_file": "scripts/import-receptsarok-uncategorized-review.mjs",
       "source_location": "L26",
       "id": "scripts_import_receptsarok_uncategorized_review_recipebykey",
-      "community": 44,
+      "community": 93,
       "norm_label": "recipebykey"
     },
     {
@@ -4817,7 +4817,7 @@
       "source_file": "scripts/import-receptsarok-uncategorized-review.mjs",
       "source_location": "L33",
       "id": "scripts_import_receptsarok_uncategorized_review_resolvedkeys",
-      "community": 44,
+      "community": 93,
       "norm_label": "resolvedkeys"
     },
     {
@@ -5024,7 +5024,7 @@
       "source_file": "scripts/backfill-recipe-related-cards.mjs",
       "source_location": "L1",
       "id": "scripts_backfill_recipe_related_cards_mjs",
-      "community": 101,
+      "community": 93,
       "norm_label": "backfill-recipe-related-cards.mjs"
     },
     {
@@ -5033,7 +5033,7 @@
       "source_file": "scripts/backfill-recipe-related-cards.mjs",
       "source_location": "L21",
       "id": "scripts_backfill_recipe_related_cards_root",
-      "community": 101,
+      "community": 93,
       "norm_label": "root"
     },
     {
@@ -5042,7 +5042,7 @@
       "source_file": "scripts/backfill-recipe-related-cards.mjs",
       "source_location": "L22",
       "id": "scripts_backfill_recipe_related_cards_recipes_json_path",
-      "community": 101,
+      "community": 93,
       "norm_label": "recipes_json_path"
     },
     {
@@ -5051,7 +5051,7 @@
       "source_file": "scripts/backfill-recipe-related-cards.mjs",
       "source_location": "L23",
       "id": "scripts_backfill_recipe_related_cards_rs_redirects_path",
-      "community": 101,
+      "community": 93,
       "norm_label": "rs_redirects_path"
     },
     {
@@ -5060,7 +5060,7 @@
       "source_file": "scripts/backfill-recipe-related-cards.mjs",
       "source_location": "L24",
       "id": "scripts_backfill_recipe_related_cards_apply",
-      "community": 101,
+      "community": 93,
       "norm_label": "apply"
     },
     {
@@ -5078,7 +5078,7 @@
       "source_file": "scripts/sync-patika-collection.mjs",
       "source_location": "L1",
       "id": "scripts_sync_patika_collection_mjs",
-      "community": 41,
+      "community": 125,
       "norm_label": "sync-patika-collection.mjs"
     },
     {
@@ -5087,7 +5087,7 @@
       "source_file": "scripts/sync-patika-collection.mjs",
       "source_location": "L18",
       "id": "scripts_sync_patika_collection_apply",
-      "community": 41,
+      "community": 125,
       "norm_label": "apply"
     },
     {
@@ -5096,7 +5096,7 @@
       "source_file": "scripts/sync-patika-collection.mjs",
       "source_location": "L26",
       "id": "scripts_sync_patika_collection_public_fields",
-      "community": 41,
+      "community": 125,
       "norm_label": "public_fields"
     },
     {
@@ -5105,7 +5105,7 @@
       "source_file": "scripts/sync-patika-collection.mjs",
       "source_location": "L28",
       "id": "scripts_sync_patika_collection_pickpublic",
-      "community": 41,
+      "community": 125,
       "norm_label": "pickpublic()"
     },
     {
@@ -5114,7 +5114,7 @@
       "source_file": "scripts/sync-patika-collection.mjs",
       "source_location": "L38",
       "id": "scripts_sync_patika_collection_approxdocsize",
-      "community": 41,
+      "community": 125,
       "norm_label": "approxdocsize()"
     },
     {
@@ -5123,7 +5123,7 @@
       "source_file": "scripts/sync-patika-collection.mjs",
       "source_location": "L42",
       "id": "scripts_sync_patika_collection_main",
-      "community": 41,
+      "community": 125,
       "norm_label": "main()"
     },
     {
@@ -5726,7 +5726,7 @@
       "source_file": "scripts/lib/modx-to-rs-parser.mjs",
       "source_location": "L38",
       "id": "lib_modx_to_rs_parser_isdescriptionauthorcompatible",
-      "community": 1,
+      "community": 15,
       "norm_label": "isdescriptionauthorcompatible()"
     },
     {
@@ -6221,7 +6221,7 @@
       "source_file": "scripts/lib/modx-save-payload.mjs",
       "source_location": "L1",
       "id": "scripts_lib_modx_save_payload_mjs",
-      "community": 8,
+      "community": 127,
       "norm_label": "modx-save-payload.mjs"
     },
     {
@@ -6230,7 +6230,7 @@
       "source_file": "scripts/lib/modx-save-payload.mjs",
       "source_location": "L18",
       "id": "lib_modx_save_payload_gunzip",
-      "community": 8,
+      "community": 127,
       "norm_label": "gunzip"
     },
     {
@@ -6239,7 +6239,7 @@
       "source_file": "scripts/lib/modx-save-payload.mjs",
       "source_location": "L24",
       "id": "lib_modx_save_payload_parsemodxsavepayload",
-      "community": 8,
+      "community": 127,
       "norm_label": "parsemodxsavepayload()"
     },
     {
@@ -6248,7 +6248,7 @@
       "source_file": "scripts/lib/modx-save-payload.mjs",
       "source_location": "L51",
       "id": "lib_modx_save_payload_classifypayload",
-      "community": 8,
+      "community": 127,
       "norm_label": "classifypayload()"
     },
     {
@@ -6311,7 +6311,7 @@
       "source_file": "scripts/lib/magazine-projection-snapshot.mjs",
       "source_location": "L165",
       "id": "lib_magazine_projection_snapshot_uploadprojectionsnapshot",
-      "community": 32,
+      "community": 24,
       "norm_label": "uploadprojectionsnapshot()"
     },
     {
@@ -6365,7 +6365,7 @@
       "source_file": "scripts/lib/receptsarok-modx-create-sync.mjs",
       "source_location": "L1",
       "id": "scripts_lib_receptsarok_modx_create_sync_mjs",
-      "community": 8,
+      "community": 133,
       "norm_label": "receptsarok-modx-create-sync.mjs"
     },
     {
@@ -6374,7 +6374,7 @@
       "source_file": "scripts/lib/receptsarok-modx-create-sync.mjs",
       "source_location": "L15",
       "id": "lib_receptsarok_modx_create_sync_loadcategoryreviewmap",
-      "community": 8,
+      "community": 133,
       "norm_label": "loadcategoryreviewmap()"
     },
     {
@@ -6383,7 +6383,7 @@
       "source_file": "scripts/lib/receptsarok-modx-create-sync.mjs",
       "source_location": "L50",
       "id": "lib_receptsarok_modx_create_sync_buildreceptsarokrecipefordoc",
-      "community": 8,
+      "community": 133,
       "norm_label": "buildreceptsarokrecipefordoc()"
     },
     {
@@ -6392,7 +6392,7 @@
       "source_file": "scripts/lib/receptsarok-modx-create-sync.mjs",
       "source_location": "L102",
       "id": "lib_receptsarok_modx_create_sync_persistcreatedrecipes",
-      "community": 8,
+      "community": 133,
       "norm_label": "persistcreatedrecipes()"
     },
     {
@@ -6401,7 +6401,7 @@
       "source_file": "scripts/lib/receptsarok-modx-create-sync.mjs",
       "source_location": "L152",
       "id": "lib_receptsarok_modx_create_sync_appenduncategorizedreview",
-      "community": 8,
+      "community": 133,
       "norm_label": "appenduncategorizedreview()"
     },
     {
@@ -6410,7 +6410,7 @@
       "source_file": "scripts/lib/empty-folders.mjs",
       "source_location": "L1",
       "id": "scripts_lib_empty_folders_mjs",
-      "community": 24,
+      "community": 8,
       "norm_label": "empty-folders.mjs"
     },
     {
@@ -6419,7 +6419,7 @@
       "source_file": "scripts/lib/empty-folders.mjs",
       "source_location": "L12",
       "id": "lib_empty_folders_emptycontentfolderpaths",
-      "community": 24,
+      "community": 8,
       "norm_label": "emptycontentfolderpaths()"
     },
     {
@@ -6428,7 +6428,7 @@
       "source_file": "scripts/lib/related-cards.mjs",
       "source_location": "L1",
       "id": "scripts_lib_related_cards_mjs",
-      "community": 24,
+      "community": 8,
       "norm_label": "related-cards.mjs"
     },
     {
@@ -6437,7 +6437,7 @@
       "source_file": "scripts/lib/related-cards.mjs",
       "source_location": "L4",
       "id": "lib_related_cards_bypublishedondesc",
-      "community": 24,
+      "community": 8,
       "norm_label": "bypublishedondesc()"
     },
     {
@@ -6446,7 +6446,7 @@
       "source_file": "scripts/lib/related-cards.mjs",
       "source_location": "L7",
       "id": "lib_related_cards_parentpathof",
-      "community": 24,
+      "community": 8,
       "norm_label": "parentpathof()"
     },
     {
@@ -6455,7 +6455,7 @@
       "source_file": "scripts/lib/related-cards.mjs",
       "source_location": "L34",
       "id": "lib_related_cards_updaterelatedcards",
-      "community": 24,
+      "community": 8,
       "norm_label": "updaterelatedcards()"
     },
     {
@@ -6464,7 +6464,7 @@
       "source_file": "scripts/lib/magazine-scope.mjs",
       "source_location": "L1",
       "id": "scripts_lib_magazine_scope_mjs",
-      "community": 8,
+      "community": 127,
       "norm_label": "magazine-scope.mjs"
     },
     {
@@ -6473,7 +6473,7 @@
       "source_file": "scripts/lib/magazine-scope.mjs",
       "source_location": "L7",
       "id": "lib_magazine_scope_ismodxreferencetype",
-      "community": 8,
+      "community": 127,
       "norm_label": "ismodxreferencetype()"
     },
     {
@@ -6482,7 +6482,7 @@
       "source_file": "scripts/lib/magazine-scope.mjs",
       "source_location": "L15",
       "id": "lib_magazine_scope_isrootreferencerow",
-      "community": 8,
+      "community": 127,
       "norm_label": "isrootreferencerow()"
     },
     {
@@ -6491,7 +6491,7 @@
       "source_file": "scripts/lib/magazine-scope.mjs",
       "source_location": "L24",
       "id": "lib_magazine_scope_parsemodxreferencetargetid",
-      "community": 8,
+      "community": 127,
       "norm_label": "parsemodxreferencetargetid()"
     },
     {
@@ -6500,7 +6500,7 @@
       "source_file": "scripts/lib/magazine-scope.mjs",
       "source_location": "L35",
       "id": "lib_magazine_scope_referencetargetids",
-      "community": 8,
+      "community": 127,
       "norm_label": "referencetargetids()"
     },
     {
@@ -6509,7 +6509,7 @@
       "source_file": "scripts/lib/magazine-scope.mjs",
       "source_location": "L48",
       "id": "lib_magazine_scope_ismagazinecandidate",
-      "community": 8,
+      "community": 127,
       "norm_label": "ismagazinecandidate()"
     },
     {
@@ -6518,7 +6518,7 @@
       "source_file": "scripts/lib/magazine-scope.mjs",
       "source_location": "L62",
       "id": "lib_magazine_scope_shouldsyncrow",
-      "community": 8,
+      "community": 127,
       "norm_label": "shouldsyncrow()"
     },
     {
@@ -6527,7 +6527,7 @@
       "source_file": "scripts/lib/normalize-ingredient-punctuation.mjs",
       "source_location": "L1",
       "id": "scripts_lib_normalize_ingredient_punctuation_mjs",
-      "community": 27,
+      "community": 133,
       "norm_label": "normalize-ingredient-punctuation.mjs"
     },
     {
@@ -6536,7 +6536,7 @@
       "source_file": "scripts/lib/normalize-ingredient-punctuation.mjs",
       "source_location": "L19",
       "id": "lib_normalize_ingredient_punctuation_striptrailinglistpunctuation",
-      "community": 27,
+      "community": 133,
       "norm_label": "striptrailinglistpunctuation()"
     },
     {
@@ -6545,7 +6545,7 @@
       "source_file": "scripts/lib/normalize-ingredient-punctuation.mjs",
       "source_location": "L28",
       "id": "lib_normalize_ingredient_punctuation_normalizegroup",
-      "community": 27,
+      "community": 133,
       "norm_label": "normalizegroup()"
     },
     {
@@ -6554,7 +6554,7 @@
       "source_file": "scripts/lib/normalize-ingredient-punctuation.mjs",
       "source_location": "L47",
       "id": "lib_normalize_ingredient_punctuation_normalizescope",
-      "community": 27,
+      "community": 133,
       "norm_label": "normalizescope()"
     },
     {
@@ -6563,7 +6563,7 @@
       "source_file": "scripts/lib/normalize-ingredient-punctuation.mjs",
       "source_location": "L71",
       "id": "lib_normalize_ingredient_punctuation_normalizerecipeingredientpunctuation",
-      "community": 27,
+      "community": 133,
       "norm_label": "normalizerecipeingredientpunctuation()"
     },
     {
@@ -6572,7 +6572,7 @@
       "source_file": "scripts/lib/junior-content-fields.mjs",
       "source_location": "L1",
       "id": "scripts_lib_junior_content_fields_mjs",
-      "community": 41,
+      "community": 1,
       "norm_label": "junior-content-fields.mjs"
     },
     {
@@ -6581,7 +6581,7 @@
       "source_file": "scripts/lib/junior-content-fields.mjs",
       "source_location": "L24",
       "id": "lib_junior_content_fields_innerh1",
-      "community": 41,
+      "community": 1,
       "norm_label": "innerh1()"
     },
     {
@@ -6590,7 +6590,7 @@
       "source_file": "scripts/lib/junior-content-fields.mjs",
       "source_location": "L30",
       "id": "lib_junior_content_fields_innerbyclass",
-      "community": 41,
+      "community": 1,
       "norm_label": "innerbyclass()"
     },
     {
@@ -6599,7 +6599,7 @@
       "source_file": "scripts/lib/junior-content-fields.mjs",
       "source_location": "L39",
       "id": "lib_junior_content_fields_tidy",
-      "community": 41,
+      "community": 1,
       "norm_label": "tidy()"
     },
     {
@@ -6608,7 +6608,7 @@
       "source_file": "scripts/lib/junior-content-fields.mjs",
       "source_location": "L40",
       "id": "lib_junior_content_fields_plain",
-      "community": 41,
+      "community": 1,
       "norm_label": "plain()"
     },
     {
@@ -6617,7 +6617,7 @@
       "source_file": "scripts/lib/junior-content-fields.mjs",
       "source_location": "L46",
       "id": "lib_junior_content_fields_extractjuniorfields",
-      "community": 41,
+      "community": 1,
       "norm_label": "extractjuniorfields()"
     },
     {
@@ -6626,7 +6626,7 @@
       "source_file": "scripts/lib/junior-content-fields.mjs",
       "source_location": "L59",
       "id": "lib_junior_content_fields_matchnorm",
-      "community": 41,
+      "community": 1,
       "norm_label": "matchnorm()"
     },
     {
@@ -6635,7 +6635,7 @@
       "source_file": "scripts/lib/junior-content-fields.mjs",
       "source_location": "L65",
       "id": "lib_junior_content_fields_classre",
-      "community": 41,
+      "community": 1,
       "norm_label": "classre()"
     },
     {
@@ -6644,7 +6644,7 @@
       "source_file": "scripts/lib/junior-content-fields.mjs",
       "source_location": "L74",
       "id": "lib_junior_content_fields_removefirstifmatches",
-      "community": 41,
+      "community": 1,
       "norm_label": "removefirstifmatches()"
     },
     {
@@ -6653,7 +6653,7 @@
       "source_file": "scripts/lib/junior-content-fields.mjs",
       "source_location": "L89",
       "id": "lib_junior_content_fields_stripjuniorfields",
-      "community": 41,
+      "community": 1,
       "norm_label": "stripjuniorfields()"
     },
     {
@@ -6662,7 +6662,7 @@
       "source_file": "scripts/lib/firebase-storage.mjs",
       "source_location": "L1",
       "id": "scripts_lib_firebase_storage_mjs",
-      "community": 41,
+      "community": 125,
       "norm_label": "firebase-storage.mjs"
     },
     {
@@ -6671,7 +6671,7 @@
       "source_file": "scripts/lib/firebase-storage.mjs",
       "source_location": "L7",
       "id": "lib_firebase_storage_getfirebasestorage",
-      "community": 41,
+      "community": 125,
       "norm_label": "getfirebasestorage()"
     },
     {
@@ -6680,7 +6680,7 @@
       "source_file": "scripts/lib/firebase-storage.mjs",
       "source_location": "L21",
       "id": "lib_firebase_storage_resolvebucketname",
-      "community": 41,
+      "community": 125,
       "norm_label": "resolvebucketname()"
     },
     {
@@ -6689,7 +6689,7 @@
       "source_file": "scripts/lib/firebase-storage.mjs",
       "source_location": "L35",
       "id": "lib_firebase_storage_uploadpublicfile",
-      "community": 41,
+      "community": 125,
       "norm_label": "uploadpublicfile()"
     },
     {
@@ -6698,7 +6698,7 @@
       "source_file": "scripts/lib/firebase-storage.mjs",
       "source_location": "L63",
       "id": "lib_firebase_storage_uploadprivatefile",
-      "community": 41,
+      "community": 125,
       "norm_label": "uploadprivatefile()"
     },
     {
@@ -6707,7 +6707,7 @@
       "source_file": "scripts/lib/firebase-admin.mjs",
       "source_location": "L1",
       "id": "scripts_lib_firebase_admin_mjs",
-      "community": 41,
+      "community": 125,
       "norm_label": "firebase-admin.mjs"
     },
     {
@@ -6716,7 +6716,7 @@
       "source_file": "scripts/lib/firebase-admin.mjs",
       "source_location": "L7",
       "id": "lib_firebase_admin_ensurefirebaseapp",
-      "community": 41,
+      "community": 125,
       "norm_label": "ensurefirebaseapp()"
     },
     {
@@ -6725,7 +6725,7 @@
       "source_file": "scripts/lib/firebase-admin.mjs",
       "source_location": "L24",
       "id": "lib_firebase_admin_getfirestoredb",
-      "community": 41,
+      "community": 125,
       "norm_label": "getfirestoredb()"
     },
     {
@@ -6734,7 +6734,7 @@
       "source_file": "scripts/lib/doc-path-id.mjs",
       "source_location": "L1",
       "id": "scripts_lib_doc_path_id_mjs",
-      "community": 24,
+      "community": 8,
       "norm_label": "doc-path-id.mjs"
     },
     {
@@ -6743,7 +6743,7 @@
       "source_file": "scripts/lib/doc-path-id.mjs",
       "source_location": "L5",
       "id": "lib_doc_path_id_encodedocpathid",
-      "community": 24,
+      "community": 8,
       "norm_label": "encodedocpathid()"
     },
     {
@@ -6842,7 +6842,7 @@
       "source_file": "scripts/lib/sync-read-counter.mjs",
       "source_location": "L1",
       "id": "scripts_lib_sync_read_counter_mjs",
-      "community": 8,
+      "community": 91,
       "norm_label": "sync-read-counter.mjs"
     },
     {
@@ -6851,7 +6851,7 @@
       "source_file": "scripts/lib/sync-read-counter.mjs",
       "source_location": "L3",
       "id": "lib_sync_read_counter_createreadcounter",
-      "community": 8,
+      "community": 91,
       "norm_label": "createreadcounter()"
     },
     {
@@ -6860,7 +6860,7 @@
       "source_file": "scripts/lib/sync-read-counter.mjs",
       "source_location": "L19",
       "id": "lib_sync_read_counter_totalreads",
-      "community": 8,
+      "community": 91,
       "norm_label": "totalreads()"
     },
     {
@@ -6869,7 +6869,7 @@
       "source_file": "scripts/lib/sync-read-counter.mjs",
       "source_location": "L35",
       "id": "lib_sync_read_counter_formatreadcounts",
-      "community": 8,
+      "community": 91,
       "norm_label": "formatreadcounts()"
     },
     {
@@ -8183,7 +8183,7 @@
       "source_file": "src/lib/receptsarokDedupePipeline.js",
       "source_location": "L88",
       "id": "lib_receptsarokdedupepipeline_hasrequiredrecipebody",
-      "community": 14,
+      "community": 11,
       "norm_label": "hasrequiredrecipebody()"
     },
     {
@@ -8264,7 +8264,7 @@
       "source_file": "src/lib/receptsarokDedupePipeline.js",
       "source_location": "L273",
       "id": "lib_receptsarokdedupepipeline_redirecttargetforaliaspool",
-      "community": 14,
+      "community": 39,
       "norm_label": "redirecttargetforaliaspool()"
     },
     {
@@ -8391,7 +8391,7 @@
       "source_file": "src/lib/modxLinkedRecipes.js",
       "source_location": "L72",
       "id": "lib_modxlinkedrecipes_striplinkedrecipeblocks",
-      "community": 37,
+      "community": 26,
       "norm_label": "striplinkedrecipeblocks()"
     },
     {
@@ -8427,7 +8427,7 @@
       "source_file": "src/lib/analytics.ts",
       "source_location": "L1",
       "id": "src_lib_analytics_ts",
-      "community": 73,
+      "community": 20,
       "norm_label": "analytics.ts"
     },
     {
@@ -8436,7 +8436,7 @@
       "source_file": "src/lib/analytics.ts",
       "source_location": "L8",
       "id": "lib_analytics_trackevent",
-      "community": 73,
+      "community": 20,
       "norm_label": "trackevent()"
     },
     {
@@ -8526,7 +8526,7 @@
       "source_file": "src/lib/receptsarokDedupeShared.js",
       "source_location": "L96",
       "id": "lib_receptsarokdedupeshared_publishedrecipesbyaliasid",
-      "community": 11,
+      "community": 14,
       "norm_label": "publishedrecipesbyaliasid()"
     },
     {
@@ -8607,7 +8607,7 @@
       "source_file": "src/lib/receptsarokDedupeShared.js",
       "source_location": "L218",
       "id": "lib_receptsarokdedupeshared_comparerecipecandidates",
-      "community": 1,
+      "community": 39,
       "norm_label": "comparerecipecandidates()"
     },
     {
@@ -8634,7 +8634,7 @@
       "source_file": "src/lib/receptsarokDedupeShared.js",
       "source_location": "L279",
       "id": "lib_receptsarokdedupeshared_pickredirecttarget",
-      "community": 1,
+      "community": 39,
       "norm_label": "pickredirecttarget()"
     },
     {
@@ -8643,7 +8643,7 @@
       "source_file": "src/lib/receptsarokDedupeShared.js",
       "source_location": "L298",
       "id": "lib_receptsarokdedupeshared_choosewinner",
-      "community": 1,
+      "community": 39,
       "norm_label": "choosewinner()"
     },
     {
@@ -8733,7 +8733,7 @@
       "source_file": "src/lib/siteConf.ts",
       "source_location": "L242",
       "id": "lib_siteconf_consolidaterecipeimg",
-      "community": 18,
+      "community": 23,
       "norm_label": "consolidaterecipeimg()"
     },
     {
@@ -8742,7 +8742,7 @@
       "source_file": "src/lib/siteConf.ts",
       "source_location": "L263",
       "id": "lib_siteconf_normalizerecipeforexport",
-      "community": 18,
+      "community": 23,
       "norm_label": "normalizerecipeforexport()"
     },
     {
@@ -8751,7 +8751,7 @@
       "source_file": "src/lib/siteConf.ts",
       "source_location": "L274",
       "id": "lib_siteconf_toruntimerecipe",
-      "community": 18,
+      "community": 23,
       "norm_label": "toruntimerecipe()"
     },
     {
@@ -8778,7 +8778,7 @@
       "source_file": "src/lib/siteConf.ts",
       "source_location": "L292",
       "id": "lib_siteconf_getrecipescachekeyfordev",
-      "community": 23,
+      "community": 22,
       "norm_label": "getrecipescachekeyfordev()"
     },
     {
@@ -8814,7 +8814,7 @@
       "source_file": "src/lib/siteConf.ts",
       "source_location": "L375",
       "id": "lib_siteconf_getrecipes",
-      "community": 48,
+      "community": 22,
       "norm_label": "getrecipes()"
     },
     {
@@ -8842,7 +8842,7 @@
       "source_location": "L1",
       "confidence": "EXTRACTED",
       "id": "src_lib_navactive_js",
-      "community": 25,
+      "community": 96,
       "norm_label": "$lib/navactive.js"
     },
     {
@@ -8851,7 +8851,7 @@
       "source_file": "src/lib/navActive.js",
       "source_location": "L6",
       "id": "lib_navactive_navlinkactive",
-      "community": 25,
+      "community": 96,
       "norm_label": "navlinkactive()"
     },
     {
@@ -8860,7 +8860,7 @@
       "source_file": "src/lib/navActive.js",
       "source_location": "L21",
       "id": "lib_navactive_navsubgroupactive",
-      "community": 25,
+      "community": 96,
       "norm_label": "navsubgroupactive()"
     },
     {
@@ -8870,7 +8870,7 @@
       "source_location": "L1",
       "confidence": "EXTRACTED",
       "id": "src_lib_masonry_js",
-      "community": 20,
+      "community": 16,
       "norm_label": "$lib/masonry.js"
     },
     {
@@ -8879,7 +8879,7 @@
       "source_file": "src/lib/masonry.js",
       "source_location": "L12",
       "id": "lib_masonry_masonryitem",
-      "community": 20,
+      "community": 16,
       "norm_label": "masonryitem()"
     },
     {
@@ -9186,7 +9186,7 @@
       "source_file": "src/lib/receptsarok.ts",
       "source_location": "L91",
       "id": "lib_receptsarok_recipe",
-      "community": 48,
+      "community": 18,
       "norm_label": "recipe"
     },
     {
@@ -9195,7 +9195,7 @@
       "source_file": "src/lib/receptsarok.ts",
       "source_location": "L129",
       "id": "lib_receptsarok_recipeteaser",
-      "community": 18,
+      "community": 12,
       "norm_label": "recipeteaser"
     },
     {
@@ -9213,7 +9213,7 @@
       "source_file": "src/lib/receptsarok.ts",
       "source_location": "L154",
       "id": "lib_receptsarok_category",
-      "community": 18,
+      "community": 12,
       "norm_label": "category"
     },
     {
@@ -9276,7 +9276,7 @@
       "source_file": "src/lib/receptsarok.ts",
       "source_location": "L210",
       "id": "lib_receptsarok_striprecipegatedfields",
-      "community": 18,
+      "community": 12,
       "norm_label": "striprecipegatedfields()"
     },
     {
@@ -9835,7 +9835,7 @@
       "source_file": "src/lib/receptsarokAccess.ts",
       "source_location": "L1",
       "id": "src_lib_receptsarokaccess_ts",
-      "community": 22,
+      "community": 73,
       "norm_label": "receptsarokaccess.ts"
     },
     {
@@ -9844,7 +9844,7 @@
       "source_file": "src/lib/receptsarokAccess.ts",
       "source_location": "L9",
       "id": "lib_receptsarokaccess_isreceptsaroktrialactive",
-      "community": 22,
+      "community": 73,
       "norm_label": "isreceptsaroktrialactive()"
     },
     {
@@ -9862,7 +9862,7 @@
       "source_file": "src/lib/receptsarokAccess.ts",
       "source_location": "L21",
       "id": "lib_receptsarokaccess_hasreceptsarokaccessfromsubscription",
-      "community": 22,
+      "community": 73,
       "norm_label": "hasreceptsarokaccessfromsubscription()"
     },
     {
@@ -9961,7 +9961,7 @@
       "source_file": "src/lib/receptsarokFirestore.ts",
       "source_location": "L81",
       "id": "lib_receptsarokfirestore_buildreceptsarokhome",
-      "community": 18,
+      "community": 22,
       "norm_label": "buildreceptsarokhome()"
     },
     {
@@ -10141,7 +10141,7 @@
       "source_file": "src/lib/modxToRsParser.js",
       "source_location": "L29",
       "id": "lib_modxtorsparser_normalizetext",
-      "community": 26,
+      "community": 78,
       "norm_label": "normalizetext()"
     },
     {
@@ -10150,7 +10150,7 @@
       "source_file": "src/lib/modxToRsParser.js",
       "source_location": "L38",
       "id": "lib_modxtorsparser_isdescriptionauthorcompatible",
-      "community": 26,
+      "community": 78,
       "norm_label": "isdescriptionauthorcompatible()"
     },
     {
@@ -10168,7 +10168,7 @@
       "source_file": "src/lib/modxToRsParser.js",
       "source_location": "L55",
       "id": "lib_modxtorsparser_parseissuecodeyear",
-      "community": 28,
+      "community": 135,
       "norm_label": "parseissuecodeyear()"
     },
     {
@@ -10177,7 +10177,7 @@
       "source_file": "src/lib/modxToRsParser.js",
       "source_location": "L73",
       "id": "lib_modxtorsparser_parseyearfrommagazinpath",
-      "community": 28,
+      "community": 135,
       "norm_label": "parseyearfrommagazinpath()"
     },
     {
@@ -10186,7 +10186,7 @@
       "source_file": "src/lib/modxToRsParser.js",
       "source_location": "L94",
       "id": "lib_modxtorsparser_parsevalidyear",
-      "community": 28,
+      "community": 135,
       "norm_label": "parsevalidyear()"
     },
     {
@@ -10204,7 +10204,7 @@
       "source_file": "src/lib/modxToRsParser.js",
       "source_location": "L125",
       "id": "lib_modxtorsparser_parseyearfromiso",
-      "community": 28,
+      "community": 135,
       "norm_label": "parseyearfromiso()"
     },
     {
@@ -10213,7 +10213,7 @@
       "source_file": "src/lib/modxToRsParser.js",
       "source_location": "L131",
       "id": "lib_modxtorsparser_deriveyear",
-      "community": 28,
+      "community": 135,
       "norm_label": "deriveyear()"
     },
     {
@@ -10366,7 +10366,7 @@
       "source_file": "src/lib/modxToRsParser.js",
       "source_location": "L562",
       "id": "lib_modxtorsparser_uniquebynormalized",
-      "community": 26,
+      "community": 75,
       "norm_label": "uniquebynormalized()"
     },
     {
@@ -10393,7 +10393,7 @@
       "source_file": "src/lib/modxToRsParser.js",
       "source_location": "L635",
       "id": "lib_modxtorsparser_htmltotextlines",
-      "community": 26,
+      "community": 82,
       "norm_label": "htmltotextlines()"
     },
     {
@@ -10411,7 +10411,7 @@
       "source_file": "src/lib/modxToRsParser.js",
       "source_location": "L660",
       "id": "lib_modxtorsparser_parsevideoobject",
-      "community": 75,
+      "community": 82,
       "norm_label": "parsevideoobject()"
     },
     {
@@ -10429,7 +10429,7 @@
       "source_file": "src/lib/modxToRsParser.js",
       "source_location": "L694",
       "id": "lib_modxtorsparser_cardimgfromsrc",
-      "community": 75,
+      "community": 82,
       "norm_label": "cardimgfromsrc()"
     },
     {
@@ -10456,7 +10456,7 @@
       "source_file": "src/lib/modxToRsParser.js",
       "source_location": "L740",
       "id": "lib_modxtorsparser_derivesearchterms",
-      "community": 26,
+      "community": 75,
       "norm_label": "derivesearchterms()"
     },
     {
@@ -10537,7 +10537,7 @@
       "source_file": "src/lib/modxToRsParser.js",
       "source_location": "L1024",
       "id": "lib_modxtorsparser_idslugfromrecipetitle",
-      "community": 26,
+      "community": 75,
       "norm_label": "idslugfromrecipetitle()"
     },
     {
@@ -10889,7 +10889,7 @@
       "source_file": "src/lib/modx/collections.ts",
       "source_location": "L12",
       "id": "modx_collections_collectionqueries",
-      "community": 100,
+      "community": 79,
       "norm_label": "collectionqueries"
     },
     {
@@ -11348,7 +11348,7 @@
       "source_file": "$app/environment",
       "confidence": "EXTRACTED",
       "id": "environment",
-      "community": 73,
+      "community": 20,
       "norm_label": "$app/environment"
     },
     {
@@ -11547,7 +11547,7 @@
       "source_location": "L1",
       "confidence": "EXTRACTED",
       "id": "src_lib_components_search_svelte",
-      "community": 96,
+      "community": 20,
       "norm_label": "$lib/components/search.svelte"
     },
     {
@@ -11838,7 +11838,7 @@
       "source_file": "src/lib/magazine/firestore.ts",
       "source_location": "L85",
       "id": "magazine_firestore_getsearchmeta",
-      "community": 79,
+      "community": 134,
       "norm_label": "getsearchmeta()"
     },
     {
@@ -11946,7 +11946,7 @@
       "source_file": "src/lib/magazine/searchIndexUrl.ts",
       "source_location": "L1",
       "id": "src_lib_magazine_searchindexurl_ts",
-      "community": 79,
+      "community": 134,
       "norm_label": "searchindexurl.ts"
     },
     {
@@ -11955,7 +11955,7 @@
       "source_file": "src/lib/magazine/searchIndexUrl.ts",
       "source_location": "L6",
       "id": "magazine_searchindexurl_resolvesearchindexurl",
-      "community": 79,
+      "community": 134,
       "norm_label": "resolvesearchindexurl()"
     },
     {
@@ -12279,7 +12279,7 @@
       "source_file": "src/routes/$types",
       "confidence": "EXTRACTED",
       "id": "users_vhollo_public_google_webdev_diabetes_magazin_src_routes_types",
-      "community": 20,
+      "community": 86,
       "norm_label": "./$types"
     },
     {
@@ -12810,7 +12810,7 @@
       "source_file": "src/routes/api/search-index/+server.ts",
       "source_location": "L1",
       "id": "src_routes_api_search_index_server_ts",
-      "community": 79,
+      "community": 134,
       "norm_label": "+server.ts"
     },
     {
@@ -12819,7 +12819,7 @@
       "source_file": "src/routes/api/search-index/+server.ts",
       "source_location": "L8",
       "id": "search_index_server_get",
-      "community": 79,
+      "community": 134,
       "norm_label": "get()"
     },
     {
@@ -12873,7 +12873,7 @@
       "source_file": "src/routes/api/search-meta/+server.ts",
       "source_location": "L1",
       "id": "src_routes_api_search_meta_server_ts",
-      "community": 79,
+      "community": 134,
       "norm_label": "+server.ts"
     },
     {
@@ -12882,7 +12882,7 @@
       "source_file": "src/routes/api/search-meta/+server.ts",
       "source_location": "L8",
       "id": "search_meta_server_get",
-      "community": 79,
+      "community": 134,
       "norm_label": "get()"
     },
     {
@@ -12945,7 +12945,7 @@
       "source_file": "src/routes/kviz/$types",
       "confidence": "EXTRACTED",
       "id": "users_vhollo_public_google_webdev_diabetes_magazin_src_routes_kviz_types",
-      "community": 73,
+      "community": 23,
       "norm_label": "./$types"
     },
     {
@@ -16563,7 +16563,7 @@
       "source_file": "AGENTS.md",
       "source_location": "L188",
       "id": "magazin_agents_home_route",
-      "community": 125,
+      "community": 45,
       "norm_label": "home route (`/`)"
     },
     {
@@ -16572,7 +16572,7 @@
       "source_file": "AGENTS.md",
       "source_location": "L195",
       "id": "magazin_agents_server_side_logic_page_server_ts",
-      "community": 125,
+      "community": 45,
       "norm_label": "server-side logic (`+page.server.ts`)"
     },
     {
@@ -16581,7 +16581,7 @@
       "source_file": "AGENTS.md",
       "source_location": "L203",
       "id": "magazin_agents_expert_picks_expertcards",
-      "community": 125,
+      "community": 45,
       "norm_label": "expert picks (`expertcards`)"
     },
     {
@@ -16590,7 +16590,7 @@
       "source_file": "AGENTS.md",
       "source_location": "L215",
       "id": "magazin_agents_client_side_logic_page_svelte",
-      "community": 125,
+      "community": 45,
       "norm_label": "client-side logic (`+page.svelte`)"
     },
     {
@@ -16599,7 +16599,7 @@
       "source_file": "AGENTS.md",
       "source_location": "L245",
       "id": "magazin_agents_quiz_routes_kviz",
-      "community": 91,
+      "community": 126,
       "norm_label": "quiz routes (`/kviz`)"
     },
     {
@@ -16608,7 +16608,7 @@
       "source_file": "AGENTS.md",
       "source_location": "L256",
       "id": "magazin_agents_quiz_list_route_kviz",
-      "community": 91,
+      "community": 126,
       "norm_label": "quiz list route (`/kviz`)"
     },
     {
@@ -16617,7 +16617,7 @@
       "source_file": "AGENTS.md",
       "source_location": "L258",
       "id": "magazin_agents_layout_server_layout_server_ts",
-      "community": 91,
+      "community": 126,
       "norm_label": "layout server (`+layout.server.ts`)"
     },
     {
@@ -16626,7 +16626,7 @@
       "source_file": "AGENTS.md",
       "source_location": "L263",
       "id": "magazin_agents_data_freshness_getkviz_in_src_lib_siteconf_ts",
-      "community": 91,
+      "community": 126,
       "norm_label": "data freshness (`getkviz()` in `src/lib/siteconf.ts`)"
     },
     {
@@ -16635,7 +16635,7 @@
       "source_file": "AGENTS.md",
       "source_location": "L270",
       "id": "magazin_agents_max_score_calculation_getkviz_in_src_lib_siteconf_ts",
-      "community": 91,
+      "community": 126,
       "norm_label": "max score calculation (`getkviz()` in `src/lib/siteconf.ts`)"
     },
     {
@@ -16644,7 +16644,7 @@
       "source_file": "AGENTS.md",
       "source_location": "L281",
       "id": "magazin_agents_page_load_page_ts",
-      "community": 91,
+      "community": 126,
       "norm_label": "page load (`+page.ts`)"
     },
     {
@@ -16653,7 +16653,7 @@
       "source_file": "AGENTS.md",
       "source_location": "L292",
       "id": "magazin_agents_page_component_page_svelte",
-      "community": 91,
+      "community": 126,
       "norm_label": "page component (`+page.svelte`)"
     },
     {
@@ -16662,7 +16662,7 @@
       "source_file": "AGENTS.md",
       "source_location": "L310",
       "id": "magazin_agents_quiz_form_route_kviz_form",
-      "community": 91,
+      "community": 126,
       "norm_label": "quiz form route (`/kviz/form`)"
     },
     {
@@ -16671,7 +16671,7 @@
       "source_file": "AGENTS.md",
       "source_location": "L312",
       "id": "magazin_agents_server_action_page_server_ts",
-      "community": 91,
+      "community": 126,
       "norm_label": "server action (`+page.server.ts`)"
     },
     {
@@ -16702,10 +16702,19 @@
       "norm_label": "page component (`+page.svelte`)"
     },
     {
+      "label": "Leaderboard Route (`/kviz/tabella`)",
+      "file_type": "document",
+      "source_file": "AGENTS.md",
+      "source_location": "L373",
+      "id": "magazin_agents_leaderboard_route_kviz_tabella",
+      "community": 126,
+      "norm_label": "leaderboard route (`/kviz/tabella`)"
+    },
+    {
       "label": "Search Route (`/keres`)",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L375",
+      "source_location": "L385",
       "id": "magazin_agents_search_route_keres",
       "community": 102,
       "norm_label": "search route (`/keres`)"
@@ -16714,8 +16723,8 @@
       "label": "Layout Server (`+layout.server.ts`)",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L382",
-      "id": "magazin_agents_layout_server_layout_server_ts_382",
+      "source_location": "L392",
+      "id": "magazin_agents_layout_server_layout_server_ts_392",
       "community": 102,
       "norm_label": "layout server (`+layout.server.ts`)"
     },
@@ -16723,7 +16732,7 @@
       "label": "Search index (client-side)",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L389",
+      "source_location": "L399",
       "id": "magazin_agents_search_index_client_side",
       "community": 102,
       "norm_label": "search index (client-side)"
@@ -16732,8 +16741,8 @@
       "label": "Page Component (`+page.svelte`)",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L396",
-      "id": "magazin_agents_page_component_page_svelte_396",
+      "source_location": "L406",
+      "id": "magazin_agents_page_component_page_svelte_406",
       "community": 102,
       "norm_label": "page component (`+page.svelte`)"
     },
@@ -16741,98 +16750,98 @@
       "label": "Pharmacy Route (`/patika`)",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L405",
+      "source_location": "L415",
       "id": "magazin_agents_pharmacy_route_patika",
-      "community": 128,
+      "community": 102,
       "norm_label": "pharmacy route (`/patika`)"
     },
     {
       "label": "Layout Server (`+layout.server.ts`)",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L411",
-      "id": "magazin_agents_layout_server_layout_server_ts_411",
-      "community": 128,
+      "source_location": "L421",
+      "id": "magazin_agents_layout_server_layout_server_ts_421",
+      "community": 102,
       "norm_label": "layout server (`+layout.server.ts`)"
     },
     {
       "label": "Page Component (`+page.svelte`)",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L418",
-      "id": "magazin_agents_page_component_page_svelte_418",
-      "community": 128,
+      "source_location": "L428",
+      "id": "magazin_agents_page_component_page_svelte_428",
+      "community": 102,
       "norm_label": "page component (`+page.svelte`)"
     },
     {
       "label": "Subscription Route (`/elofizetes`)",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L438",
+      "source_location": "L448",
       "id": "magazin_agents_subscription_route_elofizetes",
-      "community": 130,
+      "community": 102,
       "norm_label": "subscription route (`/elofizetes`)"
     },
     {
       "label": "Page Component (`+page.svelte`)",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L443",
-      "id": "magazin_agents_page_component_page_svelte_443",
-      "community": 130,
+      "source_location": "L453",
+      "id": "magazin_agents_page_component_page_svelte_453",
+      "community": 102,
       "norm_label": "page component (`+page.svelte`)"
     },
     {
       "label": "Newsletter Route (`/hirlevel`)",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L466",
+      "source_location": "L476",
       "id": "magazin_agents_newsletter_route_hirlevel",
-      "community": 80,
+      "community": 129,
       "norm_label": "newsletter route (`/hirlevel`)"
     },
     {
       "label": "Netlify Forms wiring (same indirection as `/kviz`)",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L476",
+      "source_location": "L486",
       "id": "magazin_agents_netlify_forms_wiring_same_indirection_as_kviz",
-      "community": 80,
+      "community": 129,
       "norm_label": "netlify forms wiring (same indirection as `/kviz`)"
     },
     {
       "label": "Server action (`+page.server.ts`)",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L481",
-      "id": "magazin_agents_server_action_page_server_ts_481",
-      "community": 80,
+      "source_location": "L491",
+      "id": "magazin_agents_server_action_page_server_ts_491",
+      "community": 129,
       "norm_label": "server action (`+page.server.ts`)"
     },
     {
       "label": "Page component (`+page.svelte`)",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L487",
-      "id": "magazin_agents_page_component_page_svelte_487",
-      "community": 80,
+      "source_location": "L497",
+      "id": "magazin_agents_page_component_page_svelte_497",
+      "community": 129,
       "norm_label": "page component (`+page.svelte`)"
     },
     {
       "label": "Dynamic Content Routes (`/[...path]`)",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L496",
+      "source_location": "L506",
       "id": "magazin_agents_dynamic_content_routes_path",
-      "community": 80,
+      "community": 128,
       "norm_label": "dynamic content routes (`/[...path]`)"
     },
     {
       "label": "Layout Server (`+layout.server.ts`)",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L503",
-      "id": "magazin_agents_layout_server_layout_server_ts_503",
+      "source_location": "L513",
+      "id": "magazin_agents_layout_server_layout_server_ts_513",
       "community": 80,
       "norm_label": "layout server (`+layout.server.ts`)"
     },
@@ -16840,7 +16849,7 @@
       "label": "Collection slugs (precomputed at sync time)",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L511",
+      "source_location": "L521",
       "id": "magazin_agents_collection_slugs_precomputed_at_sync_time",
       "community": 80,
       "norm_label": "collection slugs (precomputed at sync time)"
@@ -16849,7 +16858,7 @@
       "label": "Individual document routes",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L561",
+      "source_location": "L571",
       "id": "magazin_agents_individual_document_routes",
       "community": 80,
       "norm_label": "individual document routes"
@@ -16858,7 +16867,7 @@
       "label": "Related articles",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L569",
+      "source_location": "L579",
       "id": "magazin_agents_related_articles",
       "community": 80,
       "norm_label": "related articles"
@@ -16867,16 +16876,16 @@
       "label": "Page Component (`+page.svelte`)",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L580",
-      "id": "magazin_agents_page_component_page_svelte_580",
-      "community": 80,
+      "source_location": "L590",
+      "id": "magazin_agents_page_component_page_svelte_590",
+      "community": 128,
       "norm_label": "page component (`+page.svelte`)"
     },
     {
       "label": "Authentication Logic",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L609",
+      "source_location": "L619",
       "id": "magazin_agents_authentication_logic",
       "community": 45,
       "norm_label": "authentication logic"
@@ -16885,7 +16894,7 @@
       "label": "Authentication Methods",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L613",
+      "source_location": "L623",
       "id": "magazin_agents_authentication_methods",
       "community": 45,
       "norm_label": "authentication methods"
@@ -16894,7 +16903,7 @@
       "label": "Authentication State",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L626",
+      "source_location": "L636",
       "id": "magazin_agents_authentication_state",
       "community": 45,
       "norm_label": "authentication state"
@@ -16903,7 +16912,7 @@
       "label": "Protected Features",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L632",
+      "source_location": "L642",
       "id": "magazin_agents_protected_features",
       "community": 45,
       "norm_label": "protected features"
@@ -16912,7 +16921,7 @@
       "label": "Logout",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L638",
+      "source_location": "L648",
       "id": "magazin_agents_logout",
       "community": 45,
       "norm_label": "logout"
@@ -16921,7 +16930,7 @@
       "label": "Receptsarok Routes (`/receptsarok`)",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L646",
+      "source_location": "L656",
       "id": "magazin_agents_receptsarok_routes_receptsarok",
       "community": 81,
       "norm_label": "receptsarok routes (`/receptsarok`)"
@@ -16930,7 +16939,7 @@
       "label": "Data Source",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L658",
+      "source_location": "L668",
       "id": "magazin_agents_data_source",
       "community": 81,
       "norm_label": "data source"
@@ -16939,7 +16948,7 @@
       "label": "Recipe data pipeline (`recipes.json`) \u2014 create-only",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L688",
+      "source_location": "L698",
       "id": "magazin_agents_recipe_data_pipeline_recipes_json_create_only",
       "community": 81,
       "norm_label": "recipe data pipeline (`recipes.json`) \u2014 create-only"
@@ -16948,7 +16957,7 @@
       "label": "Dedupe & sync process (recipes)",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L711",
+      "source_location": "L721",
       "id": "magazin_agents_dedupe_sync_process_recipes",
       "community": 81,
       "norm_label": "dedupe & sync process (recipes)"
@@ -16957,7 +16966,7 @@
       "label": "Magazine \u2192 Receptsarok redirects (storage & processing)",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L721",
+      "source_location": "L731",
       "id": "magazin_agents_magazine_receptsarok_redirects_storage_processing",
       "community": 81,
       "norm_label": "magazine \u2192 receptsarok redirects (storage & processing)"
@@ -16966,7 +16975,7 @@
       "label": "Where redirects are stored",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L725",
+      "source_location": "L735",
       "id": "magazin_agents_where_redirects_are_stored",
       "community": 81,
       "norm_label": "where redirects are stored"
@@ -16975,7 +16984,7 @@
       "label": "Sync-time processing",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L737",
+      "source_location": "L747",
       "id": "magazin_agents_sync_time_processing",
       "community": 81,
       "norm_label": "sync-time processing"
@@ -16984,7 +16993,7 @@
       "label": "Dynamic matching",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L759",
+      "source_location": "L769",
       "id": "magazin_agents_dynamic_matching",
       "community": 81,
       "norm_label": "dynamic matching"
@@ -16993,7 +17002,7 @@
       "label": "No existing match \u2192 sync-create (new recipe)",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L775",
+      "source_location": "L785",
       "id": "magazin_agents_no_existing_match_sync_create_new_recipe",
       "community": 81,
       "norm_label": "no existing match \u2192 sync-create (new recipe)"
@@ -17002,7 +17011,7 @@
       "label": "Runtime request handling",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L785",
+      "source_location": "L795",
       "id": "magazin_agents_runtime_request_handling",
       "community": 81,
       "norm_label": "runtime request handling"
@@ -17011,7 +17020,7 @@
       "label": "Pitfalls & maintenance",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L791",
+      "source_location": "L801",
       "id": "magazin_agents_pitfalls_maintenance",
       "community": 81,
       "norm_label": "pitfalls & maintenance"
@@ -17020,7 +17029,7 @@
       "label": "Paywall / Freemium Model",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L799",
+      "source_location": "L809",
       "id": "magazin_agents_paywall_freemium_model",
       "community": 81,
       "norm_label": "paywall / freemium model"
@@ -17029,7 +17038,7 @@
       "label": "Route Structure",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L809",
+      "source_location": "L819",
       "id": "magazin_agents_route_structure",
       "community": 81,
       "norm_label": "route structure"
@@ -17038,7 +17047,7 @@
       "label": "Components",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L815",
+      "source_location": "L825",
       "id": "magazin_agents_components",
       "community": 81,
       "norm_label": "components"
@@ -17047,7 +17056,7 @@
       "label": "Cross-linking with Magazine",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L824",
+      "source_location": "L834",
       "id": "magazin_agents_cross_linking_with_magazine",
       "community": 81,
       "norm_label": "cross-linking with magazine"
@@ -17056,7 +17065,7 @@
       "label": "Magazine Content Sync (MODX \u2192 Firestore)",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L838",
+      "source_location": "L848",
       "id": "magazin_agents_magazine_content_sync_modx_firestore",
       "community": 45,
       "norm_label": "magazine content sync (modx \u2192 firestore)"
@@ -17065,7 +17074,7 @@
       "label": "Commands",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L846",
+      "source_location": "L856",
       "id": "magazin_agents_commands",
       "community": 45,
       "norm_label": "commands"
@@ -17074,7 +17083,7 @@
       "label": "Agent reminders",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L873",
+      "source_location": "L883",
       "id": "magazin_agents_agent_reminders",
       "community": 45,
       "norm_label": "agent reminders"
@@ -17083,7 +17092,7 @@
       "label": "Data Flow Summary",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L910",
+      "source_location": "L920",
       "id": "magazin_agents_data_flow_summary",
       "community": 45,
       "norm_label": "data flow summary"
@@ -17092,7 +17101,7 @@
       "label": "Key Libraries & Services",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L926",
+      "source_location": "L936",
       "id": "magazin_agents_key_libraries_services",
       "community": 45,
       "norm_label": "key libraries & services"
@@ -17101,7 +17110,7 @@
       "label": "MCP Servers & AI Assistant Integration",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L937",
+      "source_location": "L947",
       "id": "magazin_agents_mcp_servers_ai_assistant_integration",
       "community": 77,
       "norm_label": "mcp servers & ai assistant integration"
@@ -17110,7 +17119,7 @@
       "label": "Available MCP Servers",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L941",
+      "source_location": "L951",
       "id": "magazin_agents_available_mcp_servers",
       "community": 77,
       "norm_label": "available mcp servers"
@@ -17119,7 +17128,7 @@
       "label": "1. Svelte MCP Server (`svelte`)",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L943",
+      "source_location": "L953",
       "id": "magazin_agents_1_svelte_mcp_server_svelte",
       "community": 77,
       "norm_label": "1. svelte mcp server (`svelte`)"
@@ -17128,7 +17137,7 @@
       "label": "2. Firebase MCP Server (`firebase`)",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L974",
+      "source_location": "L984",
       "id": "magazin_agents_2_firebase_mcp_server_firebase",
       "community": 77,
       "norm_label": "2. firebase mcp server (`firebase`)"
@@ -17137,7 +17146,7 @@
       "label": "3. Daisy UI MCP Server (`daisyui`)",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L1006",
+      "source_location": "L1016",
       "id": "magazin_agents_3_daisy_ui_mcp_server_daisyui",
       "community": 77,
       "norm_label": "3. daisy ui mcp server (`daisyui`)"
@@ -17146,7 +17155,7 @@
       "label": "How Agents Use These MCP Servers",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L1041",
+      "source_location": "L1051",
       "id": "magazin_agents_how_agents_use_these_mcp_servers",
       "community": 77,
       "norm_label": "how agents use these mcp servers"
@@ -17155,7 +17164,7 @@
       "label": "Project-Specific MCP Usage Guidelines",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L1051",
+      "source_location": "L1061",
       "id": "magazin_agents_project_specific_mcp_usage_guidelines",
       "community": 77,
       "norm_label": "project-specific mcp usage guidelines"
@@ -17164,7 +17173,7 @@
       "label": "Route Priority",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L1070",
+      "source_location": "L1080",
       "id": "magazin_agents_route_priority",
       "community": 45,
       "norm_label": "route priority"
@@ -17173,10 +17182,91 @@
       "label": "Local dev servers (`.claude/launch.json`)",
       "file_type": "document",
       "source_file": "AGENTS.md",
-      "source_location": "L1080",
+      "source_location": "L1090",
       "id": "magazin_agents_local_dev_servers_claude_launch_json",
       "community": 45,
       "norm_label": "local dev servers (`.claude/launch.json`)"
+    },
+    {
+      "label": "Layout Server (`+layout.server.ts`)",
+      "file_type": "document",
+      "source_file": "AGENTS.md",
+      "source_location": "L382",
+      "community": 102,
+      "norm_label": "layout server (`+layout.server.ts`)",
+      "id": "magazin_agents_layout_server_layout_server_ts_382"
+    },
+    {
+      "label": "Page Component (`+page.svelte`)",
+      "file_type": "document",
+      "source_file": "AGENTS.md",
+      "source_location": "L396",
+      "community": 102,
+      "norm_label": "page component (`+page.svelte`)",
+      "id": "magazin_agents_page_component_page_svelte_396"
+    },
+    {
+      "label": "Layout Server (`+layout.server.ts`)",
+      "file_type": "document",
+      "source_file": "AGENTS.md",
+      "source_location": "L411",
+      "community": 102,
+      "norm_label": "layout server (`+layout.server.ts`)",
+      "id": "magazin_agents_layout_server_layout_server_ts_411"
+    },
+    {
+      "label": "Page Component (`+page.svelte`)",
+      "file_type": "document",
+      "source_file": "AGENTS.md",
+      "source_location": "L418",
+      "community": 102,
+      "norm_label": "page component (`+page.svelte`)",
+      "id": "magazin_agents_page_component_page_svelte_418"
+    },
+    {
+      "label": "Page Component (`+page.svelte`)",
+      "file_type": "document",
+      "source_file": "AGENTS.md",
+      "source_location": "L443",
+      "community": 102,
+      "norm_label": "page component (`+page.svelte`)",
+      "id": "magazin_agents_page_component_page_svelte_443"
+    },
+    {
+      "label": "Server action (`+page.server.ts`)",
+      "file_type": "document",
+      "source_file": "AGENTS.md",
+      "source_location": "L481",
+      "community": 129,
+      "norm_label": "server action (`+page.server.ts`)",
+      "id": "magazin_agents_server_action_page_server_ts_481"
+    },
+    {
+      "label": "Page component (`+page.svelte`)",
+      "file_type": "document",
+      "source_file": "AGENTS.md",
+      "source_location": "L487",
+      "community": 129,
+      "norm_label": "page component (`+page.svelte`)",
+      "id": "magazin_agents_page_component_page_svelte_487"
+    },
+    {
+      "label": "Layout Server (`+layout.server.ts`)",
+      "file_type": "document",
+      "source_file": "AGENTS.md",
+      "source_location": "L503",
+      "community": 80,
+      "norm_label": "layout server (`+layout.server.ts`)",
+      "id": "magazin_agents_layout_server_layout_server_ts_503"
+    },
+    {
+      "label": "Page Component (`+page.svelte`)",
+      "file_type": "document",
+      "source_file": "AGENTS.md",
+      "source_location": "L580",
+      "community": 128,
+      "norm_label": "page component (`+page.svelte`)",
+      "id": "magazin_agents_page_component_page_svelte_580"
     },
     {
       "label": "Page Component (`+page.svelte`)",
@@ -17210,7 +17300,7 @@
       "file_type": "document",
       "source_file": "AGENTS.md",
       "source_location": "L404",
-      "community": 128,
+      "community": 102,
       "norm_label": "layout server (`+layout.server.ts`)",
       "id": "magazin_agents_layout_server_layout_server_ts_404"
     },
@@ -17219,7 +17309,7 @@
       "file_type": "document",
       "source_file": "AGENTS.md",
       "source_location": "L411",
-      "community": 128,
+      "community": 102,
       "norm_label": "page component (`+page.svelte`)",
       "id": "magazin_agents_page_component_page_svelte_411"
     },
@@ -17228,7 +17318,7 @@
       "file_type": "document",
       "source_file": "AGENTS.md",
       "source_location": "L436",
-      "community": 130,
+      "community": 102,
       "norm_label": "page component (`+page.svelte`)",
       "id": "magazin_agents_page_component_page_svelte_436"
     },
@@ -17237,7 +17327,7 @@
       "file_type": "document",
       "source_file": "AGENTS.md",
       "source_location": "L474",
-      "community": 80,
+      "community": 129,
       "norm_label": "server action (`+page.server.ts`)",
       "id": "magazin_agents_server_action_page_server_ts_474"
     },
@@ -17246,7 +17336,7 @@
       "file_type": "document",
       "source_file": "AGENTS.md",
       "source_location": "L480",
-      "community": 80,
+      "community": 129,
       "norm_label": "page component (`+page.svelte`)",
       "id": "magazin_agents_page_component_page_svelte_480"
     },
@@ -17264,7 +17354,7 @@
       "file_type": "document",
       "source_file": "AGENTS.md",
       "source_location": "L573",
-      "community": 80,
+      "community": 128,
       "norm_label": "page component (`+page.svelte`)",
       "id": "magazin_agents_page_component_page_svelte_573"
     },
@@ -17282,7 +17372,7 @@
       "file_type": "document",
       "source_file": "AGENTS.md",
       "source_location": "L572",
-      "community": 80,
+      "community": 128,
       "norm_label": "page component (`+page.svelte`)",
       "id": "magazin_agents_page_component_page_svelte_572"
     },
@@ -17300,7 +17390,7 @@
       "file_type": "document",
       "source_file": "AGENTS.md",
       "source_location": "L368",
-      "community": 128,
+      "community": 102,
       "norm_label": "layout server (`+layout.server.ts`)",
       "id": "magazin_agents_layout_server_layout_server_ts_368"
     },
@@ -17318,7 +17408,7 @@
       "file_type": "document",
       "source_file": "AGENTS.md",
       "source_location": "L397",
-      "community": 128,
+      "community": 102,
       "norm_label": "layout server (`+layout.server.ts`)",
       "id": "magazin_agents_layout_server_layout_server_ts_397"
     },
@@ -17327,7 +17417,7 @@
       "file_type": "document",
       "source_file": "AGENTS.md",
       "source_location": "L404",
-      "community": 130,
+      "community": 102,
       "norm_label": "page component (`+page.svelte`)",
       "id": "magazin_agents_page_component_page_svelte_404"
     },
@@ -17336,7 +17426,7 @@
       "file_type": "document",
       "source_file": "AGENTS.md",
       "source_location": "L429",
-      "community": 130,
+      "community": 102,
       "norm_label": "page component (`+page.svelte`)",
       "id": "magazin_agents_page_component_page_svelte_429"
     },
@@ -17345,7 +17435,7 @@
       "file_type": "document",
       "source_file": "AGENTS.md",
       "source_location": "L467",
-      "community": 80,
+      "community": 129,
       "norm_label": "server action (`+page.server.ts`)",
       "id": "magazin_agents_server_action_page_server_ts_467"
     },
@@ -17354,7 +17444,7 @@
       "file_type": "document",
       "source_file": "AGENTS.md",
       "source_location": "L473",
-      "community": 80,
+      "community": 129,
       "norm_label": "page component (`+page.svelte`)",
       "id": "magazin_agents_page_component_page_svelte_473"
     },
@@ -17372,7 +17462,7 @@
       "file_type": "document",
       "source_file": "AGENTS.md",
       "source_location": "L565",
-      "community": 80,
+      "community": 128,
       "norm_label": "page component (`+page.svelte`)",
       "id": "magazin_agents_page_component_page_svelte_565"
     },
@@ -17408,7 +17498,7 @@
       "file_type": "document",
       "source_file": "AGENTS.md",
       "source_location": "L373",
-      "community": 128,
+      "community": 102,
       "norm_label": "layout server (`+layout.server.ts`)",
       "id": "magazin_agents_layout_server_layout_server_ts_373"
     },
@@ -17417,7 +17507,7 @@
       "file_type": "document",
       "source_file": "AGENTS.md",
       "source_location": "L380",
-      "community": 128,
+      "community": 102,
       "norm_label": "page component (`+page.svelte`)",
       "id": "magazin_agents_page_component_page_svelte_380"
     },
@@ -17426,7 +17516,7 @@
       "file_type": "document",
       "source_file": "AGENTS.md",
       "source_location": "L405",
-      "community": 130,
+      "community": 102,
       "norm_label": "page component (`+page.svelte`)",
       "id": "magazin_agents_page_component_page_svelte_405"
     },
@@ -17435,7 +17525,7 @@
       "file_type": "document",
       "source_file": "AGENTS.md",
       "source_location": "L443",
-      "community": 80,
+      "community": 129,
       "norm_label": "server action (`+page.server.ts`)",
       "id": "magazin_agents_server_action_page_server_ts_443"
     },
@@ -17444,7 +17534,7 @@
       "file_type": "document",
       "source_file": "AGENTS.md",
       "source_location": "L449",
-      "community": 80,
+      "community": 129,
       "norm_label": "page component (`+page.svelte`)",
       "id": "magazin_agents_page_component_page_svelte_449"
     },
@@ -17462,7 +17552,7 @@
       "file_type": "document",
       "source_file": "AGENTS.md",
       "source_location": "L541",
-      "community": 80,
+      "community": 128,
       "norm_label": "page component (`+page.svelte`)",
       "id": "magazin_agents_page_component_page_svelte_541"
     },
@@ -17480,7 +17570,7 @@
       "file_type": "document",
       "source_file": "AGENTS.md",
       "source_location": "L440",
-      "community": 80,
+      "community": 129,
       "norm_label": "server action (`+page.server.ts`)",
       "id": "magazin_agents_server_action_page_server_ts_440"
     },
@@ -17489,7 +17579,7 @@
       "file_type": "document",
       "source_file": "AGENTS.md",
       "source_location": "L446",
-      "community": 80,
+      "community": 129,
       "norm_label": "page component (`+page.svelte`)",
       "id": "magazin_agents_page_component_page_svelte_446"
     },
@@ -17507,7 +17597,7 @@
       "file_type": "document",
       "source_file": "AGENTS.md",
       "source_location": "L538",
-      "community": 80,
+      "community": 128,
       "norm_label": "page component (`+page.svelte`)",
       "id": "magazin_agents_page_component_page_svelte_538"
     },
@@ -17543,7 +17633,7 @@
       "file_type": "document",
       "source_file": "AGENTS.md",
       "source_location": "L372",
-      "community": 128,
+      "community": 102,
       "norm_label": "layout server (`+layout.server.ts`)",
       "id": "magazin_agents_layout_server_layout_server_ts_372"
     },
@@ -17552,7 +17642,7 @@
       "file_type": "document",
       "source_file": "AGENTS.md",
       "source_location": "L379",
-      "community": 128,
+      "community": 102,
       "norm_label": "page component (`+page.svelte`)",
       "id": "magazin_agents_page_component_page_svelte_379"
     },
@@ -17570,7 +17660,7 @@
       "file_type": "document",
       "source_file": "AGENTS.md",
       "source_location": "L508",
-      "community": 80,
+      "community": 128,
       "norm_label": "page component (`+page.svelte`)",
       "id": "magazin_agents_page_component_page_svelte_508"
     },
@@ -17615,7 +17705,7 @@
       "file_type": "document",
       "source_file": "AGENTS.md",
       "source_location": "L375",
-      "community": 128,
+      "community": 102,
       "norm_label": "page component (`+page.svelte`)",
       "id": "magazin_agents_page_component_page_svelte_375"
     },
@@ -17624,7 +17714,7 @@
       "file_type": "document",
       "source_file": "AGENTS.md",
       "source_location": "L400",
-      "community": 130,
+      "community": 102,
       "norm_label": "page component (`+page.svelte`)",
       "id": "magazin_agents_page_component_page_svelte_400"
     },
@@ -17642,7 +17732,7 @@
       "file_type": "document",
       "source_file": "AGENTS.md",
       "source_location": "L504",
-      "community": 80,
+      "community": 128,
       "norm_label": "page component (`+page.svelte`)",
       "id": "magazin_agents_page_component_page_svelte_504"
     },
@@ -17678,7 +17768,7 @@
       "file_type": "document",
       "source_file": "AGENTS.md",
       "source_location": "L355",
-      "community": 128,
+      "community": 102,
       "norm_label": "layout server (`+layout.server.ts`)",
       "id": "magazin_agents_layout_server_layout_server_ts_355"
     },
@@ -17687,7 +17777,7 @@
       "file_type": "document",
       "source_file": "AGENTS.md",
       "source_location": "L362",
-      "community": 128,
+      "community": 102,
       "norm_label": "page component (`+page.svelte`)",
       "id": "magazin_agents_page_component_page_svelte_362"
     },
@@ -17696,7 +17786,7 @@
       "file_type": "document",
       "source_file": "AGENTS.md",
       "source_location": "L387",
-      "community": 130,
+      "community": 102,
       "norm_label": "page component (`+page.svelte`)",
       "id": "magazin_agents_page_component_page_svelte_387"
     },
@@ -17714,7 +17804,7 @@
       "file_type": "document",
       "source_file": "AGENTS.md",
       "source_location": "L491",
-      "community": 80,
+      "community": 128,
       "norm_label": "page component (`+page.svelte`)",
       "id": "magazin_agents_page_component_page_svelte_491"
     },
@@ -17732,7 +17822,7 @@
       "file_type": "code",
       "source_file": "scripts/backfill-junior-magazine-fields.mjs",
       "source_location": "L30",
-      "community": 41,
+      "community": 1,
       "norm_label": "env()",
       "id": "scripts_backfill_junior_magazine_fields_env"
     },
@@ -17741,7 +17831,7 @@
       "file_type": "code",
       "source_file": "scripts/backfill-junior-magazine-fields.mjs",
       "source_location": "L30",
-      "community": 41,
+      "community": 1,
       "norm_label": "with_titles",
       "id": "scripts_backfill_junior_magazine_fields_with_titles"
     },
@@ -17750,7 +17840,7 @@
       "file_type": "document",
       "source_file": "AGENTS.md",
       "source_location": "L490",
-      "community": 80,
+      "community": 128,
       "norm_label": "page component (`+page.svelte`)",
       "id": "magazin_agents_page_component_page_svelte_490"
     },
@@ -17777,7 +17867,7 @@
       "file_type": "code",
       "source_file": "src/lib/receptsarokDedupePipeline.js",
       "source_location": "L33",
-      "community": 14,
+      "community": 78,
       "norm_label": "tokenize()",
       "id": "lib_receptsarokdedupepipeline_tokenize"
     },
@@ -17786,7 +17876,7 @@
       "file_type": "code",
       "source_file": "src/lib/receptsarokDedupePipeline.js",
       "source_location": "L37",
-      "community": 14,
+      "community": 78,
       "norm_label": "titlematchscore()",
       "id": "lib_receptsarokdedupepipeline_titlematchscore"
     },
@@ -17795,7 +17885,7 @@
       "file_type": "document",
       "source_file": "AGENTS.md",
       "source_location": "L485",
-      "community": 80,
+      "community": 128,
       "norm_label": "page component (`+page.svelte`)",
       "id": "magazin_agents_page_component_page_svelte_485"
     },
@@ -17813,7 +17903,7 @@
       "file_type": "document",
       "source_file": "AGENTS.md",
       "source_location": "L483",
-      "community": 80,
+      "community": 128,
       "norm_label": "page component (`+page.svelte`)",
       "id": "magazin_agents_page_component_page_svelte_483"
     },
@@ -17939,7 +18029,7 @@
       "file_type": "document",
       "source_file": "AGENTS.md",
       "source_location": "L354",
-      "community": 128,
+      "community": 102,
       "norm_label": "layout server (`+layout.server.ts`)",
       "id": "magazin_agents_layout_server_layout_server_ts_354"
     },
@@ -17948,7 +18038,7 @@
       "file_type": "document",
       "source_file": "AGENTS.md",
       "source_location": "L361",
-      "community": 128,
+      "community": 102,
       "norm_label": "page component (`+page.svelte`)",
       "id": "magazin_agents_page_component_page_svelte_361"
     },
@@ -17957,7 +18047,7 @@
       "file_type": "document",
       "source_file": "AGENTS.md",
       "source_location": "L386",
-      "community": 130,
+      "community": 102,
       "norm_label": "page component (`+page.svelte`)",
       "id": "magazin_agents_page_component_page_svelte_386"
     },
@@ -18002,7 +18092,7 @@
       "file_type": "code",
       "source_file": "src/lib/modxToRsParser.js",
       "source_location": "L30",
-      "community": 26,
+      "community": 82,
       "norm_label": "decodehtmlentities()",
       "id": "lib_modxtorsparser_decodehtmlentities"
     },
@@ -18083,7 +18173,7 @@
       "file_type": "code",
       "source_file": "scripts/sync-modx-to-firestore.mjs",
       "source_location": "L149",
-      "community": 8,
+      "community": 127,
       "norm_label": "queryforcedremovalrow()",
       "id": "scripts_sync_modx_to_firestore_queryforcedremovalrow"
     },
@@ -36326,9 +36416,9 @@
       "source_file": "src/lib/siteConf.ts",
       "source_location": "L150",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_lib_siteconf_ts",
-      "target": "lib_siteconf_fetchkvizfromfirestore",
-      "confidence_score": 1.0
+      "target": "lib_siteconf_fetchkvizfromfirestore"
     },
     {
       "relation": "contains",
@@ -36456,9 +36546,9 @@
       "source_file": "src/lib/siteConf.ts",
       "source_location": "L167",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_lib_siteconf_ts",
-      "target": "lib_siteconf_readkvizsnapshot",
-      "confidence_score": 1.0
+      "target": "lib_siteconf_readkvizsnapshot"
     },
     {
       "relation": "contains",
@@ -36672,9 +36762,9 @@
       "source_file": "src/lib/siteConf.ts",
       "source_location": "L188",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "lib_siteconf_getkviz",
-      "target": "lib_siteconf_fetchkvizfromfirestore",
-      "confidence_score": 1.0
+      "target": "lib_siteconf_fetchkvizfromfirestore"
     },
     {
       "relation": "calls",
@@ -51511,6 +51601,16 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "AGENTS.md",
+      "source_location": "L373",
+      "weight": 1.0,
+      "source": "magazin_agents_quiz_routes_kviz",
+      "target": "magazin_agents_leaderboard_route_kviz_tabella",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "AGENTS.md",
       "source_location": "L253",
       "weight": 1.0,
       "confidence_score": 1.0,
@@ -51533,9 +51633,9 @@
       "source_file": "AGENTS.md",
       "source_location": "L263",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "magazin_agents_quiz_list_route_kviz",
-      "target": "magazin_agents_data_freshness_getkviz_in_src_lib_siteconf_ts",
-      "confidence_score": 1.0
+      "target": "magazin_agents_data_freshness_getkviz_in_src_lib_siteconf_ts"
     },
     {
       "relation": "contains",
@@ -51663,9 +51763,9 @@
       "source_file": "AGENTS.md",
       "source_location": "L334",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "magazin_agents_individual_quiz_route_kviz_id",
-      "target": "magazin_agents_page_component_page_svelte_334",
-      "confidence_score": 1.0
+      "target": "magazin_agents_page_component_page_svelte_334"
     },
     {
       "relation": "contains",
@@ -51753,8 +51853,18 @@
       "source_file": "AGENTS.md",
       "source_location": "L382",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "magazin_agents_search_route_keres",
-      "target": "magazin_agents_layout_server_layout_server_ts_382",
+      "target": "magazin_agents_layout_server_layout_server_ts_382"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "AGENTS.md",
+      "source_location": "L392",
+      "weight": 1.0,
+      "source": "magazin_agents_search_route_keres",
+      "target": "magazin_agents_layout_server_layout_server_ts_392",
       "confidence_score": 1.0
     },
     {
@@ -51833,8 +51943,18 @@
       "source_file": "AGENTS.md",
       "source_location": "L396",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "magazin_agents_search_route_keres",
-      "target": "magazin_agents_page_component_page_svelte_396",
+      "target": "magazin_agents_page_component_page_svelte_396"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "AGENTS.md",
+      "source_location": "L406",
+      "weight": 1.0,
+      "source": "magazin_agents_search_route_keres",
+      "target": "magazin_agents_page_component_page_svelte_406",
       "confidence_score": 1.0
     },
     {
@@ -51923,8 +52043,18 @@
       "source_file": "AGENTS.md",
       "source_location": "L411",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "magazin_agents_pharmacy_route_patika",
-      "target": "magazin_agents_layout_server_layout_server_ts_411",
+      "target": "magazin_agents_layout_server_layout_server_ts_411"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "AGENTS.md",
+      "source_location": "L421",
+      "weight": 1.0,
+      "source": "magazin_agents_pharmacy_route_patika",
+      "target": "magazin_agents_layout_server_layout_server_ts_421",
       "confidence_score": 1.0
     },
     {
@@ -52003,8 +52133,18 @@
       "source_file": "AGENTS.md",
       "source_location": "L418",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "magazin_agents_pharmacy_route_patika",
-      "target": "magazin_agents_page_component_page_svelte_418",
+      "target": "magazin_agents_page_component_page_svelte_418"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "AGENTS.md",
+      "source_location": "L428",
+      "weight": 1.0,
+      "source": "magazin_agents_pharmacy_route_patika",
+      "target": "magazin_agents_page_component_page_svelte_428",
       "confidence_score": 1.0
     },
     {
@@ -52083,8 +52223,18 @@
       "source_file": "AGENTS.md",
       "source_location": "L443",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "magazin_agents_subscription_route_elofizetes",
-      "target": "magazin_agents_page_component_page_svelte_443",
+      "target": "magazin_agents_page_component_page_svelte_443"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "AGENTS.md",
+      "source_location": "L453",
+      "weight": 1.0,
+      "source": "magazin_agents_subscription_route_elofizetes",
+      "target": "magazin_agents_page_component_page_svelte_453",
       "confidence_score": 1.0
     },
     {
@@ -52143,8 +52293,18 @@
       "source_file": "AGENTS.md",
       "source_location": "L487",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "magazin_agents_newsletter_route_hirlevel",
-      "target": "magazin_agents_page_component_page_svelte_487",
+      "target": "magazin_agents_page_component_page_svelte_487"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "AGENTS.md",
+      "source_location": "L497",
+      "weight": 1.0,
+      "source": "magazin_agents_newsletter_route_hirlevel",
+      "target": "magazin_agents_page_component_page_svelte_497",
       "confidence_score": 1.0
     },
     {
@@ -52193,8 +52353,18 @@
       "source_file": "AGENTS.md",
       "source_location": "L481",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "magazin_agents_newsletter_route_hirlevel",
-      "target": "magazin_agents_server_action_page_server_ts_481",
+      "target": "magazin_agents_server_action_page_server_ts_481"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "AGENTS.md",
+      "source_location": "L491",
+      "weight": 1.0,
+      "source": "magazin_agents_newsletter_route_hirlevel",
+      "target": "magazin_agents_server_action_page_server_ts_491",
       "confidence_score": 1.0
     },
     {
@@ -52293,8 +52463,18 @@
       "source_file": "AGENTS.md",
       "source_location": "L503",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "magazin_agents_dynamic_content_routes_path",
-      "target": "magazin_agents_layout_server_layout_server_ts_503",
+      "target": "magazin_agents_layout_server_layout_server_ts_503"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "AGENTS.md",
+      "source_location": "L513",
+      "weight": 1.0,
+      "source": "magazin_agents_dynamic_content_routes_path",
+      "target": "magazin_agents_layout_server_layout_server_ts_513",
       "confidence_score": 1.0
     },
     {
@@ -52423,17 +52603,27 @@
       "source_file": "AGENTS.md",
       "source_location": "L580",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "magazin_agents_dynamic_content_routes_path",
-      "target": "magazin_agents_page_component_page_svelte_580",
+      "target": "magazin_agents_page_component_page_svelte_580"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "AGENTS.md",
+      "source_location": "L590",
+      "weight": 1.0,
+      "source": "magazin_agents_dynamic_content_routes_path",
+      "target": "magazin_agents_page_component_page_svelte_590",
       "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "AGENTS.md",
-      "source_location": "L511",
+      "source_location": "L521",
       "weight": 1.0,
-      "source": "magazin_agents_layout_server_layout_server_ts_503",
+      "source": "magazin_agents_layout_server_layout_server_ts_513",
       "target": "magazin_agents_collection_slugs_precomputed_at_sync_time",
       "confidence_score": 1.0
     },
@@ -52441,9 +52631,9 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "AGENTS.md",
-      "source_location": "L561",
+      "source_location": "L571",
       "weight": 1.0,
-      "source": "magazin_agents_layout_server_layout_server_ts_503",
+      "source": "magazin_agents_layout_server_layout_server_ts_513",
       "target": "magazin_agents_individual_document_routes",
       "confidence_score": 1.0
     },
@@ -52451,9 +52641,9 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "AGENTS.md",
-      "source_location": "L569",
+      "source_location": "L579",
       "weight": 1.0,
-      "source": "magazin_agents_layout_server_layout_server_ts_503",
+      "source": "magazin_agents_layout_server_layout_server_ts_513",
       "target": "magazin_agents_related_articles",
       "confidence_score": 1.0
     },
@@ -52551,6 +52741,16 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "AGENTS.md",
+      "source_location": "L511",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "magazin_agents_layout_server_layout_server_ts_503",
+      "target": "magazin_agents_collection_slugs_precomputed_at_sync_time"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "AGENTS.md",
       "source_location": "L469",
       "weight": 1.0,
       "confidence_score": 1.0,
@@ -52641,6 +52841,16 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "AGENTS.md",
+      "source_location": "L561",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "magazin_agents_layout_server_layout_server_ts_503",
+      "target": "magazin_agents_individual_document_routes"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "AGENTS.md",
       "source_location": "L475",
       "weight": 1.0,
       "confidence_score": 1.0,
@@ -52725,6 +52935,16 @@
       "weight": 1.0,
       "confidence_score": 1.0,
       "source": "magazin_agents_layout_server_layout_server_ts_496",
+      "target": "magazin_agents_related_articles"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "AGENTS.md",
+      "source_location": "L569",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "magazin_agents_layout_server_layout_server_ts_503",
       "target": "magazin_agents_related_articles"
     },
     {
@@ -53055,5 +53275,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "fe0f55fac10a8dfb453206c90d076ea00f025c5a"
+  "built_at_commit": "ce6eb569b32fc49e633cca32c87fe3983abfb6f4"
 }
