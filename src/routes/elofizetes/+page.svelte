@@ -254,8 +254,8 @@
         </h1>
         <p class="max-w-prose opacity-80">
           Egy jó magazin nem sürget és nem riogat: leül veled, és érthetően
-          elmondja, mi történik a szervezetedben — és mit tehetsz érte. Ezt kínálja
-          a Diabetes, 1989 óta.
+          elmondja, mi történik a szervezetedben — és mit tehetsz érte. Ezt
+          kínálja a Diabetes, 1989 óta.
         </p>
       </header>
       <ul class="grid gap-4 sm:grid-cols-3">
@@ -367,7 +367,7 @@
           >Hogyan vehetem igénybe a féláras kedvezményt?</summary
         >
         <div class="px-4 pb-4 text-sm opacity-80">
-          Tegye a kosárba a Diabetes-előfizetést, majd mellé a Hypertonia
+          Tedd a kosárba a Diabetes-előfizetést, majd mellé a Hypertonia
           magazint vagy a különszámokat — ezeket féláron adjuk, legfeljebb 3
           példányig.
         </div>
@@ -378,7 +378,7 @@
         >
         <div class="px-4 pb-4 text-sm opacity-80">
           A Diabetes nyomtatott magazin. Emellett a diabetes.hu-n folyamatosan,
-          ingyenesen olvashatja szakértőink cikkeit, a Receptsarok Prémium pedig
+          ingyenesen olvashatod szakértőink cikkeit, a Receptsarok Prémium pedig
           a teljes, 1800 recept fölötti gyűjteményt nyitja meg.
         </div>
       </details>
@@ -387,9 +387,9 @@
           >Kérdésem van a megrendelésemmel kapcsolatban — kihez fordulhatok?</summary
         >
         <div class="px-4 pb-4 text-sm opacity-80">
-          A kosár „Üzenet a Kiadónak" mezőjében közvetlenül írhat a Tudomány
-          Kiadónak — például ha ajándékba rendel, vagy a kézbesítéssel
-          kapcsolatban van kérése.
+          A kosár „Üzenet a Kiadónak" mezőjében közvetlenül írhatsz a Tudomány
+          Kiadónak — például ha ajándékba rendelsz, vagy a kézbesítéssel
+          kapcsolatban van kérdésed.
         </div>
       </details>
     </div>

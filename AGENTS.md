@@ -447,11 +447,11 @@ Added in the homepage redesign 2026 (F6.1). **Simple Analytics** (cookie-free, n
   - Responsive product grid (4 columns on desktop)
 
 - **Content** (restructured in the homepage redesign 2026, F5):
-  - **Value-proposition hero** above the Shopify embed — same visual language as the home `Hero` (serif display, glucose-curve motif, `bg-base-200` band): kicker + H1 ("A nyomtatott Diabetes magazin — házhoz szállítva", matching the home `SubscribeCTA` heading), empathetic magázó lead, three benefit cards (szakértő szerzők / évente hat lapszám / Hypertonia+különszámok féláron), CTA "Előfizetek" → `#megrendeles` anchor (app.css `*[id]` scroll-margin handles the sticky header)
-  - **`#megrendeles` section** wraps the Shopify collection embed with a "Válassza ki lapszámait" heading + the half-price / max-3 note
+  - **Value-proposition hero** above the Shopify embed — same visual language as the home `Hero` (serif display, glucose-curve motif, `bg-base-200` band): kicker + H1 ("A nyomtatott Diabetes magazin — házhoz szállítva", matching the home `SubscribeCTA` heading), empathetic lead, three benefit cards (szakértő szerzők / évente hat lapszám / Hypertonia+különszámok féláron), CTA "Előfizetek" → `#megrendeles` anchor (app.css `*[id]` scroll-margin handles the sticky header)
+  - **`#megrendeles` section** wraps the Shopify collection embed with a "Válaszd ki lapszámaidat" heading + the half-price / max-3 note
   - **Receptsarok Prémium** pricing cards (unchanged)
   - **GYIK** — five native `<details>` FAQ items (no JS), answers grounded in the actual offer only: lapszám-tartalom, évente 6 postai megjelenés + szállítási költség az árban, féláras kedvezmény menete, nyomtatott vs. digitális (ingyenes cikkek + Receptsarok Prémium cross-sell), kosár "Üzenet a Kiadónak" mező
-  - Copy unified to **magázó** tone (was tegező "Rendeld meg…"), including meta/og descriptions
+  - **All homepage-redesign surfaces use informal (tegező) tone** — Hero, the CTAs, `/hirlevel`, and `/elofizetes` (incl. meta/og descriptions) address the reader with "te", not "Ön"
   - Hungarian language interface
 
 ---
@@ -480,7 +480,8 @@ Added in the homepage redesign 2026 (F4), replacing the old two-line placeholder
 ### Page component (`+page.svelte`)
 
 - **Progressive enhancement**: works without JS (native POST → action re-renders with `form` prop) and with JS (`use:enhance` swaps in the confirmation without reload). Same visual language as the home (serif display, glucose-curve motif, primary/secondary theme).
-- Subscribe/unsubscribe segmented toggle; name (optional) + consent shown only for subscribe; CSS-hidden honeypot (`.hp`, off-screen); success state shows a thank-you/goodbye confirmation.
+- **Subscribe/unsubscribe toggle = daisyUI radio `tabs tabs-box`**: two `<input type="radio" name="muvelet" class="tab">` (values `feliratkozas`/`leiratkozas`, `bind:group={muvelet}`) each followed by a `.tab-content` panel. The **checked radio both reveals its panel (daisyUI CSS) and carries `muvelet` on submit** — so no separate hidden `muvelet` input, and the toggle works without JS. Each panel is the **complete form for its mode** (subscribe: name + email + consent + button; unsubscribe: note + email + button), so the email lives **inside** the box. Because both panels carry a `name="email"` input, the **inactive panel's email + consent are `disabled`** (`disabled={muvelet !== '…'}`): only the active mode's email/consent submit, and a hidden `required` email can't block submission (disabled skips validation). Both email inputs `bind:value={email}` so they stay in sync and prefill either one. The **`nev` input is intentionally NOT disabled** — it's a single, non-`required` field, so leaving it enabled lets the (prefilled) name submit on **unsubscribe too** (matching the pre-tabs behavior). daisyUI's `.tab` is excluded from the global `input {border…}` FORMS rule in `app.css` (`input:not(.tab)`) so `tabs-box` styles correctly. No-JS caveat: the SSR default is `feliratkozas`, so no-JS subscribe works but switching to the (SSR-disabled) unsubscribe panel needs JS — same limitation as the old button toggle. CSS-hidden honeypot (`.hp`, off-screen); success state shows a thank-you/goodbye confirmation.
+- **Auth prefill**: name + email are two-way bound (`bind:value`) to local `nev`/`email`. `email` seeds from the failed-submit echo (`form.email`) so input survives a validation error; a one-shot reactive (`prefilled` guard) fills still-empty fields from `$authUser.displayName`/`$authUser.email` once client-side Firebase auth resolves — never clobbering typed input or the echo, and it also fires if the user logs in while on the page. Fields stay editable.
 - **GDPR consent text is a placeholder pending legal review** (no `adatkezelési tájékoztató` page exists yet — the link was intentionally omitted, see the comment in the consent block).
 
 ---

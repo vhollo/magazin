@@ -1,5 +1,5 @@
 <script>
-  // Home "Böngésszen témák szerint" topic grid (homepage redesign 2026, F3.5) —
+  // Home "Böngéssz témák szerint" topic grid (homepage redesign 2026, F3.5) —
   // visual entry to the nav2 category structure, each card listing its
   // sub-topic links as chips.
   import { nav2 } from "$lib/nav2.js";
@@ -9,7 +9,7 @@
 
 <section class="mx-auto max-w-6xl px-4 py-10 sm:py-14">
   <header class="mb-6">
-    <h2 class="display text-2xl sm:text-3xl">Böngésszen témák szerint</h2>
+    <h2 class="display text-2xl sm:text-3xl">Böngéssz témák szerint</h2>
   </header>
   <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
     {#each categories as [name, subcats] (name)}

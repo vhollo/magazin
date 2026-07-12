@@ -20,7 +20,7 @@
       </h2>
       <p class="max-w-prose opacity-90">
         Minden lapszámunk tele van orvosi és dietetikai tanácsokkal, receptekkel
-        és sorstársak történeteivel — évente hatszor a postaládájában.
+        és sorstársak történeteivel — évente hatszor a postaládádban.
       </p>
     </div>
     <a

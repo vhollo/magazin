@@ -153,8 +153,10 @@ body {
 }
 
 /* FORMS */
-input,
-button,
+/* `.tab` is excluded: daisyUI tab controls manage their own border/padding/radius,
+   and the generic form border breaks the `tabs-box` look (radio tabs on /hirlevel). */
+input:not(.tab),
+button:not(.tab),
 select,
 textarea {
   @apply px-2 border border-primary rounded-sm;

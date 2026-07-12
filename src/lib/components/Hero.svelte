@@ -1,6 +1,6 @@
 <script>
   // Home hero (homepage redesign 2026, F3.1) — replaces the legacy hardcoded
-  // Carousel on `/`. Left: welcome + audience entry points ("Kezdje itt");
+  // Carousel on `/`. Left: welcome + audience entry points ("Kezdd itt");
   // right: the newest expert pick from `collections/home.expertCards`.
   import { trackEvent } from "$lib/analytics";
 
@@ -78,7 +78,7 @@
         <span
           class="mb-2 block text-xs font-semibold tracking-[0.18em] uppercase opacity-60"
         >
-          Kezdje itt:
+          Kezdd itt:
         </span>
         <ul class="flex flex-wrap gap-2">
           {#each entries as entry (entry.href)}
