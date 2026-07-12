@@ -94,7 +94,7 @@
 </script>
 
 <main class="">
-  <article class="prose mt-16 mb-8 w-full mx-auto flex-none">
+  <article class="prose mt-16 mb-8 w-full mx-auto flex-none px-2">
     <h1 class="text-center">DiabKVÍZ</h1>
     <h2 class="text-center">{kviz.title}</h2>
     {#if kviz.image}
@@ -107,7 +107,7 @@
     {/if}
   </article>
   {#if kviz.link}
-    <p class="my-8 text-center"><a href={kviz.link} class="btn btn-outline btn-sm">Kapcsolódó cikk</a></p>
+    <p class="my-8 text-center"><a href={kviz.link} class="btn btn-outline btn-primary border-2 btn-sm">Kapcsolódó cikk</a></p>
   {/if}
 
   <!-- form-name=kviz&id=kviz-0&answer-0=99&score=99 -->
@@ -115,12 +115,12 @@
   {#if !expired}
     <div class="grid xs:grid-cols-2 gap-4 max-w-screen-md mx-auto py-12 px-2">
       {#if $authUser?.displayName}
-        <p class="border border-primary bg-base-200 !h-full w-full p-2">{$authUser.email}</p>
-        <p class="border border-primary bg-base-200 !h-full w-full p-2">{$authUser.displayName}</p>
+        <p class="border-2 border-primary rounded bg-base-200 !h-full w-full p-3">{$authUser.email}</p>
+        <p class="border-2 border-primary rounded bg-base-200 !h-full w-full p-3">{$authUser.displayName}</p>
       {:else}
         <legend class="uppercase pt-8 pb-2">A teszt beküldéséhez ellenőrzött email cím és név szükséges</legend>
-        <button class="btn btn-outline" onclick={(e) => {e.preventDefault(); mod_login.showModal()}}>Megadom</button>
-        <a href="/kviz" class="btn btn-outline">Mégsem</a>
+        <button class="btn btn-primary" onclick={(e) => {e.preventDefault(); mod_login.showModal()}}>Megadom</button>
+        <a href="/kviz" class="btn btn-outline border-2">Mégsem</a>
       {/if}
     </div>
   {/if}
@@ -135,7 +135,7 @@
       {#if q.multi}
         {#each q.options as opt, j}
           <input type="checkbox" id="answer-{i}-{j}" onchange={ (e) => {_mscore((e.target as HTMLInputElement).checked ? opt.score : -(opt.score), i) } }>
-          <label for="answer-{i}-{j}" class="bg-base-100 border-1 border-primary p-2">
+          <label for="answer-{i}-{j}" class="bg-base-100 border-2 border-primary rounded p-3 transition-colors">
             {opt.option}
             {#if q.done}
               <aside class:good={opt.score > 0} class:bad={opt.score <= 0}><small>({opt.score} pont)</small></aside>
@@ -143,7 +143,7 @@
           </label>
         {/each}
         <input id="tovabb-{i}" name="answer-{i}" type="checkbox" required onchange={() => {_score(q.score || 0,i); _scroll(`q-${i}`)}}>
-        <label for="tovabb-{i}" class="bg-outline border-1 border-primary text-center p-2">
+        <label for="tovabb-{i}" class="bg-primary border-2 border-primary rounded text-center p-3 transition-colors">
           <span>Tovább</span>
           {#if q.done}
             <aside class="multi">{q.score || 0} pont</aside>
@@ -152,7 +152,7 @@
       {:else}
         {#each q.options as opt, j}
           <input type="radio" name="answer-{i}" id="answer-{i}-{j}" required onchange={() => {_score(opt.score,i); _scroll(`q-${i}`)}}>
-          <label for="answer-{i}-{j}" class="bg-base-100 border-1 border-primary p-2" class:good={opt.score > 0}>
+          <label for="answer-{i}-{j}" class="bg-base-100 border-2 border-primary rounded p-3 transition-colors" class:good={opt.score > 0}>
             {opt.option}
             {#if q.done}
               <aside class:good={opt.score > 0} class:bad={opt.score <= 0}>
@@ -184,7 +184,7 @@
         <p>Beküldött pontjaiddal ({scoreSent} / {kviz.max_score} pont) azonos eredményt értél el.</p>
         {/if}
       {/if}
-      <a href="/kviz" class="btn btn-outline mt-8">Tovább</a>
+      <a href="/kviz" class="btn btn-outline btn-primary border-2 mt-8">Tovább</a>
       <input id="submit" type="submit" value="Küldés" hidden class="hidden:true;" bind:this={submitBtn}>
     </fieldset>
     <input type="hidden" name="form-name" value="kviz">
@@ -193,7 +193,7 @@
 
 </main>
 <footer class="bg-base-200 text-base-content py-2">
-  <p class="text-center">Pontszám: <span class="badge badge-primary">{score} / {kviz.max_score} pont</span></p>
+  <p class="text-center font-medium">Pontszám: <span class="badge badge-primary badge-lg font-semibold">{score} / {kviz.max_score} pont</span></p>
 </footer>
 
 <Search articles={data.articleCount} recipes={data.recipeCount} />
@@ -263,6 +263,14 @@ input:checked + label:has(.bad) {
 	background-color: var(--color-error);
 	border-color: var(--color-error);
 }
+
+/* Gentle hover cue on the still-answerable options of the current question.
+   Scoped to the active (not-yet-valid) fieldset and non-checked labels, so it
+   never touches answered questions or the CSS-only reveal. */
+fieldset:not(:has(input:required:valid)) input:not(:checked) + label:hover {
+	border-color: var(--color-secondary);
+	background-color: var(--color-base-200);
+}
 /* input:checked + label.border-primary {
 	background-color: var(--color-primary);
 } */
@@ -290,8 +298,8 @@ footer {
 	bottom: -1px;
 	/* padding: var(--gutter) var(--gutter) var(--gutter2);
 	margin-top: var(--spacer); */
-	border-top: 1px solid var(--color-primary);
-	border-bottom: 1px solid var(--color-primary);
+	border-top: 2px solid var(--color-primary);
+	border-bottom: 2px solid var(--color-primary);
 	/* background-color: #00000080; */
 	/* backdrop-filter: blur(4px); */
 }

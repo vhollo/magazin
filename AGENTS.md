@@ -296,12 +296,13 @@ Added in the homepage redesign 2026 (F6.1). **Simple Analytics** (cookie-free, n
   - Shows quiz title, description (markdown parsed), and expiration date
   - Displays user's score if available
 
-- **Quiz Status Indicators**:
-  - **Expired** (at end of expiration day): Warning color, "Megtekintés" (View) button, shows score if exists
+- **Quiz Status Indicators** (color-coded per quiz — status badge + left accent stripe `border-l-4` + colored date/action, keyed to three states):
+  - **Expired** (at end of expiration day): Warning color, "Lejárt" badge, eye "Megtekintés" (View) button, shows score if exists
     - Retaking expired quizzes does NOT submit or record new scores
-  - **Completed** (score exists): Primary color, "Kitöltés újra" (Retake) button, shows score if exists
+  - **Completed** (score exists): Primary color, "Kitöltve" badge, "Kitöltés újra" (Retake) button, shows score if exists
     - Retaking completed quizzes does NOT submit or record new scores (only first submission is recorded)
-  - **Available**: Accent color, "Beküldés" (Submit) button
+  - **Available**: Accent color, "Kitölthető" badge, "Kitöltés" (play) button
+  - Layout kept as the original 3-column row (title `col-span-3`, then date | description | action) — no images/card grid. Action buttons use `border-2` outline; date is `font-medium tabular-nums`. Each `{#each}` is keyed by `kviz.id`.
 
 - **Reactive Updates**:
   - Subscribes to `uid` store changes
@@ -347,6 +348,8 @@ Added in the homepage redesign 2026 (F6.1). **Simple Analytics** (cookie-free, n
   - **Score Calculation**: Numeric values add to or substract from total score
   - Questions hidden until previous is answered (CSS-based)
 
+- **⚠️ CSS-only progressive reveal (do not disturb)**: the one-question-at-a-time flow, the answer selection/feedback coloring, and the read-only state after answering are driven entirely by CSS in the `<style>` block — `fieldset:not(:valid) ~ fieldset { visibility: hidden }` (reveal), `input[type=radio|checkbox] { display: none }` + `input:checked + label` (selection; `:has(.good/.bad)` → success/error bg), and `fieldset:has(input:required:valid)` (locks the answered fieldset + shows the `aside` score feedback). This relies on fieldset order, the `required` inputs, and the `answer-{i}-{j}` id scheme. Purely visual tweaks are safe; do NOT key the question/option `{#each}` blocks, reorder fieldsets, or change the `:valid`/`:has()` selectors. Option labels use `border-2 rounded`; a hover cue is scoped to the active (`:not(:has(input:required:valid))`) fieldset's non-checked labels only.
+
 - **Submission Logic**:
   - Auto-submits when last question answered (if not expired and no previous score)
   - **Retake Behavior**: 
@@ -379,6 +382,7 @@ Added in the homepage redesign 2026 (F6.1). **Simple Analytics** (cookie-free, n
 - Server `load()` calls `getScores()` in `src/lib/siteConf.ts`.
 - `getScores()` sums each participant's `score` across the `kviz/{id}/scores` subcollections and returns a name→total leaderboard sorted descending.
 - **Only still-current quizzes count**: `getScores()` keeps only quizzes that have an `expires_on` which hasn't passed (`expires_on + 24h grace >= now`, matching the `/kviz` list's expiry rule) before aggregating — matching the page's "Csak a jelenleg is aktuális kvízek pontszámai" note. Expired quizzes **and quizzes without an `expires_on`** are excluded from totals.
+- **UI**: DaisyUI zebra table with circular rank chips (gold/silver/bronze medal accent for ranks 1–3, neutral below via `rankClass()`), a "Vissza a kvízekhez" back button, and a friendly empty state. The signed-in user's own row (`item.name === $authUser.displayName`, from `$lib/authStore`) is highlighted with a `tr.me td` background and a "Te" badge.
 
 ---
 
