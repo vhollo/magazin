@@ -101,6 +101,18 @@
                   // subtle border/shadow, --radius-box corners).
                   "border-radius": "0.4rem",
                   padding: "1rem 1rem 1.25rem",
+                  // Flex column so cards stretch to equal height (via the flex
+                  // row on `products`) and the title can grow to bottom-align
+                  // the price + button. `width: 100%` keeps the mobile (block)
+                  // full-width layout now that the container is flex.
+                  display: "flex",
+                  "flex-direction": "column",
+                  width: "100%",
+                  // Auto side-margins center each card: a lone card fills the
+                  // row and centers, and the free space in a full row is split
+                  // evenly (≈20px gutters). `max-width` below caps cards to 4
+                  // per row on desktop; on mobile they go full-width.
+                  "margin-inline": "auto",
                   transition: "transform 0.15s ease, box-shadow 0.15s ease",
                   ":hover": {
                     transform: "translateY(-2px)",
@@ -108,9 +120,7 @@
                   },
                   "@media (min-width: 600px)": {
                     "max-width": "calc(25% - 20px)",
-                    "margin-left": "20px",
                     "margin-bottom": "40px",
-                    width: "calc(25% - 20px)",
                   },
                   [LIGHTMQ]: {
                     "background-color": "oklch(100% 0 0)",
@@ -125,6 +135,7 @@
                 },
                 title: {
                   "font-weight": "normal",
+                  "flex-grow": "1", // pushes price + button to a shared bottom
                   ...textColor,
                 },
                 button: buttonStyle,
@@ -139,9 +150,14 @@
             productSet: {
               styles: {
                 products: {
-                  "@media (min-width: 600px)": {
-                    "margin-left": "-20px",
-                  },
+                  // Flex row (items stretch to equal height by default) so all
+                  // cards in a row match the tallest. `margin-inline: 0` kills
+                  // Shopify's default negative gutter; spacing/centering is
+                  // instead driven by each card's `margin-inline: auto`.
+                  display: "flex",
+                  "flex-wrap": "wrap",
+                  "align-items": "stretch",
+                  "margin-inline": "0",
                 },
               },
             },
@@ -386,14 +402,14 @@
       összetevő-kereséssel és tápanyag-szűréssel.
     </p>
     <div
-      class="flex flex-col sm:flex-row gap-4 justify-center items-center not-prose mt-4"
+      class="flex flex-col sm:flex-row gap-4 justify-center items-center sm:items-stretch not-prose mt-4"
     >
       <div class="card bg-base-300 w-64">
         <div class="card-body items-center text-center">
           <h3 class="card-title">Örök hozzáférés</h3>
           <p class="text-3xl font-bold">4 990 Ft</p>
           <p class="text-sm opacity-60">Egyszeri díj – minden recept, örökre</p>
-          <a href="/receptsarok" class="btn btn-primary btn-sm mt-2">Megnézem</a
+          <a href="/receptsarok" class="btn btn-primary btn-sm mt-auto">Megnézem</a
           >
         </div>
       </div>
@@ -404,7 +420,7 @@
             1 990 Ft<small class="text-sm font-normal">/év</small>
           </p>
           <p class="text-sm opacity-60">Minden recept, évente megújuló</p>
-          <a href="/receptsarok" class="btn btn-outline btn-sm mt-2">Megnézem</a
+          <a href="/receptsarok" class="btn btn-outline btn-sm mt-auto">Megnézem</a
           >
         </div>
       </div>
