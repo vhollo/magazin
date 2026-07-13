@@ -141,6 +141,7 @@ Nav2 defines the secondary navigation menu with categorized content sections:
 - **Nav Component**: Used in root layout (`+layout.svelte`)
 - **Nav2 Component**: Used in individual page components for secondary navigation
 - **Active Route**: Passed via `actual` prop to highlight current page
+- **Global navigation progress bar** (`+layout.svelte`): a fixed 3px top bar (`.nav-progress`) rendered while `navigating.to` (from `$app/state`) is set, giving immediate "loading started" feedback during client-side navigations — notably reaching `/kviz` and quiz subpages, whose server load may hit a cold serverless instance / live Firestore read. Indeterminate sliding animation with a `prefers-reduced-motion` pulse fallback. Note: it cannot cover a hard refresh / direct-URL first load (nothing is mounted yet while the blocking server load runs — the browser's native tab spinner is the only feedback there).
 - **Path Matching for Title Generation**: 
   - **Purpose**: Provides fallback page titles when documents don't have a `title` property
   - **How it works**:
@@ -333,6 +334,7 @@ Added in the homepage redesign 2026 (F6.1). **Simple Analytics** (cookie-free, n
   - Extracts quiz ID from URL params
   - Finds matching quiz from parent's quizzes array
   - Returns quiz data and ID
+  - **Cache-Control**: sets `MAGAZINE_CACHE_CONTROL` (CDN-cached, `s-maxage=86400` + SWR) via `setHeaders`, so a cold serverless instance rarely renders a quiz live. Set here **per-page, not on `kviz/+layout.server.ts`**, because `/kviz/tabella` is a live leaderboard that must stay uncached and a given header can only be set once across the load chain (SvelteKit throws on a second `setHeaders`). (`/kviz` list is `ssr=false` → CSR shell; `/kviz/form` is prerendered — neither needs this.)
 
 #### Page Component (`+page.svelte`)
 
@@ -682,7 +684,7 @@ Added in the homepage redesign 2026 (F4), replacing the old two-line placeholder
 
 | Route | Firestore doc | Shape |
 |---|---|---|
-| root layout (all pages) | `meta/stats` (1 read) | `{ articleCount, recipeCount, freeCount }` — `articleCount` merged by the search-index builder, `recipeCount`/`freeCount` merged by `sync:rs-collections`; falls back to `collections/rs-home` while the recipe fields are missing |
+| root layout (all pages) | `meta/stats` (1 read, **60s TTL-cached** in `getSiteStats`) | `{ articleCount, recipeCount, freeCount }` — `articleCount` merged by the search-index builder, `recipeCount`/`freeCount` merged by `sync:rs-collections`; falls back to `collections/rs-home` while the recipe fields are missing. `getSiteStats` mirrors `getKviz`'s cache (per-instance, inflight-coalesced, serves stale on error) so uncached renders (e.g. `/kviz/tabella`) and cold instances don't re-read on every hit. **Cold-render streaming is prepared but off:** the count resolution is isolated in `resolveSiteCounts()` in `+layout.server.ts`; these counts are non-critical (only `<Search>` placeholder + `PaywallCTA` copy, ~11 consumers), so the flip is to return `counts: resolveSiteCounts()` unawaited and read it with `{#await data.counts}` — see the STREAMING note in that file. |
 | `/receptsarok` layout | `collections/rs-home` | `{ categories: Category[], totalRecipes, totalFree, freeCountsByCategory }` |
 | `/receptsarok/[category]` | `collections/rs-{categoryId}` | `{ cards: RecipeLayoutEntry[], count }` |
 | `/receptsarok/[year]/[id]` | `recipes/{year}-{id}` (direct doc lookup) | full `Recipe`; non-free recipes go through `stripRecipeGatedFields` before serialization |

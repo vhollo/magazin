@@ -432,8 +432,8 @@
     </p>
   </article>
 
-  <!-- GYIK (F5.1) – answers grounded in the actual offer: quarterly print magazine,
-     Hypertonia + különszámok at half price (max 3), shipping computed at checkout,
+  <!-- GYIK (F5.1) – answers grounded in the actual offer: yearly 6 print magazine,
+     2 Hypertonia + különszámok at half price (max 3), shipping computed at checkout,
      cart note to the publisher. -->
   <section class="mx-auto max-w-2xl px-4 py-10 sm:py-14">
     <h2 class="display mb-6 text-center text-2xl sm:text-3xl">

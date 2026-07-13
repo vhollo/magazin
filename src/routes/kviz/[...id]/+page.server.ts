@@ -2,6 +2,7 @@ import { error, fail } from '@sveltejs/kit';
 import type { Actions, PageServerLoad } from './$types';
 
 import { db } from '$lib/firebase-admin';
+import { MAGAZINE_CACHE_CONTROL } from '$lib/magazine/cacheHeaders';
 
 export const actions: Actions = {
 	default: async ({ request, url }) => {
@@ -52,7 +53,13 @@ export const actions: Actions = {
 }
 
 // in the load function get the id from the url
-export const load: PageServerLoad = async ({ params, parent }) => {
+export const load: PageServerLoad = async ({ params, parent, setHeaders }) => {
+	// Cache the SSR HTML on Netlify's edge like the rest of the magazine, so a cold
+	// serverless instance rarely renders a quiz live (see MAGAZINE_CACHE_CONTROL).
+	// Set here per-page rather than on kviz/+layout.server.ts, because /kviz/tabella
+	// is a live leaderboard that must stay uncached — and a given header can only be
+	// set once across the whole load chain (SvelteKit throws on a second setHeaders).
+	setHeaders({ 'Cache-Control': MAGAZINE_CACHE_CONTROL })
 	const id = params.id
 	const { kvizzes } = await parent()
 	const kviz = kvizzes?.find((k: { id: string }) => k.id === id)

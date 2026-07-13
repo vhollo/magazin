@@ -27,6 +27,7 @@
     const parts: string[] = []
     if (typeof recipe.energy === 'number') parts.push(`${recipe.energy} kcal`)
     if (typeof recipe.protein === 'number') parts.push(`${recipe.protein} g fehérje`)
+    if (typeof recipe.fat === 'number') parts.push(`${recipe.fat} g zsír`)
     if (typeof recipe.carbs === 'number') parts.push(`${recipe.carbs} g szénhidrát`)
     return parts.length ? `${recipe.author} receptje – ${parts.join(', ')}` : `${recipe.author} receptje`
   })

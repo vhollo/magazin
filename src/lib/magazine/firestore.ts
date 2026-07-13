@@ -112,12 +112,7 @@ export type SiteStats = {
 	freeCount: number;
 };
 
-/**
- * One read for every count the root layout needs. `recipeCount`/`freeCount`
- * are merged into meta/stats by sync:rs-collections; callers fall back to
- * `collections/rs-home` while they are missing.
- */
-export async function getSiteStats(): Promise<SiteStats> {
+async function fetchSiteStats(): Promise<SiteStats> {
 	const snap = await db.collection('meta').doc('stats').get();
 	const data = snap.exists ? snap.data() : undefined;
 	return {
@@ -125,4 +120,39 @@ export async function getSiteStats(): Promise<SiteStats> {
 		recipeCount: Number(data?.recipeCount),
 		freeCount: Number(data?.freeCount),
 	};
+}
+
+// Short in-memory TTL cache (same shape as getKviz's). The root layout calls this
+// on *every* request; a count that is a minute stale is harmless. This keeps the
+// uncached renders — the live /kviz/tabella leaderboard, and any cold serverless
+// instance — from doing a Firestore stats read on every hit. Per instance.
+const SITE_STATS_TTL_MS = 60_000;
+let siteStatsCache: { data: SiteStats; ts: number } | null = null;
+let siteStatsInflight: Promise<SiteStats> | null = null;
+
+/**
+ * One read for every count the root layout needs. `recipeCount`/`freeCount`
+ * are merged into meta/stats by sync:rs-collections; callers fall back to
+ * `collections/rs-home` while they are missing.
+ */
+export async function getSiteStats(): Promise<SiteStats> {
+	// Serve from cache while fresh.
+	if (siteStatsCache && Date.now() - siteStatsCache.ts < SITE_STATS_TTL_MS) {
+		return siteStatsCache.data;
+	}
+	// Coalesce concurrent refreshes into one Firestore read.
+	if (siteStatsInflight) return siteStatsInflight;
+	siteStatsInflight = fetchSiteStats()
+		.then((data) => {
+			siteStatsCache = { data, ts: Date.now() };
+			return data;
+		})
+		.catch((error) => {
+			console.error('Error getting site stats:', error);
+			// Serve stale cache if we have one; otherwise the same empty/NaN shape
+			// as a missing meta/stats doc, so the rs-home fallback still kicks in.
+			return siteStatsCache?.data ?? { articleCount: 0, recipeCount: NaN, freeCount: NaN };
+		})
+		.finally(() => { siteStatsInflight = null; });
+	return siteStatsInflight;
 }
