@@ -60,6 +60,10 @@ import {
   persistCreatedRecipes,
   appendUncategorizedReview,
 } from './lib/receptsarok-modx-create-sync.mjs'
+import {
+  buildReceptsarokRecipeUpdateForDoc,
+  persistUpdatedRecipes,
+} from './lib/receptsarok-modx-update-sync.mjs'
 import { predictRecipeCategory } from '../src/lib/receptsarokCategoryPredictor.js'
 import {
   appendRedirectsManifest,
@@ -544,13 +548,48 @@ async function processRow(
       ? { ...redirectParsed, modxContentId: Number(doc.id) }
       : undefined
 
+  // Update path: a re-saved recipe article that maps to an EXISTING Receptsarok recipe
+  // this doc authored → re-derive the parser-owned content fields (pageimage, nutrition,
+  // ingredients, instructions, …) and push only the changed ones to Firestore + recipes.json.
+  // Curated fields (category, free, published, id/year, createdAt) are preserved. Skipped for
+  // freshly-created recipes (handled above), collection-split source docs (>1 recipe from one
+  // doc — left to the manual recipes:backfill-content flow), and recipes another MODX doc
+  // authored (fuzzy title-match redirects must not clobber someone else's recipe).
+  let updatedRecipe
+  if (!createdRecipe && redirect && changedIds.has(doc.id) && createState && isMagazineRecipeDoc(doc)) {
+    const target = redirectParsed
+      ? recipes.find(
+          (r) => Number(r.year) === redirectParsed.year && String(r.id) === String(redirectParsed.id)
+        )
+      : undefined
+    if (target) {
+      const sourceModxId = Number(target.sourceModxId)
+      const ownsRecipe = !Number.isFinite(sourceModxId) || sourceModxId === Number(doc.id)
+      const isCollectionSource =
+        recipes.filter((r) => Number(r.sourceModxId) === Number(doc.id)).length > 1
+      if (ownsRecipe && !isCollectionSource) {
+        const built = buildReceptsarokRecipeUpdateForDoc(doc, {
+          target,
+          categoryByKey: createState.categoryByKey,
+          predictCategory: createState.predictCategory,
+        })
+        if (built) {
+          updatedRecipe = built
+          console.log(
+            `  receptsarok update: id=${doc.id} → ${redirect} (${built.changedFields.join(', ')})`
+          )
+        }
+      }
+    }
+  }
+
   if (!changedIds.has(doc.id)) {
     return { written: false, processed, dynamicEntry, freeTarget }
   }
 
   if (!processed.path) {
     console.warn(`skip write: id=${processed.id} has no path after transform`)
-    return { written: false, processed }
+    return { written: false, processed, freeTarget, updatedRecipe }
   }
 
   const docId = encodeDocPathId(processed.path)
@@ -584,6 +623,7 @@ async function processRow(
     freeTarget,
     createdRecipe,
     uncategorizedEntry,
+    updatedRecipe,
   }
 }
 
@@ -972,6 +1012,8 @@ async function main() {
   const modxLinkedFreeTargets = []
   /** @type {Record<string, unknown>[]} recipes created this run from `recept` docs with no RS match */
   const createdRecipes = []
+  /** @type {{ key: string; patch: Record<string, unknown>; setFields: Record<string, unknown>; deletedFields: string[]; changedFields: string[] }[]} existing recipes re-derived from a re-saved source doc */
+  const updatedRecipes = []
   /** @type {{ year: number; id: string; title: string }[]} docs whose category could not be resolved */
   const uncategorizedEntries = []
   // Category resolution for sync-created recipes: manual overrides win over the predictor.
@@ -1027,6 +1069,9 @@ async function main() {
     )
     if (result.createdRecipe) {
       createdRecipes.push(result.createdRecipe)
+    }
+    if (result.updatedRecipe) {
+      updatedRecipes.push(result.updatedRecipe)
     }
     if (result.uncategorizedEntry) {
       uncategorizedEntries.push(result.uncategorizedEntry)
@@ -1126,6 +1171,24 @@ async function main() {
   if (createSync.created > 0) {
     console.log(`receptsarok create: added ${createSync.created} recipe(s) → ${createSync.keys.join(', ')}`)
   }
+
+  // Existing recipes re-derived from a re-saved source doc: merge-write only the changed
+  // MODX-authoritative fields (pageimage, nutrition, ingredients, instructions, …) to
+  // recipes/{year}-{id} + recipes.json. Runs after create-persist so its recipes.json
+  // write captures both the freshly-created and the patched recipes.
+  const updateSync = await persistUpdatedRecipes({
+    updates: updatedRecipes,
+    recipes,
+    recipesJsonPath: RECIPES_JSON_PATH,
+    firestore,
+    apply: true,
+  })
+  if (updateSync.updated > 0) {
+    console.log(
+      `receptsarok update: patched ${updateSync.updated} existing recipe(s) → ${updateSync.keys.join(', ')}`
+    )
+  }
+
   const reviewSync = appendUncategorizedReview({
     uncategorized: uncategorizedEntries,
     categoryReviewPath: CATEGORY_REVIEW_PATH,
@@ -1138,8 +1201,9 @@ async function main() {
   }
 
   // rs-home free counts and rs-{category} cards derive from recipes.json — rebuild
-  // whenever free flags changed OR a new recipe was created.
-  if (freeSync.updated > 0 || createSync.created > 0) {
+  // whenever free flags changed, a new recipe was created, OR an existing recipe's
+  // card fields (title/img/nutrition/…) were patched from a re-saved source doc.
+  if (freeSync.updated > 0 || createSync.created > 0 || updateSync.updated > 0) {
     if (!skipRsCollections) {
       console.log('  → rebuilding collections/rs-* (rs-home totals, freeCounts, category cards)…')
       const { spawnSync } = await import('node:child_process')

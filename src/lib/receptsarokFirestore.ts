@@ -72,10 +72,39 @@ async function readDoc<T>(docId: string): Promise<T | null> {
  * Falls back to in-process aggregation from `getRecipes()` + `getCategories()`
  * when `collections/rs-home` has not been built yet.
  */
-export async function getReceptsarokHome(): Promise<ReceptsarokHomeDoc> {
+async function fetchReceptsarokHome(): Promise<ReceptsarokHomeDoc> {
 	const stored = await readDoc<ReceptsarokHomeDoc>(RS_HOME_DOC);
 	if (stored && Array.isArray(stored.categories)) return stored;
 	return buildReceptsarokHome();
+}
+
+// Short in-memory TTL cache (same shape as getKviz/getSiteStats). Both callers —
+// the /receptsarok grid layout and the root layout's count fallback — render pages
+// that are themselves CDN-cached for 24h, so a 60s per-instance cache here only
+// spares the `collections/rs-home` read on cold/uncached renders. Per instance;
+// concurrent refreshes coalesced; serves stale on a Firestore error (else rethrows,
+// matching the previous throw-on-failure behaviour when no cache exists yet).
+const RS_HOME_TTL_MS = 60_000;
+let rsHomeCache: { data: ReceptsarokHomeDoc; ts: number } | null = null;
+let rsHomeInflight: Promise<ReceptsarokHomeDoc> | null = null;
+
+export async function getReceptsarokHome(): Promise<ReceptsarokHomeDoc> {
+	if (rsHomeCache && Date.now() - rsHomeCache.ts < RS_HOME_TTL_MS) {
+		return rsHomeCache.data;
+	}
+	if (rsHomeInflight) return rsHomeInflight;
+	rsHomeInflight = fetchReceptsarokHome()
+		.then((data) => {
+			rsHomeCache = { data, ts: Date.now() };
+			return data;
+		})
+		.catch((error) => {
+			console.error('Error getting receptsarok home:', error);
+			if (rsHomeCache) return rsHomeCache.data;
+			throw error;
+		})
+		.finally(() => { rsHomeInflight = null; });
+	return rsHomeInflight;
 }
 
 export async function buildReceptsarokHome(): Promise<ReceptsarokHomeDoc> {
