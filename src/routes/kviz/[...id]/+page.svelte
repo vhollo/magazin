@@ -93,10 +93,12 @@
 
 </script>
 
-<main class="">
-  <article class="prose mt-16 mb-8 w-full mx-auto flex-none px-2">
-    <h1 class="text-center">DiabKVÍZ</h1>
-    <h2 class="text-center">{kviz.title}</h2>
+<main class="mx-auto w-full max-w-4xl px-4 pt-10 sm:pt-14">
+  <header class="mb-6">
+    <h1 class="display text-3xl leading-tight sm:text-4xl">DiabKVÍZ</h1>
+    <h2 class="display mt-1 text-xl leading-snug text-balance opacity-80 sm:text-2xl">{kviz.title}</h2>
+  </header>
+  <article class="prose mb-8">
     {#if kviz.image}
     <img src={kviz.image} alt="">
     {/if}
@@ -107,13 +109,13 @@
     {/if}
   </article>
   {#if kviz.link}
-    <p class="my-8 text-center"><a href={kviz.link} class="btn btn-outline btn-primary border-2 btn-sm">Kapcsolódó cikk</a></p>
+    <p class="my-8"><a href={kviz.link} class="btn btn-outline btn-primary border-2 btn-sm">Kapcsolódó cikk</a></p>
   {/if}
 
   <!-- form-name=kviz&id=kviz-0&answer-0=99&score=99 -->
   <!-- <form name="kviz" class="max-w-screen-md mx-auto py-12"> -->
   {#if !expired}
-    <div class="grid xs:grid-cols-2 gap-4 max-w-screen-md mx-auto py-12 px-2">
+    <div class="grid xs:grid-cols-2 gap-4 py-12">
       {#if $authUser?.displayName}
         <p class="border-2 border-primary rounded bg-base-200 !h-full w-full p-3">{$authUser.email}</p>
         <p class="border-2 border-primary rounded bg-base-200 !h-full w-full p-3">{$authUser.displayName}</p>
@@ -126,7 +128,7 @@
   {/if}
 
   {#if $authUser?.displayName || expired}
-  <form method="POST" name="kviz" use:enhance={handleSubmitEnhance} class="max-w-screen-md mx-auto py-12 px-2">
+  <form method="POST" name="kviz" use:enhance={handleSubmitEnhance} class="py-12">
     {#each kviz.questions || [] as q, i}
     <fieldset class="grid xs:grid-cols-2 gap-4">
       <legend id="q-{i}" class="uppercase pt-8 pb-2">

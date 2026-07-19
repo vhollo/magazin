@@ -129,8 +129,8 @@
   {/if}
 </svelte:head>
 
-<article class="prose mt-8 mb-4 mx-auto w-full px-4">
-  <nav class="breadcrumbs text-sm not-prose mb-6" aria-label="Elérési út">
+<header class="mx-auto w-full max-w-4xl px-4 p-10 sm:pt-14">
+  <nav class="breadcrumbs text-sm mb-6" aria-label="Elérési út">
     <ul>
       <li><a href="/receptsarok" class="opacity-70 hover:opacity-100"><ReceptsarokLogo class="text-sm" /></a></li>
       <li>
@@ -139,11 +139,15 @@
       <!-- <li class="max-w-[min(100%,40ch)] truncate" title={recipe.title}>{recipe.title}</li> -->
     </ul>
   </nav>
-  <h1 class="text-center">{recipe.title}</h1>
-  <p class="text-center italic">{recipe.author}</p>
-</article>
+  <h1 class="display text-3xl leading-tight text-balance sm:text-4xl">{recipe.title}</h1>
+  <p class="mt-2 italic opacity-80">{recipe.author}</p>
+</header>
 
-<article class="prose mx-auto w-full max-w-prose px-4 pb-12">
+<!-- Reading column: `prose` keeps its 65ch measure, left-aligned on the page's
+     max-w-7xl rail (the rail lives on the wrapper — putting max-w-7xl on the
+     `.prose` element itself would blow the measure out to 1440px). -->
+<div class="mx-auto w-full max-w-4xl px-4 pb-12">
+<article class="prose max-w-4xl">
   {#if recipeVideo?.src}
     <figure class="not-prose my-6">
       <video
@@ -262,8 +266,9 @@
     <PaywallCTA context="recipe" />
   {/if}
 </article>
+</div>
 
-<div class="text-center py-4">
+<div class="mx-auto px-4 py-4">
   <button class="btn btn-outline" onclick={() => $plannerOpen = !$plannerOpen}>
     {$plannerOpen ? 'Étlaptervező bezárása' : 'Heti étlaptervező'}
     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5">
@@ -273,7 +278,7 @@
 </div>
 
 {#if $plannerOpen}
-  <div class="w-full px-[clamp(1rem,4vw,2.75rem)] py-6">
+  <div class="mx-auto w-full max-w-7xl px-4 py-6">
     <MealPlanner
       categories={data.categories}
       currentRecipe={{
@@ -288,11 +293,30 @@
   </div>
 {/if}
 
-<ReceptsarokWidget
-  recipes={data.similarRecipes ?? []}
-  title={data.similarIsLinked ? '' : recipe.title}
-  heading={data.similarIsLinked ? 'Kapcsolódó receptek a Receptsarokban' : undefined}
-/>
+{#await data.similar}
+  <!-- Streamed on a cold render: the recipe above paints immediately while the
+       recommendations resolve. Skeleton mirrors ReceptsarokWidget's card grid so
+       the fill-in doesn't shift the page. -->
+  <section class="mx-auto w-full max-w-7xl px-4 pt-10 pb-8 sm:pt-14" aria-busy="true">
+    <h2 class="display text-2xl sm:text-3xl">Kapcsolódó receptek</h2>
+    <div
+      class="grid gap-4 mt-6"
+      style="grid-template-columns: repeat(auto-fill, minmax(24ch, 1fr));"
+    >
+      {#each Array.from({ length: 4 }) as _, i (i)}
+        <div class="skeleton h-64 w-full rounded-lg"></div>
+      {/each}
+    </div>
+  </section>
+{:then similar}
+  <ReceptsarokWidget
+    recipes={similar.similarRecipes ?? []}
+    title={similar.similarIsLinked ? '' : recipe.title}
+    heading={similar.similarIsLinked ? 'Kapcsolódó receptek a Receptsarokban' : undefined}
+  />
+{:catch}
+  <!-- Recommendations are non-critical; on a resolve failure show nothing. -->
+{/await}
 
 <Search articles={data.articleCount} recipes={data.recipeCount} />
 <Nav2 actual="/receptsarok" />

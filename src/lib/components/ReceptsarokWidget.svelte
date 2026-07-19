@@ -20,17 +20,17 @@
 </script>
 
 {#if recipes.length > 0}
-  <section class="mt-16 mb-8 px-4">
-    <article class="prose mx-auto w-full">
-      <h2 class="text-center">{heading}</h2>
+  <section class="mx-auto w-full max-w-7xl px-4 pt-10 pb-8 sm:pt-14">
+    <header class="mb-6">
+      <h2 class="display text-2xl sm:text-3xl">{heading}</h2>
       {#if title}
-        <p class="text-center text-sm opacity-60">
+        <p class="mt-2 text-sm opacity-60">
           Keresés: „{title}" – {recipes.length} találat
         </p>
       {/if}
-    </article>
+    </header>
 
-    <div class="grid gap-4 mt-6 max-w-5xl mx-auto" class:ready>
+    <div class="grid gap-4 mt-6" class:ready>
       {#each recipes as recipe}
         <aside use:masonryItem>
           <RecipeCard {recipe} locked={!isRecipeFree(recipe) && !$hasReceptsarokAccess} />
@@ -38,7 +38,7 @@
       {/each}
     </div>
 
-    <div class="text-center mt-6">
+    <div class="mt-6">
       <a href="/receptsarok" class="btn btn-outline btn-sm">
         <ReceptsarokLogo/>
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4">

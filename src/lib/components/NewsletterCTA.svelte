@@ -22,13 +22,13 @@
     />
   </svg>
   <div
-    class="mx-auto flex max-w-6xl flex-col items-start gap-4 px-4 py-10 sm:flex-row sm:items-center sm:justify-between sm:py-12"
+    class="mx-auto flex max-w-7xl flex-col items-start gap-4 px-4 py-10 sm:flex-row sm:items-center sm:justify-between sm:py-12"
   >
     <div class="flex flex-col gap-2">
       <h2 class="display text-2xl sm:text-3xl">
         Ne maradj le a fontos cikkekről
       </h2>
-      <p class="max-w-prose opacity-90">
+      <p class="max-w-4xl opacity-90">
         Havonta egy összefoglaló e-mail a legfontosabb szakértői írásokról és
         hírekről – leiratkozás bármikor egy kattintással.
       </p>

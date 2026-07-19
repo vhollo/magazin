@@ -7,7 +7,7 @@
   const categories = Object.entries(nav2);
 </script>
 
-<section class="mx-auto max-w-6xl px-4 py-10 sm:py-14">
+<section class="mx-auto w-full max-w-7xl px-4 py-10 sm:py-14">
   <header class="mb-6">
     <h2 class="display text-2xl sm:text-3xl">Böngéssz témák szerint</h2>
   </header>

@@ -550,40 +550,40 @@
 {#if !$hasReceptsarokAccess}
   <PaywallCTA context="planner" />
 {:else if catalogLoading || !fullCatalog}
-  <p class="text-center opacity-70 py-8 max-w-prose mx-auto px-4">
+  <p class="text-center opacity-70 py-8 max-w-4xl mx-auto px-4">
     {catalogError
       ? 'Nem sikerült betölteni az étlaptervezőt. Frissítsd az oldalt, vagy jelentkezz be újra.'
       : 'Étlaptervező betöltése…'}
   </p>
 {:else}
-  <div class="max-w-5xl mx-auto">
-    <div class="flex flex-wrap gap-2 items-center justify-between mb-4">
-      <h3 class="text-lg font-semibold">Heti étlaptervező</h3>
-      {#if usedDays > 0}
-        <button class="btn btn-ghost btn-sm" onclick={() => clearConfirmDialog?.showModal()}>Terv törlése</button>
-      {/if}
-    </div>
+  <div class="flex flex-wrap gap-2 items-center justify-between mb-4">
+    <h3 class="text-lg font-semibold">Heti étlaptervező</h3>
+    {#if usedDays > 0}
+      <button class="btn btn-ghost btn-sm" onclick={() => clearConfirmDialog?.showModal()}>Terv törlése</button>
+    {/if}
+  </div>
 
-    <dialog bind:this={clearConfirmDialog} class="modal modal-bottom sm:modal-middle">
-      <div class="modal-box">
-        <h3 class="text-lg font-bold">Terv törlése</h3>
-        <p class="py-4">Biztosan törlöd a teljes heti étlaptervet? A művelet nem vonható vissza.</p>
-        <div class="modal-action">
-          <form method="dialog">
-            <button class="btn btn-ghost">Mégse</button>
-          </form>
-          <button class="btn btn-error" onclick={confirmClearPlan}>Igen, törlöm</button>
-        </div>
+  <dialog bind:this={clearConfirmDialog} class="modal modal-bottom sm:modal-middle">
+    <div class="modal-box">
+      <h3 class="text-lg font-bold">Terv törlése</h3>
+      <p class="py-4">Biztosan törlöd a teljes heti étlaptervet? A művelet nem vonható vissza.</p>
+      <div class="modal-action">
+        <form method="dialog">
+          <button class="btn btn-ghost">Mégse</button>
+        </form>
+        <button class="btn btn-error" onclick={confirmClearPlan}>Igen, törlöm</button>
       </div>
-      <form method="dialog" class="modal-backdrop">
-        <button aria-label="Bezárás">✕</button>
-      </form>
-    </dialog>
+    </div>
+    <form method="dialog" class="modal-backdrop">
+      <button aria-label="Bezárás">✕</button>
+    </form>
+  </dialog>
 
-    <div class="mb-4">
+  <div class="flex flex-col lg:flex-row lg:items-start gap-2 lg:gap-4 mb-4">
+    <div class="min-w-0 lg:flex-1">
       <input
         type="text"
-        placeholder="Szóköz = ÉS. Pl. 100-200 kcal · <350 kcal · >20 g · hal"
+        placeholder="Pl. 100-200 kcal · <350 kcal · >20 g · hal"
         bind:value={searchQuery}
         class="input input-bordered w-full"
       />
@@ -604,7 +604,7 @@
       {/if}
     </div>
 
-    <div class="flex gap-1 mb-4 overflow-x-auto">
+    <div class="flex gap-1 overflow-x-auto lg:shrink-0">
       {#each days as day}
         <button
           class="btn btn-sm"
@@ -619,99 +619,99 @@
         </button>
       {/each}
     </div>
+  </div>
 
-    <div class="grid md:grid-cols-2 gap-4">
-      <div>
-        <h4 class="font-medium mb-2">{activeDay} receptjei</h4>
-        {#if currentRecipe && !currentInActiveDay}
-          <div class="card card-side border border-base-300 bg-transparent p-2 rounded-sm mb-2 items-center gap-2">
-            <div class="flex-1">
-              <span class="font-medium text-sm">{currentRecipe.title}</span>
-              <p class="text-xs opacity-50">
-                {typeof currentRecipe.energy === 'number' ? `${currentRecipe.energy} kcal` : '-'} ·
-                {typeof currentRecipe.protein === 'number' ? `${currentRecipe.protein}g F` : '-'} ·
-                {typeof currentRecipe.carbs === 'number' ? `${currentRecipe.carbs}g Sz` : '-'}
-              </p>
-            </div>
-            <button
-              class="btn btn-primary btn-sm shrink-0"
-              onclick={() => mealPlanAddRecipe(activeDay, { year: currentRecipe.year, id: currentRecipe.id })}
-            >
-              Hozzáadás
-            </button>
+  <div class="grid md:grid-cols-2 gap-4">
+    <div>
+      <h4 class="font-medium mb-2">{activeDay} receptjei</h4>
+      {#if currentRecipe && !currentInActiveDay}
+        <div class="card card-side border border-base-300 bg-transparent p-2 rounded-sm mb-2 items-center gap-2">
+          <div class="flex-1">
+            <span class="font-medium text-sm">{currentRecipe.title}</span>
+            <p class="text-xs opacity-50">
+              {typeof currentRecipe.energy === 'number' ? `${currentRecipe.energy} kcal` : '-'} ·
+              {typeof currentRecipe.protein === 'number' ? `${currentRecipe.protein}g F` : '-'} ·
+              {typeof currentRecipe.carbs === 'number' ? `${currentRecipe.carbs}g Sz` : '-'}
+            </p>
           </div>
-        {/if}
-        {#if plan[activeDay].length === 0}
-          <p class="text-sm opacity-50 py-4">Még nincs hozzáadott recept. Keress fent és adj hozzá!</p>
-        {:else}
-          <div class="flex flex-col gap-2">
-            {#each plan[activeDay] as recipe}
-              <div class="card card-side bg-base-300 p-2 rounded-sm">
-                <div class="flex-1">
-                  <a href={recipeDetailPath(recipe)} class="font-medium text-sm hover:underline">
-                    {recipe.title}
-                  </a>
-                  <p class="text-xs opacity-50">
-                    {typeof recipe.energy === 'number' ? `${recipe.energy} kcal` : '-'} ·
-                    {typeof recipe.protein === 'number' ? `${recipe.protein}g F` : '-'} ·
-                    {typeof recipe.carbs === 'number' ? `${recipe.carbs}g Sz` : '-'}
-                  </p>
-                </div>
-                <button class="btn btn-ghost btn-xs" onclick={() => removeFromDay(activeDay, recipe)} aria-label="Törlés">
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
-                  </svg>
-                </button>
+          <button
+            class="btn btn-primary btn-sm shrink-0"
+            onclick={() => mealPlanAddRecipe(activeDay, { year: currentRecipe.year, id: currentRecipe.id })}
+          >
+            Hozzáadás
+          </button>
+        </div>
+      {/if}
+      {#if plan[activeDay].length === 0}
+        <p class="text-sm opacity-50 py-4">Még nincs hozzáadott recept. Keress fent és adj hozzá!</p>
+      {:else}
+        <div class="flex flex-col gap-2">
+          {#each plan[activeDay] as recipe}
+            <div class="card card-side bg-base-300 p-2 rounded-sm">
+              <div class="flex-1">
+                <a href={recipeDetailPath(recipe)} class="font-medium text-sm hover:underline">
+                  {recipe.title}
+                </a>
+                <p class="text-xs opacity-50">
+                  {typeof recipe.energy === 'number' ? `${recipe.energy} kcal` : '-'} ·
+                  {typeof recipe.protein === 'number' ? `${recipe.protein}g F` : '-'} ·
+                  {typeof recipe.carbs === 'number' ? `${recipe.carbs}g Sz` : '-'}
+                </p>
               </div>
-            {/each}
-          </div>
-        {/if}
-
-      </div>
-
-      <div>
-        {#if usedDays > 0}
-          <h4 class="font-medium mb-2">Napi összesítés · {activeDay}</h4>
-          <div class="p-3 bg-base-200 rounded-sm mb-4">
-            <NutritionTable compact table={{
-              label: '',
-              ...dayTotals[activeDay]
-            }} />
-          </div>
-
-          {#if shoppingList.length > 0}
-            <h4 class="font-medium mb-2">Bevásárlólista · {activeDay} ({shoppingList.length} tétel)</h4>
-            <div class="p-3 bg-base-200 rounded-sm">
-              <ul class="text-sm grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-4 gap-y-1">
-                {#each shoppingList as item}
-                  <li>
-                    <label class="flex items-start gap-2 cursor-pointer">
-                      <input
-                        type="checkbox"
-                        class="mt-0.5 size-4 shrink-0 accent-primary"
-                        checked={!!checkedItems[item.name]}
-                        onchange={(e) => setMealPlanChecked(item.name, e.currentTarget.checked)}
-                      />
-                      <span class:opacity-50={checkedItems[item.name]}>
-                        {item.text}
-                      </span>
-                    </label>
-                  </li>
-                {/each}
-              </ul>
+              <button class="btn btn-ghost btn-xs" onclick={() => removeFromDay(activeDay, recipe)} aria-label="Törlés">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                </svg>
+              </button>
             </div>
-            {#if shoppingListPending}
-              <p class="text-sm opacity-50 mt-1">További hozzávalók betöltése…</p>
-            {/if}
-          {:else if shoppingListPending && plan[activeDay].length > 0}
-            <p class="text-sm opacity-50">Bevásárlólista összeállítása…</p>
-          {/if}
-        {:else}
-          <div class="text-center py-8 opacity-40">
-            <p>Adj hozzá recepteket a napi tervhez a napi összesítés és bevásárlólista megjelenítéséhez.</p>
+          {/each}
+        </div>
+      {/if}
+
+    </div>
+
+    <div>
+      {#if usedDays > 0}
+        <h4 class="font-medium mb-2">Napi összesítés · {activeDay}</h4>
+        <div class="p-3 bg-base-200 rounded-sm mb-4">
+          <NutritionTable compact table={{
+            label: '',
+            ...dayTotals[activeDay]
+          }} />
+        </div>
+
+        {#if shoppingList.length > 0}
+          <h4 class="font-medium mb-2">Bevásárlólista · {activeDay} ({shoppingList.length} tétel)</h4>
+          <div class="p-3 bg-base-200 rounded-sm">
+            <ul class="text-sm grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-4 gap-y-1">
+              {#each shoppingList as item}
+                <li>
+                  <label class="flex items-start gap-2 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      class="mt-0.5 size-4 shrink-0 accent-primary"
+                      checked={!!checkedItems[item.name]}
+                      onchange={(e) => setMealPlanChecked(item.name, e.currentTarget.checked)}
+                    />
+                    <span class:opacity-50={checkedItems[item.name]}>
+                      {item.text}
+                    </span>
+                  </label>
+                </li>
+              {/each}
+            </ul>
           </div>
+          {#if shoppingListPending}
+            <p class="text-sm opacity-50 mt-1">További hozzávalók betöltése…</p>
+          {/if}
+        {:else if shoppingListPending && plan[activeDay].length > 0}
+          <p class="text-sm opacity-50">Bevásárlólista összeállítása…</p>
         {/if}
-      </div>
+      {:else}
+        <div class="text-center py-8 opacity-40">
+          <p>Adj hozzá recepteket a napi tervhez a napi összesítés és bevásárlólista megjelenítéséhez.</p>
+        </div>
+      {/if}
     </div>
   </div>
 {/if}

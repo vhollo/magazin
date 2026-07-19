@@ -22,7 +22,7 @@
 </script>
 
 {#if cards.length}
-  <section class="mx-auto max-w-6xl px-4 py-10 sm:py-14">
+  <section class="mx-auto w-full max-w-7xl px-4 py-10 sm:py-14">
     <header class="mb-6 flex items-baseline justify-between gap-4">
       <h2 class="display text-2xl sm:text-3xl">Válogatás szakértőinktől</h2>
       <!-- <span class="badge badge-outline badge-secondary hidden sm:inline-flex"

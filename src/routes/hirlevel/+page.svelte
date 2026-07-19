@@ -55,13 +55,13 @@
   <div class="mx-auto max-w-2xl px-4 py-12 sm:py-16">
     {#if form?.success}
       <!-- Confirmation state -->
-      <div class="flex flex-col gap-4 text-center">
-        <h1 class="display text-3xl sm:text-4xl">
+      <div class="flex flex-col gap-4">
+        <h1 class="display text-3xl leading-tight sm:text-4xl">
           {form.muvelet === "leiratkozas"
             ? "Leiratkoztál"
             : "Köszönjük a feliratkozást!"}
         </h1>
-        <p class="mx-auto max-w-prose opacity-80">
+        <p class="max-w-4xl opacity-80">
           {#if form.muvelet === "leiratkozas"}
             Töröltük a címedet a hírlevél-listáról. Ha meggondolod magad,
             bármikor újra feliratkozhatsz ezen az oldalon.
@@ -70,7 +70,7 @@
             cikkekről és hírekről. Leiratkozni bármikor egy kattintással tudsz.
           {/if}
         </p>
-        <a href="/" class="btn btn-outline mx-auto mt-2 rounded-sm"
+        <a href="/" class="btn btn-outline mt-2 self-start rounded-sm"
           >Vissza a főoldalra</a
         >
       </div>
@@ -82,7 +82,7 @@
         <h1 class="display text-3xl leading-tight sm:text-4xl">
           Ne maradj le a fontos cikkekről
         </h1>
-        <p class="max-w-prose opacity-80">
+        <p class="max-w-4xl opacity-80">
           Havonta egy összefoglaló e-mail a legfontosabb szakértői írásokról és
           hírekről – semmi spam, leiratkozás bármikor egy kattintással.
         </p>

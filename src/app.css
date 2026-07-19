@@ -81,6 +81,29 @@ h6 {
   font-weight: 600;
 }
 
+/* Full-bleed section band with a soft radial glow in the top-right corner
+   (homepage redesign 2026). Lives here rather than in a component `<style>`:
+   Svelte scopes component styles, so the copy that used to sit in `Hero.svelte`
+   only ever reached the Hero — the other four `.band` sections rendered flat.
+   Call sites pair it with `relative overflow-hidden` + a background utility.
+   `--band-glow` lets a coloured band override the hue (the default primary is
+   invisible on `bg-primary`). */
+.band::before {
+  content: "";
+  position: absolute;
+  inset: -40% -20% auto auto;
+  width: 60%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(
+    closest-side,
+    var(--band-glow, var(--color-primary)),
+    transparent 70%
+  );
+  opacity: 0.25;
+  pointer-events: none;
+}
+
 body {
   @apply flex flex-col min-h-screen;
 }

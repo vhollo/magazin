@@ -86,21 +86,23 @@
   <meta name="description" content="{category?.name}: {allCategoryRecipes.length} diabétesz-barát recept tápanyagtáblázattal." />
 </svelte:head>
 
-<article class="prose mt-8 mb-4 mx-auto w-full px-4">
-  <nav class="breadcrumbs text-sm not-prose mb-6" aria-label="Elérési út">
-    <ul>
-      <li><a href="/receptsarok" class="opacity-70 hover:opacity-100"><ReceptsarokLogo class="text-sm" /></a></li>
-      <li>{category?.name || categoryId}</li>
-    </ul>
-  </nav>
-  <h1 class="text-center">{category?.name || categoryId}</h1>
-  <p class="text-center">{allCategoryRecipes.length} recept</p>
-</article>
+<section class="band relative overflow-hidden bg-base-200">
+  <div class="mx-auto max-w-4xl px-4 py-10 sm:py-14">
+    <nav class="breadcrumbs text-sm mb-6" aria-label="Elérési út">
+      <ul>
+        <li><a href="/receptsarok" class="opacity-70 hover:opacity-100"><ReceptsarokLogo class="text-sm" /></a></li>
+        <li>{category?.name || categoryId}</li>
+      </ul>
+    </nav>
+    <h1 class="display text-3xl leading-tight text-balance sm:text-4xl">{category?.name || categoryId}</h1>
+    <p class="mt-2 opacity-80">{allCategoryRecipes.length} recept</p>
+  </div>
+</section>
 
 <RecipeFilters bind:filters hasAccess={$hasReceptsarokAccess} />
 
 {#if isFiltering}
-  <p class="text-center text-sm opacity-60 mb-4">
+  <p class="mx-auto w-full max-w-4xl px-4 text-sm opacity-60 mb-4">
     {filtered.length} recept a szűrési feltételeknek megfelelően
   </p>
 {/if}
@@ -108,7 +110,7 @@
 <Cards {cards} moreLabel="További receptek" />
 
 {#if filtered.length === 0}
-  <p class="text-center py-12 opacity-50">Nincs a szűrési feltételeknek megfelelő recept.</p>
+  <p class="mx-auto w-full max-w-4xl px-4 py-12 opacity-50">Nincs a szűrési feltételeknek megfelelő recept.</p>
 {/if}
 
 <Search articles={data.articleCount} recipes={data.recipeCount} />

@@ -180,7 +180,7 @@
   {#if conf.top_banners.length}
     <BannerTop banners={conf.top_banners} />
   {/if}
-  <main class="bg-base-100 md:flex flex-row justify-center gap-8 px-2">
+  <main class="bg-base-100 md:flex flex-row justify-center gap-8 px-4">
     <!--{@const meta = [doc.tv.szerzo, date, doc.tv.cat].join(' | ')}-->
     <article class="prose py-12 flex-1">
       {#if doc.description}
@@ -244,7 +244,7 @@
     <!-- {#if $authUser && browser && hirds.length} -->
     {#if prominent.length && doc.content}
       <section
-        class="max-md:hidden flex flex-col flex-0 gap-2 py-12 mx-auto md:mx-0"
+        class="adrail max-md:hidden flex flex-col flex-0 gap-2 py-12 mx-auto md:mx-0"
       >
         {#each prominent as item, i}
           <!-- {#if item.prominent} -->
@@ -276,13 +276,22 @@
 <Nav2 actual={data.path} />
 
 {#if docs.length && !rsLinked}
-  <article class="prose mt-16 mb-8 mx-auto w-full">
-    {#if !doc.id}
-      <h1 class="text-center">{(doc.id && "") || docstitle}</h1>
-    {:else}
-      <h2 class="text-center">Kapcsolódó cikkek</h2>
-    {/if}
-  </article>
+  {#if !doc.id}
+    <!-- Collection listing: this heading *is* the page hero, so it gets the band. -->
+    <section class="band relative overflow-hidden bg-base-200">
+      <div class="mx-auto max-w-7xl px-4 py-10 sm:py-14">
+        <h1 class="display text-3xl leading-tight text-balance sm:text-4xl">
+          {(doc.id && "") || docstitle}
+        </h1>
+      </div>
+    </section>
+  {:else}
+    <!-- Same block, but on an article page it's a related-articles rail, not a page
+         hero — no band (matches ReceptsarokWidget's "Kapcsolódó receptek"). -->
+    <section class="mx-auto w-full max-w-7xl px-4 pt-10 sm:pt-14">
+      <h2 class="display text-2xl sm:text-3xl">Kapcsolódó cikkek</h2>
+    </section>
+  {/if}
   <Cards
     cards={docs}
     banners={conf.side_banners}
@@ -297,11 +306,15 @@
 {/if} -->
 
 <style>
-  section {
+  /* The ad rail beside the article column. Scoped to `.adrail`, not to a bare
+     `section` — as a bare element selector it also captured the listing band
+     below, pinning it to `min-width: 24ch` (a 300px stub instead of a full-bleed
+     band). Keep it class-scoped: this component has more than one <section>. */
+  .adrail {
     min-width: 24ch;
     width: calc((100% - 65ch) / 2);
   }
-  section aside {
+  .adrail aside {
     position: unset;
     /* width: minmax(24ch, 1fr); */
     min-height: 20ch;

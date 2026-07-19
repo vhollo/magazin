@@ -59,7 +59,7 @@
   </svg>
 
   <div
-    class="mx-auto grid max-w-6xl items-center gap-8 px-4 py-10 sm:py-14 lg:grid-cols-2 lg:gap-12"
+    class="mx-auto grid max-w-7xl items-center gap-8 px-4 py-10 sm:py-14 lg:grid-cols-2 lg:gap-12"
   >
     <header class="welcome flex flex-col gap-4">
       <p
@@ -70,7 +70,7 @@
       <h1 class="display text-3xl leading-tight text-balance sm:text-4xl">
         Megbízható válaszok a cukorbetegséggel élt mindennapokhoz
       </h1>
-      <p class="lead max-w-prose opacity-80">
+      <p class="lead max-w-4xl opacity-80">
         Cikkeinket orvosok és szakemberek írják – a diagnózis első napjától a
         magabiztos önellenőrzésig.
       </p>
@@ -147,21 +147,6 @@
 </section>
 
 <style>
-  .band::before {
-    content: "";
-    position: absolute;
-    inset: -40% -20% auto auto;
-    width: 60%;
-    aspect-ratio: 1;
-    border-radius: 50%;
-    background: radial-gradient(
-      closest-side,
-      var(--color-primary),
-      transparent 70%
-    );
-    opacity: 0.25;
-    pointer-events: none;
-  }
   .chip {
     display: inline-block;
     padding: 0.35rem 0.85rem;

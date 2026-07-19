@@ -23,20 +23,21 @@
   <meta name="description" content="Több mint {totalRecipes} diabétesz-barát recept tápanyagtáblázattal, összetevőkkel és elkészítési útmutatóval." />
 </svelte:head>
 
-<article class="prose mt-8 mb-4 w-full px-[clamp(1rem,4vw,2.75rem)] text-center mx-auto">
-  <h1><ReceptsarokLogo class="text-3xl sm:text-4xl" /></h1>
-  <p>
-    {totalRecipes} diabétesz-barát recept, tápanyagtáblázattal.</p>
-  {#if trial}
-    <p class="text-success font-medium">Ingyenes próbaidőszak: bejelentkezés után minden recept teljes tartalma elérhető.</p>
-  {:else}
-    <p class="text-success font-medium">A Diabetes és Hypertonia lapokban megjelent {freeCount} recept ingyenesen elérhető.</p>
-  {/if}
-  
-</article>
+<section class="band relative overflow-hidden bg-base-200">
+  <div class="mx-auto max-w-4xl px-4 py-10 sm:py-14">
+    <h1><ReceptsarokLogo class="text-3xl sm:text-4xl" /></h1>
+    <p class="mt-2 opacity-80">
+      {totalRecipes} diabétesz-barát recept, tápanyagtáblázattal.</p>
+    {#if trial}
+      <p class="text-success font-medium">Ingyenes próbaidőszak: bejelentkezés után minden recept teljes tartalma elérhető.</p>
+    {:else}
+      <p class="text-success font-medium">A Diabetes és Hypertonia lapokban megjelent {freeCount} recept ingyenesen elérhető.</p>
+    {/if}
+  </div>
+</section>
 
 <section
-  class="grid grid-cols-1 gap-[clamp(1rem,2.5vw,1.75rem)] w-full px-[clamp(1rem,4vw,2.75rem)] py-6 md:grid-cols-4 2xl:grid-cols-6"
+  class="mx-auto grid max-w-7xl grid-cols-1 gap-[clamp(1rem,2.5vw,1.75rem)] w-full px-4 py-6 md:grid-cols-4 2xl:grid-cols-6"
 >
   {#each categories as cat (cat.id)}
     <a
@@ -83,7 +84,7 @@
   {/each}
 </section>
 
-<div class="text-center py-4">
+<div class="mx-auto p-4">
   <button class="btn btn-outline" onclick={() => $plannerOpen = !$plannerOpen}>
     {$plannerOpen ? 'Étlaptervező bezárása' : 'Heti étlaptervező'}
     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5">
@@ -93,7 +94,7 @@
 </div>
 
 {#if $plannerOpen}
-  <div class="w-full px-[clamp(1rem,4vw,2.75rem)] py-6">
+  <div class="mx-auto w-full max-w-7xl px-4 py-6">
     <MealPlanner categories={data.categories} />
   </div>
 {/if}

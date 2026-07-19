@@ -118,11 +118,12 @@ afterNavigate((navigation) => {
   <meta name="og:locale" content="hu_HU"/>
 </svelte:head>
 
-<main class="">
-  <article class="prose mt-16 mb-8 w-full mx-auto flex-none text-center">
-    <h1>DiabKVÍZ</h1>
-    <p>Az alábbi kvízek csak példák.</p>
-    <p>
+<main>
+  <section class="band relative overflow-hidden bg-base-200">
+    <div class="mx-auto max-w-4xl px-4 py-10 sm:py-14">
+    <h1 class="display text-3xl leading-tight text-balance sm:text-4xl">DiabKVÍZ</h1>
+    <p class="mt-2 max-w-4xl opacity-80">Az alábbi kvízek csak példák.</p>
+    <p class="mt-4">
       <a href="/kviz/tabella" class="btn btn-primary btn-sm gap-2 no-underline">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5">
           <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 18.75h-9m9 0a3 3 0 0 1 3 3h-15a3 3 0 0 1 3-3m9 0v-3.375c0-.621-.503-1.125-1.125-1.125h-.871M7.5 18.75v-3.375c0-.621.504-1.125 1.125-1.125h.872m5.007 0H9.497m5.007 0a7.454 7.454 0 0 1-.982-3.172M9.497 14.25a7.454 7.454 0 0 0 .981-3.172M5.25 4.236c-.982.143-1.954.317-2.916.52A6.003 6.003 0 0 0 7.73 9.728M5.25 4.236V4.5c0 2.108.966 3.99 2.48 5.228M5.25 4.236V2.721C7.456 2.41 9.71 2.25 12 2.25c2.291 0 4.545.16 6.75.47v1.516M7.73 9.728a6.726 6.726 0 0 0 2.748 1.35m8.272-6.842V4.5c0 2.108-.966 3.99-2.48 5.228m2.48-5.492a46.32 46.32 0 0 1 2.916.52 6.003 6.003 0 0 1-5.395 4.972m0 0a6.726 6.726 0 0 1-2.749 1.35m0 0a6.772 6.772 0 0 1-3.044 0" />
@@ -130,7 +131,10 @@ afterNavigate((navigation) => {
         TABELLA
       </a>
     </p>
-  </article>
+    </div>
+  </section>
+
+  <div class="mx-auto max-w-4xl px-4 pb-16">
 
 {#snippet quizRow(kviz: any)}
     {@const score = $kvizScores[kviz.id]}
@@ -181,27 +185,28 @@ afterNavigate((navigation) => {
 {/snippet}
 
 {#each activeGroups as group (group.key)}
-  <div class="divider max-w-screen-md mx-auto px-2 mt-10 mb-4 font-semibold">
+  <div class="divider divider-start mt-10 mb-4 font-semibold">
     {group.date ? `Határidő: ${fmtDeadline(group.date)}` : 'Nincs határidő'}
   </div>
-  <div class="list max-w-screen-md mx-auto mb-8 px-2 flex flex-col gap-6">
+  <div class="list mb-8 flex flex-col gap-6">
     {#each group.items as kviz (kviz.id)}
       {@render quizRow(kviz)}
     {/each}
   </div>
 {/each}
 {#if activeKvizzes.length === 0}
-  <p class="opacity-60 text-center py-4">Jelenleg nincs aktuális kvíz.</p>
+  <p class="opacity-60 py-4">Jelenleg nincs aktuális kvíz.</p>
 {/if}
 
 {#if expiredKvizzes.length}
-  <div class="divider max-w-screen-md mx-auto px-2 mt-10 mb-4 font-semibold opacity-70">Korábbi kvízek</div>
-  <div class="list max-w-screen-md mx-auto mb-16 px-2 flex flex-col gap-6">
+  <div class="divider divider-start mt-10 mb-4 font-semibold opacity-70">Korábbi kvízek</div>
+  <div class="list mb-16 flex flex-col gap-6">
     {#each expiredKvizzes as kviz (kviz.id)}
       {@render quizRow(kviz)}
     {/each}
   </div>
 {/if}
+  </div>
 </main>
 <Search articles={data.articleCount} recipes={data.recipeCount} />
 <Nav2 actual={data.path}/>

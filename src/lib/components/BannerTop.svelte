@@ -54,8 +54,9 @@ export let banners: Banner[] = []
   });
 </script>
 
+<aside class="bg-base-300">
 {#key count}
-<a style="aspect-ratio: 960/{banners[count].height || '200'};" class="flex flex-0 items-end max-w-fit mt-8 mx-auto overflow-hidden border-y border-gray-200" href={banners[count].link} target={banners[count].link ? '_blank' : '_self'} aria-label={banners[count].name}>
+<a style="aspect-ratio: 960/{banners[count].height || '200'};" class="bg-primary flex flex-0 items-end max-w-fit mt-8 mx-auto overflow-hidden border-y border-gray-200" href={banners[count].link} target={banners[count].link ? '_blank' : '_self'} aria-label={banners[count].name}>
 
   {#if banners[count].video}
     <video 
@@ -86,3 +87,4 @@ export let banners: Banner[] = []
 </a>
 {/key}
 <small class="block text-center mx-auto text-xs mb-12">Hirdetés</small>
+</aside>

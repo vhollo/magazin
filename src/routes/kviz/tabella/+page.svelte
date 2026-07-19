@@ -25,12 +25,13 @@
 	<meta name="author" content={conf.sitename} />
 </svelte:head>
 
-<main class="">
-	<article class="prose mt-16 mb-8 w-full mx-auto flex-none text-center">
-		<h1>DiabKVÍZ Tabella</h1>
-		<p>Összpontszámok szerint csökkenő sorrendben</p>
-		<p class="!mt-0 opacity-70">(Csak a le nem járt kvízek pontszámai)</p>
-		<p>
+<main>
+	<section class="band relative overflow-hidden bg-base-200">
+		<div class="mx-auto max-w-4xl px-4 py-10 sm:py-14">
+		<h1 class="display text-3xl leading-tight text-balance sm:text-4xl">DiabKVÍZ Tabella</h1>
+		<p class="mt-2 opacity-80">Összpontszámok szerint csökkenő sorrendben</p>
+		<p class="opacity-70">(Csak a le nem járt kvízek pontszámai)</p>
+		<p class="mt-4">
 			<a href="/kviz" class="btn btn-outline btn-primary border-2 btn-sm gap-2 no-underline">
 				<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5">
 					<path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
@@ -38,9 +39,11 @@
 				Vissza a kvízekhez
 			</a>
 		</p>
-	</article>
+		</div>
+	</section>
 
-	<div class="max-w-screen-md mx-auto mb-16 px-2">
+	<div class="mx-auto max-w-4xl px-4 pt-10">
+	<div class="mb-16">
 		{#if leaderboard && leaderboard.length > 0}
 			<div class="overflow-x-auto">
 				<table class="table table-zebra w-full">
@@ -81,7 +84,7 @@
 			</div>
 		{/if}
 	</div>
-	<article class="prose mt-16 mb-8 w-full mx-auto flex-none text-center">
+	<div class="mt-10 mb-16">
 		<p>
 			<a href="/kviz" class="btn btn-outline btn-primary border-2 btn-sm gap-2 no-underline">
 				<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5">
@@ -90,7 +93,8 @@
 				Vissza a kvízekhez
 			</a>
 		</p>
-	</article>
+	</div>
+	</div>
 </main>
 
 <Search articles={data.articleCount} recipes={data.recipeCount} />

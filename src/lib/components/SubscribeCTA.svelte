@@ -7,7 +7,7 @@
 
 <section class="band relative overflow-hidden bg-primary text-primary-content">
   <div
-    class="mx-auto flex max-w-6xl flex-col items-start gap-4 px-4 py-12 sm:flex-row sm:items-center sm:justify-between sm:py-16"
+    class="mx-auto flex max-w-7xl flex-col items-start gap-4 px-4 py-12 sm:flex-row sm:items-center sm:justify-between sm:py-16"
   >
     <div class="flex flex-col gap-2">
       <p
@@ -18,7 +18,7 @@
       <h2 class="display text-2xl sm:text-3xl">
         A nyomtatott Diabetes magazin – házhoz szállítva
       </h2>
-      <p class="max-w-prose opacity-90">
+      <p class="max-w-4xl opacity-90">
         Minden lapszámunk tele van orvosi és dietetikai tanácsokkal, receptekkel
         és sorstársak történeteivel – évente hatszor a postaládádban.
       </p>

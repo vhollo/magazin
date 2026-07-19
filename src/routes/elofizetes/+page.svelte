@@ -311,7 +311,7 @@
         <h1 class="display text-3xl leading-tight text-balance sm:text-4xl">
           A nyomtatott Diabetes magazin – házhoz szállítva
         </h1>
-        <p class="max-w-prose opacity-80">
+        <p class="max-w-4xl opacity-80">
           Egy jó magazin nem sürget és nem riogat: leül veled, és érthetően
           elmondja, mi történik a szervezetedben – és mit tehetsz érte. Ezt
           kínálja a Diabetes, 1989 óta.
@@ -346,8 +346,8 @@
     </div>
   </section>
 
-  <section id="megrendeles" class="mx-auto max-w-6xl px-4 py-10 sm:py-14">
-    <header class="mb-6 text-center">
+  <section id="megrendeles" class="mx-auto max-w-7xl px-4 py-10 sm:py-14">
+    <header class="mb-6">
       <h2 class="display text-2xl sm:text-3xl">Válaszd ki lapszámaidat</h2>
       <p class="mt-2 opacity-80">
         A Diabetes mellé a Hypertonia magazint és a különszámokat féláron adjuk
@@ -395,14 +395,16 @@
     {/if}
   </section>
 
-  <article id="receptsarok-sub" class="prose mt-16 mb-8 mx-auto w-full">
-    <h2 class="text-center">Receptsarok Prémium</h2>
-    <p class="text-center">
-      Több mint 1800 diabétesz-barát recept, tápanyagtáblázattal,
-      összetevő-kereséssel és tápanyag-szűréssel.
-    </p>
+  <section id="receptsarok-sub" class="mx-auto max-w-4xl px-4 py-10 sm:py-14 card shadow-lg">
+    <header class="mb-6">
+      <h2 class="display text-2xl sm:text-3xl">Receptsarok Prémium</h2>
+      <p class="mt-2 opacity-80">
+        Több mint 1800 diabétesz-barát recept, tápanyagtáblázattal,
+        összetevő-kereséssel és tápanyag-szűréssel.
+      </p>
+    </header>
     <div
-      class="flex flex-col sm:flex-row gap-4 justify-center items-center sm:items-stretch not-prose mt-4"
+      class="flex flex-col sm:flex-row gap-4 justify-center sm:items-stretch mt-4"
     >
       <div class="card bg-base-300 w-64">
         <div class="card-body items-center text-center">
@@ -425,21 +427,24 @@
         </div>
       </div>
     </div>
-    <p class="text-center text-sm mt-4 opacity-60">
+    <p class="mt-4 text-sm opacity-60">
       A Diabetes és Hypertonia lapokban megjelent <span
         class="text-success font-medium">{freeCount}</span
       > recept ingyenesen elérhető, regisztráció nélkül.
     </p>
-  </article>
+  </section>
 
   <!-- GYIK (F5.1) – answers grounded in the actual offer: yearly 6 print magazine,
      2 Hypertonia + különszámok at half price (max 3), shipping computed at checkout,
      cart note to the publisher. -->
-  <section class="mx-auto max-w-2xl px-4 py-10 sm:py-14">
-    <h2 class="display mb-6 text-center text-2xl sm:text-3xl">
+  <section class="mx-auto max-w-4xl px-4 py-10 sm:py-14">
+    <h2 class="display mb-6 text-2xl sm:text-3xl">
       Gyakori kérdések
     </h2>
-    <div class="flex flex-col gap-2">
+    <!-- Section is max-w-7xl so the heading shares the page's left rail; the
+         accordion itself stays narrow — full-width answer text would be an
+         unreadable measure. -->
+    <div class="flex max-w-3xl flex-col gap-2">
       <details class="faq collapse-arrow rounded-sm bg-base-200">
         <summary class="cursor-pointer px-4 py-3 font-medium"
           >Mit tartalmaz egy Diabetes lapszám?</summary

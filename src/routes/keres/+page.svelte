@@ -4,6 +4,7 @@
   import Nav2 from '$lib/components/Nav2.svelte'
   import BannerSide from '$lib/components/BannerSide.svelte'
   import BannerTop from '$lib/components/BannerTop.svelte'
+  import TopicGrid from '$lib/components/TopicGrid.svelte'
 
   import { nav2 } from '$lib/nav2.js'
   let copycats = JSON.parse(JSON.stringify(nav2))
@@ -149,6 +150,9 @@
   }
 
   $: docstitle = q ? `Keresés: "${q}"` : 'Keresés'
+
+  /** A completed search (index ready, query long enough) that matched nothing. */
+  $: noResults = ready && !loadError && q.length >= 2 && !displayDocs.length
 </script>
 
 <svelte:head>
@@ -171,17 +175,36 @@
 <Search articles={data.articleCount} recipes={data.recipeCount} {q} />
 <Nav2 actual='keres'/>
 
-<article id="lista" class="prose mt-16 mb-8 mx-auto w-full">
-  {#if indexLoading && !ready && !displayDocs.length}
-    <div class="flex justify-center py-8 not-prose">
-      <span class="loading loading-spinner loading-lg"></span>
-    </div>
-  {:else if loadError}
-    <p class="text-center text-error">{loadError}</p>
-  {:else if displayDocs.length}
-    <h1 class="text-center">{docstitle}</h1>
+<!-- `#lista` is the scroll target of the Search form (action="/keres#lista"), so the
+     anchor must exist even when there is nothing to show. The band inside it renders
+     for loading, error, results, or a no-results notice — but stays empty on the bare
+     /keres landing (no query yet), so we don't paint a grey strip with nothing in it. -->
+<div id="lista">
+  {#if (indexLoading && !ready && !displayDocs.length) || loadError || displayDocs.length || noResults}
+    <section class="band relative overflow-hidden bg-base-200">
+      <div class="mx-auto max-w-7xl px-4 py-10 sm:py-14">
+        {#if indexLoading && !ready && !displayDocs.length}
+          <div class="flex justify-center py-8">
+            <span class="loading loading-spinner loading-lg"></span>
+          </div>
+        {:else if loadError}
+          <p class="text-error">{loadError}</p>
+        {:else}
+          <h1 class="display text-3xl leading-tight text-balance sm:text-4xl">
+            {docstitle}
+          </h1>
+          {#if noResults}
+            <p class="mt-4 opacity-60">Nincs találat erre a keresésre. Próbálj másik kulcsszót, vagy válassz az alábbi témák közül.</p>
+          {/if}
+        {/if}
+      </div>
+    </section>
   {/if}
-</article>
+</div>
+{#if noResults}
+  <!-- No hits: offer the nav2 topic grid as a browse fallback instead of a dead end. -->
+  <TopicGrid />
+{/if}
 {#if displayDocs.length}
   <Cards cards={displayDocs} banners={conf.side_banners} ads_distance={conf.ads_distance}/>
 {/if}

@@ -3,7 +3,7 @@
   export let card
 </script>
 
-<a href={`/${card.path}`} class="card xs:card-side w-full max-w-prose mx-auto rounded-none">
+<a href={`/${card.path}`} class="card xs:card-side w-full max-w-4xl mx-auto rounded-none">
   <div class="card-body p-0 order-1 xs:order-0">
     <CardBody {card}/>
   </div>

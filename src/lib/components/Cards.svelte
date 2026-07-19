@@ -58,7 +58,7 @@
 <!-- <svelte:window bind:this={win}/> -->
 
 {#if full}
-  <section class="grid gap-x-6 gap-y-12 px-4 py-6" class:ready>
+  <section class="grid gap-x-6 gap-y-12 max-w-7xl mx-auto px-4 py-6" class:ready>
     {#each cards.slice(0, volume * pagenum) as card, i}
       {#if card.recipeTeaser}
         <aside

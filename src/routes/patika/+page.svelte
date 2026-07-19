@@ -38,19 +38,22 @@
   <meta name="og:locale" content="hu_HU"/>
 </svelte:head>
 
-<main class="px-2">
-  <article class="prose mt-16 mb-8 w-full mx-auto flex-none">
-    <h1 class="text-center">Gyógyszertárkereső</h1>
-    <!-- <h2 class="text-center">{kviz.title}</h2> -->
-    <p class="text-center">Keresőnkkel megtalálhatod a hozzád legközelebb eső gyógyszertárat, ahol a Diabetes és/vagy Hypertonia betegtájékoztató magazin elérhető.</p>
-  <form class="form-control w-full max-w-md mx-auto">
-    <p class="label">
-      Keress gyógyszertárat név, cím, város vagy irányítószám alapján
-    </p>
-    <input type="text" placeholder="Keresés" class="input input-bordered w-full max-w-sm" bind:value={query} />
-  </form>
-</article>
-<ul class="w-full max-w-sm mx-auto mt-4 mb-8">
+<main>
+  <section class="band relative overflow-hidden bg-base-200">
+    <div class="mx-auto max-w-4xl px-4 py-10 sm:py-14">
+      <h1 class="display text-3xl leading-tight text-balance sm:text-4xl">Gyógyszertárkereső</h1>
+      <p class="mt-2 max-w-4xl opacity-80">Keresőnkkel megtalálhatod a hozzád legközelebb eső gyógyszertárat, ahol a Diabetes és/vagy Hypertonia betegtájékoztató magazin elérhető.</p>
+      <form class="form-control mt-6 w-full max-w-md">
+        <p class="label">
+          Keress gyógyszertárat név, cím, város vagy irányítószám alapján
+        </p>
+        <input type="text" placeholder="Keresés" class="input input-bordered w-full max-w-sm" bind:value={query} />
+      </form>
+    </div>
+  </section>
+
+  <div class="mx-auto max-w-4xl px-4 pb-8">
+<ul class="mt-6 w-full max-w-sm">
     {#each list as p: any}
       <li class="not-last:border-b py-2" transition:fly={{ y: 200, duration: 1000 }}>
         <p class="font-bold">
@@ -61,6 +64,7 @@
       </li>
     {/each}
   </ul>
+  </div>
 </main>
 <Search articles={data.articleCount} recipes={data.recipeCount} />
 <Nav2 actual={data.path}/>

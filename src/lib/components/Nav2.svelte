@@ -24,7 +24,7 @@
   <!-- <input id="mobile--nav" type="checkbox" bind:checked={_open_nav}/> -->
   <ul class="mx-auto flex items-center">
     <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
-    <li tabindex="0" class="drop-col text-nowrap">
+    <li tabindex="0" class="drop-col text-nowrap py-.5">
       <a class="block menu-title !py-0 pl-0" href="/">
         <img class="h-10" src={'/icon.svg'} alt="diabetes.hu">
       </a>    
