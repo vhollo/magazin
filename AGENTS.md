@@ -177,6 +177,8 @@ Added in the homepage redesign 2026 (F6.1). **Simple Analytics** (cookie-free, n
 |---|---|---|
 | `hero_entry_click` | `Hero.svelte` | "Kezdje itt" audience chip click (`label` metadata) |
 | `hero_expert_click` | `Hero.svelte` | Featured expert-pick card click (`path` metadata) |
+| `hero_subscribe_click` | `Hero.svelte` | Hero **primary** CTA → `/elofizetes` (`source: 'hero'`) |
+| `hero_newsletter_click` | `Hero.svelte` | Hero **secondary** CTA → `/hirlevel` (`source: 'hero'`) |
 | `expert_card_click` | `ExpertSection.svelte` | Any "Válogatás szakértőinktől" card click (`path` metadata) |
 | `newsletter_cta_click` | `NewsletterCTA.svelte` | Home newsletter band CTA → `/hirlevel` |
 | `subscribe_cta_click` | `SubscribeCTA.svelte` | Home subscribe band CTA → `/elofizetes` |
@@ -216,7 +218,7 @@ Added in the homepage redesign 2026 (F6.1). **Simple Analytics** (cookie-free, n
 ### Client-Side Logic (`+page.svelte`)
 
 - **Components**:
-  - `Hero` - Home hero (homepage redesign 2026): left column = welcome copy + "Kezdje itt" audience entry-point chips (distilled from the old hardcoded Carousel cards); right column = the newest expert pick (`expertCards[0]`, LCP image `fetchpriority=high` + `<link rel=preload>` in the page head). Renders welcome + chips even when `expertCards` is empty (e.g. before the first sync). Decorative glucose-curve SVG motif. Replaced the legacy `Carousel` on `/`. The old `Carousel.svelte` + `CarItem.svelte` were **deleted** in the F3.6 pass (they were only rendered here and in a dead `doc.path == '/'` branch of `[...path]/+page.svelte`, which the root route never hits — the gyökér `/` is served by `src/routes/+page.svelte`). The `copycats['carousel']` key in `[...path]/+page.svelte` is unrelated (fallback page-title lookup) and stays.
+  - `Hero` - Home hero (homepage redesign 2026): left column = welcome copy (value proposition H1 + lead) → **primary/secondary CTA pair** (`btn-secondary` "Előfizetek a magazinra" → `/elofizetes`, `btn-outline` "Ingyenes hírlevél" → `/hirlevel`; events `hero_subscribe_click`/`hero_newsletter_click`) → "Kezdje itt" audience entry-point chips (distilled from the old hardcoded Carousel cards); right column = the newest expert pick (`expertCards[0]`, LCP image `fetchpriority=high` + `<link rel=preload>` in the page head). Closes with a restrained **social-proof strip** (`props: articles`, `recipes` — the `+layout.server.ts` counts wired through `+page.svelte`): heritage "1989 óta" (years computed live), real article/recipe counts rounded down to a clean `+` figure via `proof()` (each hidden when its count is missing/below the rounding step), and the publisher authority line linking `/alapitvany` — **no invented ratings**. Stat dividers only render on `md+` so a wrapped mobile layout never dangles a divider at a line start. Renders welcome + chips even when `expertCards` is empty (e.g. before the first sync). Decorative glucose-curve SVG motif. Replaced the legacy `Carousel` on `/`. The old `Carousel.svelte` + `CarItem.svelte` were **deleted** in the F3.6 pass (they were only rendered here and in a dead `doc.path == '/'` branch of `[...path]/+page.svelte`, which the root route never hits — the gyökér `/` is served by `src/routes/+page.svelte`). The `copycats['carousel']` key in `[...path]/+page.svelte` is unrelated (fallback page-title lookup) and stays.
   - `BannerTop` - Shows top banners if configured
   - `Search` - Search component with document count
   - `Nav2` - Secondary navigation
