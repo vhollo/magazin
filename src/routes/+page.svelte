@@ -120,7 +120,11 @@
   {/if}
 </svelte:head>
 
-<Hero expert={data.expertCards?.[0]} />
+<Hero
+  expert={data.expertCards?.[0]}
+  articles={data.articleCount}
+  recipes={data.recipeCount}
+/>
 
 {#if conf.top_banners.length}
   <BannerTop banners={conf.top_banners} />
