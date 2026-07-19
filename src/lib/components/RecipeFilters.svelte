@@ -46,10 +46,24 @@
     }
   }
 
+  let dirty = $derived(
+    filters.maxEnergy > 0 || filters.maxCarbs > 0 || filters.minProtein > 0 ||
+    filters.ingredient.trim() !== '' || filters.sortBy !== 'title'
+  )
+
+  function resetFilters() {
+    filters.maxEnergy = 0
+    filters.maxCarbs = 0
+    filters.minProtein = 0
+    filters.ingredient = ''
+    filters.sortBy = 'title'
+    sortTouched = false
+  }
+
 </script>
 
-<div class="max-w-3xl mx-auto px-4 mb-6">
-  <div class="flex flex-wrap gap-2 justify-center mb-2">
+<div class="mx-auto w-full max-w-4xl p-4 mb-6">
+  <div class="flex flex-wrap gap-2 mb-2">
     {#each dimensions as dim (dim.key)}
       {@const active = filters[dim.key] > 0}
       <button
@@ -86,30 +100,39 @@
     {#if hasAccess}
       <div class="card bg-base-300 p-4 mt-2">
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          {#each dimensions as dim (dim.key)}
+          <div class="flex flex-col gap-4">
+            {#each dimensions as dim (dim.key)}
+              <label class="form-control">
+                <span class="label-text text-xs">{dim.sliderLabel} {filters[dim.key] > 0 ? `${dim.dir} ${filters[dim.key]}` : ''}</span>
+                <input type="range" min="0" max={dim.max} step={dim.step} bind:value={filters[dim.key]} class="range range-xs range-primary" />
+              </label>
+            {/each}
+          </div>
+
+          <div class="flex flex-col gap-4">
             <label class="form-control">
-              <span class="label-text text-xs">{dim.sliderLabel} {filters[dim.key] > 0 ? `${dim.dir} ${filters[dim.key]}` : ''}</span>
-              <input type="range" min="0" max={dim.max} step={dim.step} bind:value={filters[dim.key]} class="range range-xs range-primary" />
+              <span class="label-text text-xs">Összetevő keresése</span>
+              <input type="text" placeholder="pl. csirkemell" bind:value={filters.ingredient} class="input input-sm input-bordered" />
             </label>
-          {/each}
 
-          <label class="form-control">
-            <span class="label-text text-xs">Összetevő keresése</span>
-            <input type="text" placeholder="pl. csirkemell" bind:value={filters.ingredient} class="input input-sm input-bordered" />
-          </label>
-        </div>
+            <label class="form-control">
+              <span class="label-text text-xs">Rendezés</span>
+              <select bind:value={filters.sortBy} onchange={() => sortTouched = true} class="select select-sm select-bordered">
+                <option value="title">Név (A–Z)</option>
+                <option value="energy">Energia (növekvő)</option>
+                <option value="protein">Fehérje (csökkenő)</option>
+                <option value="carbs">Szénhidrát (növekvő)</option>
+                <option value="year">Év (legújabb)</option>
+              </select>
+            </label>
 
-        <div class="mt-4">
-          <label class="form-control">
-            <span class="label-text text-xs">Rendezés</span>
-            <select bind:value={filters.sortBy} onchange={() => sortTouched = true} class="select select-sm select-bordered">
-              <option value="title">Név (A–Z)</option>
-              <option value="energy">Energia (növekvő)</option>
-              <option value="protein">Fehérje (csökkenő)</option>
-              <option value="carbs">Szénhidrát (növekvő)</option>
-              <option value="year">Év (legújabb)</option>
-            </select>
-          </label>
+            <button class="btn btn-sm btn-ghost self-start" onclick={resetFilters} disabled={!dirty}>
+              Szűrők törlése
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99" />
+              </svg>
+            </button>
+          </div>
         </div>
       </div>
     {:else}
