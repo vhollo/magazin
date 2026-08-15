@@ -58,7 +58,13 @@
 <!-- <svelte:window bind:this={win}/> -->
 
 {#if full}
-  <section class="grid gap-x-6 gap-y-12 max-w-7xl mx-auto px-4 py-6" class:ready>
+  <!-- `w-full` is load-bearing: this grid is a flex item of `body`, and `mx-auto`
+       turns off cross-axis stretch, so without it the width shrink-to-fits to the
+       grid's min-content. `auto-fill` resolves its repeat count against the
+       definite `max-w-7xl` (80rem = 1600px at the fluid root size), so min-content
+       is 4 × 24ch of tracks — wider than a 1280px viewport, and the row overflowed
+       horizontally. With `w-full` the width is the line's, and auto-fill refits. -->
+  <section class="grid gap-x-6 gap-y-12 w-full max-w-7xl mx-auto px-4 py-6" class:ready>
     {#each cards.slice(0, volume * pagenum) as card, i}
       {#if card.recipeTeaser}
         <aside

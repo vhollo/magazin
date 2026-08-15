@@ -21,7 +21,7 @@
     { label: "Várandósság, GDM", href: "/gyermekvallalas" },
     {
       label: "Közösség, egyesületek",
-      href: "/hirek/civil-szervezetek-es-szakellatohelyek",
+      href: "/egyesulet",
     },
   ];
 
