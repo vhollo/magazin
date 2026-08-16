@@ -59,12 +59,14 @@ export let banners: Banner[] = []
 <a style="aspect-ratio: 960/{banners[count].height || '200'};" class="bg-primary flex flex-0 items-end max-w-fit mt-8 mx-auto overflow-hidden border-y border-gray-200" href={banners[count].link} target={banners[count].link ? '_blank' : '_self'} aria-label={banners[count].name}>
 
   {#if banners[count].video}
-    <video 
+    <video
       preload="none"
       transition:fade={{ duration: 500 }}
       poster={banners[count].image || ''}
-      width="960" 
-      height={banners[count].height || '200'} 
+      width="960"
+      height={banners[count].height || '200'}
+      playsinline
+      disablepictureinpicture
       muted autoplay loop
     >
       <source src={banners[count].video}

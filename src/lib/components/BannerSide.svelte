@@ -4,12 +4,14 @@
 
 <a class="w-full block mx-auto" href={banner.link} target={banner.link ? '_blank' : '_self'} aria-label={banner.name}>
   {#if banner.video}
-    <video 
+    <video
       preload="none"
       class="mx--auto w-full"
       poster={banner.image || ''}
-      width="300" 
-      height="260" 
+      width="300"
+      height="260"
+      playsinline
+      disablepictureinpicture
       muted autoplay loop controls
     >
       <source src={banner.video}
