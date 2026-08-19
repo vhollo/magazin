@@ -394,9 +394,15 @@ export function createModxTransform(deps: ModxTransformDeps): ModxTransform {
 			.replaceAll('&#160;', '&nbsp;')
 			.replaceAll('<p></p>\r\n', '')
 			.replaceAll('<p></p>', '')
-			.replaceAll('&nbsp;m2', '&nbsp;m²')
-			.replaceAll(' m2', '&nbsp;m²')
-			.replaceAll('/m2', '/m²')
+			// `m2` → `m²`. The separator MODX stores before the unit is not reliably an
+			// ASCII space: the editor writes a literal NBSP (U+00A0) as often as
+			// `&nbsp;`/`&#160;`, and sometimes glues the unit to the number — so match
+			// any of those instead of fixed literals. The trailing guard keeps `m2`
+			// inside words/ids intact (`gdm2024`). `/m2` (`mg/m2`) keeps its slash and
+			// gets no space.
+			.replace(/\/m2(?![\p{L}\p{N}])/gu, '/m²')
+			.replace(/(?:[ \u00A0\u202F]|&nbsp;)+m2(?![\p{L}\p{N}])/gu, '&nbsp;m²')
+			.replace(/(?<=\p{N})m2(?![\p{L}\p{N}])/gu, '&nbsp;m²')
 			.replaceAll('A1c', 'A<sub>1c</sub>')
 			.replaceAll('®', '<sup>®</sup>')
 			.replaceAll('rel="external"', 'rel="noopener" target="_blank"')

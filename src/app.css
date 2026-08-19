@@ -51,9 +51,6 @@
   /* background-color: var(--fallback-b1, oklch(var(--b3) / 1)); */
   @apply bg-base-100;
   scroll-behavior: smooth;
-  /* --color-primary: oklch(71.772% .133 239.443)!important;
-  --color-secondary: oklch(64.476% .202 359.339)!important;
-  --color-accent: oklch(94.228% .189 105.306)!important; */
 }
 @media (prefers-color-scheme: light) {
 }
@@ -143,36 +140,24 @@ body {
   cursor: default;
   pointer-events: none;
 }
-/* .navbar li ul {
-  @apply bg-neutral;
-} */
 .navbar a:hover {
   outline-offset: 0;
   outline-width: 0;
 }
 
 @media (max-width: 47.999rem) {
-  body:has(#mobile-nav:checked) > *:not(nav), nav:has(/* nav >  */#mobile-nav:checked) ~ */* , footer ~ * */ {
+  body:has(#mobile-nav:checked) > *:not(nav), nav:has(#mobile-nav:checked) ~ * {
     display: none;
   }
   .drop-col {
     @apply collapse;
   }
-  /* .navbar a.menu-active {
-    @apply !bg-base-100;
-  } */
 }
 
 @media (min-width: 48rem) {
   .drop-col {
     @apply dropdown;
   }
-  /* .navbar li:hover ul {
-    @apply bg-base-100;
-  } */
-  /* .navbar a.menu-active {
-    @apply !bg-base-200;
-  } */
 }
 
 /* FORMS */
@@ -230,18 +215,6 @@ article figure {
   margin-bottom: 2em;*/
   background-color: transparent;
 }
-/*.card-hollow {
-  @apply card-sm;
-  margin-top: 2em;
-  margin-bottom: 2em;
-  background-color: transparent;
-}
-.card-hollow .card-body {
-  gap: 0;
-  margin-top: 0;
-  margin-bottom: 0;
-  padding: 0!important;
-}*/
 
 /* OVERFLOW w/ ELLIPSIS */
 .intro,
@@ -359,14 +332,11 @@ article :not(table).boxleft {
   display: block;
 
   & > * {
-    @apply my-0/*  mx-4 */;
+    @apply my-0;
   }
   & > * + * {
     margin-top: 0.5rem; /* replaces the now-inert flex gap-2 */
   }
-  /* & > h3 {
-    @apply card-title mt-6;
-  } */
   & > figure {
     @apply my-0 mx-0;
     text-align: center;
@@ -397,20 +367,58 @@ p.boxright {
   @apply p-2!;
 }
 
-.nicebox:has(table) {
+/* TÁBLÁZATOK
+   Article-ben minden table egyformán néz ki, függetlenül attól, van-e rajta
+   .nicebox / .boxleft / .boxright. A doboz-specifikus table-szabályok lentebb
+   ki vannak kommentelve. */
+article table,
+article table.nicebox,
+article table.boxleft,
+article table.boxright {
+  /* a háttér és a keret is csak árnyalatot ad ahhoz, ami mögötte van
+     (oldal- vagy nicebox-háttér) */
+  @apply table table-xs my-4 border border-base-content/10 bg-base-content/4;
+  width: 100%;
+  border-radius: var(--radius-box, 0.5rem);
+  box-shadow: none;
+}
+/* a daisyUI .table thead/tfoot nowrap-ját feloldjuk, különben a hosszú
+   fejlécek szétfeszítik a táblát */
+article table :where(thead, tfoot) {
+  white-space: normal;
+}
+
+/* Igazítás: .left/.boxleft balra, .right/.boxright jobbra */
+article table.left,
+article table.boxleft {
+  float: left;
+  margin-right: 1rem;
+  margin-top: 0.75em;
+}
+article table.right,
+article table.boxright {
+  float: right;
+  margin-left: 1rem;
+  margin-top: 0.75em;
+}
+
+/* cellák középre (az első oszlop kivételével) */
+article tr > :not(:first-child) {
+  @apply text-center;
+}
+/* a cellákban lévő felsorolások viszont balra */
+article :is(td, th) ul {
+  @apply text-left;
+}
+
+/* .nicebox:has(table) {
   @apply my-4 overflow-x-auto w-full rounded-lg border border-base-300 bg-base-200/40;
 }
 
 table.nicebox {
-  /* @apply table table-xs; */
-  /* font-size: 0.75rem; */
   width: 100%;
-  /* table-layout: fixed; */
   @apply card card-sm bg-base-100 shadow-xl p-4 my-[2.8rem] text-xs;
 }
-/* .nicebox thead, .nicebox tfoot {
-  white-space: normal;
-} */
 .nicebox tbody {
   overflow-x: auto;
   width: 100%;
@@ -433,13 +441,9 @@ table.nicebox {
 article table:not(.nicebox) {
   @apply table table-xs w-full min-w-[min(100%,32rem)] rounded-lg border border-base-300 bg-base-200/4;
 }
-/* article table:not(.nicebox) thead th {
+article table:not(.nicebox) thead th {
   @apply bg-base-200 font-normal;
 } */
-article th + th,
-article td + td {
-  @apply text-center;
-}
 
 article figure img {
   max-height: 75vh;
@@ -474,11 +478,12 @@ summary h2 {
   width: calc(50% - 1rem) !important;
   margin-bottom: 1rem;
 }
+/* a lebegtetett dobozok felső margója ugyanaz, mint a táblázatoké */
 .left,
 .right,
 .boxleft,
 .boxright {
-  margin-top: 2rem;
+  margin-top: 0.75em;
 }
 .left,
 .boxleft {
@@ -498,12 +503,8 @@ summary h2 {
 }
 .card.left figure,
 .card.right figure {
-  /*max-width: 50%;*/
   margin-inline: auto;
 }
-/*.card.left p, .card.right p {
-  @apply self-end;
-}*/
 @container (max-width: 42ch) {
   .left,
   .right,
@@ -512,12 +513,18 @@ summary h2 {
     float: none !important;
     width: 100%;
     margin-inline: auto !important;
-    /* text-align: center!important; */
   }
+  /* nincs lebegtetés -> vissza a sima my-4 felső margóra
+     (a table-változatok is, azok specificitása magasabb) */
   .left,
   .right,
   .boxleft,
-  .boxright {
+  .boxright,
+  article table.left,
+  article table.right,
+  article table.boxleft,
+  article table.boxright {
+    @apply mt-4;
   }
   .left img,
   .right img {
@@ -569,7 +576,6 @@ summary h2 {
 #szerzo img {
   grid-row-start: 1;
   grid-row-end: 4;
-  /*aspect-ratio: 1;*/
 }
 #szerzo .nev {
   grid-column: span 2;
@@ -584,7 +590,6 @@ summary h2 {
 #szerzo img ~ .cv {
   grid-column: span 1;
   grid-column-start: 2;
-  /* grid-row-start: 2; */
 }
 
 *:has(#szerzo) > .alairas {
