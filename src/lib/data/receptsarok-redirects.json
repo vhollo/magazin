@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-21T15:02:07.915Z",
+  "generatedAt": "2026-08-24T22:23:12.801Z",
   "sourceDocs": "sync worker (dynamic match + existing manifest)",
   "sourceRecipes": "src/lib/data/recipes.json",
   "entries": [
@@ -116,6 +116,12 @@
       "path": "cikkek/diabetes/1406/sutotokos-zabtaller-feher-csokival",
       "year": 2014,
       "id": "sutotokos-zabtaller-feher-csokival"
+    },
+    {
+      "modxContentId": 1447,
+      "path": "cikkek/diabetes/1503/recept-sarok",
+      "year": 2015,
+      "id": "recept-sarok"
     },
     {
       "modxContentId": 1509,
