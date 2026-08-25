@@ -407,7 +407,9 @@ async function main() {
   const bySlug = new Map()
   const review = {
     generatedAt: new Date().toISOString(),
-    source: `MODX ${process.env.MODXDB_DATABASE} · site_htmlsnippets category ${AUTHOR_CHUNK_CATEGORY}`,
+    // No connection details here: this file is committed, and Netlify's secret
+    // scanner (rightly) fails a build that contains the database name.
+    source: `MODX site_htmlsnippets · category ${AUTHOR_CHUNK_CATEGORY}`,
     orphanChunks: [],
     nfdChunkNames: [],
     nameMismatch: [],
