@@ -386,7 +386,15 @@ article table.boxright */ {
    fejlécek szétfeszítik a táblát */
 article table :where(thead, tfoot) {
   white-space: normal;
-  @apply text-sm;
+}
+/* a table-xs csak :not(thead, tfoot) tr-re állít méretet, a tfoot pedig
+   a törzs sorait folytatja -> kapja meg ugyanazt */
+article table tfoot tr {
+  font-size: 0.6875rem;
+}
+/* fejléc: félkövér helyett dőlt */
+article table thead th {
+  @apply font-normal italic;
 }
 
 /* Igazítás: .left/.boxleft balra, .right/.boxright jobbra */

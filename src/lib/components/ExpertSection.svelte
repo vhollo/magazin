@@ -25,9 +25,12 @@
   <section class="mx-auto w-full max-w-7xl px-4 py-10 sm:py-14">
     <header class="mb-6 flex items-baseline justify-between gap-4">
       <h2 class="display text-2xl sm:text-3xl">Válogatás szakértőinktől</h2>
-      <!-- <span class="badge badge-outline badge-secondary hidden sm:inline-flex"
-        >Dr.</span
-      > -->
+      <a
+        href="/szerzok"
+        class="link link-hover shrink-0 text-sm font-medium text-secondary sm:text-base"
+        on:click={() => trackEvent("expert_authors_click", { source: "home" })}
+        >Szerzőink →</a
+      >
     </header>
     <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
       {#each cards as card (card.id)}

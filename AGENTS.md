@@ -215,6 +215,7 @@ Added in the homepage redesign 2026 (F6.1). **Simple Analytics** (cookie-free, n
 | `hero_subscribe_click` | `Hero.svelte` | Hero **primary** CTA → `/elofizetes` (`source: 'hero'`) |
 | `hero_newsletter_click` | `Hero.svelte` | Hero **secondary** CTA → `/hirlevel` (`source: 'hero'`) |
 | `expert_card_click` | `ExpertSection.svelte` | Any "Válogatás szakértőinktől" card click (`path` metadata) |
+| `expert_authors_click` | `ExpertSection.svelte` | "Szerzőink →" header link → `/szerzok` (`source: 'home'`) |
 | `newsletter_cta_click` | `NewsletterCTA.svelte` | Home newsletter band CTA → `/hirlevel` |
 | `subscribe_cta_click` | `SubscribeCTA.svelte` | Home subscribe band CTA → `/elofizetes` |
 | `hirlevel_submit` | `hirlevel/+page.svelte` | Successful subscribe/unsubscribe (fired inside the `use:enhance` callback on `result.data?.success`, `muvelet` metadata) |
@@ -257,7 +258,7 @@ Added in the homepage redesign 2026 (F6.1). **Simple Analytics** (cookie-free, n
   - `BannerTop` - Shows top banners if configured
   - `Search` - Search component with document count
   - `Nav2` - Secondary navigation
-  - `ExpertSection` - "Válogatás szakértőinktől" rail (homepage redesign 2026): grid of `expertCards.slice(1)` (index 0 is already shown in `Hero`, so this avoids duplicating it), each card with image, title, author name
+  - `ExpertSection` - "Válogatás szakértőinktől" rail (homepage redesign 2026): grid of `expertCards.slice(1)` (index 0 is already shown in `Hero`, so this avoids duplicating it), each card with image, title, author name. Its header carries the only homepage entry point to the author index (`Szerzőink →` → `/szerzok`, event `expert_authors_click`) — the section is where bylines are the subject, so the link sits next to the `<h2>`; it disappears with the whole section when `expertCards` is empty
   - `NewsletterCTA` - Home newsletter promo band (homepage redesign 2026): micro-conversion link to `/hirlevel`, same glucose-curve motif language as `Hero`
   - `TopicGrid` - "Böngésszen témák szerint" section (homepage redesign 2026): one card per `nav2.js` top-level category, sub-categories rendered as link chips
   - `Cards` - Displays article cards. On the home page it receives `docs` **deduplicated against `expertCards`** (`+page.svelte` filters out the top-24 picks already shown in `Hero` + `ExpertSection`) so no card repeats between the curated sections and the "latest" grid.
@@ -933,7 +934,7 @@ Text fields hold plain text **with HTML entities intact** (`&#173;` soft hyphens
 | `npm run sync:authors:collection` | Rebuilds `collections/authors` from `authors/*` — **run after every CMS edit** |
 | `npm run authors:retag [-- --apply]` | Rewrites MODX TV 18 from name tokens to slugs (dry run by default; take a `mysqldump` of `modx_site_tmplvar_contentvalues` first) |
 
-**Rendering**: `src/lib/components/AuthorSignature.svelte` (article footer) and `src/routes/szerzok/**` (index + profile). The markup keeps `id="szerzo"`/`.nev`/`.cv` so the grid in `src/app.css` — and the `*:has(#szerzo) > .alairas { display: none }` rule that hides a byline hard-coded into an article body — keep working; every box past the first gets `.szerzo` instead of the id, and the style selectors are `:is(#szerzo, .szerzo)` so docs still carrying pre-migration chunk HTML render identically until the next full sync.
+**Rendering**: `src/lib/components/AuthorSignature.svelte` (article footer) and `src/routes/szerzok/**` (index + profile). The index is reached from the homepage via the `ExpertSection` header link ("Szerzőink →"); article bylines link straight to the profiles. The markup keeps `id="szerzo"`/`.nev`/`.cv` so the grid in `src/app.css` — and the `*:has(#szerzo) > .alairas { display: none }` rule that hides a byline hard-coded into an article body — keep working; every box past the first gets `.szerzo` instead of the id, and the style selectors are `:is(#szerzo, .szerzo)` so docs still carrying pre-migration chunk HTML render identically until the next full sync.
 
 **Known data debt**: `scripts/data/authors-duplicate-bylines.md` lists the 28 articles whose body repeats the author's own byline (to be deleted in MODX); 9 orphan chunks (MODX `Duplicate` leftovers) were skipped by the extractor and can be deleted there too.
 
