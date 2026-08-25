@@ -91,7 +91,11 @@
       conf.tags.join(", ") ||
       "diabetes, diabétesz, cukorbetegség, vese, keton, Tudomány Kiadó Kft"}
   />
-  <meta name="author" content={doc.tv?.szerzo?.join(", ") || "diabetes.hu"} />
+  <meta
+    name="author"
+    content={doc.tv?.szerzo?.map((sze) => sze?.name).filter(Boolean).join(", ") ||
+      "diabetes.hu"}
+  />
   <meta name="og:image" content={doc.tv?.ogi || conf.ogi || "/icon.svg"} />
   <meta
     name="og:title"

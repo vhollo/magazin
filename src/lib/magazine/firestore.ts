@@ -1,9 +1,11 @@
 import { db } from '$lib/firebase-admin';
 import { encodeDocPathId } from '$lib/magazine/docPathId';
 import type { DocLike, ThinCard } from '$lib/modx/collections';
-import { collectionQueries } from '$lib/modx/collections';
+import { collectionQueries, toThinCard } from '$lib/modx/collections';
 
 export type MagazineArticle = DocLike & {
+	/** Author slugs, flattened from `tv.szerzo` so the author page can query them. */
+	authorSlugs?: string[];
 	relatedCards?: ThinCard[];
 	/** Precomputed recipe-group keys (`{year}-{id}`); replaces the tag-based grid when set. */
 	related?: string[];
@@ -74,6 +76,35 @@ export async function getSiblingReceptModxIds(
 		)
 		.map(({ id }) => id)
 		.sort((a, b) => a - b);
+}
+
+/**
+ * An author's articles, newest first — backs `/szerzok/{slug}`.
+ *
+ * Queries the flat `authorSlugs` array the sync writes: `tv.szerzo` is an array of
+ * maps, which Firestore cannot `array-contains`. Needs a composite index on
+ * (`authorSlugs` array-contains, `publishedon` desc).
+ */
+export async function getArticlesByAuthor(slug: string, limit = 30): Promise<ThinCard[]> {
+	if (!slug) return [];
+	try {
+		const snap = await db
+			.collection('docs')
+			.where('authorSlugs', 'array-contains', slug)
+			.orderBy('publishedon', 'desc')
+			.limit(limit)
+			.select('id', 'path', 'title', 'longtitle', 'description', 'ellipsis', 'img', 'tv', 'redirect')
+			.get();
+		return snap.docs
+			.map((doc) => doc.data() as DocLike & { redirect?: string })
+			.filter((doc) => !doc.redirect)
+			.map((doc) => toThinCard(doc));
+	} catch (error) {
+		// Missing or still-building index: show the profile without the article list
+		// rather than failing the page.
+		console.error(`Error listing articles for author ${slug}:`, error);
+		return [];
+	}
 }
 
 export async function getMagazineCollection(slug: string): Promise<CollectionDoc | null> {

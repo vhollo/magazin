@@ -24,6 +24,7 @@
  * Optional: NETLIFY_SITE_ID, NETLIFY_ACCESS_TOKEN (edge-cache purge)
  */
 import 'dotenv/config'
+import fs from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath, pathToFileURL } from 'node:url'
 import { drizzle } from 'drizzle-orm/mysql2'
@@ -32,7 +33,6 @@ import { eq, ne, desc, and, or, gt, gte, inArray } from 'drizzle-orm'
 import {
   modx_site_content,
   modx_site_tmplvar_contentvalues,
-  modx_site_htmlsnippets,
 } from '../drizzle/schema.ts'
 import { getFirestoreDb } from './lib/firebase-admin.mjs'
 import { encodeDocPathId, decodeDocPathId } from './lib/doc-path-id.mjs'
@@ -95,6 +95,8 @@ const PUBLIC_BASE_URL = process.env.PUBLIC_BASE_URL || 'https://www.diabetes.hu/
 const RS_REDIRECTS_PATH = path.join(root, 'src/lib/data/receptsarok-redirects.json')
 const RECIPES_JSON_PATH = path.join(root, 'src/lib/data/recipes.json')
 const CATEGORY_REVIEW_PATH = path.join(root, 'scripts/data/magazin-recipe-category-review.json')
+const AUTHORS_JSON_PATH = path.join(root, 'scripts/data/authors.json')
+const AUTHORS_COLLECTION_DOC = 'collections/authors'
 const META_SYNC_DOC = 'sync'
 
 const forceModxDocId = (() => {
@@ -273,6 +275,32 @@ function mergeRowsById(...rowSets) {
     }
   }
   return [...byId.values()]
+}
+
+/**
+ * Author records for the transform's byline resolution.
+ *
+ * `collections/authors` is the aggregate the site reads, rebuilt from the
+ * CMS-owned `authors/{slug}` docs — one read here covers the whole sync. The
+ * extracted JSON is only a bootstrap fallback for a project where the aggregate
+ * has not been written yet.
+ *
+ * @param {import('firebase-admin/firestore').Firestore} firestore
+ */
+async function loadAuthors(firestore) {
+  const [collectionId, docId] = AUTHORS_COLLECTION_DOC.split('/')
+  const snap = await firestore.collection(collectionId).doc(docId).get()
+  const authors = snap.exists ? snap.get('authors') : null
+  if (Array.isArray(authors) && authors.length) return authors
+
+  console.warn(`⚠ ${AUTHORS_COLLECTION_DOC} hiányzik — visszaesés ${AUTHORS_JSON_PATH}-ra`)
+  try {
+    const parsed = JSON.parse(fs.readFileSync(AUTHORS_JSON_PATH, 'utf8'))
+    return Array.isArray(parsed) ? parsed : []
+  } catch {
+    console.warn('⚠ nincs szerzőadat — a bylineok csak a TV-tokenből épülnek')
+    return []
+  }
 }
 
 /** All published magazine rows (for --full backfill). */
@@ -883,8 +911,13 @@ async function main() {
   let removedRows = []
   let rowsToProcess
   let tmplvarContentvalues
-  let modxSzerzok
   let lastEdit = 0
+
+  // Bylines come from `authors/{slug}` (CMS-owned), never from MODX chunks — one
+  // read of the aggregate serves every doc in this run, payload path included.
+  const authors = await loadAuthors(firestore)
+  readCounts.collections = (readCounts.collections ?? 0) + 1
+  console.log(`authors: ${authors.length} rekord a collections/authors dokumentumból`)
 
   if (isFromPayload) {
     // ── Payload path (no MySQL / cPanel needed) ──────────────────────────────
@@ -899,7 +932,6 @@ async function main() {
     removedRows = classified.removedRows
     rowsToProcess = sortRowsByDepth(classified.rowsToProcess)
     tmplvarContentvalues = classified.tmplvarContentvalues
-    modxSzerzok = classified.modxSzerzok
     console.log(
       `payload rows: changed=${changedRows.length}, removed=${removedRows.length}, total=${rowsToProcess.length}`
     )
@@ -969,13 +1001,6 @@ async function main() {
     tmplvarContentvalues = isReferencesOnly
       ? []
       : await modxdb.select().from(modx_site_tmplvar_contentvalues)
-    modxSzerzok = isReferencesOnly
-      ? []
-      : await modxdb
-          .select()
-          .from(modx_site_htmlsnippets)
-          .where(eq(modx_site_htmlsnippets.category, 24))
-
     await connection.end()
   }
 
@@ -1026,7 +1051,7 @@ async function main() {
   const modxTransform = createModxTransform({
     publicBaseUrl: PUBLIC_BASE_URL,
     tmplvarContentvalues,
-    modxSzerzok,
+    authors,
     getEveryDocs: () => [...workingById.values()],
     redirectMaps,
     debugUnresolvedParents: process.env.SYNC_DEBUG_PATHS === '1',

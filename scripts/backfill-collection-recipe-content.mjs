@@ -47,7 +47,7 @@ const { createModxTransform } = await import(
 const transform = createModxTransform({
   publicBaseUrl: PUBLIC_BASE_URL,
   tmplvarContentvalues: [],
-  modxSzerzok: [],
+  authors: [],
   getEveryDocs: () => [],
   redirectMaps: { byContentId: new Map(), byPath: new Map() },
 })

@@ -9,9 +9,22 @@ export interface TemplateVariable {
 	contentid: number;
 }
 
-export interface ModxSzerzoSnippet {
+/**
+ * An author as stored in Firestore `authors/{slug}` (only the fields the
+ * transform needs to resolve a `szerzo` TV value onto a record).
+ */
+export interface AuthorRecord {
+	slug: string;
 	name: string;
-	snippet: string;
+	displayName: string;
+	/** `szerzo` TV values from before the slug migration, e.g. `Dr._Kováts_Boglárka`. */
+	legacyTokens?: string[];
+}
+
+/** One author on a doc: the link is the slug, the name is what gets rendered. */
+export interface DocAuthor {
+	slug: string;
+	name: string;
 }
 
 /** Loose MODX row / processed doc shape used during the transform pipeline. */
@@ -40,6 +53,8 @@ export interface ProcessedDocFields {
 	isfolder: boolean;
 	/** MODX doc ids from the article's "További receptek" list (curated related recipes). */
 	linkedModxIds?: number[];
+	/** Author slugs, flattened from `tv.szerzo` for `array-contains` queries. */
+	authorSlugs?: string[];
 }
 
 export type ReceptsarokRedirectMaps = {
@@ -50,7 +65,8 @@ export type ReceptsarokRedirectMaps = {
 export interface ModxTransformDeps {
 	publicBaseUrl: string;
 	tmplvarContentvalues: TemplateVariable[];
-	modxSzerzok: ModxSzerzoSnippet[];
+	/** `authors/{slug}` records — the source of truth for bylines (see `collections/authors`). */
+	authors: AuthorRecord[];
 	/** Returns the current full document list (for path resolution and MODX links). */
 	getEveryDocs: () => ModxDoc[];
 	redirectMaps?: ReceptsarokRedirectMaps;
@@ -228,11 +244,27 @@ export function createModxTransform(deps: ModxTransformDeps): ModxTransform {
 	const {
 		publicBaseUrl,
 		tmplvarContentvalues,
-		modxSzerzok,
+		authors,
 		getEveryDocs,
 		redirectMaps,
 		debugUnresolvedParents = false
 	} = deps;
+
+	/**
+	 * `szerzo` TV value → author record. The TV is a free-text field an editor
+	 * types by hand, so three spellings have to resolve: the slug (what the
+	 * migration writes), the pre-migration token, and the plain name.
+	 */
+	const authorByKey = new Map<string, AuthorRecord>();
+	const authorKey = (value: string) =>
+		value.replaceAll('_', ' ').normalize('NFC').toLowerCase().replace(/[.\s]+/g, ' ').trim();
+	for (const author of authors) {
+		if (!author?.slug) continue;
+		authorByKey.set(author.slug, author);
+		for (const key of [author.displayName, author.name, ...(author.legacyTokens ?? [])]) {
+			if (key) authorByKey.set(authorKey(key), author);
+		}
+	}
 
 	const findPath = (doc: ModxDoc): ModxDoc => {
 		if (!doc.path) {
@@ -302,29 +334,26 @@ export function createModxTransform(deps: ModxTransformDeps): ModxTransform {
 			doc.description = 'DiabPONT Továbbképző Program';
 		}
 
+		// Authors: the TV holds one token per author, resolved onto an `authors/{slug}`
+		// record. A token with no record (an author who never had a chunk) still shows
+		// up as a byline — just as a plain name, with no profile to link to.
 		doc.tv.szerzo = [];
-		const sze = tvs.find((tv) => tv.tmplvarid == 18)?.value.split(' ') || [];
+		const authorTokens = tvs.find((tv) => tv.tmplvarid == 18)?.value.split(' ') || [];
 
-		for (let i = 0; i < sze.length; i++) {
-			let val = sze[i];
-			let name = val.replaceAll('_', ' ') || '';
-			const span = name.match(/(?:<span\b.*?>.*?<\/span>\s*)/gi);
-
-			let snippet: string | undefined = modxSzerzok.find((sz) => sz.name.normalize() == val)?.snippet;
-			if (snippet) {
-				snippet = snippet
-					.replace('src="/', 'src="' + publicBaseUrl)
-					.replace('src="assets', 'src="' + publicBaseUrl + 'assets');
-			}
-			if (!snippet && span) {
-				snippet = name;
-				name = name.replace(span[0], '');
-				val = val.replace(span[0], '');
-			}
-			if (snippet && snippet.indexOf('<') !== 0) snippet = `<p class="alairas">${snippet}</p>`;
-
-			doc.tv.szerzo.push({ val: val, name: name, full: snippet });
+		for (const token of authorTokens) {
+			if (!token) continue;
+			const author = authorByKey.get(token) ?? authorByKey.get(authorKey(token));
+			const entry: DocAuthor = {
+				slug: author?.slug ?? '',
+				name: author?.displayName || token.replaceAll('_', ' ').normalize('NFC')
+			};
+			doc.tv.szerzo.push(entry);
 		}
+		const authorSlugs = [
+			...new Set((doc.tv.szerzo as DocAuthor[]).map((sz) => sz.slug).filter(Boolean))
+		];
+		if (authorSlugs.length) doc.authorSlugs = authorSlugs;
+		else delete doc.authorSlugs;
 
 		const pos = tvs.find((tv) => tv.tmplvarid == 29)?.value || '50% 40%';
 		const img = tvs.find((tv) => tv.tmplvarid == 4)?.value || '';
@@ -346,11 +375,6 @@ export function createModxTransform(deps: ModxTransformDeps): ModxTransform {
 			doc.tv.tags.push('hírek');
 		}
 
-		for (const sz of doc.tv.szerzo) {
-			if (typeof sz.full === 'string') {
-				sz.full = replaceNagyitoTags(sz.full, doc, publicBaseUrl);
-			}
-		}
 	};
 
 	const extraTags = (doc: ModxDoc) => {
@@ -507,6 +531,11 @@ export function createModxTransform(deps: ModxTransformDeps): ModxTransform {
 		isfolder: doc.isfolder,
 		...(Array.isArray(doc.linkedModxIds) && doc.linkedModxIds.length
 			? { linkedModxIds: doc.linkedModxIds }
+			: {}),
+		// Flat copy of the authors' slugs: `tv.szerzo` is an array of maps, which
+		// Firestore cannot `array-contains` — the author page queries this instead.
+		...(Array.isArray(doc.authorSlugs) && doc.authorSlugs.length
+			? { authorSlugs: doc.authorSlugs }
 			: {})
 	});
 

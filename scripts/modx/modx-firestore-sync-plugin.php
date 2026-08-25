@@ -14,8 +14,8 @@
  *
  * How it works:
  *   On each magazine document save the plugin dispatches a single repository_dispatch
- *   event (modx-doc-save) carrying only the saved doc (+ ancestors + filtered TVs +
- *   matched author chunks) as a gzip+base64 payload.
+ *   event (modx-doc-save) carrying only the saved doc (+ ancestors + filtered TVs)
+ *   as a gzip+base64 payload.
  *
  *   Each dispatch triggers its own GitHub Actions run. Runs are serialised by the
  *   concurrency group (cancel-in-progress: false) so rapid saves queue up and each
@@ -30,7 +30,6 @@ if (!defined('MODX_BASE_PATH')) {
 if (!defined('MAGAZIN_GITHUB_REPO_DEFAULT')) {
     define('MAGAZIN_GITHUB_REPO_DEFAULT', 'vhollo/magazin');
     define('MAGAZIN_TV_IDS', '3,4,18,23,25,28,29,30,31');
-    define('MAGAZIN_AUTHOR_CHUNK_CATEGORY', 24);
 }
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
@@ -196,43 +195,6 @@ if (!function_exists('magazin_evoGetTVs')) {
     }
 }
 
-if (!function_exists('magazin_evoGetAuthorChunks')) {
-    /**
-     * Load author chunks (category 24) whose name appears in the saved doc's
-     * TV 18 (szerzo/authors) value.
-     *
-     * @param DocumentParser $modx
-     * @param string         $authorTvValue  Space-separated author token string
-     * @return array[]  Each row: { name, snippet }
-     */
-    function magazin_evoGetAuthorChunks($modx, $authorTvValue)
-    {
-        $tokens = array_filter(array_map('trim', explode(' ', (string) $authorTvValue)));
-        if (empty($tokens)) {
-            return array();
-        }
-        $table   = $modx->getFullTableName('site_htmlsnippets');
-        $escaped = array();
-        foreach ($tokens as $t) {
-            $escaped[] = "'" . $modx->db->escape($t) . "'";
-        }
-        $where = 'category = ' . MAGAZIN_AUTHOR_CHUNK_CATEGORY
-            . ' AND name IN (' . implode(',', $escaped) . ')';
-        $rs = $modx->db->select('name, snippet', $table, $where);
-        if (!$rs) {
-            return array();
-        }
-        $chunks = array();
-        while ($row = $modx->db->getRow($rs)) {
-            $chunks[] = array(
-                'name'    => (string) $row['name'],
-                'snippet' => (string) $row['snippet'],
-            );
-        }
-        return $chunks;
-    }
-}
-
 if (!function_exists('magazin_evoNormaliseRow')) {
     /**
      * Cast a site_content row to the scalar types the Node transform expects.
@@ -354,21 +316,12 @@ if (!function_exists('magazin_evoDispatchSavePayload')) {
         $contentIds = array_keys($allRowsById);
         $tvs = magazin_evoGetTVs($modx, $contentIds);
 
-        // ── 3. Load matched author chunks ─────────────────────────────────────
-        $authorTvValue = '';
-        foreach ($tvs as $tv) {
-            if ((int) $tv['contentid'] === $docId && (int) $tv['tmplvarid'] === 18) {
-                $authorTvValue = $tv['value'];
-                break;
-            }
-        }
-        $szerzok = magazin_evoGetAuthorChunks($modx, $authorTvValue);
-
-        // ── 4. Build gzip+base64 payload ──────────────────────────────────────
+        // ── 3. Build gzip+base64 payload ──────────────────────────────────────
+        // No author chunks: bylines are resolved from Firestore `authors/{slug}`
+        // via the `szerzo` TV value, which travels in `tvs` (id 18).
         $json = json_encode(array(
-            'rows'    => $rows,
-            'tvs'     => $tvs,
-            'szerzok' => $szerzok,
+            'rows' => $rows,
+            'tvs'  => $tvs,
         ));
         if ($json === false) {
             magazin_evoLog($modx, '[FirestoreSync] json_encode failed for id=' . $docId, 3);
@@ -381,7 +334,7 @@ if (!function_exists('magazin_evoDispatchSavePayload')) {
         }
         $payloadData = base64_encode($gz);
 
-        // ── 5. Dispatch repository_dispatch ───────────────────────────────────
+        // ── 4. Dispatch repository_dispatch ───────────────────────────────────
         $result = magazin_evoGithubRepositoryDispatch(
             $repo,
             $token,

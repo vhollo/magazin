@@ -371,10 +371,10 @@ p.boxright {
    Article-ben minden table egyformán néz ki, függetlenül attól, van-e rajta
    .nicebox / .boxleft / .boxright. A doboz-specifikus table-szabályok lentebb
    ki vannak kommentelve. */
-article table,
+article table/* ,
 article table.nicebox,
 article table.boxleft,
-article table.boxright {
+article table.boxright */ {
   /* a háttér és a keret is csak árnyalatot ad ahhoz, ami mögötte van
      (oldal- vagy nicebox-háttér) */
   @apply table table-xs my-4 border border-base-content/10 bg-base-content/4;
@@ -386,6 +386,7 @@ article table.boxright {
    fejlécek szétfeszítik a táblát */
 article table :where(thead, tfoot) {
   white-space: normal;
+  @apply text-sm;
 }
 
 /* Igazítás: .left/.boxleft balra, .right/.boxright jobbra */
@@ -566,30 +567,63 @@ summary h2 {
   margin-inline: auto;
 }
 
-#szerzo {
+/* Signature box. `#szerzo` is the legacy MODX-chunk markup (still in older synced
+   docs), `.szerzo` is what AuthorSignature.svelte renders — and every box past the
+   first one, since an id has to stay unique. */
+:is(#szerzo, .szerzo) {
   clear: both;
   @apply card bg-base-300 px-4 mt-8 rounded-sm;
   display: grid;
   gap: 0 2rem;
   grid-template-columns: 10ch auto;
 }
-#szerzo img {
+:is(#szerzo, .szerzo) img {
   grid-row-start: 1;
-  grid-row-end: 4;
+  grid-row-end: 7;
+  height: auto;
 }
-#szerzo .nev {
+:is(#szerzo, .szerzo) .nev {
   grid-column: span 2;
 }
-#szerzo img + .nev {
+:is(#szerzo, .szerzo) img + .nev {
   grid-column: span 1;
   line-height: 1;
 }
-#szerzo .cv {
+:is(#szerzo, .szerzo) :is(.cv, .titulus) {
   grid-column: span 2;
 }
-#szerzo img ~ .cv {
+:is(#szerzo, .szerzo) img ~ :is(.cv, .titulus) {
   grid-column: span 1;
   grid-column-start: 2;
+}
+/* Name + titulus lines are one block: no vertical margin anywhere inside it.
+   The CV paragraphs that follow keep their normal prose spacing. */
+/* .szerzo .nev {
+  margin-bottom: 0;
+} */
+.szerzo .titulus {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+.szerzo .nev a {
+  @apply no-underline;
+}
+.szerzo .idezet {
+  @apply italic;
+}
+.szerzo .kapcsolat a + a::before,
+.szerzo .tamogatas a + a::before {
+  content: " · ";
+}
+.szerzo .tamogatas {
+  @apply mt-2 text-sm;
+}
+.szerzo .tamogatas span {
+  @apply block;
+}
+.szerzo .tamogatas .logo {
+  grid-row: auto;
+  @apply mb-2;
 }
 
 *:has(#szerzo) > .alairas {

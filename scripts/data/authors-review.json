@@ -1,0 +1,475 @@
+{
+  "generatedAt": "2026-08-24T23:59:29.887Z",
+  "source": "MODX diabete_diabetes · site_htmlsnippets category 24",
+  "orphanChunks": [
+    {
+      "id": 446,
+      "name": "Bíró_Sára Duplicate",
+      "displayName": "Bíró Sára",
+      "action": "kihagyva — töröld MODX-ban"
+    },
+    {
+      "id": 284,
+      "name": "Dávid_Zsuzsanna",
+      "displayName": "Dávid Zsuzsanna",
+      "action": "kihagyva — töröld MODX-ban"
+    },
+    {
+      "id": 380,
+      "name": "Dr._Ambrus_Csaba Duplicate",
+      "displayName": "Dr. Ambrus Csaba",
+      "action": "kihagyva — töröld MODX-ban"
+    },
+    {
+      "id": 531,
+      "name": "Dr._Antalics_Gábor Duplicate",
+      "displayName": "Dr. Antalics Gábor",
+      "action": "kihagyva — töröld MODX-ban"
+    },
+    {
+      "id": 358,
+      "name": "Duplicate of Ambrus_Zsófia",
+      "displayName": "Ambrus Zsófia",
+      "action": "kihagyva — töröld MODX-ban"
+    },
+    {
+      "id": 190,
+      "name": "Huszár_Anikó",
+      "displayName": "Huszár Anikó",
+      "action": "kihagyva — töröld MODX-ban"
+    },
+    {
+      "id": 180,
+      "name": "Martos_Tímea",
+      "displayName": "",
+      "action": "kihagyva — töröld MODX-ban"
+    },
+    {
+      "id": 164,
+      "name": "Prof._dr._Soltész_Gyula",
+      "displayName": "Prof. dr. Soltész Gyula",
+      "action": "kihagyva — töröld MODX-ban"
+    },
+    {
+      "id": 442,
+      "name": "Szécsi_Emese Duplicate",
+      "displayName": "Szécsi Emese",
+      "action": "kihagyva — töröld MODX-ban"
+    }
+  ],
+  "nfdChunkNames": [
+    {
+      "id": 284,
+      "name": "Dávid_Zsuzsanna",
+      "articles": 0
+    },
+    {
+      "id": 292,
+      "name": "Dr._Bakó_Barnabás",
+      "articles": 29
+    },
+    {
+      "id": 285,
+      "name": "Dr._Békefi_Dezső",
+      "articles": 7
+    },
+    {
+      "id": 287,
+      "name": "Dr._Blatniczky_László",
+      "articles": 10
+    },
+    {
+      "id": 288,
+      "name": "Dr._Kautzky_László",
+      "articles": 2
+    },
+    {
+      "id": 290,
+      "name": "Dr._Szabó_László",
+      "articles": 4
+    },
+    {
+      "id": 190,
+      "name": "Huszár_Anikó",
+      "articles": 0
+    },
+    {
+      "id": 164,
+      "name": "Prof._dr._Soltész_Gyula",
+      "articles": 0
+    }
+  ],
+  "nameMismatch": [
+    {
+      "id": 210,
+      "token": "Dr._Járai_Zoltán",
+      "displayName": "Prof. dr. Járai Zoltán",
+      "slug": "jarai-zoltan"
+    },
+    {
+      "id": 310,
+      "token": "Dr._Kis_János_Tibor",
+      "displayName": "Dr. Kiss János Tibor",
+      "slug": "kiss-janos-tibor"
+    },
+    {
+      "id": 524,
+      "token": "Dr._Wittmann_István",
+      "displayName": "Prof. Dr. Wittmann István",
+      "slug": "wittmann-istvan"
+    },
+    {
+      "id": 481,
+      "token": "Szálka_Brigitta",
+      "displayName": "Dr. Szálka Brigitta",
+      "slug": "szalka-brigitta"
+    }
+  ],
+  "slugCollisions": [
+    {
+      "slug": "wittmann-istvan",
+      "merged": [
+        "modx-chunk:524",
+        "modx-chunk:171"
+      ],
+      "displayNames": [
+        "Prof. Dr. Wittmann István",
+        "Prof. dr. Wittmann István"
+      ]
+    }
+  ],
+  "unclassified": [],
+  "notes": [
+    {
+      "id": 367,
+      "name": "Bóta_Tímea",
+      "notes": [
+        "logó eldobva (nincs support doboz): assets/images/logo/logo-mentapro.png"
+      ]
+    },
+    {
+      "id": 484,
+      "name": "Dr._Hevesi_Judit",
+      "notes": [
+        "logó eldobva (nincs support doboz): assets/images/cikkek/dt2203/diabpont-tovabbkepzo-program-2020.png"
+      ]
+    },
+    {
+      "id": 475,
+      "name": "Dr._Kováts_Boglárka",
+      "notes": [
+        "logó eldobva (nincs support doboz): assets/images/cikkek/dt2203/diabpont-tovabbkepzo-program-2020.png"
+      ]
+    },
+    {
+      "id": 464,
+      "name": "Füzesi_Brigitta",
+      "notes": [
+        "logó eldobva (nincs support doboz): assets/images/logo/logo-ceosz.png"
+      ]
+    },
+    {
+      "id": 473,
+      "name": "Zalai_Noémi",
+      "notes": [
+        "logó eldobva (nincs support doboz): assets/images/cikkek/dt2205/diabpont-tovabbkepzo-program-2020.png"
+      ]
+    }
+  ],
+  "rejoinedWords": [
+    "285: di- abetológia → diabetológia",
+    "285: gy- ségének → gységének",
+    "285: yer- mekdiabetes → yermekdiabetes",
+    "288: dia- béteszes → diabéteszes",
+    "288: fog- lalkozik → foglalkozik",
+    "288: te- lephelyén → telephelyén",
+    "288: uveni- lis → uvenilis"
+  ],
+  "tokensWithoutChunk": [
+    {
+      "token": "Herth_Viktória",
+      "name": "Herth Viktória",
+      "articles": 157
+    },
+    {
+      "token": "Somfai_Katalin",
+      "name": "Somfai Katalin",
+      "articles": 43
+    },
+    {
+      "token": "Szőke_Mária",
+      "name": "Szőke Mária",
+      "articles": 26
+    },
+    {
+      "token": "József_Attila",
+      "name": "József Attila",
+      "articles": 19
+    },
+    {
+      "token": "Módos_Anikó",
+      "name": "Módos Anikó",
+      "articles": 14
+    },
+    {
+      "token": "Szabó_Zsuzsa",
+      "name": "Szabó Zsuzsa",
+      "articles": 9
+    },
+    {
+      "token": "Szabados_Judit",
+      "name": "Szabados Judit",
+      "articles": 8
+    },
+    {
+      "token": "Keller_Richard",
+      "name": "Keller Richard",
+      "articles": 7
+    },
+    {
+      "token": "Katona_József",
+      "name": "Katona József",
+      "articles": 7
+    },
+    {
+      "token": "Kovács_Áron",
+      "name": "Kovács Áron",
+      "articles": 6
+    },
+    {
+      "token": "Muskát_Erika",
+      "name": "Muskát Erika",
+      "articles": 6
+    },
+    {
+      "token": "Dr._Joó_Mária_Nóra",
+      "name": "Dr. Joó Mária Nóra",
+      "articles": 5
+    },
+    {
+      "token": "Lázár_Virág",
+      "name": "Lázár Virág",
+      "articles": 4
+    },
+    {
+      "token": "Dr._Mosonyi_Tamás",
+      "name": "Dr. Mosonyi Tamás",
+      "articles": 4
+    },
+    {
+      "token": "S._Bonnyai_Eszter",
+      "name": "S. Bonnyai Eszter",
+      "articles": 4
+    },
+    {
+      "token": "Dr._Mácsai_Emília",
+      "name": "Dr. Mácsai Emília",
+      "articles": 3
+    },
+    {
+      "token": "Dr._Baranyi_Éva",
+      "name": "Dr. Baranyi Éva",
+      "articles": 3
+    },
+    {
+      "token": "Prof._dr._Halmos_Tamás",
+      "name": "Prof. dr. Halmos Tamás",
+      "articles": 3
+    },
+    {
+      "token": "Dr._Földesi_Irén",
+      "name": "Dr. Földesi Irén",
+      "articles": 3
+    },
+    {
+      "token": "Béki_János",
+      "name": "Béki János",
+      "articles": 3
+    },
+    {
+      "token": "Venesz_László",
+      "name": "Venesz László",
+      "articles": 3
+    },
+    {
+      "token": "Zupkó_Anett",
+      "name": "Zupkó Anett",
+      "articles": 3
+    },
+    {
+      "token": "Dr._Soltész_Gyula",
+      "name": "Dr. Soltész Gyula",
+      "articles": 2
+    },
+    {
+      "token": "Dr._Farkas_Katalin",
+      "name": "Dr. Farkas Katalin",
+      "articles": 2
+    },
+    {
+      "token": "Dr._Korányi_László",
+      "name": "Dr. Korányi László",
+      "articles": 2
+    },
+    {
+      "token": "Dr._Hidvégi_Tibor",
+      "name": "Dr. Hidvégi Tibor",
+      "articles": 2
+    },
+    {
+      "token": "Dr._Pados_Gyula",
+      "name": "Dr. Pados Gyula",
+      "articles": 2
+    },
+    {
+      "token": "Prof._dr._Farsang_Csaba",
+      "name": "Prof. dr. Farsang Csaba",
+      "articles": 2
+    },
+    {
+      "token": "Krasznai_Éva",
+      "name": "Krasznai Éva",
+      "articles": 2
+    },
+    {
+      "token": "Dr._Jermendy_György",
+      "name": "Dr. Jermendy György",
+      "articles": 2
+    },
+    {
+      "token": "Cserpes_Fanni",
+      "name": "Cserpes Fanni",
+      "articles": 2
+    },
+    {
+      "token": "Bartuc_Gabriella",
+      "name": "Bartuc Gabriella",
+      "articles": 2
+    },
+    {
+      "token": "Őrsi_Ágnes",
+      "name": "Őrsi Ágnes",
+      "articles": 2
+    },
+    {
+      "token": "Mázi_Miklós",
+      "name": "Mázi Miklós",
+      "articles": 2
+    },
+    {
+      "token": "Dr._Pap_Krisztina",
+      "name": "Dr. Pap Krisztina",
+      "articles": 2
+    },
+    {
+      "token": "Orosz_Judit",
+      "name": "Orosz Judit",
+      "articles": 1
+    },
+    {
+      "token": "Dr._Bognár_Márta",
+      "name": "Dr. Bognár Márta",
+      "articles": 1
+    },
+    {
+      "token": "Madácsy_Tamás",
+      "name": "Madácsy Tamás",
+      "articles": 1
+    },
+    {
+      "token": "Lantos_Tímea",
+      "name": "Lantos Tímea",
+      "articles": 1
+    },
+    {
+      "token": "Orlik_Szidónia",
+      "name": "Orlik Szidónia",
+      "articles": 1
+    },
+    {
+      "token": "Dr._Halmos_Tamásné",
+      "name": "Dr. Halmos Tamásné",
+      "articles": 1
+    },
+    {
+      "token": "Béres_Alexandra",
+      "name": "Béres Alexandra",
+      "articles": 1
+    },
+    {
+      "token": "Dr._Hosszúfalusi_Nóra",
+      "name": "Dr. Hosszúfalusi Nóra",
+      "articles": 1
+    },
+    {
+      "token": "Dr._Nádas_Judit",
+      "name": "Dr. Nádas Judit",
+      "articles": 1
+    },
+    {
+      "token": "Dr._Samu_Antal",
+      "name": "Dr. Samu Antal",
+      "articles": 1
+    },
+    {
+      "token": "Dr._Madácsy_László",
+      "name": "Dr. Madácsy László",
+      "articles": 1
+    },
+    {
+      "token": "Dr._Altmann_Anna",
+      "name": "Dr. Altmann Anna",
+      "articles": 1
+    },
+    {
+      "token": "Dr._Simonyi",
+      "name": "Dr. Simonyi",
+      "articles": 1
+    },
+    {
+      "token": "Gábor",
+      "name": "Gábor",
+      "articles": 1
+    },
+    {
+      "token": "Faludy_Viktória",
+      "name": "Faludy Viktória",
+      "articles": 1
+    },
+    {
+      "token": "Prof._dr._Barkai_László",
+      "name": "Prof. dr. Barkai László",
+      "articles": 1
+    },
+    {
+      "token": "Prof._Dr._Ludwig_Endre",
+      "name": "Prof. Dr. Ludwig Endre",
+      "articles": 1
+    },
+    {
+      "token": "Róth_Éva",
+      "name": "Róth Éva",
+      "articles": 1
+    },
+    {
+      "token": "Dr._Rozsos_István",
+      "name": "Dr. Rozsos István",
+      "articles": 1
+    },
+    {
+      "token": "Bartha_Kristóf",
+      "name": "Bartha Kristóf",
+      "articles": 1
+    },
+    {
+      "token": "Hegedüs_Csaba",
+      "name": "Hegedüs Csaba",
+      "articles": 1
+    },
+    {
+      "token": "Bittner_Péter",
+      "name": "Bittner Péter",
+      "articles": 1
+    }
+  ]
+}

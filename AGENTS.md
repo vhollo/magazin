@@ -15,7 +15,8 @@ This document describes the logic and behavior of all routes in the Diabetes.hu 
 9. [Dynamic Content Routes (`/[...path]`)](#dynamic-content-routes-path)
 10. [Authentication Logic](#authentication-logic)
 11. [Receptsarok Routes (`/receptsarok`)](#receptsarok-routes-receptsarok) — includes [Magazine → Receptsarok redirects](#magazine--receptsarok-redirects-storage--processing)
-12. [Magazine Content Sync (MODX → Firestore)](#magazine-content-sync-modx--firestore)
+12. [Authors (`authors` collection, `/szerzok`)](#authors-authors-collection-szerzok)
+13. [Magazine Content Sync (MODX → Firestore)](#magazine-content-sync-modx--firestore)
 
 ---
 
@@ -873,7 +874,7 @@ When an eligible doc **matches an existing** recipe (redirect already resolves t
 - **Subscription status**: Stored in Firestore `users/{uid}.subscription.receptsarok`
 - **Client-side gating**: `hasReceptsarokAccess` derived store in `authStore.ts`
 - **Dev mode** (`vite dev`): any signed-in user is treated as a subscriber for UI and for `requireReceptsarokSubscriber` (after valid ID token); production behavior unchanged
-- **Free trial period**: when the env var **`PUBLIC_RECEPTSAROK_TRIAL`** is `'true'`/`'1'` (set in Netlify), any signed-in user gets full access in production too — same code path as dev mode. Helper: `isReceptsarokTrialActive()` in `src/lib/receptsarokAccess.ts`, honored by `hasReceptsarokAccess` (client) and `requireReceptsarokSubscriber` (server). `PaywallCTA.svelte` (all three contexts: recipe page, `RecipeFilters`, `MealPlanner`) then shows "Ingyenes próbaidőszak" messaging with a login button (opens `#mod_login`) instead of the `/elofizetes` subscription CTA, and `/receptsarok` home swaps the free-count copy for trial messaging; category cards always show the real `freeCountsByCategory` numbers (trial does not inflate them). Card lock icons (RecipeCard via `$hasReceptsarokAccess` in category list, `/keres`, `ReceptsarokWidget`) clear automatically once the user signs in. Unset/false ⇒ normal paywall. Note: SSR still strips gated fields (`stripRecipeGatedFields`); trial users load full recipes client-side via `/api/receptsarok/recipe/...` like subscribers.
+- **Free trial period**: when the env var **`PUBLIC_RECEPTSAROK_TRIAL`** is `'true'`/`'1'` (set in Netlify), any signed-in user gets full access in production too — same code path as dev mode. Helper: `isReceptsarokTrialActive()` in `src/lib/receptsarokAccess.ts`, honored by `hasReceptsarokAccess` (client) and `requireReceptsarokSubscriber` (server). `PaywallCTA.svelte` (all three contexts: recipe page, `RecipeFilters`, `MealPlanner`) then shows "Ingyenes tesztidőszak" messaging with a login button (opens `#mod_login`) instead of the `/elofizetes` subscription CTA, and `/receptsarok` home swaps the free-count copy for trial messaging; category cards always show the real `freeCountsByCategory` numbers (trial does not inflate them). Card lock icons (RecipeCard via `$hasReceptsarokAccess` in category list, `/keres`, `ReceptsarokWidget`) clear automatically once the user signs in. Unset/false ⇒ normal paywall. Note: SSR still strips gated fields (`stripRecipeGatedFields`); trial users load full recipes client-side via `/api/receptsarok/recipe/...` like subscribers.
 - Free magazine recipes (`recept`-tagged articles in MODX) remain free, unaffected
 
 ### Route Structure
@@ -905,6 +906,39 @@ The recipe detail page uses the same priority, preferring the recipe's own preco
 
 ---
 
+## Authors (`authors` collection, `/szerzok`)
+
+Article authors are structured Firestore records, **not** MODX HTML. Until 2026-08 the `szerzo` TV (18) named a `modx_site_htmlsnippets` chunk in the `Cikk_szerzők` category (24) whose raw HTML was pasted at the end of the article; that chunk corpus was extracted once and retired.
+
+**Data model** — `authors/{slug}`, the single source of truth, edited in FireCMS (`../firecms/src/collections/authors.tsx`):
+
+- `slug` (doc id, **titulus nélkül**: `kovats-boglarka`) · `name` · `prefix` · `displayName`
+- `title` (one-line titulus) · `affiliations[]` · `cv[]` (one entry per paragraph) · `quote`
+- `photo` — path **relative** to the MODX site root; `authorPhotoUrl()` (`src/lib/authors.ts`) prefixes `PUBLIC_BASE_URL`, `alt` is always the display name, width/height belong to the component
+- `links[]`, `email`, `support` (foundation donation box: `lines[]`, `links[]`, `email`, `logo`)
+- `role`, `published`, `articleCount`, `legacyTokens[]` (pre-migration TV values), `source`, `updatedon`
+
+Text fields hold plain text **with HTML entities intact** (`&#173;` soft hyphens included) and no markup — `decodeHtmlEntities` resolves them at render time, so nothing goes through `{@html}`. Multi-line values are arrays because a `<br>` in the source chunks always separated list items (institution / department / city), never a prose line break.
+
+**Read path**: `collections/authors` — one aggregate document (~90 KB) holding every record, rebuilt from `authors/*`. `src/lib/magazine/authorsCache.ts` caches it per serverless instance for 60 s, so article pages and `/szerzok` cost **zero extra reads**.
+
+**Article ↔ author link**: the `szerzo` TV is being migrated from name tokens to the **slug** (`npm run authors:retag`, 867 of 1250 TV rows), so earning a "Dr." never breaks the link. Either spelling works — the resolution below accepts both, which is what makes a partial migration safe. `transform.ts` resolves a slug, a legacy token (`Dr._Kováts_Boglárka`) or a typed-in name against the same map, and writes `doc.tv.szerzo[] = { slug, name }` plus a flat `doc.authorSlugs[]` (Firestore cannot `array-contains` an array of maps). A token with no record still renders as a plain-name byline with no profile link — that is the case for the ~57 authors who never had a chunk.
+
+**Commands**
+
+| Command | What it does |
+|---|---|
+| `npm run authors:extract` | Re-runs the one-off extraction from the MODX chunks → `scripts/data/authors.json` + `authors-review.json` + `authors-duplicate-bylines.md`. Only needed if the chunk corpus is revisited |
+| `npm run sync:authors` / `:apply` | `authors.json` → `authors/{slug}`, **create-only** (the CMS owns existing records; `--force` overrides), then rebuilds the aggregate |
+| `npm run sync:authors:collection` | Rebuilds `collections/authors` from `authors/*` — **run after every CMS edit** |
+| `npm run authors:retag [-- --apply]` | Rewrites MODX TV 18 from name tokens to slugs (dry run by default; take a `mysqldump` of `modx_site_tmplvar_contentvalues` first) |
+
+**Rendering**: `src/lib/components/AuthorSignature.svelte` (article footer) and `src/routes/szerzok/**` (index + profile). The markup keeps `id="szerzo"`/`.nev`/`.cv` so the grid in `src/app.css` — and the `*:has(#szerzo) > .alairas { display: none }` rule that hides a byline hard-coded into an article body — keep working; every box past the first gets `.szerzo` instead of the id, and the style selectors are `:is(#szerzo, .szerzo)` so docs still carrying pre-migration chunk HTML render identically until the next full sync.
+
+**Known data debt**: `scripts/data/authors-duplicate-bylines.md` lists the 28 articles whose body repeats the author's own byline (to be deleted in MODX); 9 orphan chunks (MODX `Duplicate` leftovers) were skipped by the extractor and can be deleted there too.
+
+---
+
 ## Magazine Content Sync (MODX → Firestore)
 
 Magazine articles are **not** bundled in the Netlify build. MODX MySQL is read only by the sync worker (`scripts/sync-modx-to-firestore.mjs`), which writes to Firestore and Firebase Storage. The live app reads `docs/{path}`, `collections/{slug}`, and `meta/search` at SSR/browse time.
@@ -917,7 +951,7 @@ Magazine articles are **not** bundled in the Netlify build. MODX MySQL is read o
 
 Run from repo root (`magazin/`). Requires `.env` with `MODXDB_*`, `FIREBASE_ADMIN_KEY`; Storage uploads also need `FIREBASE_STORAGE_BUCKET` (or project id in service account → `{project}.firebasestorage.app`).
 
-**Save-triggered path (MySQL-free)**: The MODX plugin now dispatches a `repository_dispatch` event (`modx-doc-save`) instead of a `workflow_dispatch`. The payload carries the full article row + ancestors + filtered TVs (ids 3,4,18,23,25,28,29,30,31) + matched author chunks, gzip+base64-encoded. The workflow runs `sync:modx:payload` which needs **no MySQL or cPanel**. `meta/sync.lastEdit` is **not** advanced on payload runs; the periodic manual incremental sync acts as backstop. The PAT (`magazin_github_token`) requires **Contents: write** in addition to Actions read/write.
+**Save-triggered path (MySQL-free)**: The MODX plugin now dispatches a `repository_dispatch` event (`modx-doc-save`) instead of a `workflow_dispatch`. The payload carries the full article row + ancestors + filtered TVs (ids 3,4,18,23,25,28,29,30,31), gzip+base64-encoded — **no author chunks any more** (bylines come from Firestore; a payload that still carries a `szerzok` field is accepted and ignored). The workflow runs `sync:modx:payload` which needs **no MySQL or cPanel**. `meta/sync.lastEdit` is **not** advanced on payload runs; the periodic manual incremental sync acts as backstop. The PAT (`magazin_github_token`) requires **Contents: write** in addition to Actions read/write.
 
 | Command | Script | When to use |
 |---------|--------|-------------|
@@ -958,6 +992,9 @@ Run from repo root (`magazin/`). Requires `.env` with `MODXDB_*`, `FIREBASE_ADMI
 | MODX `recept` linked in Receptsarok but still paywalled | Run `npm run sync:modx` (sets `free: true` on `recipes.json` + Firestore and rebuilds `collections/rs-home`); if counts still stale, run `npm run sync:rs-collections:apply` manually |
 | Transform pipeline / collection query logic changed in code | `npm run sync:modx:full` (or incremental if only future edits matter) |
 | User asks how content gets to production without Netlify rebuild | Explain MODX save → GitHub Actions `repository_dispatch` (modx-doc-save) → `sync:modx:payload` (MySQL-free); code deploys ≠ content deploy; receptsarok / patika data come from their own sync steps |
+| Article byline shows only the author's **name** (no titulus/CV box) | The `szerzo` TV value resolves to no `authors/{slug}` record. Check `scripts/data/authors-review.json` → `tokensWithoutChunk`; either create the author in FireCMS (then `npm run sync:authors:collection`) or fix the TV value. MODX chunks are **not** consulted any more |
+| Edited an author in FireCMS but the site still shows the old text | `npm run sync:authors:collection` — the site reads the `collections/authors` aggregate, which is rebuilt only by that command (plus a ≤60 s per-instance cache) |
+| `/szerzok/{slug}` shows the profile but no articles | The composite index on `docs` (`authorSlugs` array-contains + `publishedon` desc) is missing or still building; the page degrades to profile-only on purpose. Create it in the Firebase console |
 | MODX plugin dispatches but GitHub Action fails immediately (no MySQL errors) | Check PAT has Contents: write; check `MODX_SYNC_PAYLOAD` env is non-empty in the run |
 | `doc.tv.egyesulet` missing on old articles after enabling TV 31 | Run `npm run sync:modx:full` to backfill all existing docs |
 | Re-saved a single **`recept`** article and its content / pageimage didn't change on the live recipe | Already auto-handled: `sync:modx*` re-derives the matched recipe and patches changed fields ([Existing-recipe update on re-save](#existing-recipe-update-on-re-save)). If it didn't apply, check the recipe's `sourceModxId` matches the doc id (a recipe another doc authored is skipped) and that it isn't a collection split. |
@@ -982,11 +1019,12 @@ Do **not** suggest `npm run build` to refresh article text — content updates c
 
 1. **Site Configuration**: Loaded in layout servers, available to all routes
 2. **Documents**: Firestore `docs/` + `collections/` via `$lib/magazine/firestore` (synced from MODX by `npm run sync:modx*`). Magazine recipe redirects: manifest `src/lib/data/receptsarok-redirects.json` + sync → `doc.redirect` on path-encoded docs → SSR 308 (see [Magazine → Receptsarok redirects](#magazine--receptsarok-redirects-storage--processing)).
-3. **Quizzes**: Loaded from Firestore via `getKviz()`
-4. **Scores**: Stored in Firestore at `kviz/{quizId}/scores/{uid}` (subcollection under each quiz document, stores `name`, `email`, `score`, `date` to the actual quiz/scores table)
-5. **Recipes**: SSR via `$lib/receptsarokFirestore` (`collections/rs-home`, `collections/rs-{category}`, `recipes/{year}-{id}` detail). `/keres` recipe teasers come from the search index itself (zero reads). Root-layout counts come from one `meta/stats` read. Populated by `sync:recipes:apply` (diff-based via `meta/recipesUpload`) + `sync:rs-collections:apply` (hash-skip via `meta/rsCollections`, slim catalog → Storage). Magazine `sync:modx` maintains `meta/projections` Storage snapshot + incremental search index (not full-catalog Firestore reads each run).
-6. **Search**: Client-side MiniSearch index from Firebase Storage (`/keres`; meta via `/api/search-meta`)
-7. **Navigation**: 
+3. **Authors**: Firestore `authors/{slug}` (FireCMS-owned) → `collections/authors` aggregate, cached per instance (`src/lib/magazine/authorsCache.ts`); articles link by slug via `doc.authorSlugs` (see [Authors](#authors-authors-collection-szerzok))
+4. **Quizzes**: Loaded from Firestore via `getKviz()`
+5. **Scores**: Stored in Firestore at `kviz/{quizId}/scores/{uid}` (subcollection under each quiz document, stores `name`, `email`, `score`, `date` to the actual quiz/scores table)
+6. **Recipes**: SSR via `$lib/receptsarokFirestore` (`collections/rs-home`, `collections/rs-{category}`, `recipes/{year}-{id}` detail). `/keres` recipe teasers come from the search index itself (zero reads). Root-layout counts come from one `meta/stats` read. Populated by `sync:recipes:apply` (diff-based via `meta/recipesUpload`) + `sync:rs-collections:apply` (hash-skip via `meta/rsCollections`, slim catalog → Storage). Magazine `sync:modx` maintains `meta/projections` Storage snapshot + incremental search index (not full-catalog Firestore reads each run).
+7. **Search**: Client-side MiniSearch index from Firebase Storage (`/keres`; meta via `/api/search-meta`)
+8. **Navigation**: 
    - **Nav1** (Primary): Main menu with direct links and dropdowns (`nav1.js`); includes Receptsarok link
    - **Nav2** (Secondary): Categorized content sections (`nav2.js`)
    - Used for route matching and title generation

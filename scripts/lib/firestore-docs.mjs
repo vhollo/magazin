@@ -16,6 +16,7 @@ export const PROJECTION_FIELDS = [
   'editedon',
   'publishedon',
   'tv',
+  'authorSlugs',
 ]
 
 /**

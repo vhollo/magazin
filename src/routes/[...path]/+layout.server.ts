@@ -2,6 +2,7 @@ import { redirect } from '@sveltejs/kit';
 import { MAGAZINE_CACHE_CONTROL } from '$lib/magazine/cacheHeaders';
 import { collectionQueries, rankDocByTags, type ThinCard } from '$lib/modx/collections';
 import { getMagazineArticle, getMagazineCollection, isCollectionSlug } from '$lib/magazine/firestore';
+import { getAuthorsBySlugs } from '$lib/magazine/authorsCache';
 import type { LayoutServerLoad } from './$types';
 
 /** Best tag-collection slug for an article's tags (fallback similar-articles source). */
@@ -66,5 +67,9 @@ export const load: LayoutServerLoad = async ({ params, setHeaders }) => {
 		? []
 		: await similarCards(doc, articleTags, bestCollectionSlug(articleTags));
 
-	return { doc, docs };
+	// Signature boxes come from `collections/authors` (one cached read per instance),
+	// not from the doc — so a CMS edit shows up without re-syncing every article.
+	const authors = await getAuthorsBySlugs((doc.authorSlugs as string[]) ?? []);
+
+	return { doc, docs, authors };
 };

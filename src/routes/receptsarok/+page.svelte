@@ -29,7 +29,7 @@
     <p class="mt-2 opacity-80">
       {totalRecipes} diabétesz-barát recept, tápanyagtáblázattal.</p>
     {#if trial}
-      <p class="text-success font-medium">Ingyenes próbaidőszak: bejelentkezés után minden recept teljes tartalma elérhető.</p>
+      <p class="text-success font-medium">Ingyenes tesztidőszak: bejelentkezés után minden recept teljes tartalma elérhető.</p>
     {:else}
       <p class="text-success font-medium">A Diabetes és Hypertonia lapokban megjelent {freeCount} recept ingyenesen elérhető.</p>
     {/if}

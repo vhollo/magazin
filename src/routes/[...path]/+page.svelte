@@ -5,6 +5,7 @@
   import BannerSide from "$lib/components/BannerSide.svelte";
   import BannerTop from "$lib/components/BannerTop.svelte";
   import ReceptsarokWidget from "$lib/components/ReceptsarokWidget.svelte";
+  import AuthorSignature from "$lib/components/AuthorSignature.svelte";
 
   import { nav2 } from "$lib/nav2.js";
   // Fallback page-title lookup (see `matchingSubcat` below): supplies human titles
@@ -154,7 +155,11 @@
       conf.tags.join(", ") ||
       "diabetes, diabétesz, cukorbetegség, vese, keton, Tudomány Kiadó Kft"}
   />
-  <meta name="author" content={doc.tv?.szerzo?.join(", ") || "diabetes.hu"} />
+  <meta
+    name="author"
+    content={doc.tv?.szerzo?.map((sze) => sze?.name).filter(Boolean).join(", ") ||
+      "diabetes.hu"}
+  />
   <meta name="og:image" content={doc.tv?.ogi || conf.ogi || "/icon.svg"} />
   <meta
     name="og:title"
@@ -191,7 +196,10 @@
       <aside class="my-3">
         {#if doc.tv.szerzo?.length}
           {#each doc.tv.szerzo as sze, i}
-            <a href={`/keres?q=${encodeURIComponent(sze.name)}`}
+            <a
+              href={sze.slug
+                ? `/szerzok/${sze.slug}`
+                : `/keres?q=${encodeURIComponent(sze.name)}`}
               ><small class="uppercase">{sze.name}</small></a
             >{#if i + 1 < doc.tv.szerzo.length},&nbsp;{/if}
           {/each}
@@ -229,12 +237,22 @@
       {/if}
       <!--<p class="uppercase"><small></small></p>-->
       {@html doc.content}
+      {#if data.authors?.length}
+        {#each data.authors as author, i}
+          <AuthorSignature {author} first={i === 0} />
+        {/each}
+      {/if}
       {#if doc.tv.szerzo?.length}
         {#each doc.tv.szerzo as sze}
-          {#if sze.full}
-            {@html sze.full}
-          {:else}
-            <p class="alairas">{sze.name}</p>
+          {#if !sze.slug}
+            {#if sze.full}
+              <!-- Doc synced before the authors migration: raw chunk HTML.
+                   Goes away with the next full sync. -->
+              {@html sze.full}
+            {:else}
+              <!-- Author with no record (never had a MODX chunk): name only. -->
+              <p class="alairas">{sze.name}</p>
+            {/if}
           {/if}
         {/each}
       {/if}

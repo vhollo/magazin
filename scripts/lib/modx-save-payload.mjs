@@ -19,21 +19,22 @@ const gunzip = promisify(zlib.gunzip)
 
 /**
  * @param {string} base64Gz
- * @returns {Promise<{ rows: object[], tvs: object[], szerzok: object[] }>}
+ * @returns {Promise<{ rows: object[], tvs: object[] }>}
  */
 export async function parseModxSavePayload(base64Gz) {
   const buf = Buffer.from(base64Gz, 'base64')
   const json = await gunzip(buf)
   const parsed = JSON.parse(json.toString('utf8'))
 
-  if (!Array.isArray(parsed?.rows) || !Array.isArray(parsed?.tvs) || !Array.isArray(parsed?.szerzok)) {
-    throw new Error('modx-save-payload: unexpected shape — expected { rows, tvs, szerzok }')
+  // `szerzok` is not read any more (authors live in Firestore), so a plugin that
+  // still sends it and one that no longer does are both accepted.
+  if (!Array.isArray(parsed?.rows) || !Array.isArray(parsed?.tvs)) {
+    throw new Error('modx-save-payload: unexpected shape — expected { rows, tvs }')
   }
 
   return {
     rows: parsed.rows,
     tvs: parsed.tvs,
-    szerzok: parsed.szerzok,
   }
 }
 
@@ -45,11 +46,11 @@ export async function parseModxSavePayload(base64Gz) {
  * are in the "top-of-queue" doc set (non-ancestor) get classified as
  * changed/removed. Ancestor rows are only needed for path resolution.
  *
- * @param {{ rows: object[], tvs: object[], szerzok: object[] }} payload
- * @returns {{ changedRows: object[], removedRows: object[], rowsToProcess: object[], tmplvarContentvalues: object[], modxSzerzok: object[] }}
+ * @param {{ rows: object[], tvs: object[] }} payload
+ * @returns {{ changedRows: object[], removedRows: object[], rowsToProcess: object[], tmplvarContentvalues: object[] }}
  */
 export function classifyPayload(payload) {
-  const { rows, tvs, szerzok } = payload
+  const { rows, tvs } = payload
 
   const changedRows = []
   const removedRows = []
@@ -70,6 +71,5 @@ export function classifyPayload(payload) {
     removedRows,
     rowsToProcess: rows,
     tmplvarContentvalues: tvs,
-    modxSzerzok: szerzok,
   }
 }

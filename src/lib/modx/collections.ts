@@ -89,7 +89,8 @@ export const COLLECTION_LIMIT = 18 * 4;
 
 export type Tv = {
 	tags?: string[];
-	szerzo?: Array<{ val?: string; name?: string; full?: string }>;
+	/** Authors as written by the sync: `slug` links to `authors/{slug}`, empty when unknown. */
+	szerzo?: Array<{ slug?: string; name?: string }>;
 	cat?: string;
 	ogi?: string;
 };
@@ -121,14 +122,14 @@ export type ThinCard = {
 	img?: unknown;
 	video?: string;
 	table?: boolean;
-	tv: { tags: string[]; szerzo: Array<{ val?: string; name?: string }> };
+	tv: { tags: string[]; szerzo: Array<{ slug?: string; name?: string }> };
 	rank?: number;
 };
 
 /** Compact projection of a processed doc suitable for grid/card rendering. */
 export function toThinCard(doc: DocLike, rank?: number): ThinCard {
 	const tags = doc.tv?.tags ?? [];
-	const szerzo = (doc.tv?.szerzo ?? []).map((s) => ({ val: s?.val, name: s?.name }));
+	const szerzo = (doc.tv?.szerzo ?? []).map((s) => ({ slug: s?.slug, name: s?.name }));
 	const card: ThinCard = {
 		id: doc.id,
 		path: doc.path,
@@ -280,7 +281,9 @@ export const EXPERT_LIMIT = 24;
 
 /**
  * True if any author name on the doc carries a "Dr." title, as a standalone token
- * (prefix "Dr. Kovács János" or Hungarian postfix "Kovács János dr."). Tokenizes on
+ * (prefix "Dr. Kovács János" or Hungarian postfix "Kovács János dr."). The name is
+ * the `authors/{slug}` record's `displayName`, so the title is the curated one —
+ * `Szálka_Brigitta` reads as "Dr. Szálka Brigitta" here, as it should. Tokenizes on
  * whitespace rather than using a `\b`-based regex — JS regex word boundaries only
  * recognize ASCII word characters, so `\bdr\b` would false-positive inside names
  * like "Drágffy" (the accented "á" reads as a boundary right after "Dr").

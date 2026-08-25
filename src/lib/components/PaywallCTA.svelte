@@ -11,18 +11,18 @@
 
   const trialMessages = {
     recipe: {
-      title: 'Ingyenes próbaidőszak',
-      body: 'A próbaidőszak alatt minden recept teljes tartalma elérhető – csak bejelentkezés szükséges.',
+      title: 'Ingyenes tesztidőszak',
+      body: 'A tesztidőszak alatt minden recept teljes tartalma elérhető – csak bejelentkezés szükséges.',
       cta: 'Bejelentkezés'
     },
     filter: {
-      title: 'Ingyenes próbaidőszak',
-      body: 'A tápanyag-szűrés és az összetevő-keresés a próbaidőszak alatt bejelentkezés után elérhető.',
+      title: 'Ingyenes tesztidőszak',
+      body: 'A tápanyag-szűrés és az összetevő-keresés a tesztidőszak alatt bejelentkezés után elérhető.',
       cta: 'Bejelentkezés'
     },
     planner: {
-      title: 'Ingyenes próbaidőszak',
-      body: 'A heti étlaptervező és a bevásárlólista a próbaidőszak alatt bejelentkezés után elérhető.',
+      title: 'Ingyenes tesztidőszak',
+      body: 'A heti étlaptervező és a bevásárlólista a tesztidőszak alatt bejelentkezés után elérhető.',
       cta: 'Bejelentkezés'
     }
   }
@@ -62,7 +62,7 @@
     <p class="max-w-sm">{msg.body}</p>
     {#if trial}
       <button class="btn btn-primary" onclick={openLogin}>{msg.cta}</button>
-      <p class="text-xs opacity-50">A próbaidőszak végén a teljes hozzáféréshez előfizetés lesz szükséges.</p>
+      <p class="text-xs opacity-50">A tesztidőszak végén a teljes hozzáféréshez előfizetés lesz szükséges.</p>
     {:else}
       {#if !$authUser}
         <p class="text-sm opacity-60">Először jelentkezz be, majd fizess elő.</p>
