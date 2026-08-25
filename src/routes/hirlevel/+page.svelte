@@ -165,7 +165,7 @@
                 />
                 {#if form?.emailError}
                   <span class="text-sm text-error"
-                    >Add meg egy érvényes e-mail címet.</span
+                    >Adj meg egy érvényes e-mail címet.</span
                   >
                 {/if}
               </label>
@@ -228,7 +228,7 @@
                 />
                 {#if form?.emailError}
                   <span class="text-sm text-error"
-                    >Add meg egy érvényes e-mail címet.</span
+                    >Adj meg egy érvényes e-mail címet.</span
                   >
                 {/if}
               </label>

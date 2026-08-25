@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-24T23:46:46.103Z",
+  "generatedAt": "2026-08-25T11:53:22.953Z",
   "sourceDocs": "sync worker (dynamic match + existing manifest)",
   "sourceRecipes": "src/lib/data/recipes.json",
   "entries": [
@@ -362,6 +362,12 @@
       "path": "cikkek/diabetes/1702/zoldfuszeres-fasirt",
       "year": 2017,
       "id": "zoldfuszeres-fasirt"
+    },
+    {
+      "modxContentId": 1953,
+      "path": "cikkek/diabetes/1703/nagy-margit-gyumolcsos-receptjei",
+      "year": 2017,
+      "id": "nagy-margit-gyumolcsos-receptjei"
     },
     {
       "modxContentId": 1999,
@@ -2906,6 +2912,12 @@
       "path": "cikkek/hypertonia/2401/desszertek-ujragondolva/vegan-brownie",
       "year": 2024,
       "id": "vegan-brownie"
+    },
+    {
+      "modxContentId": 1352,
+      "path": "junior/2015/cikkek/csupa-csoki",
+      "year": 2015,
+      "id": "csupa-csoki"
     },
     {
       "modxContentId": 4432,
