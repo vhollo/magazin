@@ -1,5 +1,9 @@
 {
+<<<<<<< HEAD
   "generatedAt": "2026-08-24T23:46:46.103Z",
+=======
+  "generatedAt": "2026-08-24T22:23:12.801Z",
+>>>>>>> 8c268ce90a675eb503d3aaef3df8b5f0c57ac188
   "sourceDocs": "sync worker (dynamic match + existing manifest)",
   "sourceRecipes": "src/lib/data/recipes.json",
   "entries": [
@@ -3008,6 +3012,12 @@
       "path": "receptsarok/husetelek/csirkemell-csicseriborsos-bulgurral-salataagyon",
       "year": 2025,
       "id": "csirkemell-csicseriborsos-bulgurral-salataagyon"
+    },
+    {
+      "modxContentId": 4429,
+      "path": "receptsarok/husetelek/hentestokany-hajdinaval",
+      "year": 2025,
+      "id": "hentestokany-hajdinaval"
     },
     {
       "modxContentId": 4428,
