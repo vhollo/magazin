@@ -318,5 +318,5 @@
   <!-- Recommendations are non-critical; on a resolve failure show nothing. -->
 {/await}
 
-<Search articles={data.articleCount} recipes={data.recipeCount} />
 <Nav2 actual="/receptsarok" />
+<Search articles={data.articleCount} recipes={data.recipeCount} />

@@ -208,5 +208,5 @@ afterNavigate((navigation) => {
 {/if}
   </div>
 </main>
+<Nav2 actual={data.path} />
 <Search articles={data.articleCount} recipes={data.recipeCount} />
-<Nav2 actual={data.path}/>

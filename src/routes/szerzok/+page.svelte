@@ -1,6 +1,7 @@
 <script>
   // Author index — the public face of the `authors` collection.
   import Search from "$lib/components/Search.svelte";
+  import Nav2 from '$lib/components/Nav2.svelte'
   import { decodeHtmlEntities } from "$lib/htmlEntities.js";
   import { authorPhotoUrl } from "$lib/authors";
 
@@ -118,4 +119,5 @@
   {/if}
 </main>
 
+<Nav2 actual="/szerzok" />
 <Search articles={data.articleCount} recipes={data.recipeCount} />

@@ -66,8 +66,8 @@
   </ul>
   </div>
 </main>
+<Nav2 actual={data.path} />
 <Search articles={data.articleCount} recipes={data.recipeCount} />
-<Nav2 actual={data.path}/>
 
 <style>
   a {text-decoration: dotted underline !important;}

@@ -97,8 +97,8 @@
 	</div>
 </main>
 
-<Search articles={data.articleCount} recipes={data.recipeCount} />
 <Nav2 actual={doc.path} />
+<Search articles={data.articleCount} recipes={data.recipeCount} />
 
 <style>
 	/* Highlight the signed-in user's own row; !important beats table-zebra's td bg. */

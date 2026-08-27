@@ -497,8 +497,8 @@
     </div>
   </section>
 
-  <Search articles={data.articleCount} recipes={data.recipeCount} />
   <Nav2 actual="elofizetes" /><!--  actual={data.doc.path} -->
+  <Search articles={data.articleCount} recipes={data.recipeCount} />
 </main>
 
 <style>

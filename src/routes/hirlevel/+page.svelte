@@ -4,6 +4,7 @@
   // with JS `use:enhance` swaps in a confirmation without a full reload.
   import { enhance } from "$app/forms";
   import Search from "$lib/components/Search.svelte";
+  import Nav2 from "$lib/components/Nav2.svelte";
   import { trackEvent } from "$lib/analytics";
   import { authUser } from "$lib/authStore";
 
@@ -249,6 +250,7 @@
   </div>
 </section>
 
+<Nav2 actual={data.path} />
 <Search articles={data.articleCount} recipes={data.recipeCount} />
 
 <style>

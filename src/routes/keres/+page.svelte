@@ -172,8 +172,8 @@
 {#if conf.top_banners.length}
   <BannerTop banners={conf.top_banners}/>
 {/if}
+<Nav2 actual='keres' />
 <Search articles={data.articleCount} recipes={data.recipeCount} {q} />
-<Nav2 actual='keres'/>
 
 <!-- `#lista` is the scroll target of the Search form (action="/keres#lista"), so the
      anchor must exist even when there is nothing to show. The band inside it renders

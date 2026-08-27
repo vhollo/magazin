@@ -2,6 +2,7 @@
   // Author profile: the full record, plus the articles they wrote.
   import Cards from "$lib/components/Cards.svelte";
   import Search from "$lib/components/Search.svelte";
+  import Nav2 from '$lib/components/Nav2.svelte'
   import { decodeHtmlEntities } from "$lib/htmlEntities.js";
   import { authorPhotoUrl } from "$lib/authors";
 
@@ -106,4 +107,5 @@
   {/if}
 </main>
 
+<Nav2 actual="/szerzok" />
 <Search articles={data.articleCount} recipes={data.recipeCount} />

@@ -7,6 +7,7 @@ export const nav1 = {
     'Alapítvány a Cukorbetegekért': '/alapitvany',
     'Tudomány Kiadó': 'https://www.tudomany-kiado.hu',
     'CEOSZ': 'https://ceosz.hu',
+    'Szerzőink': '/szerzok',
     'Gyógyszertárkereső': '/patika'
   },
   // 'Admin': {

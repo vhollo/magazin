@@ -133,8 +133,8 @@
 {#if conf.top_banners.length}
   <BannerTop banners={conf.top_banners} />
 {/if}
-<Search articles={data.articleCount} recipes={data.recipeCount} />
 <Nav2 actual={data.path} />
+<Search articles={data.articleCount} recipes={data.recipeCount} />
 
 <ExpertSection cards={(data.expertCards ?? []).slice(1)} />
 <NewsletterCTA />

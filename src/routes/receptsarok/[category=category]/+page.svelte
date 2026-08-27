@@ -113,5 +113,5 @@
   <p class="mx-auto w-full max-w-4xl px-4 py-12 opacity-50">Nincs a szűrési feltételeknek megfelelő recept.</p>
 {/if}
 
-<Search articles={data.articleCount} recipes={data.recipeCount} />
 <Nav2 actual="/receptsarok" />
+<Search articles={data.articleCount} recipes={data.recipeCount} />

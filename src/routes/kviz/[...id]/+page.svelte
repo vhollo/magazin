@@ -198,8 +198,8 @@
   <p class="text-center font-medium">Pontszám: <span class="badge badge-primary badge-lg font-semibold">{score} / {kviz.max_score} pont</span></p>
 </footer>
 
+<Nav2 actual={data.path} />
 <Search articles={data.articleCount} recipes={data.recipeCount} />
-<Nav2 actual={data.path}/>
 
 <!-- {#if docs.length}
   <article class="prose mt-16 mb-8 mx-auto w-full">

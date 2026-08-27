@@ -99,6 +99,5 @@
   </div>
 {/if}
 
-<Search articles={data.articleCount} recipes={data.recipeCount} />
 <Nav2 actual="/receptsarok" />
-
+<Search articles={data.articleCount} recipes={data.recipeCount} />
