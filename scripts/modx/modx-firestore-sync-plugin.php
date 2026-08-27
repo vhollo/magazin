@@ -1,11 +1,17 @@
 <?php
 /**
- * MODX Evolution 1.2 plugin — dispatch GitHub Actions "Sync MODX to Firestore"
+ * MODX Evolution 1.4 plugin — dispatch GitHub Actions "Sync MODX to Firestore"
  * on article save, via repository_dispatch (MySQL-free payload path).
  *
  * Install:
  * 1. Elements → Plugins → New → paste this code.
- * 2. System Events: check **OnDocFormSave** only.
+ * 2. System Events: check **OnDocFormSave**, **OnDocFormDelete**,
+ *    **OnDocFormUndelete**, **OnDocPublished**, **OnDocUnPublished**,
+ *    **OnBeforeEmptyTrash** and **OnEmptyTrash**.
+ *    (Save alone would leave an unpublished-from-the-tree, trashed or purged
+ *    article live on the site until the next manual sync.)
+ *    Do **not** check `OnBeforeDocFormDelete`: it fires before the row is marked
+ *    deleted, so the payload would re-add the article that is being deleted.
  * 3. Manager → Configuration — add:
  *    - magazin_github_token   (required) PAT with Contents: write + Actions: read/write.
  *      Fine-grained: Repository access (Contents: write, Actions: read/write).
@@ -16,6 +22,14 @@
  *   On each magazine document save the plugin dispatches a single repository_dispatch
  *   event (modx-doc-save) carrying only the saved doc (+ ancestors + filtered TVs)
  *   as a gzip+base64 payload.
+ *
+ *   Removals travel the same road. Unpublish / trash / restore ship the row itself,
+ *   so the Node side decides add-or-delete with `shouldSyncRow` — the single source
+ *   of truth. Where the row can no longer speak for itself (emptied trash) or would
+ *   be wasteful to ship (the trashed subtree under a deleted folder), the payload
+ *   carries bare `removedIds` and Firestore docs are deleted by their MODX id.
+ *   Deleting an article therefore also drops it from `collections/*`, the search
+ *   index and the projection snapshot, exactly like an unpublish does.
  *
  *   Each dispatch triggers its own GitHub Actions run. Runs are serialised by the
  *   concurrency group (cancel-in-progress: false) so rapid saves queue up and each
@@ -30,6 +44,9 @@ if (!defined('MODX_BASE_PATH')) {
 if (!defined('MAGAZIN_GITHUB_REPO_DEFAULT')) {
     define('MAGAZIN_GITHUB_REPO_DEFAULT', 'vhollo/magazin');
     define('MAGAZIN_TV_IDS', '3,4,18,23,25,28,29,30,31');
+    // Restoring a folder dispatches one run per restored child — beyond this many,
+    // ask for a full backfill instead of flooding the Actions queue.
+    define('MAGAZIN_MAX_UNDELETE_DISPATCH', 20);
 }
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
@@ -95,6 +112,176 @@ if (!function_exists('magazin_evoIsMagazineCandidate')) {
         if ($parent !== 1 && in_array($template, array(9, 13), true)) {
             return true;
         }
+        return false;
+    }
+}
+
+if (!function_exists('magazin_evoScopeFields')) {
+    /** Column list that is enough for magazin_evoIsMagazineCandidate(). */
+    function magazin_evoScopeFields()
+    {
+        return 'id, parent, template, published, deleted, hidemenu, type';
+    }
+}
+
+if (!function_exists('magazin_evoResolveEventDocId')) {
+    /**
+     * Evolution passes the document id differently per event ($id for
+     * OnDocFormSave, params for the publish/delete processors), so try each
+     * known carrier before giving up.
+     *
+     * @param object   $e        The Event object
+     * @param int|null $injected The $id variable Evolution injects, when set
+     * @return int
+     */
+    function magazin_evoResolveEventDocId($e, $injected = null)
+    {
+        $candidates = array($injected);
+        if (isset($e->params) && is_array($e->params)) {
+            foreach (array('id', 'docid', 'doc_id', 'documentid') as $key) {
+                if (isset($e->params[$key])) {
+                    $candidates[] = $e->params[$key];
+                }
+            }
+        }
+        foreach ($candidates as $candidate) {
+            $docId = (int) $candidate;
+            if ($docId > 0) {
+                return $docId;
+            }
+        }
+        return 0;
+    }
+}
+
+if (!function_exists('magazin_evoResolveEventIds')) {
+    /**
+     * Ids carried by a bulk event (empty trash). Accepts an array or a
+     * comma-separated list; an empty result means "ask the database".
+     *
+     * @param object $e
+     * @return int[]
+     */
+    function magazin_evoResolveEventIds($e)
+    {
+        $raw = array();
+        if (isset($e->params) && is_array($e->params)) {
+            foreach (array('ids', 'id', 'documents') as $key) {
+                if (!isset($e->params[$key])) {
+                    continue;
+                }
+                $value = $e->params[$key];
+                if (is_array($value)) {
+                    $raw = array_merge($raw, $value);
+                } elseif (is_string($value) || is_int($value)) {
+                    $raw = array_merge($raw, explode(',', (string) $value));
+                }
+            }
+        }
+        $ids = array();
+        foreach ($raw as $value) {
+            $id = (int) trim((string) $value);
+            if ($id > 0) {
+                $ids[$id] = $id;
+            }
+        }
+        return array_values($ids);
+    }
+}
+
+if (!function_exists('magazin_evoFilterCandidateIds')) {
+    /**
+     * Keep only the ids that are magazine documents. With an empty id list the
+     * whole trash is inspected — that is the reliable source when the event
+     * carries no ids of its own.
+     *
+     * @param DocumentParser $modx
+     * @param int[]          $ids
+     * @param bool           $fallbackToTrash  Scan `deleted = 1` when $ids is empty
+     * @return int[]
+     */
+    function magazin_evoFilterCandidateIds($modx, array $ids, $fallbackToTrash = false)
+    {
+        if (empty($ids) && !$fallbackToTrash) {
+            return array();
+        }
+        $table = $modx->getFullTableName('site_content');
+        $where = empty($ids)
+            ? 'deleted = 1'
+            : 'id IN (' . implode(',', array_map('intval', $ids)) . ')';
+        $rs = $modx->db->select(magazin_evoScopeFields(), $table, $where);
+        if (!$rs) {
+            return array();
+        }
+        $out = array();
+        while ($row = $modx->db->getRow($rs)) {
+            if (magazin_evoIsMagazineCandidate($row)) {
+                $out[] = (int) $row['id'];
+            }
+        }
+        return $out;
+    }
+}
+
+if (!function_exists('magazin_evoGetCandidateDescendantIds')) {
+    /**
+     * Magazine documents below $rootId. Deleting/restoring a folder in the
+     * manager cascades to the whole subtree, but the event only names the
+     * folder — the children have to be collected here.
+     *
+     * @param DocumentParser $modx
+     * @param int            $rootId
+     * @param int            $limit  Safety cap on the collected subtree
+     * @return int[]
+     */
+    function magazin_evoGetCandidateDescendantIds($modx, $rootId, $limit = 500)
+    {
+        $table   = $modx->getFullTableName('site_content');
+        $out     = array();
+        $seen    = array((int) $rootId => true);
+        $parents = array((int) $rootId);
+
+        while (!empty($parents) && count($out) < $limit) {
+            $list = implode(',', array_map('intval', $parents));
+            $rs = $modx->db->select(magazin_evoScopeFields(), $table, 'parent IN (' . $list . ')');
+            $parents = array();
+            if (!$rs) {
+                break;
+            }
+            while ($row = $modx->db->getRow($rs)) {
+                $childId = (int) $row['id'];
+                if ($childId <= 0 || isset($seen[$childId])) {
+                    continue;
+                }
+                $seen[$childId] = true;
+                $parents[] = $childId;
+                if (magazin_evoIsMagazineCandidate($row)) {
+                    $out[] = $childId;
+                }
+            }
+        }
+
+        return $out;
+    }
+}
+
+if (!function_exists('magazin_evoAlreadyDispatched')) {
+    /**
+     * One dispatch per doc per request. Saving with "published" unchecked can
+     * fire OnDocFormSave *and* OnDocUnPublished; both would send the same row.
+     *
+     * @param string $key
+     * @return bool  true when this key was dispatched earlier in this request
+     */
+    function magazin_evoAlreadyDispatched($key)
+    {
+        if (!isset($GLOBALS['magazin_dispatched_keys'])) {
+            $GLOBALS['magazin_dispatched_keys'] = array();
+        }
+        if (isset($GLOBALS['magazin_dispatched_keys'][$key])) {
+            return true;
+        }
+        $GLOBALS['magazin_dispatched_keys'][$key] = true;
         return false;
     }
 }
@@ -277,11 +464,16 @@ if (!function_exists('magazin_evoDispatchSavePayload')) {
      * repository_dispatch (modx-doc-save).
      *
      * @param DocumentParser $modx
-     * @param int            $docId  The saved doc id
+     * @param int            $docId       The saved doc id
+     * @param int[]          $removedIds  MODX ids to delete from Firestore by id
+     *                                    (trashed descendants — no row shipped)
      * @return bool
      */
-    function magazin_evoDispatchSavePayload($modx, $docId)
+    function magazin_evoDispatchSavePayload($modx, $docId, array $removedIds = array())
     {
+        if (magazin_evoAlreadyDispatched('save:' . (int) $docId)) {
+            return true;
+        }
         $token = magazin_evoConfig($modx, 'magazin_github_token');
         if ($token === '') {
             magazin_evoLog($modx, '[FirestoreSync] magazin_github_token is empty — skip dispatch', 2);
@@ -319,10 +511,14 @@ if (!function_exists('magazin_evoDispatchSavePayload')) {
         // ── 3. Build gzip+base64 payload ──────────────────────────────────────
         // No author chunks: bylines are resolved from Firestore `authors/{slug}`
         // via the `szerzo` TV value, which travels in `tvs` (id 18).
-        $json = json_encode(array(
+        $payload = array(
             'rows' => $rows,
             'tvs'  => $tvs,
-        ));
+        );
+        if (!empty($removedIds)) {
+            $payload['removedIds'] = array_values(array_map('intval', $removedIds));
+        }
+        $json = json_encode($payload);
         if ($json === false) {
             magazin_evoLog($modx, '[FirestoreSync] json_encode failed for id=' . $docId, 3);
             return false;
@@ -346,7 +542,8 @@ if (!function_exists('magazin_evoDispatchSavePayload')) {
             magazin_evoLog(
                 $modx,
                 '[FirestoreSync] repository_dispatch modx-doc-save dispatched (HTTP 204)'
-                . ' repo=' . $repo . ' id=' . $docId,
+                . ' repo=' . $repo . ' id=' . $docId
+                . (empty($removedIds) ? '' : ' removedIds=' . implode(',', $removedIds)),
                 1
             );
             return true;
@@ -378,8 +575,88 @@ if (!function_exists('magazin_evoDispatchSavePayload')) {
     }
 }
 
+if (!function_exists('magazin_evoDispatchRemovalIds')) {
+    /**
+     * Dispatch a removal-only payload: no rows, just the MODX ids whose Firestore
+     * docs must go. Used when the `site_content` rows are already gone (emptied
+     * trash), so nothing can be classified from a row any more.
+     *
+     * @param DocumentParser $modx
+     * @param int[]          $ids
+     * @return bool
+     */
+    function magazin_evoDispatchRemovalIds($modx, array $ids)
+    {
+        $ids = array_values(array_unique(array_map('intval', $ids)));
+        if (empty($ids)) {
+            return false;
+        }
+        if (magazin_evoAlreadyDispatched('remove:' . implode(',', $ids))) {
+            return true;
+        }
+
+        $token = magazin_evoConfig($modx, 'magazin_github_token');
+        if ($token === '') {
+            magazin_evoLog($modx, '[FirestoreSync] magazin_github_token is empty — skip dispatch', 2);
+            return false;
+        }
+        if (!function_exists('curl_init') || !function_exists('gzencode')) {
+            magazin_evoLog($modx, '[FirestoreSync] curl or zlib extension not available', 3);
+            return false;
+        }
+
+        $repo = magazin_evoConfig($modx, 'magazin_github_repo', MAGAZIN_GITHUB_REPO_DEFAULT);
+        if ($repo === '') {
+            $repo = MAGAZIN_GITHUB_REPO_DEFAULT;
+        }
+
+        $json = json_encode(array(
+            'rows'       => array(),
+            'tvs'        => array(),
+            'removedIds' => $ids,
+        ));
+        if ($json === false) {
+            magazin_evoLog($modx, '[FirestoreSync] json_encode failed for removal payload', 3);
+            return false;
+        }
+        $gz = gzencode($json, 6);
+        if ($gz === false) {
+            magazin_evoLog($modx, '[FirestoreSync] gzencode failed for removal payload', 3);
+            return false;
+        }
+
+        $result = magazin_evoGithubRepositoryDispatch(
+            $repo,
+            $token,
+            'modx-doc-save',
+            array('data' => base64_encode($gz))
+        );
+
+        if ($result['http'] === 204) {
+            magazin_evoLog(
+                $modx,
+                '[FirestoreSync] repository_dispatch modx-doc-save (removal) dispatched (HTTP 204)'
+                . ' repo=' . $repo . ' ids=' . implode(',', $ids),
+                1
+            );
+            return true;
+        }
+
+        magazin_evoLog(
+            $modx,
+            '[FirestoreSync] removal dispatch failed HTTP ' . $result['http']
+            . ' repo=' . $repo . ' ids=' . implode(',', $ids)
+            . ($result['curl_error'] ? ' curl: ' . $result['curl_error'] : '')
+            . ' body: ' . substr($result['body'], 0, 500),
+            3
+        );
+        return false;
+    }
+}
+
 // ── Plugin entry ─────────────────────────────────────────────────────────────
-// OnDocFormSave: $id and $mode are injected by Evolution from invokeEvent().
+// OnDocFormSave: $id and $mode are injected by Evolution from invokeEvent();
+// the publish/delete processors carry the id in $e->params instead.
 
 $e = isset($modx->Event) ? $modx->Event : (isset($modx->event) ? $modx->event : null);
 if (!$e || !isset($e->name)) {
@@ -387,26 +664,91 @@ if (!$e || !isset($e->name)) {
 }
 
 switch ($e->name) {
+    // Row-shipping events: the site_content row still exists, so the payload
+    // carries it and the Node side (shouldSyncRow) decides upsert vs. delete.
     case 'OnDocFormSave':
-        $docId = isset($id) ? (int) $id : 0;
-        if ($docId <= 0 && isset($e->params['id'])) {
-            $docId = (int) $e->params['id'];
-        }
+    case 'OnDocFormDelete':
+    case 'OnDocFormUndelete':
+    case 'OnDocPublished':
+    case 'OnDocUnPublished':
+        $docId = magazin_evoResolveEventDocId($e, isset($id) ? $id : null);
         if ($docId <= 0) {
             return;
         }
 
         // Quick scope check with a lightweight row (avoids loading full content twice)
-        $scopeRow = magazin_evoGetDocumentRow(
-            $modx,
-            $docId,
-            'id, parent, template, published, deleted, hidemenu, type'
-        );
-        if (!$scopeRow || !magazin_evoIsMagazineCandidate($scopeRow)) {
+        $scopeRow = magazin_evoGetDocumentRow($modx, $docId, magazin_evoScopeFields());
+        if (!$scopeRow) {
+            return;
+        }
+        $isCandidate = magazin_evoIsMagazineCandidate($scopeRow);
+        $isSubtreeEvent = ($e->name === 'OnDocFormDelete' || $e->name === 'OnDocFormUndelete');
+        if (!$isCandidate && !$isSubtreeEvent) {
             return;
         }
 
-        magazin_evoDispatchSavePayload($modx, $docId);
+        // Delete/undelete cascade to the whole subtree, and the children never get
+        // an event of their own — so they are handled here even when the folder
+        // itself is outside the magazine scope (a plain container with articles).
+        $removedIds = array();
+        if ($e->name === 'OnDocFormDelete') {
+            // Trashed children: their content is not worth shipping, the id is enough.
+            $removedIds = magazin_evoGetCandidateDescendantIds($modx, $docId);
+        } elseif ($e->name === 'OnDocFormUndelete') {
+            // Restoring is the mirror image: each child needs its full payload
+            // (content + TVs) to be rebuilt, so it gets its own dispatch.
+            $restored = magazin_evoGetCandidateDescendantIds($modx, $docId, MAGAZIN_MAX_UNDELETE_DISPATCH + 1);
+            if (count($restored) > MAGAZIN_MAX_UNDELETE_DISPATCH) {
+                magazin_evoLog(
+                    $modx,
+                    '[FirestoreSync] undelete of id=' . $docId . ' restored more than '
+                    . MAGAZIN_MAX_UNDELETE_DISPATCH . ' magazine children — run the'
+                    . ' "Sync MODX to Firestore" workflow with full_backfill=true',
+                    2
+                );
+            } else {
+                foreach ($restored as $childId) {
+                    magazin_evoDispatchSavePayload($modx, $childId);
+                }
+            }
+        }
+
+        if ($isCandidate) {
+            magazin_evoDispatchSavePayload($modx, $docId, $removedIds);
+        } elseif (!empty($removedIds)) {
+            magazin_evoDispatchRemovalIds($modx, $removedIds);
+        }
+        break;
+
+    // Emptying the trash hard-deletes the rows, so collect the ids while they
+    // still exist and dispatch a removal-only payload once they are gone.
+    case 'OnBeforeEmptyTrash':
+        $GLOBALS['magazin_trash_ids'] = magazin_evoFilterCandidateIds(
+            $modx,
+            magazin_evoResolveEventIds($e),
+            true
+        );
+        break;
+
+    case 'OnEmptyTrash':
+        $ids = isset($GLOBALS['magazin_trash_ids']) ? $GLOBALS['magazin_trash_ids'] : array();
+        unset($GLOBALS['magazin_trash_ids']);
+        if (empty($ids)) {
+            // OnBeforeEmptyTrash was not registered (or carried nothing) — fall
+            // back to whatever ids this event names; their rows are gone now, so
+            // there is nothing left to scan.
+            $ids = magazin_evoResolveEventIds($e);
+        }
+        if (empty($ids)) {
+            magazin_evoLog(
+                $modx,
+                '[FirestoreSync] empty trash: no ids to remove — enable the'
+                . ' OnBeforeEmptyTrash event on this plugin',
+                2
+            );
+            return;
+        }
+        magazin_evoDispatchRemovalIds($modx, $ids);
         break;
 
     default:

@@ -16,7 +16,7 @@ This document describes the logic and behavior of all routes in the Diabetes.hu 
 10. [Authentication Logic](#authentication-logic)
 11. [Receptsarok Routes (`/receptsarok`)](#receptsarok-routes-receptsarok) — includes [Magazine → Receptsarok redirects](#magazine--receptsarok-redirects-storage--processing)
 12. [Authors (`authors` collection, `/szerzok`)](#authors-authors-collection-szerzok)
-13. [Magazine Content Sync (MODX → Firestore)](#magazine-content-sync-modx--firestore) — includes [Storage artifacts & retention](#storage-artifacts--retention)
+13. [Magazine Content Sync (MODX → Firestore)](#magazine-content-sync-modx--firestore) — includes [Unpublish / delete propagation](#unpublish--delete-propagation), [Storage artifacts & retention](#storage-artifacts--retention)
 14. [FireCMS sync button (CMS → GitHub Actions)](#firecms-sync-button-cms--github-actions)
 
 ---
@@ -955,6 +955,8 @@ Run from repo root (`magazin/`). Requires `.env` with `MODXDB_*`, `FIREBASE_ADMI
 
 **Save-triggered path (MySQL-free)**: The MODX plugin now dispatches a `repository_dispatch` event (`modx-doc-save`) instead of a `workflow_dispatch`. The payload carries the full article row + ancestors + filtered TVs (ids 3,4,18,23,25,28,29,30,31), gzip+base64-encoded — **no author chunks any more** (bylines come from Firestore; a payload that still carries a `szerzok` field is accepted and ignored). The workflow runs `sync:modx:payload` which needs **no MySQL or cPanel**. `meta/sync.lastEdit` is **not** advanced on payload runs; the periodic manual incremental sync acts as backstop. The PAT (`magazin_github_token`) requires **Contents: write** in addition to Actions read/write.
 
+**Removal is save-triggered too** ([Unpublish / delete propagation](#unpublish--delete-propagation)). The plugin listens on **`OnDocFormSave`, `OnDocFormDelete`, `OnDocFormUndelete`, `OnDocPublished`, `OnDocUnPublished`, `OnBeforeEmptyTrash`, `OnEmptyTrash`** — all seven must be checked on the plugin in the MODX manager. The payload gained an optional third key, `removedIds: number[]`, for MODX ids whose Firestore doc must go without a row to classify.
+
 | Command | Script | When to use |
 |---------|--------|-------------|
 | `npm run sync:modx` | `scripts/sync-modx-to-firestore.mjs` | **Incremental sync** — upsert changed rows; patch `meta/projections` Storage snapshot + collections/search incrementally (**~few Firestore reads**, not full `docs` scan). Also **patches existing matched receptsarok recipes** when their source `recept` doc is re-saved ([Existing-recipe update on re-save](#existing-recipe-update-on-re-save)). Rebuilds `collections/rs-home` (`freeCountsByCategory`) when recipe `free` flags change, a recipe is created, **or an existing recipe's card fields are patched** (`--skip-rs-collections` to opt out). |
@@ -978,6 +980,26 @@ Run from repo root (`magazin/`). Requires `.env` with `MODXDB_*`, `FIREBASE_ADMI
 - `meta/stats`, `meta/sync.lastEdit`
 - `static/search-meta.json` — fallback for `/keres` when API unavailable
 - Firebase Storage — `search/index-<ms>.json.gz` (MiniSearch index, ~10 MiB gz) and `projections/slim-<ms>.json.gz` (projection snapshot), both new objects per sync (see [Storage artifacts & retention](#storage-artifacts--retention))
+
+### Unpublish / delete propagation
+
+Unpublishing or deleting an article in MODX removes it from **every** derived surface, on the same save-triggered path a publish takes: the `docs/{encodedPath}` doc is deleted, its path is dropped from the projection snapshot (so `collections/{slug}` + `collections/home` are rewritten without it), `removeSearchDocument()` drops it from the MiniSearch index before the new `search/index-<ms>.json.gz` is uploaded, and the CDN purge covers `/`, the removed path and every collection route.
+
+Who decides is the Node side, never the plugin: any MODX event whose `site_content` row still exists ships that row, and [`shouldSyncRow()`](scripts/lib/magazine-scope.mjs) classifies it into `changedRows` (upsert) or `removedRows` (delete) — one rule for both directions, which is why the always-synced hirek container (id 2797) survives an unpublish while an ordinary article does not.
+
+| MODX action | Event | What travels | Result |
+|-------------|-------|--------------|--------|
+| Save with *Published* unchecked, or unpublish from the tree | `OnDocFormSave` / `OnDocUnPublished` | the row | `removedRows` → doc + collections + search entry deleted |
+| Publish from the tree | `OnDocPublished` | the row | `changedRows` → re-added |
+| Delete (→ trash) | `OnDocFormDelete` | the row + `removedIds` for the trashed subtree | doc deleted; every magazine descendant deleted by MODX id |
+| Restore from trash | `OnDocFormUndelete` | the row, plus one dispatch per restored child (max 20) | re-added; above 20 children the log asks for a full backfill |
+| Empty trash | `OnBeforeEmptyTrash` + `OnEmptyTrash` | `removedIds` only (the rows are gone) | docs deleted by MODX id — ids are collected in the *Before* event while the rows still exist |
+
+`removedIds` deletes `docs/*` by their stored `id` field ([`deleteDocsByModxIds()`](scripts/sync-modx-to-firestore.mjs)), so no path resolution — and no MODX row — is needed. A row shipped in the same payload always wins over a bare id. Deleting a **non-magazine container** still cleans up the magazine articles under it: the subtree is collected even when the folder itself is out of scope. One dispatch per doc per request, so a save that also fires an unpublish event does not double-dispatch.
+
+The MySQL incremental backstop (`npm run sync:modx`) matches: `queryRemovedRows()` windows on `editedon` **or** `deletedon`, because trashing a doc in the manager sets `deleted`/`deletedon` and leaves `editedon` untouched.
+
+**Not covered**: a Receptsarok recipe that `sync:modx*` auto-created from a `recept` article is *not* deleted when that article is — remove it with the recipe tooling (`recipes.json` + `npm run sync:recipes:apply`).
 
 ### Storage artifacts & retention
 
@@ -1010,7 +1032,7 @@ Pruning **never throws**: a listing/delete failure logs `storage prune: … skip
 |----------------|-------------------|
 | First deploy, new Firebase project, or empty article pages / 503 on `/api/search-meta` | `npm run sync:modx:full` then `npm run sync:rs-collections:apply` then `npm run sync:patika:apply` then `npm run verify:firestore-magazine` |
 | Edited/published MODX article but live site still stale | `npm run sync:modx` or trigger GitHub Actions **Sync MODX to Firestore** (check MODX plugin + `magazin_github_token`) |
-| Unpublished/deleted MODX article still visible on site | `npm run sync:modx` (incremental removes from Firestore) or `sync:modx:full` for orphan cleanup |
+| Unpublished/deleted MODX article still visible on site | Should be automatic ([Unpublish / delete propagation](#unpublish--delete-propagation)) — check the plugin has all seven events checked and the GitHub Actions run fired. Repair: `npm run sync:modx` (incremental removes from Firestore) or `sync:modx:full` for orphan cleanup |
 | Changed an article's alias (URL slug) → **two articles** now show (old + new URL) | Already auto-handled: next `sync:modx`/payload save deletes the stale old-path `docs/*`. If a leftover predates this fix, `npm run sync:modx:full` clears it. |
 | `/keres` shows “index not available” but articles load | `npm run sync:modx:finish` |
 | `/receptsarok` shows wrong category counts, `/keres` recipe hits missing nutrition/img, or category listing stale after `sync:recipes:apply` | `npm run sync:rs-collections:apply` (rebuilds `collections/rs-home`, `rs-{cat}`, `rs-teasers`) |

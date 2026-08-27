@@ -2,12 +2,15 @@
  * Parse and validate a gzip+base64 MODX save payload produced by the
  * MODX plugin (modx-firestore-sync-plugin.php).
  *
- * Each repository_dispatch carries exactly one saved doc (+ ancestors).
+ * Each repository_dispatch carries exactly one saved doc (+ ancestors), or —
+ * for a hard removal (emptied trash, deleted descendants) — only the MODX ids
+ * whose rows no longer exist to be classified.
  * Payload shape (after gunzip + JSON.parse):
  * {
- *   rows:    ModxSiteContentRow[]              // saved doc + all ancestors
- *   tvs:     { tmplvarid, contentid, value }[] // filtered TV rows (ids 3,4,18,23,25,28,29,30,31)
- *   szerzok: { name, snippet }[]               // matched author chunks (category 24)
+ *   rows:       ModxSiteContentRow[]              // saved doc + all ancestors (may be empty)
+ *   tvs:        { tmplvarid, contentid, value }[] // filtered TV rows (ids 3,4,18,23,25,28,29,30,31)
+ *   removedIds: number[]                          // optional — MODX ids to delete from Firestore by id
+ *   szerzok:    { name, snippet }[]               // legacy, ignored (authors live in Firestore)
  * }
  */
 
@@ -19,7 +22,7 @@ const gunzip = promisify(zlib.gunzip)
 
 /**
  * @param {string} base64Gz
- * @returns {Promise<{ rows: object[], tvs: object[] }>}
+ * @returns {Promise<{ rows: object[], tvs: object[], removedIds: number[] }>}
  */
 export async function parseModxSavePayload(base64Gz) {
   const buf = Buffer.from(base64Gz, 'base64')
@@ -35,7 +38,26 @@ export async function parseModxSavePayload(base64Gz) {
   return {
     rows: parsed.rows,
     tvs: parsed.tvs,
+    removedIds: normaliseRemovedIds(parsed?.removedIds),
   }
+}
+
+/**
+ * `removedIds` carries MODX ids whose `site_content` row is already gone
+ * (emptied trash) or whose row was not worth shipping (trashed descendants of a
+ * deleted folder). They are deleted from Firestore by their stored `id` field.
+ *
+ * @param {unknown} value
+ * @returns {number[]}
+ */
+function normaliseRemovedIds(value) {
+  if (!Array.isArray(value)) return []
+  const ids = new Set()
+  for (const raw of value) {
+    const id = Number(raw)
+    if (Number.isFinite(id) && id > 0) ids.add(id)
+  }
+  return [...ids]
 }
 
 /**
@@ -46,8 +68,8 @@ export async function parseModxSavePayload(base64Gz) {
  * are in the "top-of-queue" doc set (non-ancestor) get classified as
  * changed/removed. Ancestor rows are only needed for path resolution.
  *
- * @param {{ rows: object[], tvs: object[] }} payload
- * @returns {{ changedRows: object[], removedRows: object[], rowsToProcess: object[], tmplvarContentvalues: object[] }}
+ * @param {{ rows: object[], tvs: object[], removedIds?: number[] }} payload
+ * @returns {{ changedRows: object[], removedRows: object[], removedModxIds: number[], rowsToProcess: object[], tmplvarContentvalues: object[] }}
  */
 export function classifyPayload(payload) {
   const { rows, tvs } = payload
@@ -66,9 +88,18 @@ export function classifyPayload(payload) {
 
   // All payload rows (including ancestors) are needed for path resolution.
   // sortRowsByDepth is called by the caller; we return the full set.
+  // Rows that travelled with the payload win over a bare id: a row still present
+  // in MODX is classified by shouldSyncRow (which keeps e.g. the always-synced
+  // hirek container 2797), never blind-deleted.
+  const classifiedIds = new Set(rows.map((row) => Number(row?.id)))
+  const removedModxIds = normaliseRemovedIds(payload?.removedIds).filter(
+    (id) => !classifiedIds.has(id)
+  )
+
   return {
     changedRows,
     removedRows,
+    removedModxIds,
     rowsToProcess: rows,
     tmplvarContentvalues: tvs,
   }

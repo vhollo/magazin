@@ -198,8 +198,13 @@ async function queryRemovedRows(modxdb, lastEdit) {
     .from(modx_site_content)
     .where(
       and(
-        // gte: catch unpublish saves that reuse the same editedon as a prior publish sync
-        gte(modx_site_content.editedon, lastEdit),
+        // gte: catch unpublish saves that reuse the same editedon as a prior publish sync.
+        // deletedon: trashing a doc in the manager sets deleted/deletedon but leaves
+        // editedon untouched, so an editedon-only window would never see it again.
+        or(
+          gte(modx_site_content.editedon, lastEdit),
+          gte(modx_site_content.deletedon, lastEdit)
+        ),
         or(
           and(
             eq(modx_site_content.type, 'document'),
@@ -717,6 +722,45 @@ async function deleteRemovedDocs(firestore, modxTransform, rowsToProcess, remove
 }
 
 /**
+ * Delete every `docs/*` that carries one of these MODX ids, without needing the
+ * MODX row itself. Used for hard removals the row-based classification can no
+ * longer see: an emptied trash (the `site_content` row is gone) and the trashed
+ * descendants of a deleted folder.
+ *
+ * @param {import('firebase-admin/firestore').Firestore} firestore
+ * @param {Iterable<number>} modxIds
+ * @returns {Promise<{ deleted: number, paths: string[], reads: number }>}
+ */
+async function deleteDocsByModxIds(firestore, modxIds) {
+  let deleted = 0
+  let reads = 0
+  /** @type {string[]} */
+  const paths = []
+
+  for (const modxId of modxIds) {
+    const snap = await firestore.collection('docs').where('id', '==', modxId).get()
+    reads += snap.size
+    if (snap.empty) {
+      console.log(`  removal by id: no docs/* for MODX id=${modxId} (already gone)`)
+      continue
+    }
+    for (const docSnap of snap.docs) {
+      const pathValue = docSnap.data()?.path
+      const removedPath =
+        typeof pathValue === 'string' && pathValue.trim()
+          ? pathValue.trim()
+          : decodeDocPathId(docSnap.id)
+      await docSnap.ref.delete()
+      deleted++
+      if (removedPath) paths.push(removedPath)
+      console.log(`  deleted docs/${docSnap.id} (removal by id=${modxId})`)
+    }
+  }
+
+  return { deleted, paths, reads }
+}
+
+/**
  * @param {import('firebase-admin/firestore').Firestore} firestore
  * @param {number} modxId
  */
@@ -837,6 +881,8 @@ async function main() {
 
   let changedRows
   let removedRows = []
+  /** @type {number[]} MODX ids to delete from Firestore without a row to classify */
+  let removedModxIds = []
   let rowsToProcess
   let tmplvarContentvalues
   let lastEdit = 0
@@ -858,10 +904,12 @@ async function main() {
     const classified = classifyPayload(payload)
     changedRows = classified.changedRows
     removedRows = classified.removedRows
+    removedModxIds = classified.removedModxIds
     rowsToProcess = sortRowsByDepth(classified.rowsToProcess)
     tmplvarContentvalues = classified.tmplvarContentvalues
     console.log(
-      `payload rows: changed=${changedRows.length}, removed=${removedRows.length}, total=${rowsToProcess.length}`
+      `payload rows: changed=${changedRows.length}, removed=${removedRows.length},` +
+        ` removedIds=${removedModxIds.length}, total=${rowsToProcess.length}`
     )
   } else {
     // ── MySQL path (manual workflow_dispatch full / incremental) ─────────────
@@ -915,7 +963,7 @@ async function main() {
         (forceModxDocId > 0 ? `, forced doc id: ${forceModxDocId}` : '')
     )
 
-    if (changedRows.length === 0 && removedRows.length === 0) {
+    if (changedRows.length === 0 && removedRows.length === 0 && removedModxIds.length === 0) {
       await connection.end()
       console.log('nothing to sync')
       return
@@ -932,7 +980,7 @@ async function main() {
     await connection.end()
   }
 
-  if (changedRows.length === 0 && removedRows.length === 0) {
+  if (changedRows.length === 0 && removedRows.length === 0 && removedModxIds.length === 0) {
     console.log('nothing to sync from MODX')
     if (!skipRedirectRefresh) {
       const refresh = await refreshReceptsarokRedirectsFromManifest(firestore, RS_REDIRECTS_PATH, {
@@ -953,7 +1001,7 @@ async function main() {
   }
 
   const changedIds = new Set(changedRows.map((row) => row.id))
-  const removedIds = new Set(removedRows.map((row) => row.id))
+  const removedIds = new Set([...removedRows.map((row) => row.id), ...removedModxIds])
 
   const redirectMaps = loadReceptsarokRedirectMaps(RS_REDIRECTS_PATH)
   const recipes = loadRecipesFromJson(RECIPES_JSON_PATH)
@@ -1079,9 +1127,17 @@ async function main() {
     )
     deleted += removal.deleted
     deletedPaths = [...deletedPaths, ...removal.paths]
-    for (const id of removedIds) {
-      workingById.delete(id)
-    }
+  }
+
+  if (removedModxIds.length > 0) {
+    const byId = await deleteDocsByModxIds(firestore, removedModxIds)
+    readCounts.removalById = (readCounts.removalById ?? 0) + byId.reads
+    deleted += byId.deleted
+    deletedPaths = [...deletedPaths, ...byId.paths]
+  }
+
+  for (const id of removedIds) {
+    workingById.delete(id)
   }
 
   if (isFullSync && changedRows.length > 0) {
