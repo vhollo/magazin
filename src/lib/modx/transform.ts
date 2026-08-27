@@ -331,7 +331,7 @@ export function createModxTransform(deps: ModxTransformDeps): ModxTransform {
 				.filter((t) => t != '') || [];
 		if (tvs.find((tv) => tv.tmplvarid == 30) || doc.description.match(/diabpont/gi)) {
 			doc.tv.tags.push('diabpont');
-			doc.description = 'DiabPONT Továbbképző Program';
+			doc.description = 'DiabPONT Továbbképző Program'; // TODO: létező description-t ne írjunk felül; DiabPONT chunk a cikk végére.
 		}
 
 		// Authors: the TV holds one token per author, resolved onto an `authors/{slug}`

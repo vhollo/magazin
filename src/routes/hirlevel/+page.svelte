@@ -3,9 +3,11 @@
   // Progressive enhancement: works without JS (native form POST → action), and
   // with JS `use:enhance` swaps in a confirmation without a full reload.
   import { enhance } from "$app/forms";
+  import Search from "$lib/components/Search.svelte";
   import { trackEvent } from "$lib/analytics";
   import { authUser } from "$lib/authStore";
 
+  export let data;
   export let form;
 
   // 'feliratkozas' | 'leiratkozas' – drives the copy and whether consent is required.
@@ -246,6 +248,8 @@
     {/if}
   </div>
 </section>
+
+<Search articles={data.articleCount} recipes={data.recipeCount} />
 
 <style>
   .hp {

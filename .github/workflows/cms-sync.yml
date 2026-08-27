@@ -1,0 +1,141 @@
+# Derived-artifact rebuilds triggered from the FireCMS admin ("Szinkron indítása"
+# button on each collection / entity page), or run manually from the Actions tab.
+#
+# The CMS writes Firestore directly; the read paths the site actually renders
+# (`collections/*` gyűjtőoldalak, search index, aggregate docs) are precomputed by
+# these scripts. This workflow is what turns a CMS edit into a fresh read path.
+#
+# Dispatched by `POST /api/admin/cms-sync` on the magazin site
+# (`src/routes/api/admin/cms-sync/+server.ts`), which verifies the editor's
+# Firebase ID token and holds the GitHub PAT server-side.
+#
+# Targets (comma-separated in the `targets` input):
+#   magazine       — `sync:modx:finish`: projection snapshot + `collections/{slug}`
+#                    + `collections/home` + search index + relatedCards, rebuilt from
+#                    Firestore `docs` only (no MODX/MySQL). Use after editing `docs/*`.
+#   authors        — `sync:authors:collection`: rebuild the `collections/authors` aggregate.
+#   rs-collections — `sync:rs-collections:apply:firestore`: rebuild `collections/rs-home`,
+#                    `rs-{category}`, `rs-teasers-*` + the slim planner catalog, reading
+#                    recipes/categories from **Firestore** (so a CMS edit is honoured,
+#                    not overwritten from the repo's recipes.json).
+#   patika         — `sync:patika:apply`: rebuild `collections/patika`.
+#
+# Required secrets: FIREBASE_ADMIN_KEY, FIREBASE_STORAGE_BUCKET
+# Optional secrets: NETLIFY_SITE_ID, NETLIFY_ACCESS_TOKEN (CDN purge)
+
+name: CMS sync (FireCMS)
+
+on:
+  workflow_dispatch:
+    inputs:
+      targets:
+        description: 'Comma-separated: magazine, authors, rs-collections, patika'
+        required: true
+        default: 'magazine'
+        type: string
+      source:
+        description: 'Who/what triggered it (log context only)'
+        required: false
+        default: 'manual'
+        type: string
+      purge_cdn:
+        description: 'Purge the Netlify CDN cache after the rebuild'
+        required: false
+        default: 'true'
+        type: choice
+        options:
+          - 'true'
+          - 'false'
+
+# Serialise: two editors saving at once queue up instead of racing on the same
+# aggregate docs. Never cancel — a half-run rebuild would leave a stale read path.
+concurrency:
+  group: cms-sync
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Resolve targets
+        id: targets
+        env:
+          TARGETS: ${{ inputs.targets }}
+          SOURCE: ${{ inputs.source }}
+        run: |
+          set -euo pipefail
+          # Comma-wrap both sides so `patika` never matches inside another token.
+          normalized=",$(echo "$TARGETS" | tr -d '[:space:]'),"
+          echo "requested: $normalized (source: $SOURCE)"
+          for t in magazine authors rs-collections patika; do
+            if [[ "$normalized" == *",$t,"* ]]; then
+              echo "${t//-/_}=true" >> "$GITHUB_OUTPUT"
+              echo "  → $t"
+            else
+              echo "${t//-/_}=false" >> "$GITHUB_OUTPUT"
+            fi
+          done
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Rebuild magazine collections + search index
+        if: steps.targets.outputs.magazine == 'true'
+        run: npm run sync:modx:finish
+        env:
+          FIREBASE_ADMIN_KEY: ${{ secrets.FIREBASE_ADMIN_KEY }}
+          FIREBASE_STORAGE_BUCKET: ${{ secrets.FIREBASE_STORAGE_BUCKET }}
+
+      - name: Rebuild authors aggregate
+        if: steps.targets.outputs.authors == 'true'
+        run: npm run sync:authors:collection
+        env:
+          FIREBASE_ADMIN_KEY: ${{ secrets.FIREBASE_ADMIN_KEY }}
+
+      - name: Rebuild Receptsarok UI collections
+        if: steps.targets.outputs.rs_collections == 'true'
+        run: npm run sync:rs-collections:apply:firestore
+        env:
+          FIREBASE_ADMIN_KEY: ${{ secrets.FIREBASE_ADMIN_KEY }}
+          FIREBASE_STORAGE_BUCKET: ${{ secrets.FIREBASE_STORAGE_BUCKET }}
+
+      - name: Rebuild Patika UI collection
+        if: steps.targets.outputs.patika == 'true'
+        run: npm run sync:patika:apply
+        env:
+          FIREBASE_ADMIN_KEY: ${{ secrets.FIREBASE_ADMIN_KEY }}
+
+      - name: Purge Netlify CDN cache
+        if: success() && inputs.purge_cdn == 'true'
+        continue-on-error: true
+        env:
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+          NETLIFY_ACCESS_TOKEN: ${{ secrets.NETLIFY_ACCESS_TOKEN }}
+        run: |
+          set -euo pipefail
+          if [[ -z "${NETLIFY_SITE_ID:-}" || -z "${NETLIFY_ACCESS_TOKEN:-}" ]]; then
+            echo "Netlify purge: skipped (NETLIFY_SITE_ID or NETLIFY_ACCESS_TOKEN not set)"
+            exit 0
+          fi
+          # Netlify's purge API only purges by cache tag or whole site — our responses
+          # carry no tags, so this is a whole-site purge (same as scripts/lib/netlify-purge.mjs).
+          curl -fsS -X POST \
+            -H "Authorization: Bearer ${NETLIFY_ACCESS_TOKEN}" \
+            -H "Content-Type: application/json" \
+            -d "{\"site_id\":\"${NETLIFY_SITE_ID}\"}" \
+            https://api.netlify.com/api/v1/purge
+          echo "Netlify purge OK (whole site)"

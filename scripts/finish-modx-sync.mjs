@@ -1,5 +1,11 @@
 /**
- * Finish backfill after docs/collections are written: search index, relatedCards, projection snapshot, meta/sync.
+ * Rebuild every derived magazine artifact from the Firestore `docs` collection alone
+ * (no MODX/MySQL): projection snapshot, `collections/{slug}` + `collections/home`,
+ * search index, relatedCards, meta/sync.
+ *
+ * This is the repair pass after a failed sync, and the target the FireCMS
+ * "Szinkron indítása" button dispatches after a `docs/*` edit.
+ *
  * Usage: node scripts/finish-modx-sync.mjs
  */
 import 'dotenv/config'
@@ -8,6 +14,7 @@ import { fileURLToPath, pathToFileURL } from 'node:url'
 import { getFirestoreDb } from './lib/firebase-admin.mjs'
 import { buildAndUploadSearchIndex } from './lib/search-index.mjs'
 import { updateRelatedCards } from './lib/related-cards.mjs'
+import { writeCollections } from './lib/magazine-collections.mjs'
 import {
   loadProjectionDocsForSync,
   uploadProjectionSnapshot,
@@ -38,6 +45,8 @@ async function main() {
   console.log(`loaded ${projectionDocs.length} projection docs (full rebuild)`)
 
   await uploadProjectionSnapshot(firestore, projectionDocs)
+
+  const collectionsWritten = await writeCollections(firestore, projectionDocs)
 
   const searchIndex = await buildAndUploadSearchIndex(firestore, projectionDocs, {
     fullRebuild: true,
@@ -90,7 +99,7 @@ async function main() {
   )
 
   console.log(
-    `finish complete: docs=${projectionDocs.length}, listed=${listedDocs.length}, relatedCards=${relatedUpdated}, recipeRelated=${relatedCardsSync.updated}, docRelated=${docRelatedUpdated}, search v${searchIndex.version}, lastEdit=${lastEdit}`
+    `finish complete: docs=${projectionDocs.length}, listed=${listedDocs.length}, collections=${collectionsWritten}, relatedCards=${relatedUpdated}, recipeRelated=${relatedCardsSync.updated}, docRelated=${docRelatedUpdated}, search v${searchIndex.version}, lastEdit=${lastEdit}`
   )
 }
 

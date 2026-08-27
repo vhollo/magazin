@@ -3,7 +3,7 @@ import { fileURLToPath } from 'node:url'
 import { encodeDocPathId, normalizeArticlePath } from './doc-path-id.mjs'
 import { pickDocFields, PROJECTION_FIELDS } from './firestore-docs.mjs'
 import { downloadGzipJson, gzipJson } from './storage-gzip-json.mjs'
-import { uploadPublicFile } from './firebase-storage.mjs'
+import { pruneVersionedObjects, uploadPublicFile } from './firebase-storage.mjs'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const META_PROJECTIONS_DOC = 'projections'
@@ -178,5 +178,10 @@ export async function uploadProjectionSnapshot(firestore, projectionDocs) {
   console.log(
     `projection snapshot: ${objectPath} (${(gzipped.length / 1024).toFixed(0)} KiB gzip), docs=${projectionDocs.length}`
   )
+
+  // Superseded snapshots are unreferenced the moment meta/projections points at the
+  // new one — drop the old ones so Storage does not grow by a snapshot per sync.
+  await pruneVersionedObjects('projections/', { keepUrls: [snapshotUrl] })
+
   return { snapshotUrl, version, docCount: projectionDocs.length }
 }

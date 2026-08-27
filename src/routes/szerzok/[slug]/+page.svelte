@@ -1,6 +1,7 @@
 <script>
   // Author profile: the full record, plus the articles they wrote.
   import Cards from "$lib/components/Cards.svelte";
+  import Search from "$lib/components/Search.svelte";
   import { decodeHtmlEntities } from "$lib/htmlEntities.js";
   import { authorPhotoUrl } from "$lib/authors";
 
@@ -104,3 +105,5 @@
     </section>
   {/if}
 </main>
+
+<Search articles={data.articleCount} recipes={data.recipeCount} />

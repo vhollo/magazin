@@ -42,6 +42,7 @@
 		"sync:recipes:apply": "node scripts/sync-recipes-to-firestore.mjs --apply --reindex",
 		"sync:rs-collections": "tsx scripts/sync-receptsarok-collections.mjs",
 		"sync:rs-collections:apply": "tsx scripts/sync-receptsarok-collections.mjs --apply",
+		"sync:rs-collections:apply:firestore": "tsx scripts/sync-receptsarok-collections.mjs --apply --from-firestore",
 		"sync:patika": "node scripts/sync-patika-collection.mjs",
 		"sync:patika:apply": "node scripts/sync-patika-collection.mjs --apply",
 		"sync:modx": "NODE_OPTIONS=--max-old-space-size=6144 tsx scripts/sync-modx-to-firestore.mjs && node scripts/backfill-junior-magazine-fields.mjs --apply",
@@ -51,6 +52,8 @@
 		"sync:modx:payload": "NODE_OPTIONS=--max-old-space-size=6144 tsx scripts/sync-modx-to-firestore.mjs --from-payload",
 		"sync:modx:refresh-redirects": "tsx scripts/refresh-receptsarok-redirects.mjs",
 		"sync:modx:refresh-redirects:apply": "tsx scripts/refresh-receptsarok-redirects.mjs --apply",
+		"storage:prune": "node scripts/prune-storage-versions.mjs",
+		"storage:prune:apply": "node scripts/prune-storage-versions.mjs --apply",
 		"verify:firestore-magazine": "tsx scripts/verify-firestore-magazine.mjs"
 	},
 	"devDependencies": {

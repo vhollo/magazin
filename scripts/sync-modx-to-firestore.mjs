@@ -38,7 +38,7 @@ import { getFirestoreDb } from './lib/firebase-admin.mjs'
 import { encodeDocPathId, decodeDocPathId } from './lib/doc-path-id.mjs'
 import { buildAndUploadSearchIndex, changedListedPaths } from './lib/search-index.mjs'
 import { updateRelatedCards } from './lib/related-cards.mjs'
-import { emptyContentFolderPaths } from './lib/empty-folders.mjs'
+import { writeCollections } from './lib/magazine-collections.mjs'
 import {
   loadProjectionDocsForSync,
   uploadProjectionSnapshot,
@@ -86,8 +86,6 @@ const skipRsCollections = process.argv.includes('--skip-rs-collections')
 const skipRedirectRefresh = process.argv.includes('--skip-redirect-refresh')
 const isFromPayload = process.argv.includes('--from-payload') || !!process.env.MODX_SYNC_PAYLOAD
 
-const COLLECTIONS_COLLECTION = 'collections'
-const HOME_COLLECTION_ID = 'home'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const root = path.resolve(__dirname, '..')
@@ -819,76 +817,6 @@ async function readLastEdit(firestore) {
 /** @param {typeof modx_site_content.$inferSelect[]} rows */
 function maxEditedon(rows, fallback = 0) {
   return rows.reduce((max, row) => (row.editedon > max ? row.editedon : max), fallback)
-}
-
-/**
- * Recompute and write `collections/{slug}` for every tag-collection query plus
- * `collections/home`. One Firestore write per collection.
- *
- * @param {import('firebase-admin/firestore').Firestore} firestore
- * @param {Record<string, unknown>[]} projectionDocs slim docs (no HTML bodies)
- */
-async function writeCollections(firestore, projectionDocs) {
-  const collectionsMod = await import(
-    pathToFileURL(path.join(root, 'src/lib/modx/collections.ts')).href
-  )
-  const {
-    collectionQueries,
-    docsByTags,
-    homeDocs,
-    expertDocs,
-    isListedDoc,
-    toThinCard,
-    COLLECTION_LIMIT,
-  } = collectionsMod
-
-  const listedDocs = projectionDocs.filter(isListedDoc)
-
-  // Drop empty-content container folders (post-alapjav `content` blank) — they admit
-  // no real card. Non-empty folders (e.g. the diaeuro-futsal hub + year folders) stay.
-  const emptyFolderPaths = await emptyContentFolderPaths(firestore, listedDocs)
-  const collectionDocs = listedDocs.filter((d) => !(d.isfolder && emptyFolderPaths.has(d.path)))
-  console.log(
-    `collections: scanning ${collectionDocs.length}/${projectionDocs.length} docs ` +
-      `(${listedDocs.length} listed − ${listedDocs.length - collectionDocs.length} empty folders), limit=${COLLECTION_LIMIT}`
-  )
-
-  const generatedAt = new Date().toISOString()
-  const slugs = Object.keys(collectionQueries)
-  let written = 0
-
-  for (const slug of slugs) {
-    const queryTags = collectionQueries[slug]
-    // Admit content-tagged folders into every collection a tag of theirs matches
-    // (e.g. the `diaeuro-futsal` hub + year folders), not just leaf articles.
-    const matched = docsByTags(collectionDocs, queryTags, '0', { includeFolders: true })
-    const cards = matched.map((doc) => toThinCard(doc, doc.rank))
-    await firestore.collection(COLLECTIONS_COLLECTION).doc(slug).set({
-      slug,
-      queryTags,
-      cards,
-      count: cards.length,
-      generatedAt,
-    })
-    written++
-    console.log(`  wrote ${COLLECTIONS_COLLECTION}/${slug} (${cards.length} cards)`)
-  }
-
-  const homeCards = homeDocs(collectionDocs).map((doc) => toThinCard(doc))
-  const expertCards = expertDocs(collectionDocs).map((doc) => toThinCard(doc))
-  await firestore.collection(COLLECTIONS_COLLECTION).doc(HOME_COLLECTION_ID).set({
-    slug: HOME_COLLECTION_ID,
-    cards: homeCards,
-    count: homeCards.length,
-    expertCards,
-    generatedAt,
-  })
-  written++
-  console.log(
-    `  wrote ${COLLECTIONS_COLLECTION}/${HOME_COLLECTION_ID} (${homeCards.length} cards, ${expertCards.length} expertCards)`
-  )
-
-  return written
 }
 
 async function main() {

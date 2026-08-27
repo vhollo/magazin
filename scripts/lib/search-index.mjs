@@ -1,11 +1,12 @@
 import fs from 'node:fs'
+import { execFileSync } from 'node:child_process'
 import { gzipSync } from 'node:zlib'
 import MiniSearch from 'minisearch'
 import { pathToFileURL } from 'node:url'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { encodeDocPathId, normalizeArticlePath } from './doc-path-id.mjs'
-import { uploadPublicFile } from './firebase-storage.mjs'
+import { pruneVersionedObjects, uploadPublicFile } from './firebase-storage.mjs'
 import { downloadGzipJson } from './storage-gzip-json.mjs'
 import { loadRecipesFromJson } from './receptsarok-redirect-match.mjs'
 
@@ -14,6 +15,27 @@ const root = path.resolve(__dirname, '../..')
 const RECIPES_JSON_PATH = path.join(root, 'src/lib/data/recipes.json')
 
 const SEARCH_BATCH_SIZE = 200
+
+/**
+ * indexUrl of the `static/search-meta.json` that is actually **committed** (and therefore
+ * deployed as `/search-meta.json`): the fallback `resolveSearchIndexUrl()` and the client
+ * use when the Firestore `meta/search` read fails. The working copy is rewritten on every
+ * run, so only git knows which object the live site still points at — pin it so pruning
+ * never turns that fallback into a 404. Best effort: null outside a git checkout.
+ */
+export function deployedStaticIndexUrl() {
+  try {
+    const json = execFileSync('git', ['show', 'HEAD:static/search-meta.json'], {
+      cwd: root,
+      encoding: 'utf8',
+      stdio: ['ignore', 'pipe', 'ignore'],
+    })
+    const url = JSON.parse(json)?.indexUrl
+    return typeof url === 'string' && url.trim() ? url.trim() : null
+  } catch {
+    return null
+  }
+}
 
 const SEARCH_FIELDS = ['szerzo', 'longtitle', 'description', 'ellipsis', 'content']
 const SEARCH_STORE_FIELDS = [
@@ -509,6 +531,12 @@ export async function buildAndUploadSearchIndex(firestore, projectionDocs, optio
     staticMetaPath,
     JSON.stringify({ indexUrl, version, articleCount, recipeCount }, null, 2)
   )
+
+  // Every sync uploads a full ~10 MiB index; superseded ones are unreferenced once
+  // meta/search points at the new URL. Keep the deployed static fallback pinned.
+  await pruneVersionedObjects('search/', {
+    keepUrls: [indexUrl, deployedStaticIndexUrl()],
+  })
 
   console.log(
     `search index: ${objectPath} (${(gzipped.length / 1024 / 1024).toFixed(2)} MiB gzip), articles=${articleCount}, recipes=${recipeCount}, reads={articles:${articleReads},recipes:${recipeReads},meta:${searchMetaReads}}`

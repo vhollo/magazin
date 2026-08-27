@@ -16,7 +16,8 @@ This document describes the logic and behavior of all routes in the Diabetes.hu 
 10. [Authentication Logic](#authentication-logic)
 11. [Receptsarok Routes (`/receptsarok`)](#receptsarok-routes-receptsarok) — includes [Magazine → Receptsarok redirects](#magazine--receptsarok-redirects-storage--processing)
 12. [Authors (`authors` collection, `/szerzok`)](#authors-authors-collection-szerzok)
-13. [Magazine Content Sync (MODX → Firestore)](#magazine-content-sync-modx--firestore)
+13. [Magazine Content Sync (MODX → Firestore)](#magazine-content-sync-modx--firestore) — includes [Storage artifacts & retention](#storage-artifacts--retention)
+14. [FireCMS sync button (CMS → GitHub Actions)](#firecms-sync-button-cms--github-actions)
 
 ---
 
@@ -959,10 +960,12 @@ Run from repo root (`magazin/`). Requires `.env` with `MODXDB_*`, `FIREBASE_ADMI
 | `npm run sync:modx` | `scripts/sync-modx-to-firestore.mjs` | **Incremental sync** — upsert changed rows; patch `meta/projections` Storage snapshot + collections/search incrementally (**~few Firestore reads**, not full `docs` scan). Also **patches existing matched receptsarok recipes** when their source `recept` doc is re-saved ([Existing-recipe update on re-save](#existing-recipe-update-on-re-save)). Rebuilds `collections/rs-home` (`freeCountsByCategory`) when recipe `free` flags change, a recipe is created, **or an existing recipe's card fields are patched** (`--skip-rs-collections` to opt out). |
 | `npm run sync:modx:full` | `… --full` | **One-time / full backfill** — all published magazine rows → Firestore; also removes orphan `docs/*` whose MODX id is no longer published **and stale `docs/*` left by alias changes** (id still published but doc-id no longer matches the synced path). Also backfills `doc.tv.egyesulet` (TV 31) onto all existing docs. |
 | `npm run sync:modx:payload` | `… --from-payload` | **MySQL-free save path** — reads rows from `MODX_SYNC_PAYLOAD` env var (gzip+base64 JSON); used by the `repository_dispatch` GitHub Actions trigger. Does not advance `meta/sync.lastEdit`. |
-| `npm run sync:modx:finish` | `scripts/finish-modx-sync.mjs` | **Repair pass** — `docs/` already populated but search index, `relatedCards`, or `meta/search` missing (e.g. sync failed mid-run). |
+| `npm run sync:modx:finish` | `scripts/finish-modx-sync.mjs` | **Rebuild-from-Firestore pass (no MODX/MySQL)** — projection snapshot, `collections/{slug}` + `collections/home`, search index, `relatedCards`, `meta/sync`, all derived from the `docs` collection alone. Use as the repair pass after a failed sync, **and after editing a `docs/*` doc in FireCMS** (that is the `magazine` target of the [sync button](#firecms-sync-button-cms--github-actions)). The `collections/*` writer is shared with `sync:modx*` via [`scripts/lib/magazine-collections.mjs`](scripts/lib/magazine-collections.mjs). |
 | `npm run sync:rs-collections:apply` | `scripts/sync-receptsarok-collections.mjs` | **Receptsarok UI docs** — rebuild `collections/rs-home`, `rs-{category}`, `rs-teasers-*` from local `recipes.json` + `categories.json` (`--from-firestore` to override); merges counts into `meta/stats`; uploads the slim planner catalog to Storage; skips unchanged docs via `meta/rsCollections` hashes. Run after `sync:recipes:apply` or MODX `free` flag changes. Pass without `:apply` for dry run + index-entry warnings. |
+| `npm run sync:rs-collections:apply:firestore` | `… --apply --from-firestore` | Same rebuild, but reads `recipes` + `categories` from **Firestore** instead of the repo's `recipes.json`/`categories.json`. This is what the FireCMS sync button runs, so a recipe/category edited in the CMS is honoured rather than overwritten from the repo copy. |
 | `npm run sync:patika:apply` | `scripts/sync-patika-collection.mjs` | **Patika UI doc** — rebuild `collections/patika` from `tables/elofizetok/patika` subcollection. Pass without `:apply` for dry run. |
 | `npm run verify:firestore-magazine` | `scripts/verify-firestore-magazine.mjs` | **Spot-check** — counts `docs/*`, `collections/*`, `meta/search`, sample routes, index URL reachability. |
+| `npm run storage:prune` / `:apply` | `scripts/prune-storage-versions.mjs` | **Storage retention** — delete superseded `search/index-<ms>.json.gz` + `projections/slim-<ms>.json.gz` versions (see [Storage artifacts & retention](#storage-artifacts--retention)). Dry run by default; `--max-age-days=N`, `--keep=N` override the defaults. Also reports bucket totals and warns if object versioning is on. Each sync prunes on its own — run this only for a backlog or after changing the policy. |
 | `node scripts/backfill-junior-magazine-fields.mjs [--apply]` | `… + scripts/lib/junior-content-fields.mjs` | **Junior field backfill — chained onto `sync:modx` + `sync:modx:full`** (runs automatically after each; idempotent). Junior-template (MODX template 9) articles keep their heading fields in *content*, not the (unreliable) `site_content` columns. Writes `docs/` **directly**: `description`←`.felcim`, `introtext`←`.j_lead` (any element), set only when the element is present (an absent one leaves the existing value; it clears only a misplaced felcim the `introtext` column captured, e.g. id 1040). Scope: every published template-9 doc **except standalone recipes** (1 RS recipe); collections + plain articles included. `title`←`<h1>` when present, else the doc's `longtitle` (the junior `<h1>` is sometimes a series heading/credit, e.g. 878→"GrandmaSandy.com", but it is the chosen source of truth). The extracted `<h1>`/`.felcim`/`.j_lead` are also **stripped from the doc's `content`** (`stripJuniorFields`, matched by text so a later same-class body element is kept and re-runs converge) so the page header — which renders these from the doc fields ([`routes/[...path]/+page.svelte`](src/routes/[...path]/+page.svelte)) — doesn't repeat them in the body. The MySQL-free `sync:modx:payload` (save path) does **not** chain it, so a saved junior article is corrected on the next `sync:modx`; the search index also updates then. |
 
 **Optional env** (sync worker): `NETLIFY_SITE_ID`, `NETLIFY_ACCESS_TOKEN` — purge the CDN cache after sync (non-fatal if unset). Netlify's purge API (`POST /api/v1/purge`, [`scripts/lib/netlify-purge.mjs`](scripts/lib/netlify-purge.mjs)) only purges by cache tag or whole-site — there is no purge-by-path — and responses carry no cache tags, so a successful sync triggers a **whole-site** purge. The collected changed paths are used only for log context. Set `SYNC_DEBUG_PATHS=1` to re-enable the per-pass `parentDoc not found <id>` path-resolution warnings (silenced by default — they false-positive across the multi-pass ancestor/changed resolution).
@@ -974,6 +977,30 @@ Run from repo root (`magazin/`). Requires `.env` with `MODXDB_*`, `FIREBASE_ADMI
 - `meta/search` — `{ indexUrl, version, articleCount, recipeCount }`
 - `meta/stats`, `meta/sync.lastEdit`
 - `static/search-meta.json` — fallback for `/keres` when API unavailable
+- Firebase Storage — `search/index-<ms>.json.gz` (MiniSearch index, ~10 MiB gz) and `projections/slim-<ms>.json.gz` (projection snapshot), both new objects per sync (see [Storage artifacts & retention](#storage-artifacts--retention))
+
+### Storage artifacts & retention
+
+The sync writes three kinds of object into the Firebase Storage bucket:
+
+| Object | Written by | Naming |
+|--------|-----------|--------|
+| `search/index-<ms>.json.gz` | `buildAndUploadSearchIndex()` ([`scripts/lib/search-index.mjs`](scripts/lib/search-index.mjs)) | **new object per sync** — the live URL lives in `meta/search.indexUrl` |
+| `projections/slim-<ms>.json.gz` | `uploadProjectionSnapshot()` ([`scripts/lib/magazine-projection-snapshot.mjs`](scripts/lib/magazine-projection-snapshot.mjs)) | **new object per sync** — live URL in `meta/projections.snapshotUrl` |
+| `receptsarok/catalog.json.gz` | `sync:rs-collections:apply` | fixed path, **overwritten in place** — does not accumulate |
+
+The timestamped names are deliberate: the objects are uploaded `public, max-age=31536000, immutable`, so a fresh URL is what busts the CDN/browser cache. The cost is that every sync (including every MODX article save via `modx-doc-save`) adds ~10 MiB of index + ~1 MiB of snapshot, which is what filled the bucket with 3.5 GB of dead versions before retention existed.
+
+**Retention** — `pruneVersionedObjects()` ([`scripts/lib/firebase-storage.mjs`](scripts/lib/firebase-storage.mjs)) runs at the end of both uploads, right after the `meta/*` doc points at the new URL. It deletes everything under the prefix **except**:
+
+1. anything younger than `STORAGE_PRUNE_MAX_AGE_DAYS` (7 days),
+2. the newest `STORAGE_PRUNE_KEEP_MIN` (2) versions, whatever their age,
+3. the URLs currently referenced by `meta/search.indexUrl` / `meta/projections.snapshotUrl`,
+4. the `indexUrl` in the **committed** `static/search-meta.json` (`deployedStaticIndexUrl()` reads it via `git show HEAD:…`).
+
+Point 4 matters because the GitHub Actions workflow does **not** commit `static/search-meta.json` (only the three data JSONs), so the deployed `/search-meta.json` fallback — used by `resolveSearchIndexUrl()` and the client when the Firestore `meta/search` read fails — usually pins an older index. Pruning must not turn it into a 404. Commit a fresh `static/search-meta.json` occasionally to move that pin forward and release the old object.
+
+Pruning **never throws**: a listing/delete failure logs `storage prune: … skipped` and the content sync continues.
 
 ### Agent reminders
 
@@ -987,14 +1014,15 @@ Run from repo root (`magazin/`). Requires `.env` with `MODXDB_*`, `FIREBASE_ADMI
 | Changed an article's alias (URL slug) → **two articles** now show (old + new URL) | Already auto-handled: next `sync:modx`/payload save deletes the stale old-path `docs/*`. If a leftover predates this fix, `npm run sync:modx:full` clears it. |
 | `/keres` shows “index not available” but articles load | `npm run sync:modx:finish` |
 | `/receptsarok` shows wrong category counts, `/keres` recipe hits missing nutrition/img, or category listing stale after `sync:recipes:apply` | `npm run sync:rs-collections:apply` (rebuilds `collections/rs-home`, `rs-{cat}`, `rs-teasers`) |
-| `/patika` empty or pharmacy list outdated after editing `tables/elofizetok/patika` in Firestore | `npm run sync:patika:apply` |
+| `/patika` empty or pharmacy list outdated after editing `tables/elofizetok/patika` in Firestore | The editor can press **Patikalista frissítése** in FireCMS ([sync button](#firecms-sync-button-cms--github-actions)); locally `npm run sync:patika:apply` |
 | After any sync, or debugging missing/wrong article counts | `npm run verify:firestore-magazine` |
+| Firebase Storage quota climbing / old `search/index-*.json.gz` + `projections/slim-*.json.gz` piling up | `npm run storage:prune` (dry run) then `npm run storage:prune:apply`. Each sync already prunes; a backlog means the prune was added later or was skipped ([Storage artifacts & retention](#storage-artifacts--retention)) |
 | New MODX `recept` article should redirect to Receptsarok but doesn't | Run `npm run sync:modx` — redirect + `free: true` are computed at sync time; commit updated `receptsarok-redirects.json` / `recipes.json` if changed locally |
 | MODX `recept` linked in Receptsarok but still paywalled | Run `npm run sync:modx` (sets `free: true` on `recipes.json` + Firestore and rebuilds `collections/rs-home`); if counts still stale, run `npm run sync:rs-collections:apply` manually |
 | Transform pipeline / collection query logic changed in code | `npm run sync:modx:full` (or incremental if only future edits matter) |
 | User asks how content gets to production without Netlify rebuild | Explain MODX save → GitHub Actions `repository_dispatch` (modx-doc-save) → `sync:modx:payload` (MySQL-free); code deploys ≠ content deploy; receptsarok / patika data come from their own sync steps |
 | Article byline shows only the author's **name** (no titulus/CV box) | The `szerzo` TV value resolves to no `authors/{slug}` record. Check `scripts/data/authors-review.json` → `tokensWithoutChunk`; either create the author in FireCMS (then `npm run sync:authors:collection`) or fix the TV value. MODX chunks are **not** consulted any more |
-| Edited an author in FireCMS but the site still shows the old text | `npm run sync:authors:collection` — the site reads the `collections/authors` aggregate, which is rebuilt only by that command (plus a ≤60 s per-instance cache) |
+| Edited an author in FireCMS but the site still shows the old text | The **Szerzőlista frissítése** button in FireCMS ([sync button](#firecms-sync-button-cms--github-actions)), or `npm run sync:authors:collection` locally — the site reads the `collections/authors` aggregate, which is rebuilt only by that command (plus a ≤60 s per-instance cache) |
 | `/szerzok/{slug}` shows the profile but no articles | The composite index on `docs` (`authorSlugs` array-contains + `publishedon` desc) is missing or still building; the page degrades to profile-only on purpose. Create it in the Firebase console |
 | MODX plugin dispatches but GitHub Action fails immediately (no MySQL errors) | Check PAT has Contents: write; check `MODX_SYNC_PAYLOAD` env is non-empty in the run |
 | `doc.tv.egyesulet` missing on old articles after enabling TV 31 | Run `npm run sync:modx:full` to backfill all existing docs |
@@ -1010,9 +1038,54 @@ Run from repo root (`magazin/`). Requires `.env` with `MODXDB_*`, `FIREBASE_ADMI
 | Meal planner shows stale recipes / wrong free flags after a sync | `sync:rs-collections:apply` re-uploads the slim catalog (`receptsarok/catalog.json.gz`); clients cache it for 1h (`Cache-Control: private, max-age=3600`) |
 | Meal planner works locally but breaks **only on Netlify** ("Nem sikerült betölteni az étlaptervezőt"), `/api/receptsarok/recipes` fails with `net::ERR_CONTENT_DECODING_FAILED` | The endpoint must **decompress** the Storage gzip (`gunzipSync`) and return plain JSON — never forward raw gzip bytes with a manual `Content-Encoding: gzip` header. Netlify Functions' Lambda-style transport mangles binary bodies for non-binary Content-Types, so the browser's gunzip fails; local Vite dev/preview forgives it, hiding the bug. Let Netlify's CDN do the compression. This class of bug reproduces locally **only** through the real bundled function — run `netlify serve` (launch config `magazin-netlify-serve`), not `npm run dev` / `vite preview` |
 | Meal planner intermittently fails with `{"error":"Invalid token"}` (401) even for a signed-in subscriber — often only on Netlify / after a cold start | Not a real auth problem: `requireReceptsarokSubscriber` calls `getAuth().verifyIdToken()` **first**, but the admin app is only `initializeApp()`-ed lazily via `getAdminDb()` (the `db` proxy / `getAdminBucket()`). The token path never touches `db` (dev/trial returns early), so on a cold serverless instance whose first admin call is this endpoint, bare `getAuth()` throws "The default Firebase app does not exist" and the generic `catch` masks it as `Invalid token`. Fix: verify via `getAdminAuth()` (in `firebase-admin.ts`), which calls `getAdminDb()` first to guarantee init. Works locally in warm `vite dev` because an earlier `db`-touching request already initialized the app in shared module state |
+| Editor (non-developer) changed something in FireCMS and asks how to get it live | The **Szinkron indítása / …frissítése** button on that collection's page — see [FireCMS sync button](#firecms-sync-button-cms--github-actions). If it answers 403, their e-mail is missing from `CMS_SYNC_ADMIN_EMAILS`; if 503, `GITHUB_SYNC_TOKEN` is not set on Netlify |
 | Article's recipe redirect points at a 404 | Manifest entry's `{year}-{id}` no longer exists in `recipes.json` — fix the entry, and update `doc.redirect` on `docs/{encodedPath}` (not the legacy numeric-id doc) |
 
 Do **not** suggest `npm run build` to refresh article text — content updates come from the sync worker, not the SvelteKit build.
+
+---
+
+## FireCMS sync button (CMS → GitHub Actions)
+
+**Files:**
+- `src/routes/api/admin/cms-sync/+server.ts` — the trigger endpoint (this repo)
+- `.github/workflows/cms-sync.yml` — the workflow it dispatches (this repo)
+- `../firecms/src/sync/{syncTargets.ts,syncApi.ts,SyncActions.tsx}` — the button (FireCMS repo)
+
+**The problem it solves.** FireCMS edits Firestore *directly*, but the site renders **precomputed** read paths — `collections/{slug}` + `collections/home` (gyűjtőoldalak), `collections/authors`, `collections/rs-*`, `collections/patika`, the MiniSearch index. Until a rebuild script runs, a CMS edit is invisible on the site (an author's new CV, a recipe's new title, a pharmacy row). The collection docs used to just *tell* the editor to run an npm command in this repo; the button runs it for them.
+
+**Flow**: FireCMS button → `POST {site}/api/admin/cms-sync` with the editor's Firebase ID token → endpoint verifies the token + authorises → `workflow_dispatch` on `cms-sync.yml` → workflow runs the sync scripts with `FIREBASE_ADMIN_KEY` → whole-site Netlify purge. The endpoint only *dispatches*: the rebuild takes minutes and needs the service-account key, neither of which fits a Netlify function, so it returns `202` with the workflow's run-list URL and the CMS shows "Szinkron elindítva".
+
+### Targets
+
+The target names are one vocabulary shared by three files — `syncTargets.ts` (CMS), `SYNC_TARGETS` in the endpoint, and the `targets` input of the workflow. Adding one means touching all three.
+
+| Target | Runs | Wired to (FireCMS collection) |
+|---|---|---|
+| `magazine` | `npm run sync:modx:finish` | `docs` (Magazin cikkek) |
+| `authors` | `npm run sync:authors:collection` | `authors` (Szerzők) |
+| `rs-collections` | `npm run sync:rs-collections:apply:firestore` | `recipes`, `categories` |
+| `patika` | `npm run sync:patika:apply` | `patika` |
+
+`rs-collections` deliberately uses the **`--from-firestore`** variant: the default reads the repo's `recipes.json`, which would rebuild the listings from the *pre-edit* data. Note the button does **not** write the CMS edit back into `recipes.json` — that still needs `npm run sync:recipes -- --apply --force` locally, or the repo copy will re-overwrite Firestore on the next recipe sync.
+
+### Config
+
+| Env var | Where | Purpose |
+|---|---|---|
+| `GITHUB_SYNC_TOKEN` | Netlify (this site) | PAT with **Actions: write** on `vhollo/magazin`. Without it the endpoint answers `503 Not configured`. |
+| `GITHUB_SYNC_REPO` / `GITHUB_SYNC_REF` | Netlify, optional | Default `vhollo/magazin` / `main`. |
+| `CMS_SYNC_ADMIN_EMAILS` | Netlify | Comma-separated editor allowlist. **Fails closed** — with neither this nor an `admin`/`cmsSync` custom claim on the user, every request is `403`. |
+| `CMS_SYNC_ALLOWED_ORIGINS` | Netlify, optional | CORS allowlist; defaults to `https://diabetes-hu.web.app`, `https://diabetes-hu.firebaseapp.com`, `localhost:5172/4172`. The CMS is on a different host, so an origin missing here fails the browser preflight, not the auth check. |
+| `VITE_SYNC_API_URL` | FireCMS `.env` | Endpoint override; defaults to `https://www.diabetes.hu/api/admin/cms-sync`. |
+
+The workflow needs the same secrets the other sync workflows use: `FIREBASE_ADMIN_KEY`, `FIREBASE_STORAGE_BUCKET`, and optionally `NETLIFY_SITE_ID` + `NETLIFY_ACCESS_TOKEN`.
+
+### Notes
+
+- **Save first.** The workflow reads Firestore, so an unsaved form is not part of the sync. The button is exposed both in the collection toolbar (`Actions`) and in the entity form header (`entityActions`, `collapsed: false`).
+- **Runs are serialised** (`concurrency: cms-sync`, never cancelled) — two editors pressing the button queue up instead of racing on the same aggregate docs.
+- **`docs` edits are still overwritten by MODX.** The `magazine` target refreshes the *derived* artifacts from whatever is in Firestore; the next `sync:modx` still replaces the doc body from MODX. That warning stays on the collection.
 
 ---
 
