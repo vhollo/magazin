@@ -147,13 +147,14 @@ Nav2 defines the secondary navigation menu with categorized content sections:
 - **Path Matching for Title Generation**: 
   - **Purpose**: Provides fallback page titles when documents don't have a `title` property
   - **How it works**:
-    1. Creates a merged navigation structure (`copycats`) combining `nav2` with additional routes (carousel items, nav1 items)
+    1. Creates a merged navigation structure (`copycats`) combining `nav2` with additional routes (carousel items, nav1 items, plus an `extra` group for collection slugs reachable only from outside nav2 — e.g. `/junior` = "Diabetes Junior", linked from the Hero's "Kezdje itt" chips)
     2. Loops through all navigation categories and subcategories
     3. Matches current document path (`doc.path`) against navigation route values
     4. When a match is found, stores the navigation label (subcategory name) as `matchingSubcat`
     5. Uses fallback logic: `docstitle = doc.title || matchingSubcat`
     6. This title is used in the page `<title>` tag: `{docstitle} • {sitename}`
   - **Example**: Visiting `/receptek` without a document title will use "Receptek" from the navigation structure as the page title
+  - **Gotcha**: a collection slug in `collectionQueries` that appears in *none* of the `copycats` groups renders the listing hero with a **blank `<h1>`** (collection pages get `doc = { path }` from `+layout.server.ts`, so `doc.title` is always empty) and a bare-sitename `<title>` — add the slug to `copycats["extra"]` when it isn't in `nav2`
   - **Benefit**: Ensures every page has a meaningful, human-readable title for SEO and user experience, even if the CMS document lacks a title field
 
 ### Global typography (homepage redesign 2026)
@@ -1047,6 +1048,7 @@ Pruning **never throws**: a listing/delete failure logs `storage prune: … skip
 | Edited an author in FireCMS but the site still shows the old text | The **Szerzőlista frissítése** button in FireCMS ([sync button](#firecms-sync-button-cms--github-actions)), or `npm run sync:authors:collection` locally — the site reads the `collections/authors` aggregate, which is rebuilt only by that command (plus a ≤60 s per-instance cache) |
 | `/szerzok/{slug}` shows the profile but no articles | The composite index on `docs` (`authorSlugs` array-contains + `publishedon` desc) is missing or still building; the page degrades to profile-only on purpose. Create it in the Firebase console |
 | MODX plugin dispatches but GitHub Action fails immediately (no MySQL errors) | Check PAT has Contents: write; check `MODX_SYNC_PAYLOAD` env is non-empty in the run |
+| Saving in MODX returns **500** and no Action starts | The plugin died before the dispatch. It now wraps the whole handler in try/catch, so a runtime error is logged instead: **Reports → System Events**, source `FirestoreSync`. A 500 that survives that is a parse error in the pasted plugin code (the try/catch cannot catch it) or a PHP fatal — check the server's PHP error log (cPanel → Errors), and verify the pasted code ends with the final `}`. Quick unblock: untick the plugin's events (or disable it) and sync with `npm run sync:modx` |
 | `doc.tv.egyesulet` missing on old articles after enabling TV 31 | Run `npm run sync:modx:full` to backfill all existing docs |
 | Re-saved a single **`recept`** article and its content / pageimage didn't change on the live recipe | Already auto-handled: `sync:modx*` re-derives the matched recipe and patches changed fields ([Existing-recipe update on re-save](#existing-recipe-update-on-re-save)). If it didn't apply, check the recipe's `sourceModxId` matches the doc id (a recipe another doc authored is skipped) and that it isn't a collection split. |
 | Re-saved a MODX **recipe collection** (or fixed the recipe parser) but recipe content / per-recipe images didn't change | The auto-update path covers **single** recipes only; **collection splits** (>1 recipe per doc) and parser-fix backfills stay manual. New docs → `npm run recipes:dedupe:manual`; existing recipes after a parser fix / collection re-save → `npm run recipes:backfill-content:apply` then `npm run sync:recipes:apply` |

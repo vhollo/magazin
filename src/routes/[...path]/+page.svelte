@@ -21,6 +21,11 @@
   copycats["carousel"]["Klubok, Egyesületek"] = "/hirek";
   copycats["nav1"] = {};
   copycats["nav1"]["Hírek"] = "/hirek";
+  // Collection slugs reachable only from outside nav2 (e.g. the Hero's "Kezdje
+  // itt" entry points) – without a title here the listing hero renders a blank
+  // <h1> and the <title> tag falls back to the bare sitename.
+  copycats["extra"] = {};
+  copycats["extra"]["Diabetes Junior"] = "/junior";
 </script>
 
 <script>
