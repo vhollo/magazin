@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-25T11:53:22.953Z",
+  "generatedAt": "2026-08-28T15:59:56.118Z",
   "sourceDocs": "sync worker (dynamic match + existing manifest)",
   "sourceRecipes": "src/lib/data/recipes.json",
   "entries": [
@@ -3062,6 +3062,12 @@
       "path": "receptsarok/levesek/almakremleves-kolessel",
       "year": 2025,
       "id": "almakremleves-kolessel"
+    },
+    {
+      "modxContentId": 4498,
+      "path": "receptsarok/levesek/burgonyapure-leves-krumplis-galuskaval",
+      "year": 2025,
+      "id": "burgonyapure-leves-krumplis-galuskaval"
     },
     {
       "modxContentId": 4383,
