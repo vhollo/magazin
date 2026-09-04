@@ -6,12 +6,48 @@
 			"description": "Inline Tailwind utility classes into custom CSS."
 		},
 		{
+			"name": "apply",
+			"description": "Inline Tailwind utility classes into custom CSS."
+		},
+		{
 			"name": "@theme",
+			"description": "Tailwind CSS v4 theme configuration."
+		},
+		{
+			"name": "theme",
 			"description": "Tailwind CSS v4 theme configuration."
 		},
 		{
 			"name": "@plugin",
 			"description": "Load a Tailwind CSS plugin."
+		},
+		{
+			"name": "plugin",
+			"description": "Load a Tailwind CSS plugin."
+		},
+		{
+			"name": "@utility",
+			"description": "Define a custom utility class in Tailwind CSS v4."
+		},
+		{
+			"name": "utility",
+			"description": "Define a custom utility class in Tailwind CSS v4."
+		},
+		{
+			"name": "@variant",
+			"description": "Define a custom variant in Tailwind CSS v4."
+		},
+		{
+			"name": "variant",
+			"description": "Define a custom variant in Tailwind CSS v4."
+		},
+		{
+			"name": "@source",
+			"description": "Specify content paths for Tailwind CSS v4."
+		},
+		{
+			"name": "source",
+			"description": "Specify content paths for Tailwind CSS v4."
 		},
 		{
 			"name": "@import",
