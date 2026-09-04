@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-28T15:59:56.118Z",
+  "generatedAt": "2026-09-04T08:52:27.997Z",
   "sourceDocs": "sync worker (dynamic match + existing manifest)",
   "sourceRecipes": "src/lib/data/recipes.json",
   "entries": [
@@ -3020,6 +3020,12 @@
       "path": "receptsarok/husetelek/csirkemell-csicseriborsos-bulgurral-salataagyon",
       "year": 2025,
       "id": "csirkemell-csicseriborsos-bulgurral-salataagyon"
+    },
+    {
+      "modxContentId": 4506,
+      "path": "receptsarok/husetelek/gombas-pulykamell-bulgurral",
+      "year": 2025,
+      "id": "gombas-pulykamell-bulgurral"
     },
     {
       "modxContentId": 4429,
