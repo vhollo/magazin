@@ -398,7 +398,7 @@ article table thead th {
 }
 /* ha a táblát külön vízszintesen görgethető doboz veszi körül (pl. a recept
    tápanyagtáblázata), a keret és a függőleges margó a dobozé, nem a tábláé */
-article .overflow-x-auto > table {
+article :is(.overflow-x-auto, .table-scroll) > table {
   @apply border-0;
   margin-block: 0;
 }
@@ -477,6 +477,29 @@ summary h2 {
   cursor: pointer;
 }
 
+/* Vízszintesen görgethető doboz a CMS-ből jövő cikktáblázatok köré
+   (a wrappert a szerver teszi rá: $lib/magazine/articleHtml).
+   A keret és a függőleges margó a dobozé, a háttér marad a tábláé,
+   hogy a jobbra kigörgetett rész se maradjon árnyalat nélkül. */
+.table-scroll {
+  @apply my-4 w-full overflow-x-auto border border-base-content/10;
+  border-radius: var(--radius-box, 0.5rem);
+  overscroll-behavior-x: contain;
+}
+.table-scroll:focus-visible {
+  @apply outline-2 outline-offset-2 outline-primary;
+}
+/* a float a wrapperé: a benne lévő tábla ne lebegjen és ne feleződjön */
+article .table-scroll > table {
+  float: none !important;
+  width: 100% !important;
+}
+/* a cellák ne préselődjenek olvashatatlanra: a küszöb keskeny nézetben
+   görgetést vált ki, desktopon (article >> 24rem) inert */
+article .table-scroll > table :is(td, th) {
+  min-width: 6rem;
+}
+
 /* FLOATS */
 :not(div) {
   & > .left,
@@ -526,7 +549,8 @@ summary h2 {
   .boxleft,
   .boxright {
     float: none !important;
-    width: 100%;
+    /* !important kell: a fenti .left/.right width-je is az */
+    width: 100% !important;
     margin-inline: auto !important;
   }
   /* nincs lebegtetés -> vissza a sima my-4 felső margóra

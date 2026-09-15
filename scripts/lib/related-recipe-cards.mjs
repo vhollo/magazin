@@ -34,6 +34,36 @@ const pathParentOf = (p) => {
   return i < 0 ? '' : s.slice(0, i)
 }
 
+/**
+ * Depth of the issue container — the folder that *is* the publication:
+ *
+ *   `cikkek/{magazin}/{lapszam}/…`  → 3   (`cikkek/diabetes/2501`)
+ *   `junior/{ev}/cikkek/…`          → 3   (Junior 2011–2019; `{ev}` may be `2021-2`)
+ *   `junior/{ev}/…`                 → 2   (Junior from 2020 — group folders sit
+ *                                          directly under the year)
+ *
+ * Only the `cikkek` root carries an extra magazine level; the optional literal `cikkek`
+ * folder is recognised on any root (`rendezveny/{esemeny}/cikkek` too).
+ */
+const issueContainerDepth = (segments) => {
+  const base = segments[0] === 'cikkek' ? 3 : 2
+  return segments[base] === 'cikkek' ? base + 1 : base
+}
+
+/**
+ * The doc's path-parent when it is a **group folder** — below the issue container, e.g.
+ * `cikkek/diabetes/1806/karacsonyi-receptsarok`, `junior/2015/cikkek/receptsarok` or
+ * `junior/2021/nyari-taborok-2021`. `''` when the doc sits directly in its issue, since
+ * appearing in the same issue does **not** relate two articles. Mirrored by
+ * `groupFolderOf` in `src/lib/magazine/firestore.ts` — keep the two in sync.
+ */
+const groupFolderOf = (p) => {
+  const parent = pathParentOf(p)
+  if (!parent) return ''
+  const segments = parent.split('/').filter(Boolean)
+  return segments.length > issueContainerDepth(segments) ? parent : ''
+}
+
 // ── Recipe side ─────────────────────────────────────────────────────────────
 
 /**
@@ -188,16 +218,17 @@ function buildDocIndex(projectionDocs) {
  *      (e.g. `cikkek/diabetes/1503/recept-sarok`). The most direct relationship.
  *   1. own `linkedModxIds` (heading-announced footer list), else
  *   2. folder → child `recept` docs (structural), else
- *   3. a leaf that *links to* its `recept` siblings in its own body
- *      (e.g. an editorial hub with a `<h2>Receptek:</h2>` list `extractLinkedModxIds`
- *      misses) → those siblings.
+ *   3. a leaf's `recept` siblings, taken on **either** signal: a shared group folder
+ *      below the issue (structural), or a link to the sibling from this doc's own body
+ *      (an editorial round-up with a `<h2>Receptek:</h2>` list `extractLinkedModxIds`
+ *      misses). Bare issue co-location (`cikkek/diabetes/2501`) is not a relationship.
  * Children/siblings must be `recept`-tagged and redirect into `/receptsarok/`.
  *
- * Tier 3 requires the doc's `content` to reference each sibling's path, so a doc
- * that merely shares a folder with recipes (but lists none) is not treated as a
- * hub. `content` is present for processed docs (full sync + changed rows); a
- * projection-only neighbour without it yields no tier-3 match (refreshed on the
- * next full sync / hub re-save).
+ * Outside a group folder, tier 3 needs the doc's `content` to reference each sibling's
+ * path, so an article that merely shares its issue folder with recipes (but lists none)
+ * is not treated as a hub. `content` is present for processed docs (full sync + changed
+ * rows); a projection-only neighbour without it falls back to the structural signal
+ * alone (refreshed on the next full sync / hub re-save).
  */
 export function docRelatedKeys(srcDoc, { docsById, byPathParent, publishedKeys, bySourceModxId }) {
   if (!srcDoc?.path) return []
@@ -225,10 +256,19 @@ export function docRelatedKeys(srcDoc, { docsById, byPathParent, publishedKeys, 
       .filter(isReceptRedirect)
       .sort((a, b) => Number(a.id) - Number(b.id))
   } else {
+    // Tier 3 takes a sibling on either signal: a shared group folder below the issue
+    // (structural), or a link to it from this doc's body (editorial round-up). Bare
+    // issue co-location is not a relationship, so one of the two is required.
+    const inGroupFolder = !!groupFolderOf(srcDoc.path)
     const content = typeof srcDoc.content === 'string' ? srcDoc.content : ''
-    if (!content) return []
+    if (!inGroupFolder && !content) return []
     linkedDocs = (byPathParent.get(pathParentOf(srcDoc.path)) ?? [])
-      .filter((d) => Number(d.id) !== Number(srcDoc.id) && isReceptRedirect(d) && content.includes(d.path))
+      .filter(
+        (d) =>
+          Number(d.id) !== Number(srcDoc.id) &&
+          isReceptRedirect(d) &&
+          (inGroupFolder || content.includes(d.path))
+      )
       .sort((a, b) => Number(a.id) - Number(b.id))
   }
 

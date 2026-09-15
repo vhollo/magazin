@@ -4,6 +4,8 @@ import type { DocLike, ThinCard } from '$lib/modx/collections';
 import { collectionQueries, toThinCard } from '$lib/modx/collections';
 
 export type MagazineArticle = DocLike & {
+	/** Article body HTML. Not on `DocLike` — cards carry `ellipsis`, not the full body. */
+	content?: string;
 	/** Author slugs, flattened from `tv.szerzo` so the author page can query them. */
 	authorSlugs?: string[];
 	relatedCards?: ThinCard[];
@@ -49,30 +51,90 @@ export async function getChildModxIds(parentModxId: number): Promise<number[]> {
 }
 
 /**
- * Sibling magazine recipe articles under the same MODX parent that redirect into
- * Receptsarok — e.g. hypertonia/1601 hub (1689) listing four `recept` siblings.
+ * Depth of the issue container a doc lives in — the folder that *is* the publication,
+ * so anything deeper is an editorial grouping.
+ *
+ *   `cikkek/{magazin}/{lapszam}/…`      → 3   (`cikkek/diabetes/2501`)
+ *   `junior/{ev}/cikkek/…`              → 3   (Junior 2011–2019 keeps an intermediate
+ *                                              `cikkek` folder; `{ev}` may be `2021-2`)
+ *   `junior/{ev}/…`                     → 2   (Junior from 2020 — the year is the issue,
+ *                                              and group folders sit directly under it)
+ *   `{gyoker}/{kiadas}/[cikkek/]…`      → 2/3 (same shape for `rendezveny`, `diaeuro-futsal`)
+ *
+ * Only the `cikkek` root carries an extra magazine level; every other root numbers its
+ * issues directly. The optional literal `cikkek` folder is recognised on any root.
+ */
+function issueContainerDepth(parentSegments: string[]): number {
+	const base = parentSegments[0] === 'cikkek' ? 3 : 2;
+	return parentSegments[base] === 'cikkek' ? base + 1 : base;
+}
+
+/**
+ * The doc's path-parent when it is a **group folder** — a folder below the issue
+ * container, e.g. `cikkek/diabetes/1806/karacsonyi-receptsarok`,
+ * `junior/2015/cikkek/receptsarok` or `junior/2021/nyari-taborok-2021`. `null` when the
+ * doc sits directly in its issue, since **merely appearing in the same issue does not
+ * relate two articles**. Mirrored in `docRelatedKeys`
+ * (`scripts/lib/related-recipe-cards.mjs`) — keep the two in sync.
+ */
+function groupFolderOf(docPath: string): string | null {
+	const parent = docPath.slice(0, docPath.lastIndexOf('/'));
+	if (!parent) return null;
+	const segments = parent.split('/').filter(Boolean);
+	return segments.length > issueContainerDepth(segments) ? parent : null;
+}
+
+/**
+ * Sibling magazine recipe articles (Receptsarok redirects under the same MODX parent)
+ * that this doc is grouped with. A sibling counts on **either** signal:
+ *
+ *  - **structural** — the two share a group folder below the issue, e.g. the recipes
+ *    sitting next to a hub page inside `…/1806/karacsonyi-receptsarok`; or
+ *  - **editorial** — this doc's `content` links that sibling's path, which is how a
+ *    recipe round-up marks its own dishes even when it never got its own folder
+ *    (e.g. `cikkek/diabetes/1804/mexiko` linking the issue's six Mexican recipes).
+ *
+ * What neither signal allows is bare issue co-location: a leaf's path-parent is always
+ * its issue (`cikkek/diabetes/2501`), so without one of the two every article of an
+ * issue would inherit that issue's recipes. Mirrors tier 3 of `docRelatedKeys`.
+ *
+ * Cost: the `parent ==` query bills one read per sibling (~14 on a magazine issue) and
+ * would otherwise run on every article SSR miss. A doc outside a group folder whose body
+ * does not even mention the sibling path prefix can match nothing, and that pure string
+ * test runs first — so the common case, a plain article in an issue folder, reaches this
+ * tier at zero Firestore reads.
  */
 export async function getSiblingReceptModxIds(
 	parentModxId: number,
-	excludeModxId: number
+	excludeModxId: number,
+	docPath: string,
+	content: string
 ): Promise<number[]> {
+	if (!docPath) return [];
+	const inGroupFolder = groupFolderOf(docPath) !== null;
+	const pathParent = docPath.slice(0, docPath.lastIndexOf('/'));
+	const mayLink = !!content && !!pathParent && content.includes(pathParent + '/');
+	if (!inGroupFolder && !mayLink) return [];
 	const snap = await db
 		.collection('docs')
 		.where('parent', '==', parentModxId)
-		.select('id', 'tv', 'redirect')
+		.select('id', 'path', 'tv', 'redirect')
 		.get();
 	return snap.docs
 		.map((d) => ({
 			id: Number(d.get('id')),
+			path: String(d.get('path') ?? ''),
 			tags: (d.get('tv') as { tags?: string[] } | undefined)?.tags,
 			redirect: String(d.get('redirect') ?? '')
 		}))
 		.filter(
-			({ id, tags, redirect }) =>
+			({ id, path, tags, redirect }) =>
 				Number.isFinite(id) &&
 				id !== excludeModxId &&
 				tags?.includes('recept') &&
-				redirect.startsWith('/receptsarok/')
+				redirect.startsWith('/receptsarok/') &&
+				!!path &&
+				(inGroupFolder || content.includes(path))
 		)
 		.map(({ id }) => id)
 		.sort((a, b) => a - b);

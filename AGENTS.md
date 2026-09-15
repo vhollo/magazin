@@ -572,6 +572,29 @@ Added in the homepage redesign 2026 (F4), replacing the old two-line placeholder
 - **Article paths**: `docs/{encodedPath}`; similar articles from `doc.relatedCards` or fallback collection read
 - **Cache-Control**: CDN-cached (`s-maxage=86400`)
 - Tag-collection definitions and ranking live in `src/lib/modx/collections.ts` (same logic as sync worker)
+- **Body HTML fixup**: `doc.content` passes through `wrapArticleTables()` (`src/lib/magazine/articleHtml.ts`) before it is returned — see below
+
+#### Article body HTML fixups (`src/lib/magazine/articleHtml.ts`)
+
+`wrapArticleTables(html)` wraps every outermost body `<table>` in a horizontally
+scrollable box, mirroring the wrapper/table pair `NutritionTable.svelte` renders on recipe
+pages. Applied **at request time**, not at sync time, so it covers every existing Firestore
+document without a re-sync and lands in the SSR HTML (no hydration reflow, works with JS off).
+
+- Emits `<div class="table-scroll[ left|right]" role="region" aria-label="…" tabindex="0">`;
+  styling lives in `src/app.css` (`.table-scroll`, plus the
+  `article :is(.overflow-x-auto, .table-scroll) > table` rule that strips the inner table's
+  border and vertical margin).
+- **Float moves, it is not copied**: a `left`/`boxleft`/`right`/`boxright` token is removed
+  from the table's class and added to the wrapper as plain `left`/`right`. `boxleft`/`boxright`
+  must never land on a `div` — `article :not(table).boxright` in `app.css` renders it as a blue
+  daisyUI primary card.
+- Regex with a depth counter, not an HTML parser: MODX bodies contain malformed markup
+  (e.g. `<td><th>…</th></td>`) that a parse5/linkedom round-trip would silently "repair".
+  Only outermost tables are wrapped; unbalanced tags degrade to "no wrap". Idempotent.
+- **Not** done in `transform.ts`/`alapjav` on purpose: `alapjav` runs before `ellipsis`, whose
+  extraction regex excludes `div`, so wrapping at sync time would change `doc.ellipsis` and the
+  `doc.table` flag — i.e. rewrite the card previews.
 
 #### Collection slugs (precomputed at sync time)
 
@@ -633,7 +656,7 @@ Added in the homepage redesign 2026 (F4), replacing the old two-line placeholder
 
 #### Related articles
 
-- **Recipe link groups override everything.** When a doc's related list is a set of Receptsarok recipes (a multi-recipe "gyűjtőcikk" whose own body became several recipes, e.g. `cikkek/diabetes/1503/recept-sarok`; an editorial hub whose body lists its sibling recipes, e.g. `cikkek/hypertonia/1601/nyari-gyumolcsok`; or any article ending with a "További receptek" list), the sync writes the group's recipe keys (`{year}-{id}`) to **`doc.related`** (`scripts/lib/related-recipe-cards.mjs`, `updateDocRelatedRecipes`). `[...path]/+page.server.ts` resolves them into the `ReceptsarokWidget` ("Kapcsolódó receptek a Receptsarokban"); the tag-based "Kapcsolódó cikkek" grid is suppressed whenever a curated/derived recipe group is shown (`!rsWidgetLinked` in `+page.svelte`, plus `[...path]/+layout.server.ts` returns empty `docs` when `doc.related` is stored). Recipe siblings can't appear in the tag-based list anyway — they `redirect`, so `isListedDoc` excludes them. Detection order (`docRelatedKeys`, mirrored at runtime in `+page.server.ts`): **0. the article's own split-out dishes** (`recipe.sourceModxId == doc.id`) → 1. own `linkedModxIds` → 2. folder children → 3. a leaf whose body links its `recept` siblings. Uniform with recipe `relatedCards` (see [Cross-linking with Magazine](#cross-linking-with-magazine)).
+- **Recipe link groups override everything.** When a doc's related list is a set of Receptsarok recipes (a multi-recipe "gyűjtőcikk" whose own body became several recipes, e.g. `cikkek/diabetes/1503/recept-sarok`; an editorial hub whose body lists its sibling recipes, e.g. `cikkek/hypertonia/1601/nyari-gyumolcsok`; or any article ending with a "További receptek" list), the sync writes the group's recipe keys (`{year}-{id}`) to **`doc.related`** (`scripts/lib/related-recipe-cards.mjs`, `updateDocRelatedRecipes`). `[...path]/+page.server.ts` resolves them into the `ReceptsarokWidget` ("Kapcsolódó receptek a Receptsarokban"); the tag-based "Kapcsolódó cikkek" grid is suppressed whenever a curated/derived recipe group is shown (`!rsWidgetLinked` in `+page.svelte`, plus `[...path]/+layout.server.ts` returns empty `docs` when `doc.related` is stored). Recipe siblings can't appear in the tag-based list anyway — they `redirect`, so `isListedDoc` excludes them. Detection order (`docRelatedKeys`, mirrored at runtime in `+page.server.ts`): **0. the article's own split-out dishes** (`recipe.sourceModxId == doc.id`) → 1. own `linkedModxIds` → 2. folder children → 3. a leaf's `recept` siblings, on **either** of two signals — **structural**, the two share a group folder below the issue, or **editorial**, the doc's body links that sibling's path (a round-up that never got its own folder, e.g. `cikkek/diabetes/1804/mexiko`). **Bare issue co-location is not a relationship**, so one of the two signals is required (`groupFolderOf` / `issueContainerDepth`, duplicated in `related-recipe-cards.mjs` and `magazine/firestore.ts` — keep in sync). The issue container is `cikkek/{magazin}/{lapszam}`; on the other roots the issue is one level up (`junior/{ev}`, `{ev}` may be `2021-2`), plus an optional literal `cikkek` folder — **Junior 2011–2019** files articles under `junior/{ev}/cikkek/…` (group folders one deeper, e.g. `junior/2015/cikkek/receptsarok`), **Junior from 2020** drops it, so group folders sit directly under the year (`junior/2021/nyari-taborok-2021`). Same shape on `rendezveny/{esemeny}[/cikkek]`. An article with no recipe group falls back to the tag-based related list (`relatedCards`). Uniform with recipe `relatedCards` (see [Cross-linking with Magazine](#cross-linking-with-magazine)).
 - Otherwise the primary source is `doc.relatedCards` on the Firestore document (tag/path similar — patched by the sync worker — `scripts/lib/related-cards.mjs`)
 - For folder-structured content, structural relations (derived by path) override tag similarity:
   1. A folder → its direct children (newest first)
@@ -816,6 +839,9 @@ There is no Netlify `_redirects` file or `netlify.toml` rule for these — Svelt
    - Static manifest entry by normalized article `path`
    - Existing Firestore / in-run cached redirect (fallback)
    - **Dynamic match** against published recipes in `recipes.json` — only when none of the above apply
+
+   > **The Firestore fallback is sticky — a wrong redirect never self-heals.** It is part of `staticTarget` (`receptsarok-redirect-match.mjs`), so it beats the dynamic match on *every* later run. The classic way to get one: **duplicating a recipe article in MODX** — the copy is synced while it still carries the source's title/alias, gets the source's redirect written to its own `docs/{encodedPath}`, and keeps it after you retitle and re-slug it. Re-saving in MODX cannot fix this. Fix = add the correct **manifest** entry (`byContentId` wins over the fallback) + `npm run sync:modx:refresh-redirects:apply`, then set the target recipe free (`applyModxLinkedRecipeFreeFlags`) and re-run `sync:rs-collections:apply`.
+
 4. **`setReceptsarokRedirect`** sets or clears `doc.redirect` on the processed document.
 5. Upsert processed doc to `docs/{encodeDocPathId(path)}`.
 6. New dynamic matches → **`appendRedirectsManifest`** (merged by `modxContentId`; GitHub Actions may commit the updated file).
@@ -1055,6 +1081,7 @@ Pruning **never throws**: a listing/delete failure logs `storage prune: … skip
 | Re-saved a single **`recept`** MODX article but it didn't appear in the Receptsarok | `sync:modx*` auto-creates it **only when its category resolves** (see [No existing match → sync-create](#no-existing-match--sync-create-new-recipe)). Unresolved → check `scripts/data/magazin-recipe-category-review.json` for a queued `{…,category:""}` row, fill the category, re-save the article. Also verify the doc has **exactly one** tag `recept` (extra tags disqualify it). |
 | Article's "További receptek" link list changed but the widget on the recipe page still shows old/4 similar recipes | `npm run recipes:backfill-content:apply` + `npm run sync:recipes:apply` (recipe `linkedModxIds`); magazine doc side needs `npm run sync:modx` (incremental, re-save) or `sync:modx:full` (backfill all) |
 | Editorial recipe hub (e.g. `cikkek/hypertonia/1601/nyari-gyumolcsok`) or its sibling recipes show tag-based "similar" instead of the group's recipes | `doc.related` / `recipe.relatedCards` are computed by `scripts/lib/related-recipe-cards.mjs`. Backfill recipes with `npm run recipes:backfill-related:apply` + `npm run sync:recipes:apply`; backfill all `doc.related` with `npm run sync:modx:full` (both are also written/refreshed on every incremental `sync:modx`). |
+| A **non-recipe** article shows "Kapcsolódó receptek a Receptsarokban" with its issue's recipes | Tier 3 (`getSiblingReceptModxIds` / `docRelatedKeys`) takes a sibling only on a shared **folder below the issue** or a **link from the doc's body**. A leaf's path-parent is its issue folder (`cikkek/diabetes/2501`), so with neither signal every article in an issue inherits that issue's recipes. Both signals are string tests placed **before** the `parent ==` query, so a plain article costs zero Firestore reads here instead of one read per sibling. |
 | Same recipe shows up twice under different years (title duplicate) | `npm run recipes:dedupe:internal` (review audit) → `:apply-local` → `sync:recipes:apply` → `sync:rs-collections:apply`; winner = real author > video > nutrition > year |
 | Recipe year looks wrong (e.g. 2001) | MODX paths carry YYMM issue codes, never four-digit years — fix the recipe's `year` in `recipes.json`, re-sync (old `{year}-{id}` doc is deleted as orphan), then check `receptsarok-redirects.json` + the article's `doc.redirect` in Firestore for the stale year |
 | Recipe data changed but dev server still shows old recipes / deleted recipe still renders | Restart the dev server — `getRecipes()` is memoized per process. On restart the dev server re-scans Firestore only when `meta/recipesUpload.revision` differs from the local `.recipes-rev.json` sidecar |
@@ -1064,6 +1091,7 @@ Pruning **never throws**: a listing/delete failure logs `storage prune: … skip
 | Meal planner intermittently fails with `{"error":"Invalid token"}` (401) even for a signed-in subscriber — often only on Netlify / after a cold start | Not a real auth problem: `requireReceptsarokSubscriber` calls `getAuth().verifyIdToken()` **first**, but the admin app is only `initializeApp()`-ed lazily via `getAdminDb()` (the `db` proxy / `getAdminBucket()`). The token path never touches `db` (dev/trial returns early), so on a cold serverless instance whose first admin call is this endpoint, bare `getAuth()` throws "The default Firebase app does not exist" and the generic `catch` masks it as `Invalid token`. Fix: verify via `getAdminAuth()` (in `firebase-admin.ts`), which calls `getAdminDb()` first to guarantee init. Works locally in warm `vite dev` because an earlier `db`-touching request already initialized the app in shared module state |
 | Editor (non-developer) changed something in FireCMS and asks how to get it live | The **Szinkron indítása / …frissítése** button on that collection's page — see [FireCMS sync button](#firecms-sync-button-cms--github-actions). If it answers 403, their e-mail is missing from `CMS_SYNC_ADMIN_EMAILS`; if 503, `GITHUB_SYNC_TOKEN` is not set on Netlify |
 | Article's recipe redirect points at a 404 | Manifest entry's `{year}-{id}` no longer exists in `recipes.json` — fix the entry, and update `doc.redirect` on `docs/{encodedPath}` (not the legacy numeric-id doc) |
+| New MODX recipe article redirects to **another, unrelated recipe** (typically the article it was duplicated from), and re-saving it in MODX changes nothing | The stale `doc.redirect` in Firestore is `resolveReceptsarokRedirect`'s fallback and outranks the dynamic match forever — see [the sticky-fallback note](#magazine--receptsarok-redirects-storage--processing). Add the right entry to `receptsarok-redirects.json` (`appendRedirectsManifest` — `modxContentId` + article `path` + target `{year, id}`), run `npm run sync:modx:refresh-redirects:apply`, then `applyModxLinkedRecipeFreeFlags` (sets `free: true` + `sourceModxId`) and `npm run sync:rs-collections:apply`. Symptom of the same root cause: the correct recipe stays paywalled, because the free flag follows the redirect |
 
 Do **not** suggest `npm run build` to refresh article text — content updates come from the sync worker, not the SvelteKit build.
 

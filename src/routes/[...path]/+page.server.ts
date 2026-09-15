@@ -12,7 +12,9 @@ type WidgetDoc = {
   id?: number
   parent?: number
   isfolder?: boolean | number
+  path?: string
   title?: string
+  content?: string
   redirect?: string
   tv?: { tags?: string[] }
   /** Curated "További receptek" MODX ids, set by the sync transform. */
@@ -50,9 +52,16 @@ export const load: PageServerLoad = async ({ parent }) => {
   if (!linkedIds.length && d.isfolder && d.id != null) {
     linkedIds = await getChildModxIds(Number(d.id))
   }
-  // Editorial hub next to `recept` siblings (e.g. hypertonia/1601/nyari-gyumolcsok).
+  // Editorial hub *linking* its `recept` siblings (e.g. hypertonia/1601/nyari-gyumolcsok).
+  // The body link is required: a leaf's MODX parent is its magazine issue folder, so
+  // without it every article in an issue would inherit that issue's recipes.
   if (!linkedIds.length && d.id != null && Number.isFinite(d.parent) && d.parent! > 0) {
-    linkedIds = await getSiblingReceptModxIds(Number(d.parent), Number(d.id))
+    linkedIds = await getSiblingReceptModxIds(
+      Number(d.parent),
+      Number(d.id),
+      d.path ?? '',
+      d.content ?? ''
+    )
   }
 
   const linked = linkedIds.length ? await linkedRecipesFor(linkedIds) : []

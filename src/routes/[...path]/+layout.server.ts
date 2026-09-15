@@ -1,4 +1,5 @@
 import { redirect } from '@sveltejs/kit';
+import { wrapArticleTables } from '$lib/magazine/articleHtml';
 import { MAGAZINE_CACHE_CONTROL } from '$lib/magazine/cacheHeaders';
 import { collectionQueries, rankDocByTags, type ThinCard } from '$lib/modx/collections';
 import { getMagazineArticle, getMagazineCollection, isCollectionSlug } from '$lib/magazine/firestore';
@@ -58,6 +59,11 @@ export const load: LayoutServerLoad = async ({ params, setHeaders }) => {
 	if (doc.redirect) {
 		redirect(308, doc.redirect);
 	}
+
+	// CMS tables get a horizontally scrollable wrapper here rather than at sync time,
+	// so it applies to every existing document without a re-sync and lands in the SSR
+	// HTML (no hydration reflow, works with JS off).
+	if (doc.content) doc.content = wrapArticleTables(doc.content);
 
 	const articleTags: string[] = (doc.tv?.tags as string[]) ?? [];
 	// A precomputed recipe link group (`doc.related`) replaces the tag-based
