@@ -465,6 +465,8 @@ Added in the homepage redesign 2026 (F6.1). **Simple Analytics** (cookie-free, n
 **Files:**
 - `src/routes/patika/+page.svelte`
 - `src/routes/patika/+layout.server.ts`
+- `src/lib/patikaFirestore.ts`
+- `src/lib/patikaKey.ts`
 
 ### Layout Server (`+layout.server.ts`)
 
@@ -473,10 +475,32 @@ Added in the homepage redesign 2026 (F6.1). **Simple Analytics** (cookie-free, n
 - **Cache-Control**: CDN-cached (`s-maxage=86400`)
 - `collections/patika` is precomputed by `npm run sync:patika:apply` from `tables/elofizetok/patika` subcollection; if missing, the helper falls back to the legacy `getPatika()` JSON pipeline
 
+### Entry Keys (`src/lib/patikaKey.ts`)
+
+Pharmacy names are **not unique** — chains such as "KORONA PATIKA" have a branch in
+several towns. Keying anything on `patika` breaks: it previously made the page's
+MiniSearch `addAll` throw `duplicate ID KORONA PATIKA`, taking `/patika` down.
+
+`withPatikaKeys()` gives every entry an `id` that is unique within the list:
+
+1. the source Firestore document id, when the entry carries one;
+2. otherwise a slug of `patika` + `irsz` + `varos` + `cim` (accent-folded, so `ő`/`ű` survive);
+3. otherwise a positional fallback — with a `-2`, `-3` … suffix breaking any remaining tie.
+
+`getPatikaCollection()` applies it to **both** branches (stored doc and JSON
+fallback), so it is the single place the uniqueness guarantee is established —
+consumers can index and key on `id` without re-checking. Document ids are
+preserved by `scripts/sync-patika-collection.mjs` (into `collections/patika`) and
+by `getPatika()` in `src/lib/siteConf.ts` (into the bundled `patika.json`
+snapshot); entries written before that survive on the derived key. Note a derived
+key changes if the branch's name or address is corrected upstream, which is why a
+real document id is preferred when present.
+
 ### Page Component (`+page.svelte`)
 
 - **Client-Side Search**:
   - Initializes MiniSearch for pharmacies
+  - Id: `id` (MiniSearch's default `idField`; see Entry Keys above — never `patika`)
   - Fields: `irsz`, `varos`, `cegnev`, `cim`, `patika`
   - Stores: `patika`, `irsz`, `varos`, `cim`, `email`
   - Fuzzy search threshold: 0.25
@@ -489,7 +513,8 @@ Added in the homepage redesign 2026 (F6.1). **Simple Analytics** (cookie-free, n
 - **Display**:
   - Lists pharmacies with name, postal code, city, and address
   - Each pharmacy links to Google Maps
-  - Fly-in animation for results
+  - Fly-in animation for results; the `{#each}` block is keyed on `id`, so the
+    transition follows the right row as the query narrows the list
 
 ---
 

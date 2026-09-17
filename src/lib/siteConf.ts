@@ -219,7 +219,10 @@ export const getPatika = async () => {
     try {
       const patikaRef = db.collection('tables/elofizetok/patika');
       const patikaSnap = await patikaRef.get();
-      const patikaData = patikaSnap.docs.flatMap(doc => doc.data())
+      // Keep `doc.id`: it is the only stable key a pharmacy row has, and the
+      // snapshot written here is what production serves when `collections/patika`
+      // is missing. (`flatMap` over object returns behaved as `map` — made plain.)
+      const patikaData = patikaSnap.docs.map(doc => ({ ...doc.data(), id: doc.id }))
       writeData(patikaData, 'patika.json')
       return patikaData;
     } catch (error) {

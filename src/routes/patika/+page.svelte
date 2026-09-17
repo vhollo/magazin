@@ -14,12 +14,10 @@
       fields: ['irsz', 'varos', 'cegnev', 'cim', 'patika'],
       storeFields: ['patika', 'irsz', 'varos', 'cim', 'email'],
     })
-    // Pharmacy names are not unique — a chain name like "KORONA PATIKA" appears
-    // in several towns — and `collections/patika` carries no key of its own
-    // (sync-patika-collection.mjs keeps public fields only). Keying on `patika`
-    // made addAll throw on the second branch; position is the id instead, so
-    // every branch is indexed and findable.
-    ms.addAll(patikas.map((p, i) => ({ ...p, id: i })))
+    // `getPatikaCollection()` guarantees a unique `id` per entry. Keying on
+    // `patika` instead used to throw `duplicate ID` on chains like "KORONA
+    // PATIKA", which have a branch in several towns.
+    ms.addAll(patikas)
     return ms
   })
 
@@ -58,7 +56,7 @@
 
   <div class="mx-auto max-w-4xl px-4 pb-8">
 <ul class="mt-6 w-full max-w-sm">
-    {#each list as p: any}
+    {#each list as p: any (p.id)}
       <li class="not-last:border-b py-2" transition:fly={{ y: 200, duration: 1000 }}>
         <p class="font-bold">
           <a href="https://maps.google.com/maps?q={p.patika}+{p.varos}+{p.irsz}" target="_blank" rel="noopener noreferrer" class="flex justify-between"><span>{p.patika}</span><span>📍</span></a>
