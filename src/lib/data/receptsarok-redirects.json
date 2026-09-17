@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-04T08:52:27.997Z",
+  "generatedAt": "2026-09-17T11:38:45.287Z",
   "sourceDocs": "sync worker (dynamic match + existing manifest)",
   "sourceRecipes": "src/lib/data/recipes.json",
   "entries": [
@@ -3014,12 +3014,6 @@
       "path": "receptsarok/egytaletelek/csoben-sult-padlizsan-batataval",
       "year": 2025,
       "id": "csoben-sult-padlizsan-batataval"
-    },
-    {
-      "modxContentId": 4510,
-      "path": "receptsarok/haletelek/grillezett-lazacfile-salataval-es-furjtojassal",
-      "year": 2025,
-      "id": "grillezett-lazacfile-salataval-es-furjtojassal"
     },
     {
       "modxContentId": 4422,
