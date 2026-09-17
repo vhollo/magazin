@@ -11,11 +11,15 @@
 
   const miniSearch = $derived.by(() => {
     const ms = new MiniSearch({
-      idField: 'patika',
       fields: ['irsz', 'varos', 'cegnev', 'cim', 'patika'],
       storeFields: ['patika', 'irsz', 'varos', 'cim', 'email'],
     })
-    ms.addAll(patikas)
+    // Pharmacy names are not unique — a chain name like "KORONA PATIKA" appears
+    // in several towns — and `collections/patika` carries no key of its own
+    // (sync-patika-collection.mjs keeps public fields only). Keying on `patika`
+    // made addAll throw on the second branch; position is the id instead, so
+    // every branch is indexed and findable.
+    ms.addAll(patikas.map((p, i) => ({ ...p, id: i })))
     return ms
   })
 
