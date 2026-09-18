@@ -79,6 +79,24 @@ export function recipeCardImg(
   return recipe.img ?? recipeHeroToCardImg(recipe.year, recipe.image, undefined)
 }
 
+/**
+ * `<img alt>` for a recipe image: the dish name, then the booklet credit line
+ * („Fotó: …”, „Kép: AI”) in parentheses, so the credit reaches screen readers
+ * and image search the same way the `<figcaption>` shows it sighted readers.
+ * A caption that only repeats the dish name is not appended twice.
+ */
+export function recipeImageAlt(
+  img: Pick<RecipeCardImage, 'alt' | 'caption'> | null | undefined,
+  title: string
+): string {
+  const base = (img?.alt ?? title ?? '').trim()
+  const caption = img?.caption?.trim()
+  if (!caption) return base
+  if (!base) return caption
+  if (base.toLowerCase() === caption.toLowerCase()) return base
+  return `${base} (${caption})`
+}
+
 export interface SubRecipe {
   title: string
   servings: { amount: number; unit: string }

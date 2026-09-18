@@ -1,6 +1,6 @@
 <script lang="ts">
   import NutritionTable from '$lib/components/NutritionTable.svelte'
-  import { isRecipeFree, recipeDetailPath, recipeCardImg } from '$lib/receptsarok'
+  import { isRecipeFree, recipeDetailPath, recipeCardImg, recipeImageAlt } from '$lib/receptsarok'
   import type { Recipe, RecipeTeaser } from '$lib/receptsarok'
 
   export let recipe: Recipe | RecipeTeaser
@@ -59,7 +59,7 @@
       <img
         loading="lazy"
         src={cardImg.src}
-        alt={cardImg.alt ?? recipe.title}
+        alt={recipeImageAlt(cardImg, recipe.title)}
         class="w-full object-cover"
         style="aspect-ratio: var(--imgratio);"
       />

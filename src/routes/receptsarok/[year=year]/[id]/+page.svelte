@@ -12,6 +12,7 @@
   import { plannerOpen } from '$lib/mealPlannerStore'
   import {
     recipeCardImg,
+    recipeImageAlt,
     recipeDetailSegments,
     type Recipe,
   } from '$lib/receptsarok'
@@ -162,7 +163,7 @@
     </figure>
   {:else if heroCardImg}
     <figure class="text-center not-prose">
-      <img src={heroCardImg.src} alt={heroCardImg.alt ?? displayRecipe.title} class="mx-auto" />
+      <img src={heroCardImg.src} alt={recipeImageAlt(heroCardImg, displayRecipe.title)} class="mx-auto" />
       {#if heroCardImg.caption}
         <figcaption class="mt-2 text-sm text-base-content/70">{heroCardImg.caption}</figcaption>
       {/if}
@@ -251,7 +252,7 @@
             <figure class="text-center not-prose">
               <img
                 src={sub.img.src}
-                alt={sub.img.alt ?? sub.title}
+                alt={recipeImageAlt(sub.img, sub.title)}
                 class="mx-auto"
               />
               {#if sub.img.caption}
