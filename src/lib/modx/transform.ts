@@ -180,10 +180,13 @@ function renderNagyitoHtml(img: {
 	align: string;
 	zoom: string;
 	bg: string;
+	imgclass: string;
 }): string {
 	const zoomAttr = img.zoom ? ' class="zoom"' : '';
+	const imgclassAttr = img.imgclass ? ` class="${img.imgclass}"` : '';
+	const bgStyle = img.bg ? ` style="background-color: ${img.bg}"` : '';
 	const figcaption = img.desc ? `<figcaption class="">${img.desc}</figcaption>` : '';
-	return `<figure class="${img.align}"><img src="${img.file}" alt="${descToAltText(img.desc)}"${zoomAttr} data-theme="dark" style="background-color: ${img.bg}">${figcaption}</figure>`;
+	return `<figure class="${img.align}"><img src="${img.file}" alt="${descToAltText(img.desc)}"${zoomAttr}${imgclassAttr}${bgStyle}>${figcaption}</figure>`;
 }
 
 /** [[nagyito? …]], [[-nagyito? …-]] (MODX comment), [[!nagyito? …]] */
@@ -230,7 +233,8 @@ function replaceNagyitoTags(html: string, doc: ModxDoc, publicBaseUrl: string): 
 			desc: nagyitoAttr(params, 'desc'),
 			align: nagyitoAttr(params, 'align') || 'center',
 			zoom: nagyitoAttr(params, 'zoom') || '',
-			bg: nagyitoAttr(params, 'bg') || 'white'
+			bg: nagyitoAttr(params, 'bg') || 'white',
+			imgclass: nagyitoAttr(params, 'imgclass') || ''
 		});
 	};
 

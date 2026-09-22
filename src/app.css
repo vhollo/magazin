@@ -323,7 +323,10 @@ article :not(table).nicebox {
 }
 article :not(table).nicebox,
 article :not(table).boxright,
-article :not(table).boxleft {
+article :not(table).boxleft,
+article figure.left,
+article figure.right,
+article figure:has(.bgdark) {
   @apply card card-sm bg-primary text-primary-content shadow-xl card-body px-2 py-4 last:mb-0 gap-2;
   /* card-body makes this a flex container, which blockifies direct-child <a>
      (a flex item's display:inline is forced to block — so `.nicebox > a {display:inline}`
