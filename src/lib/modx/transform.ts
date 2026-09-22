@@ -182,11 +182,11 @@ function renderNagyitoHtml(img: {
 	bg: string;
 	imgclass: string;
 }): string {
-	const zoomAttr = img.zoom ? ' class="zoom"' : '';
-	const imgclassAttr = img.imgclass ? ` class="${img.imgclass}"` : '';
+	const zoomAttr = img.zoom ? ' zoom' : '';
+	const imgclassAttr = img.imgclass ? ` class="${img.imgclass}${zoomAttr}"` : '';
 	const bgStyle = img.bg ? ` style="background-color: ${img.bg}"` : '';
 	const figcaption = img.desc ? `<figcaption class="">${img.desc}</figcaption>` : '';
-	return `<figure class="${img.align}"><img src="${img.file}" alt="${descToAltText(img.desc)}"${zoomAttr}${imgclassAttr}${bgStyle}>${figcaption}</figure>`;
+	return `<figure class="${img.align}"><img src="${img.file}" alt="${descToAltText(img.desc)}"${imgclassAttr}${bgStyle}>${figcaption}</figure>`;
 }
 
 /** [[nagyito? …]], [[-nagyito? …-]] (MODX comment), [[!nagyito? …]] */

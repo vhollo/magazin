@@ -1,8 +1,8 @@
 <script>
-// @ts-nocheck
+  // @ts-nocheck
 
-  export let img
-/*  let kep
+  export let img;
+  /*  let kep
   $: (kep) => {
     console.log(kep)
     if (document.body.requestFullscreen || document.body.webkitRequestFullscreen || document.body.mozRequestFullScreen) {
@@ -14,16 +14,23 @@
     document.querySelector(e.target).requestFullscreen();
 
   }
-*/</script>
+*/
+</script>
 
 <!--<aside class="card card-hollow {img.align}">
   <figure class="card-body">-->
-  <figure class="{img.align}">
-    <img src={img.file} alt="{img.desc}" class:zoom={!!img.zoom} data-theme="dark" style="background-color: {img.bg}" >
-    {#if img.desc}
+<figure class={img.align}>
+  <img
+    src={img.file}
+    alt={img.desc}
+    class={img.imgclass}
+    class:zoom={!!img.zoom}
+    style="background-color: {img.bg}"
+  />
+  {#if img.desc}
     <figcaption class="">{@html img.desc}</figcaption>
-    {/if}
-  </figure>
+  {/if}
+</figure>
 <!--</aside>-->
 
 <!--<style>
