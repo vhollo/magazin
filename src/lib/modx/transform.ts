@@ -233,7 +233,7 @@ function replaceNagyitoTags(html: string, doc: ModxDoc, publicBaseUrl: string): 
 			desc: nagyitoAttr(params, 'desc'),
 			align: nagyitoAttr(params, 'align') || 'center',
 			zoom: nagyitoAttr(params, 'zoom') || '',
-			bg: nagyitoAttr(params, 'bg') || 'white',
+			bg: nagyitoAttr(params, 'bg') || '',
 			imgclass: nagyitoAttr(params, 'imgclass') || ''
 		});
 	};
