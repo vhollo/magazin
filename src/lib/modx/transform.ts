@@ -218,16 +218,25 @@ function resolveNagyitoImage(
 	return {};
 }
 
+/** Bare file name of an image path/URL (no folders, query or hash). */
+function imageFileName(src: string): string {
+	return src.split(/[?#]/)[0].split('/').pop()?.trim() ?? '';
+}
+
 function replaceNagyitoTags(html: string, doc: ModxDoc, publicBaseUrl: string): string {
 	if (!html || !/nagyito/i.test(html)) return html;
 
 	let out = html.replaceAll('`/assets', '`assets');
+	// The page image is shown as the hero already, so a [[nagyito]] of the same file is
+	// dropped. Compare by file name, not path: editors' paths drift (`hyt1901//x.jpg`,
+	// `/assets/…` vs `assets/…`) while pointing at the same image.
+	const pageImageName = doc.img?.src ? imageFileName(doc.img.src) : '';
 
 	const replaceOne = (full: string, params: string) => {
 		if (/^\[\[-/.test(full)) return '';
 		const { file, rel } = resolveNagyitoImage(params, publicBaseUrl);
 		if (!file || !rel) return '';
-		if (doc.img?.src?.includes(rel)) return '<!-- PAGEIMAGE -->';
+		if (pageImageName && imageFileName(rel) === pageImageName) return '<!-- PAGEIMAGE -->';
 		return renderNagyitoHtml({
 			file,
 			desc: nagyitoAttr(params, 'desc'),

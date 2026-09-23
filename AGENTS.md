@@ -1033,6 +1033,8 @@ Run from repo root (`magazin/`). Requires `.env` with `MODXDB_*`, `FIREBASE_ADMI
 - `static/search-meta.json` — fallback for `/keres` when API unavailable
 - Firebase Storage — `search/index-<ms>.json.gz` (MiniSearch index, ~10 MiB gz) and `projections/slim-<ms>.json.gz` (projection snapshot), both new objects per sync (see [Storage artifacts & retention](#storage-artifacts--retention))
 
+**Body `[[nagyito]]` images vs. pageImage**: `replaceNagyitoTags()` (`src/lib/modx/transform.ts`) renders each `[[nagyito]]` to a `<figure><img>`, **except** one whose image **file name** equals the pageImage's (TV 4, `doc.img.src`) — that one becomes `<!-- PAGEIMAGE -->` (then stripped by `alapjav`), since the page image already shows as the hero. The match is by bare file name (`imageFileName()`), not path, because editors' paths drift for the same file — e.g. `cikkek/hypertonia/1901/a-vese` has `&file=`cikkek/hyt1901//3d-…jpg`` (double slash). The recipe backfill (`recipes:backfill-content`) runs the same transform. Existing docs pick up a rule change on re-save / `sync:modx:full`.
+
 ### Unpublish / delete propagation
 
 Unpublishing or deleting an article in MODX removes it from **every** derived surface, on the same save-triggered path a publish takes: the `docs/{encodedPath}` doc is deleted, its path is dropped from the projection snapshot (so `collections/{slug}` + `collections/home` are rewritten without it), `removeSearchDocument()` drops it from the MiniSearch index before the new `search/index-<ms>.json.gz` is uploaded, and the CDN purge covers `/`, the removed path and every collection route.
