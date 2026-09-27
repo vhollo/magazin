@@ -16,6 +16,7 @@
  *     since the projection snapshot carries `redirect` but not `parent`/`linkedModxIds`.
  */
 import fs from 'node:fs'
+import { FieldValue } from 'firebase-admin/firestore'
 import { stringifyRecipesJson } from '../../src/lib/recipesJsonFormat.js'
 import { encodeDocPathId } from './doc-path-id.mjs'
 import { parseReceptsarokRedirectPath } from './receptsarok-modx-free-sync.mjs'
@@ -173,7 +174,10 @@ export async function syncRecipeRelatedCards({
   let n = 0
   for (const key of changed) {
     const r = byKey.get(key)
-    const patch = { relatedCards: Array.isArray(r?.relatedCards) ? r.relatedCards : [] }
+    // Mirror recipes.json exactly: an emptied list is *removed* there, so delete the
+    // field here too (a stored `[]` drifted from the file's missing field).
+    const next = Array.isArray(r?.relatedCards) && r.relatedCards.length ? r.relatedCards : null
+    const patch = { relatedCards: next ?? FieldValue.delete() }
     batch.set(firestore.collection('recipes').doc(key), patch, { merge: true })
     if (++n % 400 === 0) {
       await batch.commit()
