@@ -1,10 +1,36 @@
 import { redirect } from '@sveltejs/kit';
-import { wrapArticleTables } from '$lib/magazine/articleHtml';
+import { hasArticleBody, wrapArticleTables } from '$lib/magazine/articleHtml';
 import { MAGAZINE_CACHE_CONTROL } from '$lib/magazine/cacheHeaders';
 import { collectionQueries, rankDocByTags, type ThinCard } from '$lib/modx/collections';
-import { getMagazineArticle, getMagazineCollection, isCollectionSlug } from '$lib/magazine/firestore';
+import {
+	getFirstChildPath,
+	getMagazineArticle,
+	getMagazineCollection,
+	isCollectionSlug
+} from '$lib/magazine/firestore';
 import { getAuthorsBySlugs } from '$lib/magazine/authorsCache';
 import type { LayoutServerLoad } from './$types';
+
+/**
+ * Old MODX section folders (`cikkek`, `cikkek/{rovat}`) — no body of their own and no
+ * listing of their children, still reachable from external/legacy links. Redirected
+ * before the Firestore read, so a MODX re-save can't clear it the way sync clears
+ * `doc.redirect`.
+ */
+const LEGACY_SECTION_REDIRECTS: Record<string, string> = {
+	cikkek: '/',
+	'cikkek/diabetes': '/',
+	'cikkek/hypertonia': '/',
+	'cikkek/elet': '/',
+	'cikkek/mod': '/',
+	'cikkek/szemle': '/',
+	'cikkek/orvos': '/orvos-beteg',
+	'cikkek/kereso': '/keres',
+	'cikkek/recept': '/receptsarok'
+};
+
+/** Empty "Diabéteszegyesületek …" series folders — each child is one association's page. */
+const ASSOCIATION_FOLDER = /\/[^/]*egyesulet[^/]*$/;
 
 /** Best tag-collection slug for an article's tags (fallback similar-articles source). */
 function bestCollectionSlug(articleTags: string[]): string | null {
@@ -40,6 +66,12 @@ export const load: LayoutServerLoad = async ({ params, setHeaders }) => {
 
 	setHeaders({ 'Cache-Control': MAGAZINE_CACHE_CONTROL });
 
+	// ── Legacy MODX section folder with no content of its own ─────────────────
+	const legacyTarget = LEGACY_SECTION_REDIRECTS[path];
+	if (legacyTarget) {
+		redirect(308, legacyTarget);
+	}
+
 	// ── Collection page ───────────────────────────────────────────────────────
 	if (isCollectionSlug(path)) {
 		const col = await getMagazineCollection(path);
@@ -52,12 +84,27 @@ export const load: LayoutServerLoad = async ({ params, setHeaders }) => {
 	// ── Article / document page ───────────────────────────────────────────────
 	const doc = await getMagazineArticle(path);
 
-	if (!doc) {
+	// A doc without `path` is a stub a merge write re-created after its article was
+	// deleted or moved (only `relatedCards` etc.) — as missing as no doc at all.
+	if (!doc?.path) {
 		redirect(307, '/keres?q=' + encodeURIComponent(path));
 	}
 
 	if (doc.redirect) {
 		redirect(308, doc.redirect);
+	}
+
+	// An empty magazine issue/group folder (e.g. `cikkek/diabetes/0801`) would render a
+	// bare title. A recipe group (`doc.related` / `linkedModxIds`) is not empty: the page
+	// lists its recipes. 307, so the page comes back once an editor gives it a body.
+	if (
+		path.startsWith('cikkek/') &&
+		!hasArticleBody(doc.content) &&
+		!doc.related?.length &&
+		!doc.linkedModxIds?.length
+	) {
+		const firstChild = ASSOCIATION_FOLDER.test(path) ? await getFirstChildPath(Number(doc.id)) : null;
+		redirect(307, firstChild ? '/' + firstChild : '/');
 	}
 
 	// CMS tables get a horizontally scrollable wrapper here rather than at sync time,

@@ -1,7 +1,7 @@
 import { db } from '$lib/firebase-admin';
 import { encodeDocPathId } from '$lib/magazine/docPathId';
 import type { DocLike, ThinCard } from '$lib/modx/collections';
-import { collectionQueries, toThinCard } from '$lib/modx/collections';
+import { collectionQueries, isListedDoc, toThinCard } from '$lib/modx/collections';
 
 export type MagazineArticle = DocLike & {
 	/** Article body HTML. Not on `DocLike` — cards carry `ellipsis`, not the full body. */
@@ -48,6 +48,23 @@ export async function getMagazineArticle(path: string): Promise<MagazineArticle 
 export async function getChildModxIds(parentModxId: number): Promise<number[]> {
 	const snap = await db.collection('docs').where('parent', '==', parentModxId).select('id').get();
 	return snap.docs.map((d) => Number(d.get('id'))).filter((n) => Number.isFinite(n));
+}
+
+/**
+ * Path of a folder's first child in MODX menu order. `menuindex` isn't synced, but
+ * editors create a group's pages in order, so the lowest MODX id stands in for it.
+ */
+export async function getFirstChildPath(parentModxId: number): Promise<string | null> {
+	const snap = await db
+		.collection('docs')
+		.where('parent', '==', parentModxId)
+		.select('id', 'path')
+		.get();
+	const first = snap.docs
+		.map((d) => ({ id: Number(d.get('id')), path: d.get('path') as string | undefined }))
+		.filter((c) => Number.isFinite(c.id) && c.path)
+		.sort((a, b) => a.id - b.id)[0];
+	return first?.path ?? null;
 }
 
 /**
@@ -155,11 +172,23 @@ export async function getArticlesByAuthor(slug: string, limit = 30): Promise<Thi
 			.where('authorSlugs', 'array-contains', slug)
 			.orderBy('publishedon', 'desc')
 			.limit(limit)
-			.select('id', 'path', 'title', 'longtitle', 'description', 'ellipsis', 'img', 'tv', 'redirect')
+			.select('id', 'path', 'title', 'longtitle', 'description', 'ellipsis', 'img', 'tv', 'redirect', 'isfolder')
 			.get();
-		return snap.docs
-			.map((doc) => doc.data() as DocLike & { redirect?: string })
-			.filter((doc) => !doc.redirect)
+		// Same card rule as every other list: no redirect, real tags (`isListedDoc`) …
+		const docs = snap.docs.map((doc) => doc.data() as DocLike).filter(isListedDoc);
+		// … and never an empty-content folder (the sync's `isEmptyContentFolder`). Only
+		// folders need their body, so read just theirs.
+		const folders = docs.filter((doc) => doc.isfolder && doc.path);
+		const emptyFolders = new Set<string>();
+		if (folders.length) {
+			const refs = folders.map((doc) => db.collection('docs').doc(encodeDocPathId(doc.path!)));
+			const bodies = await db.getAll(...refs, { fieldMask: ['content'] });
+			bodies.forEach((body, i) => {
+				if (!String(body.get('content') ?? '').trim()) emptyFolders.add(folders[i].path!);
+			});
+		}
+		return docs
+			.filter((doc) => !(doc.path && emptyFolders.has(doc.path)))
 			.map((doc) => toThinCard(doc));
 	} catch (error) {
 		// Missing or still-building index: show the profile without the article list

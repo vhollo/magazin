@@ -6,6 +6,7 @@ import { pathToFileURL } from 'node:url'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { encodeDocPathId, normalizeArticlePath } from './doc-path-id.mjs'
+import { isEmptyContentFolder } from './empty-folders.mjs'
 import { pruneVersionedObjects, uploadPublicFile } from './firebase-storage.mjs'
 import { downloadGzipJson } from './storage-gzip-json.mjs'
 import { loadRecipesFromJson } from './receptsarok-redirect-match.mjs'
@@ -260,10 +261,16 @@ async function addArticlesInBatches(firestore, listedPaths, miniSearch, seenIds)
       const doc = snap.data()
       if (doc.redirect) continue
 
-      const searchDoc = articleToSearchDoc(doc, {
-        path: pathBatch[j],
-        firestoreId: snap.id,
-      })
+      const hints = { path: pathBatch[j], firestoreId: snap.id }
+      // Hidden from collections + related cards too (`emptyContentFolderPaths`); an
+      // incremental patch also drops the entry a once-non-empty version left behind.
+      if (isEmptyContentFolder(doc)) {
+        const staleId = searchDocId(doc, hints)
+        if (staleId && miniSearch.has(staleId)) removeSearchDocument(miniSearch, staleId)
+        continue
+      }
+
+      const searchDoc = articleToSearchDoc(doc, hints)
       if (!searchDoc) {
         skipped++
         continue

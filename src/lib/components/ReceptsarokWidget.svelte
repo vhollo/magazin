@@ -10,6 +10,14 @@
   export let title = ''
   /** Section heading – overridden for curated "További receptek" lists. */
   export let heading = 'Kapcsolódó receptek a Receptsarokban'
+  /** Cards per "more" step (0 = show all). Local state, not the URL hash `Cards` uses,
+      so it can sit on the same page as a paginated `Cards` list. */
+  export let pageSize = 0
+  export let moreLabel = 'További receptek'
+
+  let shown = pageSize
+  $: recipes, (shown = pageSize) // new list (e.g. another author) → back to page 1
+  $: visible = pageSize > 0 ? recipes.slice(0, shown) : recipes
 
   // Masonry spans are JS-only; pre-hydration the grid uses content-sized rows
   // (no overlap), then switches to the fine-grained dense grid once mounted.
@@ -31,12 +39,20 @@
     </header>
 
     <div class="grid gap-4 mt-6" class:ready>
-      {#each recipes as recipe}
+      {#each visible as recipe}
         <aside use:masonryItem>
           <RecipeCard {recipe} locked={!isRecipeFree(recipe) && !$hasReceptsarokAccess} />
         </aside>
       {/each}
     </div>
+
+    {#if visible.length < recipes.length}
+      <p class="mt-6 text-center">
+        <button type="button" class="btn btn-outline" on:click={() => (shown += pageSize)}>
+          {moreLabel}
+        </button>
+      </p>
+    {/if}
 
     <div class="mt-6">
       <a href="/receptsarok" class="btn btn-outline btn-sm">

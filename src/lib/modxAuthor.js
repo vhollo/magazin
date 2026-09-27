@@ -57,6 +57,8 @@ export function extractAlairasAuthor(html) {
     // Drop a trailing photo credit ("… Fotó: Photographer") — the byline is the author.
     // (No \b after "fotó": the accented ó is not an ASCII word char so \b would fail.)
     .replace(/\s*fot[óo]\s*:.*$/is, '')
+    // "X receptje" footer (2018 single-recipe articles) — the name is X.
+    .replace(/\s+receptje\.?\s*$/i, '')
     .replace(/\s+/g, ' ')
     .trim()
 }

@@ -14,6 +14,7 @@ import {
   toLayoutRecipe,
   type Recipe,
   type RecipeLayoutEntry,
+  type RecipeTeaser,
 } from '$lib/receptsarok'
 import redirectManifest from '$lib/data/receptsarok-redirects.json'
 
@@ -166,6 +167,33 @@ export async function recipesBySourceModxId(modxId: number): Promise<RecipeLayou
   return slugs
     .map((slug) => entries.get(slug))
     .filter((entry): entry is RecipeLayoutEntry => Boolean(entry))
+}
+
+/** Same name key the MODX sync uses to resolve authors (`authorKey` in `modx/transform`). */
+const authorNameKey = (value: string) =>
+  value.replaceAll('_', ' ').normalize('NFC').toLowerCase().replace(/[.\s]+/g, ' ').trim()
+
+/**
+ * An author's published recipes (`/szerzok/{slug}`), newest year first. Exact match
+ * of `recipe.author` against the author's names — no fuzzy search, so a co-authored
+ * or mis-parsed byline ("X receptje") stays out rather than pulling in a stranger.
+ */
+export async function recipesByAuthor(author: {
+  displayName?: string
+  name?: string
+  legacyTokens?: string[]
+}): Promise<RecipeTeaser[]> {
+  const keys = new Set(
+    [author.displayName, author.name, ...(author.legacyTokens ?? [])]
+      .filter((v): v is string => Boolean(v))
+      .map(authorNameKey)
+  )
+  if (!keys.size) return []
+  const { entries } = await getRecipeSearchIndex()
+  return [...entries.values()]
+    .filter((entry) => entry.author && keys.has(authorNameKey(entry.author)))
+    .sort((a, b) => b.year - a.year || a.title.localeCompare(b.title, 'hu'))
+    .map(({ ingredientNames: _i, searchTerms: _s, ...teaser }) => teaser)
 }
 
 /**

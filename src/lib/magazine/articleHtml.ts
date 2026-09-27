@@ -7,6 +7,19 @@
  * Rewriting only what we match keeps every other byte identical.
  */
 
+/** Embedded media that makes a body worth showing even without any text. */
+const MEDIA_TAG = /<(?:img|iframe|video|audio|table|object|embed)\b/i;
+
+/**
+ * Whether a CMS body renders anything — visible text or embedded media. MODX issue
+ * and group folders are stored with an empty body (or `<p></p>`-style shells).
+ */
+export function hasArticleBody(html: string | undefined): boolean {
+	if (!html) return false;
+	if (MEDIA_TAG.test(html)) return true;
+	return html.replace(/<[^>]*>/g, '').replace(/&nbsp;|&#160;/gi, ' ').trim().length > 0;
+}
+
 /** Float tokens a CMS table may carry; the wrapper takes over the floating. */
 const FLOAT_LEFT = ['left', 'boxleft'];
 const FLOAT_RIGHT = ['right', 'boxright'];

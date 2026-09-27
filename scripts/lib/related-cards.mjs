@@ -10,7 +10,7 @@ function parentPathOf(path) {
 }
 
 /**
- * Patch relatedCards onto docs (merge write).
+ * Patch relatedCards onto existing docs (`update` — a missing doc is skipped, never re-created).
  *
  * Folder-structured content overrides the tag-based "similar articles":
  *   1. A matching folder → its direct children (newest first).
@@ -114,10 +114,17 @@ export async function updateRelatedCards(
       }
     }
 
-    await firestore
-      .collection('docs')
-      .doc(encodeDocPathId(processed.path))
-      .set({ relatedCards: related }, { merge: true })
+    // `update`, not a merge `set`: a doc that is gone (deleted, or moved to a new path)
+    // must not come back as a path-less stub holding only `relatedCards`.
+    try {
+      await firestore
+        .collection('docs')
+        .doc(encodeDocPathId(processed.path))
+        .update({ relatedCards: related })
+    } catch (err) {
+      if (err?.code === 5) continue // NOT_FOUND
+      throw err
+    }
 
     processed.relatedCards = related
     updated++

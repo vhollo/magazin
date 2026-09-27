@@ -45,8 +45,8 @@
     "semantic_hash": ""
   },
   "/Users/vhollo/Public/Google/webdev/diabetes/magazin/static/search-meta.json": {
-    "mtime": 1789124997.3017304,
-    "ast_hash": "350fd962cfa6cff3b588bb27f386f6d7",
+    "mtime": 1790198971.3688052,
+    "ast_hash": "d63fc896e13500179beaa586d7e085d9",
     "semantic_hash": ""
   },
   "/Users/vhollo/Public/Google/webdev/diabetes/magazin/scripts/fix-modx-recipe-years.mjs": {
@@ -70,8 +70,8 @@
     "semantic_hash": ""
   },
   "/Users/vhollo/Public/Google/webdev/diabetes/magazin/scripts/storage-cors.json": {
-    "mtime": 1779642927.3052948,
-    "ast_hash": "03489dcefba34957e75f8dadab1ff84c",
+    "mtime": 1790442035.3713214,
+    "ast_hash": "5489bd75b212addd3669b783a8c34970",
     "semantic_hash": ""
   },
   "/Users/vhollo/Public/Google/webdev/diabetes/magazin/scripts/sync-receptsarok-collections.mjs": {
@@ -95,7 +95,7 @@
     "semantic_hash": ""
   },
   "/Users/vhollo/Public/Google/webdev/diabetes/magazin/scripts/finish-modx-sync.mjs": {
-    "mtime": 1787700602.842081,
+    "mtime": 1790453689.6995652,
     "ast_hash": "4452f432420ef0b6484c522e389a6459",
     "semantic_hash": ""
   },
@@ -110,7 +110,7 @@
     "semantic_hash": ""
   },
   "/Users/vhollo/Public/Google/webdev/diabetes/magazin/scripts/sync-modx-to-firestore.mjs": {
-    "mtime": 1787823626.256311,
+    "mtime": 1790453689.702337,
     "ast_hash": "0fbf04dddd4083519887a6e76b9ca8c3",
     "semantic_hash": ""
   },
@@ -145,8 +145,8 @@
     "semantic_hash": ""
   },
   "/Users/vhollo/Public/Google/webdev/diabetes/magazin/scripts/lib/search-index.mjs": {
-    "mtime": 1787697482.3783112,
-    "ast_hash": "69cc53394a166c32d0c8c74358c0bb31",
+    "mtime": 1790452954.3885462,
+    "ast_hash": "6159d95477fc51fb99c5ec52e0f4885a",
     "semantic_hash": ""
   },
   "/Users/vhollo/Public/Google/webdev/diabetes/magazin/scripts/lib/netlify-purge.mjs": {
@@ -165,8 +165,8 @@
     "semantic_hash": ""
   },
   "/Users/vhollo/Public/Google/webdev/diabetes/magazin/scripts/lib/related-cards.mjs": {
-    "mtime": 1781967532.4981825,
-    "ast_hash": "f259ad8fb0b55989d5d3ef4a32d8214d",
+    "mtime": 1790454165.6479607,
+    "ast_hash": "1725040871e9ddcd9aac7c8150e55ac3",
     "semantic_hash": ""
   },
   "/Users/vhollo/Public/Google/webdev/diabetes/magazin/scripts/lib/magazine-scope.mjs": {
@@ -370,8 +370,8 @@
     "semantic_hash": ""
   },
   "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/lib/components/ReceptsarokWidget.svelte": {
-    "mtime": 1784397552.666816,
-    "ast_hash": "6f75508463362f837dcf89c41a570479",
+    "mtime": 1790457934.0076582,
+    "ast_hash": "ba5af082c9c9432afbf1ff420825a861",
     "semantic_hash": ""
   },
   "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/lib/components/PaywallCTA.svelte": {
@@ -450,8 +450,8 @@
     "semantic_hash": ""
   },
   "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/lib/magazine/firestore.ts": {
-    "mtime": 1788554986.069644,
-    "ast_hash": "921c0f701c900137b437332a5d4ac9e1",
+    "mtime": 1790454128.3988237,
+    "ast_hash": "9e7d84f9d8225028e95f42d97c2fffa1",
     "semantic_hash": ""
   },
   "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/lib/magazine/cacheHeaders.ts": {
@@ -485,8 +485,8 @@
     "semantic_hash": ""
   },
   "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/lib/data/recipes.json": {
-    "mtime": 1789725810.87647,
-    "ast_hash": "162c09ea917db3fda04b6f8efc078d28",
+    "mtime": 1790503085.2992642,
+    "ast_hash": "e9a6634d540be83dfcd062fa1b98bed1",
     "semantic_hash": ""
   },
   "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/lib/data/conf.json": {
@@ -590,8 +590,8 @@
     "semantic_hash": ""
   },
   "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/routes/[...path]/+layout.server.ts": {
-    "mtime": 1788518301.3550344,
-    "ast_hash": "aef36e22ba47b86a98c536d6231180f5",
+    "mtime": 1790454135.8115294,
+    "ast_hash": "adae7f75253e9017fbd8f1f2461e9cf1",
     "semantic_hash": ""
   },
   "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/routes/api/search-index/+server.ts": {
@@ -700,8 +700,8 @@
     "semantic_hash": ""
   },
   "/Users/vhollo/Public/Google/webdev/diabetes/magazin/AGENTS.md": {
-    "mtime": 1790197284.5944946,
-    "ast_hash": "a1bf0d31e5d3a36a27572ce861c71f7d",
+    "mtime": 1790503466.5634499,
+    "ast_hash": "f57243e3272e47894bf97b7be6fb219f",
     "semantic_hash": ""
   },
   "/Users/vhollo/Public/Google/webdev/diabetes/magazin/.github/workflows/sync-receptsarok-patika.yml": {
@@ -4370,8 +4370,8 @@
     "semantic_hash": ""
   },
   "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/lib/server/similarRecipes.ts": {
-    "mtime": 1782047408.7840128,
-    "ast_hash": "ab8307f74d4d70598e4d693cd2aa5124",
+    "mtime": 1790457909.4219365,
+    "ast_hash": "d253996a55249d255dd648d06768ae00",
     "semantic_hash": ""
   },
   "/Users/vhollo/Public/Google/webdev/diabetes/magazin/.claude/launch.json": {
@@ -4390,8 +4390,8 @@
     "semantic_hash": ""
   },
   "/Users/vhollo/Public/Google/webdev/diabetes/magazin/scripts/lib/empty-folders.mjs": {
-    "mtime": 1781967516.1330073,
-    "ast_hash": "722f94b62a2a819ced0df5c506deaaef",
+    "mtime": 1790448649.572672,
+    "ast_hash": "bfce380c3300cafd35ce099ae864df33",
     "semantic_hash": ""
   },
   "/Users/vhollo/Public/Google/webdev/diabetes/magazin/scripts/refresh-receptsarok-redirects.mjs": {
@@ -4430,8 +4430,8 @@
     "semantic_hash": ""
   },
   "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/lib/modxAuthor.js": {
-    "mtime": 1782149342.373665,
-    "ast_hash": "ad3d40eda2b3bc1324010bcc7c699c9a",
+    "mtime": 1790503067.2775695,
+    "ast_hash": "f958fd1e254eec682a31b52996c09ceb",
     "semantic_hash": ""
   },
   "/Users/vhollo/Public/Google/webdev/diabetes/magazin/scripts/backfill-junior-magazine-fields.mjs": {
@@ -4560,13 +4560,13 @@
     "semantic_hash": ""
   },
   "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/routes/szerzok/[slug]/+page.server.ts": {
-    "mtime": 1787615063.8379726,
-    "ast_hash": "bce6011065b0b59f7bad79ed721f800f",
+    "mtime": 1790457917.9974535,
+    "ast_hash": "03f221d254ae3cd5218a26b0b9186056",
     "semantic_hash": ""
   },
   "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/routes/szerzok/[slug]/+page.svelte": {
-    "mtime": 1787833395.3561954,
-    "ast_hash": "4d87a18059a075dc96cb73094c5df1fe",
+    "mtime": 1790457934.0079844,
+    "ast_hash": "ea47363263eed83897c2f09fdd67bcc9",
     "semantic_hash": ""
   },
   "/Users/vhollo/Public/Google/webdev/diabetes/magazin/scripts/data/authors-duplicate-bylines.md": {
@@ -4595,8 +4595,8 @@
     "semantic_hash": ""
   },
   "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/lib/magazine/articleHtml.ts": {
-    "mtime": 1788518450.666388,
-    "ast_hash": "d47d2b441470560c4d859460c2a17015",
+    "mtime": 1790447588.7022405,
+    "ast_hash": "cbaaf2d15b5dcf1a3ae1311e946498ce",
     "semantic_hash": ""
   },
   "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/lib/patikaKey.ts": {

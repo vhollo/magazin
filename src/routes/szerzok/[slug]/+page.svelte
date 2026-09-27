@@ -1,6 +1,7 @@
 <script>
   // Author profile: the full record, plus the articles they wrote.
   import Cards from "$lib/components/Cards.svelte";
+  import ReceptsarokWidget from "$lib/components/ReceptsarokWidget.svelte";
   import Search from "$lib/components/Search.svelte";
   import Nav2 from '$lib/components/Nav2.svelte'
   import { decodeHtmlEntities } from "$lib/htmlEntities.js";
@@ -13,6 +14,7 @@
 
   $: author = data.author;
   $: cards = data.cards ?? [];
+  $: recipes = data.recipes ?? [];
   $: photo = authorPhotoUrl(author?.photo);
   $: titulus = [author?.title, ...(author?.affiliations ?? [])].filter(Boolean);
   $: description = [author?.title, ...(author?.cv ?? [])]
@@ -106,6 +108,13 @@
     </section>
   {/if}
 </main>
+
+<ReceptsarokWidget
+  {recipes}
+  heading="Receptjei a Receptsarokban"
+  pageSize={18}
+  moreLabel="További receptjei"
+/>
 
 <Nav2 actual="/szerzok" />
 <Search articles={data.articleCount} recipes={data.recipeCount} />

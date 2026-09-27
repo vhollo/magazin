@@ -1,6 +1,16 @@
 import { encodeDocPathId } from './doc-path-id.mjs'
 
 /**
+ * A pure container folder: its stored (post-`alapjav`) `content` is blank. Kept out of
+ * every listing — collections, related cards and the search index.
+ *
+ * @param {Record<string, any>} doc needs `isfolder` + `content`
+ */
+export function isEmptyContentFolder(doc) {
+  return Boolean(doc?.isfolder) && !String(doc?.content ?? '').trim()
+}
+
+/**
  * Paths of listed folders whose stored (post-`alapjav`) `content` is blank — i.e. pure
  * container folders. `content` lives outside the projection, so read just the listed
  * folders' bodies via one field-masked `getAll`.
@@ -17,7 +27,7 @@ export async function emptyContentFolderPaths(firestore, listedDocs) {
   const empty = new Set()
   snaps.forEach((snap, i) => {
     const content = snap.exists ? snap.get('content') : ''
-    if (!String(content ?? '').trim()) empty.add(folders[i].path)
+    if (isEmptyContentFolder({ ...folders[i], content })) empty.add(folders[i].path)
   })
   return empty
 }
