@@ -51,20 +51,26 @@ export async function getChildModxIds(parentModxId: number): Promise<number[]> {
 }
 
 /**
- * Path of a folder's first child in MODX menu order. `menuindex` isn't synced, but
- * editors create a group's pages in order, so the lowest MODX id stands in for it.
+ * URL of a folder's first child in MODX menu order — or, when that child is a recipe
+ * article, the recipe it redirects to (no redirect chain). `menuindex` isn't synced,
+ * but editors create a group's pages in order, so the lowest MODX id stands in for it.
  */
-export async function getFirstChildPath(parentModxId: number): Promise<string | null> {
+export async function getFirstChildUrl(parentModxId: number): Promise<string | null> {
 	const snap = await db
 		.collection('docs')
 		.where('parent', '==', parentModxId)
-		.select('id', 'path')
+		.select('id', 'path', 'redirect')
 		.get();
 	const first = snap.docs
-		.map((d) => ({ id: Number(d.get('id')), path: d.get('path') as string | undefined }))
+		.map((d) => ({
+			id: Number(d.get('id')),
+			path: d.get('path') as string | undefined,
+			redirect: d.get('redirect') as string | undefined
+		}))
 		.filter((c) => Number.isFinite(c.id) && c.path)
 		.sort((a, b) => a.id - b.id)[0];
-	return first?.path ?? null;
+	if (!first) return null;
+	return first.redirect || '/' + first.path;
 }
 
 /**

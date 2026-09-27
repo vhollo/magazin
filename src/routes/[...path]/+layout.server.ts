@@ -1,9 +1,9 @@
 import { redirect } from '@sveltejs/kit';
 import { hasArticleBody, wrapArticleTables } from '$lib/magazine/articleHtml';
 import { MAGAZINE_CACHE_CONTROL } from '$lib/magazine/cacheHeaders';
-import { collectionQueries, rankDocByTags, type ThinCard } from '$lib/modx/collections';
+import { collectionQueries, isListedDoc, rankDocByTags, type ThinCard } from '$lib/modx/collections';
 import {
-	getFirstChildPath,
+	getFirstChildUrl,
 	getMagazineArticle,
 	getMagazineCollection,
 	isCollectionSlug
@@ -94,17 +94,22 @@ export const load: LayoutServerLoad = async ({ params, setHeaders }) => {
 		redirect(308, doc.redirect);
 	}
 
-	// An empty magazine issue/group folder (e.g. `cikkek/diabetes/0801`) would render a
-	// bare title. A recipe group (`doc.related` / `linkedModxIds`) is not empty: the page
-	// lists its recipes. 307, so the page comes back once an editor gives it a body.
-	if (
-		path.startsWith('cikkek/') &&
-		!hasArticleBody(doc.content) &&
-		!doc.related?.length &&
-		!doc.linkedModxIds?.length
-	) {
-		const firstChild = ASSOCIATION_FOLDER.test(path) ? await getFirstChildPath(Number(doc.id)) : null;
-		redirect(307, firstChild ? '/' + firstChild : '/');
+	// A page with no body of its own is not rendered bare (307, so it comes back once an
+	// editor gives it a body — or, for a recipe group, a tag):
+	//   - an empty `cikkek/` issue/group folder (e.g. `cikkek/diabetes/0801`) → home, or an
+	//     association series folder's first child;
+	//   - a recipe group (`doc.related` / `linkedModxIds`) renders its recipe list only when
+	//     tagged; untagged it is a card nowhere, so it opens its first page (its recipe).
+	if (!hasArticleBody(doc.content)) {
+		const recipeGroup = Boolean(doc.related?.length || doc.linkedModxIds?.length);
+		if (!recipeGroup && path.startsWith('cikkek/')) {
+			const first = ASSOCIATION_FOLDER.test(path) ? await getFirstChildUrl(Number(doc.id)) : null;
+			redirect(307, first ?? '/');
+		}
+		if (recipeGroup && !isListedDoc(doc)) {
+			const first = await getFirstChildUrl(Number(doc.id));
+			if (first) redirect(307, first);
+		}
 	}
 
 	// CMS tables get a horizontally scrollable wrapper here rather than at sync time,
