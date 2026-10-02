@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-02T16:17:10.162Z",
+  "generatedAt": "2026-10-02T16:36:25.034Z",
   "sourceDocs": "sync worker (dynamic match + existing manifest)",
   "sourceRecipes": "src/lib/data/recipes.json",
   "entries": [
