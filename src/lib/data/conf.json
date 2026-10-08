@@ -15,91 +15,61 @@
   "description": "Sokszor azt gondoljuk, ha egy betegség elindul, törvényszerűen romlik. Ez egyáltalán nem biztos! A folyamat attól függ, hogy mennyire sikerül a gyorsító, rontó folyamatokat kiküszöbölnünk, és mennyire hagyjuk a védekező mechanizmusainkat érvényesülni.",
   "top_banners": [
     {
-      "image": null,
-      "prominent": false,
-      "expires_on": null,
-      "link": "https://www.dcont.hu/",
       "name": "Dcont eNapló",
-      "video": "/banners/6.webm",
-      "starts_on": null,
-      "height": 176,
-      "videoext": "webm"
+      "link": "https://www.dcont.hu/",
+      "video": "https://firebasestorage.googleapis.com/v0/b/diabetes-hu.firebasestorage.app/o/banners%2Fq684h_dcont-enaplo-2020.webm?alt=media&token=c9ca52ec-d48c-4008-83a0-3715c178a91a",
+      "videoext": "webm",
+      "height": 176
     },
     {
-      "image": null,
-      "prominent": false,
-      "expires_on": null,
-      "link": "https://www.e77.hu/termekek/vercukormero-rendszer/dcontetalonb",
       "name": "Dcont Etalon B",
-      "video": "/banners/7.mp4",
-      "starts_on": null,
-      "height": 176,
-      "videoext": "mp4"
+      "link": "https://www.e77.hu/termekek/vercukormero-rendszer/dcontetalonb",
+      "video": "https://firebasestorage.googleapis.com/v0/b/diabetes-hu.firebasestorage.app/o/banners%2Fj7qri_dcont-1-web.mp4?alt=media&token=b86663b9-5d7c-4ce8-be8c-1b68fca096c5",
+      "videoext": "mp4",
+      "height": 176
     }
   ],
   "main_image": "https://firebasestorage.googleapis.com/v0/b/diabetes-hu.firebasestorage.app/o/site%2Fm9pni_logo-uj-diabetes.svg?alt=media&token=43e3e9d0-cef6-4693-9371-e4aec20a79d6",
   "side_banners": [
     {
-      "image": null,
-      "expires_on": null,
-      "link": "https://www.vercukormeres.hu/termekek/accu-chek-instant-vercukormero",
       "name": "roche-instant-2025-02-20",
-      "starts_on": null,
-      "related_banners": [],
-      "video": "/banners/0.mp4",
-      "prominent": true,
-      "videoext": "mp4"
+      "link": "https://www.vercukormeres.hu/termekek/accu-chek-instant-vercukormero",
+      "video": "https://firebasestorage.googleapis.com/v0/b/diabetes-hu.firebasestorage.app/o/banners%2Fiwahi_roche-instant-300x260-v02.mp4?alt=media&token=565cc34d-2aa1-4fe4-9635-dc60bff2a8ea",
+      "videoext": "mp4",
+      "prominent": true
     },
     {
-      "expires_on": null,
-      "video": null,
-      "starts_on": null,
-      "related_banners": [],
-      "prominent": true,
-      "image": "/banners/1.webp",
-      "link": "https://homemed.hu/",
       "name": "Homemed – otthoni minilabor készülék",
-      "imageext": "webp"
+      "link": "https://homemed.hu/",
+      "image": "https://firebasestorage.googleapis.com/v0/b/diabetes-hu.firebasestorage.app/o/banners%2F6vrq6_homemed-diabetes.hubanner-300x260px-72dpi.webp?alt=media&token=035edd96-00da-4f18-9e68-5fd0c0c514f6",
+      "imageext": "webp",
+      "prominent": true
     },
     {
-      "prominent": true,
-      "expires_on": null,
-      "video": null,
-      "starts_on": null,
-      "image": "/banners/2.jpg",
-      "link": "/cikkek/diabetes/2502/cukorbeteg-akkor-is-figyeljen-labaira-ha-latszolag-tunetmentes",
       "name": "Thiogamma laikus kampány",
-      "imageext": "jpg"
+      "link": "/cikkek/diabetes/2502/cukorbeteg-akkor-is-figyeljen-labaira-ha-latszolag-tunetmentes",
+      "image": "https://firebasestorage.googleapis.com/v0/b/diabetes-hu.firebasestorage.app/o/banners%2Fpk2q9_thiogamma-laikus.jpg?alt=media&token=a99724ab-05e7-4b4c-8fb7-3a9a8c8359d6",
+      "imageext": "jpg",
+      "prominent": true
     },
     {
-      "expires_on": null,
-      "video": null,
-      "starts_on": null,
-      "image": "/banners/3.jpg",
-      "prominent": true,
-      "link": "https://regisztracio.gondosora.hu/",
       "name": "Gondosóra regisztráció",
-      "imageext": "jpg"
+      "link": "https://regisztracio.gondosora.hu/",
+      "image": "https://firebasestorage.googleapis.com/v0/b/diabetes-hu.firebasestorage.app/o/banners%2Fxxhco_mk-gondosora-25-febr-apr-300x260-0203.jpg?alt=media&token=65446cac-4381-45da-b1bc-ce3a7a014487",
+      "imageext": "jpg",
+      "prominent": true
     },
     {
-      "image": null,
-      "expires_on": null,
       "name": "Roche diabetesedukacio.hu",
-      "video": "/banners/4.mp4",
-      "starts_on": null,
-      "related_banners": [],
       "link": "https://diabetesedukacio.hu/",
-      "prominent": true,
-      "videoext": "mp4"
+      "video": "https://firebasestorage.googleapis.com/v0/b/diabetes-hu.firebasestorage.app/o/banners%2F8mblr_IDS_Teaser_2022_v3_web.mp4?alt=media&token=12656976-571b-425a-afef-fc02011d4730",
+      "videoext": "mp4",
+      "prominent": true
     },
     {
-      "image": "/banners/5.png",
-      "prominent": false,
-      "expires_on": null,
-      "link": "https://egeszsegcentrum.vanderlich.hu/szolgaltatasaink/szakteruletek/diabetologia/",
       "name": "Vanderlich",
-      "video": null,
-      "starts_on": null,
+      "link": "https://egeszsegcentrum.vanderlich.hu/szolgaltatasaink/szakteruletek/diabetologia/",
+      "image": "https://firebasestorage.googleapis.com/v0/b/diabetes-hu.firebasestorage.app/o/banners%2Fnf1ky_vanderlich.png?alt=media&token=24797d3a-ecb6-4528-b4be-77a3c3e28be6",
       "imageext": "png"
     }
   ],

@@ -8,6 +8,8 @@
 </script>
 
 <script lang="ts">
+import { lazyVideo } from '$lib/lazyVideo.js'
+
 type Banner = {
     name: string;
     prominent?: boolean;
@@ -24,8 +26,10 @@ type Banner = {
 export let banners: Banner[] = []
   // console.log(banners)
   let count = 0;
-  const n = banners.length - 1;
   let intervalId: any;
+  // The list can change while mounted (client navigation between two pages that the
+  // CDN cached before and after a banner sync), so the index is clamped reactively.
+  $: if (count >= banners.length) count = 0;
   // let banner: Banner = banners[0] || {}
   // const height = banners[count].height || 200
 
@@ -33,15 +37,8 @@ export let banners: Banner[] = []
     clearInterval(intervalId); // Clear any existing interval
     count = 0;
     intervalId = setInterval(() => {
-      count++;
-      if (count > n) {
-        count = 0;
-      }
-      // console.log(count)
-      // banner = banners[count] || {}
-      setTimeout(() => {
-      }, 1000); // Set banner back after 1 second
-    }, 14000); // 10000 milliseconds = 10 seconds
+      count = banners.length ? (count + 1) % banners.length : 0;
+    }, 14000); // 14 s per banner
   }
   // $: banner = banners[count] || {}
   
@@ -59,17 +56,17 @@ export let banners: Banner[] = []
 <a style="aspect-ratio: 960/{banners[count].height || '200'};" class="bg-primary flex flex-0 items-end max-w-fit mt-8 mx-auto overflow-hidden border-y border-gray-200" href={banners[count].link} target={banners[count].link ? '_blank' : '_self'} aria-label={banners[count].name}>
 
   {#if banners[count].video}
-    <video 
+    <!-- No `autoplay`: it would override preload="none" and fetch the video even when
+         hidden. lazyVideo sets the src and plays it once it is on screen. -->
+    <video
+      use:lazyVideo={banners[count].video}
       preload="none"
       transition:fade={{ duration: 500 }}
       poster={banners[count].image || ''}
-      width="960" 
-      height={banners[count].height || '200'} 
-      muted autoplay loop
-    >
-      <source src={banners[count].video}
-          type='video/{banners[count].videoext}'/>
-    </video>
+      width="960"
+      height={banners[count].height || '200'}
+      muted loop playsinline
+    ></video>
   {/if}
 
   {#if banners[count].image}

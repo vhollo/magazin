@@ -19,6 +19,12 @@
 #                    recipes/categories from **Firestore** (so a CMS edit is honoured,
 #                    not overwritten from the repo's recipes.json).
 #   patika         — `sync:patika:apply`: rebuild `collections/patika`.
+#   site-conf      — `sync:site-conf:apply`: resolve `config/site` + its banner
+#                    references into `meta/stats.siteConf` (SEO fields + ad banners).
+#
+# Before the CDN purge the job waits CACHE_TTL_WAIT_SECONDS: the site caches the
+# rebuilt docs for 60 s per serverless instance, so purging right away let a page
+# rendered in that minute re-enter the CDN with the old data for 24 h.
 #
 # Required secrets: FIREBASE_ADMIN_KEY, FIREBASE_STORAGE_BUCKET
 # Optional secrets: NETLIFY_SITE_ID, NETLIFY_ACCESS_TOKEN (CDN purge)
@@ -29,7 +35,7 @@ on:
   workflow_dispatch:
     inputs:
       targets:
-        description: 'Comma-separated: magazine, authors, rs-collections, patika'
+        description: 'Comma-separated: magazine, authors, rs-collections, patika, site-conf'
         required: true
         default: 'magazine'
         type: string
@@ -72,7 +78,7 @@ jobs:
           # Comma-wrap both sides so `patika` never matches inside another token.
           normalized=",$(echo "$TARGETS" | tr -d '[:space:]'),"
           echo "requested: $normalized (source: $SOURCE)"
-          for t in magazine authors rs-collections patika; do
+          for t in magazine authors rs-collections patika site-conf; do
             if [[ "$normalized" == *",$t,"* ]]; then
               echo "${t//-/_}=true" >> "$GITHUB_OUTPUT"
               echo "  → $t"
@@ -118,6 +124,25 @@ jobs:
         run: npm run sync:patika:apply
         env:
           FIREBASE_ADMIN_KEY: ${{ secrets.FIREBASE_ADMIN_KEY }}
+
+      - name: Rebuild site config (banners)
+        if: steps.targets.outputs.site_conf == 'true'
+        run: npm run sync:site-conf:apply
+        env:
+          FIREBASE_ADMIN_KEY: ${{ secrets.FIREBASE_ADMIN_KEY }}
+
+      # The site keeps the docs rebuilt above in a 60 s per-instance cache —
+      # getSiteStats (meta/stats: counts + siteConf), authorsCache
+      # (collections/authors), getReceptsarokHome (collections/rs-home). An instance
+      # that read a doc just before the rebuild serves the old copy for up to 60 s,
+      # and a page it renders right after the purge is cached by the CDN for 24 h.
+      # Waiting longer than that TTL guarantees every render after the purge sees
+      # the new data. Keep in step with those TTLs if they change.
+      - name: Wait for the site's 60 s caches to expire
+        if: success() && inputs.purge_cdn == 'true'
+        run: sleep "$CACHE_TTL_WAIT_SECONDS"
+        env:
+          CACHE_TTL_WAIT_SECONDS: '65'
 
       - name: Purge Netlify CDN cache
         if: success() && inputs.purge_cdn == 'true'

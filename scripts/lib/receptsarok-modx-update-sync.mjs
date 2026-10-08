@@ -20,6 +20,7 @@ import { normalizeRecipeIngredientPunctuation } from './normalize-ingredient-pun
  */
 export const MODX_AUTHORITATIVE_RECIPE_FIELDS = [
   'title',
+  'introtext',
   'author',
   'servings',
   'energy',

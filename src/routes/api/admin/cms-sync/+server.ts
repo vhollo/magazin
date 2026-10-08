@@ -26,7 +26,7 @@ const DEFAULT_REPO = 'vhollo/magazin';
 const DEFAULT_REF = 'main';
 
 /** Keep in sync with the `targets` input of `.github/workflows/cms-sync.yml`. */
-const SYNC_TARGETS = ['magazine', 'authors', 'rs-collections', 'patika'] as const;
+const SYNC_TARGETS = ['magazine', 'authors', 'rs-collections', 'patika', 'site-conf'] as const;
 type SyncTarget = (typeof SYNC_TARGETS)[number];
 
 const DEFAULT_ORIGINS = [

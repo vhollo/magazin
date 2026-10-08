@@ -110,6 +110,8 @@ export interface Recipe {
   id: string
   year: number
   title: string
+  /** Article lead from the source MODX doc's `introtext` (single-recipe docs only). */
+  introtext?: string
   author: string
   category: string
   servings: { amount: number; unit: string }

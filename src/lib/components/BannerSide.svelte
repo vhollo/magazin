@@ -1,20 +1,21 @@
 <script>
+  import { lazyVideo } from '$lib/lazyVideo.js'
   export let banner
 </script>
 
 <a class="w-full block mx-auto" href={banner.link} target={banner.link ? '_blank' : '_self'} aria-label={banner.name}>
   {#if banner.video}
-    <video 
+    <!-- No `autoplay`: it would override preload="none" and fetch the video even when
+         hidden. lazyVideo sets the src and plays it once it is on screen. -->
+    <video
+      use:lazyVideo={banner.video}
       preload="none"
       class="mx--auto w-full"
       poster={banner.image || ''}
-      width="300" 
-      height="260" 
-      muted autoplay loop controls
-    >
-      <source src={banner.video}
-          type='video/mp4'/>
-    </video>
+      width="300"
+      height="260"
+      muted loop playsinline controls
+    ></video>
   {/if}
   {#if banner.image}
     <img 

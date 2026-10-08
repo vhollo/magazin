@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-17T11:38:45.287Z",
+  "generatedAt": "2026-10-08T16:12:11.204Z",
   "sourceDocs": "sync worker (dynamic match + existing manifest)",
   "sourceRecipes": "src/lib/data/recipes.json",
   "entries": [
@@ -2396,6 +2396,12 @@
       "path": "cikkek/diabetes/2501/zoldborsoleves-sajat-anyagaval-suritve",
       "year": 2025,
       "id": "zoldborsoleves-sajat-anyagaval-suritve"
+    },
+    {
+      "modxContentId": 4522,
+      "path": "cikkek/diabetes/2604/csaladi-kedvencek/gyermekkori-kedvenc-csirkesultem-szines-korettel-sajtmartassal",
+      "year": 2026,
+      "id": "gyermekkori-kedvenc-csirkesultem-szines-korettel-sajtmartassal"
     },
     {
       "modxContentId": 4029,

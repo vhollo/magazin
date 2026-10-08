@@ -16,6 +16,13 @@
 #   FIREBASE_ADMIN_KEY        — Firebase service account JSON
 # Optional secrets:
 #   NETLIFY_SITE_ID, NETLIFY_ACCESS_TOKEN — purge CDN cache after the rebuild
+#
+# The purge is whole-site (`POST /api/v1/purge`): Netlify has no purge-by-path.
+# The earlier `POST /api/v1/sites/{id}/purge_cache` with a path list does not
+# exist (404), so this workflow never purged before 2026-10. After an
+# rs-collections rebuild the purge first waits CACHE_TTL_WAIT_SECONDS, because
+# the site caches collections/rs-home and meta/stats for 60 s per instance (see
+# the wait step and SITE_CACHE_TTL_WAIT_MS in scripts/lib/netlify-purge.mjs).
 
 name: Sync Receptsarok + Patika UI collections
 
@@ -32,7 +39,7 @@ on:
           - rs-collections
           - patika
       purge_cdn:
-        description: 'Purge Netlify CDN cache for /receptsarok, /patika, /keres after rebuild'
+        description: 'Purge the Netlify CDN cache (whole site) after the rebuild'
         required: false
         default: 'true'
         type: choice
@@ -77,23 +84,33 @@ jobs:
         env:
           FIREBASE_ADMIN_KEY: ${{ secrets.FIREBASE_ADMIN_KEY }}
 
-      - name: Purge Netlify CDN cache for affected routes
-        if: success() && github.event.inputs.purge_cdn == 'true' && env.NETLIFY_SITE_ID != '' && env.NETLIFY_ACCESS_TOKEN != ''
+      # sync:rs-collections rewrote collections/rs-home and meta/stats, which the
+      # site keeps in a 60 s per-instance cache (getReceptsarokHome, getSiteStats).
+      # Purging right away let a page rendered in that minute re-enter the CDN with
+      # the old data for 24 h. collections/patika is read uncached, so a patika-only
+      # run needs no wait. Keep above those TTLs if they change.
+      - name: Wait for the site's 60 s caches to expire
+        if: success() && github.event.inputs.purge_cdn == 'true' && github.event.inputs.target != 'patika'
+        run: sleep "$CACHE_TTL_WAIT_SECONDS"
+        env:
+          CACHE_TTL_WAIT_SECONDS: '65'
+
+      - name: Purge Netlify CDN cache
+        if: success() && github.event.inputs.purge_cdn == 'true'
         env:
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
           NETLIFY_ACCESS_TOKEN: ${{ secrets.NETLIFY_ACCESS_TOKEN }}
-          TARGET: ${{ github.event.inputs.target }}
         run: |
           set -euo pipefail
-          PATHS='[]'
-          case "$TARGET" in
-            both) PATHS='["/receptsarok","/keres","/patika"]' ;;
-            rs-collections) PATHS='["/receptsarok","/keres"]' ;;
-            patika) PATHS='["/patika"]' ;;
-          esac
-          echo "purging: $PATHS"
+          if [[ -z "${NETLIFY_SITE_ID:-}" || -z "${NETLIFY_ACCESS_TOKEN:-}" ]]; then
+            echo "Netlify purge: skipped (NETLIFY_SITE_ID or NETLIFY_ACCESS_TOKEN not set)"
+            exit 0
+          fi
+          # Whole-site purge — Netlify's purge API has no purge-by-path (same call as
+          # cms-sync.yml and scripts/lib/netlify-purge.mjs).
           curl -fsS -X POST \
             -H "Authorization: Bearer ${NETLIFY_ACCESS_TOKEN}" \
             -H "Content-Type: application/json" \
-            -d "{\"paths\":${PATHS}}" \
-            "https://api.netlify.com/api/v1/sites/${NETLIFY_SITE_ID}/purge_cache"
+            -d "{\"site_id\":\"${NETLIFY_SITE_ID}\"}" \
+            https://api.netlify.com/api/v1/purge
+          echo "Netlify purge OK (whole site)"

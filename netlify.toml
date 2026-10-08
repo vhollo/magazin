@@ -1,6 +1,9 @@
 [build]
   command = "npm run build"
   publish = "build"
+  # Production (testdiabeteshu) skips pushes that only carry MODX sync data
+  # commits; other projects keep Netlify's default. See the script header.
+  ignore = "bash ./scripts/netlify-ignore-build.sh"
 
 [functions]
   directory = ".netlify/functions-internal"

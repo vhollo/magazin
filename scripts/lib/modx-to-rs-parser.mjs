@@ -2,6 +2,7 @@ import { decodeHtmlEntities } from '../../src/lib/htmlEntities.js'
 import { extractLinkedModxIds, stripLinkedRecipeBlocks } from '../../src/lib/modxLinkedRecipes.js'
 import { extractAlairasAuthor, extractReceptjeAuthor, extractPhotoCredit } from '../../src/lib/modxAuthor.js'
 
+/** @typedef {import('../../src/lib/receptsarok').Recipe} Recipe */
 const DEFAULT_NUTRITION_LABEL = '1 adag energia- és tápanyagtartalma:'
 
 function normalizeReadableText(value) {
@@ -292,6 +293,10 @@ function preInstructionContent(content) {
   return match?.[1] ?? source
 }
 
+/**
+ * @param {string} content
+ * @returns {import('../../src/lib/receptsarok').IngredientGroup[]}
+ */
 function parseIngredientGroups(content) {
   const source = String(content ?? '')
   const cleanIngredientSectionLabel = (sectionValue) => {
@@ -771,6 +776,10 @@ function lastImageInHtml(html) {
   return { src, alt: decodeHtmlEntities(alt) }
 }
 
+/**
+ * @param {{ title: string; ingredientNames: string[]; subRecipeTitles?: string[] }} input
+ * @returns {string[]}
+ */
 function deriveSearchTerms({ title, ingredientNames, subRecipeTitles = [] }) {
   // FIREBASE.md: searchTerms aggregate the main title + all sub-recipe titles
   // (+ ingredient names) so one array-contains query finds the parent recipe.
@@ -1078,7 +1087,11 @@ function extractTitleServings(title) {
   return { title: m[1].trim(), servings: { amount: Number(m[2]), unit: m[3].toLowerCase() } }
 }
 
-/** Stamp the article's "Fotó: …" credit onto the recipe image's caption (when unset). */
+/**
+ * Stamp the article's "Fotó: …" credit onto the recipe image's caption (when unset).
+ * @param {Recipe} recipe
+ * @param {string} content
+ */
 function applyPhotoCredit(recipe, content) {
   if (!recipe?.img || recipe.img.caption) return
   const credit = extractPhotoCredit(content)
@@ -1103,7 +1116,7 @@ function applyPhotoCredit(recipe, content) {
  *     reason?: string
  *   }
  * }} options
- * @returns {Array<{ recipe: object, categoryDecision: object }>}
+ * @returns {Array<{ recipe: Recipe, categoryDecision: object }>}
  */
 export function buildRecipesFromModxDoc(doc, options) {
   const nowIso = new Date().toISOString()
@@ -1153,6 +1166,7 @@ export function buildRecipesFromModxDoc(doc, options) {
       carbs: null,
       fiber: null,
     }
+    /** @type {Recipe} */
     const recipe = {
       id: uniqueId,
       year,
@@ -1194,6 +1208,11 @@ export function buildRecipesFromModxDoc(doc, options) {
   return out.length > 0 ? out : [buildRecipeFromModxDoc(doc, options)]
 }
 
+/**
+ * @param {unknown} value — MODX unix timestamp (seconds or ms)
+ * @param {string} fallback
+ * @returns {string}
+ */
 function timestampFromUnix(value, fallback) {
   const num = Number(value)
   if (!Number.isFinite(num) || num <= 0) return fallback
@@ -1205,8 +1224,8 @@ function timestampFromUnix(value, fallback) {
 /**
  * @param {any} doc
  * @param {{
- *   year: number
- *   id: string
+ *   year?: number
+ *   id?: string
  *   categoryByKey: Map<string, string>
  *   predictCategory?: (input: { title?: string; ingredientNames?: string[]; instructions?: string[] }) => {
  *     resolved: boolean
@@ -1275,6 +1294,7 @@ export function buildRecipeFromModxDoc(doc, options) {
   })
   const servings = deriveServings({ ingredientGroups, content, nutritionTables })
 
+  /** @type {Recipe} */
   const recipe = {
     id,
     year,
@@ -1306,6 +1326,10 @@ export function buildRecipeFromModxDoc(doc, options) {
     video: deriveVideo(doc, content),
   }
   applyPhotoCredit(recipe, content)
+  // The article lead (MODX `introtext`) is shown under the recipe title. Single-recipe
+  // docs only — a collection article's lead introduces the whole set, not one dish.
+  const introtext = String(doc?.introtext ?? '').trim()
+  if (introtext) recipe.introtext = introtext
   const sourceModxId = Number(doc?.id)
   if (Number.isFinite(sourceModxId)) {
     recipe.sourceModxId = sourceModxId

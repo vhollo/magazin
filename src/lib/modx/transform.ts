@@ -205,16 +205,48 @@ function nagyitoAttr(params: string, name: string): string {
 	return m?.[1] ?? '';
 }
 
+/**
+ * Asset path/URL from MODX → `{ file, rel }`. `file` is what goes into the markup, `rel`
+ * is the site-root-relative path (null for external URLs). A full diabetes.hu URL (or one
+ * on the `publicBaseUrl` host) has its domain stripped and `publicBaseUrl` put in front;
+ * any other absolute URL is external and returned untouched.
+ */
+export function assetUrl(publicBaseUrl: string, value: string): { file: string; rel: string | null } {
+	const v = String(value ?? '').trim();
+	if (!v) return { file: '', rel: '' };
+	if (/^(?:https?:)?\/\//i.test(v)) {
+		let url: URL | null = null;
+		try {
+			url = new URL(v.startsWith('//') ? 'https:' + v : v);
+		} catch {
+			/* malformed → treat as external */
+		}
+		const host = url?.hostname.replace(/^www\./i, '').toLowerCase();
+		let baseHost = '';
+		try {
+			baseHost = new URL(publicBaseUrl).hostname.replace(/^www\./i, '').toLowerCase();
+		} catch {
+			/* ignore */
+		}
+		if (!url || (host !== 'diabetes.hu' && host !== baseHost)) return { file: v, rel: null };
+		const rel = (url.pathname + url.search + url.hash).replace(/^\/+/, '');
+		return { file: publicBaseUrl + rel, rel };
+	}
+	const rel = v.replace(/^\/+/, '');
+	return { file: publicBaseUrl + rel, rel };
+}
+
 function resolveNagyitoImage(
 	params: string,
 	publicBaseUrl: string
 ): { file?: string; rel?: string } {
 	const fileKey = nagyitoAttr(params, 'file');
 	if (fileKey) return { file: publicBaseUrl + 'assets/images/' + fileKey, rel: fileKey };
-	const pathKey = nagyitoAttr(params, 'path');
-	if (pathKey) return { file: publicBaseUrl + pathKey, rel: pathKey };
-	const urlKey = nagyitoAttr(params, 'url');
-	if (urlKey) return { file: publicBaseUrl + urlKey, rel: urlKey };
+	const key = nagyitoAttr(params, 'path') || nagyitoAttr(params, 'url');
+	if (key) {
+		const { file, rel } = assetUrl(publicBaseUrl, key);
+		return { file, rel: rel ?? key };
+	}
 	return {};
 }
 
@@ -372,7 +404,7 @@ export function createModxTransform(deps: ModxTransformDeps): ModxTransform {
 		const img = tvs.find((tv) => tv.tmplvarid == 4)?.value || '';
 		doc.img =
 			(img && {
-				src: (img && publicBaseUrl + img) || '',
+				src: (img && assetUrl(publicBaseUrl, img).file) || '',
 				pos: pos.replace('T', '50% 5%').replace('B', '50% 90%').replace('L', 'left').replace('R', 'right'),
 				ext: (img && img.split('.').pop()) || '',
 				caption: tvs.find((tv) => tv.tmplvarid == 28)?.value || ''
@@ -380,7 +412,7 @@ export function createModxTransform(deps: ModxTransformDeps): ModxTransform {
 			null;
 
 		const ogi = tvs.find((tv) => tv.tmplvarid == 25)?.value;
-		doc.tv.ogi = ogi ? publicBaseUrl + ogi : '';
+		doc.tv.ogi = ogi ? assetUrl(publicBaseUrl, ogi).file : '';
 
 		doc.tv.egyesulet = tvs.find((tv) => tv.tmplvarid == 31)?.value || '';
 

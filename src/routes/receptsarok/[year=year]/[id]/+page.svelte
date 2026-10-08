@@ -141,6 +141,9 @@
     </ul>
   </nav>
   <h1 class="display text-3xl leading-tight text-balance sm:text-4xl">{recipe.title}</h1>
+  {#if recipe.introtext}
+    <p class="mt-3 text-lg leading-relaxed text-pretty">{@html recipe.introtext}</p>
+  {/if}
   <p class="mt-2 italic opacity-80">{recipe.author}</p>
 </header>
 

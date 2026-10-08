@@ -44,7 +44,7 @@ import {
   uploadProjectionSnapshot,
 } from './lib/firestore-docs.mjs'
 import { createReadCounter, formatReadCounts } from './lib/sync-read-counter.mjs'
-import { purgeNetlifyPaths } from './lib/netlify-purge.mjs'
+import { purgeNetlifyPaths, repurgeAfterSiteCaches } from './lib/netlify-purge.mjs'
 import {
   loadRecipesFromJson,
   resolveReceptsarokRedirect,
@@ -1212,6 +1212,7 @@ async function main() {
   // rs-home free counts and rs-{category} cards derive from recipes.json — rebuild
   // whenever free flags changed, a new recipe was created, OR an existing recipe's
   // card fields (title/img/nutrition/…) were patched from a re-saved source doc.
+  let rsCollectionsRebuilt = false
   if (freeSync.updated > 0 || createSync.created > 0 || updateSync.updated > 0) {
     if (!skipRsCollections) {
       console.log('  → rebuilding collections/rs-* (rs-home totals, freeCounts, category cards)…')
@@ -1224,6 +1225,7 @@ async function main() {
       if (rsCollections.status !== 0) {
         throw new Error('sync:rs-collections:apply failed after receptsarok free/create update')
       }
+      rsCollectionsRebuilt = true
     } else {
       console.log(
         '  → skipped rs-collections rebuild (--skip-rs-collections); run `npm run sync:rs-collections:apply` manually'
@@ -1374,6 +1376,16 @@ async function main() {
 
   console.log(
     `sync complete: wrote=${written}, deleted=${deleted}, skipped=${skipped}, redirectsAdded=${redirectsAdded}, redirectRefresh=${redirectRefreshUpdated}, receptsarokFree=${freeSync.updated}, receptsarokCreated=${createSync.created}, receptsarokUncategorized=${reviewSync.added}, collections=${collectionsWritten}, relatedCards=${relatedUpdated}, search v${searchIndex.version} (${searchIndex.articleCount} articles, ${searchIndex.recipeCount} recipes), purge=${purgeResult.skipped ? 'skipped' : purgeResult.ok ? `ok(${purgeResult.status})` : 'failed'}, lastEdit ${lastEditSummary}, ${formatReadCounts(readCounts)}`
+  )
+
+  // This path always rewrites meta/stats (buildAndUploadSearchIndex: the article
+  // and recipe counts) and, after recipe changes, collections/rs-home — docs the
+  // site caches for 60 s per instance. The purge above made the changed pages
+  // visible at once; purge again once those caches have expired, so a page
+  // rendered in between with the old data does not stay in the CDN for 24 h.
+  await repurgeAfterSiteCaches(
+    purgeResult,
+    rsCollectionsRebuilt ? 'meta/stats + collections/rs-home' : 'meta/stats'
   )
 }
 

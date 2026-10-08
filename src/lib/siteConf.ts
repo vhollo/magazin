@@ -2,6 +2,8 @@
 // import { db } from '$lib/firebase';
 import { db } from '$lib/firebase-admin';
 import type { QueryDocumentSnapshot } from 'firebase-admin/firestore';
+import { getSiteStats } from '$lib/magazine/firestore';
+import { normalizeSiteConf, type Banner } from '$lib/siteConfShape.js';
 
 import { /* browser,  */building , dev/*, version */ } from '$app/environment';
 import { recipeHeroToCardImg } from '$lib/receptsarok';
@@ -28,122 +30,49 @@ async function writeData(
   fs.writeFileSync(outputPath, next);
 }
 
-export type Banner = {
-  // _key?: DocumentKey;
-  name: string;
-  prominent?: boolean;
-  // related_banners: EntityReference[];
-  link?: string;
-  video?: string;
-  videoext?: string;
-  image?: string;
-  imageext?: string;
-  height?: number;
-  starts_on?: Date;
-  expires_on?: Date;
-}
+export type { Banner } from '$lib/siteConfShape.js';
 
 export type SiteConf = {
 	status?: boolean;
 	sitename?: string;
 	description?: string;
-	tags?: string[];
+	tags: string[];
 	site_email?: string;
 	main_image?: string;
-	side_banners?: Banner[];
-	top_banners?: Banner[];
-	ads_distance?: number;
+	/** Read by pages (with a fallback), not set in FireCMS. */
+	ogi?: string;
+	url?: string;
+	side_banners: Banner[];
+	top_banners: Banner[];
+	ads_distance: number;
 }
 
-export const getSiteConf = async () => {
-  if (building || dev) {
-    try {
-      const confRef = db.collection('config').doc('site');
-      const confSnap = await confRef.get();
-      // console.log({confSnap})
+let siteConfSnapshot: SiteConf | null = null;
 
-      if (confSnap.exists) {
-        // Empty the banners directory before writing new files
-        const bannersDir = path.resolve(process.cwd(), 'static', 'banners');
-        if (fs.existsSync(bannersDir)) {
-          fs.rmSync(bannersDir, { recursive: true, force: true });
-        }
-        fs.mkdirSync(bannersDir, { recursive: true });
+/** The conf.json snapshot (read once per instance): before the first sync:site-conf, or when meta/stats cannot be read. */
+function readSiteConfSnapshot(): SiteConf {
+  siteConfSnapshot ??= normalizeSiteConf(
+    JSON.parse(fs.readFileSync(path.resolve(process.cwd(), 'src/lib/data', 'conf.json'), 'utf-8'))
+  ) as SiteConf;
+  return siteConfSnapshot;
+}
 
-        const processBanner = async (ban: any, i: number) => {
-          // console.log(ban)
-          const bId = ban._path.segments.pop();
-          const bSnap = bansSnap.docs.find(b => bId == b.id);
-          if (bSnap?.data()) {
-            const b = bSnap.data() as Banner;
-            if (b.video) {
-              const videoUrl = b.video;
-              const response = await fetch(videoUrl);
-              const arrayBuffer = await response.arrayBuffer();
-              const buffer = Buffer.from(arrayBuffer);
-              const videoExt = videoUrl.split('.').pop()?.split('?')[0];
-              if (videoExt) b.videoext = videoExt;
-              const outputPath = path.resolve(process.cwd(), 'static', 'banners', `${i}.${b.videoext}`);
-              fs.writeFileSync(outputPath, buffer);
-              // console.log(`File saved successfully: ${outputPath}`);
-              b.video = `/banners/${i}.${b.videoext}`;
-              return b;
-            }
-            if (b.image) {
-              const imageUrl = b.image;
-              const response_1 = await fetch(imageUrl);
-              const arrayBuffer_1 = await response_1.arrayBuffer();
-              const buffer_1 = Buffer.from(arrayBuffer_1);
-              // if (b.image) {
-                const parts = b.image.split('.').pop();
-                if (parts) {
-                  b.imageext = parts.split('?')[0];
-                }
-              // }
-              const outputPath_1 = path.resolve(process.cwd(), 'static', 'banners', `${i}.${b.imageext}`);
-              fs.writeFileSync(outputPath_1, buffer_1);
-              // console.log(`File saved successfully: ${outputPath}`);
-              b.image = `/banners/${i}.${b.imageext}`;
-              return b;
-            }
-            return Promise.resolve(b);
-          }
-          return Promise.resolve(null);
-        };
-
-        const data = confSnap.data() as SiteConf;
-        const bansColl = db.collection('config/site/banners');
-        const bansSnap = await bansColl.get();
-
-        // console.log(data.side_banners)
-        if (bansSnap.docs.length) {
-          let i = 0;
-          const sideBannerPromises = data.side_banners?.map((ban: any) => processBanner(ban, i++)) ?? [];
-          const topBannerPromises = data.top_banners?.map((ban: any) => processBanner(ban, i++)) ?? [];
-
-          const resolvedSideBanners = await Promise.all(sideBannerPromises);
-          data.side_banners = resolvedSideBanners.filter(b => b !== null);
-
-          const resolvedTopBanners = await Promise.all(topBannerPromises);
-          data.top_banners = resolvedTopBanners.filter(b => b !== null);
-        }
-        data.ads_distance = 4
-        // console.log({data})
-        writeData(data, 'conf.json')
-        return data; //confSnap.data();
-      } else {
-        console.log("No banners!");
-        return {};
-      }
-    } catch (error) {
-      console.error("Error getting banners:", error);
-      return {};
-    }
-  } else {
-    const data = fs.readFileSync(path.resolve(process.cwd(), 'src/lib/data', 'conf.json'), 'utf-8');
-    // console.log(data)
-    return JSON.parse(data);
-  }
+/**
+ * Site config (SEO fields + resolved ad banners) for the root layout.
+ *
+ * Precomputed by `npm run sync:site-conf:apply` (FireCMS „Bannerek és
+ * oldalbeállítások frissítése” button → cms-sync.yml → CDN purge) into
+ * `meta/stats.siteConf`. It arrives with the meta/stats read the root layout does
+ * anyway (getSiteStats, 60 s per-instance cache), so it costs no extra Firestore
+ * read; resolving the banner references at runtime would cost 1 + n reads.
+ * Build and dev keep the conf.json snapshot (committed) in step with it.
+ */
+export const getSiteConf = async (): Promise<SiteConf> => {
+  const { siteConf } = await getSiteStats();
+  if (!siteConf) return readSiteConfSnapshot();
+  const conf = normalizeSiteConf(siteConf) as SiteConf;
+  if (building || dev) writeData(conf, 'conf.json');
+  return conf;
 }
 
 

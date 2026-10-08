@@ -45,6 +45,8 @@
 		"sync:rs-collections:apply:firestore": "tsx scripts/sync-receptsarok-collections.mjs --apply --from-firestore",
 		"sync:patika": "node scripts/sync-patika-collection.mjs",
 		"sync:patika:apply": "node scripts/sync-patika-collection.mjs --apply",
+		"sync:site-conf": "node scripts/sync-site-conf.mjs",
+		"sync:site-conf:apply": "node scripts/sync-site-conf.mjs --apply",
 		"sync:modx": "NODE_OPTIONS=--max-old-space-size=6144 tsx scripts/sync-modx-to-firestore.mjs && node scripts/backfill-junior-magazine-fields.mjs --apply",
 		"sync:modx:full": "NODE_OPTIONS=--max-old-space-size=6144 tsx scripts/sync-modx-to-firestore.mjs --full && node scripts/backfill-junior-magazine-fields.mjs --apply",
 		"sync:modx:references": "NODE_OPTIONS=--max-old-space-size=6144 tsx scripts/sync-modx-to-firestore.mjs --references-only",

@@ -8,7 +8,53 @@
  * (what changed and triggered the purge); it is not sent to Netlify.
  *
  * Failures are non-fatal: always resolves, never throws.
- *
+ */
+
+/**
+ * The site keeps some Firestore docs in a 60 s per-serverless-instance cache:
+ * `meta/stats` (getSiteStats — counts + siteConf), `collections/rs-home`
+ * (getReceptsarokHome), `collections/authors` (authorsCache). Right after a sync
+ * rewrites one of them, an instance that read the old copy shortly before keeps
+ * serving it for up to 60 s, and a page it renders after the purge stays in the
+ * CDN for 24 h with the old data. A purge at least this long after the last such
+ * write cannot hit that window. Keep it above those TTLs and in step with
+ * `CACHE_TTL_WAIT_SECONDS` in .github/workflows/cms-sync.yml and
+ * sync-receptsarok-patika.yml.
+ */
+export const SITE_CACHE_TTL_WAIT_MS = 65_000
+
+/**
+ * @param {string} siteId
+ * @param {string} token
+ * @returns {Promise<{ ok: boolean, status?: number, body?: string, error?: string }>}
+ */
+async function purgeWholeSite(siteId, token) {
+  try {
+    const res = await fetch('https://api.netlify.com/api/v1/purge', {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ site_id: siteId }),
+    })
+
+    if (!res.ok) {
+      const text = await res.text()
+      console.warn(`Netlify purge failed: status=${res.status}, response=${text.slice(0, 500)}`)
+      return { ok: false, status: res.status, body: text }
+    }
+
+    console.log(`Netlify purge OK: status=${res.status} (whole site)`)
+    return { ok: true, status: res.status }
+  } catch (err) {
+    const message = err instanceof Error ? err.message : String(err)
+    console.warn(`Netlify purge error: ${message}`)
+    return { ok: false, error: message }
+  }
+}
+
+/**
  * @param {string[]} paths site paths without domain, e.g. ['hirek/foo', 'receptek/bar']
  */
 export async function purgeNetlifyPaths(paths) {
@@ -30,27 +76,31 @@ export async function purgeNetlifyPaths(paths) {
     `Netlify purge: whole-site purge (triggered by ${unique.length} changed path(s): ${unique.join(', ')})`
   )
 
-  try {
-    const res = await fetch('https://api.netlify.com/api/v1/purge', {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${token}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ site_id: siteId }),
-    })
+  const result = await purgeWholeSite(siteId, token)
+  return result.ok
+    ? { ...result, count: unique.length, paths: unique }
+    : { ...result, paths: unique }
+}
 
-    if (!res.ok) {
-      const text = await res.text()
-      console.warn(`Netlify purge failed: status=${res.status}, response=${text.slice(0, 500)}`)
-      return { ok: false, status: res.status, paths: unique, body: text }
-    }
-
-    console.log(`Netlify purge OK: status=${res.status} (whole site)`)
-    return { ok: true, status: res.status, count: unique.length, paths: unique }
-  } catch (err) {
-    const message = err instanceof Error ? err.message : String(err)
-    console.warn(`Netlify purge error: ${message}`)
-    return { ok: false, paths: unique, error: message }
+/**
+ * Second whole-site purge, SITE_CACHE_TTL_WAIT_MS after the call. For a run that
+ * rewrote a doc the site caches for 60 s (see SITE_CACHE_TTL_WAIT_MS): the first
+ * purge shows the changed pages at once, this one evicts the pages rendered in
+ * the meantime from a stale instance cache. Call it after the run's last write of
+ * such a doc. Skipped unless the first purge succeeded. Never throws.
+ *
+ * @param {{ ok?: boolean }} firstResult the `purgeNetlifyPaths` result
+ * @param {string} reason log context: which cached docs the run rewrote
+ */
+export async function repurgeAfterSiteCaches(firstResult, reason) {
+  const siteId = process.env.NETLIFY_SITE_ID
+  const token = process.env.NETLIFY_ACCESS_TOKEN
+  if (!firstResult?.ok || !siteId || !token) {
+    return { skipped: true, reason: 'first_purge_not_ok' }
   }
+  console.log(
+    `Netlify re-purge in ${SITE_CACHE_TTL_WAIT_MS / 1000} s — rewrote ${reason}, which the site caches for 60 s`
+  )
+  await new Promise((resolve) => setTimeout(resolve, SITE_CACHE_TTL_WAIT_MS))
+  return purgeWholeSite(siteId, token)
 }

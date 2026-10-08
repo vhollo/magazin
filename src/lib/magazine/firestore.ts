@@ -238,6 +238,11 @@ export type SiteStats = {
 	/** NaN until sync:rs-collections has merged the recipe counts into meta/stats. */
 	recipeCount: number;
 	freeCount: number;
+	/**
+	 * Precomputed site config (SEO fields + resolved banners) written by
+	 * sync:site-conf; read through getSiteConf. Missing until the first sync.
+	 */
+	siteConf?: Record<string, unknown>;
 };
 
 async function fetchSiteStats(): Promise<SiteStats> {
@@ -247,6 +252,7 @@ async function fetchSiteStats(): Promise<SiteStats> {
 		articleCount: Number(data?.articleCount ?? 0),
 		recipeCount: Number(data?.recipeCount),
 		freeCount: Number(data?.freeCount),
+		siteConf: data?.siteConf,
 	};
 }
 
@@ -261,7 +267,8 @@ let siteStatsInflight: Promise<SiteStats> | null = null;
 /**
  * One read for every count the root layout needs. `recipeCount`/`freeCount`
  * are merged into meta/stats by sync:rs-collections; callers fall back to
- * `collections/rs-home` while they are missing.
+ * `collections/rs-home` while they are missing. The same read also carries the
+ * site config (`siteConf`, written by sync:site-conf) for getSiteConf.
  */
 export async function getSiteStats(): Promise<SiteStats> {
 	// Serve from cache while fresh.

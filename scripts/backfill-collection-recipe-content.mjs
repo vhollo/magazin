@@ -41,7 +41,7 @@ if (!process.env.MODXDB_URL) {
 
 // Reuse the real transform so the rendered <img>/<!-- PAGEIMAGE --> markup can't drift from
 // what the sync produces. nagyito() only needs publicBaseUrl + doc.img; other deps are unused.
-const { createModxTransform } = await import(
+const { createModxTransform, assetUrl } = await import(
   pathToFileURL(path.join(root, 'src/lib/modx/transform.ts')).href
 )
 const transform = createModxTransform({
@@ -120,7 +120,7 @@ for (const sid of collectionDocIds) {
     longtitle: d.longtitle,
     alias: d.alias,
     content: String(d.content || ''),
-    img: pageImage ? { src: PUBLIC_BASE_URL + pageImage } : undefined,
+    img: pageImage ? { src: assetUrl(PUBLIC_BASE_URL, pageImage).file } : undefined,
     publishedon: d.publishedon,
     editedon: d.editedon,
     createdon: d.publishedon,
