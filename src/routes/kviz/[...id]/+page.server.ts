@@ -3,14 +3,14 @@ import type { Actions, PageServerLoad } from './$types';
 
 import { db } from '$lib/firebase-admin';
 import { MAGAZINE_CACHE_CONTROL } from '$lib/magazine/cacheHeaders';
+import { formRelayOrigin } from '$lib/server/formRelay';
 
 export const actions: Actions = {
 	default: async ({ request, url }) => {
 		const formData = await request.formData();
 
-		let origin = url.origin;
-		if (url.origin.includes('localhost') || url.origin.includes('192.168')) origin = 'https://diabeteshu.netlify.app';
 		try {
+			const origin = formRelayOrigin(url);
 			// const response = await fetch(`${origin}/forms.html`, {
 			const response = await fetch(`${origin}/kviz/form`, {
 				method: 'POST',

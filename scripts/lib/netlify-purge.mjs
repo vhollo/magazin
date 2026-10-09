@@ -1,6 +1,7 @@
 /**
  * Purge the Netlify CDN cache after a sync (optional).
- * Env: NETLIFY_SITE_ID, NETLIFY_ACCESS_TOKEN
+ * Env: PHASE; NETLIFY_SITE_ID / NETLIFY_ACCESS_TOKEN (production project `testdiabeteshu`) or,
+ * when PHASE=dev, NETLIFY_SITE_ID_DEV / NETLIFY_ACCESS_TOKEN_DEV (dev project `diabeteshu`).
  *
  * Netlify's purge API (`POST /api/v1/purge`) only purges by cache tag or the
  * whole site — there is no purge-by-path. Our responses carry no cache tags, so
@@ -22,6 +23,21 @@
  * sync-receptsarok-patika.yml.
  */
 export const SITE_CACHE_TTL_WAIT_MS = 65_000
+
+/**
+ * Netlify credentials for the current phase. `PHASE=dev` selects the `_DEV` pair (dev
+ * project); an empty or unset PHASE selects the unsuffixed pair (production project).
+ * GitHub Actions leaves PHASE unset, so the workflows use the unsuffixed secrets.
+ * There is no fallback between the two pairs, so a dev run can never purge production.
+ *
+ * @returns {{ siteId?: string, token?: string, siteVar: string, tokenVar: string }}
+ */
+function netlifyCredentials() {
+  const suffix = process.env.PHASE === 'dev' ? '_DEV' : ''
+  const siteVar = `NETLIFY_SITE_ID${suffix}`
+  const tokenVar = `NETLIFY_ACCESS_TOKEN${suffix}`
+  return { siteId: process.env[siteVar], token: process.env[tokenVar], siteVar, tokenVar }
+}
 
 /**
  * @param {string} siteId
@@ -58,11 +74,10 @@ async function purgeWholeSite(siteId, token) {
  * @param {string[]} paths site paths without domain, e.g. ['hirek/foo', 'receptek/bar']
  */
 export async function purgeNetlifyPaths(paths) {
-  const siteId = process.env.NETLIFY_SITE_ID
-  const token = process.env.NETLIFY_ACCESS_TOKEN
+  const { siteId, token, siteVar, tokenVar } = netlifyCredentials()
 
   if (!siteId || !token) {
-    console.log('Netlify purge: skipped (NETLIFY_SITE_ID or NETLIFY_ACCESS_TOKEN not set)')
+    console.log(`Netlify purge: skipped (${siteVar} or ${tokenVar} not set)`)
     return { skipped: true, reason: 'missing_env' }
   }
 
@@ -93,8 +108,7 @@ export async function purgeNetlifyPaths(paths) {
  * @param {string} reason log context: which cached docs the run rewrote
  */
 export async function repurgeAfterSiteCaches(firstResult, reason) {
-  const siteId = process.env.NETLIFY_SITE_ID
-  const token = process.env.NETLIFY_ACCESS_TOKEN
+  const { siteId, token } = netlifyCredentials()
   if (!firstResult?.ok || !siteId || !token) {
     return { skipped: true, reason: 'first_purge_not_ok' }
   }

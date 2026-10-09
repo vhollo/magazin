@@ -1328,8 +1328,10 @@ export function buildRecipeFromModxDoc(doc, options) {
   applyPhotoCredit(recipe, content)
   // The article lead (MODX `introtext`) is shown under the recipe title. Single-recipe
   // docs only — a collection article's lead introduces the whole set, not one dish.
+  // An introtext that is only a byline („Kard Éva receptje”, e.g. 1906/receptsarok) is
+  // not a lead — the author line already shows it — so it is skipped.
   const introtext = String(doc?.introtext ?? '').trim()
-  if (introtext) recipe.introtext = introtext
+  if (introtext && !/^[^.!?\n]{1,80}\breceptje\.?$/i.test(stripHtml(introtext).trim())) recipe.introtext = introtext
   const sourceModxId = Number(doc?.id)
   if (Number.isFinite(sourceModxId)) {
     recipe.sourceModxId = sourceModxId

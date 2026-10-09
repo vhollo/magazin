@@ -1,5 +1,6 @@
 import { fail } from "@sveltejs/kit";
 import type { Actions } from "./$types";
+import { formRelayOrigin } from "$lib/server/formRelay";
 
 /**
  * Newsletter subscribe / unsubscribe (homepage redesign 2026, F4).
@@ -28,11 +29,8 @@ export const actions: Actions = {
       return fail(400, { consentError: true, email, muvelet });
     }
 
-    let origin = url.origin;
-    if (url.origin.includes("localhost") || url.origin.includes("192.168"))
-      origin = "https://diabeteshu.netlify.app";
-
     try {
+      const origin = formRelayOrigin(url);
       const response = await fetch(`${origin}/hirlevel/form`, {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },

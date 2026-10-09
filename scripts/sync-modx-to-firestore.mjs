@@ -21,7 +21,7 @@
  *   node scripts/sync-modx-to-firestore.mjs --references-only  # backfill root weblink/reference redirects only
  *
  * Env: MODXDB_*, FIREBASE_ADMIN_KEY, FIREBASE_STORAGE_BUCKET, PUBLIC_BASE_URL (optional)
- * Optional: NETLIFY_SITE_ID, NETLIFY_ACCESS_TOKEN (edge-cache purge)
+ * Optional: PHASE; NETLIFY_SITE_ID, NETLIFY_ACCESS_TOKEN or, with PHASE=dev, the *_DEV pair (edge-cache purge)
  */
 import 'dotenv/config'
 import fs from 'node:fs'
