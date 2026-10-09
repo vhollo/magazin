@@ -16,7 +16,7 @@
     setMealPlanChecked,
     syncMealPlanStorage,
   } from '$lib/mealPlannerStore'
-  import { recipeDetailPath, type Category, type NutritionValues, type Recipe, type RecipeLayoutEntry } from '$lib/receptsarok'
+  import { foldHungarian, recipeDetailPath, type Category, type NutritionValues, type Recipe, type RecipeLayoutEntry } from '$lib/receptsarok'
   import { get } from 'svelte/store'
 
   /** Slim catalogue entry from /api/receptsarok/recipes – no ingredientGroups/instructions. */
@@ -231,11 +231,6 @@
 
   function normalizePlannerSearchInput(raw: string): string {
     return raw.trim().toLowerCase().replace(/\s+/g, ' ')
-  }
-
-  /** Accent-insensitive Hungarian match helper (category id + display names). */
-  function foldHungarian(s: string): string {
-    return s.normalize('NFD').replace(/\p{M}/gu, '').toLowerCase()
   }
 
   function recipeMatchesPlannerCategory(r: CatalogEntry, qFold: string, cats: Category[]): boolean {

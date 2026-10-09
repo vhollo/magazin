@@ -792,7 +792,7 @@
       "source_file": "ify_test.json",
       "source_location": "L138",
       "id": "magazin_ify_test_total_tax_set_shop_money",
-      "community": 19,
+      "community": 101,
       "norm_label": "shop_money"
     },
     {
@@ -801,7 +801,7 @@
       "source_file": "ify_test.json",
       "source_location": "L139",
       "id": "magazin_ify_test_shop_money_amount",
-      "community": 19,
+      "community": 101,
       "norm_label": "amount"
     },
     {
@@ -810,7 +810,7 @@
       "source_file": "ify_test.json",
       "source_location": "L140",
       "id": "magazin_ify_test_shop_money_currency_code",
-      "community": 19,
+      "community": 101,
       "norm_label": "currency_code"
     },
     {
@@ -963,7 +963,7 @@
       "source_file": "ify_test.json",
       "source_location": "L196",
       "id": "magazin_ify_test_ify_billing_address",
-      "community": 14,
+      "community": 1,
       "norm_label": "billing_address"
     },
     {
@@ -972,7 +972,7 @@
       "source_file": "ify_test.json",
       "source_location": "L197",
       "id": "magazin_ify_test_billing_address_zip",
-      "community": 14,
+      "community": 1,
       "norm_label": "zip"
     },
     {
@@ -981,7 +981,7 @@
       "source_file": "ify_test.json",
       "source_location": "L198",
       "id": "magazin_ify_test_billing_address_city",
-      "community": 14,
+      "community": 1,
       "norm_label": "city"
     },
     {
@@ -990,7 +990,7 @@
       "source_file": "ify_test.json",
       "source_location": "L199",
       "id": "magazin_ify_test_billing_address_name",
-      "community": 14,
+      "community": 1,
       "norm_label": "name"
     },
     {
@@ -999,7 +999,7 @@
       "source_file": "ify_test.json",
       "source_location": "L200",
       "id": "magazin_ify_test_billing_address_phone",
-      "community": 14,
+      "community": 1,
       "norm_label": "phone"
     },
     {
@@ -1008,7 +1008,7 @@
       "source_file": "ify_test.json",
       "source_location": "L201",
       "id": "magazin_ify_test_billing_address_company",
-      "community": 14,
+      "community": 1,
       "norm_label": "company"
     },
     {
@@ -1017,7 +1017,7 @@
       "source_file": "ify_test.json",
       "source_location": "L202",
       "id": "magazin_ify_test_billing_address_country",
-      "community": 14,
+      "community": 1,
       "norm_label": "country"
     },
     {
@@ -1026,7 +1026,7 @@
       "source_file": "ify_test.json",
       "source_location": "L203",
       "id": "magazin_ify_test_billing_address_address1",
-      "community": 14,
+      "community": 1,
       "norm_label": "address1"
     },
     {
@@ -1035,7 +1035,7 @@
       "source_file": "ify_test.json",
       "source_location": "L204",
       "id": "magazin_ify_test_billing_address_address2",
-      "community": 14,
+      "community": 1,
       "norm_label": "address2"
     },
     {
@@ -1044,7 +1044,7 @@
       "source_file": "ify_test.json",
       "source_location": "L205",
       "id": "magazin_ify_test_billing_address_latitude",
-      "community": 14,
+      "community": 1,
       "norm_label": "latitude"
     },
     {
@@ -1053,7 +1053,7 @@
       "source_file": "ify_test.json",
       "source_location": "L206",
       "id": "magazin_ify_test_billing_address_province",
-      "community": 14,
+      "community": 1,
       "norm_label": "province"
     },
     {
@@ -1062,7 +1062,7 @@
       "source_file": "ify_test.json",
       "source_location": "L207",
       "id": "magazin_ify_test_billing_address_last_name",
-      "community": 14,
+      "community": 1,
       "norm_label": "last_name"
     },
     {
@@ -1071,7 +1071,7 @@
       "source_file": "ify_test.json",
       "source_location": "L208",
       "id": "magazin_ify_test_billing_address_longitude",
-      "community": 14,
+      "community": 1,
       "norm_label": "longitude"
     },
     {
@@ -1080,7 +1080,7 @@
       "source_file": "ify_test.json",
       "source_location": "L209",
       "id": "magazin_ify_test_billing_address_first_name",
-      "community": 14,
+      "community": 1,
       "norm_label": "first_name"
     },
     {
@@ -1089,7 +1089,7 @@
       "source_file": "ify_test.json",
       "source_location": "L210",
       "id": "magazin_ify_test_billing_address_country_code",
-      "community": 14,
+      "community": 1,
       "norm_label": "country_code"
     },
     {
@@ -1098,7 +1098,7 @@
       "source_file": "ify_test.json",
       "source_location": "L211",
       "id": "magazin_ify_test_billing_address_province_code",
-      "community": 14,
+      "community": 1,
       "norm_label": "province_code"
     },
     {
@@ -1152,7 +1152,7 @@
       "source_file": "ify_test.json",
       "source_location": "L218",
       "id": "magazin_ify_test_total_price_set_shop_money",
-      "community": 19,
+      "community": 101,
       "norm_label": "shop_money"
     },
     {
@@ -1386,7 +1386,7 @@
       "source_file": "ify_test.json",
       "source_location": "L252",
       "id": "magazin_ify_test_subtotal_price_set_shop_money",
-      "community": 19,
+      "community": 101,
       "norm_label": "shop_money"
     },
     {
@@ -1440,7 +1440,7 @@
       "source_file": "ify_test.json",
       "source_location": "L265",
       "id": "magazin_ify_test_total_discounts_set_shop_money",
-      "community": 19,
+      "community": 101,
       "norm_label": "shop_money"
     },
     {
@@ -1485,7 +1485,7 @@
       "source_file": "ify_test.json",
       "source_location": "L277",
       "id": "magazin_ify_test_current_total_tax_set_shop_money",
-      "community": 19,
+      "community": 101,
       "norm_label": "shop_money"
     },
     {
@@ -1566,7 +1566,7 @@
       "source_file": "ify_test.json",
       "source_location": "L295",
       "id": "magazin_ify_test_current_total_price_set_shop_money",
-      "community": 19,
+      "community": 101,
       "norm_label": "shop_money"
     },
     {
@@ -1602,7 +1602,7 @@
       "source_file": "ify_test.json",
       "source_location": "L306",
       "id": "magazin_ify_test_total_shipping_price_set_shop_money",
-      "community": 19,
+      "community": 101,
       "norm_label": "shop_money"
     },
     {
@@ -1647,7 +1647,7 @@
       "source_file": "ify_test.json",
       "source_location": "L318",
       "id": "magazin_ify_test_current_subtotal_price_set_shop_money",
-      "community": 19,
+      "community": 101,
       "norm_label": "shop_money"
     },
     {
@@ -1674,7 +1674,7 @@
       "source_file": "ify_test.json",
       "source_location": "L328",
       "id": "magazin_ify_test_total_line_items_price_set_shop_money",
-      "community": 19,
+      "community": 101,
       "norm_label": "shop_money"
     },
     {
@@ -1701,7 +1701,7 @@
       "source_file": "ify_test.json",
       "source_location": "L338",
       "id": "magazin_ify_test_current_total_discounts_set_shop_money",
-      "community": 19,
+      "community": 101,
       "norm_label": "shop_money"
     },
     {
@@ -3180,7 +3180,7 @@
       "source_file": "scripts/fix-modx-recipe-years.mjs",
       "source_location": "L75",
       "id": "scripts_fix_modx_recipe_years_expectedmodximportyear",
-      "community": 30,
+      "community": 136,
       "norm_label": "expectedmodximportyear()"
     },
     {
@@ -3530,7 +3530,7 @@
       "source_file": "scripts/prune-storage-versions.mjs",
       "source_location": "L1",
       "id": "scripts_prune_storage_versions_mjs",
-      "community": 41,
+      "community": 105,
       "norm_label": "prune-storage-versions.mjs"
     },
     {
@@ -3539,7 +3539,7 @@
       "source_file": "scripts/prune-storage-versions.mjs",
       "source_location": "L31",
       "id": "scripts_prune_storage_versions_apply",
-      "community": 41,
+      "community": 105,
       "norm_label": "apply"
     },
     {
@@ -3548,7 +3548,7 @@
       "source_file": "scripts/prune-storage-versions.mjs",
       "source_location": "L33",
       "id": "scripts_prune_storage_versions_numericflag",
-      "community": 41,
+      "community": 105,
       "norm_label": "numericflag()"
     },
     {
@@ -3557,7 +3557,7 @@
       "source_file": "scripts/prune-storage-versions.mjs",
       "source_location": "L44",
       "id": "scripts_prune_storage_versions_maxagedays",
-      "community": 41,
+      "community": 105,
       "norm_label": "maxagedays"
     },
     {
@@ -3566,7 +3566,7 @@
       "source_file": "scripts/prune-storage-versions.mjs",
       "source_location": "L45",
       "id": "scripts_prune_storage_versions_keepmin",
-      "community": 41,
+      "community": 105,
       "norm_label": "keepmin"
     },
     {
@@ -3575,7 +3575,7 @@
       "source_file": "scripts/prune-storage-versions.mjs",
       "source_location": "L47",
       "id": "scripts_prune_storage_versions_prefixes",
-      "community": 41,
+      "community": 105,
       "norm_label": "prefixes"
     },
     {
@@ -3584,7 +3584,7 @@
       "source_file": "scripts/prune-storage-versions.mjs",
       "source_location": "L49",
       "id": "scripts_prune_storage_versions_mib",
-      "community": 41,
+      "community": 105,
       "norm_label": "mib()"
     },
     {
@@ -3593,7 +3593,7 @@
       "source_file": "scripts/prune-storage-versions.mjs",
       "source_location": "L53",
       "id": "scripts_prune_storage_versions_liveurls",
-      "community": 41,
+      "community": 105,
       "norm_label": "liveurls()"
     },
     {
@@ -3602,7 +3602,7 @@
       "source_file": "scripts/prune-storage-versions.mjs",
       "source_location": "L66",
       "id": "scripts_prune_storage_versions_reportbucket",
-      "community": 41,
+      "community": 105,
       "norm_label": "reportbucket()"
     },
     {
@@ -3611,7 +3611,7 @@
       "source_file": "scripts/prune-storage-versions.mjs",
       "source_location": "L92",
       "id": "scripts_prune_storage_versions_main",
-      "community": 41,
+      "community": 105,
       "norm_label": "main()"
     },
     {
@@ -4015,7 +4015,7 @@
       "source_file": "scripts/sync-site-conf.mjs",
       "source_location": "L1",
       "id": "scripts_sync_site_conf_mjs",
-      "community": 124,
+      "community": 44,
       "norm_label": "sync-site-conf.mjs"
     },
     {
@@ -4024,7 +4024,7 @@
       "source_file": "scripts/sync-site-conf.mjs",
       "source_location": "L30",
       "id": "scripts_sync_site_conf_apply",
-      "community": 124,
+      "community": 44,
       "norm_label": "apply"
     },
     {
@@ -4033,7 +4033,7 @@
       "source_file": "scripts/sync-site-conf.mjs",
       "source_location": "L36",
       "id": "scripts_sync_site_conf_refsof",
-      "community": 124,
+      "community": 44,
       "norm_label": "refsof()"
     },
     {
@@ -4042,7 +4042,7 @@
       "source_file": "scripts/sync-site-conf.mjs",
       "source_location": "L38",
       "id": "scripts_sync_site_conf_main",
-      "community": 124,
+      "community": 44,
       "norm_label": "main()"
     },
     {
@@ -4051,7 +4051,7 @@
       "source_file": "scripts/validate-recipe-dedupe-v2.mjs",
       "source_location": "L1",
       "id": "scripts_validate_recipe_dedupe_v2_mjs",
-      "community": 11,
+      "community": 94,
       "norm_label": "validate-recipe-dedupe-v2.mjs"
     },
     {
@@ -4060,7 +4060,7 @@
       "source_file": "scripts/validate-recipe-dedupe-v2.mjs",
       "source_location": "L18",
       "id": "scripts_validate_recipe_dedupe_v2_root",
-      "community": 11,
+      "community": 94,
       "norm_label": "root"
     },
     {
@@ -4069,7 +4069,7 @@
       "source_file": "scripts/validate-recipe-dedupe-v2.mjs",
       "source_location": "L19",
       "id": "scripts_validate_recipe_dedupe_v2_createreviewpath",
-      "community": 11,
+      "community": 94,
       "norm_label": "createreviewpath"
     },
     {
@@ -4078,7 +4078,7 @@
       "source_file": "scripts/validate-recipe-dedupe-v2.mjs",
       "source_location": "L20",
       "id": "scripts_validate_recipe_dedupe_v2_redirectspath",
-      "community": 11,
+      "community": 94,
       "norm_label": "redirectspath"
     },
     {
@@ -4087,7 +4087,7 @@
       "source_file": "scripts/validate-recipe-dedupe-v2.mjs",
       "source_location": "L21",
       "id": "scripts_validate_recipe_dedupe_v2_patternspath",
-      "community": 11,
+      "community": 94,
       "norm_label": "patternspath"
     },
     {
@@ -4096,7 +4096,7 @@
       "source_file": "scripts/validate-recipe-dedupe-v2.mjs",
       "source_location": "L22",
       "id": "scripts_validate_recipe_dedupe_v2_uncategorizedpath",
-      "community": 11,
+      "community": 94,
       "norm_label": "uncategorizedpath"
     },
     {
@@ -4105,7 +4105,7 @@
       "source_file": "scripts/validate-recipe-dedupe-v2.mjs",
       "source_location": "L23",
       "id": "scripts_validate_recipe_dedupe_v2_recipespath",
-      "community": 11,
+      "community": 94,
       "norm_label": "recipespath"
     },
     {
@@ -4114,7 +4114,7 @@
       "source_file": "scripts/validate-recipe-dedupe-v2.mjs",
       "source_location": "L25",
       "id": "scripts_validate_recipe_dedupe_v2_readjson",
-      "community": 11,
+      "community": 94,
       "norm_label": "readjson()"
     },
     {
@@ -4123,7 +4123,7 @@
       "source_file": "scripts/validate-recipe-dedupe-v2.mjs",
       "source_location": "L29",
       "id": "scripts_validate_recipe_dedupe_v2_testcomparatororder",
-      "community": 91,
+      "community": 94,
       "norm_label": "testcomparatororder()"
     },
     {
@@ -4132,7 +4132,7 @@
       "source_file": "scripts/validate-recipe-dedupe-v2.mjs",
       "source_location": "L92",
       "id": "scripts_validate_recipe_dedupe_v2_testpickredirecttargetprefersrsbookletyear",
-      "community": 91,
+      "community": 39,
       "norm_label": "testpickredirecttargetprefersrsbookletyear()"
     },
     {
@@ -4150,7 +4150,7 @@
       "source_file": "scripts/validate-recipe-dedupe-v2.mjs",
       "source_location": "L111",
       "id": "scripts_validate_recipe_dedupe_v2_testauthorgate",
-      "community": 11,
+      "community": 94,
       "norm_label": "testauthorgate()"
     },
     {
@@ -4168,7 +4168,7 @@
       "source_file": "scripts/validate-recipe-dedupe-v2.mjs",
       "source_location": "L154",
       "id": "scripts_validate_recipe_dedupe_v2_testparsernutritionfallbackfromparagraphs",
-      "community": 11,
+      "community": 94,
       "norm_label": "testparsernutritionfallbackfromparagraphs()"
     },
     {
@@ -4177,7 +4177,7 @@
       "source_file": "scripts/validate-recipe-dedupe-v2.mjs",
       "source_location": "L183",
       "id": "scripts_validate_recipe_dedupe_v2_testparseringredientandservingfallbacks",
-      "community": 11,
+      "community": 94,
       "norm_label": "testparseringredientandservingfallbacks()"
     },
     {
@@ -4186,7 +4186,7 @@
       "source_file": "scripts/validate-recipe-dedupe-v2.mjs",
       "source_location": "L213",
       "id": "scripts_validate_recipe_dedupe_v2_testparserparagraphingredientsandsubrecipes",
-      "community": 11,
+      "community": 94,
       "norm_label": "testparserparagraphingredientsandsubrecipes()"
     },
     {
@@ -4195,7 +4195,7 @@
       "source_file": "scripts/validate-recipe-dedupe-v2.mjs",
       "source_location": "L243",
       "id": "scripts_validate_recipe_dedupe_v2_testparserdoesnottreatrelatedlinksassubrecipe",
-      "community": 11,
+      "community": 94,
       "norm_label": "testparserdoesnottreatrelatedlinksassubrecipe()"
     },
     {
@@ -4204,7 +4204,7 @@
       "source_file": "scripts/validate-recipe-dedupe-v2.mjs",
       "source_location": "L276",
       "id": "scripts_validate_recipe_dedupe_v2_testparsedbranchbcompleteness",
-      "community": 11,
+      "community": 94,
       "norm_label": "testparsedbranchbcompleteness()"
     },
     {
@@ -4213,7 +4213,7 @@
       "source_file": "scripts/validate-recipe-dedupe-v2.mjs",
       "source_location": "L293",
       "id": "scripts_validate_recipe_dedupe_v2_testredirectsshape",
-      "community": 11,
+      "community": 94,
       "norm_label": "testredirectsshape()"
     },
     {
@@ -4231,7 +4231,7 @@
       "source_file": "scripts/validate-recipe-dedupe-v2.mjs",
       "source_location": "L427",
       "id": "scripts_validate_recipe_dedupe_v2_testuncategorizedqueueconsistency",
-      "community": 11,
+      "community": 94,
       "norm_label": "testuncategorizedqueueconsistency()"
     },
     {
@@ -4447,7 +4447,7 @@
       "source_file": "scripts/extract-authors-from-modx.mjs",
       "source_location": "L1",
       "id": "scripts_extract_authors_from_modx_mjs",
-      "community": 94,
+      "community": 36,
       "norm_label": "extract-authors-from-modx.mjs"
     },
     {
@@ -4456,7 +4456,7 @@
       "source_file": "scripts/extract-authors-from-modx.mjs",
       "source_location": "L46",
       "id": "scripts_extract_authors_from_modx_authors_path",
-      "community": 94,
+      "community": 36,
       "norm_label": "authors_path"
     },
     {
@@ -4465,7 +4465,7 @@
       "source_file": "scripts/extract-authors-from-modx.mjs",
       "source_location": "L47",
       "id": "scripts_extract_authors_from_modx_review_path",
-      "community": 94,
+      "community": 36,
       "norm_label": "review_path"
     },
     {
@@ -4474,7 +4474,7 @@
       "source_file": "scripts/extract-authors-from-modx.mjs",
       "source_location": "L48",
       "id": "scripts_extract_authors_from_modx_bylines_path",
-      "community": 94,
+      "community": 36,
       "norm_label": "bylines_path"
     },
     {
@@ -4483,7 +4483,7 @@
       "source_file": "scripts/extract-authors-from-modx.mjs",
       "source_location": "L75",
       "id": "scripts_extract_authors_from_modx_rejoinedwords",
-      "community": 94,
+      "community": 36,
       "norm_label": "rejoinedwords"
     },
     {
@@ -4492,7 +4492,7 @@
       "source_file": "scripts/extract-authors-from-modx.mjs",
       "source_location": "L80",
       "id": "scripts_extract_authors_from_modx_text",
-      "community": 94,
+      "community": 36,
       "norm_label": "text()"
     },
     {
@@ -4501,7 +4501,7 @@
       "source_file": "scripts/extract-authors-from-modx.mjs",
       "source_location": "L97",
       "id": "scripts_extract_authors_from_modx_isblank",
-      "community": 94,
+      "community": 36,
       "norm_label": "isblank()"
     },
     {
@@ -4510,7 +4510,7 @@
       "source_file": "scripts/extract-authors-from-modx.mjs",
       "source_location": "L102",
       "id": "scripts_extract_authors_from_modx_lines",
-      "community": 94,
+      "community": 36,
       "norm_label": "lines()"
     },
     {
@@ -4519,7 +4519,7 @@
       "source_file": "scripts/extract-authors-from-modx.mjs",
       "source_location": "L114",
       "id": "scripts_extract_authors_from_modx_iscvprose",
-      "community": 94,
+      "community": 36,
       "norm_label": "iscvprose()"
     },
     {
@@ -4528,7 +4528,7 @@
       "source_file": "scripts/extract-authors-from-modx.mjs",
       "source_location": "L121",
       "id": "scripts_extract_authors_from_modx_splitprefix",
-      "community": 94,
+      "community": 36,
       "norm_label": "splitprefix()"
     },
     {
@@ -4537,7 +4537,7 @@
       "source_file": "scripts/extract-authors-from-modx.mjs",
       "source_location": "L131",
       "id": "scripts_extract_authors_from_modx_slugify",
-      "community": 94,
+      "community": 36,
       "norm_label": "slugify()"
     },
     {
@@ -4546,7 +4546,7 @@
       "source_file": "scripts/extract-authors-from-modx.mjs",
       "source_location": "L143",
       "id": "scripts_extract_authors_from_modx_collectlinks",
-      "community": 94,
+      "community": 36,
       "norm_label": "collectlinks()"
     },
     {
@@ -4555,7 +4555,7 @@
       "source_file": "scripts/extract-authors-from-modx.mjs",
       "source_location": "L153",
       "id": "scripts_extract_authors_from_modx_blocks",
-      "community": 94,
+      "community": 36,
       "norm_label": "blocks()"
     },
     {
@@ -4564,7 +4564,7 @@
       "source_file": "scripts/extract-authors-from-modx.mjs",
       "source_location": "L167",
       "id": "scripts_extract_authors_from_modx_parsenameblock",
-      "community": 94,
+      "community": 36,
       "norm_label": "parsenameblock()"
     },
     {
@@ -4573,7 +4573,7 @@
       "source_file": "scripts/extract-authors-from-modx.mjs",
       "source_location": "L176",
       "id": "scripts_extract_authors_from_modx_detectshape",
-      "community": 94,
+      "community": 36,
       "norm_label": "detectshape()"
     },
     {
@@ -4582,7 +4582,7 @@
       "source_file": "scripts/extract-authors-from-modx.mjs",
       "source_location": "L188",
       "id": "scripts_extract_authors_from_modx_parsechunk",
-      "community": 94,
+      "community": 36,
       "norm_label": "parsechunk()"
     },
     {
@@ -4591,7 +4591,7 @@
       "source_file": "scripts/extract-authors-from-modx.mjs",
       "source_location": "L323",
       "id": "scripts_extract_authors_from_modx_mergerecords",
-      "community": 94,
+      "community": 36,
       "norm_label": "mergerecords()"
     },
     {
@@ -4600,7 +4600,7 @@
       "source_file": "scripts/extract-authors-from-modx.mjs",
       "source_location": "L343",
       "id": "scripts_extract_authors_from_modx_normalizename",
-      "community": 94,
+      "community": 36,
       "norm_label": "normalizename()"
     },
     {
@@ -4609,7 +4609,7 @@
       "source_file": "scripts/extract-authors-from-modx.mjs",
       "source_location": "L347",
       "id": "scripts_extract_authors_from_modx_duplicatebylines",
-      "community": 94,
+      "community": 36,
       "norm_label": "duplicatebylines()"
     },
     {
@@ -4618,7 +4618,7 @@
       "source_file": "scripts/extract-authors-from-modx.mjs",
       "source_location": "L367",
       "id": "scripts_extract_authors_from_modx_main",
-      "community": 94,
+      "community": 36,
       "norm_label": "main()"
     },
     {
@@ -4735,7 +4735,7 @@
       "source_file": "scripts/migrate-recipe-image-to-img.mjs",
       "source_location": "L1",
       "id": "scripts_migrate_recipe_image_to_img_mjs",
-      "community": 130,
+      "community": 29,
       "norm_label": "migrate-recipe-image-to-img.mjs"
     },
     {
@@ -4744,7 +4744,7 @@
       "source_file": "scripts/migrate-recipe-image-to-img.mjs",
       "source_location": "L20",
       "id": "scripts_migrate_recipe_image_to_img_recipes_path",
-      "community": 130,
+      "community": 29,
       "norm_label": "recipes_path"
     },
     {
@@ -4753,7 +4753,7 @@
       "source_file": "scripts/migrate-recipe-image-to-img.mjs",
       "source_location": "L21",
       "id": "scripts_migrate_recipe_image_to_img_apply",
-      "community": 130,
+      "community": 29,
       "norm_label": "apply"
     },
     {
@@ -4762,7 +4762,7 @@
       "source_file": "scripts/migrate-recipe-image-to-img.mjs",
       "source_location": "L23",
       "id": "scripts_migrate_recipe_image_to_img_normalizesrc",
-      "community": 130,
+      "community": 29,
       "norm_label": "normalizesrc()"
     },
     {
@@ -4771,7 +4771,7 @@
       "source_file": "scripts/migrate-recipe-image-to-img.mjs",
       "source_location": "L29",
       "id": "scripts_migrate_recipe_image_to_img_stats",
-      "community": 130,
+      "community": 29,
       "norm_label": "stats"
     },
     {
@@ -4780,7 +4780,7 @@
       "source_file": "scripts/migrate-recipe-image-to-img.mjs",
       "source_location": "L40",
       "id": "scripts_migrate_recipe_image_to_img_fold",
-      "community": 130,
+      "community": 29,
       "norm_label": "fold()"
     },
     {
@@ -4789,7 +4789,7 @@
       "source_file": "scripts/migrate-recipe-image-to-img.mjs",
       "source_location": "L65",
       "id": "scripts_migrate_recipe_image_to_img_recipes",
-      "community": 130,
+      "community": 29,
       "norm_label": "recipes"
     },
     {
@@ -4798,7 +4798,7 @@
       "source_file": "scripts/verify-firestore-magazine.mjs",
       "source_location": "L1",
       "id": "scripts_verify_firestore_magazine_mjs",
-      "community": 105,
+      "community": 44,
       "norm_label": "verify-firestore-magazine.mjs"
     },
     {
@@ -4807,7 +4807,7 @@
       "source_file": "scripts/verify-firestore-magazine.mjs",
       "source_location": "L10",
       "id": "scripts_verify_firestore_magazine_key_routes",
-      "community": 105,
+      "community": 44,
       "norm_label": "key_routes"
     },
     {
@@ -4816,7 +4816,7 @@
       "source_file": "scripts/verify-firestore-magazine.mjs",
       "source_location": "L22",
       "id": "scripts_verify_firestore_magazine_sample_article_paths",
-      "community": 105,
+      "community": 44,
       "norm_label": "sample_article_paths"
     },
     {
@@ -4825,7 +4825,7 @@
       "source_file": "scripts/verify-firestore-magazine.mjs",
       "source_location": "L24",
       "id": "scripts_verify_firestore_magazine_getdoc",
-      "community": 105,
+      "community": 44,
       "norm_label": "getdoc()"
     },
     {
@@ -4834,7 +4834,7 @@
       "source_file": "scripts/verify-firestore-magazine.mjs",
       "source_location": "L29",
       "id": "scripts_verify_firestore_magazine_main",
-      "community": 105,
+      "community": 44,
       "norm_label": "main()"
     },
     {
@@ -4996,7 +4996,7 @@
       "source_file": "scripts/sync-modx-to-firestore.mjs",
       "source_location": "L195",
       "id": "scripts_sync_modx_to_firestore_queryremovedrows",
-      "community": 8,
+      "community": 14,
       "norm_label": "queryremovedrows()"
     },
     {
@@ -5005,7 +5005,7 @@
       "source_file": "scripts/sync-modx-to-firestore.mjs",
       "source_location": "L238",
       "id": "scripts_sync_modx_to_firestore_queryforcedrow",
-      "community": 8,
+      "community": 14,
       "norm_label": "queryforcedrow()"
     },
     {
@@ -5041,7 +5041,7 @@
       "source_file": "scripts/sync-modx-to-firestore.mjs",
       "source_location": "L356",
       "id": "scripts_sync_modx_to_firestore_expandrowswithancestors",
-      "community": 8,
+      "community": 14,
       "norm_label": "expandrowswithancestors()"
     },
     {
@@ -5158,7 +5158,7 @@
       "source_file": "scripts/import-collection-articles-to-dump.mjs",
       "source_location": "L1",
       "id": "scripts_import_collection_articles_to_dump_mjs",
-      "community": 94,
+      "community": 143,
       "norm_label": "import-collection-articles-to-dump.mjs"
     },
     {
@@ -5167,7 +5167,7 @@
       "source_file": "scripts/import-collection-articles-to-dump.mjs",
       "source_location": "L21",
       "id": "scripts_import_collection_articles_to_dump_root",
-      "community": 94,
+      "community": 143,
       "norm_label": "root"
     },
     {
@@ -5176,7 +5176,7 @@
       "source_file": "scripts/import-collection-articles-to-dump.mjs",
       "source_location": "L22",
       "id": "scripts_import_collection_articles_to_dump_data_json",
-      "community": 94,
+      "community": 143,
       "norm_label": "data_json"
     },
     {
@@ -5185,7 +5185,7 @@
       "source_file": "scripts/import-collection-articles-to-dump.mjs",
       "source_location": "L27",
       "id": "scripts_import_collection_articles_to_dump_ids",
-      "community": 94,
+      "community": 143,
       "norm_label": "ids"
     },
     {
@@ -5194,7 +5194,7 @@
       "source_file": "scripts/import-collection-articles-to-dump.mjs",
       "source_location": "L29",
       "id": "scripts_import_collection_articles_to_dump_env",
-      "community": 94,
+      "community": 143,
       "norm_label": "env()"
     },
     {
@@ -5203,7 +5203,7 @@
       "source_file": "scripts/import-collection-articles-to-dump.mjs",
       "source_location": "L43",
       "id": "scripts_import_collection_articles_to_dump_parsetags",
-      "community": 94,
+      "community": 143,
       "norm_label": "parsetags()"
     },
     {
@@ -5212,7 +5212,7 @@
       "source_file": "scripts/import-collection-articles-to-dump.mjs",
       "source_location": "L52",
       "id": "scripts_import_collection_articles_to_dump_main",
-      "community": 94,
+      "community": 143,
       "norm_label": "main()"
     },
     {
@@ -5221,7 +5221,7 @@
       "source_file": "scripts/import-receptsarok-uncategorized-review.mjs",
       "source_location": "L1",
       "id": "scripts_import_receptsarok_uncategorized_review_mjs",
-      "community": 93,
+      "community": 29,
       "norm_label": "import-receptsarok-uncategorized-review.mjs"
     },
     {
@@ -5230,7 +5230,7 @@
       "source_file": "scripts/import-receptsarok-uncategorized-review.mjs",
       "source_location": "L5",
       "id": "scripts_import_receptsarok_uncategorized_review_recipes_path",
-      "community": 93,
+      "community": 29,
       "norm_label": "recipes_path"
     },
     {
@@ -5239,7 +5239,7 @@
       "source_file": "scripts/import-receptsarok-uncategorized-review.mjs",
       "source_location": "L6",
       "id": "scripts_import_receptsarok_uncategorized_review_review_path",
-      "community": 93,
+      "community": 29,
       "norm_label": "review_path"
     },
     {
@@ -5248,7 +5248,7 @@
       "source_file": "scripts/import-receptsarok-uncategorized-review.mjs",
       "source_location": "L8",
       "id": "scripts_import_receptsarok_uncategorized_review_readjson",
-      "community": 93,
+      "community": 29,
       "norm_label": "readjson()"
     },
     {
@@ -5257,7 +5257,7 @@
       "source_file": "scripts/import-receptsarok-uncategorized-review.mjs",
       "source_location": "L12",
       "id": "scripts_import_receptsarok_uncategorized_review_writejson",
-      "community": 93,
+      "community": 29,
       "norm_label": "writejson()"
     },
     {
@@ -5266,7 +5266,7 @@
       "source_file": "scripts/import-receptsarok-uncategorized-review.mjs",
       "source_location": "L16",
       "id": "scripts_import_receptsarok_uncategorized_review_normalizecategory",
-      "community": 93,
+      "community": 29,
       "norm_label": "normalizecategory()"
     },
     {
@@ -5275,7 +5275,7 @@
       "source_file": "scripts/import-receptsarok-uncategorized-review.mjs",
       "source_location": "L20",
       "id": "scripts_import_receptsarok_uncategorized_review_recipes",
-      "community": 93,
+      "community": 29,
       "norm_label": "recipes"
     },
     {
@@ -5284,7 +5284,7 @@
       "source_file": "scripts/import-receptsarok-uncategorized-review.mjs",
       "source_location": "L21",
       "id": "scripts_import_receptsarok_uncategorized_review_review",
-      "community": 93,
+      "community": 29,
       "norm_label": "review"
     },
     {
@@ -5293,7 +5293,7 @@
       "source_file": "scripts/import-receptsarok-uncategorized-review.mjs",
       "source_location": "L26",
       "id": "scripts_import_receptsarok_uncategorized_review_recipebykey",
-      "community": 93,
+      "community": 29,
       "norm_label": "recipebykey"
     },
     {
@@ -5302,7 +5302,7 @@
       "source_file": "scripts/import-receptsarok-uncategorized-review.mjs",
       "source_location": "L33",
       "id": "scripts_import_receptsarok_uncategorized_review_resolvedkeys",
-      "community": 93,
+      "community": 29,
       "norm_label": "resolvedkeys"
     },
     {
@@ -5401,7 +5401,7 @@
       "source_file": "scripts/set-banner-cache-control.mjs",
       "source_location": "L1",
       "id": "scripts_set_banner_cache_control_mjs",
-      "community": 41,
+      "community": 93,
       "norm_label": "set-banner-cache-control.mjs"
     },
     {
@@ -5410,7 +5410,7 @@
       "source_file": "scripts/set-banner-cache-control.mjs",
       "source_location": "L29",
       "id": "scripts_set_banner_cache_control_apply",
-      "community": 41,
+      "community": 93,
       "norm_label": "apply"
     },
     {
@@ -5419,7 +5419,7 @@
       "source_file": "scripts/set-banner-cache-control.mjs",
       "source_location": "L31",
       "id": "scripts_set_banner_cache_control_bucket",
-      "community": 41,
+      "community": 93,
       "norm_label": "bucket"
     },
     {
@@ -5626,7 +5626,7 @@
       "source_file": "scripts/backfill-recipe-related-cards.mjs",
       "source_location": "L1",
       "id": "scripts_backfill_recipe_related_cards_mjs",
-      "community": 125,
+      "community": 124,
       "norm_label": "backfill-recipe-related-cards.mjs"
     },
     {
@@ -5635,7 +5635,7 @@
       "source_file": "scripts/backfill-recipe-related-cards.mjs",
       "source_location": "L21",
       "id": "scripts_backfill_recipe_related_cards_root",
-      "community": 125,
+      "community": 124,
       "norm_label": "root"
     },
     {
@@ -5644,7 +5644,7 @@
       "source_file": "scripts/backfill-recipe-related-cards.mjs",
       "source_location": "L22",
       "id": "scripts_backfill_recipe_related_cards_recipes_json_path",
-      "community": 125,
+      "community": 124,
       "norm_label": "recipes_json_path"
     },
     {
@@ -5653,7 +5653,7 @@
       "source_file": "scripts/backfill-recipe-related-cards.mjs",
       "source_location": "L23",
       "id": "scripts_backfill_recipe_related_cards_rs_redirects_path",
-      "community": 125,
+      "community": 124,
       "norm_label": "rs_redirects_path"
     },
     {
@@ -5662,7 +5662,7 @@
       "source_file": "scripts/backfill-recipe-related-cards.mjs",
       "source_location": "L24",
       "id": "scripts_backfill_recipe_related_cards_apply",
-      "community": 125,
+      "community": 124,
       "norm_label": "apply"
     },
     {
@@ -5671,7 +5671,7 @@
       "source_file": "scripts/backfill-recipe-related-cards.mjs",
       "source_location": "L26",
       "id": "scripts_backfill_recipe_related_cards_main",
-      "community": 125,
+      "community": 124,
       "norm_label": "main()"
     },
     {
@@ -5680,7 +5680,7 @@
       "source_file": "scripts/sync-patika-collection.mjs",
       "source_location": "L1",
       "id": "scripts_sync_patika_collection_mjs",
-      "community": 124,
+      "community": 44,
       "norm_label": "sync-patika-collection.mjs"
     },
     {
@@ -5689,7 +5689,7 @@
       "source_file": "scripts/sync-patika-collection.mjs",
       "source_location": "L23",
       "id": "scripts_sync_patika_collection_apply",
-      "community": 124,
+      "community": 44,
       "norm_label": "apply"
     },
     {
@@ -5698,7 +5698,7 @@
       "source_file": "scripts/sync-patika-collection.mjs",
       "source_location": "L31",
       "id": "scripts_sync_patika_collection_public_fields",
-      "community": 124,
+      "community": 44,
       "norm_label": "public_fields"
     },
     {
@@ -5707,7 +5707,7 @@
       "source_file": "scripts/sync-patika-collection.mjs",
       "source_location": "L33",
       "id": "scripts_sync_patika_collection_pickpublic",
-      "community": 124,
+      "community": 44,
       "norm_label": "pickpublic()"
     },
     {
@@ -5716,7 +5716,7 @@
       "source_file": "scripts/sync-patika-collection.mjs",
       "source_location": "L43",
       "id": "scripts_sync_patika_collection_approxdocsize",
-      "community": 124,
+      "community": 44,
       "norm_label": "approxdocsize()"
     },
     {
@@ -5725,7 +5725,7 @@
       "source_file": "scripts/sync-patika-collection.mjs",
       "source_location": "L47",
       "id": "scripts_sync_patika_collection_main",
-      "community": 124,
+      "community": 44,
       "norm_label": "main()"
     },
     {
@@ -6121,7 +6121,7 @@
       "source_file": "scripts/lib/related-recipe-cards.mjs",
       "source_location": "L297",
       "id": "lib_related_recipe_cards_relatedwriteids",
-      "community": 21,
+      "community": 24,
       "norm_label": "relatedwriteids()"
     },
     {
@@ -6175,7 +6175,7 @@
       "source_file": "scripts/lib/search-index.mjs",
       "source_location": "L27",
       "id": "lib_search_index_deployedstaticindexurl",
-      "community": 41,
+      "community": 105,
       "norm_label": "deployedstaticindexurl()"
     },
     {
@@ -6368,10 +6368,19 @@
       "norm_label": "netlify-purge.mjs"
     },
     {
+      "label": "netlifyCredentials()",
+      "file_type": "code",
+      "source_file": "scripts/lib/netlify-purge.mjs",
+      "source_location": "L35",
+      "id": "lib_netlify_purge_netlifycredentials",
+      "community": 124,
+      "norm_label": "netlifycredentials()"
+    },
+    {
       "label": "purgeWholeSite()",
       "file_type": "code",
       "source_file": "scripts/lib/netlify-purge.mjs",
-      "source_location": "L31",
+      "source_location": "L47",
       "id": "lib_netlify_purge_purgewholesite",
       "community": 124,
       "norm_label": "purgewholesite()"
@@ -6380,7 +6389,7 @@
       "label": "purgeNetlifyPaths()",
       "file_type": "code",
       "source_file": "scripts/lib/netlify-purge.mjs",
-      "source_location": "L60",
+      "source_location": "L76",
       "id": "lib_netlify_purge_purgenetlifypaths",
       "community": 124,
       "norm_label": "purgenetlifypaths()"
@@ -6389,7 +6398,7 @@
       "label": "repurgeAfterSiteCaches()",
       "file_type": "code",
       "source_file": "scripts/lib/netlify-purge.mjs",
-      "source_location": "L95",
+      "source_location": "L110",
       "id": "lib_netlify_purge_repurgeaftersitecaches",
       "community": 124,
       "norm_label": "repurgeaftersitecaches()"
@@ -6407,7 +6416,7 @@
       "label": "normalizeReadableText()",
       "file_type": "code",
       "source_file": "scripts/lib/modx-to-rs-parser.mjs",
-      "source_location": "L7",
+      "source_location": "L8",
       "id": "lib_modx_to_rs_parser_normalizereadabletext",
       "community": 94,
       "norm_label": "normalizereadabletext()"
@@ -6416,7 +6425,7 @@
       "label": "stripHtml()",
       "file_type": "code",
       "source_file": "scripts/lib/modx-to-rs-parser.mjs",
-      "source_location": "L16",
+      "source_location": "L17",
       "id": "lib_modx_to_rs_parser_striphtml",
       "community": 94,
       "norm_label": "striphtml()"
@@ -6425,7 +6434,7 @@
       "label": "normalizeText()",
       "file_type": "code",
       "source_file": "scripts/lib/modx-to-rs-parser.mjs",
-      "source_location": "L29",
+      "source_location": "L30",
       "id": "lib_modx_to_rs_parser_normalizetext",
       "community": 94,
       "norm_label": "normalizetext()"
@@ -6434,16 +6443,16 @@
       "label": "isDescriptionAuthorCompatible()",
       "file_type": "code",
       "source_file": "scripts/lib/modx-to-rs-parser.mjs",
-      "source_location": "L38",
+      "source_location": "L39",
       "id": "lib_modx_to_rs_parser_isdescriptionauthorcompatible",
-      "community": 11,
+      "community": 94,
       "norm_label": "isdescriptionauthorcompatible()"
     },
     {
       "label": "parseNumber()",
       "file_type": "code",
       "source_file": "scripts/lib/modx-to-rs-parser.mjs",
-      "source_location": "L45",
+      "source_location": "L46",
       "id": "lib_modx_to_rs_parser_parsenumber",
       "community": 94,
       "norm_label": "parsenumber()"
@@ -6452,7 +6461,7 @@
       "label": "parseNullableNumber()",
       "file_type": "code",
       "source_file": "scripts/lib/modx-to-rs-parser.mjs",
-      "source_location": "L52",
+      "source_location": "L53",
       "id": "lib_modx_to_rs_parser_parsenullablenumber",
       "community": 94,
       "norm_label": "parsenullablenumber()"
@@ -6461,7 +6470,7 @@
       "label": "parseIssueCodeYear()",
       "file_type": "code",
       "source_file": "scripts/lib/modx-to-rs-parser.mjs",
-      "source_location": "L62",
+      "source_location": "L63",
       "id": "lib_modx_to_rs_parser_parseissuecodeyear",
       "community": 94,
       "norm_label": "parseissuecodeyear()"
@@ -6470,7 +6479,7 @@
       "label": "parseYearFromMagazinPath()",
       "file_type": "code",
       "source_file": "scripts/lib/modx-to-rs-parser.mjs",
-      "source_location": "L80",
+      "source_location": "L81",
       "id": "lib_modx_to_rs_parser_parseyearfrommagazinpath",
       "community": 94,
       "norm_label": "parseyearfrommagazinpath()"
@@ -6479,7 +6488,7 @@
       "label": "parseValidYear()",
       "file_type": "code",
       "source_file": "scripts/lib/modx-to-rs-parser.mjs",
-      "source_location": "L101",
+      "source_location": "L102",
       "id": "lib_modx_to_rs_parser_parsevalidyear",
       "community": 94,
       "norm_label": "parsevalidyear()"
@@ -6488,7 +6497,7 @@
       "label": "deriveDocCreatedAtIso()",
       "file_type": "code",
       "source_file": "scripts/lib/modx-to-rs-parser.mjs",
-      "source_location": "L108",
+      "source_location": "L109",
       "id": "lib_modx_to_rs_parser_derivedoccreatedatiso",
       "community": 94,
       "norm_label": "derivedoccreatedatiso()"
@@ -6497,7 +6506,7 @@
       "label": "parseYearFromIso()",
       "file_type": "code",
       "source_file": "scripts/lib/modx-to-rs-parser.mjs",
-      "source_location": "L132",
+      "source_location": "L133",
       "id": "lib_modx_to_rs_parser_parseyearfromiso",
       "community": 94,
       "norm_label": "parseyearfromiso()"
@@ -6506,7 +6515,7 @@
       "label": "deriveYear()",
       "file_type": "code",
       "source_file": "scripts/lib/modx-to-rs-parser.mjs",
-      "source_location": "L138",
+      "source_location": "L139",
       "id": "lib_modx_to_rs_parser_deriveyear",
       "community": 94,
       "norm_label": "deriveyear()"
@@ -6515,7 +6524,7 @@
       "label": "splitParagraphsFromTag()",
       "file_type": "code",
       "source_file": "scripts/lib/modx-to-rs-parser.mjs",
-      "source_location": "L179",
+      "source_location": "L180",
       "id": "lib_modx_to_rs_parser_splitparagraphsfromtag",
       "community": 94,
       "norm_label": "splitparagraphsfromtag()"
@@ -6524,7 +6533,7 @@
       "label": "parseIngredientItem()",
       "file_type": "code",
       "source_file": "scripts/lib/modx-to-rs-parser.mjs",
-      "source_location": "L190",
+      "source_location": "L191",
       "id": "lib_modx_to_rs_parser_parseingredientitem",
       "community": 94,
       "norm_label": "parseingredientitem()"
@@ -6533,7 +6542,7 @@
       "label": "splitIngredientListByComma()",
       "file_type": "code",
       "source_file": "scripts/lib/modx-to-rs-parser.mjs",
-      "source_location": "L220",
+      "source_location": "L221",
       "id": "lib_modx_to_rs_parser_splitingredientlistbycomma",
       "community": 94,
       "norm_label": "splitingredientlistbycomma()"
@@ -6542,7 +6551,7 @@
       "label": "mergeSplitDecimalIngredientLines()",
       "file_type": "code",
       "source_file": "scripts/lib/modx-to-rs-parser.mjs",
-      "source_location": "L227",
+      "source_location": "L228",
       "id": "lib_modx_to_rs_parser_mergesplitdecimalingredientlines",
       "community": 94,
       "norm_label": "mergesplitdecimalingredientlines()"
@@ -6551,7 +6560,7 @@
       "label": "parseIngredientLines()",
       "file_type": "code",
       "source_file": "scripts/lib/modx-to-rs-parser.mjs",
-      "source_location": "L242",
+      "source_location": "L243",
       "id": "lib_modx_to_rs_parser_parseingredientlines",
       "community": 94,
       "norm_label": "parseingredientlines()"
@@ -6560,7 +6569,7 @@
       "label": "parseParagraphIngredientGroups()",
       "file_type": "code",
       "source_file": "scripts/lib/modx-to-rs-parser.mjs",
-      "source_location": "L258",
+      "source_location": "L259",
       "id": "lib_modx_to_rs_parser_parseparagraphingredientgroups",
       "community": 94,
       "norm_label": "parseparagraphingredientgroups()"
@@ -6569,7 +6578,7 @@
       "label": "preInstructionContent()",
       "file_type": "code",
       "source_file": "scripts/lib/modx-to-rs-parser.mjs",
-      "source_location": "L287",
+      "source_location": "L288",
       "id": "lib_modx_to_rs_parser_preinstructioncontent",
       "community": 94,
       "norm_label": "preinstructioncontent()"
@@ -6578,7 +6587,7 @@
       "label": "parseIngredientGroups()",
       "file_type": "code",
       "source_file": "scripts/lib/modx-to-rs-parser.mjs",
-      "source_location": "L295",
+      "source_location": "L300",
       "id": "lib_modx_to_rs_parser_parseingredientgroups",
       "community": 94,
       "norm_label": "parseingredientgroups()"
@@ -6587,7 +6596,7 @@
       "label": "emptyNutritionTable()",
       "file_type": "code",
       "source_file": "scripts/lib/modx-to-rs-parser.mjs",
-      "source_location": "L368",
+      "source_location": "L373",
       "id": "lib_modx_to_rs_parser_emptynutritiontable",
       "community": 94,
       "norm_label": "emptynutritiontable()"
@@ -6596,7 +6605,7 @@
       "label": "nutritionFieldPatterns()",
       "file_type": "code",
       "source_file": "scripts/lib/modx-to-rs-parser.mjs",
-      "source_location": "L380",
+      "source_location": "L385",
       "id": "lib_modx_to_rs_parser_nutritionfieldpatterns",
       "community": 94,
       "norm_label": "nutritionfieldpatterns()"
@@ -6605,7 +6614,7 @@
       "label": "countNutritionValues()",
       "file_type": "code",
       "source_file": "scripts/lib/modx-to-rs-parser.mjs",
-      "source_location": "L391",
+      "source_location": "L396",
       "id": "lib_modx_to_rs_parser_countnutritionvalues",
       "community": 94,
       "norm_label": "countnutritionvalues()"
@@ -6614,7 +6623,7 @@
       "label": "parseNutritionFromRows()",
       "file_type": "code",
       "source_file": "scripts/lib/modx-to-rs-parser.mjs",
-      "source_location": "L400",
+      "source_location": "L405",
       "id": "lib_modx_to_rs_parser_parsenutritionfromrows",
       "community": 94,
       "norm_label": "parsenutritionfromrows()"
@@ -6623,7 +6632,7 @@
       "label": "parseNutritionFromText()",
       "file_type": "code",
       "source_file": "scripts/lib/modx-to-rs-parser.mjs",
-      "source_location": "L422",
+      "source_location": "L427",
       "id": "lib_modx_to_rs_parser_parsenutritionfromtext",
       "community": 94,
       "norm_label": "parsenutritionfromtext()"
@@ -6632,7 +6641,7 @@
       "label": "parseNutritionTables()",
       "file_type": "code",
       "source_file": "scripts/lib/modx-to-rs-parser.mjs",
-      "source_location": "L456",
+      "source_location": "L461",
       "id": "lib_modx_to_rs_parser_parsenutritiontables",
       "community": 94,
       "norm_label": "parsenutritiontables()"
@@ -6641,7 +6650,7 @@
       "label": "deriveAuthor()",
       "file_type": "code",
       "source_file": "scripts/lib/modx-to-rs-parser.mjs",
-      "source_location": "L483",
+      "source_location": "L488",
       "id": "lib_modx_to_rs_parser_deriveauthor",
       "community": 94,
       "norm_label": "deriveauthor()"
@@ -6650,16 +6659,16 @@
       "label": "deriveSyncRecipeAuthor()",
       "file_type": "code",
       "source_file": "scripts/lib/modx-to-rs-parser.mjs",
-      "source_location": "L520",
+      "source_location": "L525",
       "id": "lib_modx_to_rs_parser_derivesyncrecipeauthor",
-      "community": 94,
+      "community": 100,
       "norm_label": "derivesyncrecipeauthor()"
     },
     {
       "label": "deriveCategoryDecision()",
       "file_type": "code",
       "source_file": "scripts/lib/modx-to-rs-parser.mjs",
-      "source_location": "L537",
+      "source_location": "L542",
       "id": "lib_modx_to_rs_parser_derivecategorydecision",
       "community": 94,
       "norm_label": "derivecategorydecision()"
@@ -6668,7 +6677,7 @@
       "label": "uniqueByNormalized()",
       "file_type": "code",
       "source_file": "scripts/lib/modx-to-rs-parser.mjs",
-      "source_location": "L598",
+      "source_location": "L603",
       "id": "lib_modx_to_rs_parser_uniquebynormalized",
       "community": 94,
       "norm_label": "uniquebynormalized()"
@@ -6677,7 +6686,7 @@
       "label": "isNonStepLine()",
       "file_type": "code",
       "source_file": "scripts/lib/modx-to-rs-parser.mjs",
-      "source_location": "L623",
+      "source_location": "L628",
       "id": "lib_modx_to_rs_parser_isnonstepline",
       "community": 94,
       "norm_label": "isnonstepline()"
@@ -6686,7 +6695,7 @@
       "label": "deriveInstructions()",
       "file_type": "code",
       "source_file": "scripts/lib/modx-to-rs-parser.mjs",
-      "source_location": "L632",
+      "source_location": "L637",
       "id": "lib_modx_to_rs_parser_deriveinstructions",
       "community": 94,
       "norm_label": "deriveinstructions()"
@@ -6695,7 +6704,7 @@
       "label": "htmlToTextLines()",
       "file_type": "code",
       "source_file": "scripts/lib/modx-to-rs-parser.mjs",
-      "source_location": "L669",
+      "source_location": "L674",
       "id": "lib_modx_to_rs_parser_htmltotextlines",
       "community": 94,
       "norm_label": "htmltotextlines()"
@@ -6704,7 +6713,7 @@
       "label": "deriveInstructionsHtml()",
       "file_type": "code",
       "source_file": "scripts/lib/modx-to-rs-parser.mjs",
-      "source_location": "L686",
+      "source_location": "L691",
       "id": "lib_modx_to_rs_parser_deriveinstructionshtml",
       "community": 94,
       "norm_label": "deriveinstructionshtml()"
@@ -6713,7 +6722,7 @@
       "label": "parseVideoObject()",
       "file_type": "code",
       "source_file": "scripts/lib/modx-to-rs-parser.mjs",
-      "source_location": "L694",
+      "source_location": "L699",
       "id": "lib_modx_to_rs_parser_parsevideoobject",
       "community": 94,
       "norm_label": "parsevideoobject()"
@@ -6722,7 +6731,7 @@
       "label": "deriveVideo()",
       "file_type": "code",
       "source_file": "scripts/lib/modx-to-rs-parser.mjs",
-      "source_location": "L710",
+      "source_location": "L715",
       "id": "lib_modx_to_rs_parser_derivevideo",
       "community": 94,
       "norm_label": "derivevideo()"
@@ -6731,7 +6740,7 @@
       "label": "cardImgFromSrc()",
       "file_type": "code",
       "source_file": "scripts/lib/modx-to-rs-parser.mjs",
-      "source_location": "L728",
+      "source_location": "L733",
       "id": "lib_modx_to_rs_parser_cardimgfromsrc",
       "community": 94,
       "norm_label": "cardimgfromsrc()"
@@ -6740,7 +6749,7 @@
       "label": "deriveImg()",
       "file_type": "code",
       "source_file": "scripts/lib/modx-to-rs-parser.mjs",
-      "source_location": "L741",
+      "source_location": "L746",
       "id": "lib_modx_to_rs_parser_deriveimg",
       "community": 94,
       "norm_label": "deriveimg()"
@@ -6749,7 +6758,7 @@
       "label": "lastImageInHtml()",
       "file_type": "code",
       "source_file": "scripts/lib/modx-to-rs-parser.mjs",
-      "source_location": "L762",
+      "source_location": "L767",
       "id": "lib_modx_to_rs_parser_lastimageinhtml",
       "community": 94,
       "norm_label": "lastimageinhtml()"
@@ -6758,7 +6767,7 @@
       "label": "deriveSearchTerms()",
       "file_type": "code",
       "source_file": "scripts/lib/modx-to-rs-parser.mjs",
-      "source_location": "L774",
+      "source_location": "L783",
       "id": "lib_modx_to_rs_parser_derivesearchterms",
       "community": 94,
       "norm_label": "derivesearchterms()"
@@ -6767,7 +6776,7 @@
       "label": "normalizeServingUnit()",
       "file_type": "code",
       "source_file": "scripts/lib/modx-to-rs-parser.mjs",
-      "source_location": "L785",
+      "source_location": "L794",
       "id": "lib_modx_to_rs_parser_normalizeservingunit",
       "community": 94,
       "norm_label": "normalizeservingunit()"
@@ -6776,7 +6785,7 @@
       "label": "cleanServingParenthetical()",
       "file_type": "code",
       "source_file": "scripts/lib/modx-to-rs-parser.mjs",
-      "source_location": "L802",
+      "source_location": "L811",
       "id": "lib_modx_to_rs_parser_cleanservingparenthetical",
       "community": 94,
       "norm_label": "cleanservingparenthetical()"
@@ -6785,7 +6794,7 @@
       "label": "parseServingsFromText()",
       "file_type": "code",
       "source_file": "scripts/lib/modx-to-rs-parser.mjs",
-      "source_location": "L815",
+      "source_location": "L824",
       "id": "lib_modx_to_rs_parser_parseservingsfromtext",
       "community": 94,
       "norm_label": "parseservingsfromtext()"
@@ -6794,7 +6803,7 @@
       "label": "deriveServings()",
       "file_type": "code",
       "source_file": "scripts/lib/modx-to-rs-parser.mjs",
-      "source_location": "L836",
+      "source_location": "L845",
       "id": "lib_modx_to_rs_parser_deriveservings",
       "community": 94,
       "norm_label": "deriveservings()"
@@ -6803,7 +6812,7 @@
       "label": "hasMainStyleHozzavalokH2()",
       "file_type": "code",
       "source_file": "scripts/lib/modx-to-rs-parser.mjs",
-      "source_location": "L857",
+      "source_location": "L866",
       "id": "lib_modx_to_rs_parser_hasmainstylehozzavalokh2",
       "community": 94,
       "norm_label": "hasmainstylehozzavalokh2()"
@@ -6812,7 +6821,7 @@
       "label": "hasExplicitInstructionHeading()",
       "file_type": "code",
       "source_file": "scripts/lib/modx-to-rs-parser.mjs",
-      "source_location": "L861",
+      "source_location": "L870",
       "id": "lib_modx_to_rs_parser_hasexplicitinstructionheading",
       "community": 94,
       "norm_label": "hasexplicitinstructionheading()"
@@ -6821,7 +6830,7 @@
       "label": "deriveSubRecipes()",
       "file_type": "code",
       "source_file": "scripts/lib/modx-to-rs-parser.mjs",
-      "source_location": "L867",
+      "source_location": "L876",
       "id": "lib_modx_to_rs_parser_derivesubrecipes",
       "community": 94,
       "norm_label": "derivesubrecipes()"
@@ -6830,7 +6839,7 @@
       "label": "isOnlyStandaloneRecipeCollection()",
       "file_type": "code",
       "source_file": "scripts/lib/modx-to-rs-parser.mjs",
-      "source_location": "L1051",
+      "source_location": "L1060",
       "id": "lib_modx_to_rs_parser_isonlystandalonerecipecollection",
       "community": 94,
       "norm_label": "isonlystandalonerecipecollection()"
@@ -6839,7 +6848,7 @@
       "label": "idSlugFromRecipeTitle()",
       "file_type": "code",
       "source_file": "scripts/lib/modx-to-rs-parser.mjs",
-      "source_location": "L1059",
+      "source_location": "L1068",
       "id": "lib_modx_to_rs_parser_idslugfromrecipetitle",
       "community": 94,
       "norm_label": "idslugfromrecipetitle()"
@@ -6848,7 +6857,7 @@
       "label": "extractTitleServings()",
       "file_type": "code",
       "source_file": "scripts/lib/modx-to-rs-parser.mjs",
-      "source_location": "L1073",
+      "source_location": "L1082",
       "id": "lib_modx_to_rs_parser_extracttitleservings",
       "community": 94,
       "norm_label": "extracttitleservings()"
@@ -6857,7 +6866,7 @@
       "label": "applyPhotoCredit()",
       "file_type": "code",
       "source_file": "scripts/lib/modx-to-rs-parser.mjs",
-      "source_location": "L1082",
+      "source_location": "L1095",
       "id": "lib_modx_to_rs_parser_applyphotocredit",
       "community": 94,
       "norm_label": "applyphotocredit()"
@@ -6866,7 +6875,7 @@
       "label": "buildRecipesFromModxDoc()",
       "file_type": "code",
       "source_file": "scripts/lib/modx-to-rs-parser.mjs",
-      "source_location": "L1108",
+      "source_location": "L1121",
       "id": "lib_modx_to_rs_parser_buildrecipesfrommodxdoc",
       "community": 94,
       "norm_label": "buildrecipesfrommodxdoc()"
@@ -6875,7 +6884,7 @@
       "label": "timestampFromUnix()",
       "file_type": "code",
       "source_file": "scripts/lib/modx-to-rs-parser.mjs",
-      "source_location": "L1197",
+      "source_location": "L1216",
       "id": "lib_modx_to_rs_parser_timestampfromunix",
       "community": 94,
       "norm_label": "timestampfromunix()"
@@ -6884,7 +6893,7 @@
       "label": "buildRecipeFromModxDoc()",
       "file_type": "code",
       "source_file": "scripts/lib/modx-to-rs-parser.mjs",
-      "source_location": "L1221",
+      "source_location": "L1240",
       "id": "lib_modx_to_rs_parser_buildrecipefrommodxdoc",
       "community": 94,
       "norm_label": "buildrecipefrommodxdoc()"
@@ -6895,7 +6904,7 @@
       "source_file": "scripts/lib/storage-gzip-json.mjs",
       "source_location": "L1",
       "id": "scripts_lib_storage_gzip_json_mjs",
-      "community": 27,
+      "community": 11,
       "norm_label": "storage-gzip-json.mjs"
     },
     {
@@ -6904,7 +6913,7 @@
       "source_file": "scripts/lib/storage-gzip-json.mjs",
       "source_location": "L7",
       "id": "lib_storage_gzip_json_downloadbuffer",
-      "community": 27,
+      "community": 11,
       "norm_label": "downloadbuffer()"
     },
     {
@@ -6913,7 +6922,7 @@
       "source_file": "scripts/lib/storage-gzip-json.mjs",
       "source_location": "L20",
       "id": "lib_storage_gzip_json_downloadgzipjson",
-      "community": 27,
+      "community": 11,
       "norm_label": "downloadgzipjson()"
     },
     {
@@ -6922,7 +6931,7 @@
       "source_file": "scripts/lib/storage-gzip-json.mjs",
       "source_location": "L30",
       "id": "lib_storage_gzip_json_gzipjson",
-      "community": 27,
+      "community": 11,
       "norm_label": "gzipjson()"
     },
     {
@@ -6931,7 +6940,7 @@
       "source_file": "scripts/lib/modx-save-payload.mjs",
       "source_location": "L1",
       "id": "scripts_lib_modx_save_payload_mjs",
-      "community": 8,
+      "community": 14,
       "norm_label": "modx-save-payload.mjs"
     },
     {
@@ -6940,7 +6949,7 @@
       "source_file": "scripts/lib/modx-save-payload.mjs",
       "source_location": "L21",
       "id": "lib_modx_save_payload_gunzip",
-      "community": 8,
+      "community": 14,
       "norm_label": "gunzip"
     },
     {
@@ -6949,7 +6958,7 @@
       "source_file": "scripts/lib/modx-save-payload.mjs",
       "source_location": "L27",
       "id": "lib_modx_save_payload_parsemodxsavepayload",
-      "community": 8,
+      "community": 14,
       "norm_label": "parsemodxsavepayload()"
     },
     {
@@ -6958,7 +6967,7 @@
       "source_file": "scripts/lib/modx-save-payload.mjs",
       "source_location": "L53",
       "id": "lib_modx_save_payload_normaliseremovedids",
-      "community": 8,
+      "community": 14,
       "norm_label": "normaliseremovedids()"
     },
     {
@@ -6967,7 +6976,7 @@
       "source_file": "scripts/lib/modx-save-payload.mjs",
       "source_location": "L74",
       "id": "lib_modx_save_payload_classifypayload",
-      "community": 8,
+      "community": 14,
       "norm_label": "classifypayload()"
     },
     {
@@ -6976,7 +6985,7 @@
       "source_file": "scripts/lib/magazine-projection-snapshot.mjs",
       "source_location": "L1",
       "id": "scripts_lib_magazine_projection_snapshot_mjs",
-      "community": 27,
+      "community": 11,
       "norm_label": "magazine-projection-snapshot.mjs"
     },
     {
@@ -6985,7 +6994,7 @@
       "source_file": "scripts/lib/magazine-projection-snapshot.mjs",
       "source_location": "L8",
       "id": "lib_magazine_projection_snapshot_dirname",
-      "community": 27,
+      "community": 11,
       "norm_label": "__dirname"
     },
     {
@@ -6994,7 +7003,7 @@
       "source_file": "scripts/lib/magazine-projection-snapshot.mjs",
       "source_location": "L21",
       "id": "lib_magazine_projection_snapshot_readmetaprojections",
-      "community": 27,
+      "community": 11,
       "norm_label": "readmetaprojections()"
     },
     {
@@ -7003,7 +7012,7 @@
       "source_file": "scripts/lib/magazine-projection-snapshot.mjs",
       "source_location": "L30",
       "id": "lib_magazine_projection_snapshot_loadfullprojectionfromfirestore",
-      "community": 27,
+      "community": 11,
       "norm_label": "loadfullprojectionfromfirestore()"
     },
     {
@@ -7012,7 +7021,7 @@
       "source_file": "scripts/lib/magazine-projection-snapshot.mjs",
       "source_location": "L45",
       "id": "lib_magazine_projection_snapshot_mergeprojectionsnapshot",
-      "community": 27,
+      "community": 11,
       "norm_label": "mergeprojectionsnapshot()"
     },
     {
@@ -7021,7 +7030,7 @@
       "source_file": "scripts/lib/magazine-projection-snapshot.mjs",
       "source_location": "L86",
       "id": "lib_magazine_projection_snapshot_loadprojectiondocsforsync",
-      "community": 27,
+      "community": 11,
       "norm_label": "loadprojectiondocsforsync()"
     },
     {
@@ -7030,7 +7039,7 @@
       "source_file": "scripts/lib/magazine-projection-snapshot.mjs",
       "source_location": "L165",
       "id": "lib_magazine_projection_snapshot_uploadprojectionsnapshot",
-      "community": 27,
+      "community": 93,
       "norm_label": "uploadprojectionsnapshot()"
     },
     {
@@ -7039,7 +7048,7 @@
       "source_file": "scripts/lib/magazine-collections.mjs",
       "source_location": "L1",
       "id": "scripts_lib_magazine_collections_mjs",
-      "community": 105,
+      "community": 21,
       "norm_label": "magazine-collections.mjs"
     },
     {
@@ -7048,7 +7057,7 @@
       "source_file": "scripts/lib/magazine-collections.mjs",
       "source_location": "L5",
       "id": "lib_magazine_collections_root",
-      "community": 105,
+      "community": 21,
       "norm_label": "root"
     },
     {
@@ -7057,7 +7066,7 @@
       "source_file": "scripts/lib/magazine-collections.mjs",
       "source_location": "L22",
       "id": "lib_magazine_collections_writecollections",
-      "community": 105,
+      "community": 21,
       "norm_label": "writecollections()"
     },
     {
@@ -7066,7 +7075,7 @@
       "source_file": "scripts/lib/receptsarok-redirects-manifest.mjs",
       "source_location": "L1",
       "id": "scripts_lib_receptsarok_redirects_manifest_mjs",
-      "community": 125,
+      "community": 124,
       "norm_label": "receptsarok-redirects-manifest.mjs"
     },
     {
@@ -7075,7 +7084,7 @@
       "source_file": "scripts/lib/receptsarok-redirects-manifest.mjs",
       "source_location": "L7",
       "id": "lib_receptsarok_redirects_manifest_loadredirectsmanifest",
-      "community": 125,
+      "community": 124,
       "norm_label": "loadredirectsmanifest()"
     },
     {
@@ -7084,7 +7093,7 @@
       "source_file": "scripts/lib/receptsarok-redirects-manifest.mjs",
       "source_location": "L23",
       "id": "lib_receptsarok_redirects_manifest_mergeredirectentries",
-      "community": 125,
+      "community": 124,
       "norm_label": "mergeredirectentries()"
     },
     {
@@ -7093,7 +7102,7 @@
       "source_file": "scripts/lib/receptsarok-redirects-manifest.mjs",
       "source_location": "L59",
       "id": "lib_receptsarok_redirects_manifest_appendredirectsmanifest",
-      "community": 125,
+      "community": 124,
       "norm_label": "appendredirectsmanifest()"
     },
     {
@@ -7102,7 +7111,7 @@
       "source_file": "scripts/lib/receptsarok-redirects-manifest.mjs",
       "source_location": "L80",
       "id": "lib_receptsarok_redirects_manifest_registerredirectentries",
-      "community": 125,
+      "community": 124,
       "norm_label": "registerredirectentries()"
     },
     {
@@ -7111,7 +7120,7 @@
       "source_file": "scripts/lib/receptsarok-modx-create-sync.mjs",
       "source_location": "L1",
       "id": "scripts_lib_receptsarok_modx_create_sync_mjs",
-      "community": 29,
+      "community": 8,
       "norm_label": "receptsarok-modx-create-sync.mjs"
     },
     {
@@ -7120,7 +7129,7 @@
       "source_file": "scripts/lib/receptsarok-modx-create-sync.mjs",
       "source_location": "L15",
       "id": "lib_receptsarok_modx_create_sync_loadcategoryreviewmap",
-      "community": 29,
+      "community": 8,
       "norm_label": "loadcategoryreviewmap()"
     },
     {
@@ -7138,7 +7147,7 @@
       "source_file": "scripts/lib/receptsarok-modx-create-sync.mjs",
       "source_location": "L102",
       "id": "lib_receptsarok_modx_create_sync_persistcreatedrecipes",
-      "community": 29,
+      "community": 8,
       "norm_label": "persistcreatedrecipes()"
     },
     {
@@ -7147,7 +7156,7 @@
       "source_file": "scripts/lib/receptsarok-modx-create-sync.mjs",
       "source_location": "L152",
       "id": "lib_receptsarok_modx_create_sync_appenduncategorizedreview",
-      "community": 29,
+      "community": 8,
       "norm_label": "appenduncategorizedreview()"
     },
     {
@@ -7156,7 +7165,7 @@
       "source_file": "scripts/lib/empty-folders.mjs",
       "source_location": "L1",
       "id": "scripts_lib_empty_folders_mjs",
-      "community": 105,
+      "community": 21,
       "norm_label": "empty-folders.mjs"
     },
     {
@@ -7174,7 +7183,7 @@
       "source_file": "scripts/lib/empty-folders.mjs",
       "source_location": "L22",
       "id": "lib_empty_folders_emptycontentfolderpaths",
-      "community": 105,
+      "community": 21,
       "norm_label": "emptycontentfolderpaths()"
     },
     {
@@ -7183,7 +7192,7 @@
       "source_file": "scripts/lib/related-cards.mjs",
       "source_location": "L1",
       "id": "scripts_lib_related_cards_mjs",
-      "community": 105,
+      "community": 21,
       "norm_label": "related-cards.mjs"
     },
     {
@@ -7192,7 +7201,7 @@
       "source_file": "scripts/lib/related-cards.mjs",
       "source_location": "L4",
       "id": "lib_related_cards_bypublishedondesc",
-      "community": 105,
+      "community": 21,
       "norm_label": "bypublishedondesc()"
     },
     {
@@ -7201,7 +7210,7 @@
       "source_file": "scripts/lib/related-cards.mjs",
       "source_location": "L7",
       "id": "lib_related_cards_parentpathof",
-      "community": 105,
+      "community": 21,
       "norm_label": "parentpathof()"
     },
     {
@@ -7210,7 +7219,7 @@
       "source_file": "scripts/lib/related-cards.mjs",
       "source_location": "L34",
       "id": "lib_related_cards_updaterelatedcards",
-      "community": 105,
+      "community": 21,
       "norm_label": "updaterelatedcards()"
     },
     {
@@ -7219,7 +7228,7 @@
       "source_file": "scripts/lib/magazine-scope.mjs",
       "source_location": "L1",
       "id": "scripts_lib_magazine_scope_mjs",
-      "community": 8,
+      "community": 14,
       "norm_label": "magazine-scope.mjs"
     },
     {
@@ -7228,7 +7237,7 @@
       "source_file": "scripts/lib/magazine-scope.mjs",
       "source_location": "L7",
       "id": "lib_magazine_scope_ismodxreferencetype",
-      "community": 8,
+      "community": 14,
       "norm_label": "ismodxreferencetype()"
     },
     {
@@ -7237,7 +7246,7 @@
       "source_file": "scripts/lib/magazine-scope.mjs",
       "source_location": "L15",
       "id": "lib_magazine_scope_isrootreferencerow",
-      "community": 8,
+      "community": 14,
       "norm_label": "isrootreferencerow()"
     },
     {
@@ -7246,7 +7255,7 @@
       "source_file": "scripts/lib/magazine-scope.mjs",
       "source_location": "L24",
       "id": "lib_magazine_scope_parsemodxreferencetargetid",
-      "community": 8,
+      "community": 14,
       "norm_label": "parsemodxreferencetargetid()"
     },
     {
@@ -7255,7 +7264,7 @@
       "source_file": "scripts/lib/magazine-scope.mjs",
       "source_location": "L35",
       "id": "lib_magazine_scope_referencetargetids",
-      "community": 8,
+      "community": 14,
       "norm_label": "referencetargetids()"
     },
     {
@@ -7264,7 +7273,7 @@
       "source_file": "scripts/lib/magazine-scope.mjs",
       "source_location": "L48",
       "id": "lib_magazine_scope_ismagazinecandidate",
-      "community": 8,
+      "community": 14,
       "norm_label": "ismagazinecandidate()"
     },
     {
@@ -7273,7 +7282,7 @@
       "source_file": "scripts/lib/magazine-scope.mjs",
       "source_location": "L62",
       "id": "lib_magazine_scope_shouldsyncrow",
-      "community": 8,
+      "community": 14,
       "norm_label": "shouldsyncrow()"
     },
     {
@@ -7282,7 +7291,7 @@
       "source_file": "scripts/lib/normalize-ingredient-punctuation.mjs",
       "source_location": "L1",
       "id": "scripts_lib_normalize_ingredient_punctuation_mjs",
-      "community": 29,
+      "community": 100,
       "norm_label": "normalize-ingredient-punctuation.mjs"
     },
     {
@@ -7291,7 +7300,7 @@
       "source_file": "scripts/lib/normalize-ingredient-punctuation.mjs",
       "source_location": "L19",
       "id": "lib_normalize_ingredient_punctuation_striptrailinglistpunctuation",
-      "community": 29,
+      "community": 100,
       "norm_label": "striptrailinglistpunctuation()"
     },
     {
@@ -7300,7 +7309,7 @@
       "source_file": "scripts/lib/normalize-ingredient-punctuation.mjs",
       "source_location": "L28",
       "id": "lib_normalize_ingredient_punctuation_normalizegroup",
-      "community": 29,
+      "community": 100,
       "norm_label": "normalizegroup()"
     },
     {
@@ -7309,7 +7318,7 @@
       "source_file": "scripts/lib/normalize-ingredient-punctuation.mjs",
       "source_location": "L47",
       "id": "lib_normalize_ingredient_punctuation_normalizescope",
-      "community": 29,
+      "community": 100,
       "norm_label": "normalizescope()"
     },
     {
@@ -7318,7 +7327,7 @@
       "source_file": "scripts/lib/normalize-ingredient-punctuation.mjs",
       "source_location": "L71",
       "id": "lib_normalize_ingredient_punctuation_normalizerecipeingredientpunctuation",
-      "community": 29,
+      "community": 100,
       "norm_label": "normalizerecipeingredientpunctuation()"
     },
     {
@@ -7327,7 +7336,7 @@
       "source_file": "scripts/lib/receptsarok-modx-update-sync.mjs",
       "source_location": "L1",
       "id": "scripts_lib_receptsarok_modx_update_sync_mjs",
-      "community": 29,
+      "community": 100,
       "norm_label": "receptsarok-modx-update-sync.mjs"
     },
     {
@@ -7336,7 +7345,7 @@
       "source_file": "scripts/lib/receptsarok-modx-update-sync.mjs",
       "source_location": "L21",
       "id": "lib_receptsarok_modx_update_sync_modx_authoritative_recipe_fields",
-      "community": 29,
+      "community": 100,
       "norm_label": "modx_authoritative_recipe_fields"
     },
     {
@@ -7345,7 +7354,7 @@
       "source_file": "scripts/lib/receptsarok-modx-update-sync.mjs",
       "source_location": "L45",
       "id": "lib_receptsarok_modx_update_sync_stablestringify",
-      "community": 29,
+      "community": 100,
       "norm_label": "stablestringify()"
     },
     {
@@ -7354,7 +7363,7 @@
       "source_file": "scripts/lib/receptsarok-modx-update-sync.mjs",
       "source_location": "L53",
       "id": "lib_receptsarok_modx_update_sync_isnone",
-      "community": 29,
+      "community": 100,
       "norm_label": "isnone()"
     },
     {
@@ -7363,7 +7372,7 @@
       "source_file": "scripts/lib/receptsarok-modx-update-sync.mjs",
       "source_location": "L57",
       "id": "lib_receptsarok_modx_update_sync_fieldsequal",
-      "community": 29,
+      "community": 100,
       "norm_label": "fieldsequal()"
     },
     {
@@ -7372,7 +7381,7 @@
       "source_file": "scripts/lib/receptsarok-modx-update-sync.mjs",
       "source_location": "L80",
       "id": "lib_receptsarok_modx_update_sync_buildreceptsarokrecipeupdatefordoc",
-      "community": 29,
+      "community": 100,
       "norm_label": "buildreceptsarokrecipeupdatefordoc()"
     },
     {
@@ -7381,7 +7390,7 @@
       "source_file": "scripts/lib/receptsarok-modx-update-sync.mjs",
       "source_location": "L145",
       "id": "lib_receptsarok_modx_update_sync_persistupdatedrecipes",
-      "community": 29,
+      "community": 100,
       "norm_label": "persistupdatedrecipes()"
     },
     {
@@ -7480,7 +7489,7 @@
       "source_file": "scripts/lib/firebase-storage.mjs",
       "source_location": "L1",
       "id": "scripts_lib_firebase_storage_mjs",
-      "community": 41,
+      "community": 93,
       "norm_label": "firebase-storage.mjs"
     },
     {
@@ -7489,7 +7498,7 @@
       "source_file": "scripts/lib/firebase-storage.mjs",
       "source_location": "L7",
       "id": "lib_firebase_storage_getfirebasestorage",
-      "community": 41,
+      "community": 93,
       "norm_label": "getfirebasestorage()"
     },
     {
@@ -7498,7 +7507,7 @@
       "source_file": "scripts/lib/firebase-storage.mjs",
       "source_location": "L14",
       "id": "lib_firebase_storage_resolvebucketname",
-      "community": 41,
+      "community": 93,
       "norm_label": "resolvebucketname()"
     },
     {
@@ -7507,7 +7516,7 @@
       "source_file": "scripts/lib/firebase-storage.mjs",
       "source_location": "L32",
       "id": "lib_firebase_storage_getstoragebucket",
-      "community": 41,
+      "community": 93,
       "norm_label": "getstoragebucket()"
     },
     {
@@ -7516,7 +7525,7 @@
       "source_file": "scripts/lib/firebase-storage.mjs",
       "source_location": "L47",
       "id": "lib_firebase_storage_uploadpublicfile",
-      "community": 41,
+      "community": 93,
       "norm_label": "uploadpublicfile()"
     },
     {
@@ -7525,7 +7534,7 @@
       "source_file": "scripts/lib/firebase-storage.mjs",
       "source_location": "L71",
       "id": "lib_firebase_storage_uploadprivatefile",
-      "community": 41,
+      "community": 93,
       "norm_label": "uploadprivatefile()"
     },
     {
@@ -7534,7 +7543,7 @@
       "source_file": "scripts/lib/firebase-storage.mjs",
       "source_location": "L96",
       "id": "lib_firebase_storage_objectpathfrompublicurl",
-      "community": 41,
+      "community": 93,
       "norm_label": "objectpathfrompublicurl()"
     },
     {
@@ -7543,7 +7552,7 @@
       "source_file": "scripts/lib/firebase-storage.mjs",
       "source_location": "L108",
       "id": "lib_firebase_storage_versionfromobjectname",
-      "community": 41,
+      "community": 93,
       "norm_label": "versionfromobjectname()"
     },
     {
@@ -7552,7 +7561,7 @@
       "source_file": "scripts/lib/firebase-storage.mjs",
       "source_location": "L120",
       "id": "lib_firebase_storage_listversionedobjects",
-      "community": 41,
+      "community": 93,
       "norm_label": "listversionedobjects()"
     },
     {
@@ -7561,7 +7570,7 @@
       "source_file": "scripts/lib/firebase-storage.mjs",
       "source_location": "L149",
       "id": "lib_firebase_storage_pruneversionedobjects",
-      "community": 41,
+      "community": 93,
       "norm_label": "pruneversionedobjects()"
     },
     {
@@ -7570,7 +7579,7 @@
       "source_file": "scripts/lib/firebase-admin.mjs",
       "source_location": "L1",
       "id": "scripts_lib_firebase_admin_mjs",
-      "community": 124,
+      "community": 44,
       "norm_label": "firebase-admin.mjs"
     },
     {
@@ -7579,7 +7588,7 @@
       "source_file": "scripts/lib/firebase-admin.mjs",
       "source_location": "L7",
       "id": "lib_firebase_admin_ensurefirebaseapp",
-      "community": 124,
+      "community": 44,
       "norm_label": "ensurefirebaseapp()"
     },
     {
@@ -7588,7 +7597,7 @@
       "source_file": "scripts/lib/firebase-admin.mjs",
       "source_location": "L24",
       "id": "lib_firebase_admin_getfirestoredb",
-      "community": 124,
+      "community": 44,
       "norm_label": "getfirestoredb()"
     },
     {
@@ -7597,7 +7606,7 @@
       "source_file": "scripts/lib/doc-path-id.mjs",
       "source_location": "L1",
       "id": "scripts_lib_doc_path_id_mjs",
-      "community": 105,
+      "community": 11,
       "norm_label": "doc-path-id.mjs"
     },
     {
@@ -7606,7 +7615,7 @@
       "source_file": "scripts/lib/doc-path-id.mjs",
       "source_location": "L5",
       "id": "lib_doc_path_id_encodedocpathid",
-      "community": 105,
+      "community": 11,
       "norm_label": "encodedocpathid()"
     },
     {
@@ -7633,7 +7642,7 @@
       "source_file": "scripts/lib/firestore-docs.mjs",
       "source_location": "L1",
       "id": "scripts_lib_firestore_docs_mjs",
-      "community": 27,
+      "community": 11,
       "norm_label": "firestore-docs.mjs"
     },
     {
@@ -7642,7 +7651,7 @@
       "source_file": "scripts/lib/firestore-docs.mjs",
       "source_location": "L4",
       "id": "lib_firestore_docs_projection_fields",
-      "community": 27,
+      "community": 11,
       "norm_label": "projection_fields"
     },
     {
@@ -7651,7 +7660,7 @@
       "source_file": "scripts/lib/firestore-docs.mjs",
       "source_location": "L26",
       "id": "lib_firestore_docs_pickdocfields",
-      "community": 27,
+      "community": 11,
       "norm_label": "pickdocfields()"
     },
     {
@@ -7660,7 +7669,7 @@
       "source_file": "scripts/lib/firestore-docs.mjs",
       "source_location": "L43",
       "id": "lib_firestore_docs_loadprojectiondocs",
-      "community": 27,
+      "community": 21,
       "norm_label": "loadprojectiondocs()"
     },
     {
@@ -9010,7 +9019,7 @@
       "source_file": "src/lib/modxAuthor.js",
       "source_location": "L1",
       "id": "src_lib_modxauthor_js",
-      "community": 94,
+      "community": 76,
       "norm_label": "modxauthor.js"
     },
     {
@@ -9019,7 +9028,7 @@
       "source_file": "src/lib/modxAuthor.js",
       "source_location": "L25",
       "id": "lib_modxauthor_extractphotocredit",
-      "community": 94,
+      "community": 76,
       "norm_label": "extractphotocredit()"
     },
     {
@@ -9028,7 +9037,7 @@
       "source_file": "src/lib/modxAuthor.js",
       "source_location": "L44",
       "id": "lib_modxauthor_extractreceptjeauthor",
-      "community": 94,
+      "community": 76,
       "norm_label": "extractreceptjeauthor()"
     },
     {
@@ -9037,7 +9046,7 @@
       "source_file": "src/lib/modxAuthor.js",
       "source_location": "L50",
       "id": "lib_modxauthor_extractalairasauthor",
-      "community": 94,
+      "community": 76,
       "norm_label": "extractalairasauthor()"
     },
     {
@@ -9172,7 +9181,7 @@
       "source_file": "src/lib/receptsarokDedupePipeline.js",
       "source_location": "L88",
       "id": "lib_receptsarokdedupepipeline_hasrequiredrecipebody",
-      "community": 32,
+      "community": 15,
       "norm_label": "hasrequiredrecipebody()"
     },
     {
@@ -9190,7 +9199,7 @@
       "source_file": "src/lib/receptsarokDedupePipeline.js",
       "source_location": "L103",
       "id": "lib_receptsarokdedupepipeline_slugfromtitle",
-      "community": 32,
+      "community": 146,
       "norm_label": "slugfromtitle()"
     },
     {
@@ -9199,7 +9208,7 @@
       "source_file": "src/lib/receptsarokDedupePipeline.js",
       "source_location": "L111",
       "id": "lib_receptsarokdedupepipeline_uniquebynormalized",
-      "community": 32,
+      "community": 146,
       "norm_label": "uniquebynormalized()"
     },
     {
@@ -9208,7 +9217,7 @@
       "source_file": "src/lib/receptsarokDedupePipeline.js",
       "source_location": "L125",
       "id": "lib_receptsarokdedupepipeline_derivesearchterms",
-      "community": 32,
+      "community": 146,
       "norm_label": "derivesearchterms()"
     },
     {
@@ -9217,7 +9226,7 @@
       "source_file": "src/lib/receptsarokDedupePipeline.js",
       "source_location": "L133",
       "id": "lib_receptsarokdedupepipeline_nextuniquerecipeid",
-      "community": 32,
+      "community": 146,
       "norm_label": "nextuniquerecipeid()"
     },
     {
@@ -9226,7 +9235,7 @@
       "source_file": "src/lib/receptsarokDedupePipeline.js",
       "source_location": "L144",
       "id": "lib_receptsarokdedupepipeline_convertsubrecipestoparsedlist",
-      "community": 32,
+      "community": 146,
       "norm_label": "convertsubrecipestoparsedlist()"
     },
     {
@@ -9253,7 +9262,7 @@
       "source_file": "src/lib/receptsarokDedupePipeline.js",
       "source_location": "L273",
       "id": "lib_receptsarokdedupepipeline_redirecttargetforaliaspool",
-      "community": 91,
+      "community": 32,
       "norm_label": "redirecttargetforaliaspool()"
     },
     {
@@ -9371,7 +9380,7 @@
       "source_file": "src/lib/modxLinkedRecipes.js",
       "source_location": "L60",
       "id": "lib_modxlinkedrecipes_linkedmodxidsforrecipe",
-      "community": 76,
+      "community": 37,
       "norm_label": "linkedmodxidsforrecipe()"
     },
     {
@@ -9390,7 +9399,7 @@
       "source_location": "L1",
       "confidence": "EXTRACTED",
       "id": "src_lib_htmlentities_js",
-      "community": 96,
+      "community": 76,
       "norm_label": "$lib/htmlentities.js"
     },
     {
@@ -9399,7 +9408,7 @@
       "source_file": "src/lib/htmlEntities.js",
       "source_location": "L12",
       "id": "lib_htmlentities_named_html_entities",
-      "community": 96,
+      "community": 76,
       "norm_label": "named_html_entities"
     },
     {
@@ -9408,7 +9417,7 @@
       "source_file": "src/lib/htmlEntities.js",
       "source_location": "L104",
       "id": "lib_htmlentities_decodehtmlentities",
-      "community": 94,
+      "community": 76,
       "norm_label": "decodehtmlentities()"
     },
     {
@@ -9607,7 +9616,7 @@
       "source_file": "src/lib/receptsarokDedupeShared.js",
       "source_location": "L96",
       "id": "lib_receptsarokdedupeshared_publishedrecipesbyaliasid",
-      "community": 32,
+      "community": 15,
       "norm_label": "publishedrecipesbyaliasid()"
     },
     {
@@ -9688,7 +9697,7 @@
       "source_file": "src/lib/receptsarokDedupeShared.js",
       "source_location": "L218",
       "id": "lib_receptsarokdedupeshared_comparerecipecandidates",
-      "community": 91,
+      "community": 94,
       "norm_label": "comparerecipecandidates()"
     },
     {
@@ -9715,7 +9724,7 @@
       "source_file": "src/lib/receptsarokDedupeShared.js",
       "source_location": "L279",
       "id": "lib_receptsarokdedupeshared_pickredirecttarget",
-      "community": 91,
+      "community": 39,
       "norm_label": "pickredirecttarget()"
     },
     {
@@ -9724,7 +9733,7 @@
       "source_file": "src/lib/receptsarokDedupeShared.js",
       "source_location": "L298",
       "id": "lib_receptsarokdedupeshared_choosewinner",
-      "community": 91,
+      "community": 39,
       "norm_label": "choosewinner()"
     },
     {
@@ -9814,7 +9823,7 @@
       "source_file": "src/lib/siteConf.ts",
       "source_location": "L174",
       "id": "lib_siteconf_consolidaterecipeimg",
-      "community": 18,
+      "community": 23,
       "norm_label": "consolidaterecipeimg()"
     },
     {
@@ -9823,7 +9832,7 @@
       "source_file": "src/lib/siteConf.ts",
       "source_location": "L195",
       "id": "lib_siteconf_normalizerecipeforexport",
-      "community": 18,
+      "community": 23,
       "norm_label": "normalizerecipeforexport()"
     },
     {
@@ -9832,7 +9841,7 @@
       "source_file": "src/lib/siteConf.ts",
       "source_location": "L206",
       "id": "lib_siteconf_toruntimerecipe",
-      "community": 18,
+      "community": 23,
       "norm_label": "toruntimerecipe()"
     },
     {
@@ -9859,7 +9868,7 @@
       "source_file": "src/lib/siteConf.ts",
       "source_location": "L224",
       "id": "lib_siteconf_getrecipescachekeyfordev",
-      "community": 9,
+      "community": 23,
       "norm_label": "getrecipescachekeyfordev()"
     },
     {
@@ -9895,7 +9904,7 @@
       "source_file": "src/lib/siteConf.ts",
       "source_location": "L307",
       "id": "lib_siteconf_getrecipes",
-      "community": 9,
+      "community": 48,
       "norm_label": "getrecipes()"
     },
     {
@@ -9904,7 +9913,7 @@
       "source_file": "src/lib/siteConf.ts",
       "source_location": "L320",
       "id": "lib_siteconf_getcategories",
-      "community": 23,
+      "community": 12,
       "norm_label": "getcategories()"
     },
     {
@@ -9970,7 +9979,7 @@
       "source_location": "L1",
       "confidence": "EXTRACTED",
       "id": "src_lib_masonry_js",
-      "community": 43,
+      "community": 16,
       "norm_label": "$lib/masonry.js"
     },
     {
@@ -9979,7 +9988,7 @@
       "source_file": "src/lib/masonry.js",
       "source_location": "L12",
       "id": "lib_masonry_masonryitem",
-      "community": 43,
+      "community": 16,
       "norm_label": "masonryitem()"
     },
     {
@@ -10124,7 +10133,7 @@
       "source_file": "src/lib/authStore.ts",
       "source_location": "L24",
       "id": "lib_authstore_hasreceptsarokaccess",
-      "community": 20,
+      "community": 28,
       "norm_label": "hasreceptsarokaccess"
     },
     {
@@ -10322,7 +10331,7 @@
       "source_file": "src/lib/receptsarok.ts",
       "source_location": "L149",
       "id": "lib_receptsarok_recipeteaser",
-      "community": 18,
+      "community": 48,
       "norm_label": "recipeteaser"
     },
     {
@@ -10340,7 +10349,7 @@
       "source_file": "src/lib/receptsarok.ts",
       "source_location": "L174",
       "id": "lib_receptsarok_category",
-      "community": 18,
+      "community": 12,
       "norm_label": "category"
     },
     {
@@ -10371,19 +10380,28 @@
       "norm_label": "recipedetailpath()"
     },
     {
+      "label": "foldHungarian()",
+      "file_type": "code",
+      "source_file": "src/lib/receptsarok.ts",
+      "source_location": "L197",
+      "id": "lib_receptsarok_foldhungarian",
+      "community": 43,
+      "norm_label": "foldhungarian()"
+    },
+    {
       "label": "isRecipeFree()",
       "file_type": "code",
       "source_file": "src/lib/receptsarok.ts",
-      "source_location": "L196",
+      "source_location": "L201",
       "id": "lib_receptsarok_isrecipefree",
-      "community": 12,
+      "community": 18,
       "norm_label": "isrecipefree()"
     },
     {
       "label": "isReceptsarokRecipePath()",
       "file_type": "code",
       "source_file": "src/lib/receptsarok.ts",
-      "source_location": "L204",
+      "source_location": "L209",
       "id": "lib_receptsarok_isreceptsarokrecipepath",
       "community": 28,
       "norm_label": "isreceptsarokrecipepath()"
@@ -10392,16 +10410,16 @@
       "label": "recipeMacroFields()",
       "file_type": "code",
       "source_file": "src/lib/receptsarok.ts",
-      "source_location": "L209",
+      "source_location": "L214",
       "id": "lib_receptsarok_recipemacrofields",
-      "community": 12,
+      "community": 18,
       "norm_label": "recipemacrofields()"
     },
     {
       "label": "stripRecipeGatedFields()",
       "file_type": "code",
       "source_file": "src/lib/receptsarok.ts",
-      "source_location": "L230",
+      "source_location": "L235",
       "id": "lib_receptsarok_striprecipegatedfields",
       "community": 48,
       "norm_label": "striprecipegatedfields()"
@@ -10410,16 +10428,16 @@
       "label": "toTeaser()",
       "file_type": "code",
       "source_file": "src/lib/receptsarok.ts",
-      "source_location": "L241",
+      "source_location": "L246",
       "id": "lib_receptsarok_toteaser",
-      "community": 12,
+      "community": 18,
       "norm_label": "toteaser()"
     },
     {
       "label": "KeresRecipeTeaser",
       "file_type": "code",
       "source_file": "src/lib/receptsarok.ts",
-      "source_location": "L246",
+      "source_location": "L251",
       "id": "lib_receptsarok_keresrecipeteaser",
       "community": 18,
       "norm_label": "keresrecipeteaser"
@@ -10428,27 +10446,27 @@
       "label": "toKeresTeaser()",
       "file_type": "code",
       "source_file": "src/lib/receptsarok.ts",
-      "source_location": "L262",
+      "source_location": "L267",
       "id": "lib_receptsarok_tokeresteaser",
-      "community": 12,
+      "community": 18,
       "norm_label": "tokeresteaser()"
     },
     {
       "label": "normalizeRecipeTeaser()",
       "file_type": "code",
       "source_file": "src/lib/receptsarok.ts",
-      "source_location": "L282",
+      "source_location": "L287",
       "id": "lib_receptsarok_normalizerecipeteaser",
-      "community": 12,
+      "community": 18,
       "norm_label": "normalizerecipeteaser()"
     },
     {
       "label": "toLayoutRecipe()",
       "file_type": "code",
       "source_file": "src/lib/receptsarok.ts",
-      "source_location": "L309",
+      "source_location": "L314",
       "id": "lib_receptsarok_tolayoutrecipe",
-      "community": 48,
+      "community": 18,
       "norm_label": "tolayoutrecipe()"
     },
     {
@@ -11250,167 +11268,167 @@
       "source_file": "src/lib/modxToRsParser.js",
       "source_location": "L1",
       "id": "src_lib_modxtorsparser_js",
-      "community": 52,
+      "community": 76,
       "norm_label": "modxtorsparser.js"
     },
     {
       "label": "normalizeReadableText()",
       "file_type": "code",
       "source_file": "src/lib/modxToRsParser.js",
-      "source_location": "L7",
+      "source_location": "L8",
       "id": "lib_modxtorsparser_normalizereadabletext",
-      "community": 52,
+      "community": 76,
       "norm_label": "normalizereadabletext()"
     },
     {
       "label": "stripHtml()",
       "file_type": "code",
       "source_file": "src/lib/modxToRsParser.js",
-      "source_location": "L16",
+      "source_location": "L17",
       "id": "lib_modxtorsparser_striphtml",
-      "community": 52,
+      "community": 78,
       "norm_label": "striphtml()"
     },
     {
       "label": "normalizeText()",
       "file_type": "code",
       "source_file": "src/lib/modxToRsParser.js",
-      "source_location": "L29",
+      "source_location": "L30",
       "id": "lib_modxtorsparser_normalizetext",
-      "community": 39,
+      "community": 76,
       "norm_label": "normalizetext()"
     },
     {
       "label": "isDescriptionAuthorCompatible()",
       "file_type": "code",
       "source_file": "src/lib/modxToRsParser.js",
-      "source_location": "L38",
+      "source_location": "L39",
       "id": "lib_modxtorsparser_isdescriptionauthorcompatible",
-      "community": 39,
+      "community": 76,
       "norm_label": "isdescriptionauthorcompatible()"
     },
     {
       "label": "parseNullableNumber()",
       "file_type": "code",
       "source_file": "src/lib/modxToRsParser.js",
-      "source_location": "L45",
+      "source_location": "L46",
       "id": "lib_modxtorsparser_parsenullablenumber",
-      "community": 52,
+      "community": 78,
       "norm_label": "parsenullablenumber()"
     },
     {
       "label": "parseIssueCodeYear()",
       "file_type": "code",
       "source_file": "src/lib/modxToRsParser.js",
-      "source_location": "L55",
+      "source_location": "L56",
       "id": "lib_modxtorsparser_parseissuecodeyear",
-      "community": 30,
+      "community": 136,
       "norm_label": "parseissuecodeyear()"
     },
     {
       "label": "parseYearFromMagazinPath()",
       "file_type": "code",
       "source_file": "src/lib/modxToRsParser.js",
-      "source_location": "L73",
+      "source_location": "L74",
       "id": "lib_modxtorsparser_parseyearfrommagazinpath",
-      "community": 30,
+      "community": 136,
       "norm_label": "parseyearfrommagazinpath()"
     },
     {
       "label": "parseValidYear()",
       "file_type": "code",
       "source_file": "src/lib/modxToRsParser.js",
-      "source_location": "L94",
+      "source_location": "L95",
       "id": "lib_modxtorsparser_parsevalidyear",
-      "community": 30,
+      "community": 136,
       "norm_label": "parsevalidyear()"
     },
     {
       "label": "deriveDocCreatedAtIso()",
       "file_type": "code",
       "source_file": "src/lib/modxToRsParser.js",
-      "source_location": "L101",
+      "source_location": "L102",
       "id": "lib_modxtorsparser_derivedoccreatedatiso",
-      "community": 76,
+      "community": 136,
       "norm_label": "derivedoccreatedatiso()"
     },
     {
       "label": "parseYearFromIso()",
       "file_type": "code",
       "source_file": "src/lib/modxToRsParser.js",
-      "source_location": "L125",
+      "source_location": "L126",
       "id": "lib_modxtorsparser_parseyearfromiso",
-      "community": 30,
+      "community": 136,
       "norm_label": "parseyearfromiso()"
     },
     {
       "label": "deriveYear()",
       "file_type": "code",
       "source_file": "src/lib/modxToRsParser.js",
-      "source_location": "L131",
+      "source_location": "L132",
       "id": "lib_modxtorsparser_deriveyear",
-      "community": 30,
+      "community": 136,
       "norm_label": "deriveyear()"
     },
     {
       "label": "splitParagraphsFromTag()",
       "file_type": "code",
       "source_file": "src/lib/modxToRsParser.js",
-      "source_location": "L172",
+      "source_location": "L173",
       "id": "lib_modxtorsparser_splitparagraphsfromtag",
-      "community": 52,
+      "community": 76,
       "norm_label": "splitparagraphsfromtag()"
     },
     {
       "label": "parseIngredientItem()",
       "file_type": "code",
       "source_file": "src/lib/modxToRsParser.js",
-      "source_location": "L183",
+      "source_location": "L184",
       "id": "lib_modxtorsparser_parseingredientitem",
-      "community": 52,
+      "community": 76,
       "norm_label": "parseingredientitem()"
     },
     {
       "label": "splitIngredientListByComma()",
       "file_type": "code",
       "source_file": "src/lib/modxToRsParser.js",
-      "source_location": "L213",
+      "source_location": "L214",
       "id": "lib_modxtorsparser_splitingredientlistbycomma",
-      "community": 52,
+      "community": 76,
       "norm_label": "splitingredientlistbycomma()"
     },
     {
       "label": "mergeSplitDecimalIngredientLines()",
       "file_type": "code",
       "source_file": "src/lib/modxToRsParser.js",
-      "source_location": "L220",
+      "source_location": "L221",
       "id": "lib_modxtorsparser_mergesplitdecimalingredientlines",
-      "community": 52,
+      "community": 76,
       "norm_label": "mergesplitdecimalingredientlines()"
     },
     {
       "label": "parseIngredientLines()",
       "file_type": "code",
       "source_file": "src/lib/modxToRsParser.js",
-      "source_location": "L235",
+      "source_location": "L236",
       "id": "lib_modxtorsparser_parseingredientlines",
-      "community": 52,
+      "community": 76,
       "norm_label": "parseingredientlines()"
     },
     {
       "label": "parseParagraphIngredientGroups()",
       "file_type": "code",
       "source_file": "src/lib/modxToRsParser.js",
-      "source_location": "L251",
+      "source_location": "L252",
       "id": "lib_modxtorsparser_parseparagraphingredientgroups",
-      "community": 52,
+      "community": 76,
       "norm_label": "parseparagraphingredientgroups()"
     },
     {
       "label": "preInstructionContent()",
       "file_type": "code",
       "source_file": "src/lib/modxToRsParser.js",
-      "source_location": "L280",
+      "source_location": "L281",
       "id": "lib_modxtorsparser_preinstructioncontent",
       "community": 52,
       "norm_label": "preinstructioncontent()"
@@ -11419,7 +11437,7 @@
       "label": "parseIngredientGroups()",
       "file_type": "code",
       "source_file": "src/lib/modxToRsParser.js",
-      "source_location": "L288",
+      "source_location": "L293",
       "id": "lib_modxtorsparser_parseingredientgroups",
       "community": 52,
       "norm_label": "parseingredientgroups()"
@@ -11428,61 +11446,61 @@
       "label": "emptyNutritionTable()",
       "file_type": "code",
       "source_file": "src/lib/modxToRsParser.js",
-      "source_location": "L361",
+      "source_location": "L366",
       "id": "lib_modxtorsparser_emptynutritiontable",
-      "community": 52,
+      "community": 78,
       "norm_label": "emptynutritiontable()"
     },
     {
       "label": "nutritionFieldPatterns()",
       "file_type": "code",
       "source_file": "src/lib/modxToRsParser.js",
-      "source_location": "L373",
+      "source_location": "L378",
       "id": "lib_modxtorsparser_nutritionfieldpatterns",
-      "community": 52,
+      "community": 78,
       "norm_label": "nutritionfieldpatterns()"
     },
     {
       "label": "countNutritionValues()",
       "file_type": "code",
       "source_file": "src/lib/modxToRsParser.js",
-      "source_location": "L384",
+      "source_location": "L389",
       "id": "lib_modxtorsparser_countnutritionvalues",
-      "community": 52,
+      "community": 78,
       "norm_label": "countnutritionvalues()"
     },
     {
       "label": "parseNutritionFromRows()",
       "file_type": "code",
       "source_file": "src/lib/modxToRsParser.js",
-      "source_location": "L393",
+      "source_location": "L398",
       "id": "lib_modxtorsparser_parsenutritionfromrows",
-      "community": 52,
+      "community": 78,
       "norm_label": "parsenutritionfromrows()"
     },
     {
       "label": "parseNutritionFromText()",
       "file_type": "code",
       "source_file": "src/lib/modxToRsParser.js",
-      "source_location": "L415",
+      "source_location": "L420",
       "id": "lib_modxtorsparser_parsenutritionfromtext",
-      "community": 52,
+      "community": 78,
       "norm_label": "parsenutritionfromtext()"
     },
     {
       "label": "parseNutritionTables()",
       "file_type": "code",
       "source_file": "src/lib/modxToRsParser.js",
-      "source_location": "L449",
+      "source_location": "L454",
       "id": "lib_modxtorsparser_parsenutritiontables",
-      "community": 52,
+      "community": 78,
       "norm_label": "parsenutritiontables()"
     },
     {
       "label": "deriveAuthor()",
       "file_type": "code",
       "source_file": "src/lib/modxToRsParser.js",
-      "source_location": "L476",
+      "source_location": "L481",
       "id": "lib_modxtorsparser_deriveauthor",
       "community": 76,
       "norm_label": "deriveauthor()"
@@ -11491,34 +11509,34 @@
       "label": "deriveCategoryDecision()",
       "file_type": "code",
       "source_file": "src/lib/modxToRsParser.js",
-      "source_location": "L501",
+      "source_location": "L506",
       "id": "lib_modxtorsparser_derivecategorydecision",
-      "community": 76,
+      "community": 52,
       "norm_label": "derivecategorydecision()"
     },
     {
       "label": "uniqueByNormalized()",
       "file_type": "code",
       "source_file": "src/lib/modxToRsParser.js",
-      "source_location": "L562",
+      "source_location": "L567",
       "id": "lib_modxtorsparser_uniquebynormalized",
-      "community": 76,
+      "community": 52,
       "norm_label": "uniquebynormalized()"
     },
     {
       "label": "isNonStepLine()",
       "file_type": "code",
       "source_file": "src/lib/modxToRsParser.js",
-      "source_location": "L587",
+      "source_location": "L592",
       "id": "lib_modxtorsparser_isnonstepline",
-      "community": 52,
+      "community": 76,
       "norm_label": "isnonstepline()"
     },
     {
       "label": "deriveInstructions()",
       "file_type": "code",
       "source_file": "src/lib/modxToRsParser.js",
-      "source_location": "L596",
+      "source_location": "L601",
       "id": "lib_modxtorsparser_deriveinstructions",
       "community": 52,
       "norm_label": "deriveinstructions()"
@@ -11527,16 +11545,16 @@
       "label": "htmlToTextLines()",
       "file_type": "code",
       "source_file": "src/lib/modxToRsParser.js",
-      "source_location": "L635",
+      "source_location": "L640",
       "id": "lib_modxtorsparser_htmltotextlines",
-      "community": 52,
+      "community": 76,
       "norm_label": "htmltotextlines()"
     },
     {
       "label": "deriveInstructionsHtml()",
       "file_type": "code",
       "source_file": "src/lib/modxToRsParser.js",
-      "source_location": "L652",
+      "source_location": "L657",
       "id": "lib_modxtorsparser_deriveinstructionshtml",
       "community": 52,
       "norm_label": "deriveinstructionshtml()"
@@ -11545,25 +11563,25 @@
       "label": "parseVideoObject()",
       "file_type": "code",
       "source_file": "src/lib/modxToRsParser.js",
-      "source_location": "L660",
+      "source_location": "L665",
       "id": "lib_modxtorsparser_parsevideoobject",
-      "community": 76,
+      "community": 52,
       "norm_label": "parsevideoobject()"
     },
     {
       "label": "deriveVideo()",
       "file_type": "code",
       "source_file": "src/lib/modxToRsParser.js",
-      "source_location": "L676",
+      "source_location": "L681",
       "id": "lib_modxtorsparser_derivevideo",
-      "community": 76,
+      "community": 52,
       "norm_label": "derivevideo()"
     },
     {
       "label": "cardImgFromSrc()",
       "file_type": "code",
       "source_file": "src/lib/modxToRsParser.js",
-      "source_location": "L694",
+      "source_location": "L699",
       "id": "lib_modxtorsparser_cardimgfromsrc",
       "community": 52,
       "norm_label": "cardimgfromsrc()"
@@ -11572,124 +11590,124 @@
       "label": "deriveImg()",
       "file_type": "code",
       "source_file": "src/lib/modxToRsParser.js",
-      "source_location": "L707",
+      "source_location": "L712",
       "id": "lib_modxtorsparser_deriveimg",
-      "community": 76,
+      "community": 52,
       "norm_label": "deriveimg()"
     },
     {
       "label": "lastImageInHtml()",
       "file_type": "code",
       "source_file": "src/lib/modxToRsParser.js",
-      "source_location": "L728",
+      "source_location": "L733",
       "id": "lib_modxtorsparser_lastimageinhtml",
-      "community": 128,
+      "community": 76,
       "norm_label": "lastimageinhtml()"
     },
     {
       "label": "deriveSearchTerms()",
       "file_type": "code",
       "source_file": "src/lib/modxToRsParser.js",
-      "source_location": "L740",
+      "source_location": "L749",
       "id": "lib_modxtorsparser_derivesearchterms",
-      "community": 76,
+      "community": 52,
       "norm_label": "derivesearchterms()"
     },
     {
       "label": "normalizeServingUnit()",
       "file_type": "code",
       "source_file": "src/lib/modxToRsParser.js",
-      "source_location": "L751",
+      "source_location": "L760",
       "id": "lib_modxtorsparser_normalizeservingunit",
-      "community": 52,
+      "community": 76,
       "norm_label": "normalizeservingunit()"
     },
     {
       "label": "cleanServingParenthetical()",
       "file_type": "code",
       "source_file": "src/lib/modxToRsParser.js",
-      "source_location": "L768",
+      "source_location": "L777",
       "id": "lib_modxtorsparser_cleanservingparenthetical",
-      "community": 52,
+      "community": 76,
       "norm_label": "cleanservingparenthetical()"
     },
     {
       "label": "parseServingsFromText()",
       "file_type": "code",
       "source_file": "src/lib/modxToRsParser.js",
-      "source_location": "L781",
+      "source_location": "L790",
       "id": "lib_modxtorsparser_parseservingsfromtext",
-      "community": 52,
+      "community": 76,
       "norm_label": "parseservingsfromtext()"
     },
     {
       "label": "deriveServings()",
       "file_type": "code",
       "source_file": "src/lib/modxToRsParser.js",
-      "source_location": "L802",
+      "source_location": "L811",
       "id": "lib_modxtorsparser_deriveservings",
-      "community": 52,
+      "community": 76,
       "norm_label": "deriveservings()"
     },
     {
       "label": "hasMainStyleHozzavalokH2()",
       "file_type": "code",
       "source_file": "src/lib/modxToRsParser.js",
-      "source_location": "L823",
+      "source_location": "L832",
       "id": "lib_modxtorsparser_hasmainstylehozzavalokh2",
-      "community": 128,
+      "community": 149,
       "norm_label": "hasmainstylehozzavalokh2()"
     },
     {
       "label": "hasExplicitInstructionHeading()",
       "file_type": "code",
       "source_file": "src/lib/modxToRsParser.js",
-      "source_location": "L827",
+      "source_location": "L836",
       "id": "lib_modxtorsparser_hasexplicitinstructionheading",
-      "community": 128,
+      "community": 149,
       "norm_label": "hasexplicitinstructionheading()"
     },
     {
       "label": "deriveSubRecipes()",
       "file_type": "code",
       "source_file": "src/lib/modxToRsParser.js",
-      "source_location": "L833",
+      "source_location": "L842",
       "id": "lib_modxtorsparser_derivesubrecipes",
-      "community": 128,
+      "community": 149,
       "norm_label": "derivesubrecipes()"
     },
     {
       "label": "isOnlyStandaloneRecipeCollection()",
       "file_type": "code",
       "source_file": "src/lib/modxToRsParser.js",
-      "source_location": "L1016",
+      "source_location": "L1025",
       "id": "lib_modxtorsparser_isonlystandalonerecipecollection",
-      "community": 128,
+      "community": 149,
       "norm_label": "isonlystandalonerecipecollection()"
     },
     {
       "label": "idSlugFromRecipeTitle()",
       "file_type": "code",
       "source_file": "src/lib/modxToRsParser.js",
-      "source_location": "L1024",
+      "source_location": "L1033",
       "id": "lib_modxtorsparser_idslugfromrecipetitle",
-      "community": 39,
+      "community": 76,
       "norm_label": "idslugfromrecipetitle()"
     },
     {
       "label": "extractTitleServings()",
       "file_type": "code",
       "source_file": "src/lib/modxToRsParser.js",
-      "source_location": "L1038",
+      "source_location": "L1047",
       "id": "lib_modxtorsparser_extracttitleservings",
-      "community": 76,
+      "community": 52,
       "norm_label": "extracttitleservings()"
     },
     {
       "label": "applyPhotoCredit()",
       "file_type": "code",
       "source_file": "src/lib/modxToRsParser.js",
-      "source_location": "L1047",
+      "source_location": "L1060",
       "id": "lib_modxtorsparser_applyphotocredit",
       "community": 76,
       "norm_label": "applyphotocredit()"
@@ -11698,27 +11716,27 @@
       "label": "buildRecipesFromModxDoc()",
       "file_type": "code",
       "source_file": "src/lib/modxToRsParser.js",
-      "source_location": "L1073",
+      "source_location": "L1087",
       "id": "lib_modxtorsparser_buildrecipesfrommodxdoc",
-      "community": 76,
+      "community": 52,
       "norm_label": "buildrecipesfrommodxdoc()"
     },
     {
       "label": "timestampFromUnix()",
       "file_type": "code",
       "source_file": "src/lib/modxToRsParser.js",
-      "source_location": "L1165",
+      "source_location": "L1185",
       "id": "lib_modxtorsparser_timestampfromunix",
-      "community": 76,
+      "community": 52,
       "norm_label": "timestampfromunix()"
     },
     {
       "label": "buildRecipeFromModxDoc()",
       "file_type": "code",
       "source_file": "src/lib/modxToRsParser.js",
-      "source_location": "L1189",
+      "source_location": "L1210",
       "id": "lib_modxtorsparser_buildrecipefrommodxdoc",
-      "community": 76,
+      "community": 52,
       "norm_label": "buildrecipefrommodxdoc()"
     },
     {
@@ -11745,7 +11763,7 @@
       "source_file": "src/lib/firebase-admin.ts",
       "source_location": "L48",
       "id": "lib_firebase_admin_db",
-      "community": 9,
+      "community": 81,
       "norm_label": "db"
     },
     {
@@ -11754,7 +11772,7 @@
       "source_file": "src/lib/firebase-admin.ts",
       "source_location": "L64",
       "id": "lib_firebase_admin_getadminauth",
-      "community": 44,
+      "community": 9,
       "norm_label": "getadminauth()"
     },
     {
@@ -11799,7 +11817,7 @@
       "source_file": "src/lib/auth.ts",
       "source_location": "L9",
       "id": "lib_auth_loadsubscription",
-      "community": 20,
+      "community": 44,
       "norm_label": "loadsubscription()"
     },
     {
@@ -12069,7 +12087,7 @@
       "source_file": "src/lib/modx/transform.ts",
       "source_location": "L288",
       "id": "modx_transform_createmodxtransform",
-      "community": 33,
+      "community": 135,
       "norm_label": "createmodxtransform()"
     },
     {
@@ -12151,7 +12169,7 @@
       "source_file": "src/lib/modx/collections.ts",
       "source_location": "L209",
       "id": "modx_collections_docsbytags",
-      "community": 105,
+      "community": 33,
       "norm_label": "docsbytags()"
     },
     {
@@ -12214,7 +12232,7 @@
       "source_file": "src/lib/modx/collections.ts",
       "source_location": "L312",
       "id": "modx_collections_expertdocs",
-      "community": 105,
+      "community": 33,
       "norm_label": "expertdocs()"
     },
     {
@@ -12243,6 +12261,24 @@
       "id": "server_receptsaroksubscriber_requirereceptsaroksubscriber",
       "community": 9,
       "norm_label": "requirereceptsaroksubscriber()"
+    },
+    {
+      "label": "formRelay.ts",
+      "file_type": "code",
+      "source_file": "src/lib/server/formRelay.ts",
+      "source_location": "L1",
+      "id": "src_lib_server_formrelay_ts",
+      "community": 9,
+      "norm_label": "formrelay.ts"
+    },
+    {
+      "label": "formRelayOrigin()",
+      "file_type": "code",
+      "source_file": "src/lib/server/formRelay.ts",
+      "source_location": "L18",
+      "id": "server_formrelay_formrelayorigin",
+      "community": 9,
+      "norm_label": "formrelayorigin()"
     },
     {
       "label": "similarRecipes.ts",
@@ -12433,7 +12469,7 @@
       "source_location": "L1",
       "confidence": "EXTRACTED",
       "id": "src_lib_components_cardh_svelte",
-      "community": 43,
+      "community": 28,
       "norm_label": "$lib/components/cardh.svelte"
     },
     {
@@ -12443,7 +12479,7 @@
       "confidence": "EXTRACTED",
       "source_location": "L1",
       "id": "src_lib_components_cardbody_svelte",
-      "community": 43,
+      "community": 28,
       "norm_label": "cardbody.svelte"
     },
     {
@@ -12602,7 +12638,7 @@
       "source_location": "L1",
       "confidence": "EXTRACTED",
       "id": "src_lib_components_cardv_svelte",
-      "community": 43,
+      "community": 28,
       "norm_label": "$lib/components/cardv.svelte"
     },
     {
@@ -12612,7 +12648,7 @@
       "source_location": "L1",
       "confidence": "EXTRACTED",
       "id": "src_lib_components_expertsection_svelte",
-      "community": 28,
+      "community": 133,
       "norm_label": "$lib/components/expertsection.svelte"
     },
     {
@@ -12621,7 +12657,7 @@
       "source_file": "src/lib/components/ExpertSection.svelte",
       "source_location": "L17",
       "id": "components_expertsection_cardauthors",
-      "community": 28,
+      "community": 133,
       "norm_label": "cardauthors()"
     },
     {
@@ -12630,7 +12666,7 @@
       "source_file": "src/lib/analytics",
       "confidence": "EXTRACTED",
       "id": "users_vhollo_public_google_webdev_diabetes_magazin_src_lib_analytics",
-      "community": 28,
+      "community": 133,
       "norm_label": "$lib/analytics"
     },
     {
@@ -12640,7 +12676,7 @@
       "source_location": "L1",
       "confidence": "EXTRACTED",
       "id": "src_lib_components_subscribecta_svelte",
-      "community": 28,
+      "community": 133,
       "norm_label": "$lib/components/subscribecta.svelte"
     },
     {
@@ -12650,7 +12686,7 @@
       "source_location": "L1",
       "confidence": "EXTRACTED",
       "id": "src_lib_components_cards_svelte",
-      "community": 43,
+      "community": 28,
       "norm_label": "$lib/components/cards.svelte"
     },
     {
@@ -12726,7 +12762,7 @@
       "source_location": "L1",
       "confidence": "EXTRACTED",
       "id": "src_lib_components_newslettercta_svelte",
-      "community": 28,
+      "community": 133,
       "norm_label": "$lib/components/newslettercta.svelte"
     },
     {
@@ -12764,7 +12800,7 @@
       "source_location": "L1",
       "confidence": "EXTRACTED",
       "id": "src_lib_components_hero_svelte",
-      "community": 28,
+      "community": 133,
       "norm_label": "$lib/components/hero.svelte"
     },
     {
@@ -13272,7 +13308,7 @@
       "source_file": "src/lib/magazine/loadSearchIndex.ts",
       "source_location": "L1",
       "id": "src_lib_magazine_loadsearchindex_ts",
-      "community": 36,
+      "community": 17,
       "norm_label": "loadsearchindex.ts"
     },
     {
@@ -13281,7 +13317,7 @@
       "source_file": "src/lib/magazine/loadSearchIndex.ts",
       "source_location": "L2",
       "id": "magazine_loadsearchindex_readgzippedindexresponse",
-      "community": 36,
+      "community": 17,
       "norm_label": "readgzippedindexresponse()"
     },
     {
@@ -13290,7 +13326,7 @@
       "source_file": "src/lib/magazine/loadSearchIndex.ts",
       "source_location": "L20",
       "id": "magazine_loadsearchindex_prefersearchindexproxy",
-      "community": 36,
+      "community": 17,
       "norm_label": "prefersearchindexproxy()"
     },
     {
@@ -13299,7 +13335,7 @@
       "source_file": "src/lib/magazine/loadSearchIndex.ts",
       "source_location": "L32",
       "id": "magazine_loadsearchindex_fetchsearchindextext",
-      "community": 36,
+      "community": 17,
       "norm_label": "fetchsearchindextext()"
     },
     {
@@ -13353,7 +13389,7 @@
       "source_file": "src/lib/magazine/searchIndexCache.ts",
       "source_location": "L1",
       "id": "src_lib_magazine_searchindexcache_ts",
-      "community": 36,
+      "community": 17,
       "norm_label": "searchindexcache.ts"
     },
     {
@@ -13362,7 +13398,7 @@
       "source_file": "src/lib/magazine/searchIndexCache.ts",
       "source_location": "L4",
       "id": "magazine_searchindexcache_minisearch_load_options",
-      "community": 36,
+      "community": 17,
       "norm_label": "minisearch_load_options"
     },
     {
@@ -13371,7 +13407,7 @@
       "source_file": "src/lib/magazine/searchIndexCache.ts",
       "source_location": "L22",
       "id": "magazine_searchindexcache_clientsearchmeta",
-      "community": 36,
+      "community": 17,
       "norm_label": "clientsearchmeta"
     },
     {
@@ -13380,7 +13416,7 @@
       "source_file": "src/lib/magazine/searchIndexCache.ts",
       "source_location": "L34",
       "id": "magazine_searchindexcache_fetchsearchmeta",
-      "community": 36,
+      "community": 17,
       "norm_label": "fetchsearchmeta()"
     },
     {
@@ -13389,7 +13425,7 @@
       "source_file": "src/lib/magazine/searchIndexCache.ts",
       "source_location": "L56",
       "id": "magazine_searchindexcache_parseindex",
-      "community": 36,
+      "community": 17,
       "norm_label": "parseindex()"
     },
     {
@@ -13398,7 +13434,7 @@
       "source_file": "src/lib/magazine/searchIndexCache.ts",
       "source_location": "L60",
       "id": "magazine_searchindexcache_loadindex",
-      "community": 36,
+      "community": 17,
       "norm_label": "loadindex()"
     },
     {
@@ -13407,7 +13443,7 @@
       "source_file": "src/lib/magazine/searchIndexCache.ts",
       "source_location": "L79",
       "id": "magazine_searchindexcache_getcachedsearchindex",
-      "community": 36,
+      "community": 17,
       "norm_label": "getcachedsearchindex()"
     },
     {
@@ -13416,7 +13452,7 @@
       "source_file": "src/lib/magazine/searchIndexCache.ts",
       "source_location": "L84",
       "id": "magazine_searchindexcache_getsearchindex",
-      "community": 36,
+      "community": 17,
       "norm_label": "getsearchindex()"
     },
     {
@@ -13711,7 +13747,7 @@
       "label": "actions",
       "file_type": "code",
       "source_file": "src/routes/hirlevel/+page.server.ts",
-      "source_location": "L11",
+      "source_location": "L12",
       "id": "hirlevel_page_server_actions",
       "community": 9,
       "norm_label": "actions"
@@ -13909,7 +13945,7 @@
       "label": "isFiltering",
       "file_type": "code",
       "source_file": "src/routes/receptsarok/[category=category]/+page.svelte",
-      "source_location": "L69",
+      "source_location": "L78",
       "id": "category_category_page_isfiltering",
       "community": 43,
       "norm_label": "isfiltering"
@@ -13956,7 +13992,7 @@
       "source_file": "src/routes/receptsarok/[year=year]/[id]/$types",
       "confidence": "EXTRACTED",
       "id": "users_vhollo_public_google_webdev_diabetes_magazin_src_routes_receptsarok_year_year_id_types",
-      "community": 48,
+      "community": 16,
       "norm_label": "./$types"
     },
     {
@@ -14037,7 +14073,7 @@
       "source_file": "src/routes/keres/+page.svelte",
       "source_location": "L116",
       "id": "keres_page_recipeteaserfromhit",
-      "community": 12,
+      "community": 28,
       "norm_label": "recipeteaserfromhit()"
     },
     {
@@ -14244,7 +14280,7 @@
       "source_file": "src/routes/api/admin/cms-sync/+server.ts",
       "source_location": "L1",
       "id": "src_routes_api_admin_cms_sync_server_ts",
-      "community": 44,
+      "community": 128,
       "norm_label": "+server.ts"
     },
     {
@@ -14253,7 +14289,7 @@
       "source_file": "src/routes/api/admin/cms-sync/+server.ts",
       "source_location": "L29",
       "id": "cms_sync_server_sync_targets",
-      "community": 44,
+      "community": 128,
       "norm_label": "sync_targets"
     },
     {
@@ -14262,7 +14298,7 @@
       "source_file": "src/routes/api/admin/cms-sync/+server.ts",
       "source_location": "L30",
       "id": "cms_sync_server_synctarget",
-      "community": 44,
+      "community": 128,
       "norm_label": "synctarget"
     },
     {
@@ -14271,7 +14307,7 @@
       "source_file": "src/routes/api/admin/cms-sync/+server.ts",
       "source_location": "L32",
       "id": "cms_sync_server_default_origins",
-      "community": 44,
+      "community": 128,
       "norm_label": "default_origins"
     },
     {
@@ -14280,7 +14316,7 @@
       "source_file": "src/routes/api/admin/cms-sync/+server.ts",
       "source_location": "L39",
       "id": "cms_sync_server_allowedorigins",
-      "community": 44,
+      "community": 128,
       "norm_label": "allowedorigins()"
     },
     {
@@ -14289,7 +14325,7 @@
       "source_file": "src/routes/api/admin/cms-sync/+server.ts",
       "source_location": "L51",
       "id": "cms_sync_server_corsheaders",
-      "community": 44,
+      "community": 128,
       "norm_label": "corsheaders()"
     },
     {
@@ -14298,7 +14334,7 @@
       "source_file": "src/routes/api/admin/cms-sync/+server.ts",
       "source_location": "L66",
       "id": "cms_sync_server_adminemails",
-      "community": 44,
+      "community": 128,
       "norm_label": "adminemails()"
     },
     {
@@ -14307,7 +14343,7 @@
       "source_file": "src/routes/api/admin/cms-sync/+server.ts",
       "source_location": "L73",
       "id": "cms_sync_server_parsetargets",
-      "community": 44,
+      "community": 128,
       "norm_label": "parsetargets()"
     },
     {
@@ -14316,7 +14352,7 @@
       "source_file": "src/routes/api/admin/cms-sync/+server.ts",
       "source_location": "L88",
       "id": "cms_sync_server_options",
-      "community": 44,
+      "community": 128,
       "norm_label": "options()"
     },
     {
@@ -14325,7 +14361,7 @@
       "source_file": "src/routes/api/admin/cms-sync/+server.ts",
       "source_location": "L91",
       "id": "cms_sync_server_post",
-      "community": 44,
+      "community": 128,
       "norm_label": "post()"
     },
     {
@@ -14503,7 +14539,7 @@
       "label": "actions",
       "file_type": "code",
       "source_file": "src/routes/kviz/[...id]/+page.server.ts",
-      "source_location": "L7",
+      "source_location": "L8",
       "id": "id_page_server_actions",
       "community": 9,
       "norm_label": "actions"
@@ -14613,7 +14649,7 @@
       "source_file": "src/routes/kviz/tabella/$types",
       "confidence": "EXTRACTED",
       "id": "users_vhollo_public_google_webdev_diabetes_magazin_src_routes_kviz_tabella_types",
-      "community": 96,
+      "community": 23,
       "norm_label": "./$types"
     },
     {
@@ -15036,7 +15072,7 @@
       "source_file": "drizzle/schema.ts",
       "source_location": "L545",
       "id": "drizzle_schema_modx_site_content",
-      "community": 94,
+      "community": 36,
       "norm_label": "modx_site_content"
     },
     {
@@ -15054,7 +15090,7 @@
       "source_file": "drizzle/schema.ts",
       "source_location": "L606",
       "id": "drizzle_schema_modx_site_htmlsnippets",
-      "community": 94,
+      "community": 36,
       "norm_label": "modx_site_htmlsnippets"
     },
     {
@@ -16422,7 +16458,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L219",
       "id": "meta_0000_snapshot_columns_user",
-      "community": 133,
+      "community": 87,
       "norm_label": "user"
     },
     {
@@ -16431,7 +16467,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L220",
       "id": "meta_0000_snapshot_user_autoincrement",
-      "community": 133,
+      "community": 87,
       "norm_label": "autoincrement"
     },
     {
@@ -16440,7 +16476,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L221",
       "id": "meta_0000_snapshot_user_name",
-      "community": 133,
+      "community": 87,
       "norm_label": "name"
     },
     {
@@ -16449,7 +16485,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L222",
       "id": "meta_0000_snapshot_user_type",
-      "community": 133,
+      "community": 87,
       "norm_label": "type"
     },
     {
@@ -16458,7 +16494,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L223",
       "id": "meta_0000_snapshot_user_primarykey",
-      "community": 133,
+      "community": 87,
       "norm_label": "primarykey"
     },
     {
@@ -16467,7 +16503,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L224",
       "id": "meta_0000_snapshot_user_notnull",
-      "community": 133,
+      "community": 87,
       "norm_label": "notnull"
     },
     {
@@ -16476,7 +16512,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L226",
       "id": "meta_0000_snapshot_columns_jatek",
-      "community": 87,
+      "community": 145,
       "norm_label": "jatek"
     },
     {
@@ -16485,7 +16521,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L227",
       "id": "meta_0000_snapshot_jatek_autoincrement",
-      "community": 87,
+      "community": 145,
       "norm_label": "autoincrement"
     },
     {
@@ -16494,7 +16530,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L228",
       "id": "meta_0000_snapshot_jatek_name",
-      "community": 87,
+      "community": 145,
       "norm_label": "name"
     },
     {
@@ -16503,7 +16539,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L229",
       "id": "meta_0000_snapshot_jatek_type",
-      "community": 87,
+      "community": 145,
       "norm_label": "type"
     },
     {
@@ -16512,7 +16548,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L230",
       "id": "meta_0000_snapshot_jatek_primarykey",
-      "community": 87,
+      "community": 145,
       "norm_label": "primarykey"
     },
     {
@@ -16521,7 +16557,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L231",
       "id": "meta_0000_snapshot_jatek_notnull",
-      "community": 87,
+      "community": 145,
       "norm_label": "notnull"
     },
     {
@@ -16836,7 +16872,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L330",
       "id": "meta_0000_snapshot_modx_diaeuro2014_player_columns",
-      "community": 47,
+      "community": 22,
       "norm_label": "columns"
     },
     {
@@ -16863,7 +16899,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L333",
       "id": "meta_0000_snapshot_uid_name",
-      "community": 22,
+      "community": 47,
       "norm_label": "name"
     },
     {
@@ -16899,7 +16935,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L338",
       "id": "meta_0000_snapshot_columns_player",
-      "community": 47,
+      "community": 22,
       "norm_label": "player"
     },
     {
@@ -16908,7 +16944,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L339",
       "id": "meta_0000_snapshot_player_autoincrement",
-      "community": 47,
+      "community": 22,
       "norm_label": "autoincrement"
     },
     {
@@ -16917,7 +16953,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L340",
       "id": "meta_0000_snapshot_player_name",
-      "community": 47,
+      "community": 22,
       "norm_label": "name"
     },
     {
@@ -16926,7 +16962,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L341",
       "id": "meta_0000_snapshot_player_type",
-      "community": 47,
+      "community": 22,
       "norm_label": "type"
     },
     {
@@ -16935,7 +16971,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L342",
       "id": "meta_0000_snapshot_player_primarykey",
-      "community": 47,
+      "community": 22,
       "norm_label": "primarykey"
     },
     {
@@ -16944,7 +16980,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L343",
       "id": "meta_0000_snapshot_player_notnull",
-      "community": 47,
+      "community": 22,
       "norm_label": "notnull"
     },
     {
@@ -16971,7 +17007,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L348",
       "id": "meta_0000_snapshot_indexes_uid",
-      "community": 22,
+      "community": 47,
       "norm_label": "uid"
     },
     {
@@ -16980,7 +17016,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L350",
       "id": "meta_0000_snapshot_uid_columns",
-      "community": 22,
+      "community": 47,
       "norm_label": "columns"
     },
     {
@@ -16989,7 +17025,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L353",
       "id": "meta_0000_snapshot_uid_isunique",
-      "community": 22,
+      "community": 47,
       "norm_label": "isunique"
     },
     {
@@ -17313,7 +17349,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L458",
       "id": "meta_0000_snapshot_tables_modx_diaeuro2015_toto",
-      "community": 68,
+      "community": 50,
       "norm_label": "modx_diaeuro2015_toto"
     },
     {
@@ -17322,7 +17358,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L459",
       "id": "meta_0000_snapshot_modx_diaeuro2015_toto_name",
-      "community": 68,
+      "community": 50,
       "norm_label": "name"
     },
     {
@@ -17331,7 +17367,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L460",
       "id": "meta_0000_snapshot_modx_diaeuro2015_toto_columns",
-      "community": 68,
+      "community": 50,
       "norm_label": "columns"
     },
     {
@@ -17340,7 +17376,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L490",
       "id": "meta_0000_snapshot_modx_diaeuro2015_toto_compositeprimarykeys",
-      "community": 68,
+      "community": 50,
       "norm_label": "compositeprimarykeys"
     },
     {
@@ -17349,7 +17385,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L491",
       "id": "meta_0000_snapshot_modx_diaeuro2015_toto_indexes",
-      "community": 22,
+      "community": 47,
       "norm_label": "indexes"
     },
     {
@@ -17358,7 +17394,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L500",
       "id": "meta_0000_snapshot_modx_diaeuro2015_toto_foreignkeys",
-      "community": 68,
+      "community": 50,
       "norm_label": "foreignkeys"
     },
     {
@@ -17367,7 +17403,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L501",
       "id": "meta_0000_snapshot_modx_diaeuro2015_toto_uniqueconstraints",
-      "community": 68,
+      "community": 50,
       "norm_label": "uniqueconstraints"
     },
     {
@@ -17439,7 +17475,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L548",
       "id": "meta_0000_snapshot_tables_modx_diaeuro2017_toto",
-      "community": 50,
+      "community": 68,
       "norm_label": "modx_diaeuro2017_toto"
     },
     {
@@ -17448,7 +17484,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L549",
       "id": "meta_0000_snapshot_modx_diaeuro2017_toto_name",
-      "community": 50,
+      "community": 68,
       "norm_label": "name"
     },
     {
@@ -17457,7 +17493,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L550",
       "id": "meta_0000_snapshot_modx_diaeuro2017_toto_columns",
-      "community": 50,
+      "community": 68,
       "norm_label": "columns"
     },
     {
@@ -17466,7 +17502,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L580",
       "id": "meta_0000_snapshot_modx_diaeuro2017_toto_compositeprimarykeys",
-      "community": 50,
+      "community": 68,
       "norm_label": "compositeprimarykeys"
     },
     {
@@ -17475,7 +17511,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L581",
       "id": "meta_0000_snapshot_modx_diaeuro2017_toto_indexes",
-      "community": 22,
+      "community": 47,
       "norm_label": "indexes"
     },
     {
@@ -17484,7 +17520,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L590",
       "id": "meta_0000_snapshot_modx_diaeuro2017_toto_foreignkeys",
-      "community": 50,
+      "community": 68,
       "norm_label": "foreignkeys"
     },
     {
@@ -17493,7 +17529,7 @@
       "source_file": "drizzle/meta/0000_snapshot.json",
       "source_location": "L591",
       "id": "meta_0000_snapshot_modx_diaeuro2017_toto_uniqueconstraints",
-      "community": 50,
+      "community": 68,
       "norm_label": "uniqueconstraints"
     },
     {
@@ -17979,7 +18015,7 @@
       "source_file": "AGENTS.md",
       "source_location": "L25",
       "id": "magazin_agents_navigation_system",
-      "community": 101,
+      "community": 144,
       "norm_label": "navigation system"
     },
     {
@@ -17988,7 +18024,7 @@
       "source_file": "AGENTS.md",
       "source_location": "L32",
       "id": "magazin_agents_primary_navigation_nav1",
-      "community": 101,
+      "community": 144,
       "norm_label": "primary navigation (nav1)"
     },
     {
@@ -17997,7 +18033,7 @@
       "source_file": "AGENTS.md",
       "source_location": "L57",
       "id": "magazin_agents_secondary_navigation_nav2",
-      "community": 101,
+      "community": 144,
       "norm_label": "secondary navigation (nav2)"
     },
     {
@@ -18078,7 +18114,7 @@
       "source_file": "AGENTS.md",
       "source_location": "L142",
       "id": "magazin_agents_navigation_usage_in_routes",
-      "community": 101,
+      "community": 144,
       "norm_label": "navigation usage in routes"
     },
     {
@@ -18087,7 +18123,7 @@
       "source_file": "AGENTS.md",
       "source_location": "L161",
       "id": "magazin_agents_global_typography_homepage_redesign_2026",
-      "community": 101,
+      "community": 144,
       "norm_label": "global typography (homepage redesign 2026)"
     },
     {
@@ -18096,7 +18132,7 @@
       "source_file": "AGENTS.md",
       "source_location": "L169",
       "id": "magazin_agents_page_shell_left_rail_site_wide_2026",
-      "community": 101,
+      "community": 144,
       "norm_label": "page shell / left rail (site-wide, 2026)"
     },
     {
@@ -18114,7 +18150,7 @@
       "source_file": "AGENTS.md",
       "source_location": "L230",
       "id": "magazin_agents_home_route",
-      "community": 143,
+      "community": 150,
       "norm_label": "home route (`/`)"
     },
     {
@@ -18123,7 +18159,7 @@
       "source_file": "AGENTS.md",
       "source_location": "L237",
       "id": "magazin_agents_server_side_logic_page_server_ts",
-      "community": 143,
+      "community": 150,
       "norm_label": "server-side logic (`+page.server.ts`)"
     },
     {
@@ -18132,7 +18168,7 @@
       "source_file": "AGENTS.md",
       "source_location": "L245",
       "id": "magazin_agents_expert_picks_expertcards",
-      "community": 143,
+      "community": 150,
       "norm_label": "expert picks (`expertcards`)"
     },
     {
@@ -18141,7 +18177,7 @@
       "source_file": "AGENTS.md",
       "source_location": "L257",
       "id": "magazin_agents_client_side_logic_page_svelte",
-      "community": 143,
+      "community": 150,
       "norm_label": "client-side logic (`+page.svelte`)"
     },
     {
@@ -18465,7 +18501,7 @@
       "source_file": "AGENTS.md",
       "source_location": "L761",
       "id": "magazin_agents_authentication_logic",
-      "community": 137,
+      "community": 148,
       "norm_label": "authentication logic"
     },
     {
@@ -18474,7 +18510,7 @@
       "source_file": "AGENTS.md",
       "source_location": "L765",
       "id": "magazin_agents_authentication_methods",
-      "community": 137,
+      "community": 148,
       "norm_label": "authentication methods"
     },
     {
@@ -18483,7 +18519,7 @@
       "source_file": "AGENTS.md",
       "source_location": "L778",
       "id": "magazin_agents_authentication_state",
-      "community": 137,
+      "community": 148,
       "norm_label": "authentication state"
     },
     {
@@ -18492,7 +18528,7 @@
       "source_file": "AGENTS.md",
       "source_location": "L784",
       "id": "magazin_agents_protected_features",
-      "community": 137,
+      "community": 148,
       "norm_label": "protected features"
     },
     {
@@ -18501,7 +18537,7 @@
       "source_file": "AGENTS.md",
       "source_location": "L790",
       "id": "magazin_agents_logout",
-      "community": 137,
+      "community": 148,
       "norm_label": "logout"
     },
     {
@@ -18510,7 +18546,7 @@
       "source_file": "AGENTS.md",
       "source_location": "L798",
       "id": "magazin_agents_receptsarok_routes_receptsarok",
-      "community": 71,
+      "community": 130,
       "norm_label": "receptsarok routes (`/receptsarok`)"
     },
     {
@@ -18519,7 +18555,7 @@
       "source_file": "AGENTS.md",
       "source_location": "L810",
       "id": "magazin_agents_data_source",
-      "community": 71,
+      "community": 130,
       "norm_label": "data source"
     },
     {
@@ -18528,7 +18564,7 @@
       "source_file": "AGENTS.md",
       "source_location": "L840",
       "id": "magazin_agents_recipe_data_pipeline_recipes_json_create_only",
-      "community": 71,
+      "community": 130,
       "norm_label": "recipe data pipeline (`recipes.json`) \u2014 create-only"
     },
     {
@@ -18537,7 +18573,7 @@
       "source_file": "AGENTS.md",
       "source_location": "L863",
       "id": "magazin_agents_dedupe_sync_process_recipes",
-      "community": 71,
+      "community": 130,
       "norm_label": "dedupe & sync process (recipes)"
     },
     {
@@ -18546,7 +18582,7 @@
       "source_file": "AGENTS.md",
       "source_location": "L873",
       "id": "magazin_agents_magazine_receptsarok_redirects_storage_processing",
-      "community": 78,
+      "community": 71,
       "norm_label": "magazine \u2192 receptsarok redirects (storage & processing)"
     },
     {
@@ -18555,7 +18591,7 @@
       "source_file": "AGENTS.md",
       "source_location": "L877",
       "id": "magazin_agents_where_redirects_are_stored",
-      "community": 78,
+      "community": 71,
       "norm_label": "where redirects are stored"
     },
     {
@@ -18564,7 +18600,7 @@
       "source_file": "AGENTS.md",
       "source_location": "L889",
       "id": "magazin_agents_sync_time_processing",
-      "community": 78,
+      "community": 71,
       "norm_label": "sync-time processing"
     },
     {
@@ -18573,7 +18609,7 @@
       "source_file": "AGENTS.md",
       "source_location": "L914",
       "id": "magazin_agents_dynamic_matching",
-      "community": 78,
+      "community": 71,
       "norm_label": "dynamic matching"
     },
     {
@@ -18582,7 +18618,7 @@
       "source_file": "AGENTS.md",
       "source_location": "L930",
       "id": "magazin_agents_no_existing_match_sync_create_new_recipe",
-      "community": 78,
+      "community": 71,
       "norm_label": "no existing match \u2192 sync-create (new recipe)"
     },
     {
@@ -18591,7 +18627,7 @@
       "source_file": "AGENTS.md",
       "source_location": "L941",
       "id": "magazin_agents_existing_recipe_update_on_re_save",
-      "community": 78,
+      "community": 71,
       "norm_label": "existing-recipe update on re-save"
     },
     {
@@ -18600,7 +18636,7 @@
       "source_file": "AGENTS.md",
       "source_location": "L950",
       "id": "magazin_agents_runtime_request_handling",
-      "community": 78,
+      "community": 71,
       "norm_label": "runtime request handling"
     },
     {
@@ -18609,7 +18645,7 @@
       "source_file": "AGENTS.md",
       "source_location": "L956",
       "id": "magazin_agents_pitfalls_maintenance",
-      "community": 78,
+      "community": 71,
       "norm_label": "pitfalls & maintenance"
     },
     {
@@ -18618,7 +18654,7 @@
       "source_file": "AGENTS.md",
       "source_location": "L964",
       "id": "magazin_agents_paywall_freemium_model",
-      "community": 71,
+      "community": 130,
       "norm_label": "paywall / freemium model"
     },
     {
@@ -18627,7 +18663,7 @@
       "source_file": "AGENTS.md",
       "source_location": "L974",
       "id": "magazin_agents_route_structure",
-      "community": 71,
+      "community": 130,
       "norm_label": "route structure"
     },
     {
@@ -18636,7 +18672,7 @@
       "source_file": "AGENTS.md",
       "source_location": "L980",
       "id": "magazin_agents_components",
-      "community": 71,
+      "community": 130,
       "norm_label": "components"
     },
     {
@@ -18645,7 +18681,7 @@
       "source_file": "AGENTS.md",
       "source_location": "L989",
       "id": "magazin_agents_cross_linking_with_magazine",
-      "community": 71,
+      "community": 130,
       "norm_label": "cross-linking with magazine"
     },
     {
@@ -18663,7 +18699,7 @@
       "source_file": "AGENTS.md",
       "source_location": "L1037",
       "id": "magazin_agents_magazine_content_sync_modx_firestore",
-      "community": 136,
+      "community": 147,
       "norm_label": "magazine content sync (modx \u2192 firestore)"
     },
     {
@@ -18672,7 +18708,7 @@
       "source_file": "AGENTS.md",
       "source_location": "L1045",
       "id": "magazin_agents_commands",
-      "community": 136,
+      "community": 147,
       "norm_label": "commands"
     },
     {
@@ -18681,7 +18717,7 @@
       "source_file": "AGENTS.md",
       "source_location": "L1081",
       "id": "magazin_agents_unpublish_delete_propagation",
-      "community": 136,
+      "community": 147,
       "norm_label": "unpublish / delete propagation"
     },
     {
@@ -18690,7 +18726,7 @@
       "source_file": "AGENTS.md",
       "source_location": "L1101",
       "id": "magazin_agents_storage_artifacts_retention",
-      "community": 136,
+      "community": 147,
       "norm_label": "storage artifacts & retention"
     },
     {
@@ -18699,7 +18735,7 @@
       "source_file": "AGENTS.md",
       "source_location": "L1124",
       "id": "magazin_agents_agent_reminders",
-      "community": 136,
+      "community": 147,
       "norm_label": "agent reminders"
     },
     {
@@ -18708,7 +18744,7 @@
       "source_file": "AGENTS.md",
       "source_location": "L1170",
       "id": "magazin_agents_firecms_sync_button_cms_github_actions",
-      "community": 144,
+      "community": 151,
       "norm_label": "firecms sync button (cms \u2192 github actions)"
     },
     {
@@ -18717,7 +18753,7 @@
       "source_file": "AGENTS.md",
       "source_location": "L1181",
       "id": "magazin_agents_targets",
-      "community": 144,
+      "community": 151,
       "norm_label": "targets"
     },
     {
@@ -18726,7 +18762,7 @@
       "source_file": "AGENTS.md",
       "source_location": "L1195",
       "id": "magazin_agents_config",
-      "community": 144,
+      "community": 151,
       "norm_label": "config"
     },
     {
@@ -18735,7 +18771,7 @@
       "source_file": "AGENTS.md",
       "source_location": "L1207",
       "id": "magazin_agents_notes",
-      "community": 144,
+      "community": 151,
       "norm_label": "notes"
     },
     {
@@ -18762,7 +18798,7 @@
       "source_file": "AGENTS.md",
       "source_location": "L1244",
       "id": "magazin_agents_mcp_servers_ai_assistant_integration",
-      "community": 100,
+      "community": 137,
       "norm_label": "mcp servers & ai assistant integration"
     },
     {
@@ -18771,7 +18807,7 @@
       "source_file": "AGENTS.md",
       "source_location": "L1248",
       "id": "magazin_agents_available_mcp_servers",
-      "community": 100,
+      "community": 137,
       "norm_label": "available mcp servers"
     },
     {
@@ -18780,7 +18816,7 @@
       "source_file": "AGENTS.md",
       "source_location": "L1250",
       "id": "magazin_agents_1_svelte_mcp_server_svelte",
-      "community": 100,
+      "community": 137,
       "norm_label": "1. svelte mcp server (`svelte`)"
     },
     {
@@ -18789,7 +18825,7 @@
       "source_file": "AGENTS.md",
       "source_location": "L1281",
       "id": "magazin_agents_2_firebase_mcp_server_firebase",
-      "community": 100,
+      "community": 137,
       "norm_label": "2. firebase mcp server (`firebase`)"
     },
     {
@@ -18798,7 +18834,7 @@
       "source_file": "AGENTS.md",
       "source_location": "L1313",
       "id": "magazin_agents_3_daisy_ui_mcp_server_daisyui",
-      "community": 100,
+      "community": 137,
       "norm_label": "3. daisy ui mcp server (`daisyui`)"
     },
     {
@@ -18807,7 +18843,7 @@
       "source_file": "AGENTS.md",
       "source_location": "L1348",
       "id": "magazin_agents_how_agents_use_these_mcp_servers",
-      "community": 100,
+      "community": 137,
       "norm_label": "how agents use these mcp servers"
     },
     {
@@ -18816,7 +18852,7 @@
       "source_file": "AGENTS.md",
       "source_location": "L1358",
       "id": "magazin_agents_project_specific_mcp_usage_guidelines",
-      "community": 100,
+      "community": 137,
       "norm_label": "project-specific mcp usage guidelines"
     },
     {
@@ -19283,7 +19319,7 @@
       "file_type": "code",
       "source_file": "scripts/sync-modx-to-firestore.mjs",
       "source_location": "L831",
-      "community": 105,
+      "community": 33,
       "norm_label": "writecollections()",
       "id": "scripts_sync_modx_to_firestore_writecollections"
     },
@@ -19580,7 +19616,7 @@
       "file_type": "code",
       "source_file": "src/lib/components/Hero.svelte",
       "source_location": "L32",
-      "community": 28,
+      "community": 133,
       "norm_label": "cardimg()",
       "id": "components_hero_cardimg"
     },
@@ -21362,7 +21398,7 @@
       "file_type": "code",
       "source_file": "src/lib/modxToRsParser.js",
       "source_location": "L3",
-      "community": 52,
+      "community": 76,
       "norm_label": "named_html_entities",
       "id": "lib_modxtorsparser_named_html_entities"
     },
@@ -21371,7 +21407,7 @@
       "file_type": "code",
       "source_file": "src/lib/modxToRsParser.js",
       "source_location": "L30",
-      "community": 52,
+      "community": 76,
       "norm_label": "decodehtmlentities()",
       "id": "lib_modxtorsparser_decodehtmlentities"
     },
@@ -21452,7 +21488,7 @@
       "file_type": "code",
       "source_file": "scripts/sync-modx-to-firestore.mjs",
       "source_location": "L149",
-      "community": 8,
+      "community": 14,
       "norm_label": "queryforcedremovalrow()",
       "id": "scripts_sync_modx_to_firestore_queryforcedremovalrow"
     },
@@ -34662,6 +34698,16 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "scripts/lib/netlify-purge.mjs",
+      "source_location": "L35",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "scripts_lib_netlify_purge_mjs",
+      "target": "lib_netlify_purge_netlifycredentials"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/lib/netlify-purge.mjs",
       "source_location": "L9",
       "weight": 1.0,
       "confidence_score": 1.0,
@@ -34687,6 +34733,28 @@
       "confidence_score": 1.0,
       "source": "scripts_lib_netlify_purge_mjs",
       "target": "lib_netlify_purge_repurgeaftersitecaches"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/lib/netlify-purge.mjs",
+      "source_location": "L77",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_netlify_purge_purgenetlifypaths",
+      "target": "lib_netlify_purge_netlifycredentials"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/lib/netlify-purge.mjs",
+      "source_location": "L111",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_netlify_purge_repurgeaftersitecaches",
+      "target": "lib_netlify_purge_netlifycredentials"
     },
     {
       "relation": "calls",
@@ -35455,6 +35523,17 @@
       "confidence_score": 1.0,
       "source": "lib_modx_to_rs_parser_parseservingsfromtext",
       "target": "lib_modx_to_rs_parser_normalizereadabletext"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/lib/modx-to-rs-parser.mjs",
+      "source_location": "L1334",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_modx_to_rs_parser_buildrecipefrommodxdoc",
+      "target": "lib_modx_to_rs_parser_striphtml"
     },
     {
       "relation": "calls",
@@ -44021,6 +44100,16 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/lib/receptsarok.ts",
+      "source_location": "L197",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_lib_receptsarok_ts",
+      "target": "lib_receptsarok_foldhungarian"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/receptsarok.ts",
       "source_location": "L18",
       "weight": 1.0,
       "confidence_score": 1.0,
@@ -44791,6 +44880,17 @@
       "confidence_score": 1.0,
       "source": "src_lib_recipereceptsaroklistcard_ts",
       "target": "lib_receptsarok_recipedetailsegments"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/routes/receptsarok/[category=category]/+page.svelte",
+      "source_location": "L12",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_routes_receptsarok_category_category_page_svelte",
+      "target": "lib_receptsarok_foldhungarian"
     },
     {
       "relation": "calls",
@@ -47512,6 +47612,17 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "src/lib/modxToRsParser.js",
+      "source_location": "L1304",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_modxtorsparser_buildrecipefrommodxdoc",
+      "target": "lib_modxtorsparser_striphtml"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/modxToRsParser.js",
       "source_location": "L510",
       "weight": 1.0,
       "confidence_score": 1.0,
@@ -49978,6 +50089,60 @@
       "confidence_score": 1.0,
       "source": "src_routes_api_receptsarok_recipes_server_ts",
       "target": "server_receptsaroksubscriber_requirereceptsaroksubscriber"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/server/formRelay.ts",
+      "source_location": "L18",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_lib_server_formrelay_ts",
+      "target": "server_formrelay_formrelayorigin"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/routes/hirlevel/+page.server.ts",
+      "source_location": "L3",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_routes_hirlevel_page_server_ts",
+      "target": "src_lib_server_formrelay_ts"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/routes/kviz/[...id]/+page.server.ts",
+      "source_location": "L6",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_routes_kviz_id_page_server_ts",
+      "target": "src_lib_server_formrelay_ts"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/routes/hirlevel/+page.server.ts",
+      "source_location": "L3",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_routes_hirlevel_page_server_ts",
+      "target": "server_formrelay_formrelayorigin"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/routes/kviz/[...id]/+page.server.ts",
+      "source_location": "L6",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_routes_kviz_id_page_server_ts",
+      "target": "server_formrelay_formrelayorigin"
     },
     {
       "relation": "imports_from",
@@ -63486,5 +63651,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "5b4795d7bda0d50d93382abd4411e60ec623bef5"
+  "built_at_commit": "fdb02b1a2dbb4e727fe7869bc19d6f38de727b5b"
 }

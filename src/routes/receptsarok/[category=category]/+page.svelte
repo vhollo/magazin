@@ -9,7 +9,7 @@
 <script lang="ts">
   import { hasReceptsarokAccess } from '$lib/authStore'
   import { recipeToReceptsarokListCard } from '$lib/recipeReceptsarokListCard'
-  import { isRecipeFree } from '$lib/receptsarok'
+  import { foldHungarian, isRecipeFree } from '$lib/receptsarok'
   let { data } = $props()
 
   const categoryId = $derived(data.categoryId)
@@ -36,11 +36,20 @@
     if (filters.minProtein > 0) {
       result = result.filter((r) => typeof r.protein === 'number' && r.protein >= filters.minProtein)
     }
-    if (filters.ingredient.trim()) {
-      const term = filters.ingredient.toLowerCase().trim()
-      result = result.filter(r =>
-        r.ingredientNames?.some((name: string) => name.toLowerCase().includes(term))
-      )
+    // Comma/semicolon-separated ingredients; a recipe must contain every one (AND).
+    // Within one ingredient the words may appear in any order, but all of them in
+    // the same ingredient name: `kiőrlésű liszt` matches `teljes kiőrlésű búzaliszt`,
+    // `lila hagyma` does not match `lila káposzta` + `vöröshagyma`.
+    // Accent-insensitive: `csirke` matches `csírke` and vice versa.
+    const terms = foldHungarian(filters.ingredient)
+      .split(/[,;]/)
+      .map((t) => t.split(/\s+/).filter(Boolean))
+      .filter((words) => words.length)
+    if (terms.length) {
+      result = result.filter((r) => {
+        const names = (r.ingredientNames ?? []).map(foldHungarian)
+        return terms.every((words) => names.some((name: string) => words.every((w) => name.includes(w))))
+      })
     }
 
     switch (filters.sortBy) {

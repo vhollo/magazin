@@ -193,6 +193,11 @@ export function recipeDetailPath(recipe: Pick<Recipe, 'year' | 'id'>): string {
   return `/receptsarok/${recipeDetailSegments(recipe)}`
 }
 
+/** Accent- and case-insensitive form for Hungarian substring matching (`csírke` → `csirke`). */
+export function foldHungarian(s: string): string {
+  return s.normalize('NFD').replace(/\p{M}/gu, '').toLowerCase()
+}
+
 export function isRecipeFree(recipe: { free?: boolean | string }): boolean {
   return (
     recipe.free === true ||

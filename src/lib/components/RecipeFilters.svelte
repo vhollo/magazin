@@ -111,8 +111,8 @@
 
           <div class="flex flex-col gap-4">
             <label class="form-control">
-              <span class="label-text text-xs">Összetevő keresése</span>
-              <input type="text" placeholder="pl. csirkemell" bind:value={filters.ingredient} class="input input-sm input-bordered" />
+              <span class="label-text text-xs">Összetevők keresése (vesszővel elválasztva)</span>
+              <input type="text" placeholder="pl. csirkemell, brokkoli" bind:value={filters.ingredient} class="input input-sm input-bordered" />
             </label>
 
             <label class="form-control">
