@@ -4,6 +4,7 @@
   // audience entry points ("Kezdd itt"); right: the newest expert pick from
   // `collections/home.expertCards`. A restrained social-proof strip (heritage +
   // real article/recipe counts + publisher authority) closes the section.
+  import { onMount } from "svelte";
   import { trackEvent } from "$lib/analytics";
 
   /** @type {import('$lib/modx/collections').ThinCard | undefined} */
@@ -12,6 +13,31 @@
   export let articles = 0;
   /** Total recipe count (from `+layout.server.ts`), used as social proof. */
   export let recipes = 0;
+
+  /** @type {HTMLElement | undefined} */
+  let proofEl;
+  /** @type {HTMLElement | undefined} */
+  let publisherEl;
+  /** True once the publisher line has wrapped below the stats; then it is left-aligned. */
+  let publisherWrapped = false;
+
+  onMount(() => {
+    if (!proofEl || !publisherEl) return;
+    const update = () => {
+      const stats = /** @type {HTMLElement[]} */ ([
+        ...(proofEl?.querySelectorAll(".stat-item") ?? []),
+      ]);
+      const statsBottom = Math.max(
+        0,
+        ...stats.map((el) => el.offsetTop + el.offsetHeight),
+      );
+      publisherWrapped = (publisherEl?.offsetTop ?? 0) >= statsBottom - 1;
+    };
+    update();
+    const ro = new ResizeObserver(update);
+    ro.observe(proofEl);
+    return () => ro.disconnect();
+  });
 
   // Audience entry points distilled from the old Carousel's five cards.
   const entries = [
@@ -64,7 +90,7 @@
 <section class="band relative overflow-hidden bg-base-200">
   <!-- Decorative glucose-curve motif -->
   <svg
-    class="curve pointer-events-none absolute inset-x-0 bottom-0 h-24 w-full text-secondary"
+    class="curve pointer-events-none absolute inset-x-0 bottom-0 h-16 w-full text-secondary"
     viewBox="0 0 1200 96"
     preserveAspectRatio="none"
     aria-hidden="true"
@@ -198,9 +224,10 @@
   <!-- Social proof: restrained credibility strip before the fold. Real,
        verifiable signals only – heritage since 1989, live article/recipe
        counts and the publisher's authority – no invented ratings. -->
-  <div class="relative mx-auto max-w-6xl px-4 pb-10 sm:pb-12">
+  <div class="relative mx-auto max-w-6xl px-4 pb-16">
     <dl
-      class="proof flex flex-wrap items-center gap-x-8 gap-y-3 border-t border-base-content/10 pt-5 text-sm"
+      bind:this={proofEl}
+      class="proof flex flex-wrap items-center gap-x-8 gap-y-2 border-t border-base-content/10 pt-5 text-sm"
     >
       <div class="stat-item">
         <dt class="display text-2xl leading-none text-secondary">1989 óta</dt>
@@ -222,10 +249,17 @@
           <dd class="opacity-70">diabetesbarát recept</dd>
         </div>
       {/if}
-      <p class="publisher max-w-xs opacity-70 sm:ml-auto sm:text-right">
-        Az <a class="underline-offset-2 hover:underline" href="/alapitvany"
-          >Alapítvány a Cukorbetegekért</a
-        > betegtájékoztató lapja
+      <p
+        bind:this={publisherEl}
+        class="publisher opacity-70"
+        class:wrapped={publisherWrapped}
+      >
+        <span class="whitespace-nowrap"
+          >Az <a class="underline-offset-2 hover:underline" href="/alapitvany"
+            >Alapítvány a Cukorbetegekért</a
+          ></span
+        >
+        <span class="whitespace-nowrap">betegtájékoztató lapja</span>
       </p>
     </dl>
   </div>
@@ -266,10 +300,21 @@
      layout never shows a divider dangling at the start of a line. */
   .proof .publisher {
     flex-basis: 100%;
+    text-align: left;
+  }
+  /* Two fixed lines: the break is always before "betegtájékoztató". */
+  .proof .publisher span {
+    display: block;
   }
   @media (min-width: 48rem) {
     .proof .publisher {
       flex-basis: auto;
+      margin-left: auto;
+      text-align: right;
+    }
+    .proof .publisher.wrapped {
+      margin-left: 0;
+      text-align: left;
     }
     .proof .stat-item + .stat-item {
       position: relative;
