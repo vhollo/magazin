@@ -29,6 +29,7 @@
   import { page } from '$app/stores'
 
   import { hasReceptsarokAccess } from '$lib/authStore'
+  import { searchPending } from '$lib/searchPending'
   import { getCachedSearchIndex, getSearchIndex } from '$lib/magazine/searchIndexCache'
   import { isReceptsarokRecipePath, normalizeRecipeTeaser } from '$lib/receptsarok'
 
@@ -108,6 +109,9 @@
 
   $: q = browser ? ($page.url.searchParams.get('q') ?? '') : ''
 
+  // The search button keeps spinning until the results (or an error) can be shown.
+  $: if (browser && (ready || loadError)) { q; searchPending.set(false) }
+
   $: hits = (ready && q && q.length >= 2)
     ? ms.search(q, { boost: { ellipsis: 2 }, fuzzy: 0.2 })
     : []
@@ -177,17 +181,13 @@
 
 <!-- `#lista` is the scroll target of the Search form (action="/keres#lista"), so the
      anchor must exist even when there is nothing to show. The band inside it renders
-     for loading, error, results, or a no-results notice — but stays empty on the bare
+     for an error, results, or a no-results notice — but stays empty on the bare
      /keres landing (no query yet), so we don't paint a grey strip with nothing in it. -->
 <div id="lista">
-  {#if (indexLoading && !ready && !displayDocs.length) || loadError || displayDocs.length || noResults}
+  {#if loadError || displayDocs.length || noResults}
     <section class="band relative overflow-hidden bg-base-200">
       <div class="mx-auto max-w-7xl px-4 py-10 sm:py-14">
-        {#if indexLoading && !ready && !displayDocs.length}
-          <div class="flex justify-center py-8">
-            <span class="loading loading-spinner loading-lg"></span>
-          </div>
-        {:else if loadError}
+        {#if loadError}
           <p class="text-error">{loadError}</p>
         {:else}
           <h1 class="display text-3xl leading-tight text-balance sm:text-4xl">
