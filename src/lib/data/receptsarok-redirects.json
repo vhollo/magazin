@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-08T16:12:11.204Z",
+  "generatedAt": "2026-10-09T07:27:52.517Z",
   "sourceDocs": "sync worker (dynamic match + existing manifest)",
   "sourceRecipes": "src/lib/data/recipes.json",
   "entries": [
@@ -2402,6 +2402,12 @@
       "path": "cikkek/diabetes/2604/csaladi-kedvencek/gyermekkori-kedvenc-csirkesultem-szines-korettel-sajtmartassal",
       "year": 2026,
       "id": "gyermekkori-kedvenc-csirkesultem-szines-korettel-sajtmartassal"
+    },
+    {
+      "modxContentId": 4528,
+      "path": "cikkek/diabetes/2604/csaladi-kedvencek/savanyukaposzta-leves-gerslivel",
+      "year": 2026,
+      "id": "savanyukaposzta-leves-gerslivel"
     },
     {
       "modxContentId": 4029,
