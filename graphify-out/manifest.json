@@ -390,8 +390,8 @@
     "semantic_hash": ""
   },
   "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/lib/components/CardV.svelte": {
-    "mtime": 1779904300.5980058,
-    "ast_hash": "ccfa4407b5df5d362e945b5cb5ef8259",
+    "mtime": 1791625049.9418151,
+    "ast_hash": "6966fb33686c28af55b770f723fccd41",
     "semantic_hash": ""
   },
   "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/lib/components/RecipeCard.svelte": {
@@ -400,8 +400,8 @@
     "semantic_hash": ""
   },
   "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/lib/components/Cards.svelte": {
-    "mtime": 1786819192.9571323,
-    "ast_hash": "df03616a08d75ecfacb757ab938f3f25",
+    "mtime": 1791586233.5463536,
+    "ast_hash": "a26b0dccac134fed39f61b8a6f3cd0bd",
     "semantic_hash": ""
   },
   "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/lib/components/RecipeFilters.svelte": {
@@ -425,8 +425,8 @@
     "semantic_hash": ""
   },
   "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/lib/components/Search.svelte": {
-    "mtime": 1779466422.7916012,
-    "ast_hash": "42751baad0ccfab7ea9ed12d3aca665a",
+    "mtime": 1791584671.7482302,
+    "ast_hash": "82b783a6659a0d3bf29a5fa084134b0d",
     "semantic_hash": ""
   },
   "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/lib/components/CardBody.svelte": {
@@ -485,8 +485,8 @@
     "semantic_hash": ""
   },
   "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/lib/data/recipes.json": {
-    "mtime": 1791542908.6823912,
-    "ast_hash": "bd270abdfb362e49075b9fe61e3b62f5",
+    "mtime": 1791578262.5365539,
+    "ast_hash": "74eb347fbb66b9c94d2b94725ff4ac1b",
     "semantic_hash": ""
   },
   "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/lib/data/conf.json": {
@@ -515,8 +515,8 @@
     "semantic_hash": ""
   },
   "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/routes/+page.svelte": {
-    "mtime": 1791457219.134176,
-    "ast_hash": "9a806b7077f380b217360a99f8b29f4e",
+    "mtime": 1791584692.3808992,
+    "ast_hash": "61ad7cfa3c0900f50d0ae9e1b6e0c537",
     "semantic_hash": ""
   },
   "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/routes/+layout.server.ts": {
@@ -570,8 +570,8 @@
     "semantic_hash": ""
   },
   "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/routes/keres/+page.svelte": {
-    "mtime": 1791457219.135785,
-    "ast_hash": "09ccd57e245620a5605d8b3f2c7e258b",
+    "mtime": 1791559794.123656,
+    "ast_hash": "5de21bc949980a2d5ce06eba1ed95f60",
     "semantic_hash": ""
   },
   "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/routes/keres/+layout.server.ts": {
@@ -700,8 +700,8 @@
     "semantic_hash": ""
   },
   "/Users/vhollo/Public/Google/webdev/diabetes/magazin/AGENTS.md": {
-    "mtime": 1791556636.9826274,
-    "ast_hash": "1748f03abb031c8e9d6dcfe57ce96f56",
+    "mtime": 1791625866.6509235,
+    "ast_hash": "a68b276910970efb446347c58baf1d45",
     "semantic_hash": ""
   },
   "/Users/vhollo/Public/Google/webdev/diabetes/magazin/.github/workflows/sync-receptsarok-patika.yml": {
@@ -4450,13 +4450,13 @@
     "semantic_hash": ""
   },
   "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/lib/components/Hero.svelte": {
-    "mtime": 1786818658.89453,
-    "ast_hash": "6ff80ec2a9c9467f2870795080d2909e",
+    "mtime": 1791584671.243954,
+    "ast_hash": "8a9449cf9a6b2b630489772c3e7b6210",
     "semantic_hash": ""
   },
   "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/lib/components/ExpertSection.svelte": {
-    "mtime": 1787661786.5046349,
-    "ast_hash": "bb75a3647d4042115b3aa93ee1388973",
+    "mtime": 1791586250.4766922,
+    "ast_hash": "ca99072eb4e53a8dabb7389c3167a72b",
     "semantic_hash": ""
   },
   "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/lib/components/SubscribeCTA.svelte": {
@@ -4632,6 +4632,11 @@
   "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/lib/server/formRelay.ts": {
     "mtime": 1791541898.864024,
     "ast_hash": "4e9629610b09223a314de9c7c26603fc",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/lib/searchPending.ts": {
+    "mtime": 1791559793.816119,
+    "ast_hash": "a8a075dc8103a743b876cc9c745d06ca",
     "semantic_hash": ""
   }
 }

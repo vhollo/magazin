@@ -1,11 +1,16 @@
 <script>
   // Home hero (homepage redesign 2026, F3.1) – replaces the legacy hardcoded
   // Carousel on `/`. Left: welcome + value proposition + primary/secondary CTA +
-  // audience entry points ("Kezdd itt"); right: the newest expert pick from
-  // `collections/home.expertCards`. A restrained social-proof strip (heritage +
-  // real article/recipe counts + publisher authority) closes the section.
+  // site search + audience entry points ("Kezdd itt"); right: the newest expert
+  // pick with an image from `collections/home.expertCards` (chosen in
+  // `+page.svelte`). A restrained social-proof strip (heritage + real
+  // article/recipe counts + publisher authority) closes the section.
+  // The search lives here (not in a band below the hero) so the first content
+  // follows the hero directly; it keeps `id="search"`, so the header's search
+  // icon still scrolls to it.
   import { onMount } from "svelte";
   import { trackEvent } from "$lib/analytics";
+  import Search from "$lib/components/Search.svelte";
 
   /** @type {import('$lib/modx/collections').ThinCard | undefined} */
   export let expert = undefined;
@@ -148,6 +153,10 @@
         >
           Ingyenes hírlevél
         </a>
+      </div>
+
+      <div class="mt-2">
+        <Search {articles} {recipes} inline />
       </div>
 
       <nav class="mt-2" aria-label="Belépési pontok">

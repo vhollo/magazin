@@ -13,7 +13,10 @@
   color-scheme: light;
   --color-primary: oklch(80.25% 0.0589 246.91);
   --color-primary-content: var(--color-base-content);
-  --color-secondary: oklch(60.51% 0.1178 246.91);
+  /* One step darker than the dark theme's primary (oklch 60.51% ≈ #3f87c4, which
+     is only 3.84:1 on white): #2f6fa8 gives 5.30:1 for links on white and for
+     the white label on secondary buttons/badges (WCAG AA 4.5:1). */
+  --color-secondary: #2f6fa8;
   --color-secondary-content: #fff;
   /* --color-primary: #3f87c4; */
 }
@@ -29,6 +32,11 @@
 }
 :root {
   /* --color-primary: #3f87c4; */
+  /* Receptsarok: brand orange, and the text colour derived from it. As text on
+     the light header (#eee) the brand orange is only 2.39:1, so light mode uses
+     a darker orange (5.2:1); dark mode keeps the brand orange (6.38:1). */
+  --color-rs-brand: #de863e;
+  --color-rs: #9a4e12;
   font-size: clamp(
     1rem,
     0.5vw + 0.85rem,
@@ -55,9 +63,13 @@
 @media (prefers-color-scheme: light) {
 }
 @media (prefers-color-scheme: dark) {
+  :root {
+    --color-rs: var(--color-rs-brand);
+  }
 }
+/* Receptsarok nav label: plain text in the Receptsarok colour (see :root). */
 .color-rs {
-  color: #de863e;
+  color: var(--color-rs);
 }
 
 /* Global heading typeface (homepage redesign 2026): every heading site-wide uses
@@ -243,6 +255,16 @@ article figure {
 } */
 .ellipsis table {
   margin-top: auto;
+}
+/* Explicit alignment: the browser's default `th` centring depends on the
+   inherited text-align, which the tbody grid below scrambles (labels came out
+   centred, the caption left). Caption row centred, labels left, values centred. */
+.ellipsis thead th,
+.ellipsis tbody td {
+  text-align: center;
+}
+.ellipsis tbody th {
+  text-align: left;
 }
 .ellipsis tbody {
   display: grid;

@@ -1,24 +1,25 @@
 <script>
   // Home "Válogatás szakértőinktől" rail (homepage redesign 2026, F3.2).
-  // Renders a slice of `collections/home.expertCards` — the Hero already shows
-  // the newest one, so the page typically passes `expertCards.slice(1)`.
+  // Renders `collections/home.expertCards` minus the one the Hero already shows
+  // (the newest pick with an image), as passed in by `+page.svelte`, with the
+  // shared `CardV` card in its compact variant (same look as the article lists).
+  // The home top banner sits after the first desktop row (FIRST_ROW cards), so
+  // the hero is followed by content rather than by an ad.
   import { trackEvent } from "$lib/analytics";
+  import BannerTop from "$lib/components/BannerTop.svelte";
+  import CardV from "$lib/components/CardV.svelte";
 
   /** @type {import('$lib/modx/collections').ThinCard[]} */
   export let cards = [];
+  /** `conf.top_banners`; rendered between the first row and the rest. */
+  /** @type {any[]} */
+  export let banners = [];
 
-  /**
-   * @param {import('$lib/modx/collections').ThinCard} card
-   * @returns {{ src?: string, pos?: string, ext?: string } | null | undefined}
-   */
-  const cardImg = (card) => /** @type {any} */ (card?.img);
-
-  /** @param {import('$lib/modx/collections').ThinCard} card */
-  const cardAuthors = (card) =>
-    (card.tv?.szerzo ?? [])
-      .map((s) => s?.name)
-      .filter(Boolean)
-      .join(", ");
+  const FIRST_ROW = 4; // lg:grid-cols-4
+  // The first row, then the rest; the banner goes between the two grids.
+  $: groups = [cards.slice(0, FIRST_ROW), cards.slice(FIRST_ROW)].filter(
+    (g) => g.length,
+  );
 </script>
 
 {#if cards.length}
@@ -32,46 +33,20 @@
         >Szerzőink →</a
       >
     </header>
-    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-      {#each cards as card (card.id)}
-        {@const img = cardImg(card)}
-        {@const authors = cardAuthors(card)}
-        <a
-          href={`/${card.path}`}
-          class="pick card overflow-hidden rounded-sm bg-base-100 shadow-md transition-shadow duration-300 hover:shadow-lg"
-          on:click={() =>
-            trackEvent("expert_card_click", { path: String(card.path ?? "") })}
-        >
-          {#if img}
-            <figure class="m-0">
-              <img
-                loading="lazy"
-                src={img.src}
-                alt=""
-                width="928"
-                height="548"
-                style={`object-fit: ${img.ext == "png" ? "contain" : "cover"}; object-position: ${img.pos || "50% 40%"}`}
-              />
-            </figure>
-          {/if}
-          <div class="card-body gap-1.5 p-4">
-            <h3 class="display card-title block text-base leading-snug">
-              {@html card.longtitle || card.title}
-            </h3>
-            {#if authors}
-              <p class="text-sm font-medium text-secondary">{authors}</p>
-            {/if}
-          </div>
-        </a>
-      {/each}
-    </div>
+    {#each groups as group, i}
+      <div class={["grid gap-6 sm:grid-cols-2 lg:grid-cols-4", i > 0 && !banners.length && "mt-6"]}>
+        {#each group as card (card.id)}
+          <CardV
+            {card}
+            variant="compact"
+            on:click={() =>
+              trackEvent("expert_card_click", { path: String(card.path ?? "") })}
+          />
+        {/each}
+      </div>
+      {#if i === 0 && banners.length}
+        <BannerTop {banners} />
+      {/if}
+    {/each}
   </section>
 {/if}
-
-<style>
-  .pick figure,
-  .pick img {
-    aspect-ratio: var(--imgratio);
-    width: 100%;
-  }
-</style>

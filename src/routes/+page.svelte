@@ -12,15 +12,23 @@
   import NewsletterCTA from "$lib/components/NewsletterCTA.svelte";
   import TopicGrid from "$lib/components/TopicGrid.svelte";
   import SubscribeCTA from "$lib/components/SubscribeCTA.svelte";
-  import Search from "$lib/components/Search.svelte";
-  import Nav2 from "$lib/components/Nav2.svelte";
   import BannerTop from "$lib/components/BannerTop.svelte";
   export let data;
 
   $: conf = data.conf;
   $: doc = data.doc;
-  // The Hero (expertCards[0]) and ExpertSection (expertCards[1..]) already show the
-  // top 24 expert picks, so drop them from the "latest" grid to avoid repeating cards.
+  // The Hero shows the newest expert pick that has an image (an image-less card
+  // would leave the hero's right column empty and skip the LCP preload); only
+  // when no pick has an image does it fall back to the newest one. ExpertSection
+  // gets the remaining picks, still newest first.
+  $: heroIndex = Math.max(
+    0,
+    (data.expertCards ?? []).findIndex((c) => c?.img?.src),
+  );
+  $: heroCard = data.expertCards?.[heroIndex];
+  $: restExpertCards = (data.expertCards ?? []).filter((_, i) => i !== heroIndex);
+  // Hero + ExpertSection together show the top 24 expert picks, so drop them
+  // from the "latest" grid to avoid repeating cards.
   $: shownExpertIds = new Set(
     (data.expertCards ?? []).map((c) => String(c.id)),
   );
@@ -114,10 +122,10 @@
   {#if doc.img}
     <link rel="preload" href={doc.img.src} as="image" />
   {/if}
-  {#if data.expertCards?.[0]?.img?.src}
+  {#if heroCard?.img?.src}
     <link
       rel="preload"
-      href={data.expertCards[0].img.src}
+      href={heroCard.img.src}
       as="image"
       fetchpriority="high"
     />
@@ -125,18 +133,19 @@
 </svelte:head>
 
 <Hero
-  expert={data.expertCards?.[0]}
+  expert={heroCard}
   articles={data.articleCount}
   recipes={data.recipeCount}
 />
 
-{#if conf.top_banners.length}
+<!-- The hero is followed directly by content: the search sits inside the Hero,
+     the top banner after the first row of ExpertSection, and the Nav2 topic menu
+     is left out here because the "Kezdd itt" chips and TopicGrid cover it. -->
+<ExpertSection cards={restExpertCards} banners={conf.top_banners} />
+{#if conf.top_banners.length && !restExpertCards.length}
+  <!-- No expert rail (e.g. before the first sync): keep the banner on the page. -->
   <BannerTop banners={conf.top_banners} />
 {/if}
-<Nav2 actual={data.path} />
-<Search articles={data.articleCount} recipes={data.recipeCount} />
-
-<ExpertSection cards={(data.expertCards ?? []).slice(1)} />
 <NewsletterCTA />
 <TopicGrid />
 
