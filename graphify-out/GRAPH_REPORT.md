@@ -1,16 +1,16 @@
 # Graph Report - magazin  (2026-10-14)
 
 ## Corpus Check
-- 217 files · ~4,594,580 words
+- 217 files · ~4,594,763 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 2442 nodes · 4235 edges · 149 communities (140 shown, 9 thin omitted)
+- 2442 nodes · 4235 edges · 150 communities (140 shown, 10 thin omitted)
 - Extraction: 100% EXTRACTED · 0% INFERRED · 0% AMBIGUOUS · INFERRED: 18 edges (avg confidence: 0.8)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `7ff2d526`
+- Built from commit: `9b4f7625`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -147,6 +147,7 @@
 - [[_COMMUNITY_Community 146|Community 146]]
 - [[_COMMUNITY_Community 147|Community 147]]
 - [[_COMMUNITY_Community 148|Community 148]]
+- [[_COMMUNITY_Community 149|Community 149]]
 
 ## God Nodes (most connected - your core abstractions)
 1. `ify` - 89 edges
@@ -172,7 +173,7 @@
 - `main()` --calls--> `createModxTransform()`  [INFERRED]
   scripts/sync-modx-to-firestore.mjs → src/lib/modx/transform.ts
 
-## Communities (149 total, 9 thin omitted)
+## Communities (150 total, 10 thin omitted)
 
 ### Community 0 - "Community 0"
 Cohesion: 0.03
@@ -239,8 +240,8 @@ Cohesion: 0.27
 Nodes (11): loadProjectionDocs(), pickDocFields(), PROJECTION_FIELDS, __dirname, loadFullProjectionFromFirestore(), loadProjectionDocsForSync(), mergeProjectionSnapshot(), readMetaProjections() (+3 more)
 
 ### Community 16 - "Community 16"
-Cohesion: 0.12
-Nodes (21): plannerOpen, categories, { data }, freeCount, freeCountsByCategory, totalRecipes, trial, $lib/components/MealPlanner.svelte (+13 more)
+Cohesion: 0.13
+Nodes (21): $app/forms, plannerOpen, categories, { data }, freeCount, freeCountsByCategory, totalRecipes, trial (+13 more)
 
 ### Community 17 - "Community 17"
 Cohesion: 0.10
@@ -251,8 +252,8 @@ Cohesion: 0.10
 Nodes (30): Category, IngredientGroup, IngredientItem, isRecipeFree(), KeresRecipeTeaser, LegacyHeroImage, normalizeRecipeAssetSrc(), normalizeRecipeTeaser() (+22 more)
 
 ### Community 19 - "Community 19"
-Cohesion: 0.11
-Nodes (34): presentment_money, shop_money, presentment_money, shop_money, presentment_money, shop_money, presentment_money, shop_money (+26 more)
+Cohesion: 0.13
+Nodes (22): presentment_money, presentment_money, presentment_money, presentment_money, current_subtotal_price_set, current_total_discounts_set, current_total_price_set, current_total_tax_set (+14 more)
 
 ### Community 20 - "Community 20"
 Cohesion: 0.09
@@ -263,8 +264,8 @@ Cohesion: 0.15
 Nodes (25): normalizeArticlePath(), isEmptyContentFolder(), addArticlesInBatches(), articleToSearchDoc(), buildAndUploadSearchIndex(), buildKeresRecipeTeaser(), changedListedPaths(), createMiniSearch() (+17 more)
 
 ### Community 22 - "Community 22"
-Cohesion: 0.17
-Nodes (12): uid, compositePrimaryKeys, foreignKeys, indexes, name, uniqueConstraints, indexes, indexes (+4 more)
+Cohesion: 0.15
+Nodes (13): player, columns, compositePrimaryKeys, foreignKeys, indexes, name, uniqueConstraints, autoincrement (+5 more)
 
 ### Community 23 - "Community 23"
 Cohesion: 0.12
@@ -363,8 +364,8 @@ Cohesion: 0.20
 Nodes (24): magazin_evoAlreadyDispatched(), magazin_evoConfig(), magazin_evoDispatchFirestoreSyncWorkflow(), magazin_evoDispatchRemovalIds(), magazin_evoDispatchSavePayload(), magazin_evoFilterCandidateIds(), magazin_evoGetAncestors(), magazin_evoGetAuthorChunks() (+16 more)
 
 ### Community 47 - "Community 47"
-Cohesion: 0.11
-Nodes (19): player, uid, columns, columns, compositePrimaryKeys, foreignKeys, indexes, name (+11 more)
+Cohesion: 0.09
+Nodes (24): uid, uid, columns, compositePrimaryKeys, foreignKeys, indexes, name, uniqueConstraints (+16 more)
 
 ### Community 48 - "Community 48"
 Cohesion: 0.18
@@ -447,8 +448,8 @@ Cohesion: 0.29
 Nodes (7): columns, compositePrimaryKeys, foreignKeys, indexes, name, uniqueConstraints, modx_active_user_sessions
 
 ### Community 68 - "Community 68"
-Cohesion: 0.15
-Nodes (13): date, autoincrement, default, name, notNull, primaryKey, type, columns (+5 more)
+Cohesion: 0.14
+Nodes (14): date, autoincrement, default, name, notNull, primaryKey, type, columns (+6 more)
 
 ### Community 69 - "Community 69"
 Cohesion: 0.20
@@ -479,8 +480,8 @@ Cohesion: 0.18
 Nodes (14): Author, AuthorLink, AuthorSupport, AuthorsSnapshot, fetchAuthors(), getAuthor(), getAuthors(), getAuthorsBySlugs() (+6 more)
 
 ### Community 76 - "Community 76"
-Cohesion: 0.12
-Nodes (41): linkedModxIdsForRecipe(), stripLinkedRecipeBlocks(), applyPhotoCredit(), buildRecipeFromModxDoc(), buildRecipesFromModxDoc(), cardImgFromSrc(), decodeHtmlEntities(), deriveAuthor() (+33 more)
+Cohesion: 0.13
+Nodes (32): stripLinkedRecipeBlocks(), cleanServingParenthetical(), countNutritionValues(), decodeHtmlEntities(), deriveInstructions(), deriveInstructionsHtml(), deriveServings(), deriveSubRecipes() (+24 more)
 
 ### Community 77 - "Community 77"
 Cohesion: 0.11
@@ -520,7 +521,7 @@ Nodes (8): applyModxLinkedRecipeFreeFlags(), targetKey(), stringifyRecipesJson()
 
 ### Community 87 - "Community 87"
 Cohesion: 0.11
-Nodes (18): jatek, ok, autoincrement, name, notNull, primaryKey, type, columns (+10 more)
+Nodes (18): ok, user, columns, compositePrimaryKeys, foreignKeys, indexes, name, autoincrement (+10 more)
 
 ### Community 90 - "Community 90"
 Cohesion: 0.13
@@ -543,8 +544,8 @@ Cohesion: 0.40
 Nodes (4): Building, create-svelte, Creating a project, Developing
 
 ### Community 96 - "Community 96"
-Cohesion: 0.10
-Nodes (13): PageProps, $app/forms, NAMED_HTML_ENTITIES, miniSearch, PageProps, patikas, query, $lib/components/AuthorSignature.svelte (+5 more)
+Cohesion: 0.13
+Nodes (11): NAMED_HTML_ENTITIES, miniSearch, PageProps, patikas, query, $lib/components/AuthorSignature.svelte, $lib/components/Nav2.svelte, $lib/htmlEntities.js (+3 more)
 
 ### Community 97 - "Community 97"
 Cohesion: 0.39
@@ -579,8 +580,8 @@ Cohesion: 0.50
 Nodes (3): entries, generatedAt, instructions
 
 ### Community 105 - "Community 105"
-Cohesion: 0.31
-Nodes (10): cleanServingParenthetical(), countNutritionValues(), emptyNutritionTable(), normalizeReadableText(), normalizeServingUnit(), nutritionFieldPatterns(), parseNullableNumber(), parseNutritionFromRows() (+2 more)
+Cohesion: 0.19
+Nodes (19): linkedModxIdsForRecipe(), applyPhotoCredit(), buildRecipeFromModxDoc(), buildRecipesFromModxDoc(), cardImgFromSrc(), deriveAuthor(), deriveCategoryDecision(), deriveDocCreatedAtIso() (+11 more)
 
 ### Community 106 - "Community 106"
 Cohesion: 0.25
@@ -611,8 +612,8 @@ Cohesion: 0.18
 Nodes (10): generatedAt, nameMismatch, nfdChunkNames, notes, orphanChunks, rejoinedWords, slugCollisions, source (+2 more)
 
 ### Community 130 - "Community 130"
-Cohesion: 0.29
-Nodes (7): columns, compositePrimaryKeys, foreignKeys, indexes, name, uniqueConstraints, modx_diaeuro2016_toto
+Cohesion: 0.30
+Nodes (12): shop_money, shop_money, shop_money, shop_money, amount, currency_code, shop_money, shop_money (+4 more)
 
 ### Community 133 - "Community 133"
 Cohesion: 0.39
@@ -650,10 +651,6 @@ Nodes (6): Global typography (homepage redesign 2026), Navigation System, Naviga
 Cohesion: 0.33
 Nodes (6): apply, fold(), normalizeSrc(), recipes, RECIPES_PATH, stats
 
-### Community 145 - "Community 145"
-Cohesion: 0.33
-Nodes (6): user, autoincrement, name, notNull, primaryKey, type
-
 ### Community 146 - "Community 146"
 Cohesion: 0.33
 Nodes (5): $lib/components/Footer.svelte, $app/stores, ../app.css, $lib/auth, ./$types
@@ -666,10 +663,14 @@ Nodes (5): Authentication Logic, Authentication Methods, Authentication State, L
 Cohesion: 0.50
 Nodes (4): Client-Side Logic (`+page.svelte`), Expert picks (`expertCards`), Home Route (`/`), Server-Side Logic (`+page.server.ts`)
 
+### Community 149 - "Community 149"
+Cohesion: 0.33
+Nodes (6): jatek, autoincrement, name, notNull, primaryKey, type
+
 ## Knowledge Gaps
 - **1199 isolated node(s):** `config`, `id`, `name`, `note`, `tags` (+1194 more)
   These have ≤1 connection - possible missing edges or undocumented components.
-- **9 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **10 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_

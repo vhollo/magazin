@@ -206,7 +206,6 @@ async function queryChangedRows(modxdb, lastEdit) {
           gt(modx_site_content.editedon, lastEdit),
           eq(modx_site_content.parent, 1),
           eq(modx_site_content.deleted, 0),
-          eq(modx_site_content.hidemenu, 0),
           eq(modx_site_content.published, 1),
           eq(modx_site_content.type, 'document')
         )
@@ -365,7 +364,6 @@ async function queryAllRows(modxdb) {
         and(
           eq(modx_site_content.parent, 1),
           eq(modx_site_content.deleted, 0),
-          eq(modx_site_content.hidemenu, 0),
           eq(modx_site_content.published, 1),
           eq(modx_site_content.type, 'document')
         )

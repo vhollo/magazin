@@ -57,7 +57,7 @@ export function isMagazineCandidate(row) {
 }
 
 /**
- * @param {{ id?: number, parent?: number, template?: number, type?: string, deleted?: number, published?: number, hidemenu?: number }} row
+ * @param {{ id?: number, parent?: number, template?: number, type?: string, deleted?: number, published?: number }} row
  */
 export function shouldSyncRow(row) {
   if (isRootReferenceRow(row)) {
@@ -72,7 +72,8 @@ export function shouldSyncRow(row) {
   if (Number(row.published) !== 1) return false
   const parent = Number(row.parent)
   const template = Number(row.template)
-  if (parent === 1) return Number(row.hidemenu) === 0
+  // Hírek (parent 1): every published child, whatever its "hide from menus" flag.
+  if (parent === 1) return true
   if (parent !== 1 && (template === 9 || template === 13)) return true
   return false
 }
