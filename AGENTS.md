@@ -769,7 +769,13 @@ document without a re-sync and lands in the SSR HTML (no hydration reflow, works
    - Uses Firebase `signInWithPopup` with `GoogleAuthProvider`
    - Updates `authUser` store on success
 
-2. **Email Link Authentication**:
+2. **Facebook Sign-In** (`facebook_login` → `signInWithFacebook`):
+   - Firebase `signInWithPopup` with `FacebookAuthProvider` (scope `email`); `authUser` is set by `onAuthStateChanged`
+   - Needs the Facebook provider enabled in the Firebase console (Facebook App ID + secret) and `https://<authDomain>/__/auth/handler` added as a valid OAuth redirect URI in the Facebook app
+   - Popup closed/cancelled by the user is ignored; other errors reopen `mod_login` with the generic error
+   - `auth/account-exists-with-different-credential` (the email already has a Google / email-link account — Firebase allows one account per email): the Facebook credential and email are kept **in memory** (`pendingFacebookCred`/`pendingFacebookEmail`), `mod_login` reopens with a `success === 'facebook-exists'` notice, and after the next sign-in with the **same email** `linkPendingFacebook` calls `linkWithCredential`. Works for the Google popup; an email-link sign-in reloads the page, so the pending credential is lost there (by design — nothing is persisted to storage)
+
+3. **Email Link Authentication**:
    - Sends sign-in link via `sendSignInLinkToEmail`
    - Stores email in localStorage
    - Validates link on page load via `isSignInWithEmailLink`

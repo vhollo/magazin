@@ -13,6 +13,8 @@
     onAuthStateChanged, 
     signInWithPopup, 
     GoogleAuthProvider, 
+    FacebookAuthProvider, 
+    linkWithCredential, 
     signOut 
   } from 'firebase/auth'
   import { firebaseAuth/* , signInWithGoogle */ } from '$lib/firebase'
@@ -120,6 +122,7 @@
       // console.log({user})
       // User is signed in, update your state accordingly
       authUser.set({ 'uid': user.uid, 'email': user.email, 'displayName': user.displayName || displayName })
+      linkPendingFacebook(user)
       // console.log(authUser)
     } else {
       // User is signed out
@@ -158,6 +161,49 @@
   const google_login = () => {
     mod_login.close()
     signInWithGoogle()
+  }
+
+  const facebookProvider = new FacebookAuthProvider();
+  facebookProvider.addScope('email');
+
+  // Facebook credential waiting to be linked: set when the Facebook email already
+  // belongs to an account created with Google or an email link. Firebase allows one
+  // account per email, so the user signs in with the existing method first and the
+  // Facebook credential is then linked to that account (linkPendingFacebook).
+  // Kept in memory only, so it survives the Google popup but not an email-link page load,
+  // and it is linked only to an account with the same email.
+  let pendingFacebookCred = null, pendingFacebookEmail = null
+
+  const linkPendingFacebook = (user) => {
+    if (!pendingFacebookCred) return
+    const cred = pendingFacebookCred, credEmail = pendingFacebookEmail
+    pendingFacebookCred = pendingFacebookEmail = null
+    if (!credEmail || user.email?.toLowerCase() !== credEmail.toLowerCase()) return
+    linkWithCredential(user, cred)
+      .then(() => { success = true })
+      .catch((error) => console.error('Error linking Facebook account:', error.message))
+  }
+
+  const signInWithFacebook = () => {
+    signInWithPopup(firebaseAuth, facebookProvider)
+      .catch((error) => {
+        if (error.code === 'auth/popup-closed-by-user' || error.code === 'auth/cancelled-popup-request') return
+        if (error.code === 'auth/account-exists-with-different-credential') {
+          pendingFacebookCred = FacebookAuthProvider.credentialFromError(error)
+          pendingFacebookEmail = error.customData?.email || null
+          success = 'facebook-exists'
+        } else {
+          console.error('Error during Facebook sign-in:', error.message)
+          success = false
+        }
+        mod_login.showModal()
+      });
+  }
+
+  const facebook_login = () => {
+    mod_login.close()
+    success = undefined
+    signInWithFacebook()
   }
 
   const actionCodeSettings = {
@@ -386,7 +432,7 @@
     <!-- <div class="modal-action flex-col gap-4"> -->
     <fieldset class="fieldset flex gap-4 justify-center">
       <button class="btn btn-secondary !border-secondary h-8" onclick={() => google_login()}>Google fiók</button>
-      <button class="btn btn-secondary !border-secondary h-8" onclick={() => alert('Fejlesztés alatt.')}><s>Facebook fiók</s></button>
+      <button class="btn btn-secondary !border-secondary h-8" onclick={() => facebook_login()}>Facebook fiók</button>
     </fieldset>
     <p class="text-center text-sm py-4">vagy</p>
     <form onsubmit={() => ota_login()}>
@@ -431,6 +477,9 @@
       <!-- </fieldset> -->
       {#if success === false}
         <div class="flex-col py-2 mt-2 bg-error text-error-content text-center">Hiba történt. Kérlek, próbáld újra.</div>
+      {/if}
+      {#if success === 'facebook-exists'}
+        <div class="flex-col py-2 px-2 mt-2 bg-warning text-warning-content text-center">Ezzel az Email címmel már van fiókod. Jelentkezz be a korábban használt módon (Google fiók vagy ellenőrző link). Ha Google fiókkal lépsz be, a Facebook fiókodat is hozzákapcsoljuk.</div>
       {/if}
       {#if success === 'sent'}
         <div class="flex-col py-2 mt-2 bg-success text-success-content text-center">Az ellenőrző linket elküldtük az Email címedre.</div>
