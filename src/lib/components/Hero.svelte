@@ -3,7 +3,8 @@
   // Carousel on `/`. Left: welcome + value proposition + primary/secondary CTA +
   // site search + audience entry points ("Kezdd itt"); right: the newest expert
   // pick with an image from `collections/home.expertCards` (chosen in
-  // `+page.svelte`). A restrained social-proof strip (heritage + real
+  // `+page.svelte`). Between sm and lg the welcome copy spans the full width
+  // and the CTAs + search + entry points sit beside the expert card. A restrained social-proof strip (heritage + real
   // article/recipe counts + publisher authority) closes the section.
   // The search lives here (not in a band below the hero) so the first content
   // follows the hero directly; it keeps `id="search"`, so the header's search
@@ -117,10 +118,17 @@
     />
   </svg>
 
+  <!-- Grid placement: below sm everything stacks. sm–lg: the intro (kicker,
+       heading, lead) spans both columns, then the CTAs + search + "Kezdd itt"
+       sit beside the expert card. lg+: intro and tools stack in column 1
+       (pushed together by self-end/self-start), the expert card spans both
+       rows in column 2. -->
   <div
-    class="mx-auto grid max-w-7xl items-center gap-8 px-4 py-10 sm:py-14 lg:grid-cols-2 lg:gap-12"
+    class="mx-auto grid max-w-7xl items-center gap-6 px-4 py-10 sm:grid-cols-2 sm:gap-x-8 sm:py-14 lg:gap-x-12"
   >
-    <header class="welcome flex flex-col gap-4">
+    <header
+      class="welcome flex flex-col gap-4 sm:col-span-2 lg:col-span-1 lg:col-start-1 lg:row-start-1 lg:self-end"
+    >
       <p
         class="kicker text-xs font-semibold tracking-[0.18em] uppercase opacity-60"
       >
@@ -133,12 +141,16 @@
         Cikkeinket orvosok és szakemberek írják – a diagnózis első napjától a
         magabiztos önellenőrzésig.
       </p>
+    </header>
 
+    <div
+      class={`welcome flex flex-col gap-6 self-start lg:col-start-1 lg:row-start-2 ${expert ? "" : "sm:col-span-2 lg:col-span-1"}`}
+    >
       <!-- Primary + secondary CTA. Primary (btn-secondary = saturated blue,
            white text) is the highest-contrast control on the light band and
            points at the macro-conversion; the outlined secondary reads clearly
            as a button but stays visually subordinate. -->
-      <div class="mt-1 flex flex-wrap items-center gap-3">
+      <div class="flex flex-wrap items-center gap-3">
         <a
           href="/elofizetes"
           class="btn btn-secondary btn-lg rounded-sm"
@@ -154,12 +166,9 @@
           Ingyenes hírlevél
         </a>
       </div>
+      <Search {articles} {recipes} inline />
 
-      <div class="mt-2">
-        <Search {articles} {recipes} inline />
-      </div>
-
-      <nav class="mt-2" aria-label="Belépési pontok">
+      <nav aria-label="Belépési pontok">
         <span
           class="mb-2 block text-xs font-semibold tracking-[0.18em] uppercase opacity-60"
         >
@@ -180,12 +189,12 @@
           {/each}
         </ul>
       </nav>
-    </header>
+    </div>
 
     {#if expert}
       <a
         href={`/${expert.path}`}
-        class="feat card overflow-hidden rounded-sm bg-base-100 shadow-lg transition-shadow duration-300 hover:shadow-xl"
+        class="feat card max-sm:mt-2 lg:col-start-2 lg:row-span-2 lg:row-start-1 overflow-hidden rounded-sm bg-base-100 shadow-lg transition-shadow duration-300 hover:shadow-xl"
         on:click={() =>
           trackEvent("hero_expert_click", { path: String(expert.path ?? "") })}
       >
