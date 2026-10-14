@@ -1,6 +1,6 @@
 # Duplázódó aláírások
 
-Generálta: `npm run authors:extract` — 2026-08-25
+Generálta: `npm run authors:extract` — 2026-10-13
 
 Ezekben a cikkekben a törzsbeli `<p class="alairas">` ugyanazt a személyt ismétli,
 mint a `szerzo` TV. A törzsbeli aláírás törlendő MODX-ban, a TV marad.

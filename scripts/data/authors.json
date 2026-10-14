@@ -274,7 +274,7 @@
     "legacyTokens": [
       "Dr._Barna_István"
     ],
-    "articleCount": 13
+    "articleCount": 14
   },
   {
     "slug": "barta-laszlo",
@@ -867,7 +867,7 @@
     "legacyTokens": [
       "Dr._Fejes_Imola"
     ],
-    "articleCount": 7
+    "articleCount": 8
   },
   {
     "slug": "fekete-andrea",
@@ -1780,7 +1780,7 @@
     "legacyTokens": [
       "Dr._Kováts_Boglárka"
     ],
-    "articleCount": 19
+    "articleCount": 20
   },
   {
     "slug": "krausz-ivett",
@@ -2023,7 +2023,7 @@
     "legacyTokens": [
       "Dr._Móczár_Csaba"
     ],
-    "articleCount": 8
+    "articleCount": 9
   },
   {
     "slug": "nagy-gyulane-tajti-eva",
@@ -2092,7 +2092,7 @@
     "legacyTokens": [
       "Dr._Nagy_Viktor"
     ],
-    "articleCount": 7
+    "articleCount": 9
   },
   {
     "slug": "nemcsik-janos",
@@ -3152,7 +3152,7 @@
     "legacyTokens": [
       "Dr._Tschürtz_Nándor"
     ],
-    "articleCount": 5
+    "articleCount": 6
   },
   {
     "slug": "valyi-peter",
@@ -3244,7 +3244,7 @@
     "legacyTokens": [
       "Dr._Várallyay_Zoltán"
     ],
-    "articleCount": 3
+    "articleCount": 4
   },
   {
     "slug": "varga-istvan",
@@ -3264,6 +3264,27 @@
     "source": "modx-chunk:176",
     "legacyTokens": [
       "Dr._Varga_István"
+    ],
+    "articleCount": 1
+  },
+  {
+    "slug": "varga-lorand",
+    "name": "Varga Lóránd",
+    "prefix": "Dr.",
+    "displayName": "Dr. Varga Lóránd",
+    "title": "belgyógyász-gasztroenterológus",
+    "affiliations": [],
+    "cv": [],
+    "quote": "",
+    "photo": null,
+    "links": [],
+    "email": "",
+    "support": null,
+    "role": "szerző",
+    "published": true,
+    "source": "modx-chunk:562",
+    "legacyTokens": [
+      "Dr._Varga_Lóránd"
     ],
     "articleCount": 1
   },

@@ -52,6 +52,7 @@
 		"sync:modx:references": "NODE_OPTIONS=--max-old-space-size=6144 tsx scripts/sync-modx-to-firestore.mjs --references-only",
 		"sync:modx:finish": "NODE_OPTIONS=--max-old-space-size=6144 tsx scripts/finish-modx-sync.mjs",
 		"sync:modx:payload": "NODE_OPTIONS=--max-old-space-size=6144 tsx scripts/sync-modx-to-firestore.mjs --from-payload",
+		"sync:modx:schedule": "NODE_OPTIONS=--max-old-space-size=6144 tsx scripts/sync-modx-to-firestore.mjs --schedule-only",
 		"sync:modx:refresh-redirects": "tsx scripts/refresh-receptsarok-redirects.mjs",
 		"sync:modx:refresh-redirects:apply": "tsx scripts/refresh-receptsarok-redirects.mjs --apply",
 		"storage:prune": "node scripts/prune-storage-versions.mjs",

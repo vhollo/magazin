@@ -14,11 +14,15 @@
  *    matching `recipes/{year}-{id}` + `recipes.json`; rebuild `collections/rs-home`
  *    (totalFree, freeCountsByCategory) via `sync:rs-collections:apply`
  * 8. Update meta/sync.lastEdit
+ * 9. Date-driven publish/unpublish (MODX pub_date / unpub_date): every run executes
+ *    the due entries of meta/publishSchedule and records new future dates
+ *    (scripts/lib/publish-schedule.mjs)
  *
  * Usage:
  *   node scripts/sync-modx-to-firestore.mjs          # incremental
  *   node scripts/sync-modx-to-firestore.mjs --full   # one-time backfill (lastEdit ignored)
  *   node scripts/sync-modx-to-firestore.mjs --references-only  # backfill root weblink/reference redirects only
+ *   node scripts/sync-modx-to-firestore.mjs --schedule-only    # only the due entries of meta/publishSchedule (no MySQL)
  *
  * Env: MODXDB_*, FIREBASE_ADMIN_KEY, FIREBASE_STORAGE_BUCKET, PUBLIC_BASE_URL (optional)
  * Optional: PHASE; NETLIFY_SITE_ID, NETLIFY_ACCESS_TOKEN or, with PHASE=dev, the *_DEV pair (edge-cache purge)
@@ -79,12 +83,33 @@ import {
 import { refreshReceptsarokRedirectsFromManifest } from './lib/refresh-receptsarok-redirects.mjs'
 import { isMagazineCandidate, shouldSyncRow, referenceTargetIds } from './lib/magazine-scope.mjs'
 import { parseModxSavePayload, classifyPayload } from './lib/modx-save-payload.mjs'
+import {
+  modxNowSeconds,
+  loadPublishSchedule,
+  loadCmsOverrides,
+  buildOverrides,
+  applyOverridesToRows,
+  scheduleDocFields,
+  reconcileCmsOverrides,
+  emptyReconcile,
+  describeSchedule,
+  dueEntries,
+  loadDuePublishRows,
+  mergeTvRows,
+  isFuturePublishRow,
+  planScheduleUpdates,
+  commitScheduleUpdates,
+} from './lib/publish-schedule.mjs'
 
 const isFullSync = process.argv.includes('--full')
 const isReferencesOnly = process.argv.includes('--references-only')
 const skipRsCollections = process.argv.includes('--skip-rs-collections')
 const skipRedirectRefresh = process.argv.includes('--skip-redirect-refresh')
 const isFromPayload = process.argv.includes('--from-payload') || !!process.env.MODX_SYNC_PAYLOAD
+// Daily scheduled run: no MySQL, no payload — only the due publish/unpublish entries.
+const isScheduleOnly = !isFromPayload && process.argv.includes('--schedule-only')
+/** Runs that never connect to MySQL (and so never advance meta/sync.lastEdit). */
+const isMysqlFree = isFromPayload || isScheduleOnly
 
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
@@ -96,6 +121,13 @@ const CATEGORY_REVIEW_PATH = path.join(root, 'scripts/data/magazin-recipe-catego
 const AUTHORS_JSON_PATH = path.join(root, 'scripts/data/authors.json')
 const AUTHORS_COLLECTION_DOC = 'collections/authors'
 const META_SYNC_DOC = 'sync'
+
+/**
+ * CMS-set publish/unpublish dates of this run (MODX id → MODX-clock seconds), set
+ * once in main(). processRow writes them onto `docs/*` as `cmsOverride`.
+ * @type {Map<number, import('./lib/publish-schedule.mjs').ScheduleOverride>}
+ */
+let rowScheduleOverrides = new Map()
 
 const forceModxDocId = (() => {
   const fromEnv = Number(process.env.MODX_FORCE_DOC_ID)
@@ -350,6 +382,27 @@ async function queryAllRows(modxdb) {
 }
 
 /**
+ * Unpublished magazine rows waiting for a future `pub_date` (for --full, which
+ * rebuilds the publish schedule from MODX).
+ *
+ * @param {import('drizzle-orm/mysql2').MySql2Database} modxdb
+ * @param {number} now MODX clock (modxNowSeconds)
+ */
+async function queryFuturePublishRows(modxdb, now) {
+  const rows = await modxdb
+    .select()
+    .from(modx_site_content)
+    .where(
+      and(
+        eq(modx_site_content.deleted, 0),
+        eq(modx_site_content.published, 0),
+        gt(modx_site_content.pub_date, now)
+      )
+    )
+  return rows.filter((row) => isFuturePublishRow(row, now))
+}
+
+/**
  * @param {import('drizzle-orm/mysql2').MySql2Database} modxdb
  * @param {typeof modx_site_content.$inferSelect[]} initialRows
  */
@@ -461,7 +514,10 @@ async function processRow(
   if (modxTransform.isReferenceDoc(doc)) {
     modxTransform.findPath(doc)
     modxTransform.setReferenceRedirect(doc)
-    const processed = modxTransform.referenceDocFields(doc)
+    const processed = {
+      ...modxTransform.referenceDocFields(doc),
+      ...scheduleDocFields(doc, rowScheduleOverrides.get(doc.id)),
+    }
     workingById.set(doc.id, processed)
 
     if (!changedIds.has(doc.id)) {
@@ -565,7 +621,10 @@ async function processRow(
   }
 
   modxTransform.setReceptsarokRedirect(doc, redirect)
-  const processed = modxTransform.docFields(doc)
+  const processed = {
+    ...modxTransform.docFields(doc),
+    ...scheduleDocFields(doc, rowScheduleOverrides.get(doc.id)),
+  }
   workingById.set(doc.id, processed)
 
   const redirectParsed = parseReceptsarokRedirectPath(redirect)
@@ -864,7 +923,7 @@ function maxEditedon(rows, fallback = 0) {
 }
 
 async function main() {
-  if (!isFromPayload) {
+  if (!isMysqlFree) {
     for (const key of ['MODXDB_HOST', 'MODXDB_PORT', 'MODXDB_USER', 'MODXDB_DATABASE', 'MODXDB_PASSWORD']) {
       if (!process.env[key]) {
         throw new Error(`${key} is required`)
@@ -887,26 +946,191 @@ async function main() {
   let tmplvarContentvalues
   let lastEdit = 0
 
+  // Date-driven publish/unpublish: one read of the list + one query for the
+  // CMS-dated docs per run; snapshots of due publishes are read only when due.
+  // What they produce joins this run below (applyScheduleToRun).
+  const scheduleNow = modxNowSeconds()
+  const publishSchedule = isReferencesOnly ? null : await loadPublishSchedule(firestore)
+  const cmsOverrides = publishSchedule
+    ? await loadCmsOverrides(firestore)
+    : { live: new Map(), reads: 0 }
+  if (publishSchedule) {
+    readCounts.meta += 1
+    readCounts.cmsOverrides = cmsOverrides.reads
+    console.log(describeSchedule(publishSchedule))
+    if (cmsOverrides.live.size > 0) {
+      console.log(`publish schedule: ${cmsOverrides.live.size} doc(s) with CMS-set dates`)
+    }
+  }
+  const scheduleOverrides = buildOverrides(cmsOverrides.live, publishSchedule)
+  rowScheduleOverrides = scheduleOverrides
+  const due = publishSchedule
+    ? dueEntries(publishSchedule, scheduleNow)
+    : { publish: [], unpublish: [] }
+  const duePublish =
+    due.publish.length > 0
+      ? await loadDuePublishRows(firestore, due.publish, scheduleNow)
+      : { rows: [], extraRows: [], tvs: [], restoredDocs: [], expiredIds: [], missingIds: [], reads: 0 }
+  readCounts.meta += duePublish.reads
+
+  /** @type {import('./lib/publish-schedule.mjs').ScheduleEntry[]} due entries carried out this run */
+  let executedEntries = []
+  let reconcile = emptyReconcile()
+  /** @type {{ id: number, data: Record<string, unknown> }[]} CMS-parked articles put back this run */
+  let restoredDocs = []
+  /** @type {{ id: number, data: Record<string, unknown> }[]} docs written as-is (no MODX row) */
+  let docWrites = []
+
+  /**
+   * Fold the schedule into this run: due entries, and CMS date edits of live
+   * articles. A row this run already carries (a save or MySQL change of the same
+   * article) wins: its current state (CMS dates applied) decides, and the planner
+   * re-derives its entries from it.
+   */
+  const applyScheduleToRun = () => {
+    const seenIds = new Set(
+      [...changedRows, ...removedRows].map((row) => row.id).concat(removedModxIds)
+    )
+    const publishRows = duePublish.rows.filter((row) => !seenIds.has(row.id))
+    restoredDocs = duePublish.restoredDocs.filter((doc) => !seenIds.has(doc.id))
+    const unpublishIds = due.unpublish.map((e) => e.id).filter((id) => !seenIds.has(id))
+    for (const entry of due.unpublish) {
+      if (!seenIds.has(entry.id)) {
+        console.log(`  scheduled unpublish due: id=${entry.id} "${entry.title ?? ''}"`)
+      }
+    }
+    reconcile = publishSchedule
+      ? reconcileCmsOverrides({
+          live: cmsOverrides.live,
+          schedule: publishSchedule,
+          now: scheduleNow,
+          skipIds: new Set([
+            ...seenIds,
+            ...publishRows.map((row) => row.id),
+            ...restoredDocs.map((doc) => doc.id),
+            ...unpublishIds,
+          ]),
+        })
+      : emptyReconcile()
+    changedRows = mergeRowsById(changedRows, publishRows)
+    removedModxIds = [...new Set([...removedModxIds, ...unpublishIds, ...reconcile.removeIds])]
+    docWrites = [...restoredDocs, ...reconcile.docWrites]
+    const executedPublishIds = new Set([
+      ...publishRows.map((row) => row.id),
+      ...restoredDocs.map((doc) => doc.id),
+    ])
+    executedEntries = [
+      ...due.publish.filter((e) => executedPublishIds.has(e.id)),
+      ...due.unpublish.filter((e) => unpublishIds.includes(e.id)),
+    ]
+    return publishRows
+  }
+
+  /**
+   * CMS dates beat MODX's: apply them to this run's MODX rows and re-sort the
+   * rows into changed / removed (a future CMS publish time or a passed CMS
+   * unpublish time takes a published article off, as a MODX save would).
+   *
+   * @param {Record<string, unknown>[]} changed
+   * @param {Record<string, unknown>[]} removed
+   */
+  const classifyWithOverrides = (changed, removed) => {
+    if (!scheduleOverrides.size) return { changed, removed }
+    const adjust = (row) => applyOverridesToRows([row], scheduleOverrides, scheduleNow)[0]
+    const out = { changed: [], removed: [] }
+    for (const row of [...changed, ...removed]) {
+      if (!scheduleOverrides.has(row.id)) {
+        ;(changed.includes(row) ? out.changed : out.removed).push(row)
+        continue
+      }
+      const adjusted = adjust(row)
+      ;(shouldSyncRow(adjusted) ? out.changed : out.removed).push(adjusted)
+    }
+    return out
+  }
+
+  /**
+   * Record new future dates from this run's rows, drop the entries carried out
+   * (or no longer valid) and write the list — after the content writes, so a
+   * failed run keeps its due entries for the next one.
+   */
+  const commitSchedule = async () => {
+    if (!publishSchedule) return
+    const plan = planScheduleUpdates({
+      now: scheduleNow,
+      changedRows: changedRows ?? [],
+      removedRows: removedRows ?? [],
+      removedModxIds: removedModxIds ?? [],
+      rowsToProcess: rowsToProcess ?? [],
+      tvs: tmplvarContentvalues ?? [],
+      overrides: scheduleOverrides,
+      restoredDocs,
+      executed: executedEntries,
+      droppedPublishIds: [...duePublish.expiredIds, ...duePublish.missingIds],
+      reconcile,
+      rebuild: isFullSync,
+    })
+    const result = await commitScheduleUpdates(firestore, publishSchedule, plan)
+    console.log(
+      result.written
+        ? `publish schedule: saved ${result.entries} entr${result.entries === 1 ? 'y' : 'ies'}` +
+            ` (executed ${executedEntries.length}, snapshots +${result.snapshotsWritten}/-${result.snapshotsDeleted})`
+        : `publish schedule: unchanged (${result.entries} entr${result.entries === 1 ? 'y' : 'ies'})`
+    )
+  }
+
+  if (isScheduleOnly) {
+    changedRows = []
+    removedRows = []
+    applyScheduleToRun()
+    if (changedRows.length === 0 && removedModxIds.length === 0 && docWrites.length === 0) {
+      // Only list changes (expired entries, CMS unpublish times) — no content to rebuild.
+      await commitSchedule()
+      console.log('schedule-only: nothing due')
+      return
+    }
+  }
+
   // Bylines come from `authors/{slug}` (CMS-owned), never from MODX chunks — one
   // read of the aggregate serves every doc in this run, payload path included.
   const authors = await loadAuthors(firestore)
   readCounts.collections = (readCounts.collections ?? 0) + 1
   console.log(`authors: ${authors.length} rekord a collections/authors dokumentumból`)
 
-  if (isFromPayload) {
+  if (isMysqlFree) {
     // ── Payload path (no MySQL / cPanel needed) ──────────────────────────────
-    const rawPayload = process.env.MODX_SYNC_PAYLOAD
-    if (!rawPayload) {
-      throw new Error('--from-payload requires MODX_SYNC_PAYLOAD env var (gzip+base64 JSON)')
+    // --schedule-only takes the same path with an empty payload: its only rows
+    // are the due entries' snapshots (folded in before its early exit above).
+    let classified
+    /** @type {Record<string, unknown>[]} */
+    let duePublishRows
+    if (isScheduleOnly) {
+      console.log('schedule-only mode: due publish/unpublish entries only (no MySQL)')
+      classified = classifyPayload({ rows: [], tvs: [] })
+      duePublishRows = changedRows
+    } else {
+      const rawPayload = process.env.MODX_SYNC_PAYLOAD
+      if (!rawPayload) {
+        throw new Error('--from-payload requires MODX_SYNC_PAYLOAD env var (gzip+base64 JSON)')
+      }
+      console.log('payload mode: loading rows from MODX_SYNC_PAYLOAD (no MySQL)')
+      const payload = await parseModxSavePayload(rawPayload)
+      payload.rows = applyOverridesToRows(payload.rows, scheduleOverrides, scheduleNow)
+      classified = classifyPayload(payload)
+      changedRows = classified.changedRows
+      removedRows = classified.removedRows
+      removedModxIds = classified.removedModxIds
+      duePublishRows = applyScheduleToRun()
     }
-    console.log('payload mode: loading rows from MODX_SYNC_PAYLOAD (no MySQL)')
-    const payload = await parseModxSavePayload(rawPayload)
-    const classified = classifyPayload(payload)
-    changedRows = classified.changedRows
-    removedRows = classified.removedRows
-    removedModxIds = classified.removedModxIds
-    rowsToProcess = sortRowsByDepth(classified.rowsToProcess)
-    tmplvarContentvalues = classified.tmplvarContentvalues
+    // Payload path has no MySQL: ancestors + TVs of a due publish come from its snapshot.
+    rowsToProcess = sortRowsByDepth(
+      mergeRowsById(
+        duePublish.extraRows.filter((row) => !classified.rowsToProcess.some((r) => r.id === row.id)),
+        classified.rowsToProcess,
+        duePublishRows
+      )
+    )
+    tmplvarContentvalues = mergeTvRows(classified.tmplvarContentvalues, duePublish.tvs)
     console.log(
       `payload rows: changed=${changedRows.length}, removed=${removedRows.length},` +
         ` removedIds=${removedModxIds.length}, total=${rowsToProcess.length}`
@@ -939,7 +1163,11 @@ async function main() {
         changedRows = isFullSync
           ? await queryAllRows(modxdb)
           : await queryChangedRows(modxdb, lastEdit)
-        if (!isFullSync) {
+        if (isFullSync) {
+          // Not removals (they are not in Firestore): only so the planner records
+          // their publish entry while the full sync rebuilds the schedule.
+          removedRows = await queryFuturePublishRows(modxdb, scheduleNow)
+        } else {
           removedRows = await queryRemovedRows(modxdb, lastEdit)
           if (forceModxDocId > 0) {
             const forced = await queryForcedRow(modxdb, forceModxDocId)
@@ -952,6 +1180,13 @@ async function main() {
           }
         }
       }
+      if (!isReferencesOnly) {
+        ;({ changed: changedRows, removed: removedRows } = classifyWithOverrides(
+          changedRows,
+          removedRows
+        ))
+        applyScheduleToRun()
+      }
     } catch (error) {
       await connection.end()
       throw error
@@ -959,12 +1194,22 @@ async function main() {
 
     console.log(
       `${isFullSync ? 'total' : 'changed'} MODX rows: ${changedRows.length}` +
-        (isFullSync ? '' : `, removed candidates: ${removedRows.length}`) +
+        (isFullSync
+          ? `, future-dated: ${removedRows.length}`
+          : `, removed candidates: ${removedRows.length}`) +
+        (removedModxIds.length > 0 ? `, removal by id: ${removedModxIds.length}` : '') +
         (forceModxDocId > 0 ? `, forced doc id: ${forceModxDocId}` : '')
     )
 
-    if (changedRows.length === 0 && removedRows.length === 0 && removedModxIds.length === 0) {
+    if (
+      changedRows.length === 0 &&
+      removedRows.length === 0 &&
+      removedModxIds.length === 0 &&
+      docWrites.length === 0
+    ) {
       await connection.end()
+      // Expired / snapshot-less due publishes still have to leave the list.
+      await commitSchedule()
       console.log('nothing to sync')
       return
     }
@@ -980,9 +1225,15 @@ async function main() {
     await connection.end()
   }
 
-  if (changedRows.length === 0 && removedRows.length === 0 && removedModxIds.length === 0) {
+  if (
+    changedRows.length === 0 &&
+    removedRows.length === 0 &&
+    removedModxIds.length === 0 &&
+    docWrites.length === 0
+  ) {
     console.log('nothing to sync from MODX')
-    if (!skipRedirectRefresh) {
+    await commitSchedule()
+    if (!skipRedirectRefresh && !isScheduleOnly) {
       const refresh = await refreshReceptsarokRedirectsFromManifest(firestore, RS_REDIRECTS_PATH, {
         apply: true,
       })
@@ -1097,6 +1348,21 @@ async function main() {
     } else {
       skipped++
     }
+  }
+
+  // Schedule writes without a MODX row: articles the CMS had parked and whose
+  // publish time came, and CMS publish-date changes of live articles.
+  for (const { id, data } of docWrites) {
+    if (typeof data.path !== 'string' || !data.path) {
+      console.warn(`skip write: scheduled doc id=${id} has no path`)
+      continue
+    }
+    const docId = encodeDocPathId(data.path)
+    await firestore.collection('docs').doc(docId).set(data)
+    workingById.set(id, data)
+    changedIds.add(id)
+    written++
+    console.log(`  wrote docs/${docId} (id=${id}, publish schedule)`)
   }
 
   if (isReferencesOnly) {
@@ -1359,10 +1625,12 @@ async function main() {
     }
   }
 
+  await commitSchedule()
+
   const purgeResult = await purgeNetlifyPaths(purgePaths)
 
-  let lastEditSummary = 'n/a (payload mode)'
-  if (!isFromPayload) {
+  let lastEditSummary = `n/a (${isScheduleOnly ? 'schedule-only' : 'payload'} mode)`
+  if (!isMysqlFree) {
     const newLastEdit = maxEditedon([...changedRows, ...removedRows], lastEdit)
     await firestore.collection('meta').doc(META_SYNC_DOC).set(
       {

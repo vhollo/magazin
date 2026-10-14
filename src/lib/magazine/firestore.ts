@@ -41,7 +41,12 @@ export function isCollectionSlug(path: string): boolean {
 export async function getMagazineArticle(path: string): Promise<MagazineArticle | null> {
 	const snap = await db.collection('docs').doc(encodeDocPathId(path)).get();
 	if (!snap.exists) return null;
-	return snap.data() as MagazineArticle;
+	// Publish-schedule fields (Firestore Timestamps, see the sync's publish-schedule.mjs)
+	// are sync/CMS bookkeeping: the page never shows them, and a Timestamp cannot be
+	// serialised into SvelteKit load data.
+	const { pubDate: _pubDate, unpubDate: _unpubDate, cmsOverride: _cmsOverride, ...article } =
+		snap.data() ?? {};
+	return article as MagazineArticle;
 }
 
 /** Direct children's MODX ids — used to surface a recipe folder's own child recipes. */

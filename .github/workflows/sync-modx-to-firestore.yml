@@ -16,6 +16,10 @@
 #   - repository_dispatch (modx-doc-save): fired by MODX plugin on article save
 #     (MySQL-free; payload carries rows + TVs + author chunks as gzip+base64)
 #     PAT (magazin_github_token) requires Contents: write + Actions: read/write.
+#   - schedule: daily at 01:00 Budapest time — `sync:modx:schedule` carries out the
+#     due date-driven publish/unpublish entries (meta/publishSchedule), MySQL-free.
+#     Cron is UTC only, so both 22:00 and 23:00 UTC are listed and the `gate` job
+#     lets through the one that is 01:00 in Europe/Budapest (CEST +2 / CET +1).
 
 name: Sync MODX to Firestore
 
@@ -37,20 +41,50 @@ on:
         type: string
   repository_dispatch:
     types: [modx-doc-save]
+  schedule:
+    - cron: '0 22 * * *' # 01:00 CEST (summer, UTC+2)
+    - cron: '0 23 * * *' # 01:00 CET (winter, UTC+1)
 
 # All runs serialised within their group — never cancel. Each save gets its own
-# run; rapid saves queue up and are processed in order.
+# run; rapid saves queue up and are processed in order. The scheduled run has its
+# own group: GitHub keeps only one *pending* run per group, so sharing the save
+# group would let the nightly run cancel a save run waiting there.
 concurrency:
-  group: ${{ github.event_name == 'repository_dispatch' && 'modx-firestore-sync-save' || 'modx-firestore-sync' }}
+  group: ${{ github.event_name == 'repository_dispatch' && 'modx-firestore-sync-save' || github.event_name == 'schedule' && 'modx-firestore-sync-schedule' || 'modx-firestore-sync' }}
   cancel-in-progress: false
 
 permissions:
   contents: write
 
 jobs:
+  # Scheduled runs: only the cron entry that is 01:00 in Budapest proceeds (the
+  # other one is an hour off because of daylight saving). Other events always pass.
+  gate:
+    runs-on: ubuntu-latest
+    outputs:
+      run: ${{ steps.check.outputs.run }}
+    steps:
+      - id: check
+        env:
+          EVENT: ${{ github.event_name }}
+          CRON: ${{ github.event.schedule }}
+        run: |
+          RUN=true
+          if [ "$EVENT" = "schedule" ]; then
+            OFFSET="$(TZ=Europe/Budapest date +%z)"
+            case "$CRON:$OFFSET" in
+              "0 22 * * *:+0200"|"0 23 * * *:+0100") RUN=true ;;
+              *) RUN=false ;;
+            esac
+            echo "cron '$CRON', Budapest offset $OFFSET → run=$RUN"
+          fi
+          echo "run=$RUN" >> "$GITHUB_OUTPUT"
+
   # Allow → sync → revoke must stay in this single job so revoke can read
   # steps.cpanel_mysql.outputs.ip (step outputs are not visible across jobs).
   sync:
+    needs: gate
+    if: needs.gate.outputs.run == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 30
 
@@ -91,6 +125,8 @@ jobs:
         run: |
           if [ "${{ github.event_name }}" = "repository_dispatch" ]; then
             npm run sync:modx:payload
+          elif [ "${{ github.event_name }}" = "schedule" ]; then
+            npm run sync:modx:schedule
           elif [ "${{ github.event.inputs.full_backfill }}" = "true" ]; then
             npm run sync:modx:full
           else

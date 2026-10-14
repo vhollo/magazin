@@ -10,7 +10,9 @@
 # Firebase ID token and holds the GitHub PAT server-side.
 #
 # Targets (comma-separated in the `targets` input):
-#   magazine       — `sync:modx:finish`: projection snapshot + `collections/{slug}`
+#   magazine       — `sync:modx:schedule` first (applies CMS-set publish/unpublish
+#                    dates of `docs/*` and any due schedule entry, MySQL-free), then
+#                    `sync:modx:finish`: projection snapshot + `collections/{slug}`
 #                    + `collections/home` + search index + relatedCards, rebuilt from
 #                    Firestore `docs` only (no MODX/MySQL). Use after editing `docs/*`.
 #   authors        — `sync:authors:collection`: rebuild the `collections/authors` aggregate.
@@ -98,6 +100,17 @@ jobs:
 
       - name: Install dependencies
         run: npm ci
+
+      # CMS-edited pubDate / unpubDate on docs/* → meta/publishSchedule (and a
+      # past / future date takes effect now). No Netlify secrets: the purge step
+      # below covers it.
+      - name: Apply publish schedule (CMS dates + due entries)
+        if: steps.targets.outputs.magazine == 'true'
+        run: npm run sync:modx:schedule
+        env:
+          NODE_OPTIONS: --max-old-space-size=6144
+          FIREBASE_ADMIN_KEY: ${{ secrets.FIREBASE_ADMIN_KEY }}
+          FIREBASE_STORAGE_BUCKET: ${{ secrets.FIREBASE_STORAGE_BUCKET }}
 
       - name: Rebuild magazine collections + search index
         if: steps.targets.outputs.magazine == 'true'

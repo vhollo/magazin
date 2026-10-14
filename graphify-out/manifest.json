@@ -15,8 +15,8 @@
     "semantic_hash": ""
   },
   "/Users/vhollo/Public/Google/webdev/diabetes/magazin/package.json": {
-    "mtime": 1791478097.38798,
-    "ast_hash": "e4b9cc52f609bd8fcf78183b5197edd0",
+    "mtime": 1791982810.629866,
+    "ast_hash": "99651003f6256968e191f13299da3652",
     "semantic_hash": ""
   },
   "/Users/vhollo/Public/Google/webdev/diabetes/magazin/tsconfig.json": {
@@ -110,8 +110,8 @@
     "semantic_hash": ""
   },
   "/Users/vhollo/Public/Google/webdev/diabetes/magazin/scripts/sync-modx-to-firestore.mjs": {
-    "mtime": 1791491134.6717417,
-    "ast_hash": "3d6864fab11718cb4cc942740dd2e0b0",
+    "mtime": 1791982810.6322243,
+    "ast_hash": "bada44536bc8552ecb9a37053b605466",
     "semantic_hash": ""
   },
   "/Users/vhollo/Public/Google/webdev/diabetes/magazin/scripts/import-receptsarok-uncategorized-review.mjs": {
@@ -450,8 +450,8 @@
     "semantic_hash": ""
   },
   "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/lib/magazine/firestore.ts": {
-    "mtime": 1791478097.4852428,
-    "ast_hash": "ae52e85cd475a5f7dd5d04cf5fa7e735",
+    "mtime": 1791982810.6330101,
+    "ast_hash": "45c3c3295d85aca22274a8612932bcb2",
     "semantic_hash": ""
   },
   "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/lib/magazine/cacheHeaders.ts": {
@@ -700,8 +700,8 @@
     "semantic_hash": ""
   },
   "/Users/vhollo/Public/Google/webdev/diabetes/magazin/AGENTS.md": {
-    "mtime": 1791625866.6509235,
-    "ast_hash": "a68b276910970efb446347c58baf1d45",
+    "mtime": 1791982912.6935496,
+    "ast_hash": "da0dc9aa5cd2608a818ba773f715fb2b",
     "semantic_hash": ""
   },
   "/Users/vhollo/Public/Google/webdev/diabetes/magazin/.github/workflows/sync-receptsarok-patika.yml": {
@@ -710,8 +710,8 @@
     "semantic_hash": ""
   },
   "/Users/vhollo/Public/Google/webdev/diabetes/magazin/.github/workflows/sync-modx-to-firestore.yml": {
-    "mtime": 1790106617.0574198,
-    "ast_hash": "50be53e6c917d5db6c258302b8818e33",
+    "mtime": 1791982810.6186037,
+    "ast_hash": "063e784e2962d06247476dfaf5a03dd3",
     "semantic_hash": ""
   },
   "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/app.html": {
@@ -4525,13 +4525,13 @@
     "semantic_hash": ""
   },
   "/Users/vhollo/Public/Google/webdev/diabetes/magazin/scripts/data/authors.json": {
-    "mtime": 1787655839.694323,
-    "ast_hash": "d06ed37735df6e747e1fa35895883883",
+    "mtime": 1791982810.631533,
+    "ast_hash": "f12a3bd766d50f56357caa8710e2bbf9",
     "semantic_hash": ""
   },
   "/Users/vhollo/Public/Google/webdev/diabetes/magazin/scripts/data/authors-review.json": {
-    "mtime": 1787655839.695044,
-    "ast_hash": "160548a3f13cbc9d2ede3a059c85e849",
+    "mtime": 1791982810.6308458,
+    "ast_hash": "cf8227fdcb5458ce1d52437d1a990836",
     "semantic_hash": ""
   },
   "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/lib/authors.ts": {
@@ -4570,8 +4570,8 @@
     "semantic_hash": ""
   },
   "/Users/vhollo/Public/Google/webdev/diabetes/magazin/scripts/data/authors-duplicate-bylines.md": {
-    "mtime": 1787655839.6955981,
-    "ast_hash": "5ad59ad04cd355f86137b9bad119480d",
+    "mtime": 1791982810.630285,
+    "ast_hash": "a6a9ac3a35dd3884d7d3ada90eaadb56",
     "semantic_hash": ""
   },
   "/Users/vhollo/Public/Google/webdev/diabetes/magazin/scripts/prune-storage-versions.mjs": {
@@ -4590,8 +4590,8 @@
     "semantic_hash": ""
   },
   "/Users/vhollo/Public/Google/webdev/diabetes/magazin/.github/workflows/cms-sync.yml": {
-    "mtime": 1791478097.3211305,
-    "ast_hash": "0669326934f02cf540485992257278c2",
+    "mtime": 1791982836.3083808,
+    "ast_hash": "0bd4a6bb92d9c8f99b0a1f519386ea56",
     "semantic_hash": ""
   },
   "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/lib/magazine/articleHtml.ts": {
@@ -4637,6 +4637,11 @@
   "/Users/vhollo/Public/Google/webdev/diabetes/magazin/src/lib/searchPending.ts": {
     "mtime": 1791559793.816119,
     "ast_hash": "a8a075dc8103a743b876cc9c745d06ca",
+    "semantic_hash": ""
+  },
+  "/Users/vhollo/Public/Google/webdev/diabetes/magazin/scripts/lib/publish-schedule.mjs": {
+    "mtime": 1791982685.9435966,
+    "ast_hash": "92e6bc01e5be1870e493b8fbae66c238",
     "semantic_hash": ""
   }
 }
