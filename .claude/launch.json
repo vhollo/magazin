@@ -9,6 +9,14 @@
       "autoPort": false
     },
     {
+      "name": "magazin-dev-https",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev:https", "--", "--", "--port", "5181"],
+      "port": 5181,
+      "url": "https://localhost:5181",
+      "autoPort": false
+    },
+    {
       "name": "magazin-netlify-dev",
       "runtimeExecutable": "netlify",
       "runtimeArgs": ["dev", "--port", "5190"],

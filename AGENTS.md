@@ -1416,6 +1416,7 @@ Routes are matched in this order:
 | Config | Command | When to use |
 |---|---|---|
 | `magazin-dev` | `vite dev` (port 5180) | Everyday work — fast HMR. Runs endpoints in the Vite server, which is forgiving about response bodies (`dev === true`, so subscriber/paywall checks are bypassed — any signed-in user gets full access). |
+| `magazin-dev-https` | `npm run dev:https` (port 5181, `https://localhost:5181`) | Same as `magazin-dev`, but over HTTPS — for features that need a secure origin (e.g. testing OAuth sign-in from another device on the LAN). `dev:https` sets `DEV_HTTPS=1`; `vite.config.ts` then adds `@vitejs/plugin-basic-ssl` (1.x — the 2.x line needs Vite 6+), which serves a self-signed certificate, so the browser shows a one-time warning. Without the variable the plugin is not loaded. |
 | `magazin-netlify-dev` | `netlify dev` (port 5190) | Vite behind the Netlify dev proxy (redirects/headers/edge). Still the Vite server under the hood, so it does **not** reproduce the function transport. |
 | `magazin-netlify-serve` | `netlify serve` (port 5191) | **Reproduces production behavior locally** — builds and runs the real bundled Netlify Function (`sveltekit-render`) through the Lambda-style transport. Use this to catch bugs that only surface on Netlify (e.g. binary/`Content-Encoding` response handling — see the `ERR_CONTENT_DECODING_FAILED` troubleshooting row). Needs a `build` first and reads `.env`. |
 

@@ -4,6 +4,7 @@
 	"private": true,
 	"scripts": {
 		"dev": "vite dev --host",
+		"dev:https": "DEV_HTTPS=1 npm run dev",
 		"build": "vite build",
 		"preview": "vite preview --host",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
@@ -70,6 +71,7 @@
 		"@tailwindcss/postcss": "^4.1.4",
 		"@tailwindcss/typography": "^0.5.15",
 		"@types/eslint": "^9.6.1",
+		"@vitejs/plugin-basic-ssl": "^1.2.0",
 		"daisyui": "^5.0.27",
 		"drizzle-kit": "^0.24.2",
 		"eslint": "^9.12.0",
