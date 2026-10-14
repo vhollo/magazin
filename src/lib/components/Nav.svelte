@@ -479,7 +479,11 @@
         <div class="flex-col py-2 mt-2 bg-error text-error-content text-center">Hiba történt. Kérlek, próbáld újra.</div>
       {/if}
       {#if success === 'facebook-exists'}
-        <div class="flex-col py-2 px-2 mt-2 bg-warning text-warning-content text-center">Ezzel az Email címmel már van fiókod. Jelentkezz be a korábban használt módon (Google fiók vagy ellenőrző link). Ha Google fiókkal lépsz be, a Facebook fiókodat is hozzákapcsoljuk.</div>
+        <!-- type="button": this notice sits inside the email-link form, a default submit button would send the link -->
+        <div class="flex flex-col items-center gap-2 py-2 px-2 mt-2 bg-warning text-warning-content text-center">
+          <span>Ezzel az Email címmel már van fiókod. Jelentkezz be a korábban használt módon (Google fiók vagy ellenőrző link). Ha Google fiókkal lépsz be, a Facebook fiókodat is hozzákapcsoljuk.</span>
+          <button type="button" class="btn btn-secondary !border-secondary h-8" onclick={() => google_login()}>Belépés Google fiókkal és összekapcsolás</button>
+        </div>
       {/if}
       {#if success === 'sent'}
         <div class="flex-col py-2 mt-2 bg-success text-success-content text-center">Az ellenőrző linket elküldtük az Email címedre.</div>
