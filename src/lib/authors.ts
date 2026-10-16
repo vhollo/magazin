@@ -39,7 +39,7 @@ export type AuthorSupport = {
 };
 
 /** Same default as the sync (`scripts/sync-modx-to-firestore.mjs`). */
-const BASE_URL = env.PUBLIC_BASE_URL || 'https://www.diabetes.hu/';
+const BASE_URL = env.PUBLIC_BASE_URL || 'https://diabetes.hu/';
 
 /** Author images live on the MODX site, like every other magazine image. */
 export function authorPhotoUrl(photo: string | null | undefined): string {

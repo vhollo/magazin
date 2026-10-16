@@ -31,7 +31,7 @@ import { stringifyRecipesJson } from '../src/lib/recipesJsonFormat.js'
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 const RECIPES_PATH = path.join(root, 'src/lib/data/recipes.json')
 const REDIRECTS_PATH = path.join(root, 'src/lib/data/receptsarok-redirects.json')
-const PUBLIC_BASE_URL = process.env.PUBLIC_BASE_URL || 'https://www.diabetes.hu/'
+const PUBLIC_BASE_URL = process.env.PUBLIC_BASE_URL || 'https://diabetes.hu/'
 const apply = process.argv.includes('--apply')
 
 if (!process.env.MODXDB_URL) {

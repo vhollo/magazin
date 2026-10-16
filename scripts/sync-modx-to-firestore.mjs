@@ -114,7 +114,7 @@ const isMysqlFree = isFromPayload || isScheduleOnly
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const root = path.resolve(__dirname, '..')
-const PUBLIC_BASE_URL = process.env.PUBLIC_BASE_URL || 'https://www.diabetes.hu/'
+const PUBLIC_BASE_URL = process.env.PUBLIC_BASE_URL || 'https://diabetes.hu/'
 const RS_REDIRECTS_PATH = path.join(root, 'src/lib/data/receptsarok-redirects.json')
 const RECIPES_JSON_PATH = path.join(root, 'src/lib/data/recipes.json')
 const CATEGORY_REVIEW_PATH = path.join(root, 'scripts/data/magazin-recipe-category-review.json')
