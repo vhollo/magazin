@@ -355,8 +355,10 @@ article figure:has([style*="background-color"])
   /* card-body makes this a flex container, which blockifies direct-child <a>
      (a flex item's display:inline is forced to block — so `.nicebox > a {display:inline}`
      can never work). Drop back to block flow so anchors stay inline; restore the
-     flex `gap-2` rhythm with margins below. */
-  display: block;
+     flex `gap-2` rhythm with margins below. `flow-root` (not `block`) so the box
+     also contains a floated child (`figure.left/.right` from a [[nagyito &align]]);
+     otherwise a float taller than the text sticks out below the box background. */
+  display: flow-root;
 
   & > * {
     @apply my-0;
@@ -491,7 +493,7 @@ article figure img {
   max-height: 75vh;
 }
 .nicebox img {
-  padding: 1rem;
+  padding: 1rem 0;
 }
 
 .prose {
@@ -596,7 +598,9 @@ article .table-scroll > table :is(td, th) {
   .right img {
     margin-inline: auto !important;
   }
-  .nicebox img,
+  .nicebox img {
+    padding: 0.5rem 0;
+  }
   .boxleft img,
   .boxright img {
     padding: 0.5rem;
