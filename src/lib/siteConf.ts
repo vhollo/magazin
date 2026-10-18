@@ -229,6 +229,28 @@ function getRecipesCacheKeyForDev(): string {
 /** Sidecar marker so dev/build skip the full `recipes` collection scan when nothing changed. */
 const RECIPES_REV_SIDECAR = '.recipes-rev.json'
 
+/**
+ * Gitignored local copy of the Firestore `recipes` scan. Dev and local builds write
+ * here, never to the tracked recipes.json — otherwise every dev start after a
+ * revision change rewrote ~1000 lines of recipes.json, which then got committed
+ * with unrelated code and conflicted with the sync bot's recipes.json commits.
+ */
+const RECIPES_LOCAL_CACHE = '.recipes-cache.json'
+
+/**
+ * Only the Netlify build refreshes the bundled recipes.json from Firestore (the
+ * SSR lambda reads it at runtime; the build checkout is never committed back).
+ */
+const writeBundledRecipes = building && process.env.NETLIFY === 'true'
+
+function readLocalRecipesCache(): string | null {
+  try {
+    return fs.readFileSync(path.resolve(process.cwd(), 'src/lib/data', RECIPES_LOCAL_CACHE), 'utf-8')
+  } catch {
+    return null
+  }
+}
+
 function readLocalRecipesRevision(): string | null {
   try {
     const raw = fs.readFileSync(path.resolve(process.cwd(), 'src/lib/data', RECIPES_REV_SIDECAR), 'utf-8');
@@ -243,14 +265,14 @@ async function loadRecipesUncached(): Promise<unknown[]> {
   if (building || dev) {
     try {
       // sync:recipes:apply stamps a revision into meta/recipesUpload; when it
-      // matches our sidecar the local JSON is current — 1 read instead of one
-      // per recipe, and local recipes.json edits survive dev restarts.
+      // matches our sidecar the local cache is current — 1 read instead of one
+      // per recipe.
       const uploadSnap = await db.collection('meta').doc('recipesUpload').get();
       const revision = uploadSnap.exists ? (uploadSnap.data()?.revision as string | undefined) : undefined;
-      if (revision && revision === readLocalRecipesRevision()) {
-        if (dev) console.log('recipes unchanged (meta/recipesUpload revision match) — using local JSON');
-        const data = fs.readFileSync(path.resolve(process.cwd(), 'src/lib/data', 'recipes.json'), 'utf-8');
-        return parseRecipesForExport(data).map(toRuntimeRecipe)
+      const cached = revision && revision === readLocalRecipesRevision() ? readLocalRecipesCache() : null;
+      if (cached) {
+        if (dev) console.log('recipes unchanged (meta/recipesUpload revision match) — using local cache');
+        return parseRecipesForExport(cached).map(toRuntimeRecipe)
       }
 
       const recipesRef = db.collection('recipes');
@@ -264,8 +286,12 @@ async function loadRecipesUncached(): Promise<unknown[]> {
       const recipesDataForExport = recipesSnap.docs
         .map((doc: QueryDocumentSnapshot) => normalizeRecipeForExport(doc.data()))
         .filter(Boolean)
-      writeData(recipesDataForExport, 'recipes.json', stringifyRecipesJson)
-      if (revision) writeData({ revision }, RECIPES_REV_SIDECAR)
+      if (writeBundledRecipes) {
+        writeData(recipesDataForExport, 'recipes.json', stringifyRecipesJson)
+      } else {
+        writeData(recipesDataForExport, RECIPES_LOCAL_CACHE, stringifyRecipesJson)
+        if (revision) writeData({ revision }, RECIPES_REV_SIDECAR)
+      }
       return recipesDataForExport.map(toRuntimeRecipe)
     } catch (error) {
       console.error("Error getting recipes:", error);

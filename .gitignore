@@ -33,6 +33,7 @@ magazin.code-workspace
 #/src/lib/data/*
 scripts/data/data.json
 src/lib/data/.recipes-rev.json
+src/lib/data/.recipes-cache.json
 /static/banners
 
 # graphify
