@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-09T07:27:52.517Z",
+  "generatedAt": "2026-10-16T14:06:47.994Z",
   "sourceDocs": "sync worker (dynamic match + existing manifest)",
   "sourceRecipes": "src/lib/data/recipes.json",
   "entries": [
@@ -2408,6 +2408,12 @@
       "path": "cikkek/diabetes/2604/csaladi-kedvencek/savanyukaposzta-leves-gerslivel",
       "year": 2026,
       "id": "savanyukaposzta-leves-gerslivel"
+    },
+    {
+      "modxContentId": 4532,
+      "path": "cikkek/diabetes/2604/csaladi-kedvencek/vadraguleves",
+      "year": 2026,
+      "id": "vadraguleves"
     },
     {
       "modxContentId": 4029,
