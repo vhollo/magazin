@@ -36,5 +36,3 @@ src/lib/data/.recipes-rev.json
 src/lib/data/.recipes-cache.json
 /static/banners
 
-# graphify
-graphify-out/
