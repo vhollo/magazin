@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-16T14:06:47.994Z",
+  "generatedAt": "2026-10-18T20:12:42.971Z",
   "sourceDocs": "sync worker (dynamic match + existing manifest)",
   "sourceRecipes": "src/lib/data/recipes.json",
   "entries": [
@@ -2414,6 +2414,12 @@
       "path": "cikkek/diabetes/2604/csaladi-kedvencek/vadraguleves",
       "year": 2026,
       "id": "vadraguleves"
+    },
+    {
+      "modxContentId": 4538,
+      "path": "cikkek/diabetes/2604/csaladi-kedvencek/voroslencse-leves",
+      "year": 2026,
+      "id": "voroslencse-leves"
     },
     {
       "modxContentId": 4029,
