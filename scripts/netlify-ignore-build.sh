@@ -18,7 +18,8 @@
 # The decision is printed into the deploy log.
 set -u
 
-PROD_SITE_ID='58ab240c-d36e-40cc-bfb6-02d18c81d2dc'
+# Production is matched by name only: Netlify's secrets scanner fails the build
+# if the value of NETLIFY_SITE_ID appears in a committed file.
 PROD_SITE_NAME='testdiabeteshu'
 # Files committed by .github/workflows/sync-modx-to-firestore.yml ("chore(sync): …").
 SYNC_DATA_FILES=(
@@ -34,7 +35,7 @@ if [[ -z "$from" || -z "$to" ]] || ! git cat-file -e "$from^{commit}" 2>/dev/nul
   exit 1
 fi
 
-if [[ "${SITE_ID:-}" != "$PROD_SITE_ID" && "${SITE_NAME:-}" != "$PROD_SITE_NAME" ]]; then
+if [[ "${SITE_NAME:-}" != "$PROD_SITE_NAME" ]]; then
   # Netlify's default rule.
   if git diff --quiet "$from" "$to"; then
     echo "ignore: ${SITE_NAME:-site} — no changes since $from — skip"
