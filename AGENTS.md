@@ -223,6 +223,10 @@ Added in the homepage redesign 2026 (F6.1). **Simple Analytics** (cookie-free, n
 | `subscribe_cta_click` | `SubscribeCTA.svelte` | Home subscribe band CTA → `/elofizetes` |
 | `hirlevel_submit` | `hirlevel/+page.svelte` | Successful subscribe/unsubscribe (fired inside the `use:enhance` callback on `result.data?.success`, `muvelet` metadata) |
 
+**Missing pages → `/404/{path}`** (`saPathOverwriter` in `app.html`, wired via `data-path-overwriter` on the script tag). A path with no Firestore doc is redirected to `/keres?q={path}&hianyzo=/{path}` (`[...path]/+layout.server.ts`). Simple Analytics drops every non-UTM query parameter and records only `location.pathname`, so before this all such visits counted as `/keres` and the intended target was lost — they were the top "page", mostly from the MODX load-test iframe that opens every live diabetes.hu path on the production Netlify site. The overwriter reports a `/keres` pageview that carries `hianyzo` as `/404` + that path (capped at 300 chars); every other pageview passes through unchanged. In the dashboard, type `/404` into the Pages search to list the missing targets. A separate `hianyzo` parameter is used instead of allowing `q` (`data-allow-params`) because `q` also holds visitors' own search terms, which must not be sent to analytics. Only the pathname is passed, never the original query string (newsletter links may carry personal data). Visits recorded before this change cannot be recovered.
+
+**Iframe misses skip `/keres` entirely.** When the request carries `Sec-Fetch-Dest: iframe` (the MODX load test; Chrome, Firefox, Safari 16.4+), the missing-doc branch redirects to `/404/{path}` instead (segments `encodeURIComponent`-encoded for the `Location` header). `src/routes/404/[...path]/+server.ts` returns a bare 404 HTML page — a "nem található" line, a `/keres?q=` link, and the Simple Analytics script, which records the URL's own path `/404/{path}` (no overwriter needed). No layout, no Firestore read, and none of the `/keres` costs: `/api/search-meta` and the ~10 MiB search index download from Cloud Storage per iframe. The missing-doc redirect is CDN-cached (`MAGAZINE_CACHE_CONTROL` from `setHeaders` also lands on `redirect()` responses), so that branch sets `Vary: Sec-Fetch-Dest`; existing pages don't, so their cache isn't split. A browser that sends no `Sec-Fetch-Dest` falls back to the `/keres` branch.
+
 **Testing note**: `trackEvent`/`sa_event` calls can't be reliably exercised via synthetic `click()`/`requestSubmit()` in the preview sandbox when routed through SvelteKit's `use:enhance` — verify with a real click or `dispatchEvent(new MouseEvent('click', ...))` on the anchor directly (bypassing `use:enhance`), or a native form POST for server-side behavior.
 
 ---
@@ -458,6 +462,7 @@ Added in the homepage redesign 2026 (F6.1). **Simple Analytics** (cookie-free, n
 
 - **Display**:
   - Shows search query in title: `Keresés: "{query}"`
+  - The `hianyzo` URL parameter (set by the missing-page redirect in `[...path]/+layout.server.ts`) is not read by the page — only by the analytics path overwriter (see [Analytics](#analytics))
   - Displays results using `Cards` component (includes Receptsarok hits with lock state)
   - A completed search with zero hits (`noResults` reactive) shows the query title plus a muted "Nincs találat…" notice inside the band, followed by `<TopicGrid />` (same nav2 topic grid as the homepage) below `#lista` as a browse fallback; `Cards` renders only when there are results
 
@@ -678,7 +683,7 @@ document without a re-sync and lands in the SSR HTML (no hydration reflow, works
 
 - **Legacy section redirects first** — `LEGACY_SECTION_REDIRECTS` in `+layout.server.ts` sends the old MODX section folders (no body, no child listing) to a live page with a 308, before any Firestore read: `cikkek`, `cikkek/{diabetes,hypertonia,elet,mod,szemle}` → `/`, `cikkek/orvos` → `/orvos-beteg`, `cikkek/kereso` → `/keres`, `cikkek/recept` → `/receptsarok`. They live in code, not in `doc.redirect`, because `sync:modx` rewrites `doc.redirect` (`setReceptsarokRedirect` deletes it when no recipe target resolves) on every re-save.
 - Loads `docs/{encodeDocPathId(path)}` from Firestore
-- If not found: `redirect(307, '/keres?q=…')` (`+layout.server.ts`)
+- If not found: `redirect(307, '/keres?q={path}&hianyzo=/{path}')` (`+layout.server.ts`); `hianyzo` is read only by Simple Analytics' `saPathOverwriter`. An iframe request (`Sec-Fetch-Dest: iframe`) gets `redirect(307, '/404/{path}')` to the bare `src/routes/404/[...path]/+server.ts` page instead; the branch sets `Vary: Sec-Fetch-Dest` (see [Analytics](#analytics))
 - **Empty `cikkek/…` doc → 307, not rendered.** "Empty" = `hasArticleBody(doc.content)` (`$lib/magazine/articleHtml` — no visible text and no img/iframe/video/table) is false **and** no recipe group (`doc.related` / `linkedModxIds`). Target: an association series folder (last segment contains `egyesulet`, e.g. `cikkek/diabetes/2002/pest-megyei-diabeteszegyesuletek`) → its first child (`getFirstChildUrl` — lowest MODX id, standing in for the unsynced `menuindex`); everything else → `/`. Hits the ~90 bare issue folders (`cikkek/diabetes/0801`) and ~20 non-recipe group folders. Not the search fallback: a path query there lists irrelevant hits. 307 so a page returns once an editor gives it a body.
 - **Empty recipe-group doc (any root): the tag decides.** No body but a recipe group (`doc.related` / `linkedModxIds`) → **tagged** (`isListedDoc`): renders introtext + its recipe list via `ReceptsarokWidget` (e.g. `cikkek/diabetes/2206/unnepi-fogasok`); **untagged**: 307 to its first page (`getFirstChildUrl`), straight to the recipe when that page is a recipe article (`cikkek/diabetes/2003/receptsarok` → `/receptsarok/2021/minestrone-vagyis-olasz-zoldsegleves`), else the article (issue folders like `cikkek/diabetes/1306` → the issue's first article). Editors switch a group between the two by adding/removing its MODX tag. The old `receptsarok/{category}` MODX folders never reach this route — `/receptsarok/[category]` serves those URLs.
 - **Never unpublish a MODX folder that still has published children** (e.g. to hide an empty issue page). The plugin ships every ancestor with a saved doc, but `classifyPayload` classifies ancestors too: an unpublished folder lands in `removedRows`, and removed rows are kept out of `workingById` (`sync-modx-to-firestore.mjs`, the ancestor loop). `findPath` then can't resolve the child's parent → the child has no path → `skip write: … has no path after transform`. Every later save of any article below that folder is silently dropped, including its `doc.related` / redirect refresh. The `folder` tag doesn't help here: `findPath` only appends it to the parent **in memory** (never stored in Firestore). Corpus exclusion comes from `isListedDoc`: a tagless folder is already unlisted, while a folder with real tags (e.g. `cikkek/diabetes/2004/miert-jo-taborozni`) *is* listed.
@@ -957,7 +962,7 @@ When an eligible doc **matches an existing** recipe (redirect already resolves t
 
 #### Runtime request handling
 
-- **`src/routes/[...path]/+layout.server.ts`**: `doc.redirect` → HTTP 308 to Receptsarok URL; missing doc → 307 to `/keres?q=…`
+- **`src/routes/[...path]/+layout.server.ts`**: `doc.redirect` → HTTP 308 to Receptsarok URL; missing doc → 307 to `/keres?q={path}&hianyzo=/{path}` (iframe requests: 307 to `/404/{path}`)
 - **`src/routes/[...path]/+page.server.ts`**: skips `ReceptsarokWidget` when `doc.redirect` is set
 - **Excluded from listings**: `isListedDoc()` (`src/lib/modx/collections.ts`) and article MiniSearch indexing (`scripts/lib/search-index.mjs`) skip docs with `redirect`
 
@@ -1409,7 +1414,8 @@ Routes are matched in this order:
 1. Exact routes (`/`, `/kviz`, `/keres`, `/patika`, `/elofizetes`, `/receptsarok`)
 2. Receptsarok dynamic routes (`/receptsarok/[category]`, `/receptsarok/[year]/[id]`)
 3. Quiz dynamic routes (`/kviz/[...id]`)
-4. Catch-all route (`/[...path]`) - handles collections and individual documents
+4. Missing-page endpoint (`/404/[...path]`, `+server.ts`) - bare 404 HTML for iframe misses (see [Analytics](#analytics))
+5. Catch-all route (`/[...path]`) - handles collections and individual documents
 
 ---
 

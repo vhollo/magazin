@@ -31,10 +31,25 @@
       src="https://code.jquery.com/ui/1.14.1/jquery-ui.min.js"
     ></script>
     <!-- Simple Analytics: cookie-free, no consent banner needed (homepage redesign 2026, F6.1).
-		     Custom events (funnel CTAs) are fired via sa_event() — see $lib/analytics.ts. -->
+		     Custom events (funnel CTAs) are fired via sa_event() — see $lib/analytics.ts.
+		     Missing pages: [...path]/+layout.server.ts redirects an unknown path to
+		     /keres?q=…&hianyzo=/{path}; saPathOverwriter records that visit as /404/{path},
+		     so the Pages list shows the intended target instead of /keres. -->
+    <script>
+      function saPathOverwriter(o) {
+        try {
+          if (o.path !== "/keres") return o.path;
+          var m = new URLSearchParams(location.search).get("hianyzo");
+          return m && m[0] === "/" ? "/404" + m.slice(0, 300) : o.path;
+        } catch (e) {
+          return o.path;
+        }
+      }
+    </script>
     <script
       async
       defer
+      data-path-overwriter="saPathOverwriter"
       src="https://scripts.simpleanalyticscdn.com/latest.js"
     ></script>
     <noscript

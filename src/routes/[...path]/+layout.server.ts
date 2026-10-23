@@ -61,7 +61,7 @@ function similarCards(
 	);
 }
 
-export const load: LayoutServerLoad = async ({ params, setHeaders }) => {
+export const load: LayoutServerLoad = async ({ params, request, setHeaders }) => {
 	const path: string = params.path ?? '';
 
 	setHeaders({ 'Cache-Control': MAGAZINE_CACHE_CONTROL });
@@ -86,8 +86,20 @@ export const load: LayoutServerLoad = async ({ params, setHeaders }) => {
 
 	// A doc without `path` is a stub a merge write re-created after its article was
 	// deleted or moved (only `relatedCards` etc.) — as missing as no doc at all.
+	// An iframe (the MODX load test) goes to the bare `/404/{path}` endpoint: analytics
+	// records that path, and no /keres layout or search index is loaded. Everyone else
+	// gets the search; `hianyzo` is for analytics only (`saPathOverwriter` in app.html
+	// records the visit as `/404/{path}` instead of `/keres`). The CDN-cached redirect
+	// differs by `Sec-Fetch-Dest`, hence the `Vary`.
 	if (!doc?.path) {
-		redirect(307, '/keres?q=' + encodeURIComponent(path));
+		setHeaders({ Vary: 'Sec-Fetch-Dest' });
+		if (request.headers.get('sec-fetch-dest') === 'iframe') {
+			redirect(307, '/404/' + path.split('/').map(encodeURIComponent).join('/'));
+		}
+		redirect(
+			307,
+			'/keres?q=' + encodeURIComponent(path) + '&hianyzo=' + encodeURIComponent('/' + path)
+		);
 	}
 
 	if (doc.redirect) {
