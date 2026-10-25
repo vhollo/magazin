@@ -1,14 +1,21 @@
 import { MAGAZINE_CACHE_CONTROL } from '$lib/magazine/cacheHeaders';
+import { isRelativeLinkArtifact } from '$lib/magazine/relativeLinkArtifact';
 import type { RequestHandler } from './$types';
+
+const ANALYTICS_SCRIPT =
+	'<script async src="https://scripts.simpleanalyticscdn.com/latest.js"></script>\n';
 
 /**
  * Bare "page not found" response for a missing path opened in an iframe (the MODX load
  * test) — `[...path]/+layout.server.ts` redirects those here instead of to /keres.
  * Simple Analytics records this URL's own path, `/404/{path}`; there is no layout,
- * Firestore read or search index download.
+ * Firestore read or search index download. A relative-link artifact (a crawler's
+ * concatenated URL, not a dead link) gets no analytics script, so it is never recorded.
  */
 export const GET: RequestHandler = ({ params }) => {
-	const q = encodeURIComponent(params.path ?? '');
+	const path = params.path ?? '';
+	const q = encodeURIComponent(path);
+	const analytics = isRelativeLinkArtifact(path) ? '' : ANALYTICS_SCRIPT;
 	const html = `<!doctype html>
 <html lang="hu">
 <head>
@@ -19,8 +26,7 @@ export const GET: RequestHandler = ({ params }) => {
 </head>
 <body>
 <p>Az oldal nem található. <a href="/keres?q=${q}">Keresés</a></p>
-<script async src="https://scripts.simpleanalyticscdn.com/latest.js"></script>
-</body>
+${analytics}</body>
 </html>
 `;
 	return new Response(html, {

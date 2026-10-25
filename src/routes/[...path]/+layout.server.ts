@@ -9,6 +9,7 @@ import {
 	isCollectionSlug
 } from '$lib/magazine/firestore';
 import { getAuthorsBySlugs } from '$lib/magazine/authorsCache';
+import { isRelativeLinkArtifact } from '$lib/magazine/relativeLinkArtifact';
 import type { LayoutServerLoad } from './$types';
 
 /**
@@ -70,6 +71,12 @@ export const load: LayoutServerLoad = async ({ params, request, setHeaders }) =>
 	const legacyTarget = LEGACY_SECTION_REDIRECTS[path];
 	if (legacyTarget) {
 		redirect(308, legacyTarget);
+	}
+
+	// ── A link a crawler resolved against the page instead of `<base href>` ───
+	// Not a dead link: the bare /404 page skips analytics for it, and no Firestore read.
+	if (isRelativeLinkArtifact(path)) {
+		redirect(307, '/404/' + path.split('/').map(encodeURIComponent).join('/'));
 	}
 
 	// ── Collection page ───────────────────────────────────────────────────────
