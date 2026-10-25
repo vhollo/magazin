@@ -62,7 +62,7 @@ function similarCards(
 	);
 }
 
-export const load: LayoutServerLoad = async ({ params, request, setHeaders }) => {
+export const load: LayoutServerLoad = async ({ params, request, setHeaders, url }) => {
 	const path: string = params.path ?? '';
 
 	setHeaders({ 'Cache-Control': MAGAZINE_CACHE_CONTROL });
@@ -70,7 +70,9 @@ export const load: LayoutServerLoad = async ({ params, request, setHeaders }) =>
 	// ── Legacy MODX section folder with no content of its own ─────────────────
 	const legacyTarget = LEGACY_SECTION_REDIRECTS[path];
 	if (legacyTarget) {
-		redirect(308, legacyTarget);
+		// The live MODX search form submits `cikkek/kereso?s=…` — keep the search term.
+		const term = path === 'cikkek/kereso' ? url.searchParams.get('s')?.trim() : '';
+		redirect(308, term ? `${legacyTarget}?q=${encodeURIComponent(term)}` : legacyTarget);
 	}
 
 	// ── A link a crawler resolved against the page instead of `<base href>` ───
