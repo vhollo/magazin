@@ -28,7 +28,17 @@
 
   export let actual
 
+  // Header link colours. Exactly one background class is applied, so a static
+  // bg-* can never override the active one (Tailwind order, not class order,
+  // decides). Inactive: the bar colour with a hover/focus tint. Active: a white
+  // pill, or the Receptsarok orange pill for that item (dark text on the orange).
+  function navItemClass(active, rs = false) {
+    if (!active) return 'bg-nav !text-nav-content hover:bg-nav-content/10 focus-visible:bg-nav-content/10 focus-visible:outline-none'
+    return rs ? 'bg-rs-brand !text-rs-brand-content' : 'bg-nav-content !text-nav'
+  }
+
   let _open_nav = false, target
+  let mobileQuery = ''
   let collapse = null
   let lastClickedCat = null
   let shouldToggleOff = false
@@ -316,8 +326,8 @@
   
 </script>
 
-<nav class="sticky top-0 z-40 hover:z-50 bg-base-300 text-base-content navbar border-b border-base-content/10 max-md-block max-md:flex-col justify-top py-0 min-h-12 h-12 max-md:overflow-y-auto">
-  <!-- <label for="mobile-nav" aria-label="open sidebar" class="top-0 left-0 bg-base-300 z-50 btn btn-lg btn-square btn-ghost md:hidden text-base-content">
+<nav class="sticky top-0 z-40 hover:z-50 bg-nav text-nav-content navbar border-b border-nav-content/10 max-md-block max-md:flex-col justify-top py-0 min-h-12 h-12 max-md:overflow-y-auto">
+  <!-- <label for="mobile-nav" aria-label="open sidebar" class="top-0 left-0 bg-nav z-50 btn btn-lg btn-square btn-ghost md:hidden text-nav-content">
     <svg
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
@@ -331,13 +341,13 @@
         d="M4 6h16M4 12h16M4 18h16"></path>
     </svg>
   </label> -->
-  <div class="max-md:sticky max-md:top-0 h-12 flex-none items-center flex justify-between max-md:w-full bg-base-300 z-50">
+  <div class="max-md:sticky max-md:top-0 h-12 flex-none items-center flex justify-between max-md:w-full bg-nav z-50">
     <a class="block" href="/" onclick={() => _open_nav = false}>
       <img class="h-10 md:hidden" src={'/assets/logo-diabetes2-1.svg'} alt="diabetes.hu">
-      <img class="w-10 h-10 max-md:hidden lg:hidden" src={'/icon.svg'} alt="diabetes.hu">
+      <img class="w-10 h-10 max-md:hidden lg:hidden" src="/icon-on-secondary.svg" alt="diabetes.hu">
       <img class="h-10 max-lg:hidden" src={'/assets/logo-diabetes2-1.svg'} alt="diabetes.hu">
     </a>
-    <label for="mobile-nav" aria-label="open sidebar" class="bg-base-300 z-50 btn btn-square btn-ghost md:hidden text-base-content">
+    <label for="mobile-nav" aria-label="Menü megnyitása" class="bg-nav z-50 btn btn-square btn-ghost md:hidden text-nav-content hover:bg-nav-content/10">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
@@ -359,14 +369,14 @@
       <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
       <li tabindex="0" class="first:max-md:pt-8 drop-col collapse-arrow dropdown-hover dropdown-end text-nowrap"><!-- md:inline-block onblur={_uncheck} -->
         {#if typeof nav1[cat] === 'string'}
-          <a href="{nav1[cat]}" class="relative max-md:p-4 md:py-2 rounded-sm md:menu-title text-nowrap font-medium bg-base-300 transition-[color,background-color] duration-200 ease-out focus-visible:bg-base-content/10 focus-visible:outline-none" class:!text-base-content={!navLinkActive(actual, nav1[cat])} class:!text-primary-content={navLinkActive(actual, nav1[cat])} class:bg-primary={navLinkActive(actual, nav1[cat])} onclick={() => { _open_nav = false; closeAllCollapses(); }}>{#if cat === 'Receptsarok'}<span class="color-rs">RECEPTSAROK</span>{:else}{cat}{/if}</a>
+          <a href="{nav1[cat]}" class="relative max-md:p-4 md:py-2 rounded-sm md:menu-title text-nowrap font-medium transition-[color,background-color] duration-200 ease-out {navItemClass(navLinkActive(actual, nav1[cat]), cat === 'Receptsarok')}" onclick={() => { _open_nav = false; closeAllCollapses(); }}>{cat === 'Receptsarok' ? 'RECEPTSAROK' : cat}</a>
         {:else}
           <input type="radio" name="collapse" class="md:hidden" bind:group={collapse} value={cat} onclick={(e) => handleRadioClick(cat, e)} onchange={(e) => { handleRadioChange(cat, e); _scrollIntoView(e); }}/>
           <!-- svelte-ignore a11y_invalid_attribute – same element as sibling links; # prevented in onclick -->
-          <a href="#" tabindex="0" class="relative max-md:collapse-title max-md:!min-h-0 max-md:!p-4 max-md:!pr-12 md:py-2 rounded-sm md:menu-title text-nowrap font-medium no-underline bg-base-300 transition-[color,background-color] duration-200 ease-out hover:bg-base-content/10 focus-visible:bg-base-content/10 focus-visible:outline-none" class:!text-base-content={!navSubgroupActive(actual, nav1[cat])} class:!text-primary-content={navSubgroupActive(actual, nav1[cat])} class:bg-primary={navSubgroupActive(actual, nav1[cat])} onclick={(e) => { e.preventDefault(); handleCollapseClick(cat, e) }} onkeydown={(e) => handleCollapseKeydown(cat, e)}>{cat}</a>
-          <ul tabindex="0" class="!z-0 menu max-md:w-full flex-nowrap max-md:collapse-content dropdown-content md:rounded-md text-base-content py-0 md:p-2 bg-base-300">
+          <a href="#" tabindex="0" class="relative max-md:collapse-title max-md:!min-h-0 max-md:!p-4 max-md:!pr-12 md:py-2 rounded-sm md:menu-title text-nowrap font-medium no-underline transition-[color,background-color] duration-200 ease-out {navItemClass(navSubgroupActive(actual, nav1[cat]))}" onclick={(e) => { e.preventDefault(); handleCollapseClick(cat, e) }} onkeydown={(e) => handleCollapseKeydown(cat, e)}>{cat}</a>
+          <ul tabindex="0" class="!z-0 menu max-md:w-full flex-nowrap max-md:collapse-content dropdown-content md:rounded-md text-nav-content py-0 md:p-2 bg-nav">
             {#each Object.keys(nav1[cat]) as subcat}
-              <li class=""><a class="p-2 text-nowrap" class:bg-secondary={navLinkActive(actual, nav1[cat][subcat])} class:!text-secondary-content={navLinkActive(actual, nav1[cat][subcat])} class:!text-base-content={!navLinkActive(actual, nav1[cat][subcat])} href={nav1[cat][subcat]} onclick={() => _open_nav = false}>{subcat}</a></li>
+              <li class=""><a class="p-2 text-nowrap {navItemClass(navLinkActive(actual, nav1[cat][subcat]))}" href={nav1[cat][subcat]} onclick={() => _open_nav = false}>{subcat}</a></li>
             {/each}
           </ul>
         {/if}
@@ -376,23 +386,38 @@
       <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
       <li tabindex="0" class="collapse collapse-arrow md:hidden text-nowrap"><!-- md:inline-block onblur={_uncheck} -->
         {#if typeof nav2[cat] === 'string'}
-          <a href="{nav2[cat]}" class="relative max-md:p-4 md:p-2 rounded-sm md:menu-title text-nowrap font-medium bg-base-300 transition-[color,background-color] duration-200 ease-out hover:bg-base-content/10 focus-visible:bg-base-content/10 focus-visible:outline-none" class:!bg-secondary={navLinkActive(actual, nav2[cat])} class:!text-secondary-content={navLinkActive(actual, nav2[cat])} class:!text-base-content={!navLinkActive(actual, nav2[cat])} onclick={() => { _open_nav = false; closeAllCollapses(); }}>{cat}</a>
+          <a href="{nav2[cat]}" class="relative max-md:p-4 md:p-2 rounded-sm md:menu-title text-nowrap font-medium transition-[color,background-color] duration-200 ease-out {navItemClass(navLinkActive(actual, nav2[cat]))}" onclick={() => { _open_nav = false; closeAllCollapses(); }}>{cat}</a>
         {:else}
           <input type="radio" name="collapse" class="md:hidden" bind:group={collapse} value={cat} onclick={(e) => handleRadioClick(cat, e)} onchange={(e) => { handleRadioChange(cat, e); _scrollIntoView(e); }}/>
           <!-- svelte-ignore a11y_invalid_attribute – same element as sibling links; # prevented in onclick -->
-          <a href="#" tabindex="0" class="relative max-md:collapse-title max-md:!min-h-0 max-md:!p-4 max-md:!pr-12 md:p-2 rounded-sm md:menu-title text-nowrap font-medium no-underline bg-base-300 transition-[color,background-color] duration-200 ease-out hover:bg-base-content/10 focus-visible:bg-base-content/10 focus-visible:outline-none" class:!text-base-content={!navSubgroupActive(actual, nav2[cat])} class:!text-primary-content={navSubgroupActive(actual, nav2[cat])} class:bg-primary={navSubgroupActive(actual, nav2[cat])} onclick={(e) => { e.preventDefault(); handleCollapseClick(cat, e) }} onkeydown={(e) => handleCollapseKeydown(cat, e)}>{cat}</a>
-          <ul tabindex="0" class="!z-0 menu max-md:w-full flex-nowrap max-md:collapse-content dropdown-content md:rounded-md text-base-content py-0 md:p-2 bg-base-300">
+          <a href="#" tabindex="0" class="relative max-md:collapse-title max-md:!min-h-0 max-md:!p-4 max-md:!pr-12 md:p-2 rounded-sm md:menu-title text-nowrap font-medium no-underline transition-[color,background-color] duration-200 ease-out {navItemClass(navSubgroupActive(actual, nav2[cat]))}" onclick={(e) => { e.preventDefault(); handleCollapseClick(cat, e) }} onkeydown={(e) => handleCollapseKeydown(cat, e)}>{cat}</a>
+          <ul tabindex="0" class="!z-0 menu max-md:w-full flex-nowrap max-md:collapse-content dropdown-content md:rounded-md text-nav-content py-0 md:p-2 bg-nav">
             {#each Object.keys(nav2[cat]) as subcat}
-              <li class=""><a class="p-2 text-nowrap" class:bg-secondary={navLinkActive(actual, nav2[cat][subcat])} class:!text-secondary-content={navLinkActive(actual, nav2[cat][subcat])} class:!text-base-content={!navLinkActive(actual, nav2[cat][subcat])} href={nav2[cat][subcat]} onclick={() => _open_nav = false}>{subcat}</a></li>
+              <li class=""><a class="p-2 text-nowrap {navItemClass(navLinkActive(actual, nav2[cat][subcat]))}" href={nav2[cat][subcat]} onclick={() => _open_nav = false}>{subcat}</a></li>
             {/each}
           </ul>
         {/if}
       </li>
     {/each}
     <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
-    <li tabindex="0" class="drop-col text-nowrap"><!-- md:inline-block onblur={_uncheck} -->
-      <a href="#search" aria-labelledby="label-search" onclick={ (e) => { closeAllCollapses(); _scrollIntoView(e); } } class="max-md:flex justify-between items-center p-4 rounded-sm !text-base-content text-nowrap font-medium transition-[color,background-color] duration-200 ease-out hover:bg-base-content/10 focus-visible:bg-base-content/10 focus-visible:outline-none">
-        <span id="label-search" class="md:hidden">Keresés&nbsp;</span>
+    <!-- Mobile: inline search form (same GET /keres target as Search.svelte, same 4-character minimum) -->
+    <li class="md:hidden max-md:px-2 max-md:py-1">
+      <form action="/keres#lista" method="get" class="flex items-center rounded-sm bg-nav-content/10 focus-within:bg-nav-content/20 transition-[background-color] duration-200 ease-out" onsubmit={() => { _open_nav = false; closeAllCollapses(); }}>
+        <input type="search" name="q" bind:value={mobileQuery} placeholder="Keresés" aria-label="Keresés" minlength="4" title="Legalább 4 karakter" enterkeyhint="search" autocomplete="off" class="flex-1 min-w-0 bg-transparent !border-0 !rounded-none !p-4 text-base font-medium text-nav-content placeholder:text-nav-content/70 focus-visible:outline-none" />
+        <button type="submit" aria-label="Keresés indítása" disabled={mobileQuery.length < 4} class="!border-0 !rounded-none !p-4 text-nav-content disabled:opacity-50 disabled:cursor-not-allowed">
+          <svg class="h-[1em]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <g stroke-linejoin="round" stroke-linecap="round" stroke-width="2.5" fill="none" stroke="currentColor">
+              <circle cx="11" cy="11" r="8"></circle>
+              <path d="m21 21-4.3-4.3"></path>
+            </g>
+          </svg>
+        </button>
+      </form>
+    </li>
+    <!-- Desktop: icon link scrolling to the Search band of the page -->
+    <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
+    <li tabindex="0" class="drop-col text-nowrap max-md:!hidden"><!-- md:inline-block onblur={_uncheck} -->
+      <a href="#search" aria-label="Keresés" onclick={ (e) => { closeAllCollapses(); _scrollIntoView(e); } } class="p-4 rounded-sm !text-nav-content text-nowrap font-medium transition-[color,background-color] duration-200 ease-out hover:bg-nav-content/10 focus-visible:bg-nav-content/10 focus-visible:outline-none">
         <svg class="inline h-[1em]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
         <g
           stroke-linejoin="round"
@@ -425,8 +450,8 @@
 
 <dialog id="mod_login" class="modal modal-bottom sm:modal-middle">
   <div class="modal-box">
-    <button class="btn btn-sm !btn-circle btn-ghost absolute right-2 top-2 border-none" onclick={()=>mod_login.close()}>✕</button>
-    <h3 class="text-lg font-bold">Hello!</h3>
+    <button class="btn btn-sm !btn-circle btn-ghost absolute right-2 top-2 border-none" aria-label="Bezárás" onclick={()=>mod_login.close()}>✕</button>
+    <h3 class="text-lg font-bold">Szia!</h3>
     {#if !$authUser}
     <p class="py-4">Az Email címed igazolása közösségi fiókkal vagy ellenőrző link küldésével történhet.</p>
     <!-- <div class="modal-action flex-col gap-4"> -->
@@ -435,7 +460,9 @@
       <button class="btn btn-secondary !border-secondary h-8" onclick={() => facebook_login()}>Facebook fiók</button>
     </fieldset>
     <p class="text-center text-sm py-4">vagy</p>
-    <form onsubmit={() => ota_login()}>
+    <!-- preventDefault: without it the submit is a GET to the current page, which puts
+         ?email= in the URL and reloads before the link is sent -->
+    <form onsubmit={(e) => { e.preventDefault(); ota_login() }}>
       <fieldset class="fieldset flex gap-4 items-center">
         <!-- <input
         type="text"
@@ -460,9 +487,9 @@
         bind:value={$email}
         />
         {#if success === 'sent'}
-        <button class="btn btn-primary h-8" ohnoclick={() => ota_login()}>Link újraküldése</button>
+        <button class="btn btn-primary h-8">Link újraküldése</button>
         {:else}
-        <button class="btn btn-primary h-8" ohnoclick={() => ota_login()}>Link küldése</button>
+        <button class="btn btn-primary h-8">Link küldése</button>
         {/if}
         <!-- <input
         type="password"
@@ -492,7 +519,7 @@
     </form>
     {:else}
       <p class="py-4">Kérlek, add meg a neved.</p>
-      <form onsubmit={() => setDisplayName()}>
+      <form onsubmit={(e) => { e.preventDefault(); setDisplayName() }}>
         <fieldset class="fieldset flex gap-4 items-center">
           <input
           id="name"
@@ -503,19 +530,19 @@
           required
           bind:value={displayName}
           />
-          <button class="btn btn-primary h-8" ohnoclick={() => setDisplayName()}>OK</button>
+          <button class="btn btn-primary h-8">OK</button>
         </fieldset>
       </form>
     {/if}
   </div>
   <form method="dialog" class="modal-backdrop">
-    <button>✕</button>
+    <button aria-label="Bezárás">✕</button>
   </form>
 </dialog>
 
 <dialog id="mod_logout" class="modal modal-bottom sm:modal-middle">
   <div class="modal-box">
-    <button class="btn btn-sm btn-circle absolute right-2 top-2 border-none" onclick={ () => mod_logout.close()}>✕</button>
+    <button class="btn btn-sm btn-circle absolute right-2 top-2 border-none" aria-label="Bezárás" onclick={ () => mod_logout.close()}>✕</button>
     <h3 class="text-lg font-bold">Bejelentkezve, mint:</h3>
     <div class="grid xs:grid-cols-2 gap-4 max-w-screen-md mx-auto py-12 px-2">
       <p class="border border-primary bg-base-200 !h-full w-full p-2">{$authUser?.email}</p>
@@ -527,7 +554,7 @@
     </div>
   </div>
   <form method="dialog" class="modal-backdrop">
-    <button>✕</button>
+    <button aria-label="Bezárás">✕</button>
   </form>
 </dialog>
 
@@ -536,7 +563,7 @@
     <h3 class="text-lg font-bold">Hello!</h3>
     <p class="py-4">Press ESC key or click the button below to close</p>
     <div class="modal-action flex-col gap-4">
-      <button class="btn btn-sm btn-circle absolute right-2 top-2 border-none" onclick={()=>mod_reg.close()}>✕</button>
+      <button class="btn btn-sm btn-circle absolute right-2 top-2 border-none" aria-label="Bezárás" onclick={()=>mod_reg.close()}>✕</button>
       <form
       class="flex flex-col sm:flex-row gap-6 sm:gap-4 p-8 max-sm-space-y-4 max-sm:max-w-sm sm:w-10/12 mx-auto sm:justify-center"
       onsubmit={ () => register() }

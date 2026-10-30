@@ -16,6 +16,8 @@
   const category = $derived(data.categories.find((c: any) => c.id === categoryId))
   const allCategoryRecipes = $derived(data.cards)
 
+  let filterPanel: ReturnType<typeof RecipeFilters> | undefined = $state()
+
   let filters = $state({
     maxEnergy: 0,
     maxCarbs: 0,
@@ -108,7 +110,7 @@
   </div>
 </section>
 
-<RecipeFilters bind:filters hasAccess={$hasReceptsarokAccess} />
+<RecipeFilters bind:this={filterPanel} bind:filters hasAccess={$hasReceptsarokAccess} />
 
 {#if isFiltering}
   <p class="mx-auto w-full max-w-4xl px-4 text-sm opacity-60 mb-4">
@@ -119,7 +121,10 @@
 <Cards {cards} moreLabel="További receptek" />
 
 {#if filtered.length === 0}
-  <p class="mx-auto w-full max-w-4xl px-4 py-12 opacity-50">Nincs a szűrési feltételeknek megfelelő recept.</p>
+  <div class="mx-auto flex w-full max-w-4xl flex-col items-start gap-3 px-4 py-12">
+    <p class="opacity-80">Nincs a szűrési feltételeknek megfelelő recept.</p>
+    <button class="btn btn-sm btn-outline" onclick={() => filterPanel?.resetFilters()}>Szűrők törlése</button>
+  </div>
 {/if}
 
 <Nav2 actual="/receptsarok" />

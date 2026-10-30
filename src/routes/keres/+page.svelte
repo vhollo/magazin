@@ -188,7 +188,7 @@
     <section class="band relative overflow-hidden bg-base-200">
       <div class="mx-auto max-w-7xl px-4 py-10 sm:py-14">
         {#if loadError}
-          <p class="text-error">{loadError}</p>
+          <p class="rounded-sm bg-error px-2 py-1 text-sm text-error-content self-start" role="alert">{loadError}</p>
         {:else}
           <h1 class="display text-3xl leading-tight text-balance sm:text-4xl">
             {docstitle}

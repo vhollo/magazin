@@ -31,6 +31,28 @@
     <a class="link link-hover" href="/hirlevel">Hírlevél</a>
     <a class="link link-hover" href="/elofizetes">Előfizetés</a>
     <a class="link link-hover" href="/kviz">DiabKVÍZ</a>
+    <a
+      class="block mt-2"
+      href="https://dashboard.simpleanalytics.com/?utm_source=testdiabeteshu.netlify.app&utm_content=badge&affiliate=wogur"
+      referrerpolicy="origin"
+      target="_blank"
+      rel="noopener"
+    >
+      <picture>
+        <source
+          srcset="https://simpleanalyticsbadges.com/testdiabeteshu.netlify.app?mode=dark&counter=false"
+          media="(prefers-color-scheme: dark)"
+        />
+        <img
+          class="block"
+          src="https://simpleanalyticsbadges.com/testdiabeteshu.netlify.app?mode=light&counter=false"
+          alt="Simple Analytics"
+          loading="lazy"
+          referrerpolicy="no-referrer"
+          crossorigin="anonymous"
+        />
+      </picture>
+    </a>
   </nav>
   <!-- <nav>
     <h6 class="footer-title">Kategóriák</h6>

@@ -18,6 +18,12 @@
   const freeCountsByCategory = $derived(data.freeCountsByCategory ?? {})
 </script>
 
+<!-- Green check before the "free" lines: the text itself stays base-content,
+     since text-success green is only about 1.8:1 on the light backgrounds. -->
+{#snippet freeMark()}
+  <svg class="inline size-[1.1em] -mt-0.5 mr-1 text-success" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" /></svg>
+{/snippet}
+
 <svelte:head>
   <title>Receptsarok • Receptek cukorbetegeknek</title>
   <meta name="description" content="Több mint {totalRecipes} diabétesz-barát recept tápanyagtáblázattal, összetevőkkel és elkészítési útmutatóval." />
@@ -29,9 +35,9 @@
     <p class="mt-2 opacity-80">
       {totalRecipes} diabétesz-barát recept, tápanyagtáblázattal.</p>
     {#if trial}
-      <p class="text-success font-medium">Ingyenes tesztidőszak: bejelentkezés után minden recept teljes tartalma elérhető.</p>
+      <p class="font-medium">{@render freeMark()}Ingyenes tesztidőszak: bejelentkezés után minden recept teljes tartalma elérhető.</p>
     {:else}
-      <p class="text-success font-medium">A Diabetes és Hypertonia lapokban megjelent {freeCount} recept ingyenesen elérhető.</p>
+      <p class="font-medium">{@render freeMark()}A Diabetes és Hypertonia lapokban megjelent {freeCount} recept ingyenesen elérhető.</p>
     {/if}
   </div>
 </section>
@@ -63,8 +69,8 @@
           <h2 class="break-words text-base font-semibold leading-snug hyphens-auto">
             {cat.name}
           </h2>
-          <p class="mt-1 text-sm text-[#9CA3AF]">{cat.recipeCount} recept</p>
-          <p class="mt-0.5 text-xs text-success/90">{freeCountsByCategory[cat.id] ?? 0} ingyenes recept</p>
+          <p class="mt-1 text-sm opacity-70">{cat.recipeCount} recept</p>
+          <p class="mt-0.5 text-xs opacity-80">{@render freeMark()}{freeCountsByCategory[cat.id] ?? 0} ingyenes recept</p>
         </div>
         <div class="flex shrink-0 items-center self-stretch pr-0.5">
           <svg
@@ -73,7 +79,7 @@
             viewBox="0 0 24 24"
             stroke-width="1.5"
             stroke="currentColor"
-            class="size-6 shrink-0 text-[#9CA3AF] transition-colors group-hover:text-[#D1D5DB]"
+            class="size-6 shrink-0 opacity-50 transition-opacity group-hover:opacity-100"
             aria-hidden="true"
           >
             <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />

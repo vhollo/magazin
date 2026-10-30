@@ -51,7 +51,8 @@
     filters.ingredient.trim() !== '' || filters.sortBy !== 'title'
   )
 
-  function resetFilters() {
+  // Exported so the page's "no results" empty state can offer the same reset.
+  export function resetFilters() {
     filters.maxEnergy = 0
     filters.maxCarbs = 0
     filters.minProtein = 0

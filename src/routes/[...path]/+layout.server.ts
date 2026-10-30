@@ -13,8 +13,9 @@ import { isRelativeLinkArtifact } from '$lib/magazine/relativeLinkArtifact';
 import type { LayoutServerLoad } from './$types';
 
 /**
- * Old MODX section folders (`cikkek`, `cikkek/{rovat}`) — no body of their own and no
- * listing of their children, still reachable from external/legacy links. Redirected
+ * Old MODX paths that no longer render anything — section folders (`cikkek`,
+ * `cikkek/{rovat}`: no body, no listing of their children) and removed pages
+ * (`alapitvany/rolunk`) — still reachable from external/legacy links. Redirected
  * before the Firestore read, so a MODX re-save can't clear it the way sync clears
  * `doc.redirect`.
  */
@@ -27,7 +28,9 @@ const LEGACY_SECTION_REDIRECTS: Record<string, string> = {
 	'cikkek/szemle': '/',
 	'cikkek/orvos': '/orvos-beteg',
 	'cikkek/kereso': '/keres',
-	'cikkek/recept': '/receptsarok'
+	'cikkek/recept': '/receptsarok',
+	// The live MODX templates still link `alapitvany/rolunk`, a page that no longer exists.
+	'alapitvany/rolunk': '/alapitvany'
 };
 
 /** Empty "Diabéteszegyesületek …" series folders — each child is one association's page. */

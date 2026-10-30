@@ -117,7 +117,7 @@
         </div>
 
         {#if form?.postFail}
-          <p class="text-sm text-error">
+          <p class="rounded-sm bg-error px-2 py-1 text-sm text-error-content self-start" role="alert">
             A beküldés most nem sikerült. Kérlek, próbáld újra kicsit később.
           </p>
         {/if}
@@ -141,7 +141,7 @@
             <div class="flex flex-col gap-4">
               <label class="flex flex-col gap-1">
                 <span class="text-sm font-medium"
-                  >Név <span class="opacity-50">(nem kötelező)</span></span
+                  >Név <span class="opacity-70">(nem kötelező)</span></span
                 >
                 <!-- Not disabled on unsubscribe: a single `nev` input with no `required`,
                      so it can stay enabled and still submit the (prefilled) name on
@@ -164,10 +164,11 @@
                   bind:value={email}
                   disabled={muvelet !== "feliratkozas"}
                   aria-invalid={form?.emailError ? "true" : undefined}
+                  aria-describedby={form?.emailError ? "fel-email-hiba" : undefined}
                   class="rounded-sm border border-primary px-3 py-2"
                 />
                 {#if form?.emailError}
-                  <span class="text-sm text-error"
+                  <span id="fel-email-hiba" class="rounded-sm bg-error px-2 py-1 text-sm text-error-content"
                     >Adj meg egy érvényes e-mail címet.</span
                   >
                 {/if}
@@ -178,6 +179,7 @@
                   type="checkbox"
                   value="igen"
                   disabled={muvelet !== "feliratkozas"}
+                  aria-describedby={form?.consentError ? "fel-consent-hiba" : undefined}
                   class="mt-1"
                 />
                 <span class="text-sm opacity-80">
@@ -189,14 +191,14 @@
                 </span>
               </label>
               {#if form?.consentError}
-                <span class="text-sm text-error"
+                <span id="fel-consent-hiba" class="rounded-sm bg-error px-2 py-1 text-sm text-error-content self-start"
                   >A feliratkozáshoz el kell fogadnod az adatkezelési
                   feltételeket.</span
                 >
               {/if}
               <button
                 type="submit"
-                class="btn btn-primary mt-2 self-start rounded-sm"
+                class="btn btn-secondary mt-2 self-start rounded-sm"
                 disabled={submitting}
               >
                 Feliratkozom
@@ -227,17 +229,18 @@
                   bind:value={email}
                   disabled={muvelet !== "leiratkozas"}
                   aria-invalid={form?.emailError ? "true" : undefined}
+                  aria-describedby={form?.emailError ? "le-email-hiba" : undefined}
                   class="rounded-sm border border-primary px-3 py-2"
                 />
                 {#if form?.emailError}
-                  <span class="text-sm text-error"
+                  <span id="le-email-hiba" class="rounded-sm bg-error px-2 py-1 text-sm text-error-content"
                     >Adj meg egy érvényes e-mail címet.</span
                   >
                 {/if}
               </label>
               <button
                 type="submit"
-                class="btn btn-primary mt-2 self-start rounded-sm"
+                class="btn btn-outline mt-2 self-start rounded-sm"
                 disabled={submitting}
               >
                 Leiratkozom

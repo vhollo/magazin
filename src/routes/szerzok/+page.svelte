@@ -102,7 +102,7 @@
               <small class="block text-base-content/70">{decode(author.title)}</small>
             {/if}
             {#if author.articleCount}
-              <small class="block text-base-content/50"
+              <small class="block text-base-content/70"
                 >{author.articleCount} cikk</small
               >
             {/if}

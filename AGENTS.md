@@ -111,16 +111,22 @@ Nav2 defines the secondary navigation menu with categorized content sections:
 - Applies `menu-active` class to matching items
 - Works for both top-level and submenu items
 
+#### Colours (header and Nav2)
+
+- **Header (`Nav.svelte`)** uses its own token pair from `@theme` in `app.css`: `bg-nav` (`--color-nav: #2f6fa8`) with `text-nav-content` (white, 5.3:1). It is the **same dark blue in both colour modes**, deliberately not the daisyUI `secondary` (which is light blue in dark mode and made the white wordmark logo and labels unreadable). One logo icon (`/icon-on-secondary.svg`), no dark variant.
+- **Link state = one background class**, chosen by `navItemClass(active, rs)` in `Nav.svelte`: inactive `bg-nav` + `hover:bg-nav-content/10`; active a white pill `bg-nav-content text-nav`. Never put a static `bg-*` on a link next to a conditional one — Tailwind's stylesheet order, not class order, decides which wins (that is how the active item once rendered dark text on the blue bar).
+- **RECEPTSAROK** is a plain white label like the other items. When active it gets the brand-orange pill `bg-rs-brand` with dark `text-rs-brand-content` (≈7:1; white on the orange would be 2.9:1). `--color-rs-brand` (#de863e) lives in `@theme`; the old `.color-rs` text colour is gone.
+- **Nav2 (`Nav2.svelte`)** is a light tint of the header blue: `bg-nav-soft` = `color-mix(in oklab, var(--color-nav) 18%, var(--color-base-100))`, defined in `@theme inline` so it follows `base-100` per mode (pale blue / dark bluish grey) and stays opaque under the sticky bar. Text `text-base-content`; active group and sub-item use the header colours (`bg-nav text-nav-content`) via `nav2ItemClass()`.
+
 #### Additional Navigation Items
 
-1. **Search Link**:
-   - Links to `#search` anchor
-   - Scrolls to search section on click
-   - Closes all collapses before scrolling
+1. **Search**:
+   - **Desktop** (`max-md:!hidden`): icon link to the `#search` anchor (the `Search.svelte` band on the page); scrolls there on click and closes all collapses first. `!` is required because `.drop-col` sets `display` in `app.css`.
+   - **Mobile** (`md:hidden`): inline `<form action="/keres#lista" method="get">` with a `q` input (`mobileQuery`) and a submit button, disabled below 4 characters like `Search.svelte`. Submitting closes the menu (`_open_nav = false`). The input/button use `!border-0 !rounded-none !p-4` to override the global unlayered form rules in `app.css`.
 
 2. **User Button**:
    - Shows user icon
-   - **If authenticated**: Accent color, opens logout modal
+   - **If authenticated**: `btn-primary` (light blue) on the header, opens logout modal
    - **If not authenticated**: Default color, opens login modal
    - Mobile: Shows "Felhasználó" text label
 
@@ -148,7 +154,7 @@ Nav2 defines the secondary navigation menu with categorized content sections:
 - **Path Matching for Title Generation**: 
   - **Purpose**: Provides fallback page titles when documents don't have a `title` property
   - **How it works**:
-    1. Creates a merged navigation structure (`copycats`) combining `nav2` with additional routes (carousel items, nav1 items, plus an `extra` group for collection slugs reachable only from outside nav2 — e.g. `/junior` = "Diabetes Junior", linked from the Hero's "Kezdje itt" chips)
+    1. Creates a merged navigation structure (`copycats`) combining `nav2` with additional routes (carousel items, nav1 items, plus an `extra` group for collection slugs reachable only from outside nav2 — e.g. `/junior` = "Diabetes Junior", linked from the Hero's "Kezdd itt" chips)
     2. Loops through all navigation categories and subcategories
     3. Matches current document path (`doc.path`) against navigation route values
     4. When a match is found, stores the navigation label (subcategory name) as `matchingSubcat`
@@ -213,7 +219,7 @@ Added in the homepage redesign 2026 (F6.1). **Simple Analytics** (cookie-free, n
 
 | Event | Component | Fires on |
 |---|---|---|
-| `hero_entry_click` | `Hero.svelte` | "Kezdje itt" audience chip click (`label` metadata) |
+| `hero_entry_click` | `Hero.svelte` | "Kezdd itt" audience chip click (`label` metadata) |
 | `hero_expert_click` | `Hero.svelte` | Featured expert-pick card click (`path` metadata) |
 | `hero_subscribe_click` | `Hero.svelte` | Hero **primary** CTA → `/elofizetes` (`source: 'hero'`) |
 | `hero_newsletter_click` | `Hero.svelte` | Hero **secondary** CTA → `/hirlevel` (`source: 'hero'`) |
@@ -263,13 +269,13 @@ Added in the homepage redesign 2026 (F6.1). **Simple Analytics** (cookie-free, n
 ### Client-Side Logic (`+page.svelte`)
 
 - **Components**:
-  - `Hero` - Home hero (homepage redesign 2026): left column = welcome copy (value proposition H1 + lead) → **primary/secondary CTA pair** (`btn-secondary` "Előfizetek a magazinra" → `/elofizetes`, `btn-outline` "Ingyenes hírlevél" → `/hirlevel`; events `hero_subscribe_click`/`hero_newsletter_click`) → "Kezdje itt" audience entry-point chips (distilled from the old hardcoded Carousel cards); search (`<Search inline />`) between the CTAs and the chips; right column = the newest expert pick **that has an image** (`heroCard` in `+page.svelte`: the first `expertCards` entry with `img.src`; falls back to `expertCards[0]` only when none has one, so an image-less pick never leaves the right column empty), LCP image `fetchpriority=high` + `<link rel=preload>` in the page head. Closes with a restrained **social-proof strip** (`props: articles`, `recipes` — the `+layout.server.ts` counts wired through `+page.svelte`): heritage "1989 óta" (years computed live), real article/recipe counts rounded down to a clean `+` figure via `proof()` (each hidden when its count is missing/below the rounding step), and the publisher authority line linking `/alapitvany` — **no invented ratings**. Stat dividers only render on `md+` so a wrapped mobile layout never dangles a divider at a line start. Renders welcome + chips even when `expertCards` is empty (e.g. before the first sync). **Responsive grid** (three grid items: the welcome `<header>` = kicker/H1/lead, a tools `div` = CTA pair + search + chips, the expert card): below `sm` everything stacks; `sm`–`lg` (640–1024 px) the welcome header spans both columns and the CTA pair + search + chips sit beside the expert card; `lg+` the welcome header and tools stack in column 1 (`self-end`/`self-start` keep them together) and the expert card spans both rows of column 2. Without an expert card the tools `div` spans both columns at `sm`–`lg`. Decorative glucose-curve SVG motif. Replaced the legacy `Carousel` on `/`. The old `Carousel.svelte` + `CarItem.svelte` were **deleted** in the F3.6 pass (they were only rendered here and in a dead `doc.path == '/'` branch of `[...path]/+page.svelte`, which the root route never hits — the gyökér `/` is served by `src/routes/+page.svelte`). The `copycats['carousel']` key in `[...path]/+page.svelte` is unrelated (fallback page-title lookup) and stays.
+  - `Hero` - Home hero (homepage redesign 2026): left column = welcome copy (value proposition H1 + lead) → **primary/secondary CTA pair** (`btn-secondary` "Előfizetek a magazinra" → `/elofizetes`, `btn-outline` "Ingyenes hírlevél" → `/hirlevel`; events `hero_subscribe_click`/`hero_newsletter_click`) → "Kezdd itt" audience entry-point chips (distilled from the old hardcoded Carousel cards); search (`<Search inline />`) between the CTAs and the chips; right column = the newest expert pick **that has an image** (`heroCard` in `+page.svelte`: the first `expertCards` entry with `img.src`; falls back to `expertCards[0]` only when none has one, so an image-less pick never leaves the right column empty), LCP image `fetchpriority=high` + `<link rel=preload>` in the page head. Closes with a restrained **social-proof strip** (`props: articles`, `recipes` — the `+layout.server.ts` counts wired through `+page.svelte`): heritage "1989 óta" (years computed live), real article/recipe counts rounded down to a clean `+` figure via `proof()` (each hidden when its count is missing/below the rounding step), and the publisher authority line linking `/alapitvany` — **no invented ratings**. Stat dividers only render on `md+` so a wrapped mobile layout never dangles a divider at a line start. Renders welcome + chips even when `expertCards` is empty (e.g. before the first sync). **Responsive grid** (three grid items: the welcome `<header>` = kicker/H1/lead, a tools `div` = CTA pair + search + chips, the expert card): below `sm` everything stacks; `sm`–`lg` (640–1024 px) the welcome header spans both columns and the CTA pair + search + chips sit beside the expert card; `lg+` the welcome header and tools stack in column 1 (`self-end`/`self-start` keep them together) and the expert card spans both rows of column 2. Without an expert card the tools `div` spans both columns at `sm`–`lg`. Decorative glucose-curve SVG motif. Replaced the legacy `Carousel` on `/`. The old `Carousel.svelte` + `CarItem.svelte` were **deleted** in the F3.6 pass (they were only rendered here and in a dead `doc.path == '/'` branch of `[...path]/+page.svelte`, which the root route never hits — the gyökér `/` is served by `src/routes/+page.svelte`). The `copycats['carousel']` key in `[...path]/+page.svelte` is unrelated (fallback page-title lookup) and stays.
   - **Order (visual-hierarchy fix, 2026-10):** `Hero` → `ExpertSection` → `NewsletterCTA` → `TopicGrid` → `Cards` → `SubscribeCTA`. The hero is followed directly by content: the three strips that used to sit between them are gone from `/` — `Search` moved **into the Hero** (`<Search inline />`, left column between the CTA pair and the "Kezdd itt" chips; it keeps `id="search"`, so the header's search icon still scrolls to it), `BannerTop` moved **into `ExpertSection`** after its first row, and `Nav2` is **not rendered on `/`** (the "Kezdd itt" chips and `TopicGrid` cover the same topics). Every other route still renders `BannerTop` + `Nav2` + `Search` as before.
   - `BannerTop` - Top banners (`conf.top_banners`); on `/` rendered by `ExpertSection` between its first 4 cards (one `lg` row) and the rest. Fallback: if `ExpertSection` has no cards (e.g. before the first sync), `+page.svelte` renders it directly below the Hero
   - `Search` - Search component with document count; the `inline` prop (used by `Hero`) drops the band padding/centering and makes the field and button 44 px tall
   - `ExpertSection` - "Válogatás szakértőinktől" rail (homepage redesign 2026): grid of `restExpertCards` (every `expertCards` entry except the `Hero`'s `heroCard`, newest first, so nothing is duplicated), each card with image, title, author name; a card **without an image** shows the `ellipsis` lead in the image's place instead (clamped to 7 lines, about the image height, so rows stay even). Its header carries the only homepage entry point to the author index (`Szerzőink →` → `/szerzok`, event `expert_authors_click`) — the section is where bylines are the subject, so the link sits next to the `<h2>`; it disappears with the whole section when `expertCards` is empty
   - `NewsletterCTA` - Home newsletter promo band (homepage redesign 2026): micro-conversion link to `/hirlevel`, same glucose-curve motif language as `Hero`
-  - `TopicGrid` - "Böngésszen témák szerint" section (homepage redesign 2026): one card per `nav2.js` top-level category, sub-categories rendered as link chips
+  - `TopicGrid` - "Böngéssz témák szerint" section (homepage redesign 2026): one card per `nav2.js` top-level category, sub-categories rendered as link chips
   - `Cards` - Displays article cards. On the home page it receives `docs` **deduplicated against `expertCards`** (`+page.svelte` filters out the top-24 picks already shown in `Hero` + `ExpertSection`) so no card repeats between the curated sections and the "latest" grid.
   - **Shared card (`CardV`, 2026-10):** every article card on the site is `src/lib/components/CardV.svelte` — `Cards` renders it in the default `variant="excerpt"` (kicker from `description` as small italic text, title `h2`, lead clamped to **3 lines** unless it contains a `<table>` — recipe cards' nutrition table is never cut — author line from `tv.szerzo`, at most **2** tags left-aligned, legacy `card.buttons`), `ExpertSection` in `variant="compact"` (image, title `h3`, author; an image-less card shows the lead clamped to 7 lines instead of the image). Same surface everywhere: `bg-base-100` + `shadow-md`, `rounded-sm`, `p-4` body; the card owns the surface, `Cards`' masonry `<aside>` is only the grid item. The root is a `<div>`, **not `<article>`**: `app.css` styles article-body tables and figures through `article …` selectors (e.g. `article tr > :not(:first-child) { text-align: center }`), which would restyle the recipe nutrition table in the lead. That table's own alignment lives in `app.css` next to the `.ellipsis tbody` grid: caption row (`thead th`) centred, labels (`tbody th`) left, values (`tbody td`) centred. `CardBody` is now used only by `CardH` (the `full=false` list layout).
   - `SubscribeCTA` - Home subscribe promo band (homepage redesign 2026): macro-conversion link to `/elofizetes`, placed after the article grid
@@ -400,7 +406,7 @@ Added in the homepage redesign 2026 (F6.1). **Simple Analytics** (cookie-free, n
   - **Score Calculation**: Numeric values add to or substract from total score
   - Questions hidden until previous is answered (CSS-based)
 
-- **⚠️ CSS-only progressive reveal (do not disturb)**: the one-question-at-a-time flow, the answer selection/feedback coloring, and the read-only state after answering are driven entirely by CSS in the `<style>` block — `fieldset:not(:valid) ~ fieldset { visibility: hidden }` (reveal), `input[type=radio|checkbox] { display: none }` + `input:checked + label` (selection; `:has(.good/.bad)` → success/error bg), and `fieldset:has(input:required:valid)` (locks the answered fieldset + shows the `aside` score feedback). This relies on fieldset order, the `required` inputs, and the `answer-{i}-{j}` id scheme. Purely visual tweaks are safe; do NOT key the question/option `{#each}` blocks, reorder fieldsets, or change the `:valid`/`:has()` selectors. Option labels use `border-2 rounded`; a hover cue is scoped to the active (`:not(:has(input:required:valid))`) fieldset's non-checked labels only.
+- **⚠️ CSS-only progressive reveal (do not disturb)**: the one-question-at-a-time flow, the answer selection/feedback coloring, and the read-only state after answering are driven entirely by CSS in the `<style>` block — `fieldset:not(:valid) ~ fieldset { visibility: hidden }` (reveal), `input[type=radio|checkbox]` visually hidden (1px, `opacity: 0` — **not** `display:none`, so Tab/Space/arrows still reach the answers; `input:focus-visible + label` draws a `--color-secondary` outline) + `input:checked + label` (selection, text in the matching `*-content` colour; `:has(.good/.bad)` → success/error bg), and `fieldset:has(input:required:valid)` (locks the answered fieldset + shows the `aside` score feedback). This relies on fieldset order, the `required` inputs, and the `answer-{i}-{j}` id scheme. Purely visual tweaks are safe; do NOT key the question/option `{#each}` blocks, reorder fieldsets, or change the `:valid`/`:has()` selectors. Option labels use `border-2 rounded`; a hover cue is scoped to the active (`:not(:has(input:required:valid))`) fieldset's non-checked labels only.
 
 - **Submission Logic**:
   - Auto-submits when last question answered (if not expired and no previous score)
@@ -519,6 +525,8 @@ real document id is preferred when present.
   - Real-time search as user types
   - Searches by pharmacy name, address, city, or postal code
   - Shows all pharmacies when query is empty
+  - The form has `onsubmit={(e) => e.preventDefault()}`: there is no server search, so Enter must not submit (it used to reload the page and drop the query). The hint text is a real `<label for="patika-kereso">`.
+  - A non-empty query with zero hits shows a "Nincs találat…" line instead of an empty list
 
 - **Display**:
   - Lists pharmacies with name, postal code, city, and address
@@ -566,7 +574,7 @@ real document id is preferred when present.
 
 **Files:**
 - `src/routes/hirlevel/+page.svelte` — visible subscribe/unsubscribe form
-- `src/routes/hirlevel/+page.server.ts` — form action (validation + Netlify relay)
+- `src/routes/hirlevel/+page.server.ts` — form action (validation + Netlify relay + Firestore `tables/elofizetok/hirlevel` write/delete)
 - `src/routes/hirlevel/form/+page.svelte` — hidden static form for Netlify bot-detection
 - `src/routes/hirlevel/form/+page.server.ts` — `prerender = true`
 
@@ -581,6 +589,7 @@ Added in the homepage redesign 2026 (F4), replacing the old two-line placeholder
 
 - `muvelet`: `feliratkozas` | `leiratkozas` — drives copy and validation.
 - **Validation** (before the Netlify relay, so it never wastes a POST): email regex; consent **required for subscribe only** (GDPR); honeypot `bot-field` filled ⇒ silently returns `success` without relaying (bots don't reach Netlify).
+- **Firestore subscriber list** (after a successful Netlify relay, same order as the `/kviz/[...id]` score write; admin SDK `db` from `$lib/firebase-admin`, so security rules don't apply): collection **`tables/elofizetok/hirlevel`** (Rowy table „Hírlevél”, section „Előfizetők”: registered in `_rowy_/settings` `tables` + `tablesSettings.pc.hirlevel`, columns in `_rowy_/settings/schema/hirlevel` — `email` EMAIL (fixed), `nev` SIMPLE_TEXT, `consent` CHECK_BOX, `date` DATE_TIME; keep these in sync with the fields the action writes), **doc id = lowercased email** (the email regex rejects `/` for this reason). `feliratkozas` → `set({ email, nev, consent: true, date: serverTimestamp }, { merge: true })`; `leiratkozas` → `delete()` (a no-op for unknown addresses, so the response never reveals list membership). Netlify Forms keeps the full subscribe/unsubscribe history; Firestore holds only the current list. A Firestore error returns `postFail` (the Netlify submission has already been recorded by then). The bot honeypot returns before both writes.
 - Returns `{ success, muvelet }` on success, or `fail(4xx, { emailError | consentError | postFail, email, muvelet })`.
 
 ### Page component (`+page.svelte`)
@@ -683,7 +692,7 @@ document without a re-sync and lands in the SSR HTML (no hydration reflow, works
 
 #### Individual document routes
 
-- **Legacy section redirects first** — `LEGACY_SECTION_REDIRECTS` in `+layout.server.ts` sends the old MODX section folders (no body, no child listing) to a live page with a 308, before any Firestore read: `cikkek`, `cikkek/{diabetes,hypertonia,elet,mod,szemle}` → `/`, `cikkek/orvos` → `/orvos-beteg`, `cikkek/kereso` → `/keres` (the live MODX search form submits `cikkek/kereso?s={term}`; a non-empty `s` is passed on as `/keres?q={term}`, so the load-test iframe runs the same search and old search links keep working), `cikkek/recept` → `/receptsarok`. They live in code, not in `doc.redirect`, because `sync:modx` rewrites `doc.redirect` (`setReceptsarokRedirect` deletes it when no recipe target resolves) on every re-save.
+- **Legacy section redirects first** — `LEGACY_SECTION_REDIRECTS` in `+layout.server.ts` sends the old MODX section folders (no body, no child listing) to a live page with a 308, before any Firestore read: `cikkek`, `cikkek/{diabetes,hypertonia,elet,mod,szemle}` → `/`, `cikkek/orvos` → `/orvos-beteg`, `cikkek/kereso` → `/keres` (the live MODX search form submits `cikkek/kereso?s={term}`; a non-empty `s` is passed on as `/keres?q={term}`, so the load-test iframe runs the same search and old search links keep working), `cikkek/recept` → `/receptsarok`, and the removed page `alapitvany/rolunk` → `/alapitvany` (the live MODX templates still link it; there is no such `docs/` doc, so without the entry it fell through to the search fallback). They live in code, not in `doc.redirect`, because `sync:modx` rewrites `doc.redirect` (`setReceptsarokRedirect` deletes it when no recipe target resolves) on every re-save.
 - **Relative-link artifacts next, also before any Firestore read** — `isRelativeLinkArtifact(path)` (a crawler's concatenated URL such as `cikkek/diabetes/0803/cikkek/alapitvany/…`) → 307 to `/404/{path}`, which serves the bare 404 page without analytics (see [Analytics](#analytics))
 - Loads `docs/{encodeDocPathId(path)}` from Firestore
 - If not found: `redirect(307, '/keres?q={path}&hianyzo=/{path}')` (`+layout.server.ts`); `hianyzo` is read only by Simple Analytics' `saPathOverwriter`. An iframe request (`Sec-Fetch-Dest: iframe`) gets `redirect(307, '/404/{path}')` to the bare `src/routes/404/[...path]/+server.ts` page instead; the branch sets `Vary: Sec-Fetch-Dest` (see [Analytics](#analytics))
@@ -1257,6 +1266,7 @@ The workflow needs the same secrets the other sync workflows use: `FIREBASE_ADMI
 3. **Authors**: Firestore `authors/{slug}` (FireCMS-owned) → `collections/authors` aggregate, cached per instance (`src/lib/magazine/authorsCache.ts`); articles link by slug via `doc.authorSlugs` (see [Authors](#authors-authors-collection-szerzok))
 4. **Quizzes**: Loaded from Firestore via `getKviz()`
 5. **Scores**: Stored in Firestore at `kviz/{quizId}/scores/{uid}` (subcollection under each quiz document, stores `name`, `email`, `score`, `date` to the actual quiz/scores table)
+5a. **Newsletter subscribers**: `/hirlevel` action writes/deletes `tables/elofizetok/hirlevel/{lowercased email}` (admin SDK) after relaying to Netlify Forms (see [Newsletter Route](#newsletter-route-hirlevel))
 6. **Recipes**: SSR via `$lib/receptsarokFirestore` (`collections/rs-home`, `collections/rs-{category}`, `recipes/{year}-{id}` detail). `/keres` recipe teasers come from the search index itself (zero reads). Root-layout counts come from one `meta/stats` read. Populated by `sync:recipes:apply` (diff-based via `meta/recipesUpload`) + `sync:rs-collections:apply` (hash-skip via `meta/rsCollections`, slim catalog → Storage). Magazine `sync:modx` maintains `meta/projections` Storage snapshot + incremental search index (not full-catalog Firestore reads each run).
 7. **Search**: Client-side MiniSearch index from Firebase Storage (`/keres`; meta via `/api/search-meta`)
 8. **Navigation**: 

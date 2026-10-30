@@ -92,7 +92,7 @@
     {/key}
   </section>
   {#if volume * pagenum < cards.length}
-    <footer class="footer footer-center bg--base-200 text-base-content pb-4">
+    <footer class="footer footer-center text-base-content pb-4">
       <button on:click={_pageplus} class="btn btn-outline">{moreLabel}</button>
     </footer>
   {/if}

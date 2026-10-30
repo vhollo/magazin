@@ -95,7 +95,7 @@
     </div>
     <div class="card-actions justify-between items-center mt-4">
       {#if recipe.servings?.amount}
-        <small class="opacity-50">{recipe.servings.amount} {recipe.servings.unit}</small>
+        <small class="opacity-70">{recipe.servings.amount} {recipe.servings.unit}</small>
         {:else}
           <span></span>
       {/if}

@@ -109,7 +109,7 @@
     {/if}
   </article>
   {#if kviz.link}
-    <p class="my-8"><a href={kviz.link} class="btn btn-outline btn-primary border-2 btn-sm">Kapcsolódó cikk</a></p>
+    <p class="my-8"><a href={kviz.link} class="btn btn-outline btn-secondary border-2 btn-sm">Kapcsolódó cikk</a></p>
   {/if}
 
   <!-- form-name=kviz&id=kviz-0&answer-0=99&score=99 -->
@@ -186,8 +186,8 @@
         <p>Beküldött pontjaiddal ({scoreSent} / {kviz.max_score} pont) azonos eredményt értél el.</p>
         {/if}
       {/if}
-      <a href="/kviz" class="btn btn-outline btn-primary border-2 mt-8">Tovább</a>
-      <input id="submit" type="submit" value="Küldés" hidden class="hidden:true;" bind:this={submitBtn}>
+      <a href="/kviz" class="btn btn-outline btn-secondary border-2 mt-8">Tovább</a>
+      <input id="submit" type="submit" value="Küldés" hidden bind:this={submitBtn}>
     </fieldset>
     <input type="hidden" name="form-name" value="kviz">
   </form>
@@ -238,7 +238,20 @@ legend {
 	/* margin-top: var(--spacer); */
 }
 
-input[type="radio"], input[type="checkbox"] { display: none; }
+/* Visually hidden, not display:none: the inputs stay focusable, so the quiz can
+   be answered with Tab + Space/arrows. The :checked/:valid/:has() selectors
+   below work the same either way. */
+input[type="radio"], input[type="checkbox"] {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	opacity: 0;
+	pointer-events: none;
+}
+input:focus-visible + label {
+	outline: 2px solid var(--color-secondary);
+	outline-offset: 2px;
+}
 
 /* input:valid[type="radio"] ~ label {
 	pointer-events: none;
@@ -255,15 +268,17 @@ label {
 input:checked + label {
 	background-color: var(--color-primary);
 	border-color: var(--color-primary);
-  color: var(--color-white);
+	color: var(--color-primary-content);
 }
 input:checked + label:has(.good) {
 	background-color: var(--color-success);
 	border-color: var(--color-success);
+	color: var(--color-success-content);
 }
 input:checked + label:has(.bad) {
 	background-color: var(--color-error);
 	border-color: var(--color-error);
+	color: var(--color-error-content);
 }
 
 /* Gentle hover cue on the still-answerable options of the current question.

@@ -61,14 +61,14 @@
     <h3 class="text-lg font-semibold">{msg.title}</h3>
     <p class="max-w-sm">{msg.body}</p>
     {#if trial}
-      <button class="btn btn-primary" onclick={openLogin}>{msg.cta}</button>
-      <p class="text-xs opacity-50">A tesztidőszak végén a teljes hozzáféréshez előfizetés lesz szükséges.</p>
+      <button class="btn btn-secondary" onclick={openLogin}>{msg.cta}</button>
+      <p class="text-xs opacity-70">A tesztidőszak végén a teljes hozzáféréshez előfizetés lesz szükséges.</p>
     {:else}
       {#if !$authUser}
-        <p class="text-sm opacity-60">Először jelentkezz be, majd fizess elő.</p>
+        <p class="text-sm opacity-75">Először jelentkezz be, majd fizess elő.</p>
       {/if}
-      <a href="/elofizetes" class="btn btn-primary">{msg.cta}</a>
-      <p class="text-xs opacity-50">A Diabetes és Hypertonia lapokban megjelent {freeCount} recept ingyenesen elérhető.</p>
+      <a href="/elofizetes" class="btn btn-secondary">{msg.cta}</a>
+      <p class="text-xs opacity-70">A Diabetes és Hypertonia lapokban megjelent {freeCount} recept ingyenesen elérhető.</p>
     {/if}
   </div>
 </div>

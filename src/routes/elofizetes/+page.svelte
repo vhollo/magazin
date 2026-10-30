@@ -38,25 +38,19 @@
     [DARK]: { color: DARK_TEXT },
   };
 
-  // Matches the site's `btn-primary` (DaisyUI --color-primary), so the "Kosárba"
-  // / "Megrendelés" buttons read as the same brand blue as the rest of the page.
-  // Hover/focus must be a single top-level rule: the SDK compiler drops the
-  // scheme `@media` both when it wraps a pseudo *and* when nested inside one, so
-  // a scheme-specific hover isn't expressible here. A mid brand-blue reads as a
-  // clear "darker" hover against both the light (L≈0.80) and dark (L≈0.61) base
-  // — and, importantly, overrides the store's default green hover (#5f9d3e).
-  const BTN_HOVER = "oklch(55% 0.13 246.91)";
+  // The "Kosárba" / "Megrendelés" buttons are primary actions, so they use the
+  // site's primary-action blue (`btn-secondary` in light mode, the header's
+  // --color-nav #2f6fa8) with white text (5.3:1). One colour for both schemes:
+  // hover/focus must be a single top-level rule (the SDK compiler drops the
+  // scheme `@media` both when it wraps a pseudo *and* when nested inside one),
+  // and white text keeps working on the darker hover in either scheme. The hover
+  // also overrides the store's default green hover (#5f9d3e).
+  const BTN_HOVER = "oklch(42% 0.11 246.91)";
   const buttonStyle = {
     "font-weight": "bold",
     "border-radius": "0.2rem", // --radius-field
-    [LIGHTMQ]: {
-      color: LIGHT_TEXT,
-      "background-color": "oklch(80.25% 0.0589 246.91)",
-    },
-    [DARK]: {
-      color: DARK_TEXT,
-      "background-color": "oklch(60.51% 0.1178 246.91)",
-    },
+    color: "#fff",
+    "background-color": "#2f6fa8",
     ":hover": { "background-color": BTN_HOVER },
     ":focus": { "background-color": BTN_HOVER },
   };
@@ -92,7 +86,8 @@
         ui.createComponent("collection", {
           id: "395347394795",
           node,
-          moneyFormat: "%7B%7Bamount_no_decimals_with_comma_separator%7D%7D%20Ft",
+          moneyFormat:
+            "%7B%7Bamount_no_decimals_with_comma_separator%7D%7D%20Ft",
           options: {
             product: {
               styles: {
@@ -341,7 +336,7 @@
       </ul>
       <a
         href="#megrendeles"
-        class="btn btn-primary btn-lg self-start rounded-sm">Előfizetek</a
+        class="btn btn-secondary btn-lg self-start rounded-sm">Előfizetek</a
       >
     </div>
   </section>
@@ -395,7 +390,10 @@
     {/if}
   </section>
 
-  <section id="receptsarok-sub" class="mx-auto max-w-4xl px-4 py-10 sm:py-14 card shadow-lg">
+  <section
+    id="receptsarok-sub"
+    class="mx-auto max-w-4xl px-4 py-10 sm:py-14 card shadow-lg"
+  >
     <header class="mb-6">
       <h2 class="display text-2xl sm:text-3xl">Receptsarok Prémium</h2>
       <p class="mt-2 opacity-80">
@@ -410,8 +408,9 @@
         <div class="card-body items-center text-center">
           <h3 class="card-title">Örök hozzáférés</h3>
           <p class="text-3xl font-bold">4 990 Ft</p>
-          <p class="text-sm opacity-60">Egyszeri díj – minden recept, örökre</p>
-          <a href="/receptsarok" class="btn btn-primary btn-sm mt-auto">Megnézem</a
+          <p class="text-sm opacity-75">Egyszeri díj – minden recept, örökre</p>
+          <a href="/receptsarok" class="btn btn-secondary btn-sm mt-auto"
+            >Megnézem</a
           >
         </div>
       </div>
@@ -421,16 +420,17 @@
           <p class="text-3xl font-bold">
             1 990 Ft<small class="text-sm font-normal">/év</small>
           </p>
-          <p class="text-sm opacity-60">Minden recept, évente megújuló</p>
-          <a href="/receptsarok" class="btn btn-outline btn-sm mt-auto">Megnézem</a
+          <p class="text-sm opacity-75">Minden recept, évente megújuló</p>
+          <a href="/receptsarok" class="btn btn-secondary btn-sm mt-auto"
+            >Megnézem</a
           >
         </div>
       </div>
     </div>
-    <p class="mt-4 text-sm opacity-60">
+    <p class="mt-4 text-sm text-base-content/60">
       A Diabetes és Hypertonia lapokban megjelent <span
-        class="text-success font-medium">{freeCount}</span
-      > recept ingyenesen elérhető, regisztráció nélkül.
+        class="text-base-content font-semibold">{freeCount}</span
+      > recept ingyenesen elérhető, előfizetés nélkül.
     </p>
   </section>
 
@@ -438,9 +438,7 @@
      2 Hypertonia + különszámok at half price (max 3), shipping computed at checkout,
      cart note to the publisher. -->
   <section class="mx-auto max-w-4xl px-4 py-10 sm:py-14">
-    <h2 class="display mb-6 text-2xl sm:text-3xl">
-      Gyakori kérdések
-    </h2>
+    <h2 class="display mb-6 text-2xl sm:text-3xl">Gyakori kérdések</h2>
     <!-- Section is max-w-7xl so the heading shares the page's left rail; the
          accordion itself stays narrow — full-width answer text would be an
          unreadable measure. -->

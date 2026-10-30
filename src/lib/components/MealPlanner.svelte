@@ -586,11 +586,11 @@
         <div class="card bg-base-300 mt-1 max-h-[min(50vh,22rem)] overflow-y-auto overscroll-contain">
           {#each searchResults as recipe}
             <button
-              class="flex items-center gap-2 p-2 hover:bg-base-300 w-full text-left"
+              class="flex items-center gap-2 p-2 hover:bg-base-100 w-full text-left"
               onclick={() => { addToDay(activeDay, recipe); searchQuery = '' }}
             >
               <span class="flex-1 truncate text-sm">{recipe.title}</span>
-              <span class="text-xs opacity-50 shrink-0">
+              <span class="text-xs opacity-70 shrink-0">
                 {typeof recipe.energy === 'number' ? `${recipe.energy} kcal` : ''}
               </span>
             </button>
@@ -623,7 +623,7 @@
         <div class="card card-side border border-base-300 bg-transparent p-2 rounded-sm mb-2 items-center gap-2">
           <div class="flex-1">
             <span class="font-medium text-sm">{currentRecipe.title}</span>
-            <p class="text-xs opacity-50">
+            <p class="text-xs opacity-70">
               {typeof currentRecipe.energy === 'number' ? `${currentRecipe.energy} kcal` : '-'} ·
               {typeof currentRecipe.protein === 'number' ? `${currentRecipe.protein}g F` : '-'} ·
               {typeof currentRecipe.carbs === 'number' ? `${currentRecipe.carbs}g Sz` : '-'}
@@ -638,7 +638,7 @@
         </div>
       {/if}
       {#if plan[activeDay].length === 0}
-        <p class="text-sm opacity-50 py-4">Még nincs hozzáadott recept. Keress fent és adj hozzá!</p>
+        <p class="text-sm opacity-70 py-4">Még nincs hozzáadott recept. Keress fent és adj hozzá!</p>
       {:else}
         <div class="flex flex-col gap-2">
           {#each plan[activeDay] as recipe}
@@ -647,7 +647,7 @@
                 <a href={recipeDetailPath(recipe)} class="font-medium text-sm hover:underline">
                   {recipe.title}
                 </a>
-                <p class="text-xs opacity-50">
+                <p class="text-xs opacity-70">
                   {typeof recipe.energy === 'number' ? `${recipe.energy} kcal` : '-'} ·
                   {typeof recipe.protein === 'number' ? `${recipe.protein}g F` : '-'} ·
                   {typeof recipe.carbs === 'number' ? `${recipe.carbs}g Sz` : '-'}
@@ -697,13 +697,13 @@
             </ul>
           </div>
           {#if shoppingListPending}
-            <p class="text-sm opacity-50 mt-1">További hozzávalók betöltése…</p>
+            <p class="text-sm opacity-70 mt-1">További hozzávalók betöltése…</p>
           {/if}
         {:else if shoppingListPending && plan[activeDay].length > 0}
-          <p class="text-sm opacity-50">Bevásárlólista összeállítása…</p>
+          <p class="text-sm opacity-70">Bevásárlólista összeállítása…</p>
         {/if}
       {:else}
-        <div class="text-center py-8 opacity-40">
+        <div class="text-center py-8 opacity-70">
           <p>Adj hozzá recepteket a napi tervhez a napi összesítés és bevásárlólista megjelenítéséhez.</p>
         </div>
       {/if}

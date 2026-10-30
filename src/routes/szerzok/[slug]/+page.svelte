@@ -55,10 +55,10 @@
         {#if author.email || author.links?.length}
           <p class="mt-2 flex flex-wrap gap-x-4 text-sm">
             {#if author.email}
-              <a href={`mailto:${author.email}`}>{author.email}</a>
+              <a class="link link-hover" href={`mailto:${author.email}`}>{author.email}</a>
             {/if}
             {#each author.links ?? [] as link}
-              <a href={link.url} rel="external noopener"
+              <a class="link link-hover" href={link.url} rel="external noopener"
                 >{decode(link.label) || link.url}</a
               >
             {/each}
@@ -90,12 +90,12 @@
           <span class="block">{decode(line)}</span>
         {/each}
         {#each author.support.links ?? [] as link}
-          <a class="mr-4" href={link.url} rel="external noopener"
+          <a class="link link-hover mr-4" href={link.url} rel="external noopener"
             >{decode(link.label) || link.url}</a
           >
         {/each}
         {#if author.support.email}
-          <a href={`mailto:${author.support.email}`}>{author.support.email}</a>
+          <a class="link link-hover" href={`mailto:${author.support.email}`}>{author.support.email}</a>
         {/if}
       </aside>
     {/if}

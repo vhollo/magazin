@@ -1,6 +1,21 @@
 @import "tailwindcss";
 @theme {
   --breakpoint-xs: 30rem;
+  /* Site header (Nav.svelte): the same dark blue in both colour modes, so the
+     white wordmark logo and white labels read on it everywhere (white on it is
+     5.3:1). Not the daisyUI secondary, which turns light blue in dark mode. */
+  --color-nav: #2f6fa8;
+  --color-nav-content: #fff;
+  /* Receptsarok brand orange. In the nav it is only a background (the active
+     RECEPTSAROK item) with dark text on it (about 7:1); white would be 2.9:1. */
+  --color-rs-brand: #de863e;
+  --color-rs-brand-content: #1a1a1a;
+}
+/* Secondary nav (Nav2.svelte): a light tint of the header blue. `inline` keeps
+   the base-100 reference live, so the tint follows the colour mode; the mix is
+   opaque because the bar is sticky and content scrolls under it. */
+@theme inline {
+  --color-nav-soft: color-mix(in oklab, var(--color-nav) 18%, var(--color-base-100));
 }
 @plugin "@tailwindcss/typography";
 @plugin "daisyui" {
@@ -32,11 +47,6 @@
 }
 :root {
   /* --color-primary: #3f87c4; */
-  /* Receptsarok: brand orange, and the text colour derived from it. As text on
-     the light header (#eee) the brand orange is only 2.39:1, so light mode uses
-     a darker orange (5.2:1); dark mode keeps the brand orange (6.38:1). */
-  --color-rs-brand: #de863e;
-  --color-rs: #9a4e12;
   font-size: clamp(
     1rem,
     0.5vw + 0.85rem,
@@ -61,15 +71,6 @@
   scroll-behavior: smooth;
 }
 @media (prefers-color-scheme: light) {
-}
-@media (prefers-color-scheme: dark) {
-  :root {
-    --color-rs: var(--color-rs-brand);
-  }
-}
-/* Receptsarok nav label: plain text in the Receptsarok colour (see :root). */
-.color-rs {
-  color: var(--color-rs);
 }
 
 /* Global heading typeface (homepage redesign 2026): every heading site-wide uses
@@ -184,7 +185,7 @@ textarea {
 input,
 .input {
   outline-offset: 0px;
-  outline-color: var(--secondary);
+  outline-color: var(--color-secondary);
 }
 
 /* PROSE */
@@ -641,10 +642,18 @@ article .table-scroll > table :is(td, th) {
    first one, since an id has to stay unique. */
 :is(#szerzo, .szerzo) {
   clear: both;
-  @apply card bg-base-300 px-4 mt-8 rounded-sm;
+  @apply card bg-base-300 p-4 mt-8 rounded-sm;
   display: grid;
   gap: 0 2rem;
   grid-template-columns: 10ch auto;
+}
+/* The padding alone sets the inner spacing: drop the prose margin above the name
+   and below the last line, otherwise the top gap doubles and the bottom is zero. */
+:is(#szerzo, .szerzo) .nev {
+  margin-top: 0;
+}
+:is(#szerzo, .szerzo) > :last-child {
+  margin-bottom: 0;
 }
 :is(#szerzo, .szerzo) img {
   grid-row-start: 1;
@@ -667,9 +676,9 @@ article .table-scroll > table :is(td, th) {
 }
 /* Name + titulus lines are one block: no vertical margin anywhere inside it.
    The CV paragraphs that follow keep their normal prose spacing. */
-/* .szerzo .nev {
+:is(#szerzo, .szerzo) .nev:has(+ .titulus) {
   margin-bottom: 0;
-} */
+}
 .szerzo .titulus {
   margin-top: 0;
   margin-bottom: 0;

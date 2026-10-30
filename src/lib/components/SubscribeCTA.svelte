@@ -5,7 +5,7 @@
   import { trackEvent } from "$lib/analytics";
 </script>
 
-<section class="band relative overflow-hidden bg-primary text-primary-content">
+<section class="band relative overflow-hidden bg-base-200 text-base-content">
   <div
     class="mx-auto flex max-w-7xl flex-col items-start gap-4 px-4 py-12 sm:flex-row sm:items-center sm:justify-between sm:py-16"
   >
