@@ -443,50 +443,65 @@
          accordion itself stays narrow — full-width answer text would be an
          unreadable measure. -->
     <div class="flex max-w-3xl flex-col gap-2">
-      <details class="faq collapse-arrow rounded-sm bg-base-200">
-        <summary class="cursor-pointer px-4 py-3 font-medium"
+      <details
+        class="faq collapse collapse-arrow rounded-sm bg-base-200"
+        name="faq-accordion"
+      >
+        <summary class="collapse-title font-medium"
           >Mit tartalmaz egy Diabetes lapszám?</summary
         >
-        <div class="px-4 pb-4 text-sm opacity-80">
+        <div class="collapse-content text-sm opacity-80">
           Orvosi és dietetikai tanácsokat, recepteket tápanyagértékekkel,
           sorstársak történeteit és a diabétesz-közösség híreit – mindezt
           gyakorló szakemberek tollából, közérthetően.
         </div>
       </details>
-      <details class="faq collapse-arrow rounded-sm bg-base-200">
-        <summary class="cursor-pointer px-4 py-3 font-medium"
+      <details
+        class="faq collapse collapse-arrow rounded-sm bg-base-200"
+        name="faq-accordion"
+      >
+        <summary class="collapse-title font-medium"
           >Milyen gyakran és hogyan kapom meg?</summary
         >
-        <div class="px-4 pb-4 text-sm opacity-80">
+        <div class="collapse-content text-sm opacity-80">
           A Diabetes évente hat alkalommal jelenik meg, és postai úton, házhoz
           szállítva érkezik. A szállítási költséget az ár tartalmazza.
         </div>
       </details>
-      <details class="faq collapse-arrow rounded-sm bg-base-200">
-        <summary class="cursor-pointer px-4 py-3 font-medium"
+      <details
+        class="faq collapse collapse-arrow rounded-sm bg-base-200"
+        name="faq-accordion"
+      >
+        <summary class="collapse-title font-medium"
           >Hogyan vehetem igénybe a féláras kedvezményt?</summary
         >
-        <div class="px-4 pb-4 text-sm opacity-80">
+        <div class="collapse-content text-sm opacity-80">
           Tedd a kosárba a Diabetes-előfizetést, majd mellé a Hypertonia
           magazint vagy a különszámokat – ezeket féláron adjuk, legfeljebb 3
           példányig.
         </div>
       </details>
-      <details class="faq collapse-arrow rounded-sm bg-base-200">
-        <summary class="cursor-pointer px-4 py-3 font-medium"
+      <details
+        class="faq collapse collapse-arrow rounded-sm bg-base-200"
+        name="faq-accordion"
+      >
+        <summary class="collapse-title font-medium"
           >Nyomtatott vagy digitális?</summary
         >
-        <div class="px-4 pb-4 text-sm opacity-80">
+        <div class="collapse-content text-sm opacity-80">
           A Diabetes nyomtatott magazin. Emellett a diabetes.hu-n folyamatosan,
           ingyenesen olvashatod szakértőink cikkeit, a Receptsarok Prémium pedig
           a teljes, 1800 recept fölötti gyűjteményt nyitja meg.
         </div>
       </details>
-      <details class="faq collapse-arrow rounded-sm bg-base-200">
-        <summary class="cursor-pointer px-4 py-3 font-medium"
+      <details
+        class="faq collapse collapse-arrow rounded-sm bg-base-200"
+        name="faq-accordion"
+      >
+        <summary class="collapse-title font-medium"
           >Kérdésem van a megrendelésemmel kapcsolatban – kihez fordulhatok?</summary
         >
-        <div class="px-4 pb-4 text-sm opacity-80">
+        <div class="collapse-content text-sm opacity-80">
           A kosár „Üzenet a Kiadónak" mezőjében közvetlenül írhatsz a Tudomány
           Kiadónak – például ha ajándékba rendelsz, vagy a kézbesítéssel
           kapcsolatban van kérdésed.
@@ -506,13 +521,5 @@
   }
   .faq summary::-webkit-details-marker {
     display: none;
-  }
-  .faq summary::after {
-    content: "+";
-    float: right;
-    opacity: 0.5;
-  }
-  .faq[open] summary::after {
-    content: "–";
   }
 </style>
