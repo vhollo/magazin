@@ -44,7 +44,7 @@
   <section class="band relative overflow-hidden bg-base-200">
     <div class="mx-auto max-w-4xl px-4 py-10 sm:py-14">
       <h1 class="display text-3xl leading-tight text-balance sm:text-4xl">Gyógyszertárkereső</h1>
-      <p class="mt-2 max-w-4xl opacity-80">Keresőnkkel megtalálhatod a hozzád legközelebb eső gyógyszertárat, ahol a Diabetes és/vagy Hypertonia betegtájékoztató magazin elérhető.</p>
+      <p class="mt-2 opacity-80">Keresőnkkel megtalálhatod a hozzád legközelebb eső gyógyszertárat, ahol a Diabetes és/vagy Hypertonia betegtájékoztató magazin elérhető.</p>
       <!-- The list filters as you type; Enter must not submit (that reloaded the page and lost the query). -->
       <form class="form-control mt-6 w-full max-w-md" onsubmit={(e) => e.preventDefault()}>
         <label for="patika-kereso" class="label">

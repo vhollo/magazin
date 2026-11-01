@@ -122,7 +122,7 @@ afterNavigate((navigation) => {
   <section class="band relative overflow-hidden bg-base-200">
     <div class="mx-auto max-w-4xl px-4 py-10 sm:py-14">
     <h1 class="display text-3xl leading-tight text-balance sm:text-4xl">DiabKVÍZ</h1>
-    <p class="mt-2 max-w-4xl opacity-80">Az alábbi kvízek csak példák.</p>
+    <p class="mt-2 opacity-80">Az alábbi kvízek csak példák.</p>
     <p class="mt-4">
       <a href="/kviz/tabella" class="btn btn-secondary btn-sm gap-2 no-underline">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5">

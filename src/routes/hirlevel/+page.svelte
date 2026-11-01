@@ -64,7 +64,7 @@
             ? "Leiratkoztál"
             : "Köszönjük a feliratkozást!"}
         </h1>
-        <p class="max-w-4xl opacity-80">
+        <p class="opacity-80">
           {#if form.muvelet === "leiratkozas"}
             Töröltük a címedet a hírlevél-listáról. Ha meggondolod magad,
             bármikor újra feliratkozhatsz ezen az oldalon.
@@ -85,7 +85,7 @@
         <h1 class="display text-3xl leading-tight sm:text-4xl">
           Ne maradj le a fontos cikkekről
         </h1>
-        <p class="max-w-4xl opacity-80">
+        <p class="opacity-80">
           Havonta egy összefoglaló e-mail a legfontosabb szakértői írásokról és
           hírekről – semmi spam, leiratkozás bármikor egy kattintással.
         </p>

@@ -422,6 +422,27 @@ function testCategoryPatternsShapeAndPredictor() {
     'Vegetable-only ingredient profile without soup signal should map to zoldsegetelek'
   )
   assert.equal(ingredientGreensProof.reason, 'ingredient-proof-greens')
+
+  const dessertTitleProof = predictRecipeCategory({
+    title: 'Csalafinta joghurtos citromfagyi',
+    ingredientNames: ['cukkini', 'nagy citrom', 'nyírfacukor', 'görög joghurt', 'tejszín', 'folyékony édesítő'],
+  })
+  assert.equal(
+    dessertTitleProof.category,
+    'sos-edes-sutemenyek-desszertek-tesztak',
+    'Fagyi in title should map to the sweets category (was haletelek via citrom/tejszin/joghurt weights)'
+  )
+  assert.equal(dessertTitleProof.reason, 'title-proof')
+
+  const sweetenerBoost = predictRecipeCategory({
+    title: 'Citromos joghurtkrém',
+    ingredientNames: ['citrom', 'nyírfacukor', 'görög joghurt', 'tejszín', 'folyékony édesítő'],
+  })
+  assert.equal(
+    sweetenerBoost.category,
+    'sos-edes-sutemenyek-desszertek-tesztak',
+    'Sweetener ingredients should outweigh the haletelek citrom/tejszin/joghurt weights'
+  )
 }
 
 function testUncategorizedQueueConsistency() {

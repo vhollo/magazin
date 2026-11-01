@@ -206,9 +206,37 @@ const INSTRUCTION_CATEGORY_KEYWORDS = {
   'koretek-italok-hidegkonyha': ['koret', 'koretnek', 'korethez', 'koretkent', 'koretet'],
 }
 
+/**
+ * Ingredient-only boosts (not applied to the title): sweeteners and baking flavours
+ * almost only occur in desserts, so a dessert whose title and other ingredients carry
+ * no dessert feature (e.g. a lemon-yoghurt ice cream) is not outvoted by the
+ * citrom/tejszin/joghurt weights of other categories.
+ */
+const INGREDIENT_CATEGORY_KEYWORDS = {
+  'sos-edes-sutemenyek-desszertek-tesztak': ['nyirfacukor', 'xilit', 'eritrit', 'edesito', 'vanilia', 'kakao'],
+}
+
+/**
+ * Checked in key order, so a "leves" title (e.g. gyumolcsleves) stays a soup.
+ * Dessert words are limited to nouns that never name a savoury dish in recipes.json:
+ * torta (sonkatorta), muffin (zoldseges muffin), piskota (rozspiskota tonhallal) and
+ * puding (majpuding) are left to the model.
+ */
 const TITLE_CATEGORY_PROOF = {
   levesek: ['leves'],
   egytaletelek: ['rakott'],
+  'sos-edes-sutemenyek-desszertek-tesztak': [
+    'fagyi',
+    'fagylalt',
+    'jegkrem',
+    'sorbet',
+    'parfe',
+    'desszert',
+    'sutemeny',
+    'keksz',
+    'kalacs',
+    'mousse',
+  ],
 }
 
 const TITLE_KEYWORD_BOOST = 1.8
@@ -431,7 +459,10 @@ function ingredientKeywordBoosts(ingredientNames, searchTerms) {
     ...(Array.isArray(ingredientNames) ? ingredientNames : []),
     ...(Array.isArray(searchTerms) ? searchTerms : []),
   ].join(' ')
-  return keywordBoostsFromText(CATEGORY_KEYWORDS, ingredientText, 'ingredient', INGREDIENT_KEYWORD_BOOST)
+  return [
+    ...keywordBoostsFromText(CATEGORY_KEYWORDS, ingredientText, 'ingredient', INGREDIENT_KEYWORD_BOOST),
+    ...keywordBoostsFromText(INGREDIENT_CATEGORY_KEYWORDS, ingredientText, 'ingredient', INGREDIENT_KEYWORD_BOOST),
+  ]
 }
 
 function instructionKeywordBoosts(instructions) {

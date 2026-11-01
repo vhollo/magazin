@@ -36,6 +36,14 @@
     if (!active) return 'bg-nav !text-nav-content hover:bg-nav-content/10 focus-visible:bg-nav-content/10 focus-visible:outline-none'
     return rs ? 'bg-rs-brand !text-rs-brand-content' : 'bg-nav-content !text-nav'
   }
+  // Group toggles (Partnereink, Kezelés…) that contain the current page. Desktop:
+  // the white pill, since the dropdown opens in its own box. Mobile: only a light
+  // tint, because the open group sits directly above the active page's white pill
+  // and two stacked white pills merge into one block.
+  function navGroupClass(active) {
+    if (!active) return navItemClass(false)
+    return 'bg-nav-content !text-nav max-md:bg-nav-content/15 max-md:!text-nav-content'
+  }
 
   let _open_nav = false, target
   let mobileQuery = ''
@@ -373,8 +381,8 @@
         {:else}
           <input type="radio" name="collapse" class="md:hidden" bind:group={collapse} value={cat} onclick={(e) => handleRadioClick(cat, e)} onchange={(e) => { handleRadioChange(cat, e); _scrollIntoView(e); }}/>
           <!-- svelte-ignore a11y_invalid_attribute – same element as sibling links; # prevented in onclick -->
-          <a href="#" tabindex="0" class="relative max-md:collapse-title max-md:!min-h-0 max-md:!p-4 max-md:!pr-12 md:py-2 rounded-sm md:menu-title text-nowrap font-medium no-underline transition-[color,background-color] duration-200 ease-out {navItemClass(navSubgroupActive(actual, nav1[cat]))}" onclick={(e) => { e.preventDefault(); handleCollapseClick(cat, e) }} onkeydown={(e) => handleCollapseKeydown(cat, e)}>{cat}</a>
-          <ul tabindex="0" class="!z-0 menu max-md:w-full flex-nowrap max-md:collapse-content dropdown-content md:rounded-md text-nav-content py-0 md:p-2 bg-nav">
+          <a href="#" tabindex="0" class="relative max-md:collapse-title max-md:!min-h-0 max-md:!p-4 max-md:!pr-12 md:py-2 rounded-sm md:menu-title text-nowrap font-medium no-underline transition-[color,background-color] duration-200 ease-out {navGroupClass(navSubgroupActive(actual, nav1[cat]))}" onclick={(e) => { e.preventDefault(); handleCollapseClick(cat, e) }} onkeydown={(e) => handleCollapseKeydown(cat, e)}>{cat}</a>
+          <ul tabindex="0" class="!z-0 menu max-md:w-full flex-nowrap max-md:collapse-content dropdown-content md:rounded-md text-nav-content py-0 max-md:pt-1 md:p-2 bg-nav">
             {#each Object.keys(nav1[cat]) as subcat}
               <li class=""><a class="p-2 text-nowrap {navItemClass(navLinkActive(actual, nav1[cat][subcat]))}" href={nav1[cat][subcat]} onclick={() => _open_nav = false}>{subcat}</a></li>
             {/each}
@@ -390,8 +398,8 @@
         {:else}
           <input type="radio" name="collapse" class="md:hidden" bind:group={collapse} value={cat} onclick={(e) => handleRadioClick(cat, e)} onchange={(e) => { handleRadioChange(cat, e); _scrollIntoView(e); }}/>
           <!-- svelte-ignore a11y_invalid_attribute – same element as sibling links; # prevented in onclick -->
-          <a href="#" tabindex="0" class="relative max-md:collapse-title max-md:!min-h-0 max-md:!p-4 max-md:!pr-12 md:p-2 rounded-sm md:menu-title text-nowrap font-medium no-underline transition-[color,background-color] duration-200 ease-out {navItemClass(navSubgroupActive(actual, nav2[cat]))}" onclick={(e) => { e.preventDefault(); handleCollapseClick(cat, e) }} onkeydown={(e) => handleCollapseKeydown(cat, e)}>{cat}</a>
-          <ul tabindex="0" class="!z-0 menu max-md:w-full flex-nowrap max-md:collapse-content dropdown-content md:rounded-md text-nav-content py-0 md:p-2 bg-nav">
+          <a href="#" tabindex="0" class="relative max-md:collapse-title max-md:!min-h-0 max-md:!p-4 max-md:!pr-12 md:p-2 rounded-sm md:menu-title text-nowrap font-medium no-underline transition-[color,background-color] duration-200 ease-out {navGroupClass(navSubgroupActive(actual, nav2[cat]))}" onclick={(e) => { e.preventDefault(); handleCollapseClick(cat, e) }} onkeydown={(e) => handleCollapseKeydown(cat, e)}>{cat}</a>
+          <ul tabindex="0" class="!z-0 menu max-md:w-full flex-nowrap max-md:collapse-content dropdown-content md:rounded-md text-nav-content py-0 max-md:pt-1 md:p-2 bg-nav">
             {#each Object.keys(nav2[cat]) as subcat}
               <li class=""><a class="p-2 text-nowrap {navItemClass(navLinkActive(actual, nav2[cat][subcat]))}" href={nav2[cat][subcat]} onclick={() => _open_nav = false}>{subcat}</a></li>
             {/each}
@@ -400,9 +408,10 @@
       </li>
     {/each}
     <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
-    <!-- Mobile: inline search form (same GET /keres target as Search.svelte, same 4-character minimum) -->
+    <!-- Mobile: inline search form (same GET /keres target as Search.svelte, same 4-character minimum).
+         Outlined, not filled: a tinted fill read as a selected menu item. -->
     <li class="md:hidden max-md:px-2 max-md:py-1">
-      <form action="/keres#lista" method="get" class="flex items-center rounded-sm bg-nav-content/10 focus-within:bg-nav-content/20 transition-[background-color] duration-200 ease-out" onsubmit={() => { _open_nav = false; closeAllCollapses(); }}>
+      <form action="/keres#lista" method="get" class="flex items-center rounded-sm border border-nav-content/60 focus-within:border-nav-content focus-within:bg-nav-content/10 transition-[border-color,background-color] duration-200 ease-out" onsubmit={() => { _open_nav = false; closeAllCollapses(); }}>
         <input type="search" name="q" bind:value={mobileQuery} placeholder="Keresés" aria-label="Keresés" minlength="4" title="Legalább 4 karakter" enterkeyhint="search" autocomplete="off" class="flex-1 min-w-0 bg-transparent !border-0 !rounded-none !p-4 text-base font-medium text-nav-content placeholder:text-nav-content/70 focus-visible:outline-none" />
         <button type="submit" aria-label="Keresés indítása" disabled={mobileQuery.length < 4} class="!border-0 !rounded-none !p-4 text-nav-content disabled:opacity-50 disabled:cursor-not-allowed">
           <svg class="h-[1em]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -433,14 +442,18 @@
       </a>
     </li>
     <li class="drop-col text-nowrap max-md:p-2">
-      <button 
+      <!-- Only the round icon carries a background; on mobile the "Felhasználó" label
+           is plain menu text, so the row doesn't read as an input field. -->
+      <button
         aria-labelledby="label-user"
-        class="btn md:btn-sm max-md:flex max-md:justify-between max-md:items-center max-md:p-4 md:p-0 !rounded-full text-nowrap font-medium border-none shadow-none" 
-        class:btn-primary={$authUser} onclick={() => user_click()}>
-        <span id="label-user" class="md:hidden">Felhasználó&nbsp;</span>
-        <svg class="inline size-[1rem]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
-        </svg>
+        class="flex max-md:w-full items-center justify-between gap-3 max-md:!py-4 max-md:!px-2 md:!p-0 !border-0 !rounded-sm bg-transparent text-nav-content text-nowrap font-medium cursor-pointer transition-[background-color] duration-200 ease-out max-md:hover:bg-nav-content/10 focus-visible:outline-2 focus-visible:outline-nav-content"
+        onclick={() => user_click()}>
+        <span id="label-user" class="md:hidden">Felhasználó</span>
+        <span class="flex size-8 shrink-0 items-center justify-center rounded-full {$authUser ? 'bg-primary text-primary-content' : 'bg-base-100 text-base-content'}">
+          <svg class="inline size-[1rem]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
+          </svg>
+        </span>
       </button>
     </li>
   </ul>

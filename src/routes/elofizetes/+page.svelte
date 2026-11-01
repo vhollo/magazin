@@ -306,7 +306,7 @@
         <h1 class="display text-3xl leading-tight text-balance sm:text-4xl">
           A nyomtatott Diabetes magazin – házhoz szállítva
         </h1>
-        <p class="max-w-4xl opacity-80">
+        <p class="opacity-80">
           Egy jó magazin nem sürget és nem riogat: leül veled, és érthetően
           elmondja, mi történik a szervezetedben – és mit tehetsz érte. Ezt
           kínálja a Diabetes, 1989 óta.
@@ -397,7 +397,7 @@
     <header class="mb-6">
       <h2 class="display text-2xl sm:text-3xl">Receptsarok Prémium</h2>
       <p class="mt-2 opacity-80">
-        Több mint 1800 diabétesz-barát recept, tápanyagtáblázattal,
+        Több mint <span class="font-bold">1800</span> diabétesz-barát recept, tápanyagtáblázattal,
         összetevő-kereséssel és tápanyag-szűréssel.
       </p>
     </header>
