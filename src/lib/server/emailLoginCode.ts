@@ -113,8 +113,11 @@ export async function sendLoginCode(email: string): Promise<void> {
 		});
 	} catch (error) {
 		console.error('Login code email failed:', error instanceof Error ? error.message : error);
-		// Let the user retry at once instead of waiting out the resend gap for a mail that never left.
-		await ref.update({ lastSentAt: Timestamp.fromMillis(0) }).catch(() => {});
+		// Let the user retry at once: a mail that never left counts neither for the resend gap
+		// nor for the hourly send limit.
+		await ref
+			.update({ lastSentAt: Timestamp.fromMillis(0), sends: FieldValue.increment(-1) })
+			.catch(() => {});
 		throw new LoginCodeError('send_failed', 502);
 	}
 }
