@@ -4,7 +4,6 @@
   import { goto } from '$app/navigation'
   import { browser } from '$app/environment'
   import { 
-    sendSignInLinkToEmail, 
     isSignInWithEmailLink, 
     signInWithEmailLink, 
     /* signInWithEmailAndPassword, setPersistence, browserLocalPersistence, getAdditionalUserInfo, */ 
@@ -12,6 +11,7 @@
     /* createUserWithEmailAndPassword, */ 
     onAuthStateChanged, 
     signInWithPopup, 
+    signInWithCustomToken, 
     GoogleAuthProvider, 
     FacebookAuthProvider, 
     linkWithCredential, 
@@ -185,11 +185,11 @@
   facebookProvider.addScope('email');
 
   // Facebook credential waiting to be linked: set when the Facebook email already
-  // belongs to an account created with Google or an email link. Firebase allows one
+  // belongs to an account created with Google or an email code. Firebase allows one
   // account per email, so the user signs in with the existing method first and the
   // Facebook credential is then linked to that account (linkPendingFacebook).
-  // Kept in memory only, so it survives the Google popup but not an email-link page load,
-  // and it is linked only to an account with the same email.
+  // Kept in memory only: both the Google popup and the email code keep this page, so it
+  // survives them. It is linked only to an account with the same email.
   let pendingFacebookCred = null, pendingFacebookEmail = null
 
   const linkPendingFacebook = (user) => {
@@ -224,33 +224,91 @@
     signInWithFacebook()
   }
 
-  const actionCodeSettings = {
-    url: browser ? window.location.href : '/',
-    handleCodeInApp: true,
-  }
+  // Email sign-in with a 6-digit code: /api/auth/email-code emails the code,
+  // /api/auth/email-code/verify checks it and returns a Firebase custom token
+  // ($lib/server/emailLoginCode.ts). The whole flow stays in this modal.
+  let codeStep = false, loginCode = '', codeBusy = false, codeMessage = ''
 
+  const waitText = (seconds) =>
+    seconds < 120 ? `${seconds} másodperc` : `${Math.ceil(seconds / 60)} perc`
 
-  function ota_login() {
-    sendSignInLinkToEmail(firebaseAuth, $email, actionCodeSettings)
-    .then(() => {
-      // The link was successfully sent. Inform the user.
-      // Save the email locally so you don't need to ask the user for it again
-      // if they open the link on the same device.
-      window.localStorage.setItem('emailForSignIn', $email);
-      // window.localStorage.setItem('displayName', displayName);
-      success = 'sent'
-      // ...
+  const postJson = async (url, body) => {
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body)
     })
-    .catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      console.log(errorCode, errorMessage)
-      success = false
-      // ...
-    });
+    return { status: res.status, data: await res.json().catch(() => ({})) }
   }
 
-  // Confirm the link is a sign-in with email link.
+  async function send_code() {
+    if (codeBusy) return
+    codeBusy = true
+    codeMessage = ''
+    try {
+      const { status, data } = await postJson('/api/auth/email-code', { email: $email })
+      if (status === 200) {
+        codeStep = true
+        loginCode = ''
+        success = 'code-sent'
+        setTimeout(() => document.getElementById('login-code')?.focus(), 0)
+      } else if (data.error === 'rate_limited') {
+        success = undefined
+        codeMessage = `Túl sok kódkérés. Próbáld újra ${waitText(data.retryAfter ?? 60)} múlva.`
+      } else if (data.error === 'invalid_email') {
+        success = undefined
+        codeMessage = 'Kérlek, adj meg egy érvényes Email címet.'
+      } else {
+        success = false
+      }
+    } catch {
+      success = false
+    } finally {
+      codeBusy = false
+    }
+  }
+
+  async function verify_code() {
+    if (codeBusy) return
+    codeBusy = true
+    codeMessage = ''
+    try {
+      const { status, data } = await postJson('/api/auth/email-code/verify', { email: $email, code: loginCode })
+      if (status === 200 && data.token) {
+        // onAuthStateChanged sets authUser and links a pending Facebook credential.
+        await signInWithCustomToken(firebaseAuth, data.token)
+        codeStep = false
+        loginCode = ''
+        success = true
+        // Without a display name the modal stays open and asks for it (the {:else} branch).
+        if (firebaseAuth.currentUser?.displayName) mod_login.close()
+      } else if (data.error === 'invalid') {
+        codeMessage = `Hibás kód. Még ${data.remaining} próbálkozásod van.`
+      } else if (data.error === 'expired') {
+        codeMessage = 'A kód lejárt. Kérj új kódot.'
+      } else if (data.error === 'locked') {
+        codeMessage = 'Túl sok hibás próbálkozás. Kérj új kódot.'
+      } else if (data.error === 'invalid_request') {
+        codeMessage = 'A kód 6 számjegyből áll.'
+      } else {
+        success = false
+      }
+    } catch {
+      success = false
+    } finally {
+      codeBusy = false
+    }
+  }
+
+  const change_email = () => {
+    codeStep = false
+    loginCode = ''
+    codeMessage = ''
+    success = undefined
+  }
+
+  // Legacy: sign-in links emailed before the switch to 6-digit codes. Nothing sends
+  // links any more; this only completes one that is opened from an old email.
   // const auth = getAuth();
   if (browser && isSignInWithEmailLink(firebaseAuth, window.location.href)) {
     // Additional state parameters can also be passed via URL.
@@ -466,26 +524,17 @@
     <button class="btn btn-sm !btn-circle btn-ghost absolute right-2 top-2 border-none" aria-label="Bezárás" onclick={()=>mod_login.close()}>✕</button>
     <h3 class="text-lg font-bold">Szia!</h3>
     {#if !$authUser}
-    <p class="py-4">Az Email címed igazolása közösségi fiókkal vagy ellenőrző link küldésével történhet.</p>
-    <!-- <div class="modal-action flex-col gap-4"> -->
+    <p class="py-4">Az Email címed igazolása közösségi fiókkal vagy emailben küldött belépési kóddal történhet.</p>
     <fieldset class="fieldset flex gap-4 justify-center">
       <button class="btn btn-secondary !border-secondary h-8" onclick={() => google_login()}>Google fiók</button>
       <button class="btn btn-secondary !border-secondary h-8" onclick={() => facebook_login()}>Facebook fiók</button>
     </fieldset>
     <p class="text-center text-sm py-4">vagy</p>
+    {#if !codeStep}
     <!-- preventDefault: without it the submit is a GET to the current page, which puts
-         ?email= in the URL and reloads before the link is sent -->
-    <form onsubmit={(e) => { e.preventDefault(); ota_login() }}>
+         ?email= in the URL and reloads -->
+    <form onsubmit={(e) => { e.preventDefault(); send_code() }}>
       <fieldset class="fieldset flex gap-4 items-center">
-        <!-- <input
-        type="text"
-        placeholder="Név"
-        class="h-8 px-2 border border-primary rounded-md flex-1"
-        required
-        bind:value={displayName}
-        /> -->
-      <!-- </fieldset>
-      <fieldset class="fieldset flex gap-4 items-center"> -->
         <input
         id="email"
         name="email"
@@ -499,37 +548,47 @@
         required
         bind:value={$email}
         />
-        {#if success === 'sent'}
-        <button class="btn btn-primary h-8">Link újraküldése</button>
-        {:else}
-        <button class="btn btn-primary h-8">Link küldése</button>
-        {/if}
-        <!-- <input
-        type="password"
-        placeholder="Jelszó"
-        class="h-8 px-2 border border-primary rounded-md"
-        required
-        bind:value={password}
-        /> -->
+        <button class="btn btn-primary h-8" disabled={codeBusy}>Kód küldése</button>
       </fieldset>
-      <!-- <fieldset class="fieldset flex gap-4 items-center"> -->
-        <!-- <button type="submit" class="btn btn-sm text-center">Login</button> -->
-      <!-- </fieldset> -->
-      {#if success === false}
-        <div class="flex-col py-2 mt-2 bg-error text-error-content text-center">Hiba történt. Kérlek, próbáld újra.</div>
-      {/if}
-      {#if success === 'facebook-exists'}
-        <!-- type="button": this notice sits inside the email-link form, a default submit button would send the link -->
-        <div class="flex flex-col items-center gap-2 py-2 px-2 mt-2 bg-warning text-warning-content text-center">
-          <span>Ezzel az Email címmel már van fiókod. Jelentkezz be a korábban használt módon (Google fiók vagy ellenőrző link). Ha Google fiókkal lépsz be, a Facebook fiókodat is hozzákapcsoljuk.</span>
-          <button type="button" class="btn btn-secondary !border-secondary h-8" onclick={() => google_login()}>Belépés Google fiókkal és összekapcsolás</button>
-        </div>
-      {/if}
-      {#if success === 'sent'}
-        <div class="flex-col py-2 mt-2 bg-success text-success-content text-center">Az ellenőrző linket elküldtük az Email címedre.</div>
-      {/if}
-      <!-- </div> -->
     </form>
+    {:else}
+    <form onsubmit={(e) => { e.preventDefault(); verify_code() }}>
+      <p class="text-sm pb-2">Elküldtük a 6 jegyű belépési kódot ide: <strong>{$email}</strong>. A kód 10 percig érvényes.</p>
+      <fieldset class="fieldset flex gap-4 items-center">
+        <input
+        id="login-code"
+        name="code"
+        type="text"
+        inputmode="numeric"
+        autocomplete="one-time-code"
+        pattern={'[0-9]{6}'}
+        maxlength="6"
+        placeholder="6 jegyű kód"
+        aria-label="6 jegyű belépési kód"
+        class="h-8 px-2 border border-primary rounded-md flex-1 tracking-[0.3em]"
+        required
+        bind:value={loginCode}
+        />
+        <button class="btn btn-primary h-8" disabled={codeBusy}>Belépés</button>
+      </fieldset>
+      <div class="flex justify-between gap-4 pt-2 text-sm">
+        <button type="button" class="link" onclick={() => change_email()}>Másik Email cím</button>
+        <button type="button" class="link" disabled={codeBusy} onclick={() => send_code()}>Új kód küldése</button>
+      </div>
+    </form>
+    {/if}
+    {#if codeMessage}
+      <div class="flex-col py-2 px-2 mt-2 bg-warning text-warning-content text-center" role="alert">{codeMessage}</div>
+    {/if}
+    {#if success === false}
+      <div class="flex-col py-2 mt-2 bg-error text-error-content text-center" role="alert">Hiba történt. Kérlek, próbáld újra.</div>
+    {/if}
+    {#if success === 'facebook-exists'}
+      <div class="flex flex-col items-center gap-2 py-2 px-2 mt-2 bg-warning text-warning-content text-center">
+        <span>Ezzel az Email címmel már van fiókod. Jelentkezz be a korábban használt módon (Google fiók vagy emailben kapott kód), és a Facebook fiókodat is hozzákapcsoljuk.</span>
+        <button class="btn btn-secondary !border-secondary h-8" onclick={() => google_login()}>Belépés Google fiókkal és összekapcsolás</button>
+      </div>
+    {/if}
     {:else}
       <p class="py-4">Kérlek, add meg a neved.</p>
       <form onsubmit={(e) => { e.preventDefault(); setDisplayName() }}>

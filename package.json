@@ -71,6 +71,7 @@
 		"@tailwindcss/postcss": "^4.1.4",
 		"@tailwindcss/typography": "^0.5.15",
 		"@types/eslint": "^9.6.1",
+		"@types/nodemailer": "^6.4.24",
 		"@vitejs/plugin-basic-ssl": "^1.2.0",
 		"daisyui": "^5.0.27",
 		"drizzle-kit": "^0.24.2",
@@ -112,6 +113,7 @@
 		"jquery": "^3.7.1",
 		"marked": "^17.0.0",
 		"minisearch": "^7.1.1",
-		"mysql2": "^3.11.3"
+		"mysql2": "^3.11.3",
+		"nodemailer": "^6.10.1"
 	}
 }
