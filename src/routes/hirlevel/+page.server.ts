@@ -1,11 +1,25 @@
 import { fail } from "@sveltejs/kit";
 import { FieldValue } from "firebase-admin/firestore";
-import type { Actions } from "./$types";
+import type { Actions, PageServerLoad } from "./$types";
 import { db } from "$lib/firebase-admin";
 import { formRelayOrigin } from "$lib/server/formRelay";
 
 /** Subscriber list (Rowy table). One doc per address, doc id = lowercased email. */
 const SUBSCRIBERS = "tables/elofizetok/hirlevel";
+
+/**
+ * Prefill from the newsletter's unsubscribe link, `/hirlevel?leiratkozas&email=…`:
+ * the bare `leiratkozas` parameter opens the unsubscribe tab, `email` fills the
+ * address. Nothing is unsubscribed here — the reader still presses the button.
+ * (Legacy `adatmodositas&service=unsubscribe…` links are redirected here by
+ * `[...path]/+layout.server.ts`.)
+ */
+export const load: PageServerLoad = ({ url }) => ({
+  muvelet: url.searchParams.has("leiratkozas") ? "leiratkozas" : "feliratkozas",
+  // The sender inserts the address unencoded, so a `+` in it arrives as a space
+  // (an e-mail address never contains one).
+  email: (url.searchParams.get("email") ?? "").trim().replace(/ /g, "+"),
+});
 
 /**
  * Newsletter subscribe / unsubscribe (homepage redesign 2026, F4).
@@ -76,6 +90,9 @@ export const actions: Actions = {
             nev: (formData.get("nev") ?? "").toString().trim(),
             consent: true,
             date: FieldValue.serverTimestamp(),
+            // Marks a sign-up made here, so the MODX subscriber import
+            // (scripts/import-modx-newsletter-subscribers.mjs) never deletes it.
+            source: "site",
           },
           { merge: true },
         );

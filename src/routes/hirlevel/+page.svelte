@@ -12,13 +12,14 @@
   export let form;
 
   // 'feliratkozas' | 'leiratkozas' – drives the copy and whether consent is required.
-  let muvelet = form?.muvelet ?? "feliratkozas";
+  // `data` carries the unsubscribe link's prefill (`?leiratkozas&email=…`).
+  let muvelet = form?.muvelet ?? data.muvelet ?? "feliratkozas";
   let submitting = false;
 
   // Editable field values. Seed email from a failed-submit echo (form.email) so the
-  // user's input survives a validation error.
+  // user's input survives a validation error, else from the unsubscribe link.
   let nev = "";
-  let email = form?.email ?? "";
+  let email = form?.email ?? data.email ?? "";
 
   // Prefill name + email from the signed-in user once Firebase auth resolves
   // (client-side, so $authUser is undefined during SSR and fills in after hydration).

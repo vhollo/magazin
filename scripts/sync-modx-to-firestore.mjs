@@ -83,6 +83,7 @@ import {
 import { refreshReceptsarokRedirectsFromManifest } from './lib/refresh-receptsarok-redirects.mjs'
 import { isMagazineCandidate, shouldSyncRow, referenceTargetIds } from './lib/magazine-scope.mjs'
 import { parseModxSavePayload, classifyPayload } from './lib/modx-save-payload.mjs'
+import { writeNewsletters } from './lib/newsletters.mjs'
 import {
   modxNowSeconds,
   loadPublishSchedule,
@@ -1131,8 +1132,32 @@ async function main() {
     tmplvarContentvalues = mergeTvRows(classified.tmplvarContentvalues, duePublish.tvs)
     console.log(
       `payload rows: changed=${changedRows.length}, removed=${removedRows.length},` +
-        ` removedIds=${removedModxIds.length}, total=${rowsToProcess.length}`
+        ` removedIds=${removedModxIds.length}, newsletters=${classified.newsletterRows.length},` +
+        ` total=${rowsToProcess.length}`
     )
+
+    // Newsletters (children of MODX id 2) go to `hirlevelek/*` only. The site does
+    // not render them, so a newsletter-only save skips the magazine rebuild, the
+    // redirect refresh and the CDN purge.
+    if (classified.newsletterRows.length > 0 || classified.removedModxIds.length > 0) {
+      const result = await writeNewsletters(firestore, {
+        rows: classified.newsletterRows,
+        removedIds: classified.removedModxIds,
+        baseUrl: PUBLIC_BASE_URL,
+      })
+      console.log(`newsletters: written ${result.written}, deleted ${result.deleted}`)
+    }
+    if (
+      classified.newsletterRows.length > 0 &&
+      changedRows.length === 0 &&
+      removedRows.length === 0 &&
+      removedModxIds.length === 0 &&
+      docWrites.length === 0
+    ) {
+      await commitSchedule()
+      console.log('newsletter-only save: magazine sync skipped')
+      return
+    }
   } else {
     // ── MySQL path (manual workflow_dispatch full / incremental) ─────────────
     lastEdit = isFullSync ? 0 : await readLastEdit(firestore)

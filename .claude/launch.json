@@ -29,6 +29,13 @@
       "runtimeArgs": ["serve", "--port", "5191"],
       "port": 5191,
       "autoPort": false
+    },
+    {
+      "name": "firecms-dev",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["--prefix", "../firecms", "run", "dev"],
+      "port": 5172,
+      "autoPort": false
     }
   ]
 }

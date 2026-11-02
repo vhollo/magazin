@@ -91,8 +91,10 @@ if (!function_exists('magazin_evoLog')) {
 
 if (!function_exists('magazin_evoIsMagazineCandidate')) {
     /**
-     * MODX rows in the magazine sync universe (articles, hirek, id 2797).
-     * Keep in sync with scripts/lib/magazine-scope.mjs.
+     * MODX rows in the magazine sync universe (articles, hirek, id 2797), plus
+     * the newsletters under the „Hírlevelek” folder (parent 2), which the Node
+     * side writes to `hirlevelek/*` instead of `docs/*`.
+     * Keep in sync with scripts/lib/magazine-scope.mjs (isMagazineCandidate, isNewsletterRow).
      *
      * @param array $doc
      * @return bool
@@ -113,6 +115,9 @@ if (!function_exists('magazin_evoIsMagazineCandidate')) {
             return true;
         }
         if ($parent === 1) {
+            return true;
+        }
+        if ($parent === 2) {
             return true;
         }
         if ($parent !== 1 && in_array($template, array(9, 13), true)) {

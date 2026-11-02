@@ -42,6 +42,19 @@ export function referenceTargetIds(rows) {
   return ids
 }
 
+/** MODX „Hírlevelek” folder: its children are newsletters, synced to `hirlevelek/*`. */
+export const NEWSLETTER_PARENT_ID = 2
+
+/**
+ * A newsletter row (any state — `writeNewsletters` decides upsert vs. delete).
+ * Never a magazine candidate, so it never reaches `docs/*`.
+ * Keep in sync with the newsletter check in magazin_evoIsMagazineCandidate (PHP plugin).
+ * @param {{ parent?: number, type?: string }} row
+ */
+export function isNewsletterRow(row) {
+  return row.type === 'document' && Number(row.parent) === NEWSLETTER_PARENT_ID
+}
+
 /**
  * @param {{ id?: number, parent?: number, template?: number, type?: string }} row
  */

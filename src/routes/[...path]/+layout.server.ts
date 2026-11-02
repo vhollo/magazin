@@ -78,6 +78,20 @@ export const load: LayoutServerLoad = async ({ params, request, setHeaders, url 
 		redirect(308, term ? `${legacyTarget}?q=${encodeURIComponent(term)}` : legacyTarget);
 	}
 
+	// ── Legacy MODX newsletter unsubscribe link ───────────────────────────────
+	// Old newsletters link `adatmodositas&service=unsubscribe&key=…&email=…` — MODX
+	// used `&` with no `?`, so the parameters arrive in the path. The `?` form is
+	// read too. The key is not needed: `/hirlevel` only prefills the form.
+	if (path === 'adatmodositas' || path.startsWith('adatmodositas&')) {
+		// The path is already decoded and MODX put the address in raw, so a `+` is a
+		// literal `+` (URLSearchParams would read it as a space).
+		const params = new URLSearchParams(path.slice('adatmodositas'.length).replace(/\+/g, '%2B'));
+		const service = params.get('service') ?? url.searchParams.get('service');
+		const email = (params.get('email') ?? url.searchParams.get('email') ?? '').trim();
+		if (service !== 'unsubscribe') redirect(308, '/hirlevel');
+		redirect(307, `/hirlevel?leiratkozas${email ? `&email=${encodeURIComponent(email)}` : ''}`);
+	}
+
 	// ── A link a crawler resolved against the page instead of `<base href>` ───
 	// Not a dead link: the bare /404 page skips analytics for it, and no Firestore read.
 	if (isRelativeLinkArtifact(path)) {

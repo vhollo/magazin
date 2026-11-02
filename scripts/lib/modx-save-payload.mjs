@@ -16,7 +16,7 @@
 
 import zlib from 'node:zlib'
 import { promisify } from 'node:util'
-import { isMagazineCandidate, shouldSyncRow } from './magazine-scope.mjs'
+import { isMagazineCandidate, isNewsletterRow, shouldSyncRow } from './magazine-scope.mjs'
 
 const gunzip = promisify(zlib.gunzip)
 
@@ -68,16 +68,24 @@ function normaliseRemovedIds(value) {
  * are in the "top-of-queue" doc set (non-ancestor) get classified as
  * changed/removed. Ancestor rows are only needed for path resolution.
  *
+ * Newsletter rows (children of MODX id 2) are returned apart in `newsletterRows`;
+ * they never enter the magazine pipeline.
+ *
  * @param {{ rows: object[], tvs: object[], removedIds?: number[] }} payload
- * @returns {{ changedRows: object[], removedRows: object[], removedModxIds: number[], rowsToProcess: object[], tmplvarContentvalues: object[] }}
+ * @returns {{ changedRows: object[], removedRows: object[], removedModxIds: number[], newsletterRows: object[], rowsToProcess: object[], tmplvarContentvalues: object[] }}
  */
 export function classifyPayload(payload) {
   const { rows, tvs } = payload
 
   const changedRows = []
   const removedRows = []
+  const newsletterRows = []
 
   for (const row of rows) {
+    if (isNewsletterRow(row)) {
+      newsletterRows.push(row)
+      continue
+    }
     if (!isMagazineCandidate(row)) continue
     if (shouldSyncRow(row)) {
       changedRows.push(row)
@@ -100,6 +108,7 @@ export function classifyPayload(payload) {
     changedRows,
     removedRows,
     removedModxIds,
+    newsletterRows,
     rowsToProcess: rows,
     tmplvarContentvalues: tvs,
   }
