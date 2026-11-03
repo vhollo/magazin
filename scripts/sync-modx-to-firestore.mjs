@@ -81,6 +81,7 @@ import {
   updateDocRelatedRecipes,
 } from './lib/related-recipe-cards.mjs'
 import { refreshReceptsarokRedirectsFromManifest } from './lib/refresh-receptsarok-redirects.mjs'
+import { dropReceptTagFromSplitArticle, splitDishCountBySourceModxId } from './lib/split-article-recept-tag.mjs'
 import { isMagazineCandidate, shouldSyncRow, referenceTargetIds } from './lib/magazine-scope.mjs'
 import { parseModxSavePayload, classifyPayload } from './lib/modx-save-payload.mjs'
 import { writeNewsletters } from './lib/newsletters.mjs'
@@ -563,6 +564,8 @@ async function processRow(
   modxTransform.nagyito(doc)
   modxTransform.alapjav(doc)
   modxTransform.ellipsis(doc)
+  // Before the redirect match / sync-create below: a split article is not one recipe.
+  dropReceptTagFromSplitArticle(doc, splitDishCountBySourceModxId(recipes))
 
   const fallbackRedirect =
     typeof cached?.redirect === 'string'

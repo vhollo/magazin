@@ -1,5 +1,6 @@
 import { redirect } from '@sveltejs/kit';
-import { hasArticleBody, wrapArticleTables } from '$lib/magazine/articleHtml';
+import { hasArticleBody, stripSplitRecipeBlocks, wrapArticleTables } from '$lib/magazine/articleHtml';
+import { recipesBySourceModxId } from '$lib/server/similarRecipes';
 import { MAGAZINE_CACHE_CONTROL } from '$lib/magazine/cacheHeaders';
 import { collectionQueries, isListedDoc, rankDocByTags, type ThinCard } from '$lib/modx/collections';
 import {
@@ -138,6 +139,19 @@ export const load: LayoutServerLoad = async ({ params, request, setHeaders, url 
 	//     association series folder's first child;
 	//   - a recipe group (`doc.related` / `linkedModxIds`) renders its recipe list only when
 	//     tagged; untagged it is a card nowhere, so it opens its first page (its recipe).
+	// A multi-recipe article's split-out dishes (≥2 recipes whose `sourceModxId` is this
+	// doc) render as recipe cards (`+page.server.ts`), so their blocks leave the body.
+	// Applied here rather than at sync time so a newly split article needs no re-sync.
+	if (doc.content && doc.id != null) {
+		const ownDishes = await recipesBySourceModxId(Number(doc.id));
+		if (ownDishes.length >= 2) {
+			doc.content = stripSplitRecipeBlocks(
+				doc.content,
+				ownDishes.map((r) => r.title)
+			);
+		}
+	}
+
 	if (!hasArticleBody(doc.content)) {
 		const recipeGroup = Boolean(doc.related?.length || doc.linkedModxIds?.length);
 		if (!recipeGroup && path.startsWith('cikkek/')) {

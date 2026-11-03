@@ -108,3 +108,81 @@ export function wrapArticleTables(html: string): string {
 	// An unclosed <table> leaves `depth > 0`; its bytes are in the tail below.
 	return out + html.slice(last);
 }
+
+const HEADING_TAG = /<h([1-6])\b[^>]*>([\s\S]*?)<\/h\1>/gi;
+/** Headings inside a recipe block that do not start a new block. */
+const RECIPE_SUBHEADING = /^(?:hozzavalok|elkeszites|a recept elkeszitese)\b/;
+/** An image: bare, in a `<p>`, or a rendered `[[nagyito]]` figure. */
+const IMAGE_ELEMENT = String.raw`(?:<p\b[^>]*>\s*)?(?:<figure\b[^>]*>(?:(?!<\/?figure\b)[\s\S])*<\/figure>|<img\b[^>]*>)\s*(?:<\/p>)?`;
+const SIGNATURE_ELEMENT = String.raw`<p\b[^>]*\bclass="[^"]*\balairas\b[^"]*"[^>]*>(?:(?!<\/?p\b)[\s\S])*<\/p>`;
+/** One image at the end of a string. */
+const TRAILING_IMAGE = new RegExp(`${IMAGE_ELEMENT}\\s*$`, 'i');
+/** One element at the end of a recipe block that stays in the article: an image or the signature. */
+const TRAILING_KEPT = new RegExp(`(?:${IMAGE_ELEMENT}|${SIGNATURE_ELEMENT})\\s*$`, 'i');
+
+function headingKey(html: string): string {
+	return html
+		.replace(/<[^>]*>/g, ' ')
+		.replace(/&nbsp;|&#160;/gi, ' ')
+		.normalize('NFD')
+		.replace(/[̀-ͯ]/g, '')
+		.toLowerCase()
+		.replace(/[^a-z0-9]+/g, ' ')
+		.trim();
+}
+
+/** Length of the run of `pattern` matches at the end of `html`. */
+function trailingRun(html: string, pattern: RegExp): number {
+	let rest = html;
+	for (let m = rest.match(pattern); m && m[0].length; m = rest.match(pattern)) {
+		rest = rest.slice(0, rest.length - m[0].length);
+	}
+	return html.length - rest.length;
+}
+
+/**
+ * Remove the recipes that were split out of a multi-recipe article ("gyűjtőcikk",
+ * e.g. cikkek/diabetes/1603/nyari-husitok) from its body — they are shown as recipe
+ * cards under the article instead. A block runs from the dish heading (plus the
+ * image just before it, which the splitter gives to that recipe) to the next heading
+ * of the same or a higher level that is not a "Hozzávalók"/"Elkészítés" sub-heading.
+ * Section lead text before the first dish, an image or the `alairas` signature
+ * closing a block, and headings matching no recipe title are kept.
+ *
+ * @param titles the split recipes' titles; a heading may add a "(N darab)" yield.
+ */
+export function stripSplitRecipeBlocks(html: string, titles: string[]): string {
+	if (!html || titles.length === 0) return html;
+	const wanted = titles.map(headingKey).filter(Boolean);
+	const isDish = (key: string) =>
+		wanted.some((t) => key === t || (key.startsWith(`${t} `) && /^\d+ [a-z]+$/.test(key.slice(t.length + 1))));
+
+	const headings = [...html.matchAll(HEADING_TAG)].map((m) => ({
+		start: m.index,
+		level: Number(m[1]),
+		key: headingKey(m[2])
+	}));
+	const ranges: Array<[number, number]> = [];
+	headings.forEach((h, i) => {
+		if (!isDish(h.key)) return;
+		let j = i + 1;
+		while (j < headings.length && (headings[j].level > h.level || RECIPE_SUBHEADING.test(headings[j].key))) j++;
+		let end = j < headings.length ? headings[j].start : html.length;
+		end -= trailingRun(html.slice(h.start, end), TRAILING_KEPT);
+		const start = h.start - trailingRun(html.slice(0, h.start), TRAILING_IMAGE);
+		ranges.push([start, end]);
+	});
+	if (ranges.length === 0) return html;
+
+	let out = '';
+	let last = 0;
+	for (const [start, end] of ranges) {
+		if (start < last) {
+			last = Math.max(last, end);
+			continue;
+		}
+		out += html.slice(last, start);
+		last = end;
+	}
+	return out + html.slice(last);
+}

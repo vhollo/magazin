@@ -957,6 +957,32 @@ function deriveSubRecipes(content) {
     }
   }
 
+  // An <h2> article section that holds several complete dishes under their own
+  // <h3>/<h4> headings (e.g. cikkek/diabetes/1603/nyari-husitok: "Diétás fagylalt …"
+  // → three ice creams) is split per dish; the section's lead text stays out of them.
+  // Needs ≥2 complete dishes, so ingredient sub-headings ("A krémhez") never split a recipe.
+  // Mirrors src/lib/modxToRsParser.js — keep in sync.
+  /** @param {string} blockHtml @param {{ src: string, alt: string } | null} image */
+  const parseNestedDishes = (blockHtml, image) => {
+    const headings = [...blockHtml.matchAll(/<h([3-5])\b[^>]*>([\s\S]*?)<\/h\1>/gi)].filter(
+      (h) => !/hozzavalok|elkeszites/.test(normalizeText(stripHtml(h[2])))
+    )
+    if (headings.length < 2) return []
+    const level = headings[0][1]
+    const dishHeadings = headings.filter((h) => h[1] === level)
+    let dishImage = lastImageInHtml(blockHtml.slice(0, dishHeadings[0].index)) ?? image
+    const dishes = []
+    for (let i = 0; i < dishHeadings.length; i += 1) {
+      const start = dishHeadings[i].index + dishHeadings[i][0].length
+      const end = i + 1 < dishHeadings.length ? dishHeadings[i + 1].index : blockHtml.length
+      const dishHtml = blockHtml.slice(start, end)
+      const parsed = parseSubRecipeBlock(stripHtml(dishHeadings[i][2]), dishHtml, dishImage)
+      dishImage = lastImageInHtml(dishHtml)
+      if (parsed?.subRecipe) dishes.push(parsed.subRecipe)
+    }
+    return dishes.length >= 2 ? dishes : []
+  }
+
   // A recipe's image sits just before its heading (image between two titles
   // belongs to the recipe whose heading follows it). Carry the image seen before
   // each heading and attach it to that recipe.
@@ -969,6 +995,11 @@ function deriveSubRecipes(content) {
     const blockHtml = useH2OnlySubrecipeHeadings ? match[2] : match[3]
     const imageForThisRecipe = pendingImage
     pendingImage = lastImageInHtml(blockHtml)
+    const nestedDishes = useH2OnlySubrecipeHeadings ? parseNestedDishes(blockHtml, imageForThisRecipe) : []
+    if (nestedDishes.length) {
+      subRecipes.push(...nestedDishes)
+      continue
+    }
     appendParsedBlock(title, blockHtml, imageForThisRecipe)
   }
 

@@ -14,6 +14,8 @@ import {
   parseYearFromMagazinPath,
 } from './lib/modx-to-rs-parser.mjs'
 import { predictRecipeCategory, loadCategoryPatterns } from './lib/receptsarok-category-predictor.mjs'
+import { stripSplitRecipeBlocks } from '../src/lib/magazine/articleHtml.ts'
+import { dropReceptTagFromSplitArticle, splitDishCountBySourceModxId } from './lib/split-article-recept-tag.mjs'
 
 const root = process.cwd()
 const createReviewPath = path.resolve(root, 'scripts/data/receptsarok-create-review.json')
@@ -477,6 +479,47 @@ function testUncategorizedQueueConsistency() {
   )
 }
 
+function testNestedDishesInArticleSectionsSplitAndStrip() {
+  const dish = (title, kcal) => `
+    <h3>${title}</h3>
+    <table><thead><tr><th colspan="4">1 adag tápanyagtartalma:</th></tr></thead><tbody>
+    <tr><th>Energia</th><th>Fehérje</th><th>Zsír</th><th>Szénhidrát</th></tr>
+    <tr><td>${kcal} kcal</td><td>1 g</td><td>0 g</td><td>9 g</td></tr></tbody></table>
+    <h4>Hozzávalók 4 adaghoz:</h4>
+    <ul><li>30 dkg cseresznye,</li><li>édesítőszer</li></ul>
+    <p>Összeturmixoljuk, lefagyasztjuk.</p>`
+  const content = `
+    <h2>Fagyi-történelem</h2><p>Bevezető szöveg.</p>
+    <h2>Diétás fagylalt</h2><p>A szakasz bevezetője.</p>
+    ${dish('Cseresznyés jégkrém', 48)}${dish('Meggyes jégkrém', 52)}
+    <h2>Házi ice-tea</h2><p>Lehűtjük a teát.</p>`
+  const { recipe } = buildRecipeFromModxDoc(
+    { alias: 'teszt-husitok', path: '/cikkek/diabetes/1603/teszt-husitok', title: 'Hűsítők', content },
+    { year: 2016, id: 'teszt-husitok', categoryByKey: new Map() }
+  )
+  assert.deepEqual(
+    (recipe.subRecipes ?? []).map((s) => s.title),
+    ['Cseresznyés jégkrém', 'Meggyes jégkrém'],
+    'An <h2> section holding several complete <h3> dishes should split per dish'
+  )
+
+  const stripped = stripSplitRecipeBlocks(content, ['Cseresznyés jégkrém', 'Meggyes jégkrém'])
+  assert.ok(!/jégkrém|<table/i.test(stripped), 'Split dishes should leave the article body')
+  assert.ok(/A szakasz bevezetője/.test(stripped) && /Házi ice-tea/.test(stripped), 'Article text should stay')
+
+  const splitCounts = splitDishCountBySourceModxId([
+    { sourceModxId: 1677 },
+    { sourceModxId: 1677 },
+    { sourceModxId: 1078 },
+    { sourceModxId: 1078, published: false },
+  ])
+  const split = { id: 1677, tv: { tags: ['edukáció', 'recept'] } }
+  assert.equal(dropReceptTagFromSplitArticle(split, splitCounts), true)
+  assert.deepEqual(split.tv.tags, ['edukáció'], 'A split article should lose the recept tag')
+  const single = { id: 1078, tv: { tags: ['recept'] } }
+  assert.equal(dropReceptTagFromSplitArticle(single, splitCounts), false, 'One published recipe is not a split')
+}
+
 testComparatorOrder()
 testPickRedirectTargetPrefersRsBookletYear()
 testSingleWordTitleDoesNotSubstringMatch()
@@ -486,6 +529,7 @@ testParserNutritionFallbackFromParagraphs()
 testParserIngredientAndServingFallbacks()
 testParserParagraphIngredientsAndSubrecipes()
 testParserDoesNotTreatRelatedLinksAsSubrecipe()
+testNestedDishesInArticleSectionsSplitAndStrip()
 testParsedBranchBCompleteness()
 testRedirectsShape()
 testCategoryPatternsShapeAndPredictor()
