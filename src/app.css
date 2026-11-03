@@ -15,7 +15,11 @@
    the base-100 reference live, so the tint follows the colour mode; the mix is
    opaque because the bar is sticky and content scrolls under it. */
 @theme inline {
-  --color-nav-soft: color-mix(in oklab, var(--color-nav) 18%, var(--color-base-100));
+  --color-nav-soft: color-mix(
+    in oklab,
+    var(--color-nav) 18%,
+    var(--color-base-100)
+  );
 }
 @plugin "@tailwindcss/typography";
 @plugin "daisyui" {
@@ -159,7 +163,8 @@ body {
 }
 
 @media (max-width: 47.999rem) {
-  body:has(#mobile-nav:checked) > *:not(nav), nav:has(#mobile-nav:checked) ~ * {
+  body:has(#mobile-nav:checked) > *:not(nav),
+  nav:has(#mobile-nav:checked) ~ * {
     display: none;
   }
   .drop-col {
@@ -350,8 +355,7 @@ article :not(table).boxleft,
 /* article figure.left,
 article figure.right, */
 article figure:has(.bgdark),
-article figure:has([style*="background-color"])
-{
+article figure:has([style*="background-color"]) {
   @apply card card-sm bg-primary text-primary-content shadow-xl card-body px-2 py-4 last:mb-0 gap-2;
   /* card-body makes this a flex container, which blockifies direct-child <a>
      (a flex item's display:inline is forced to block — so `.nicebox > a {display:inline}`
@@ -411,6 +415,12 @@ article table.boxright */ {
   width: 100%;
   border-radius: var(--radius-box, 0.5rem);
   box-shadow: none;
+  @apply text-sm;
+}
+article table {
+  :not(thead, tfoot) tr {
+    @apply text-sm;
+  }
 }
 /* a daisyUI .table thead/tfoot nowrap-ját feloldjuk, különben a hosszú
    fejlécek szétfeszítik a táblát */
@@ -419,9 +429,9 @@ article table :where(thead, tfoot) {
 }
 /* a table-xs csak :not(thead, tfoot) tr-re állít méretet, a tfoot pedig
    a törzs sorait folytatja -> kapja meg ugyanazt */
-article table tfoot tr {
+/* article table tfoot tr {
   font-size: 0.6875rem;
-}
+} */
 /* fejléc: félkövér helyett dőlt */
 article table thead th {
   @apply font-normal italic;
