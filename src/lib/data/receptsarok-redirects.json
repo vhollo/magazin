@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-18T20:12:42.971Z",
+  "generatedAt": "2026-11-06T12:35:53.018Z",
   "sourceDocs": "sync worker (dynamic match + existing manifest)",
   "sourceRecipes": "src/lib/data/recipes.json",
   "entries": [
@@ -3086,6 +3086,12 @@
       "path": "receptsarok/husetelek/sult-csirkecomb-kaposztas-raguval",
       "year": 2025,
       "id": "sult-csirkecomb-kaposztas-raguval"
+    },
+    {
+      "modxContentId": 4547,
+      "path": "receptsarok/koretek-italok-hidegkonyha/almas-rebarbaras-eperlekvar",
+      "year": 2025,
+      "id": "almas-rebarbaras-eperlekvar"
     },
     {
       "modxContentId": 4458,
