@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-06T12:35:53.018Z",
+  "generatedAt": "2026-11-13T15:32:32.323Z",
   "sourceDocs": "sync worker (dynamic match + existing manifest)",
   "sourceRecipes": "src/lib/data/recipes.json",
   "entries": [
@@ -3038,6 +3038,12 @@
       "path": "receptsarok/egytaletelek/csoben-sult-padlizsan-batataval",
       "year": 2025,
       "id": "csoben-sult-padlizsan-batataval"
+    },
+    {
+      "modxContentId": 4554,
+      "path": "receptsarok/haletelek/villamgyors-spagetti-fogasfilevel",
+      "year": 2025,
+      "id": "villamgyors-spagetti-fogasfilevel"
     },
     {
       "modxContentId": 4422,
