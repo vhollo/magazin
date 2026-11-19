@@ -205,7 +205,7 @@
     "legacyTokens": [
       "Dr._Bakó_Barnabás"
     ],
-    "articleCount": 29
+    "articleCount": 30
   },
   {
     "slug": "barabas-monika",
@@ -1780,7 +1780,7 @@
     "legacyTokens": [
       "Dr._Kováts_Boglárka"
     ],
-    "articleCount": 20
+    "articleCount": 21
   },
   {
     "slug": "krausz-ivett",
@@ -1986,7 +1986,7 @@
     "name": "Mező Róbert",
     "prefix": "Dr.",
     "displayName": "Dr. Mező Róbert",
-    "title": "ortopéd- és rehabilitációs szakorvos",
+    "title": "ortopéd szakorvos",
     "affiliations": [],
     "cv": [],
     "quote": "",
@@ -2000,7 +2000,7 @@
     "legacyTokens": [
       "Dr._Mező_Róbert"
     ],
-    "articleCount": 2
+    "articleCount": 3
   },
   {
     "slug": "moczar-csaba",
@@ -2024,6 +2024,41 @@
       "Dr._Móczár_Csaba"
     ],
     "articleCount": 9
+  },
+  {
+    "slug": "muskat-erika",
+    "name": "Muskát Erika",
+    "prefix": "",
+    "displayName": "Muskát Erika",
+    "title": "",
+    "affiliations": [],
+    "cv": [],
+    "quote": "",
+    "photo": null,
+    "links": [],
+    "email": "",
+    "support": {
+      "lines": [
+        "Sportos Cukorbetegek Egyesülete",
+        "Kérjük, támogasd te is munkánkat!",
+        "Bankszámlaszámunk: 10401282-50526683-86681006"
+      ],
+      "links": [
+        {
+          "label": "www.sportoscukros.hu",
+          "url": "https://www.sportoscukros.hu/"
+        }
+      ],
+      "email": "",
+      "logo": "assets/images/logo/logo-sce-2024.png"
+    },
+    "role": "szerző",
+    "published": true,
+    "source": "modx-chunk:567",
+    "legacyTokens": [
+      "Muskát_Erika"
+    ],
+    "articleCount": 7
   },
   {
     "slug": "nagy-gyulane-tajti-eva",

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-13T19:33:37.061Z",
+  "generatedAt": "2026-11-19T11:03:03.115Z",
   "source": "MODX site_htmlsnippets · category 24",
   "orphanChunks": [
     {
@@ -66,7 +66,7 @@
     {
       "id": 292,
       "name": "Dr._Bakó_Barnabás",
-      "articles": 29
+      "articles": 30
     },
     {
       "id": 285,
@@ -189,7 +189,7 @@
     {
       "token": "Herth_Viktória",
       "name": "Herth Viktória",
-      "articles": 157
+      "articles": 159
     },
     {
       "token": "Somfai_Katalin",
@@ -234,11 +234,6 @@
     {
       "token": "Kovács_Áron",
       "name": "Kovács Áron",
-      "articles": 6
-    },
-    {
-      "token": "Muskát_Erika",
-      "name": "Muskát Erika",
       "articles": 6
     },
     {

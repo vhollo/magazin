@@ -54,8 +54,11 @@ const BYLINES_PATH = path.resolve(process.cwd(), 'scripts/data/authors-duplicate
 const LOGO_IMAGE = /logo|diabpont/i
 /** A contact line whose address is already captured in `email`. */
 const CONTACT_LINE = /^El&eacute;rhet&otilde;s&eacute;g|^Elérhetőség|^E-?mail/i
-/** A block holding donation details belongs to `support`, not to the CV. */
-const SUPPORT_LINE = /Sz&aacute;mlasz&aacute;m|Számlaszám|Ad&oacute;sz&aacute;m|Adószám|adomány|Adomány/
+/**
+ * A block holding donation details belongs to `support`, not to the CV.
+ * Case-insensitive so a compound like „Bankszámlaszámunk” also counts.
+ */
+const SUPPORT_LINE = /Sz&aacute;mlasz&aacute;m|Számlaszám|Ad&oacute;sz&aacute;m|Adószám|adomány/i
 /** Above this length a line reads as prose (CV) rather than a titulus/affiliation. */
 const CV_LINE_MIN_LENGTH = 150
 /** Shorter lines still read as prose when they end like a sentence. */
@@ -139,11 +142,19 @@ function slugify(name) {
 
 // ── Block collection ──────────────────────────────────────────────────────────
 
+/**
+ * A link pasted from a Markdown source keeps its syntax as the anchor text
+ * (`[www.x.hu](https://www.x.hu)`) — only the visible label is wanted.
+ */
+function markdownLinkLabel(line) {
+  return line.replace(/^\[([^\]]*)\]\([^)]*\)$/, '$1').trim()
+}
+
 /** Anchors (`<a href>`) as structured links; `mailto:` becomes the email. */
 function collectLinks(html, sink) {
   for (const match of String(html ?? '').matchAll(/<a[^>]*href="([^"]+)"[^>]*>([\s\S]*?)<\/a>/gi)) {
     const url = match[1].trim()
-    const label = text(match[2])
+    const label = markdownLinkLabel(text(match[2]))
     if (/^mailto:/i.test(url)) sink.email = url.replace(/^mailto:/i, '').trim()
     else sink.links.push({ label: label || url, url })
   }
@@ -304,7 +315,7 @@ function parseChunk(chunk) {
       url.replace(/^https?:\/\//, '').replace(/\/$/, ''),
     ])
   )
-  const notALink = (line) => !linkTexts.has(line)
+  const notALink = (line) => !linkTexts.has(markdownLinkLabel(line))
   record.affiliations = record.affiliations.filter(notALink)
   if (record.support) record.support.lines = record.support.lines.filter(notALink)
 
