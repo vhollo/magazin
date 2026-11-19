@@ -703,15 +703,32 @@ article .table-scroll > table :is(td, th) {
 .szerzo .tamogatas a + a::before {
   content: " · ";
 }
+/* Support box: spans both columns of the signature grid and reuses them
+   (subgrid), so the logo sits in the portrait column and the text beside it. */
 .szerzo .tamogatas {
   @apply mt-2 text-sm;
+  display: grid;
+  grid-template-columns: subgrid;
+  align-items: center;
+}
+.szerzo .tamogatas .szoveg {
+  grid-column: 2;
+}
+/* No logo: the text takes the full width. */
+.szerzo .tamogatas .szoveg:only-child {
+  grid-column: span 2;
 }
 .szerzo .tamogatas span {
   @apply block;
 }
-.szerzo .tamogatas .logo {
+/* `:is(#szerzo, .szerzo)` carries id specificity, so the override has to as well:
+   the portrait rule would stretch the logo over seven rows, and the prose image
+   margin would open a gap above it. */
+:is(#szerzo, .szerzo) .tamogatas .logo {
   grid-row: auto;
-  @apply mb-2;
+  grid-column: 1;
+  width: 100%;
+  margin: 0;
 }
 
 *:has(#szerzo) > .alairas {

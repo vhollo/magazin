@@ -61,15 +61,18 @@
         {#if support.logo}
           <img class="logo" src={authorPhotoUrl(support.logo)} alt="" width="120" loading="lazy" />
         {/if}
-        {#each support.lines ?? [] as line}
-          <span>{decode(line)}</span>
-        {/each}
-        {#each support.links ?? [] as link}
-          <a href={link.url} rel="external noopener">{decode(link.label) || link.url}</a>
-        {/each}
-        {#if support.email}
-          <a href={`mailto:${support.email}`}>{support.email}</a>
-        {/if}
+        <!-- One wrapper for the text, so it sits beside the logo as a single column. -->
+        <div class="szoveg">
+          {#each support.lines ?? [] as line}
+            <span>{decode(line)}</span>
+          {/each}
+          {#each support.links ?? [] as link}
+            <a href={link.url} rel="external noopener">{decode(link.label) || link.url}</a>
+          {/each}
+          {#if support.email}
+            <a href={`mailto:${support.email}`}>{support.email}</a>
+          {/if}
+        </div>
       </aside>
     {/if}
   </div>
