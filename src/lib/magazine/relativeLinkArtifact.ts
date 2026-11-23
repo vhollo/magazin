@@ -13,10 +13,13 @@
  * except the two nestings the MODX tree really has (see below). Checked against every
  * listed article and recipe path (4660). Add a section here when the live site gets a
  * new root-level page that its templates link to.
+ *
+ * The live MODX site rejects the same paths with 410 via an .htaccess block:
+ * scripts/modx/htaccess-relative-link-artifacts.conf. Keep the two rules in sync.
  */
 
 /** First segments of real paths, plus the root-level pages the live templates link to. */
-const LIVE_ROOT_SECTIONS = new Set([
+export const LIVE_ROOT_SECTIONS = new Set([
 	'cikkek',
 	'receptsarok',
 	'hirek',
@@ -33,7 +36,7 @@ const LIVE_ROOT_SECTIONS = new Set([
 ]);
 
 /** Old MODX `receptsarok/{category}` folders — only ever at the root. */
-const LEGACY_RECIPE_CATEGORIES = new Set([
+export const LEGACY_RECIPE_CATEGORIES = new Set([
 	'levesek',
 	'zoldsegetelek',
 	'haletelek',
@@ -44,7 +47,7 @@ const LEGACY_RECIPE_CATEGORIES = new Set([
 ]);
 
 /** Magazine folders — only directly under the root `cikkek`. */
-const MAGAZINE_FOLDERS = new Set(['diabetes', 'hypertonia']);
+export const MAGAZINE_FOLDERS = new Set(['diabetes', 'hypertonia']);
 
 export function isRelativeLinkArtifact(path: string): boolean {
 	const segments = path.split('/').filter(Boolean);
