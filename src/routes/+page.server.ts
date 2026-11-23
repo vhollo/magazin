@@ -1,9 +1,9 @@
 import { getMagazineCollection } from '$lib/magazine/firestore';
-import { MAGAZINE_CACHE_CONTROL } from '$lib/magazine/cacheHeaders';
+import { MAGAZINE_CACHE_HEADERS } from '$lib/magazine/cacheHeaders';
 import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async ({ setHeaders }) => {
-	setHeaders({ 'Cache-Control': MAGAZINE_CACHE_CONTROL });
+	setHeaders(MAGAZINE_CACHE_HEADERS);
 	const col = await getMagazineCollection('home');
 	return {
 		docs: col?.cards ?? [],

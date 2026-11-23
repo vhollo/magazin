@@ -14,6 +14,12 @@
  * listed article and recipe path (4660). Add a section here when the live site gets a
  * new root-level page that its templates link to.
  *
+ * The same happens to the templates' relative file links (`src="assets/cache/images/…"`):
+ * `cikkek/diabetes/1503/assets/cache/images/…png`, ~162k requests per 30 days in the MODX
+ * access log of 2026-10-31…11-23, mostly from one bot on AWS addresses. So `assets` is in the
+ * section list too. Paths under the root `/assets/` folder are files (the MODX image cache has
+ * subfolders named `cikkek`, `receptsarok`, …), never artifacts.
+ *
  * The live MODX site rejects the same paths with 410 via an .htaccess block:
  * scripts/modx/htaccess-relative-link-artifacts.conf. Keep the two rules in sync.
  */
@@ -32,8 +38,13 @@ export const LIVE_ROOT_SECTIONS = new Set([
 	'clicks',
 	'patika',
 	'kiadvanyok',
-	'adatkezelesi-tajekoztato'
+	'adatkezelesi-tajekoztato',
+	// The MODX file folder: the templates link images, PDFs and videos as `assets/…`.
+	'assets'
 ]);
+
+/** Root folder of the MODX files; everything below it is a file path. */
+export const ROOT_ASSETS_FOLDER = 'assets';
 
 /** Old MODX `receptsarok/{category}` folders — only ever at the root. */
 export const LEGACY_RECIPE_CATEGORIES = new Set([
@@ -51,6 +62,7 @@ export const MAGAZINE_FOLDERS = new Set(['diabetes', 'hypertonia']);
 
 export function isRelativeLinkArtifact(path: string): boolean {
 	const segments = path.split('/').filter(Boolean);
+	if (segments[0] === ROOT_ASSETS_FOLDER) return false;
 	return segments.some((segment, i) => {
 		if (i === 0 || !LIVE_ROOT_SECTIONS.has(segment)) return false;
 		const next = segments[i + 1] ?? '';

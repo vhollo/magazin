@@ -2,7 +2,7 @@ import { error, fail } from '@sveltejs/kit';
 import type { Actions, PageServerLoad } from './$types';
 
 import { db } from '$lib/firebase-admin';
-import { MAGAZINE_CACHE_CONTROL } from '$lib/magazine/cacheHeaders';
+import { MAGAZINE_CACHE_HEADERS } from '$lib/magazine/cacheHeaders';
 import { formRelayOrigin } from '$lib/server/formRelay';
 
 export const actions: Actions = {
@@ -59,7 +59,7 @@ export const load: PageServerLoad = async ({ params, parent, setHeaders }) => {
 	// Set here per-page rather than on kviz/+layout.server.ts, because /kviz/tabella
 	// is a live leaderboard that must stay uncached — and a given header can only be
 	// set once across the whole load chain (SvelteKit throws on a second setHeaders).
-	setHeaders({ 'Cache-Control': MAGAZINE_CACHE_CONTROL })
+	setHeaders(MAGAZINE_CACHE_HEADERS)
 	const id = params.id
 	const { kvizzes } = await parent()
 	const kviz = kvizzes?.find((k: { id: string }) => k.id === id)

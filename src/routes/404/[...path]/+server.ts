@@ -1,4 +1,4 @@
-import { MAGAZINE_CACHE_CONTROL } from '$lib/magazine/cacheHeaders';
+import { MAGAZINE_CACHE_HEADERS } from '$lib/magazine/cacheHeaders';
 import { isRelativeLinkArtifact } from '$lib/magazine/relativeLinkArtifact';
 import type { RequestHandler } from './$types';
 
@@ -33,7 +33,7 @@ ${analytics}</body>
 		status: 404,
 		headers: {
 			'Content-Type': 'text/html; charset=utf-8',
-			'Cache-Control': MAGAZINE_CACHE_CONTROL
+			...MAGAZINE_CACHE_HEADERS
 		}
 	});
 };

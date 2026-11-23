@@ -1,7 +1,7 @@
 import { redirect } from '@sveltejs/kit';
 import { hasArticleBody, stripSplitRecipeBlocks, wrapArticleTables } from '$lib/magazine/articleHtml';
 import { recipesBySourceModxId } from '$lib/server/similarRecipes';
-import { MAGAZINE_CACHE_CONTROL } from '$lib/magazine/cacheHeaders';
+import { MAGAZINE_CACHE_HEADERS } from '$lib/magazine/cacheHeaders';
 import { collectionQueries, isListedDoc, rankDocByTags, type ThinCard } from '$lib/modx/collections';
 import {
 	getFirstChildUrl,
@@ -69,7 +69,7 @@ function similarCards(
 export const load: LayoutServerLoad = async ({ params, request, setHeaders, url }) => {
 	const path: string = params.path ?? '';
 
-	setHeaders({ 'Cache-Control': MAGAZINE_CACHE_CONTROL });
+	setHeaders(MAGAZINE_CACHE_HEADERS);
 
 	// ── Legacy MODX section folder with no content of its own ─────────────────
 	const legacyTarget = LEGACY_SECTION_REDIRECTS[path];

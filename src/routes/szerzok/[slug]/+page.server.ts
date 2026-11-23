@@ -1,5 +1,5 @@
 import { error } from '@sveltejs/kit';
-import { MAGAZINE_CACHE_CONTROL } from '$lib/magazine/cacheHeaders';
+import { MAGAZINE_CACHE_HEADERS } from '$lib/magazine/cacheHeaders';
 import { getAuthor } from '$lib/magazine/authorsCache';
 import { getArticlesByAuthor } from '$lib/magazine/firestore';
 import { recipesByAuthor } from '$lib/server/similarRecipes';
@@ -11,7 +11,7 @@ import type { PageServerLoad } from './$types';
  * from the in-process recipe index (no Firestore read).
  */
 export const load: PageServerLoad = async ({ params, setHeaders }) => {
-	setHeaders({ 'Cache-Control': MAGAZINE_CACHE_CONTROL });
+	setHeaders(MAGAZINE_CACHE_HEADERS);
 
 	const author = await getAuthor(params.slug);
 	if (!author) error(404, 'Ilyen szerzőnk nincs');

@@ -1,5 +1,5 @@
 import { json } from '@sveltejs/kit';
-import { SEARCH_META_CACHE_CONTROL } from '$lib/magazine/cacheHeaders';
+import { SEARCH_META_CACHE_HEADERS } from '$lib/magazine/cacheHeaders';
 import { getSearchMeta } from '$lib/magazine/firestore';
 import type { RequestHandler } from './$types';
 
@@ -23,9 +23,7 @@ export const GET: RequestHandler = async () => {
 				generatedAt: meta.generatedAt
 			},
 			{
-				headers: {
-					'Cache-Control': SEARCH_META_CACHE_CONTROL
-				}
+				headers: SEARCH_META_CACHE_HEADERS
 			}
 		);
 	} catch {
