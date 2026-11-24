@@ -226,12 +226,12 @@ function parseChunk(chunk) {
 
   // Portrait. An organisation logo is not one: it either belongs to the support
   // box (resolved once the blocks are parsed) or it is dropped.
+  // Every image counts: a chunk can carry both a portrait and a logo/banner.
   let logo = ''
-  const img = snippet.match(/<img[^>]*src="([^"]+)"/i)
-  if (img) {
+  for (const img of snippet.matchAll(/<img[^>]*src="([^"]+)"/gi)) {
     const src = img[1].trim().replace(/^\/+/, '')
-    if (LOGO_IMAGE.test(src)) logo = src
-    else record.photo = src
+    if (LOGO_IMAGE.test(src)) logo ||= src
+    else record.photo ??= src
   }
 
   /** A titulus/affiliation is a list item, so its dangling separator is noise. */
@@ -253,7 +253,9 @@ function parseChunk(chunk) {
     const blockLines = lines(inner)
     if (!blockLines.length) return
 
-    if (blockLines.some((line) => SUPPORT_LINE.test(line))) {
+    // `<p class="tamogatas">` marks support content explicitly (e.g. a video list,
+    // which has no account number for SUPPORT_LINE to find).
+    if (/\btamogatas\b/.test(className) || blockLines.some((line) => SUPPORT_LINE.test(line))) {
       const support = startSupport()
       support.lines.push(...blockLines)
       collectLinks(inner, support)

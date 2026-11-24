@@ -17,6 +17,10 @@
   const decode = (/** @type {string | undefined} */ value) =>
     decodeHtmlEntities(value ?? "");
 
+  /** `https://…` / `//…` links leave the site, so they open in a new tab. */
+  const newTab = (/** @type {string} */ url) =>
+    /^(https?:)?\/\//i.test(url) ? "_blank" : undefined;
+
   $: photo = authorPhotoUrl(author?.photo);
   $: titulus = [author?.title, ...(author?.affiliations ?? [])].filter(Boolean);
   $: support = author?.support;
@@ -52,7 +56,7 @@
           <a href={`mailto:${author.email}`}>{author.email}</a>
         {/if}
         {#each author.links ?? [] as link}
-          <a href={link.url} rel="external noopener">{decode(link.label) || link.url}</a>
+          <a href={link.url} target={newTab(link.url)} rel="external noopener">{decode(link.label) || link.url}</a>
         {/each}
       </p>
     {/if}
@@ -67,7 +71,7 @@
             <span>{decode(line)}</span>
           {/each}
           {#each support.links ?? [] as link}
-            <a href={link.url} rel="external noopener">{decode(link.label) || link.url}</a>
+            <a href={link.url} target={newTab(link.url)} rel="external noopener">{decode(link.label) || link.url}</a>
           {/each}
           {#if support.email}
             <a href={`mailto:${support.email}`}>{support.email}</a>

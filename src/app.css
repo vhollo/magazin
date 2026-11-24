@@ -719,6 +719,9 @@ article .table-scroll > table :is(td, th) {
   display: grid;
   grid-template-columns: subgrid;
   align-items: center;
+  /* With a portrait the box sits in the text column only, so a wide logo
+     (banner) stacks above the text — keep them apart. */
+  row-gap: 0.5rem;
 }
 .szerzo .tamogatas .szoveg {
   grid-column: 2;
