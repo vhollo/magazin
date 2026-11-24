@@ -197,6 +197,34 @@ export async function recipesByAuthor(author: {
 }
 
 /**
+ * Recipe count per author slug for the `/szerzok` cards — the same exact name
+ * match as `recipesByAuthor`, done once over the recipe index for every author.
+ */
+export async function recipeCountsByAuthor(
+  authors: { slug: string; displayName?: string; name?: string; legacyTokens?: string[] }[]
+): Promise<Record<string, number>> {
+  const { entries } = await getRecipeSearchIndex()
+  const perKey = new Map<string, number>()
+  for (const entry of entries.values()) {
+    if (!entry.author) continue
+    const key = authorNameKey(entry.author)
+    perKey.set(key, (perKey.get(key) ?? 0) + 1)
+  }
+  const counts: Record<string, number> = {}
+  for (const author of authors) {
+    const keys = new Set(
+      [author.displayName, author.name, ...(author.legacyTokens ?? [])]
+        .filter((v): v is string => Boolean(v))
+        .map(authorNameKey)
+    )
+    let total = 0
+    for (const key of keys) total += perKey.get(key) ?? 0
+    if (total) counts[author.slug] = total
+  }
+  return counts
+}
+
+/**
  * Top `limit` recipes matching a title (recipe detail page and the magazine
  * ReceptsarokWidget). When the title alone matches nothing (compound-word
  * titles like „Csicsókaleves”) and `exclude` names a recipe, retry once with

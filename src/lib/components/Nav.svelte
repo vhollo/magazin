@@ -111,11 +111,11 @@
       _open_nav = false
       await new Promise(resolve => setTimeout(resolve, 500))
       const el = document.querySelector(target)
-      el.scrollIntoView({block: 'start', behavior: 'auto', offset: { top: 64 } })
+      el.scrollIntoView({block: 'start', behavior: 'smooth', offset: { top: 64 } })
     } else { // open dropdown
       const el = event.target.parentElement
       await new Promise(resolve => setTimeout(resolve, 50))
-      el.scrollIntoView({ block: 'center', behavior: 'auto', offset: { top: 128 } })
+      el.scrollIntoView({ block: 'center', behavior: 'smooth', offset: { top: 128 } })
     }
     target = null
   }

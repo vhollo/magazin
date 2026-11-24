@@ -22,7 +22,7 @@
     if (target) {
       el = document.querySelector(target)
       // console.log(event.target.getAttribute('href'), el)
-      el.scrollIntoView({block: 'start', behavior: 'auto', offset: { top: 64 }  })
+      el.scrollIntoView({block: 'start', behavior: 'smooth', offset: { top: 64 }  })
       // window.location.hash = ''
     }
   }

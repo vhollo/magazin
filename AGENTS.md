@@ -145,6 +145,7 @@ Nav2 defines the secondary navigation menu with categorized content sections:
 - Closes mobile menu before scrolling
 - Adds delay for menu close animation
 - Scrolls to element with offset for sticky header
+- **Smooth scrolling is in-page only:** there is no global `scroll-behavior: smooth`. `src/routes/+layout.svelte` adds `html.smooth-scroll` (defined in `app.css`) on a click of a link to a `#hash` on the current URL and removes it on `scrollend`/`popstate` (1.5 s fallback); `Nav`/`Nav2` `_scrollIntoView` pass `behavior: 'smooth'` explicitly. Page loads, new tabs, client-side navigations and back/forward scroll instantly.
 
 ### Navigation Usage in Routes
 
@@ -1069,7 +1070,7 @@ Article authors are structured Firestore records, **not** MODX HTML. Until 2026-
 
 Text fields hold plain text **with HTML entities intact** (`&#173;` soft hyphens included) and no markup — `decodeHtmlEntities` resolves them at render time, so nothing goes through `{@html}`. Multi-line values are arrays because a `<br>` in the source chunks always separated list items (institution / department / city), never a prose line break.
 
-**Read path**: `collections/authors` — one aggregate document (~90 KB) holding every record, rebuilt from `authors/*`. `src/lib/magazine/authorsCache.ts` caches it per serverless instance for 60 s, so article pages and `/szerzok` cost **zero extra reads**.
+**Read path**: `collections/authors` — one aggregate document (~90 KB) holding every record, rebuilt from `authors/*`. The same doc also carries `articleCounts: {slug: n}`, written (merge) by `writeCollections` (`scripts/lib/magazine-collections.mjs`, so every `sync:modx*` / `sync:modx:finish`) from the listed, non-empty-folder projection docs' `authorSlugs` — the profile's card rule. `authorsCache.ts` replaces each record's `articleCount` with it (the extracted `articleCount` was a MODX chunk-usage count that also counted docs later converted into redirecting recipes); `sync:authors:collection` writes with `merge` so it keeps the counts. The `/szerzok` cards show `N cikk · M recept`: the recipe count comes from `recipeCountsByAuthor` (`$lib/server/similarRecipes.ts`, same exact name match as `recipesByAuthor`, in-process, no read); each part is hidden when zero, and the article part until the first sync has written `articleCounts`. `src/lib/magazine/authorsCache.ts` caches it per serverless instance for 60 s, so article pages and `/szerzok` cost **zero extra reads**.
 
 **Article ↔ author link**: the `szerzo` TV is being migrated from name tokens to the **slug** (`npm run authors:retag`, 867 of 1250 TV rows), so earning a "Dr." never breaks the link. Either spelling works — the resolution below accepts both, which is what makes a partial migration safe. `transform.ts` resolves a slug, a legacy token (`Dr._Kováts_Boglárka`) or a typed-in name against the same map, and writes `doc.tv.szerzo[] = { slug, name }` plus a flat `doc.authorSlugs[]` (Firestore cannot `array-contains` an array of maps). A token with no record still renders as a plain-name byline with no profile link — that is the case for the ~57 authors who never had a chunk.
 

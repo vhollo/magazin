@@ -12,7 +12,15 @@ let inflight: Promise<AuthorsSnapshot> | null = null;
 async function fetchAuthors(): Promise<AuthorsSnapshot> {
 	const snap = await db.collection('collections').doc('authors').get();
 	const raw = snap.exists ? snap.get('authors') : null;
-	const authors: Author[] = Array.isArray(raw) ? raw : [];
+	// `articleCounts` is computed by the magazine sync from listed docs (card rule);
+	// it replaces the record's `articleCount`, a one-off MODX usage count that also
+	// counted docs later converted into redirecting recipes.
+	const counts = snap.exists ? snap.get('articleCounts') : null;
+	const authors: Author[] = (Array.isArray(raw) ? raw : []).map((author: Author) => ({
+		...author,
+		articleCount:
+			counts && typeof counts === 'object' ? Number(counts[author.slug]) || 0 : undefined
+	}));
 	return { authors, bySlug: new Map(authors.map((author) => [author.slug, author])) };
 }
 

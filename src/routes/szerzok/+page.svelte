@@ -101,9 +101,14 @@
             {#if author.title}
               <small class="block text-base-content/70">{decode(author.title)}</small>
             {/if}
-            {#if author.articleCount}
+            {#if author.articleCount || author.recipeCount}
               <small class="block text-base-content/70"
-                >{author.articleCount} cikk</small
+                >{[
+                  author.articleCount ? `${author.articleCount} cikk` : '',
+                  author.recipeCount ? `${author.recipeCount} recept` : ''
+                ]
+                  .filter(Boolean)
+                  .join(' · ')}</small
               >
             {/if}
           </span>

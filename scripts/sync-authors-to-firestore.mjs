@@ -89,7 +89,9 @@ async function rebuildAggregate(firestore) {
     return
   }
   const [collectionId, docId] = TARGET_DOC.split('/')
-  await firestore.collection(collectionId).doc(docId).set(target)
+  // merge: `articleCounts` on the same doc is written by the magazine sync
+  // (`writeCollections`); a plain set() would wipe it until the next sync.
+  await firestore.collection(collectionId).doc(docId).set(target, { merge: true })
   console.log(`írva: ${TARGET_DOC}`)
 }
 

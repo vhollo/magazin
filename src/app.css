@@ -72,6 +72,11 @@
   /*interpolate-size: allow-keywords;*/
   /* background-color: var(--fallback-b1, oklch(var(--b3) / 1)); */
   @apply bg-base-100;
+}
+/* Smooth scrolling only for in-page anchor jumps: +layout.svelte adds this class
+   on a same-URL #hash link click and removes it when the scroll ends. Page
+   loads, new tabs and back/forward stay instant. */
+html.smooth-scroll {
   scroll-behavior: smooth;
 }
 @media (prefers-color-scheme: light) {
@@ -669,6 +674,10 @@ article .table-scroll > table :is(td, th) {
   grid-row-start: 1;
   grid-row-end: 7;
   height: auto;
+  /* Top-aligned with the name: without this the prose image margin pushes the
+     portrait down and it floats mid-box when the text column is short. */
+  align-self: start;
+  margin-top: 0;
 }
 :is(#szerzo, .szerzo) .nev {
   grid-column: span 2;

@@ -79,5 +79,25 @@ export async function writeCollections(firestore, projectionDocs) {
     `  wrote ${COLLECTIONS_COLLECTION}/${HOME_COLLECTION_ID} (${homeCards.length} cards, ${expertCards.length} expertCards)`
   )
 
+  // Per-author article counts for the `/szerzok` cards — the same card rule as the
+  // profile's "Cikkei" list (listed, not an empty folder). Merged into the authors
+  // aggregate so the index page needs no extra read; `sync:authors:collection`
+  // merges too, so neither writer drops the other's fields.
+  const articleCounts = {}
+  for (const doc of collectionDocs) {
+    const slugs = Array.isArray(doc.authorSlugs) ? new Set(doc.authorSlugs) : new Set()
+    for (const slug of slugs) {
+      if (typeof slug === 'string' && slug) articleCounts[slug] = (articleCounts[slug] ?? 0) + 1
+    }
+  }
+  await firestore
+    .collection(COLLECTIONS_COLLECTION)
+    .doc('authors')
+    .set({ articleCounts, articleCountsGeneratedAt: generatedAt }, { merge: true })
+  written++
+  console.log(
+    `  wrote ${COLLECTIONS_COLLECTION}/authors.articleCounts (${Object.keys(articleCounts).length} authors)`
+  )
+
   return written
 }
