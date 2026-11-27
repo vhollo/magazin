@@ -742,14 +742,17 @@ article .table-scroll > table :is(td, th) {
 }
 
 /* ALAIRAS */
-.alairas {
+.alairas,
+.j_alairas {
   clear: both;
   @apply uppercase text-sm italic text-end mt-8;
 }
-.alairas span {
+.alairas span,
+.j_alairas span {
   @apply not-italic block normal-case;
 }
-.alairas .logo {
+.alairas .logo,
+.j_alairas .logo {
   margin-inline: auto;
 }
 
@@ -844,7 +847,7 @@ article .table-scroll > table :is(td, th) {
   margin: 0;
 }
 
-*:has(#szerzo) > .alairas {
+*:has(#szerzo) > :is(.alairas, .j_alairas) {
   display: none;
 }
 
