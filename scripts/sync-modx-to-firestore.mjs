@@ -43,6 +43,7 @@ import { encodeDocPathId, decodeDocPathId } from './lib/doc-path-id.mjs'
 import { buildAndUploadSearchIndex, changedListedPaths } from './lib/search-index.mjs'
 import { updateRelatedCards } from './lib/related-cards.mjs'
 import { syncRecipeAuthorSlugs } from './lib/recipe-author-slugs.mjs'
+import { modxLinkTargetIds, loadLinkTargetPaths } from './lib/modx-link-targets.mjs'
 import { writeCollections } from './lib/magazine-collections.mjs'
 import {
   loadProjectionDocsForSync,
@@ -1309,6 +1310,8 @@ async function main() {
     createdKeys: new Set(),
   }
 
+  /** Paths of `[~id~]` link targets outside the working set (filled below). */
+  let linkTargetPaths = new Map()
   const modxTransform = createModxTransform({
     publicBaseUrl: PUBLIC_BASE_URL,
     tmplvarContentvalues,
@@ -1316,6 +1319,7 @@ async function main() {
     getEveryDocs: () => [...workingById.values()],
     redirectMaps,
     debugUnresolvedParents: process.env.SYNC_DEBUG_PATHS === '1',
+    linkTargetPath: (id) => linkTargetPaths.get(id),
   })
 
   let written = 0
@@ -1334,6 +1338,23 @@ async function main() {
     if (changedIds.has(rawRow.id)) {
       ensureRowInWorkingById(modxTransform, rawRow, workingById)
     }
+  }
+
+  // Internal links of the rows being written: targets outside this run's working set
+  // (always the case in an incremental / payload run) get their path from Firestore,
+  // otherwise the link would be stored as href="".
+  const missingLinkTargets = modxLinkTargetIds(
+    rowsToProcess.filter((row) => changedIds.has(row.id))
+  ).filter((id) => !workingById.has(id))
+  if (missingLinkTargets.length > 0) {
+    const linkTargets = await loadLinkTargetPaths(firestore, missingLinkTargets)
+    linkTargetPaths = linkTargets.paths
+    readCounts.linkTargets = (readCounts.linkTargets ?? 0) + linkTargets.reads
+    const unresolved = missingLinkTargets.filter((id) => !linkTargetPaths.has(id))
+    console.log(
+      `link targets: ${linkTargetPaths.size}/${missingLinkTargets.length} resolved from Firestore` +
+        (unresolved.length ? ` (no published doc: ${unresolved.join(', ')})` : '')
+    )
   }
 
   const { map: existingRedirectsByModxId, reads: redirectReads } =

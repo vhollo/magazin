@@ -80,6 +80,12 @@ export interface ModxTransformDeps {
 	 * rows are caught at write time by the sync's `skip write:` guards.
 	 */
 	debugUnresolvedParents?: boolean;
+	/**
+	 * Path (no leading slash) of a MODX doc that is NOT in `getEveryDocs()` — used for
+	 * `[~id~]` links to articles outside an incremental / payload run's working set
+	 * (`scripts/lib/modx-link-targets.mjs`). Without it such links resolve to ''.
+	 */
+	linkTargetPath?: (id: number) => string | undefined;
 }
 
 export interface ModxTransform {
@@ -295,7 +301,8 @@ export function createModxTransform(deps: ModxTransformDeps): ModxTransform {
 		authors,
 		getEveryDocs,
 		redirectMaps,
-		debugUnresolvedParents = false
+		debugUnresolvedParents = false,
+		linkTargetPath
 	} = deps;
 
 	/**
@@ -355,7 +362,8 @@ export function createModxTransform(deps: ModxTransformDeps): ModxTransform {
 	const pathById = (p1: number): string => {
 		let doc = getEveryDocs().find((d) => d.id == p1);
 		if (!doc) {
-			return '';
+			const known = linkTargetPath?.(Number(p1));
+			return known ? `/${known}` : '';
 		}
 		if (!doc.path) doc = findPath(doc);
 		return `/${doc.path}`;

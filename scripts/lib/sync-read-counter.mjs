@@ -1,4 +1,4 @@
-/** @typedef {{ projection: number, meta: number, searchArticles: number, searchRecipes: number, redirects: number, searchMeta: number, orphanScan: number, staleScan: number, removalById: number }} ReadCounts */
+/** @typedef {{ projection: number, meta: number, searchArticles: number, searchRecipes: number, redirects: number, searchMeta: number, orphanScan: number, staleScan: number, removalById: number, linkTargets: number }} ReadCounts */
 
 export function createReadCounter() {
   return {
@@ -11,6 +11,7 @@ export function createReadCounter() {
     orphanScan: 0,
     staleScan: 0,
     removalById: 0,
+    linkTargets: 0,
   }
 }
 
@@ -27,7 +28,8 @@ export function totalReads(counts) {
     counts.searchMeta +
     counts.orphanScan +
     counts.staleScan +
-    counts.removalById
+    counts.removalById +
+    (counts.linkTargets ?? 0)
   )
 }
 
@@ -36,5 +38,5 @@ export function totalReads(counts) {
  */
 export function formatReadCounts(counts) {
   const total = totalReads(counts)
-  return `firestoreReads={projection:${counts.projection},searchArticles:${counts.searchArticles},searchRecipes:${counts.searchRecipes},redirects:${counts.redirects},searchMeta:${counts.searchMeta},orphanScan:${counts.orphanScan},staleScan:${counts.staleScan},removalById:${counts.removalById},meta:${counts.meta},total:${total}}`
+  return `firestoreReads={projection:${counts.projection},searchArticles:${counts.searchArticles},searchRecipes:${counts.searchRecipes},redirects:${counts.redirects},searchMeta:${counts.searchMeta},orphanScan:${counts.orphanScan},staleScan:${counts.staleScan},removalById:${counts.removalById},linkTargets:${counts.linkTargets ?? 0},meta:${counts.meta},total:${total}}`
 }
