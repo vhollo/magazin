@@ -44,6 +44,7 @@ import { buildAndUploadSearchIndex, changedListedPaths } from './lib/search-inde
 import { updateRelatedCards } from './lib/related-cards.mjs'
 import { syncRecipeAuthorSlugs } from './lib/recipe-author-slugs.mjs'
 import { modxLinkTargetIds, loadLinkTargetPaths } from './lib/modx-link-targets.mjs'
+import { bumpRecipesRevision } from './lib/recipes-revision.mjs'
 import { writeCollections } from './lib/magazine-collections.mjs'
 import {
   loadProjectionDocsForSync,
@@ -1583,6 +1584,22 @@ async function main() {
   if (authorSlugSync.updated > 0) {
     console.log(
       `receptsarok authorSlug: updated ${authorSlugSync.updated} recipe(s) → ${authorSlugSync.keys.slice(0, 20).join(', ')}${authorSlugSync.updated > 20 ? ' …' : ''}`
+    )
+  }
+
+  // Any recipe written above → bump meta/recipesUpload.revision, so dev servers and
+  // local builds stop reusing their cached recipe list (see lib/recipes-revision.mjs).
+  const writtenRecipeKeys = new Set([
+    ...freeSync.keys,
+    ...createSync.keys,
+    ...updateSync.keys,
+    ...relatedCardsSync.keys,
+    ...authorSlugSync.keys,
+  ])
+  if (writtenRecipeKeys.size > 0) {
+    const revision = await bumpRecipesRevision(firestore, writtenRecipeKeys, 'sync:modx')
+    console.log(
+      `meta/recipesUpload.revision → ${revision.slice(0, 12)}… (${writtenRecipeKeys.size} recipe(s) written)`
     )
   }
 
