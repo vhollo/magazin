@@ -3,6 +3,7 @@ import { fromHtmlEntities } from '../utils/index';
 import { decodeHtmlEntities } from '../htmlEntities.js';
 import { extractLinkedModxIds } from '../modxLinkedRecipes.js';
 import { extractJuniorFields, stripJuniorFields } from './juniorFields.js';
+import { authorNameKey } from '../authorMatch.js';
 
 export interface TemplateVariable {
 	tmplvarid: number;
@@ -303,8 +304,8 @@ export function createModxTransform(deps: ModxTransformDeps): ModxTransform {
 	 * migration writes), the pre-migration token, and the plain name.
 	 */
 	const authorByKey = new Map<string, AuthorRecord>();
-	const authorKey = (value: string) =>
-		value.replaceAll('_', ' ').normalize('NFC').toLowerCase().replace(/[.\s]+/g, ' ').trim();
+	// Same key as recipe bylines use (`$lib/authorMatch.js`).
+	const authorKey = authorNameKey;
 	for (const author of authors) {
 		if (!author?.slug) continue;
 		authorByKey.set(author.slug, author);

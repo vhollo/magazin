@@ -1,6 +1,7 @@
 import type { PageServerLoad } from './$types'
 import { error } from '@sveltejs/kit'
 import { getReceptsarokRecipe } from '$lib/receptsarokFirestore'
+import { getAuthorsBySlugs } from '$lib/magazine/authorsCache'
 import {
   linkedRecipesFor,
   similarRecipesFor,
@@ -53,8 +54,14 @@ export const load: PageServerLoad = async ({ params }) => {
     return { similarRecipes, similarIsLinked: curated.length > 0 }
   }
 
+  // Signature box at the foot of the recipe, as on an article: the record comes from
+  // the same cached `collections/authors` read the article pages use (60 s per
+  // instance, shared). No slug (no published profile) → no box, no read.
+  const authors = await getAuthorsBySlugs(recipe.authorSlug ? [recipe.authorSlug] : [])
+
   return {
     recipe,
+    authors,
     isFree: result.isFree,
     categoryId: recipe.category,
     // Streamed (Promise) — consumed with `{#await data.similar}` in +page.svelte.

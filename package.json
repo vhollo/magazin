@@ -34,6 +34,8 @@
 		"recipes:backfill-content:apply": "tsx scripts/backfill-collection-recipe-content.mjs --apply",
 		"recipes:backfill-related": "node scripts/backfill-recipe-related-cards.mjs",
 		"recipes:backfill-related:apply": "node scripts/backfill-recipe-related-cards.mjs --apply",
+		"recipes:backfill-author-slugs": "node scripts/backfill-recipe-author-slugs.mjs",
+		"recipes:backfill-author-slugs:apply": "node scripts/backfill-recipe-author-slugs.mjs --apply",
 		"recipes:fix-modx-years": "node scripts/fix-modx-recipe-years.mjs",
 		"recipes:fix-modx-years:apply": "node scripts/fix-modx-recipe-years.mjs --apply",
 		"sync:authors": "node scripts/sync-authors-to-firestore.mjs",

@@ -113,6 +113,11 @@ export interface Recipe {
   /** Article lead from the source MODX doc's `introtext` (single-recipe docs only). */
   introtext?: string
   author: string
+  /**
+   * `authors/{slug}` profile of `author`, resolved at sync time
+   * (`scripts/lib/recipe-author-slugs.mjs`); absent when no published record matches.
+   */
+  authorSlug?: string
   category: string
   servings: { amount: number; unit: string }
   energy: number | null
@@ -169,6 +174,12 @@ export interface RecipeTeaser {
 export type RecipeLayoutEntry = RecipeTeaser & {
   ingredientNames: string[]
   searchTerms: string[]
+  /**
+   * Only on the in-process recipe index (`$lib/server/similarRecipes`), for the author
+   * profile's recipe list — `toLayoutRecipe` leaves it out, so the `rs-*` collections
+   * and the planner catalog stay unchanged.
+   */
+  authorSlug?: string
 }
 
 export interface Category {

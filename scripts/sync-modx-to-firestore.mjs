@@ -42,6 +42,7 @@ import { getFirestoreDb } from './lib/firebase-admin.mjs'
 import { encodeDocPathId, decodeDocPathId } from './lib/doc-path-id.mjs'
 import { buildAndUploadSearchIndex, changedListedPaths } from './lib/search-index.mjs'
 import { updateRelatedCards } from './lib/related-cards.mjs'
+import { syncRecipeAuthorSlugs } from './lib/recipe-author-slugs.mjs'
 import { writeCollections } from './lib/magazine-collections.mjs'
 import {
   loadProjectionDocsForSync,
@@ -1545,6 +1546,22 @@ async function main() {
   if (relatedCardsSync.updated > 0) {
     console.log(
       `receptsarok relatedCards: updated ${relatedCardsSync.updated} recipe(s) → ${relatedCardsSync.keys.join(', ')}`
+    )
+  }
+
+  // Recipe `authorSlug` (profile link + signature box on the recipe page, recipe list
+  // on the profile): resolved from each recipe's `author` against the same author
+  // records the article bylines use, so new recipes / new author records land here.
+  const authorSlugSync = await syncRecipeAuthorSlugs({
+    recipes,
+    authors,
+    recipesJsonPath: RECIPES_JSON_PATH,
+    firestore,
+    apply: true,
+  })
+  if (authorSlugSync.updated > 0) {
+    console.log(
+      `receptsarok authorSlug: updated ${authorSlugSync.updated} recipe(s) → ${authorSlugSync.keys.slice(0, 20).join(', ')}${authorSlugSync.updated > 20 ? ' …' : ''}`
     )
   }
 

@@ -54,7 +54,12 @@ async function getRecipeSearchIndex() {
   if (memo && memoSource === recipes) return memo
 
   const published = recipes.filter((r) => r.published !== false)
-  const entries = new Map(published.map((r) => [recipeSlug(r), toLayoutRecipe(r)]))
+  const entries = new Map(
+    published.map((r) => [
+      recipeSlug(r),
+      { ...toLayoutRecipe(r), ...(r.authorSlug ? { authorSlug: r.authorSlug } : {}) },
+    ])
+  )
   const index = new MiniSearch({
     fields: ['title', 'searchTerms', 'ingredientNames'],
     extractField: (doc, fieldName) => {
@@ -169,56 +174,37 @@ export async function recipesBySourceModxId(modxId: number): Promise<RecipeLayou
     .filter((entry): entry is RecipeLayoutEntry => Boolean(entry))
 }
 
-/** Same name key the MODX sync uses to resolve authors (`authorKey` in `modx/transform`). */
-const authorNameKey = (value: string) =>
-  value.replaceAll('_', ' ').normalize('NFC').toLowerCase().replace(/[.\s]+/g, ' ').trim()
-
 /**
- * An author's published recipes (`/szerzok/{slug}`), newest year first. Exact match
- * of `recipe.author` against the author's names — no fuzzy search, so a co-authored
- * or mis-parsed byline ("X receptje") stays out rather than pulling in a stranger.
+ * An author's published recipes (`/szerzok/{slug}`), newest year first. Matched by
+ * the recipe's `authorSlug`, which the sync resolves from `recipe.author` exactly as
+ * article bylines are resolved (`$lib/authorMatch.js`) — so the recipe page's byline
+ * link and this list always agree. A co-authored or mis-parsed byline ("X receptje")
+ * gets no slug and stays out rather than pulling in a stranger.
  */
-export async function recipesByAuthor(author: {
-  displayName?: string
-  name?: string
-  legacyTokens?: string[]
-}): Promise<RecipeTeaser[]> {
-  const keys = new Set(
-    [author.displayName, author.name, ...(author.legacyTokens ?? [])]
-      .filter((v): v is string => Boolean(v))
-      .map(authorNameKey)
-  )
-  if (!keys.size) return []
+export async function recipesByAuthor(author: { slug: string }): Promise<RecipeTeaser[]> {
+  if (!author.slug) return []
   const { entries } = await getRecipeSearchIndex()
   return [...entries.values()]
-    .filter((entry) => entry.author && keys.has(authorNameKey(entry.author)))
+    .filter((entry) => entry.authorSlug === author.slug)
     .sort((a, b) => b.year - a.year || a.title.localeCompare(b.title, 'hu'))
-    .map(({ ingredientNames: _i, searchTerms: _s, ...teaser }) => teaser)
+    .map(({ ingredientNames: _i, searchTerms: _s, authorSlug: _a, ...teaser }) => teaser)
 }
 
 /**
- * Recipe count per author slug for the `/szerzok` cards — the same exact name
+ * Recipe count per author slug for the `/szerzok` cards — the same `authorSlug`
  * match as `recipesByAuthor`, done once over the recipe index for every author.
  */
 export async function recipeCountsByAuthor(
-  authors: { slug: string; displayName?: string; name?: string; legacyTokens?: string[] }[]
+  authors: { slug: string }[]
 ): Promise<Record<string, number>> {
   const { entries } = await getRecipeSearchIndex()
-  const perKey = new Map<string, number>()
+  const perSlug = new Map<string, number>()
   for (const entry of entries.values()) {
-    if (!entry.author) continue
-    const key = authorNameKey(entry.author)
-    perKey.set(key, (perKey.get(key) ?? 0) + 1)
+    if (entry.authorSlug) perSlug.set(entry.authorSlug, (perSlug.get(entry.authorSlug) ?? 0) + 1)
   }
   const counts: Record<string, number> = {}
   for (const author of authors) {
-    const keys = new Set(
-      [author.displayName, author.name, ...(author.legacyTokens ?? [])]
-        .filter((v): v is string => Boolean(v))
-        .map(authorNameKey)
-    )
-    let total = 0
-    for (const key of keys) total += perKey.get(key) ?? 0
+    const total = perSlug.get(author.slug) ?? 0
     if (total) counts[author.slug] = total
   }
   return counts

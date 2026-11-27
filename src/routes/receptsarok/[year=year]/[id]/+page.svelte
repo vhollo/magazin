@@ -9,6 +9,8 @@
   import ReceptsarokLogo from '$lib/components/ReceptsarokLogo.svelte'
   import ReadingLayout from '$lib/components/ReadingLayout.svelte'
   import ContentHeader from '$lib/components/ContentHeader.svelte'
+  import AuthorSignature from '$lib/components/AuthorSignature.svelte'
+  import { decodeHtmlEntities } from '$lib/htmlEntities.js'
   import ReceptsarokWidget from '$lib/components/ReceptsarokWidget.svelte'
   import MealPlanner from '$lib/components/MealPlanner.svelte'
   import { plannerOpen } from '$lib/mealPlannerStore'
@@ -138,7 +140,20 @@
   <ContentHeader
     title={recipe.title}
     lead={recipe.introtext ?? ''}
-    authors={recipe.author ? [{ name: recipe.author }] : []}
+    authors={recipe.author
+      ? [
+          {
+            // Same rules as an article byline: the record's display name and profile
+            // when the sync matched one, else the recipe's own name and a search for it.
+            name: data.authors?.[0]?.displayName
+              ? decodeHtmlEntities(data.authors[0].displayName)
+              : recipe.author,
+            href: recipe.authorSlug
+              ? `/szerzok/${recipe.authorSlug}`
+              : `/keres?q=${encodeURIComponent(recipe.author)}`,
+          },
+        ]
+      : []}
     meta={[{ text: String(recipe.year) }]}
     badges={[
       ...(recipe.servings.amount
@@ -263,6 +278,10 @@
   {:else}
     <PaywallCTA context="recipe" />
   {/if}
+
+  {#each data.authors ?? [] as author, i (author.slug)}
+    <AuthorSignature {author} first={i === 0} />
+  {/each}
 </ReadingLayout>
 
 <div class="mx-auto px-4 py-4">
