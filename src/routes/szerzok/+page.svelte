@@ -94,7 +94,7 @@
               loading="lazy"
             />
           {/if}
-          <span class="min-w-0">
+          <span class="flex min-w-0 flex-1 flex-col">
             <span class="display block text-lg leading-snug"
               >{decode(author.displayName)}</span
             >
@@ -102,14 +102,19 @@
               <small class="block text-base-content/70">{decode(author.title)}</small>
             {/if}
             {#if author.articleCount || author.recipeCount}
-              <small class="block text-base-content/70"
-                >{[
-                  author.articleCount ? `${author.articleCount} cikk` : '',
-                  author.recipeCount ? `${author.recipeCount} recept` : ''
-                ]
-                  .filter(Boolean)
-                  .join(' · ')}</small
-              >
+              <!-- Counts sit in the bottom-right corner, one capsule each. -->
+              <span class="mt-auto flex flex-wrap justify-end gap-1 pt-2">
+                {#if author.articleCount}
+                  <small class="rounded-full bg-base-300 px-2.5 py-0.5 text-xs text-base-content/80"
+                    >{author.articleCount} cikk</small
+                  >
+                {/if}
+                {#if author.recipeCount}
+                  <small class="rounded-full bg-base-300 px-2.5 py-0.5 text-xs text-base-content/80"
+                    >{author.recipeCount} recept</small
+                  >
+                {/if}
+              </span>
             {/if}
           </span>
         </a>
