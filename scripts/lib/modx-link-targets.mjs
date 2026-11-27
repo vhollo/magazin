@@ -14,7 +14,19 @@
 const LINK_RE = /\[~(\d+)~\]/g
 
 /**
- * Target ids of `[~id~]` links in the rows' `content`, `introtext` and `description`.
+ * What `alapjav` (transform.ts) drops from a field: HTML comments and MODX tag
+ * calls — `[[…]]`, `[!…!]` (e.g. a ChunkTimer whose `&chunk` holds a dated link),
+ * `{{…}}`, `[+…+]`. A link inside them never reaches the stored doc, so its target
+ * needs no lookup. (`nagyito` calls become images before this and carry no links.)
+ */
+const DROPPED_RE = [/<!--[\s\S]*?-->/g, /\[\[[\s\S]*?\]\]/g, /\[![\s\S]*?!\]/g, /\{\{[\s\S]*?\}\}/g, /\[\+[\s\S]*?\+\]/g]
+
+/** @param {unknown} value */
+const withoutDropped = (value) => DROPPED_RE.reduce((text, re) => text.replace(re, ''), String(value ?? ''))
+
+/**
+ * Target ids of the `[~id~]` links that end up in the rows' stored `content`,
+ * `introtext` and `description` — links in comments and MODX tag calls are skipped.
  * @param {Record<string, unknown>[]} rows
  * @returns {number[]}
  */
@@ -22,7 +34,7 @@ export function modxLinkTargetIds(rows) {
   const ids = new Set()
   for (const row of rows) {
     for (const field of ['content', 'introtext', 'description']) {
-      for (const m of String(row?.[field] ?? '').matchAll(LINK_RE)) ids.add(Number(m[1]))
+      for (const m of withoutDropped(row?.[field]).matchAll(LINK_RE)) ids.add(Number(m[1]))
     }
   }
   return [...ids].filter((id) => id > 0)
