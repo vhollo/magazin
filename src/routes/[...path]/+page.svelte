@@ -2,7 +2,8 @@
   import Cards from "$lib/components/Cards.svelte";
   import Search from "$lib/components/Search.svelte";
   import Nav2 from "$lib/components/Nav2.svelte";
-  import BannerSide from "$lib/components/BannerSide.svelte";
+  import ReadingLayout from "$lib/components/ReadingLayout.svelte";
+  import ContentHeader from "$lib/components/ContentHeader.svelte";
   import BannerTop from "$lib/components/BannerTop.svelte";
   import ReceptsarokWidget from "$lib/components/ReceptsarokWidget.svelte";
   import AuthorSignature from "$lib/components/AuthorSignature.svelte";
@@ -190,45 +191,28 @@
   {#if conf.top_banners.length}
     <BannerTop banners={conf.top_banners} />
   {/if}
-  <main class="bg-base-100 md:flex flex-row justify-center gap-8 px-4">
-    <!--{@const meta = [doc.tv.szerzo, date, doc.tv.cat].join(' | ')}-->
-    <article class="prose py-12 flex-1">
-      {#if doc.description}
-        <h2 class="felcim uppercase text-sm">{@html doc.description}</h2>
-      {/if}
-      <h1 class="title">{@html doc.longtitle || doc.title}</h1>
-      <h4 class="introtext">{@html doc.introtext}</h4>
-      <aside class="my-3">
-        {#if doc.tv.szerzo?.length}
-          {#each doc.tv.szerzo as sze, i}
-            <a
-              href={sze.slug
-                ? `/szerzok/${sze.slug}`
-                : `/keres?q=${encodeURIComponent(sze.name)}`}
-              ><small class="uppercase">{sze.name}</small></a
-            >{#if i + 1 < doc.tv.szerzo.length},&nbsp;{/if}
-          {/each}
-          <!-- &nbsp; -->|
-        {/if}
-        <small
-          title={`${editdate !== pubdate ? "Szerkesztve: " + editdate : ""}`}
-          >{pubdate}<sup>{editdate !== pubdate ? "i" : ""}</sup></small
-        >
-        <small class="uppercase"
-          >{`${doc.tv.cat ? " | " + doc.tv.cat : ""}`}</small
-        >
-      </aside>
-      <aside class="flex flex-wrap gap-2 mb-12">
-        {#each doc.tv.tags as tag}
-          <small class="badge badge-outline badge-sm">{tag}</small>
-        {/each}
-      </aside>
-      <!--{#if doc.tv.img}
-      <figure class="pageimage text-center w-full">
-        <img class="mx-auto" style={`object-fit: contain;`} src={doc.tv.img} alt="">
-        <figcaption>{@html doc.tv.credit}</figcaption>
-      </figure>
-      {/if}-->
+  <ReadingLayout banners={doc.content ? prominent : []}>
+      <ContentHeader
+        kickerHtml={doc.description}
+        title={doc.longtitle || doc.title}
+        titleHtml
+        lead={doc.introtext}
+        authors={(doc.tv.szerzo ?? []).map((sze) => ({
+          name: sze.name,
+          href: sze.slug
+            ? `/szerzok/${sze.slug}`
+            : `/keres?q=${encodeURIComponent(sze.name)}`,
+        }))}
+        meta={[
+          {
+            text: pubdate,
+            title: editdate !== pubdate ? "Szerkesztve: " + editdate : "",
+            mark: editdate !== pubdate ? "i" : "",
+          },
+          { text: doc.tv.cat || "" },
+        ]}
+        badges={(doc.tv.tags ?? []).map((tag) => ({ label: tag }))}
+      />
       {#if doc.img}
         <figure class="pageimage text-center w-full">
           <img
@@ -261,25 +245,7 @@
           {/if}
         {/each}
       {/if}
-    </article>
-
-    <!-- KIEMELT ADS -->
-    <!-- {#if $authUser && browser && hirds.length} -->
-    {#if prominent.length && doc.content}
-      <section
-        class="adrail max-md:hidden flex flex-col flex-0 gap-2 py-12 mx-auto md:mx-0"
-      >
-        {#each prominent as item, i}
-          <!-- {#if item.prominent} -->
-          <aside class="">
-            <!-- <h1 class="card-body">{item.name}</h1> -->
-            <BannerSide banner={item} />
-          </aside>
-          <!-- {/if} -->
-        {/each}
-      </section>
-    {/if}
-  </main>
+  </ReadingLayout>
 
   {#if rsMatches.length}
     <ReceptsarokWidget
@@ -328,20 +294,3 @@
 </footer>
 {/if} -->
 
-<style>
-  /* The ad rail beside the article column. Scoped to `.adrail`, not to a bare
-     `section` — as a bare element selector it also captured the listing band
-     below, pinning it to `min-width: 24ch` (a 300px stub instead of a full-bleed
-     band). Keep it class-scoped: this component has more than one <section>. */
-  .adrail {
-    min-width: 24ch;
-    width: calc((100% - 65ch) / 2);
-  }
-  .adrail aside {
-    position: unset;
-    /* width: minmax(24ch, 1fr); */
-    min-height: 20ch;
-    /* grid-row-end: span 3; */
-    margin-bottom: 3rem;
-  }
-</style>

@@ -622,6 +622,13 @@ async function processRow(
     }
   }
 
+  // Junior (template 9) header fields from the body — after the recipe create/update
+  // above, which parses the untouched body. Standalone recipe articles (exactly one
+  // recipe sourced from this doc) are skipped: they redirect to that recipe.
+  if (splitDishCountBySourceModxId(recipes).get(Number(doc.id)) !== 1) {
+    modxTransform.juniorFields(doc)
+  }
+
   modxTransform.setReceptsarokRedirect(doc, redirect)
   const processed = {
     ...modxTransform.docFields(doc),

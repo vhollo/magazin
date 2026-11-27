@@ -7,6 +7,8 @@
   import { firebaseAuth } from '$lib/firebase'
   import { hasReceptsarokAccess } from '$lib/authStore'
   import ReceptsarokLogo from '$lib/components/ReceptsarokLogo.svelte'
+  import ReadingLayout from '$lib/components/ReadingLayout.svelte'
+  import ContentHeader from '$lib/components/ContentHeader.svelte'
   import ReceptsarokWidget from '$lib/components/ReceptsarokWidget.svelte'
   import MealPlanner from '$lib/components/MealPlanner.svelte'
   import { plannerOpen } from '$lib/mealPlannerStore'
@@ -130,28 +132,30 @@
   {/if}
 </svelte:head>
 
-<header class="mx-auto w-full max-w-4xl px-4 p-10 sm:pt-14">
-  <nav class="breadcrumbs text-sm mb-6" aria-label="Elérési út">
-    <ul>
-      <li><a href="/receptsarok" class="opacity-70 hover:opacity-100"><ReceptsarokLogo class="text-sm" /></a></li>
-      <li>
-        <a href="/receptsarok/{recipe.category}" class="opacity-70 hover:opacity-100">{category?.name || recipe.category}</a>
-      </li>
-      <!-- <li class="max-w-[min(100%,40ch)] truncate" title={recipe.title}>{recipe.title}</li> -->
-    </ul>
-  </nav>
-  <h1 class="display text-3xl leading-tight text-balance sm:text-4xl">{recipe.title}</h1>
-  {#if recipe.introtext}
-    <p class="mt-3 text-lg leading-relaxed text-pretty">{@html recipe.introtext}</p>
-  {/if}
-  <p class="mt-2 italic opacity-80">{recipe.author}</p>
-</header>
+<!-- Same reading column + header as a magazine article (ReadingLayout / ContentHeader):
+     `.prose` at its 65ch measure; the felcím slot holds the Receptsarok breadcrumb. -->
+<ReadingLayout>
+  <ContentHeader
+    title={recipe.title}
+    lead={recipe.introtext ?? ''}
+    authors={recipe.author ? [{ name: recipe.author }] : []}
+    meta={[{ text: String(recipe.year) }]}
+    badges={[
+      ...(recipe.servings.amount
+        ? [{ label: `${recipe.servings.amount} ${recipe.servings.unit}` }]
+        : []),
+      ...(isFree ? [{ label: 'ingyenes', tone: 'success' as const }] : []),
+    ]}
+  >
+    {#snippet kicker()}
+      <nav aria-label="Elérési út">
+        <a href="/receptsarok"><ReceptsarokLogo class="text-sm" /></a>
+        <span aria-hidden="true"> › </span>
+        <a href="/receptsarok/{recipe.category}">{category?.name || recipe.category}</a>
+      </nav>
+    {/snippet}
+  </ContentHeader>
 
-<!-- Reading column: `prose` keeps its 65ch measure, left-aligned on the page's
-     max-w-7xl rail (the rail lives on the wrapper — putting max-w-7xl on the
-     `.prose` element itself would blow the measure out to 1440px). -->
-<div class="mx-auto w-full max-w-4xl px-4 pb-12">
-<article class="prose max-w-4xl">
   {#if recipeVideo?.src}
     <figure class="not-prose my-6">
       <video
@@ -172,16 +176,6 @@
       {/if}
     </figure>
   {/if}
-
-  <div class="flex flex-wrap gap-2 my-4">
-    {#if recipe.servings.amount}
-    <span class="badge badge-outline badge-sm">{recipe.servings.amount} {recipe.servings.unit}</span>
-    {/if}
-    <span class="badge badge-outline badge-sm">{recipe.year}</span>
-    {#if isFree}
-      <span class="badge badge-success badge-sm">ingyenes</span>
-    {/if}
-  </div>
 
   {#each recipe.nutritionTables as table}
     <NutritionTable {table} />
@@ -269,8 +263,7 @@
   {:else}
     <PaywallCTA context="recipe" />
   {/if}
-</article>
-</div>
+</ReadingLayout>
 
 <div class="mx-auto px-4 py-4">
   <button class="btn btn-outline" onclick={() => $plannerOpen = !$plannerOpen}>

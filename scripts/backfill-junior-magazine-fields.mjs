@@ -2,7 +2,7 @@
  * Backfill `title` / `description` / `introtext` on the MAGAZINE docs (Firestore `docs/`)
  * of junior-template (MODX template 9) articles, extracting them from the content HTML
  * (`<h1>` → title, `.felcim` → description, `.j_lead` → introtext — see
- * `lib/junior-content-fields.mjs`). Junior articles keep these in content, not in the
+ * `src/lib/modx/juniorFields.js`). Junior articles keep these in content, not in the
  * unreliable `site_content` columns (e.g. id 1040 has the `felcim` text in `introtext`).
  * The extracted `<h1>`/`.felcim`/`.j_lead` are then stripped from the doc's `content` so
  * the article page header (which renders those fields) doesn't show them a second time.
@@ -11,8 +11,12 @@
  * mapped to exactly ONE Receptsárok recipe). Recipe COLLECTIONS (≥2 recipes, e.g. 1040,
  * 1352) and plain junior articles (no recipe) ARE included. Recipes.json is never touched.
  *
- * This is a one-off, non-sync magazine-doc backfill (same pattern as the related-cards
- * backfill) — it does NOT modify `sync-modx-to-firestore.mjs` or the recipe pipeline.
+ * SUPERSEDED: the sync now does this itself (`juniorFields` in `src/lib/modx/transform.ts`,
+ * called from `processRow`), on the cleaned body — so MODX links in the lead are rewritten
+ * and snippet calls removed, which this script (reading raw SQL content) could not do.
+ * It is no longer chained after `sync:modx`/`sync:modx:full`; a `sync:modx:full` brings
+ * older docs up to date. Kept only as a dry-run diff tool. Do NOT run `--apply` after the
+ * sync: it would overwrite the cleaned values with the raw-content extraction.
  *
  * Usage: node scripts/backfill-junior-magazine-fields.mjs          (dry run)
  *        node scripts/backfill-junior-magazine-fields.mjs --apply   (write Firestore)
@@ -23,7 +27,7 @@ import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import mysql from 'mysql2/promise'
 import { getFirestoreDb } from './lib/firebase-admin.mjs'
-import { extractJuniorFields, stripJuniorFields } from './lib/junior-content-fields.mjs'
+import { extractJuniorFields, stripJuniorFields } from '../src/lib/modx/juniorFields.js'
 
 const APPLY = process.argv.includes('--apply')
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')

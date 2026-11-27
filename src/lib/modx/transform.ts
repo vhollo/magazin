@@ -2,6 +2,7 @@ import fs from 'node:fs';
 import { fromHtmlEntities } from '../utils/index';
 import { decodeHtmlEntities } from '../htmlEntities.js';
 import { extractLinkedModxIds } from '../modxLinkedRecipes.js';
+import { extractJuniorFields, stripJuniorFields } from './juniorFields.js';
 
 export interface TemplateVariable {
 	tmplvarid: number;
@@ -87,6 +88,7 @@ export interface ModxTransform {
 	nagyito: (doc: ModxDoc) => void;
 	alapjav: (doc: ModxDoc) => void;
 	ellipsis: (doc: ModxDoc) => void;
+	juniorFields: (doc: ModxDoc) => void;
 	docFields: (doc: ModxDoc) => ProcessedDocFields;
 	referenceDocFields: (doc: ModxDoc) => ProcessedDocFields;
 	setReceptsarokRedirect: (doc: ModxDoc, fallbackRedirect?: string) => void;
@@ -526,6 +528,25 @@ export function createModxTransform(deps: ModxTransformDeps): ModxTransform {
 			.trim();
 
 		doc.content = fromHtmlEntities(doc.content);
+
+		// Lead fields (`introtext` = the bevezető under the title, `description` = the
+		// felcím above it) get the same comment / MODX-tag cleanup as the body. Without it
+		// a snippet call in the column renders as literal text on the article page (e.g.
+		// the PHx age counter `[+phx:input=`[[time]]`:…+]` in 0805/kozos-ut). MODX stores
+		// `\r\n`; it is normalised to `\n` and the value trimmed, but a newline is NOT
+		// turned into <br>: editors mark real breaks with <br>/<p>, and the bare newlines
+		// left in the column are soft wraps inside sentences, which must render as a space.
+		const cleanLead = (html: string) =>
+			String(html ?? '')
+				.replaceAll(comments, '')
+				.replaceAll(regexp1, '')
+				.replaceAll(regexp2, '')
+				.replaceAll(regexp3, '')
+				.replaceAll(regexp4, '')
+				.replace(/\r\n?/g, '\n')
+				.trim();
+		doc.introtext = cleanLead(doc.introtext);
+		doc.description = cleanLead(doc.description);
 	};
 
 	const ellipsis = (doc: ModxDoc) => {
@@ -553,6 +574,55 @@ export function createModxTransform(deps: ModxTransformDeps): ModxTransform {
 		}
 	};
 
+	/**
+	 * Junior-template (MODX template 9) articles keep their real header fields in the
+	 * body, not in the `modx_site_content` columns (which are unreliable for them — e.g.
+	 * id 1040 has the felcím text in `introtext`). See `juniorFields.js`:
+	 *   `<h1>` → title (fallback: `longtitle`), `.felcim` → description, `.j_lead` → introtext.
+	 * The extracted elements are then removed from the body so the page header doesn't
+	 * show them twice.
+	 *
+	 * Call it AFTER `alapjav` (so the values come from the cleaned body: MODX links
+	 * rewritten to paths, comments and snippet calls removed) and after the Receptsarok
+	 * recipe create/update step (the recipe parser reads the untouched body). The caller
+	 * skips standalone recipe articles (exactly one recipe has this doc as
+	 * `sourceModxId`) — they redirect to the recipe.
+	 *
+	 * An element that is absent leaves the column value (older junior articles keep a
+	 * real lead in `introtext` with no `.j_lead`); the only clear is a column introtext
+	 * that merely repeats the felcím.
+	 */
+	const juniorFields = (doc: ModxDoc) => {
+		if (Number(doc.template) !== 9) return;
+		const extracted = extractJuniorFields(doc.content);
+		const leadText = (html: string) =>
+			decodeHtmlEntities(String(html ?? '').replace(/<[^>]+>/g, ' '))
+				.replace(/\s+/g, ' ')
+				.trim();
+
+		const title = extracted.title || leadText(doc.longtitle);
+		if (title) doc.juniorTitle = title;
+		if (extracted.description != null) doc.description = extracted.description;
+		const introBefore = doc.introtext;
+		if (extracted.introtext != null) {
+			doc.introtext = extracted.introtext;
+		} else if (
+			extracted.description != null &&
+			doc.introtext &&
+			leadText(doc.introtext) === leadText(extracted.description)
+		) {
+			doc.introtext = '';
+		}
+		const contentBefore = doc.content;
+		doc.content = stripJuniorFields(doc.content, extracted);
+		// The card excerpt was derived from the old introtext — or, without one, from the
+		// first body paragraphs, which may have been the `.j_lead` just removed.
+		if (doc.introtext !== introBefore || doc.content !== contentBefore) {
+			delete doc.ellipsis;
+			ellipsis(doc);
+		}
+	};
+
 	const docFields = (doc: ModxDoc): ProcessedDocFields => ({
 		id: doc.id,
 		path: doc.path,
@@ -560,7 +630,8 @@ export function createModxTransform(deps: ModxTransformDeps): ModxTransform {
 		parent: doc.parent,
 		// Decode named HTML entities in the plain-text title fields (used in <title>,
 		// cards, search). `content` keeps its entities — they're valid in the HTML body.
-		title: decodeHtmlEntities(doc.pagetitle),
+		// A junior article's title comes from its body `<h1>` (already plain text).
+		title: doc.juniorTitle || decodeHtmlEntities(doc.pagetitle),
 		longtitle: decodeHtmlEntities(doc.longtitle),
 		description: doc.description,
 		content: doc.content,
@@ -642,6 +713,7 @@ export function createModxTransform(deps: ModxTransformDeps): ModxTransform {
 		nagyito,
 		alapjav,
 		ellipsis,
+		juniorFields,
 		docFields,
 		referenceDocFields,
 		setReceptsarokRedirect,

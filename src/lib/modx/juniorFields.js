@@ -18,15 +18,26 @@
  * since many older junior articles keep a real lead in the `introtext` column with no
  * `j_lead` element). A present-but-empty element yields `''`.
  */
-import { decodeHtmlEntities } from '../../src/lib/htmlEntities.js'
+import { decodeHtmlEntities } from '../htmlEntities.js'
 
-/** Inner HTML of the first `<h1>…</h1>`, or null. */
+/** @typedef {{ title: string | null, description: string | null, introtext: string | null }} JuniorFields */
+
+/**
+ * Inner HTML of the first `<h1>…</h1>`, or null.
+ * @param {string} html
+ * @returns {string | null}
+ */
 function innerH1(html) {
   const m = String(html ?? '').match(/<h1\b[^>]*>([\s\S]*?)<\/h1>/i)
   return m ? m[1] : null
 }
 
-/** Inner HTML of the first element whose class list contains `cls`, or null. */
+/**
+ * Inner HTML of the first element whose class list contains `cls`, or null.
+ * @param {string} html
+ * @param {string} cls
+ * @returns {string | null}
+ */
 function innerByClass(html, cls) {
   const re = new RegExp(
     `<([a-z][a-z0-9]*)\\b[^>]*\\bclass=["'][^"']*\\b${cls}\\b[^"']*["'][^>]*>([\\s\\S]*?)<\\/\\1>`,
@@ -36,12 +47,14 @@ function innerByClass(html, cls) {
   return m ? m[2] : null
 }
 
+/** @param {unknown} s */
 const tidy = (s) => decodeHtmlEntities(String(s)).replace(/\s+/g, ' ').trim()
+/** @param {unknown} s */
 const plain = (s) => tidy(String(s).replace(/<[^>]+>/g, ' '))
 
 /**
  * @param {string} content raw MODX content HTML
- * @returns {{ title: string|null, description: string, introtext: string }}
+ * @returns {JuniorFields} each field is `null` when its element is absent
  */
 export function extractJuniorFields(content) {
   const html = String(content ?? '')
@@ -55,13 +68,19 @@ export function extractJuniorFields(content) {
   }
 }
 
-/** Plain-text normalisation for comparing an element's inner text to an extracted value. */
+/**
+ * Plain-text normalisation for comparing an element's inner text to an extracted value.
+ * @param {unknown} s
+ */
 const matchNorm = (s) =>
   decodeHtmlEntities(String(s ?? '').replace(/<[^>]+>/g, ' '))
     .replace(/\s+/g, ' ')
     .trim()
 
-/** Element regex (first match) capturing the tag name (1) and inner HTML (2) + trailing ws. */
+/**
+ * Element regex (first match) capturing the tag name (1) and inner HTML (2) + trailing ws.
+ * @param {string} cls
+ */
 function classRe(cls) {
   return new RegExp(
     `<([a-z][a-z0-9]*)\\b[^>]*\\bclass=["'][^"']*\\b${cls}\\b[^"']*["'][^>]*>([\\s\\S]*?)<\\/\\1>\\s*`,
@@ -70,12 +89,18 @@ function classRe(cls) {
 }
 
 /** Drop the element matched by `re` (inner at capture group `idx`) only when its text equals
- *  the extracted `value` — so we strip the exact header element, never a later same-class one. */
+ *  the extracted `value` — so we strip the exact header element, never a later same-class one.
+ * @param {string} html
+ * @param {RegExp} re
+ * @param {number} idx
+ * @param {string | null | undefined} value
+ */
 function removeFirstIfMatches(html, re, idx, value) {
   if (value == null) return html
   const m = html.match(re)
   if (!m || matchNorm(m[idx]) !== matchNorm(value)) return html
-  return html.slice(0, m.index) + html.slice(m.index + m[0].length)
+  const start = m.index ?? 0
+  return html.slice(0, start) + html.slice(start + m[0].length)
 }
 
 /**
@@ -85,11 +110,16 @@ function removeFirstIfMatches(html, re, idx, value) {
  * doesn't show them twice. Matching by text keeps a later same-class element deeper in the body
  * and makes the strip idempotent: re-running finds the header element already gone, so chaining
  * this to `sync:modx` (which re-adds the elements) converges instead of eating into the body.
+ * @param {string} content
+ * @param {Partial<JuniorFields>} [extracted]
+ * @returns {string}
  */
 export function stripJuniorFields(content, extracted = {}) {
-  return [
+  /** @type {[RegExp, number, string | null | undefined][]} */
+  const targets = [
     [/<h1\b[^>]*>([\s\S]*?)<\/h1>\s*/i, 1, extracted.title],
     [classRe('felcim'), 2, extracted.description],
     [classRe('j_lead'), 2, extracted.introtext],
-  ].reduce((html, [re, idx, val]) => removeFirstIfMatches(html, re, idx, val), String(content ?? ''))
+  ]
+  return targets.reduce((html, [re, idx, val]) => removeFirstIfMatches(html, re, idx, val), String(content ?? ''))
 }
