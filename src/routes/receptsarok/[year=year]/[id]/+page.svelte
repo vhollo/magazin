@@ -8,6 +8,9 @@
   import { hasReceptsarokAccess } from '$lib/authStore'
   import ReceptsarokLogo from '$lib/components/ReceptsarokLogo.svelte'
   import ReadingLayout from '$lib/components/ReadingLayout.svelte'
+  import BannerTop from '$lib/components/BannerTop.svelte'
+  import BannerSide from '$lib/components/BannerSide.svelte'
+  import { gridCellWidth } from '$lib/bannerSlots.js'
   import ContentHeader from '$lib/components/ContentHeader.svelte'
   import AuthorSignature from '$lib/components/AuthorSignature.svelte'
   import { decodeHtmlEntities } from '$lib/htmlEntities.js'
@@ -27,6 +30,12 @@
   const recipe = $derived(data.recipe as Recipe)
   const isFree = $derived(data.isFree)
   const category = $derived(data.categories.find((c: any) => c.id === data.categoryId))
+
+  // Banners exactly as on a magazine article: the rotating top banner above the
+  // header, the `prominent` side banners in the reading layout's rail (on phones the
+  // first one after the column). Shown to subscribers too (editorial decision).
+  const topBanners = $derived(data.conf?.top_banners ?? [])
+  const sideBanners = $derived((data.conf?.side_banners ?? []).filter((b: any) => b.prominent))
 
   const metaDescription = $derived.by(() => {
     const parts: string[] = []
@@ -136,7 +145,11 @@
 
 <!-- Same reading column + header as a magazine article (ReadingLayout / ContentHeader):
      `.prose` at its 65ch measure; the felcím slot holds the Receptsarok breadcrumb. -->
-<ReadingLayout>
+{#if topBanners.length}
+  <BannerTop banners={topBanners} />
+{/if}
+
+<ReadingLayout banners={sideBanners} mobileBanner={false}>
   <ContentHeader
     title={recipe.title}
     lead={recipe.introtext ?? ''}
@@ -309,6 +322,18 @@
   </div>
 {/if}
 
+<!-- Phones: the first side banner comes after the meal planner (button, and the
+     planner itself when open) — not right under the recipe, where it would sit next to
+     the paywall prompt. ≥ md it is in the reading layout's rail instead. -->
+{#if sideBanners.length}
+  <div class="md:hidden px-4 pt-6 pb-12">
+    <!-- One cell of the „Kapcsolódó receptek” grid wide (gap-4), centred. -->
+    <aside class="mx-auto w-full" aria-label="Hirdetés" use:gridCellWidth={{ gap: '1rem' }}>
+      <BannerSide banner={sideBanners[0]} />
+    </aside>
+  </div>
+{/if}
+
 {#await data.similar}
   <!-- Streamed on a cold render: the recipe above paints immediately while the
        recommendations resolve. Skeleton mirrors ReceptsarokWidget's card grid so
@@ -325,7 +350,12 @@
     </div>
   </section>
 {:then similar}
+  <!-- Phones: prominent banners 2…n among these cards, each once — the ones without
+       a slot after the last card (the 1st one sits after the meal planner). -->
   <ReceptsarokWidget
+    banners={sideBanners.slice(1)}
+    appendRest
+    adsDistance={data.conf?.ads_distance ?? 4}
     recipes={similar.similarRecipes ?? []}
     title={similar.similarIsLinked ? '' : recipe.title}
     heading={similar.similarIsLinked ? 'Kapcsolódó receptek a Receptsarokban' : undefined}

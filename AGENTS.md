@@ -197,7 +197,7 @@ Nav2 defines the secondary navigation menu with categorized content sections:
   - **Lead typography is uniform**: a `<p>` inside the bevezető looks exactly like its bare text (no margin, not even between two `<p>`); `ul`/`ol` get markers + a 1.25em indent and `blockquote` italics + a left border, and both a 0.4em vertical margin (none for a nested list) — no size or colour of their own. No `:first-child`/`:last-child` margin reset: those ignore text nodes, so a quote followed by bare text would lose its gap; at the lead's edges the margin collapses into the lead's / byline's 1rem anyway. Not `@apply prose`: its list/quote rules target descendants and skip everything inside `.not-prose`, so they never reach these elements, while its own declarations shrink the type to 1rem, cap the width at 65ch and inline ~15 KB of CSS per use (tested 2026-11-27).
   - The `h1` and the author link share the full-strength `--color-base-content` (body text is the softer tone); the author link keeps the body links' dashed underline (`text-underline-offset: 4px`).
   - `app.css` keeps `article:has(> .content-header .introtext) > .j_lead { display: none }` for junior bodies synced before the sync stripped their own `.j_lead`.
-  - Recipe byline: the matched record's display name linked to `/szerzok/{recipe.authorSlug}`, else the recipe's own `author` linked to `/keres?q=…` (same rule as an article byline); the matched author's `AuthorSignature` box closes the recipe (see [Recipe ↔ author link](#authors-authors-collection-szerzok)). The recipe page passes no banners yet (planned; open question whether subscribers see them).
+  - Recipe byline: the matched record's display name linked to `/szerzok/{recipe.authorSlug}`, else the recipe's own `author` linked to `/keres?q=…` (same rule as an article byline); the matched author's `AuthorSignature` box closes the recipe (see [Recipe ↔ author link](#authors-authors-collection-szerzok)). Banners are identical on both page types: the rotating `BannerTop` above the header, the `prominent` side banners in `ReadingLayout`'s rail (≥ md), and below md the first of them — after the reading column on an article (articles had no side banner on phones before), after the meal planner (button, and the planner when open) on a recipe, so it never sits right under the paywall prompt. The recipe passes `mobileBanner={false}` to `ReadingLayout` and renders its own `md:hidden` copy. Subscribers see them on Receptsarok recipes too (editorial decision, 2026-11-27).
 
 **Which pages get the `.band` hero.** The grey band (`section.band.relative.overflow-hidden.bg-base-200` wrapping the shell `div`) marks a **page hero** — the heading that introduces a collection:
 
@@ -762,7 +762,7 @@ document without a re-sync and lands in the SSR HTML (no hydration reflow, works
 - **Layout**:
   - **Article View**: `ReadingLayout` (65ch `.prose` column + `prominent` side banners) with `ContentHeader` on top — shared with the recipe page, see [Page shell](#page-shell--left-rail-site-wide-2026)
   - **Collection View**: Card grid layout
-  - Sidebar shows prominent banners (desktop only)
+  - Side banners: `prominent` ones in the rail (≥ md); below md the first one after the article (`ReadingLayout`)
 
 - **SEO**:
   - Dynamic meta tags based on document
@@ -771,7 +771,7 @@ document without a re-sync and lands in the SSR HTML (no hydration reflow, works
 
 - **Components**:
   - `Carousel`: Only on home page (`doc.path == '/'`)
-  - `BannerTop`: If configured and not on article page
+  - `BannerTop`: once per page — above the header on an article, above Nav2 on a listing (it used to render twice on articles)
   - `Search`: Always shown
   - `Nav2`: Secondary navigation
   - `Cards`: For collections and related articles
@@ -786,7 +786,10 @@ document without a re-sync and lands in the SSR HTML (no hydration reflow, works
 - `src/lib/siteConfShape.js` — the stored shape (`toBanner`, `normalizeSiteConf`), shared by that script and the site; plain JS so Node scripts can import it
 - `src/lib/siteConf.ts` — `getSiteConf()`: takes `siteConf` from the `meta/stats` read (`getSiteStats`), falls back to `src/lib/data/conf.json`
 - `src/lib/components/BannerTop.svelte` — full-width top banner, rotates every 14 s (`{#key count}`); the index is clamped reactively because the list can change while mounted (client navigation between two pages the CDN cached before and after a sync)
-- `src/lib/components/BannerSide.svelte` — 300×260 banner: the article ad rail (`prominent` side banners, `.adrail max-md:hidden` in `ReadingLayout.svelte`, used by `[...path]/+page.svelte`) and the `Cards` grid (every `ads_distance`-th slot, logged-out visitors only)
+- `src/lib/components/BannerSide.svelte` — 300×260 banner: the reading-layout ad rail of articles **and Receptsarok recipes** (`prominent` side banners, `.adrail max-md:hidden` in `ReadingLayout.svelte`; below md the first one, `md:hidden` — after the column on articles, after the meal planner on recipes) and the related-card grids. Rules (2026-11-27, `src/lib/bannerSlots.js`):
+  - **Slots**: cards at CSS `order` 0, 1, 2…; banner k at `order` k·`ads_distance` + 1 (`bannerSlotOrder`) — equal orders keep DOM order, so banners land after the 2nd card, then every `ads_distance` cards; `bannerSlotCount(cards, distance)` slots, never past the last card.
+  - **Phones (< md), `prominent` banners**: the 1st one after the column / meal planner, sized by the `gridCellWidth` action to one track of the card grids (`repeat(auto-fill, minmax(24ch, 1fr))`) and centred; banners 2…n each **once**, in page order — first the „Kapcsolódó receptek” slots (`ReceptsarokWidget` `banners` prop, every visitor), the rest in the article's „Kapcsolódó cikkek” slots for **logged-in** visitors (`Cards` `memberBanners`, client-only like the auth state). **Every one is shown**: the last banner grid of the page puts those without a slot after its last card (`placeEachOnce`; the recipe page's widget and an article without a „Kapcsolódó cikkek” grid pass `appendRest`, `memberBanners` always does).
+  - **„Kapcsolódó cikkek” / listing `Cards` grid, logged-out visitors, all widths**: every side banner (not only prominent) in rotation, one per slot, repeating to the end of the shown cards (`Cards` `banners`). On an article, **on phones only**, the rotation starts (`rotationStart`) at the banner after the last one a phone has already shown above it (after the article / in „Kapcsolódó receptek” — both phone-only), so no banner appears twice in a row; ≥ md (and on listings) it starts at the first banner. With an offset `Cards` renders two copies (`max-md:hidden` from the first, `md:hidden` from the offset); `lazyVideo` loads only the visible one. It used to start with a copy of all banners, so a one-card related list got all six stacked after it.
 - `src/lib/lazyVideo.js` — visibility-gated autoplay action for banner videos
 - `scripts/set-banner-cache-control.mjs` — one-off `cacheControl` backfill on the Storage objects
 

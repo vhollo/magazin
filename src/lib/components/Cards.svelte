@@ -17,6 +17,7 @@
   import RecipeCard from '$lib/components/RecipeCard.svelte'
   import BannerSide from '$lib/components/BannerSide.svelte'
   import { masonryItem } from '$lib/masonry.js'
+  import { bannerSlotCount, placeEachOnce } from '$lib/bannerSlots.js'
   export let ads_distance = 4
   // import { ads } from '$lib/ads.js'
   export let cards: any[], full = true
@@ -39,19 +40,39 @@
     goto('#'+pagenum, { replaceState: true, noScroll: true })
   }
 
+  /** Logged-out visitors: these banners every `ads_distance` cards, repeated to the end. */
   export let banners: any[] = [];
-  let h, hirds: { name: string; img: string; link: string; video: string; }[] = []
-  $: if (full) { // #3 után mem frissül, de #5 után újra
-    h = 0
-    hirds = JSON.parse(JSON.stringify(banners))
-    for (let i = banners.length * ads_distance; banners.length && i < volume * pagenum + ads_distance; i = i + ads_distance) {
-      hirds.push(JSON.parse(JSON.stringify(banners[h])))
-      h++
-      if (h >= banners.length) h = 0
-      // console.log(i, h)
-    }
-    // console.log(h, (hirds.length - 1) * ads_distance, volume * pagenum)
-  }
+  /** Phones only (< md): index in `banners` the logged-out rotation starts at. An article
+      passes the one after the last banner a phone has already shown above (after the
+      article / in „Kapcsolódó receptek” — both are phone-only), so no banner repeats
+      right away. ≥ md those are not shown, so the rotation starts at the first banner. */
+  export let rotationStart = 0;
+  /** Logged-in visitors, phones only (`md:hidden`): these banners each ONCE — in the
+      slots, then (short list) after the last card. An article passes the `prominent`
+      ones its „Kapcsolódó receptek” grid had no slot for. */
+  export let memberBanners: any[] = [];
+  $: shownCount = Math.min(cards.length, volume * pagenum)
+  $: memberPlaced = placeEachOnce(memberBanners, shownCount, ads_distance)
+  // Logged-out rotation: one banner per slot of the cards shown so far, cycling through
+  // the list, so it repeats to the end of the card list and never past it. (It used to
+  // start with a copy of ALL banners, so a short list — e.g. one related article — got
+  // all of them stacked after its last card.) Recomputed on „További cikkek” paging.
+  // With a phone offset there are two copies: from the first banner (≥ md) and from
+  // `rotationStart` (< md); `lazyVideo` loads only the copy on screen.
+  type Rotated = { banner: any; order: number; only: string }
+  let hirds: Rotated[] = []
+  $: hirds = (() => {
+    if (!full || !banners.length) return []
+    const slots = bannerSlotCount(shownCount, ads_distance)
+    const rotate = (start: number, only: string) =>
+      Array.from({ length: slots }, (_, k) => ({
+        banner: banners[(start + k) % banners.length],
+        order: k * ads_distance + 1,
+        only,
+      }))
+    const offset = ((rotationStart % banners.length) + banners.length) % banners.length
+    return offset === 0 ? rotate(0, '') : [...rotate(0, 'max-md:hidden'), ...rotate(offset, 'md:hidden')]
+  })()
 
 </script>
 
@@ -83,13 +104,20 @@
     {/each}
     {#key hirds}
     {#if !$authUser && browser && hirds.length}
-      {#each hirds as item, i}
-      <aside use:masonryItem style="order:{i * ads_distance + 1}">
-        <BannerSide banner={item}/>
+      {#each hirds as { banner, order, only }}
+      <aside class={only} use:masonryItem style="order:{order}">
+        <BannerSide {banner}/>
       </aside>
       {/each}
     {/if}
     {/key}
+    {#if $authUser && browser}
+      {#each memberPlaced as { banner, order }, k (k)}
+        <aside class="md:hidden" use:masonryItem style="order:{order}">
+          <BannerSide {banner}/>
+        </aside>
+      {/each}
+    {/if}
   </section>
   {#if volume * pagenum < cards.length}
     <footer class="footer footer-center text-base-content pb-4">

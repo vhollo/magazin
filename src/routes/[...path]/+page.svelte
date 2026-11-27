@@ -4,6 +4,7 @@
   import Nav2 from "$lib/components/Nav2.svelte";
   import ReadingLayout from "$lib/components/ReadingLayout.svelte";
   import ContentHeader from "$lib/components/ContentHeader.svelte";
+  import { bannerSlotCount } from "$lib/bannerSlots.js";
   import BannerTop from "$lib/components/BannerTop.svelte";
   import ReceptsarokWidget from "$lib/components/ReceptsarokWidget.svelte";
   import AuthorSignature from "$lib/components/AuthorSignature.svelte";
@@ -88,6 +89,29 @@
   $: docstitle = doc.title || matchingSubcat;
 
   $: rsMatches = data.rsWidgetRecipes ?? [];
+
+  // Phones: the 1st prominent banner follows the article (ReadingLayout); the rest go
+  // among the related cards, each once, in page order — first the „Kapcsolódó
+  // receptek” slots, then (logged-in visitors) the „Kapcsolódó cikkek” slots.
+  // Logged-out visitors keep the old rotation of all side banners in the latter.
+  $: firstProminent = doc.id && doc.content ? prominent.slice(0, 1) : [];
+  $: restProminent = doc.id && doc.content ? prominent.slice(1) : [];
+  // The related-articles grid renders only on an article with listed docs and no
+  // curated recipe group (same condition as the `Cards` block below).
+  $: hasCardsGrid = Boolean(doc.id && docs.length && !rsLinked);
+  // Without that grid, „Kapcsolódó receptek” is the last banner grid: it takes every
+  // remaining prominent banner (the ones without a slot after its last card).
+  $: rsBanners = hasCardsGrid
+    ? restProminent.slice(0, bannerSlotCount(rsMatches.length, conf.ads_distance))
+    : restProminent;
+  $: cardsMemberBanners = restProminent.slice(rsBanners.length);
+  // Logged-out rotation in „Kapcsolódó cikkek” continues after the last banner the
+  // visitor has already passed (after the article, then in „Kapcsolódó receptek”), so
+  // it never repeats one right away. Index into `conf.side_banners` (same objects).
+  $: lastShownBanner = (rsMatches.length ? rsBanners.at(-1) : undefined) ?? firstProminent[0];
+  $: rotationStart = doc.id && lastShownBanner
+    ? (conf.side_banners.indexOf(lastShownBanner) + 1) % (conf.side_banners.length || 1)
+    : 0;
   // A curated/derived recipe group (hub siblings, linked list, or a collection's
   // own dishes) replaces the tag-based "Kapcsolódó cikkek" grid. Weak title-similarity
   // matches (rsWidgetLinked=false) do not.
@@ -250,6 +274,9 @@
   {#if rsMatches.length}
     <ReceptsarokWidget
       recipes={rsMatches}
+      banners={rsBanners}
+      appendRest={!hasCardsGrid}
+      adsDistance={conf.ads_distance}
       title={data.rsWidgetLinked ? "" : doc.title || ""}
       heading={data.rsWidgetLinked
         ? "Kapcsolódó receptek a Receptsarokban"
@@ -258,7 +285,9 @@
   {/if}
 {/if}
 
-{#if conf.top_banners.length}
+<!-- Listing pages' top banner. An article already shows it above the header, so
+     it is not repeated here (it used to appear twice on every article). -->
+{#if !doc.id && conf.top_banners.length}
   <BannerTop banners={conf.top_banners} />
 {/if}
 <Nav2 actual={data.path} />
@@ -284,6 +313,8 @@
   <Cards
     cards={docs}
     banners={conf.side_banners}
+    memberBanners={cardsMemberBanners}
+    {rotationStart}
     ads_distance={conf.ads_distance}
   />
 {/if}

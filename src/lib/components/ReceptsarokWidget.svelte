@@ -5,6 +5,8 @@
   import { isRecipeFree, type RecipeLayoutEntry, type RecipeTeaser } from '$lib/receptsarok'
   import { masonryItem } from '$lib/masonry.js'
   import ReceptsarokLogo from './ReceptsarokLogo.svelte';
+  import BannerSide from '$lib/components/BannerSide.svelte'
+  import { bannerSlotCount, bannerSlotOrder, placeEachOnce } from '$lib/bannerSlots.js'
 
   export let recipes: (RecipeTeaser | RecipeLayoutEntry)[] = []
   export let title = ''
@@ -14,10 +16,22 @@
       so it can sit on the same page as a paginated `Cards` list. */
   export let pageSize = 0
   export let moreLabel = 'További receptek'
+  /** Banners placed among the cards on phones only (`md:hidden`), each once, at the
+      `Cards` slots (after the 2nd card, then every `adsDistance`). Extras that find no
+      slot are dropped (the caller hands them to the next grid) — unless `appendRest`,
+      when they follow the last card (this is the page's last banner grid). */
+  export let banners: any[] = []
+  export let adsDistance = 4
+  export let appendRest = false
 
   let shown = pageSize
   $: recipes, (shown = pageSize) // new list (e.g. another author) → back to page 1
   $: visible = pageSize > 0 ? recipes.slice(0, shown) : recipes
+  $: placed = appendRest
+    ? placeEachOnce(banners, visible.length, adsDistance)
+    : banners
+        .slice(0, bannerSlotCount(visible.length, adsDistance))
+        .map((banner, k) => ({ banner, order: bannerSlotOrder(k, adsDistance) }))
 
   // Masonry spans are JS-only; pre-hydration the grid uses content-sized rows
   // (no overlap), then switches to the fine-grained dense grid once mounted.
@@ -39,9 +53,14 @@
     </header>
 
     <div class="grid gap-4 mt-6" class:ready>
-      {#each visible as recipe}
-        <aside use:masonryItem>
+      {#each visible as recipe, i}
+        <aside use:masonryItem style="order:{i}">
           <RecipeCard {recipe} locked={!isRecipeFree(recipe) && !$hasReceptsarokAccess} />
+        </aside>
+      {/each}
+      {#each placed as { banner, order }, k (k)}
+        <aside class="md:hidden" use:masonryItem style="order:{order}">
+          <BannerSide {banner} />
         </aside>
       {/each}
     </div>
